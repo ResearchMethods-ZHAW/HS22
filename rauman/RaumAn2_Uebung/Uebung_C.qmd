@@ -1,0 +1,166 @@
+---
+title: RaumAn2 - Übung C - Dichteschätzung
+author:
+  - name: Patrick Laube
+  - name: Nils Ratnaweera
+  - name: Nikolaos Bakogiannis
+image: distill-preview-c.png 
+categories: RaumAn2
+draft: false
+---
+
+Nun wollen wir für die bereits verwendeten Datensätze `luftqualitaet.gpkg` und `rotmilan.gpkg` Dichteschätzungen durchführen. Ladet dafür die notwendigen Package und ladet bei Bedarf die Datensätze herunter.
+
+```{r, echo = TRUE}
+library(sf)
+library(dplyr)
+library(ggplot2)
+
+library(MASS) # <- ggf. installieren!
+```
+
+```{r, echo = FALSE, results='asis'}
+knitr::opts_chunk$set(echo = FALSE)
+
+check_download <- function(files, folder, source = "", url = "https://github.com/ResearchMethods-ZHAW/datasets/raw/main/"){
+  full_url <- paste0(url,folder,"/",files)
+  exists_bool <- !file.exists(files)
+  if(sum(exists_bool)>0){
+    download.file(full_url[exists_bool],files[exists_bool])
+    }
+  cat(paste0("- [",files,"](",full_url,") ",source),sep = "\n")
+}
+
+check_download(c("schweiz.gpkg", "luftqualitaet.gpkg", "rotmilan.gpkg"),"rauman")
+
+luftqualitaet <- read_sf("luftqualitaet.gpkg") 
+rotmilan <- read_sf("rotmilan.gpkg")
+schweiz <- read_sf("schweiz.gpkg") 
+```
+
+## Aufgabe 1: Rotmilan Bewegungsdaten visualisieren
+
+Die erste Frage, die bei solchen Bewegungsstudien typischerweise gestellt wird, lautet: *Wo hält sich das Tier hauptsächlich auf?* Um diese Frage zu beantworten, kann man als erstes einfach die Datenpunkte in einer einfachen Karte visualisieren. Erstellt zur Beantwortung dieser Frage nachstehende Karte.
+
+```{r, echo = FALSE}
+ggplot(schweiz) + 
+  geom_sf() + 
+  geom_sf(data = rotmilan) +
+  theme_void()
+```
+
+## Aufgabe 2: Kernel Density Estimation berechnen
+
+In einer ersten Annäherung funktioniert dies, doch wir sehen hier ein klassisches Problem des "Overplotting". Das heisst, dass wir durch die Überlagerung vieler Punkte in den dichten Regionen nicht abschätzen können, wie viele Punkte dort effektiv liegen und ggf. übereinander liegen. Es gibt hier verschiedene Möglichkeiten, die Punktdichte klarer zu visualisieren. Eine unter Biologen sehr beliebte Methode ist die Dichteverteilung mit einer Kernel Density Estimation (KDE). Dies v.a. darum, weil mit KDE das Habitat (Streifgebiet) eines Tieres abgeschätzt werden kann. Homeranges werden oft mit KDE95 und Core Areas mit KDE50 definiert ([Fleming C., Calabrese J., 2016](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12673)).
+
+Ähnlich wie beim IDW sind auch die verfügbaren KDE-Funktionen in R etwas kompliziert in der Handhabung. Damit wir dieses Verfahren aber dennoch auf unsere Rotmilan-Daten anwenden können, haben wir eine eigene KDE-Funktion erstellt, die wir Euch zur Verfügung stellen. 
+
+Hier gilt das gleiche wie schon bei der Funktion `my_idw()`: Wir ermutigen alle, die dafür Kapazität haben, unsere Function eingehend zu studieren und allenfalls ganz auf die Funktion zu verzichten und stattdessen direkt `MASS` zu verwenden. Wenn ihr mit unserer Funktion arbeiten möchtet, müsst ihr den unten stehenden Code in euer Skript kopieren und ausführen. 
+
+```{r, echo = TRUE}
+my_kde <- function(points,cellsize, bandwith, extent = NULL){
+  library(MASS)
+  library(sf)
+  library(tidyr)
+  if(is.null(extent)){
+    extent_vec <- st_bbox(points)[c(1,3,2,4)]
+  } else{
+    extent_vec <- st_bbox(extent)[c(1,3,2,4)]
+  }
+  
+  n_y <- ceiling((extent_vec[4]-extent_vec[3])/cellsize)
+  n_x <- ceiling((extent_vec[2]-extent_vec[1])/cellsize)
+  
+  extent_vec[2] <- extent_vec[1]+(n_x*cellsize)-cellsize
+  extent_vec[4] <- extent_vec[3]+(n_y*cellsize)-cellsize
+
+  coords <- st_coordinates(points)
+  mat <- kde2d(coords[,1],coords[,2],h = bandwith,n = c(n_x,n_y),lims = extent_vec)
+
+  mydf <- as.data.frame(mat[[3]])
+  
+  colnames(mydf) <- mat[[2]]
+  mydf$X <- mat[[1]]
+  
+  pivot_longer(mydf, -X,names_to = "Y",names_transform = list(Y = as.numeric))
+}
+```
+
+Die Parameter der Funktion sollten relativ klar sein:
+
+- `points`: Ein Punktdatensatz aus der Class `sf`
+- `cellsize`: Die Zellgrösse des output-Rasters
+- `bandwith`: Der Suchradius für die Dichteberechnung
+- `extent` (optional): Der Perimeter, in dem die Dichteverteilung berechnet werden soll. Wenn kein Perimeter angegeben wird, wird die "bounding box" von `points` genutzt.
+
+Wenn wir nun mit `my_kde()` die Dichteverteilung berechnen, erhalten wir ein `data.frame` mit X und Y Koordinaten sowie eine Spalte `value` zurück. Nutzt diese drei Spalten mit `geom_raster()` um eure Daten mit `ggplot` zu visualisieren (`aes(x = X, y = Y, fill = value)`. 
+
+```{r, echo = TRUE}
+rotmilan_kde <- my_kde(points = rotmilan,cellsize = 1000, bandwith = 10000, extent = schweiz)
+
+rotmilan_kde
+```
+
+```{r, echo = FALSE}
+ggplot() + 
+  geom_raster(data = rotmilan_kde, aes(X, Y, fill = value)) +
+  geom_sf(data = schweiz, fill = NA) +
+  scale_fill_viridis_c() +
+  theme_void()
+```
+
+Die Kernel Density Estimation ist nun sehr stark von den tiefen Werten dominiert, da die Dichte in den meisten Zellen unseres Untersuchungsgebiets nahe bei Null liegt. Wie erwähnt sind Wissenschaftler häufig nur an den höchsten 95\% der Werte interessiert. Folge folgende Schritte um das Resultat etwas besser zu verantschaulichen:
+
+1. Berechne die 95. Perzentile aller Werte mit der Funktion `quantile` und benne diesen `q25`
+2. Erstelle eine neue Spalte in `rotmilan_kde`, wo alle Werte tiefer als `q25` `NA` entsprechen
+3. (Optional): Transformiere die Werte mit log10, um einen differenzierteren Farbverlauf zu erhalten
+
+Wir können die tiefen Werte ausblenden, indem wir nur die höchsten 5% der Werte darstellen. Dafür berechnen wir mit `raster::quantile` die 95. Perzentile aller Werte und nutzen diesen Wert als "Grenzwert" für die Darstellung.
+
+Zusätzlich hilft eine logarithmische Transformation der Werte, die Farbskala etwas sichtbarer zu machen.
+
+```{r}
+q95 <- quantile(rotmilan_kde$value,probs = 0.95)
+
+rotmilan_kde <- rotmilan_kde %>%
+  mutate(
+    value_new = ifelse(value>q95,value,NA),
+    value_new = log10(value_new)
+  )
+
+ggplot() + 
+  geom_raster(data = rotmilan_kde, aes(X, Y, fill = value_new)) +
+  geom_sf(data = schweiz, inherit.aes = FALSE, fill = NA) +
+  scale_fill_viridis_c(na.value = NA) +
+  theme_void()
+```
+
+## Aufgabe 3: Dichteverteilung mit Thiessen Polygonen
+Thiessen Polygone bieten eine spannende Alternative um Unterschiede in der Dichteverteilung von Punktdatensätzen zu visualisieren. 
+Wir wollen dies nun ausprobieren und konstruieren zum Schluss die Thiessenpolygone für die Rotmilan-Daten für das Untersuchungsgebiet Schweiz. Nutze die Anleitung für das Erstellen von Thiessenpolygonen aus der Übung B um Thiessenpolygone für die Rotmilanpositionen zu erstellen. 
+
+```{r}
+thiessenpolygone <- rotmilan %>%
+  st_union() %>%
+  st_voronoi()
+schweiz <- st_union(schweiz)
+
+thiessenpolygone <- st_cast(thiessenpolygone)
+
+thiessenpolygone_clip <- st_intersection(thiessenpolygone,schweiz)
+```
+
+
+```{r, fig.cap="Wenn wir jetzt die Thiessenpolygone (ohne Punkte) darstellen, wird deutlicher, wie die Dichteverteilung im Innern des Clusters aussieht. "}
+ggplot() + 
+  geom_sf(data = schweiz) + 
+  geom_sf(data = thiessenpolygone_clip) + 
+  theme_void()
+```
+
+## Musterlösung
+
+```{r, echo = FALSE, message=FALSE, results = "asis", purl = FALSE}
+#distill::mypurl()
+```
+

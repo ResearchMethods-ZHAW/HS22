@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Beni Sigrist">
+
+<title>Modul Research Methods - KW44 - Einstieg Multivariate Modelle - Lösung</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <img src="../../images/zhaw_sw_neg.png" alt="">
+    <span class="navbar-title">Modul Research Methods</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-preprocessing" role="button" data-bs-toggle="dropdown" aria-expanded="false">Preprocessing</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-preprocessing">    
+        <li>
+    <a class="dropdown-item" href="../../prepro/PrePro_abstract.html">
+ <span class="dropdown-text">Abstract</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../prepro/PrePro.html#category=PrePro1">
+ <span class="dropdown-text">PrePro1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../prepro/PrePro.html#category=PrePro2">
+ <span class="dropdown-text">PrePro2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../prepro/PrePro.html#category=PrePro3">
+ <span class="dropdown-text">PrePro3</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-infovis" role="button" data-bs-toggle="dropdown" aria-expanded="false">InfoVis</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-infovis">    
+        <li>
+    <a class="dropdown-item" href="../../infovis/InfoVis_abstract.html">
+ <span class="dropdown-text">Abstract</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../infovis/InfoVis.html#category=InfoVis1">
+ <span class="dropdown-text">InfoVis1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../infovis/InfoVis.html#category=InfoVis2">
+ <span class="dropdown-text">InfoVis2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-statistik" role="button" data-bs-toggle="dropdown" aria-expanded="false">Statistik</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-statistik">    
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik_abstract.html">
+ <span class="dropdown-text">Abstract</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistik 1 - 4</li>
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik1">
+ <span class="dropdown-text">Statistik1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik2">
+ <span class="dropdown-text">Statistik2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik3">
+ <span class="dropdown-text">Statistik3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik4">
+ <span class="dropdown-text">Statistik4</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistik 5 - 8</li>
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik5">
+ <span class="dropdown-text">Statistik5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik6">
+ <span class="dropdown-text">Statistik6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik7">
+ <span class="dropdown-text">Statistik7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik8">
+ <span class="dropdown-text">Statistik8</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-statistik-konsolidierung" role="button" data-bs-toggle="dropdown" aria-expanded="false">Statistik Konsolidierung</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-statistik-konsolidierung">    
+        <li>
+    <a class="dropdown-item" href="../../statistik-konsolidierung/Statistik-Konsolidierung_abstract.html">
+ <span class="dropdown-text">Abstract</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistik Konsolidierung 1 - 4</li>
+        <li>
+    <a class="dropdown-item" href="../../statistik-konsolidierung/Statistik-Konsolidierung.html#category=Statistik_Konsolidierung1">
+ <span class="dropdown-text">Statistik_Konsolidierung1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik-konsolidierung/Statistik-Konsolidierung.html#category=Statistik_Konsolidierung2">
+ <span class="dropdown-text">Statistik_Konsolidierung2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik-konsolidierung/Statistik-Konsolidierung.html#category=Statistik_Konsolidierung3">
+ <span class="dropdown-text">Statistik_Konsolidierung3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik-konsolidierung/Statistik-Konsolidierung.html#category=Statistik_Konsolidierung4">
+ <span class="dropdown-text">Statistik_Konsolidierung4</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-räumliche-analyse" role="button" data-bs-toggle="dropdown" aria-expanded="false">Räumliche Analyse</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-räumliche-analyse">    
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn_abstract.html">
+ <span class="dropdown-text">Abstract</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn.html#category=RaumAn1">
+ <span class="dropdown-text">RaumAn1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn.html#category=RaumAn2">
+ <span class="dropdown-text">RaumAn2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn.html#category=RaumAn3">
+ <span class="dropdown-text">RaumAn3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn.html#category=RaumAn4">
+ <span class="dropdown-text">RaumAn4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn.html#category=RaumAn5">
+ <span class="dropdown-text">RaumAn5</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-fallstudien" role="button" data-bs-toggle="dropdown" aria-expanded="false">Fallstudien</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-fallstudien">    
+        <li>
+    <a class="dropdown-item" href="../../fallstudien/Fallstudien.html#category=Biodiversity_&amp;_Ecosystems_(S)">
+ <span class="dropdown-text">Biodiversity and Ecosystems (Profil S)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../fallstudien/Fallstudien.html#category=Biodiversity_&amp;_Ecosystems_(S)_Musterloesung">
+ <span class="dropdown-text">Biodiversity and Ecosystems (Profil S): Musterloesung</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../fallstudien/Fallstudien.html#category=Biodiversity_&amp;_Ecosystems_(N)">
+ <span class="dropdown-text">Biodiversity and Ecosystems (Profil N)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../fallstudien/Fallstudien.html#category=Biodiversity_&amp;_Ecosystems_(N)_Musterloesung">
+ <span class="dropdown-text">Biodiversity and Ecosystems (Profil N): Musterloesung</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-interna" role="button" data-bs-toggle="dropdown" aria-expanded="false">Interna</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-interna">    
+        <li>
+    <a class="dropdown-item" href="../../README.html">
+ <span class="dropdown-text">README</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/ResearchMethods-ZHAW/HS22"><i class="bi bi-github" role="img">
+</i> 
+ <span class="dropdown-text"></span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#einstieg-habitatselektionsmodell-multivariate-modelle" id="toc-einstieg-habitatselektionsmodell-multivariate-modelle" class="nav-link active" data-scroll-target="#einstieg-habitatselektionsmodell-multivariate-modelle">Einstieg Habitatselektionsmodell / Multivariate Modelle</a>
+  <ul class="collapse">
+  <li><a href="#libraries-laden" id="toc-libraries-laden" class="nav-link" data-scroll-target="#libraries-laden">libraries laden</a></li>
+  <li><a href="#aufgabe-1-einlesen-des-gesamtdatensatzes-von-moodle" id="toc-aufgabe-1-einlesen-des-gesamtdatensatzes-von-moodle" class="nav-link" data-scroll-target="#aufgabe-1-einlesen-des-gesamtdatensatzes-von-moodle">Aufgabe 1: Einlesen des Gesamtdatensatzes von Moodle</a></li>
+  <li><a href="#aufgabe-2-unterteilung-des-datensatzes-in-teildatensätze-entsprechend-der-tageszeit" id="toc-aufgabe-2-unterteilung-des-datensatzes-in-teildatensätze-entsprechend-der-tageszeit" class="nav-link" data-scroll-target="#aufgabe-2-unterteilung-des-datensatzes-in-teildatensätze-entsprechend-der-tageszeit">Aufgabe 2: Unterteilung des Datensatzes in Teildatensätze entsprechend der Tageszeit</a></li>
+  <li><a href="#aufgabe-3-erstellen-von-density-plots-der-praesenz-absenz-in-abhaengigkeit-der-unabhaengigen-variablen-für-tag-und-nacht" id="toc-aufgabe-3-erstellen-von-density-plots-der-praesenz-absenz-in-abhaengigkeit-der-unabhaengigen-variablen-für-tag-und-nacht" class="nav-link" data-scroll-target="#aufgabe-3-erstellen-von-density-plots-der-praesenz-absenz-in-abhaengigkeit-der-unabhaengigen-variablen-für-tag-und-nacht">Aufgabe 3: Erstellen von Density Plots der Praesenz / Absenz in Abhaengigkeit der unabhaengigen Variablen (für Tag und Nacht)</a></li>
+  <li><a href="#aufgabe-4-testen-erklärenden-variablen-auf-normalverteilung-nur-kontinuierlichen" id="toc-aufgabe-4-testen-erklärenden-variablen-auf-normalverteilung-nur-kontinuierlichen" class="nav-link" data-scroll-target="#aufgabe-4-testen-erklärenden-variablen-auf-normalverteilung-nur-kontinuierlichen">Aufgabe 4: Testen erklärenden Variablen auf Normalverteilung (nur kontinuierlichen)</a></li>
+  <li><a href="#aufgabe-5-explorative-analysen-der-variablen-mit-scatterplots-scatterplotmatrizen" id="toc-aufgabe-5-explorative-analysen-der-variablen-mit-scatterplots-scatterplotmatrizen" class="nav-link" data-scroll-target="#aufgabe-5-explorative-analysen-der-variablen-mit-scatterplots-scatterplotmatrizen">Aufgabe 5: Explorative Analysen der Variablen mit Scatterplots, Scatterplotmatrizen</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">KW44 - Einstieg Multivariate Modelle - Lösung</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Biodiversity &amp; Ecosystems (N) Musterloesung</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Beni Sigrist </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="einstieg-habitatselektionsmodell-multivariate-modelle" class="level2">
+<h2 class="anchored" data-anchor-id="einstieg-habitatselektionsmodell-multivariate-modelle">Einstieg Habitatselektionsmodell / Multivariate Modelle</h2>
+<section id="libraries-laden" class="level3">
+<h3 class="anchored" data-anchor-id="libraries-laden">libraries laden</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Funktion um Packages direkt zu installieren und / oder</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">### zu laden</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ipak <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    new.pkg <span class="ot">&lt;-</span> pkg[<span class="sc">!</span>(pkg <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>])]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(new.pkg))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">install.packages</span>(new.pkg, <span class="at">repos =</span> <span class="st">"http://cran.us.r-project.org"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sapply</span>(pkg, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"PerformanceAnalytics"</span>, <span class="st">"pastecs"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"psych"</span>, <span class="st">"car"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ipak</span>(packages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="aufgabe-1-einlesen-des-gesamtdatensatzes-von-moodle" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-1-einlesen-des-gesamtdatensatzes-von-moodle">Aufgabe 1: Einlesen des Gesamtdatensatzes von Moodle</h3>
+<section id="sichtung-des-datensatzes-und-der-datentypen" class="level5">
+<h5 class="anchored" data-anchor-id="sichtung-des-datensatzes-und-der-datentypen">- Sichtung des Datensatzes und der Datentypen</h5>
+</section>
+<section id="kontrolle-wieviele-rehe-in-diesem-datensatz-enthalten-sind" class="level5">
+<h5 class="anchored" data-anchor-id="kontrolle-wieviele-rehe-in-diesem-datensatz-enthalten-sind">- Kontrolle wieviele Rehe in diesem Datensatz enthalten sind</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DF_mod <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv"</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(DF_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spec_tbl_df [8,370 × 16] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ pres_abs          : num [1:8370] 0 1 0 1 1 1 1 1 1 0 ...
+ $ nmb               : num [1:8370] 0 1 0 1 3 1 5 8 2 0 ...
+ $ x                 : num [1:8370] 682250 682250 682225 682225 682225 ...
+ $ y                 : num [1:8370] 237725 237750 237700 237725 237750 ...
+ $ forest            : num [1:8370] 0 0 0 0 0 0 0 0 0 0 ...
+ $ slope             : num [1:8370] 10.15 9.97 8.85 10.33 12.66 ...
+ $ dist_road_all     : num [1:8370] 60.3 56.3 53.1 68.5 50.2 ...
+ $ dist_road_only    : num [1:8370] 60.3 56.3 53.1 68.5 50.2 ...
+ $ dist_build        : num [1:8370] 36.16 12.24 57.51 32.52 7.86 ...
+ $ forest_prop       : num [1:8370] 0.022246 0.000931 0.018563 0.000824 0 ...
+ $ us                : num [1:8370] 0 0.0218 0 0 0 ...
+ $ os                : num [1:8370] 0 0.06744 0 0 0.00406 ...
+ $ GPStot            : num [1:8370] 420 420 420 420 420 420 420 420 420 420 ...
+ $ id                : chr [1:8370] "RE03" "RE03" "RE03" "RE03" ...
+ $ time_of_day       : chr [1:8370] "night" "night" "night" "night" ...
+ $ stoerungskategorie: chr [1:8370] "gering" "gering" "gering" "gering" ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   pres_abs = col_double(),
+  ..   nmb = col_double(),
+  ..   x = col_double(),
+  ..   y = col_double(),
+  ..   forest = col_double(),
+  ..   slope = col_double(),
+  ..   dist_road_all = col_double(),
+  ..   dist_road_only = col_double(),
+  ..   dist_build = col_double(),
+  ..   forest_prop = col_double(),
+  ..   us = col_double(),
+  ..   os = col_double(),
+  ..   GPStot = col_double(),
+  ..   id = col_character(),
+  ..   time_of_day = col_character(),
+  ..   stoerungskategorie = col_character()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(DF_mod<span class="sc">$</span>time_of_day)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(DF_mod<span class="sc">$</span>id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+RE02 RE03 RE04 RE05 RE06 RE07 RE08 RE09 RE10 RE11 RE12 RE13 
+1204  260  512  388  306  484  980  836  492 1208  652 1048 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>DF_mod <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">anzahl =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 2
+   id    anzahl
+   &lt;chr&gt;  &lt;int&gt;
+ 1 RE02    1204
+ 2 RE03     260
+ 3 RE04     512
+ 4 RE05     388
+ 5 RE06     306
+ 6 RE07     484
+ 7 RE08     980
+ 8 RE09     836
+ 9 RE10     492
+10 RE11    1208
+11 RE12     652
+12 RE13    1048</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(DF_mod<span class="sc">$</span>id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="aufgabe-2-unterteilung-des-datensatzes-in-teildatensätze-entsprechend-der-tageszeit" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-2-unterteilung-des-datensatzes-in-teildatensätze-entsprechend-der-tageszeit">Aufgabe 2: Unterteilung des Datensatzes in Teildatensätze entsprechend der Tageszeit</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>DF_mod_night <span class="ot">&lt;-</span> DF_mod <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(time_of_day <span class="sc">==</span> <span class="st">"night"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>DF_mod_day <span class="ot">&lt;-</span> DF_mod <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(time_of_day <span class="sc">==</span> <span class="st">"day"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Kontrolle</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(DF_mod_night<span class="sc">$</span>time_of_day)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+night 
+ 4185 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(DF_mod_day<span class="sc">$</span>time_of_day)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ day 
+4185 </code></pre>
+</div>
+</div>
+</section>
+<section id="aufgabe-3-erstellen-von-density-plots-der-praesenz-absenz-in-abhaengigkeit-der-unabhaengigen-variablen-für-tag-und-nacht" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-3-erstellen-von-density-plots-der-praesenz-absenz-in-abhaengigkeit-der-unabhaengigen-variablen-für-tag-und-nacht">Aufgabe 3: Erstellen von Density Plots der Praesenz / Absenz in Abhaengigkeit der unabhaengigen Variablen (für Tag und Nacht)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ein Satz Density Plots für den Tagesdatensatz und einer</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># für den Nachtdatensatz</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>) {</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># innerhalb des for()-loops die Nummern der</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># gewuenschten Spalten einstellen</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> DF_mod_day <span class="sc">%&gt;%</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(i)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> <span class="fu">density</span>(d)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    dp <span class="ot">&lt;-</span> DF_mod_day <span class="sc">%&gt;%</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(pres_abs <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(i)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    dp <span class="ot">&lt;-</span> <span class="fu">density</span>(dp)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    da <span class="ot">&lt;-</span> DF_mod_day <span class="sc">%&gt;%</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(pres_abs <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(i)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    da <span class="ot">&lt;-</span> <span class="fu">density</span>(da)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">xlim =</span> <span class="fu">range</span>(<span class="fu">c</span>(dp<span class="sc">$</span>x, da<span class="sc">$</span>x)), <span class="at">ylim =</span> <span class="fu">range</span>(dp<span class="sc">$</span>y,</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>        da<span class="sc">$</span>y), <span class="at">xlab =</span> <span class="fu">names</span>(DF_mod_day[i]), <span class="at">ylab =</span> <span class="st">"Density"</span>)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(dp<span class="sc">$</span>x, dp<span class="sc">$</span>y, <span class="at">col =</span> <span class="st">"blue"</span>)  <span class="co"># Praesenz</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(da<span class="sc">$</span>x, da<span class="sc">$</span>y, <span class="at">col =</span> <span class="st">"red"</span>)  <span class="co"># Absenz</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="BE_N_Multivariate_Modelle_Loesung_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="aufgabe-4-testen-erklärenden-variablen-auf-normalverteilung-nur-kontinuierlichen" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-4-testen-erklärenden-variablen-auf-normalverteilung-nur-kontinuierlichen">Aufgabe 4: Testen erklärenden Variablen auf Normalverteilung (nur kontinuierlichen)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># klassischer Weg mit shapiro-wilk (mehrere Spalten,</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># verschiedenene statistische Kenngrössen werden angezeigt.</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalverteilung: Wert ganz unten. p&gt;0.05 = ja)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">stat.desc</span>(DF_mod_day[<span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>], <span class="at">basic =</span> F, <span class="at">norm =</span> T), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               slope dist_road_all dist_road_only dist_build forest_prop     us
+median        13.442        28.248         33.693    129.838       0.632  0.059
+mean          15.055        41.289         46.374    154.502       0.590  0.120
+SE.mean        0.158         0.642          0.665      1.625       0.005  0.002
+CI.mean.0.95   0.311         1.259          1.303      3.186       0.010  0.005
+var          104.994      1725.368       1848.647  11050.895       0.107  0.023
+std.dev       10.247        41.538         42.996    105.123       0.328  0.151
+coef.var       0.681         1.006          0.927      0.680       0.555  1.259
+skewness       0.753         1.914          1.666      0.631      -0.366  1.674
+skew.2SE       9.945        25.285         22.003      8.341      -4.832 22.115
+kurtosis      -0.042         4.250          3.147     -0.537      -1.094  3.061
+kurt.2SE      -0.279        28.079         20.790     -3.545      -7.226 20.226
+normtest.W     0.942         0.800          0.837      0.943       0.919  0.792
+normtest.p     0.000         0.000          0.000      0.000       0.000  0.000
+                  os
+median         0.754
+mean           0.586
+SE.mean        0.006
+CI.mean.0.95   0.013
+var            0.173
+std.dev        0.416
+coef.var       0.710
+skewness      -0.388
+skew.2SE      -5.124
+kurtosis      -1.586
+kurt.2SE     -10.481
+normtest.W     0.791
+normtest.p     0.000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># empfohlener Weg</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DF_mod_day, <span class="fu">aes</span>(slope)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span> <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(DF_mod_day<span class="sc">$</span>slope, <span class="at">na.rm =</span> T), <span class="at">sd =</span> <span class="fu">sd</span>(DF_mod_day<span class="sc">$</span>slope,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">na.rm =</span> T)), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="BE_N_Multivariate_Modelle_Loesung_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aufgabe 4: die Korrelation bei einem Teildatensatz testen</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># reicht, denn die verwendeten Kreise sind die selben am</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Tag und in der Nacht, nur die Nutzung durch das Reh nicht</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="aufgabe-5-explorative-analysen-der-variablen-mit-scatterplots-scatterplotmatrizen" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-5-explorative-analysen-der-variablen-mit-scatterplots-scatterplotmatrizen">Aufgabe 5: Explorative Analysen der Variablen mit Scatterplots, Scatterplotmatrizen</h3>
+<section id="zu-scatterplots-und-scatterplotmatrizen-gibt-es-viele-verschiedene-funktionen-packages-schaut-im-internet-und-sucht-euch-eines-welches-euch-passt." class="level5">
+<h5 class="anchored" data-anchor-id="zu-scatterplots-und-scatterplotmatrizen-gibt-es-viele-verschiedene-funktionen-packages-schaut-im-internet-und-sucht-euch-eines-welches-euch-passt.">1) Zu Scatterplots und Scatterplotmatrizen gibt es viele verschiedene Funktionen / Packages, schaut im Internet und sucht euch eines welches euch passt.</h5>
+</section>
+<section id="testen-der-korrelation-zwischen-den-variablen-parametrisch-oder-nicht-parametrische-methode-ausserdem-gewisse-scatterplotmatrizen-zeigen-euch-die-koeffizenten-direkt-an" class="level5">
+<h5 class="anchored" data-anchor-id="testen-der-korrelation-zwischen-den-variablen-parametrisch-oder-nicht-parametrische-methode-ausserdem-gewisse-scatterplotmatrizen-zeigen-euch-die-koeffizenten-direkt-an">2) Testen der Korrelation zwischen den Variablen (Parametrisch oder nicht-parametrische Methode? Ausserdem: gewisse Scatterplotmatrizen zeigen euch die Koeffizenten direkt an)</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chart.Correlation</span>(DF_mod_day[<span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>], <span class="at">histogram=</span><span class="cn">TRUE</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">method =</span> <span class="st">"kendall"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="BE_N_Multivariate_Modelle_Loesung_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#?chart.Correlation</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs.panels</span>(DF_mod_day[<span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>], </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">"kendall"</span>, <span class="co"># correlation method</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">hist.col =</span> <span class="st">"#00AFBB"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">density =</span> <span class="cn">TRUE</span>,  <span class="co"># show density plots</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">ellipses =</span> <span class="cn">TRUE</span> <span class="co"># show correlation ellipses</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="BE_N_Multivariate_Modelle_Loesung_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aufgabe 5: die Korrelation bei einem Teildatensatz testen reicht, </span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># denn die verwendeten Kreise sind die selben am Tag und in der Nacht, </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># nur die Nutzung durch das Reh nicht.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+
+
+<div class="footer">
+  <img src="https://github.com/ResearchMethods-ZHAW/HS21/actions/workflows/build_site.yml/badge.svg?branch=main">
+  <img class="footer-logo" src="images/zhaw_lsfm_iunr_weiss.png" alt="ZHAW LSFM Logo">
+  
+<!--
+  <p>Diese Unterlagen wurden von verschiedenen Authoren für den Kurs "Research Methods" entwickelt und stehen, wo nicht anders genannt, under der Linzenz <a href = "http://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> </p> 
+  <p>Diee vorliegende Lizenz erstreckt sich nicht auf die zitierten Werke. Diese Werke stehen unter Umständen unter urheberrechtlichem Schutz.</p>
+  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="88x31.png"></img></a>
+
+-->
+
+
+</div>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

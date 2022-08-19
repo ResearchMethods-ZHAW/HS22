@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Beni Sigrist">
+
+<title>Modul Research Methods - KW44 - Variablenselektion Multivariate Modelle - Lösung”</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <img src="../../images/zhaw_sw_neg.png" alt="">
+    <span class="navbar-title">Modul Research Methods</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-preprocessing" role="button" data-bs-toggle="dropdown" aria-expanded="false">Preprocessing</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-preprocessing">    
+        <li>
+    <a class="dropdown-item" href="../../prepro/PrePro_abstract.html">
+ <span class="dropdown-text">Abstract</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../prepro/PrePro.html#category=PrePro1">
+ <span class="dropdown-text">PrePro1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../prepro/PrePro.html#category=PrePro2">
+ <span class="dropdown-text">PrePro2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../prepro/PrePro.html#category=PrePro3">
+ <span class="dropdown-text">PrePro3</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-infovis" role="button" data-bs-toggle="dropdown" aria-expanded="false">InfoVis</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-infovis">    
+        <li>
+    <a class="dropdown-item" href="../../infovis/InfoVis_abstract.html">
+ <span class="dropdown-text">Abstract</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../infovis/InfoVis.html#category=InfoVis1">
+ <span class="dropdown-text">InfoVis1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../infovis/InfoVis.html#category=InfoVis2">
+ <span class="dropdown-text">InfoVis2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-statistik" role="button" data-bs-toggle="dropdown" aria-expanded="false">Statistik</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-statistik">    
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik_abstract.html">
+ <span class="dropdown-text">Abstract</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistik 1 - 4</li>
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik1">
+ <span class="dropdown-text">Statistik1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik2">
+ <span class="dropdown-text">Statistik2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik3">
+ <span class="dropdown-text">Statistik3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik4">
+ <span class="dropdown-text">Statistik4</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistik 5 - 8</li>
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik5">
+ <span class="dropdown-text">Statistik5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik6">
+ <span class="dropdown-text">Statistik6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik7">
+ <span class="dropdown-text">Statistik7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik/Statistik.html#category=Statistik8">
+ <span class="dropdown-text">Statistik8</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-statistik-konsolidierung" role="button" data-bs-toggle="dropdown" aria-expanded="false">Statistik Konsolidierung</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-statistik-konsolidierung">    
+        <li>
+    <a class="dropdown-item" href="../../statistik-konsolidierung/Statistik-Konsolidierung_abstract.html">
+ <span class="dropdown-text">Abstract</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistik Konsolidierung 1 - 4</li>
+        <li>
+    <a class="dropdown-item" href="../../statistik-konsolidierung/Statistik-Konsolidierung.html#category=Statistik_Konsolidierung1">
+ <span class="dropdown-text">Statistik_Konsolidierung1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik-konsolidierung/Statistik-Konsolidierung.html#category=Statistik_Konsolidierung2">
+ <span class="dropdown-text">Statistik_Konsolidierung2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik-konsolidierung/Statistik-Konsolidierung.html#category=Statistik_Konsolidierung3">
+ <span class="dropdown-text">Statistik_Konsolidierung3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../statistik-konsolidierung/Statistik-Konsolidierung.html#category=Statistik_Konsolidierung4">
+ <span class="dropdown-text">Statistik_Konsolidierung4</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-räumliche-analyse" role="button" data-bs-toggle="dropdown" aria-expanded="false">Räumliche Analyse</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-räumliche-analyse">    
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn_abstract.html">
+ <span class="dropdown-text">Abstract</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn.html#category=RaumAn1">
+ <span class="dropdown-text">RaumAn1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn.html#category=RaumAn2">
+ <span class="dropdown-text">RaumAn2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn.html#category=RaumAn3">
+ <span class="dropdown-text">RaumAn3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn.html#category=RaumAn4">
+ <span class="dropdown-text">RaumAn4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../rauman/RaumAn.html#category=RaumAn5">
+ <span class="dropdown-text">RaumAn5</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-fallstudien" role="button" data-bs-toggle="dropdown" aria-expanded="false">Fallstudien</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-fallstudien">    
+        <li>
+    <a class="dropdown-item" href="../../fallstudien/Fallstudien.html#category=Biodiversity_&amp;_Ecosystems_(S)">
+ <span class="dropdown-text">Biodiversity and Ecosystems (Profil S)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../fallstudien/Fallstudien.html#category=Biodiversity_&amp;_Ecosystems_(S)_Musterloesung">
+ <span class="dropdown-text">Biodiversity and Ecosystems (Profil S): Musterloesung</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../fallstudien/Fallstudien.html#category=Biodiversity_&amp;_Ecosystems_(N)">
+ <span class="dropdown-text">Biodiversity and Ecosystems (Profil N)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../fallstudien/Fallstudien.html#category=Biodiversity_&amp;_Ecosystems_(N)_Musterloesung">
+ <span class="dropdown-text">Biodiversity and Ecosystems (Profil N): Musterloesung</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-interna" role="button" data-bs-toggle="dropdown" aria-expanded="false">Interna</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-interna">    
+        <li>
+    <a class="dropdown-item" href="../../README.html">
+ <span class="dropdown-text">README</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/ResearchMethods-ZHAW/HS22"><i class="bi bi-github" role="img">
+</i> 
+ <span class="dropdown-text"></span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#variablenselektion-multivariate-modelle-habitatselektionsmodell" id="toc-variablenselektion-multivariate-modelle-habitatselektionsmodell" class="nav-link active" data-scroll-target="#variablenselektion-multivariate-modelle-habitatselektionsmodell">Variablenselektion Multivariate Modelle / Habitatselektionsmodell</a>
+  <ul class="collapse">
+  <li><a href="#libraries-laden" id="toc-libraries-laden" class="nav-link" data-scroll-target="#libraries-laden">libraries laden</a></li>
+  <li><a href="#variablenselektion" id="toc-variablenselektion" class="nav-link" data-scroll-target="#variablenselektion">Variablenselektion</a></li>
+  <li><a href="#vorgehen-analog-coppes-et-al." id="toc-vorgehen-analog-coppes-et-al." class="nav-link" data-scroll-target="#vorgehen-analog-coppes-et-al.">-&gt; Vorgehen analog Coppes et al.&nbsp;</a></li>
+  <li><a href="#aufgabe-1-mit-dem-folgenden-code-kann-eine-simple-korrelationsmatrix-aufgebaut-werden." id="toc-aufgabe-1-mit-dem-folgenden-code-kann-eine-simple-korrelationsmatrix-aufgebaut-werden." class="nav-link" data-scroll-target="#aufgabe-1-mit-dem-folgenden-code-kann-eine-simple-korrelationsmatrix-aufgebaut-werden.">Aufgabe 1: Mit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden.</a></li>
+  <li><a href="#selektion-der-variablen-in-einem-univariaten-model" id="toc-selektion-der-variablen-in-einem-univariaten-model" class="nav-link" data-scroll-target="#selektion-der-variablen-in-einem-univariaten-model">Selektion der Variablen in einem univariaten Model</a></li>
+  <li><a href="#aufgabe-2-skalieren-der-variablen-damit-ihr-einfluss-vergleichbar-wird-problem-verschiedene-skalen-der-variablen-bspw.-neigung-in-grad-distanz-in-metern" id="toc-aufgabe-2-skalieren-der-variablen-damit-ihr-einfluss-vergleichbar-wird-problem-verschiedene-skalen-der-variablen-bspw.-neigung-in-grad-distanz-in-metern" class="nav-link" data-scroll-target="#aufgabe-2-skalieren-der-variablen-damit-ihr-einfluss-vergleichbar-wird-problem-verschiedene-skalen-der-variablen-bspw.-neigung-in-grad-distanz-in-metern">Aufgabe 2: Skalieren der Variablen, damit ihr Einfluss vergleichbar wird (Problem verschiedene Skalen der Variablen (bspw. Neigung in Grad, Distanz in Metern))</a></li>
+  <li><a href="#aufgabe-3-ein-erstes-glmm-generalized-linear-mixed-effects-modell-aufbauen-funktion-und-modelformel" id="toc-aufgabe-3-ein-erstes-glmm-generalized-linear-mixed-effects-modell-aufbauen-funktion-und-modelformel" class="nav-link" data-scroll-target="#aufgabe-3-ein-erstes-glmm-generalized-linear-mixed-effects-modell-aufbauen-funktion-und-modelformel">Aufgabe 3: Ein erstes GLMM (Generalized Linear Mixed Effects Modell) aufbauen: Funktion und Modelformel</a></li>
+  <li><a href="#wichtige-seite-auf-der-man-viele-hilfestellungen-zu-glmms-finden-kann" id="toc-wichtige-seite-auf-der-man-viele-hilfestellungen-zu-glmms-finden-kann" class="nav-link" data-scroll-target="#wichtige-seite-auf-der-man-viele-hilfestellungen-zu-glmms-finden-kann">wichtige Seite auf der man viele Hilfestellungen zu GLMM’s finden kann:</a></li>
+  <li><a href="#httpsbbolker.github.iomixedmodels-miscglmmfaq.html" id="toc-httpsbbolker.github.iomixedmodels-miscglmmfaq.html" class="nav-link" data-scroll-target="#httpsbbolker.github.iomixedmodels-miscglmmfaq.html">https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html</a></li>
+  <li><a href="#aufgabe-4-mit-der-glmm-formel-bauen-wir-in-einem-ersten-schritt-eine-univariate-variablenselektion-auf." id="toc-aufgabe-4-mit-der-glmm-formel-bauen-wir-in-einem-ersten-schritt-eine-univariate-variablenselektion-auf." class="nav-link" data-scroll-target="#aufgabe-4-mit-der-glmm-formel-bauen-wir-in-einem-ersten-schritt-eine-univariate-variablenselektion-auf.">Aufgabe 4: Mit der GLMM Formel bauen wir in einem ersten Schritt eine univariate Variablenselektion auf.</a></li>
+  <li><a href="#selektion-der-variablen-in-einem-multivariaten-model" id="toc-selektion-der-variablen-in-einem-multivariaten-model" class="nav-link" data-scroll-target="#selektion-der-variablen-in-einem-multivariaten-model">Selektion der Variablen in einem multivariaten Model</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">KW44 - Variablenselektion Multivariate Modelle - Lösung”</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Biodiversity &amp; Ecosystems (N) Musterloesung</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Beni Sigrist </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="variablenselektion-multivariate-modelle-habitatselektionsmodell" class="level2">
+<h2 class="anchored" data-anchor-id="variablenselektion-multivariate-modelle-habitatselektionsmodell">Variablenselektion Multivariate Modelle / Habitatselektionsmodell</h2>
+<section id="libraries-laden" class="level3">
+<h3 class="anchored" data-anchor-id="libraries-laden">libraries laden</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Funktion um Packages direkt zu installieren und / oder</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">### zu laden</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ipak <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    new.pkg <span class="ot">&lt;-</span> pkg[<span class="sc">!</span>(pkg <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>])]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(new.pkg))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">install.packages</span>(new.pkg, <span class="at">repos =</span> <span class="st">"http://cran.us.r-project.org"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sapply</span>(pkg, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sp"</span>, <span class="st">"raster"</span>, <span class="st">"tidyverse"</span>, <span class="st">"PerformanceAnalytics"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pastecs"</span>, <span class="st">"lme4"</span>, <span class="st">"bbmle"</span>, <span class="st">"MuMIn"</span>, <span class="st">"MASS"</span>, <span class="st">"magrittr"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ipak</span>(packages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="variablenselektion" class="level3">
+<h3 class="anchored" data-anchor-id="variablenselektion">Variablenselektion</h3>
+</section>
+<section id="vorgehen-analog-coppes-et-al." class="level3">
+<h3 class="anchored" data-anchor-id="vorgehen-analog-coppes-et-al.">-&gt; Vorgehen analog Coppes et al.&nbsp;</h3>
+</section>
+<section id="aufgabe-1-mit-dem-folgenden-code-kann-eine-simple-korrelationsmatrix-aufgebaut-werden." class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-1-mit-dem-folgenden-code-kann-eine-simple-korrelationsmatrix-aufgebaut-werden.">Aufgabe 1: Mit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DF_mod <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv"</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>DF_mod_day <span class="ot">&lt;-</span> DF_mod <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(time_of_day <span class="sc">==</span> <span class="st">"day"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(DF_mod_day[, <span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>], <span class="at">method =</span> <span class="st">"kendall"</span>), <span class="dv">2</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># hier kann die Schwelle fuer die Korrelation gesetzt</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># werden, 0.7 ist liberal / 0.5 konservativ</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">cor</span>(DF_mod_day[, <span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>], <span class="at">method =</span> <span class="st">"kendall"</span>), <span class="dv">2</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor) <span class="sc">&lt;</span> <span class="fl">0.7</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>cor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="selektion-der-variablen-in-einem-univariaten-model" class="level3">
+<h3 class="anchored" data-anchor-id="selektion-der-variablen-in-einem-univariaten-model">Selektion der Variablen in einem univariaten Model</h3>
+</section>
+<section id="aufgabe-2-skalieren-der-variablen-damit-ihr-einfluss-vergleichbar-wird-problem-verschiedene-skalen-der-variablen-bspw.-neigung-in-grad-distanz-in-metern" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-2-skalieren-der-variablen-damit-ihr-einfluss-vergleichbar-wird-problem-verschiedene-skalen-der-variablen-bspw.-neigung-in-grad-distanz-in-metern">Aufgabe 2: Skalieren der Variablen, damit ihr Einfluss vergleichbar wird (Problem verschiedene Skalen der Variablen (bspw. Neigung in Grad, Distanz in Metern))</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>DF_mod_day <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">slope_scaled =</span> <span class="fu">scale</span>(slope), <span class="at">us_scaled =</span> <span class="fu">scale</span>(us),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">os_scaled =</span> <span class="fu">scale</span>(os), <span class="at">forest_prop_scaled =</span> <span class="fu">scale</span>(forest_prop),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">dist_road_all_scaled =</span> <span class="fu">scale</span>(dist_road_all),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">dist_road_only_scaled =</span> <span class="fu">scale</span>(dist_road_only),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">dist_build_scaled =</span> <span class="fu">scale</span>(dist_build), <span class="at">id =</span> <span class="fu">as.factor</span>(id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="aufgabe-3-ein-erstes-glmm-generalized-linear-mixed-effects-modell-aufbauen-funktion-und-modelformel" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-3-ein-erstes-glmm-generalized-linear-mixed-effects-modell-aufbauen-funktion-und-modelformel">Aufgabe 3: Ein erstes GLMM (Generalized Linear Mixed Effects Modell) aufbauen: Funktion und Modelformel</h3>
+</section>
+<section id="wichtige-seite-auf-der-man-viele-hilfestellungen-zu-glmms-finden-kann" class="level3">
+<h3 class="anchored" data-anchor-id="wichtige-seite-auf-der-man-viele-hilfestellungen-zu-glmms-finden-kann">wichtige Seite auf der man viele Hilfestellungen zu GLMM’s finden kann:</h3>
+</section>
+<section id="httpsbbolker.github.iomixedmodels-miscglmmfaq.html" class="level3">
+<h3 class="anchored" data-anchor-id="httpsbbolker.github.iomixedmodels-miscglmmfaq.html">https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wir werden das package lme4 mit der Funktion glmer</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># verwenden ausserdem brauchen wir noch das package bbmle</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># --&gt; installieren &amp; laden</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># die Hilfe von glmer aufrufen: ?glmer</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># glmer(formula, data = , family = binomial)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) formula: Abhaengige Variable ~ Erklaerende Variable +</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Random Factor In unseren Modellen kontrollieren wir fuer</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># individuelle Unterschiede bei den Rehen indem wir einen</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Random Factor definieren =&gt; (1 | id)</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) data: euer Datensatz</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) family: hier binomial</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># warum binomial? Verteilung Daten der Abhaengigen Variable</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Präsenz/Absenz</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DF_mod_day, <span class="fu">aes</span>(pres_abs)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># --&gt; Binaere Verteilung =&gt; Binomiale Verteilung mit n = 1</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># und wie schaut es bei der Verteilung der Daten der</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Abhaengigen Variable Nutzungsintensitaet (nmb) aus?</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DF_mod_day, <span class="fu">aes</span>(nmb)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># --&gt; Negativbinomiale Verteilung</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="aufgabe-4-mit-der-glmm-formel-bauen-wir-in-einem-ersten-schritt-eine-univariate-variablenselektion-auf." class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-4-mit-der-glmm-formel-bauen-wir-in-einem-ersten-schritt-eine-univariate-variablenselektion-auf.">Aufgabe 4: Mit der GLMM Formel bauen wir in einem ersten Schritt eine univariate Variablenselektion auf.</h3>
+<section id="als-abhaengige-variable-verwenden-wir-in-der-ersten-phase-die-praesenzabsenz-der-rehe-in-den-kreisen" class="level5">
+<h5 class="anchored" data-anchor-id="als-abhaengige-variable-verwenden-wir-in-der-ersten-phase-die-praesenzabsenz-der-rehe-in-den-kreisen">Als abhaengige Variable verwenden wir in der ersten Phase die Praesenz/Absenz der Rehe in den Kreisen</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Die erklaerende Variable in m1 ist die erste Variable der</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># korrelierenden Beziehung Die erklaerende Variable in m2</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ist die zweite Variable der korrelierenden Beziehung</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(Abhaengige_Variable <span class="sc">~</span> Erklaerende_Variable <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    id), <span class="at">data =</span> DF_mod_day, <span class="at">family =</span> binomial)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(Abhaengige_Variable <span class="sc">~</span> Erklaerende_Variable <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    id), <span class="at">data =</span> DF_mod_day, <span class="at">family =</span> binomial)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># mit dieser Funktion koennen die Modellergebnisse</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># inspiziert werden</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit dieser Funktion kann der Informationgehalt der beiden</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelle gegeneinander abgeschaetzt werden</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>bbmle<span class="sc">::</span><span class="fu">AICtab</span>(m1, m2)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># tieferer AIC -&gt; besser (AIC = Akaike information</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># criterion) -&gt; als deltaAIC ausgewiesen</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier ein Beispiel: Distanz zu Strassen und Wegen versus</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Distanz zu Strassen</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(pres_abs <span class="sc">~</span> dist_road_all_scaled <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id), <span class="at">data =</span> DF_mod_day,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> binomial)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(pres_abs <span class="sc">~</span> dist_road_only_scaled <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id), <span class="at">data =</span> DF_mod_day,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> binomial)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(m1)</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>bbmle<span class="sc">::</span><span class="fu">AICtab</span>(m1, m2)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co"># --&gt; tiefer AIC -&gt; besser == Distanz zu Strassen</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co"># ==&gt; dieses Vorgehen muss nun für alle korrelierten</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Variablen für jeden Teildatensatz (geringe Störung/starke</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Störung) durchgeführt werden, um nur noch nicht (R &lt; 0.7)</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co"># korrelierte Variablen in das Modell einfliessen zu lassen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="selektion-der-variablen-in-einem-multivariaten-model" class="level3">
+<h3 class="anchored" data-anchor-id="selektion-der-variablen-in-einem-multivariaten-model">Selektion der Variablen in einem multivariaten Model</h3>
+<section id="aufgabe-5-mit-folgendem-code-kann-eine-automatisierte-variablenselektion-dredge-funktion-und-ein-modelaveraging-aufgebaut-werden-siehe-auch-stats-skript-von-j.dengler-team" class="level5">
+<h5 class="anchored" data-anchor-id="aufgabe-5-mit-folgendem-code-kann-eine-automatisierte-variablenselektion-dredge-funktion-und-ein-modelaveraging-aufgebaut-werden-siehe-auch-stats-skript-von-j.dengler-team">Aufgabe 5: Mit folgendem Code kann eine automatisierte Variablenselektion (dredge-Funktion) und ein Modelaveraging aufgebaut werden (siehe auch Stats-Skript von J.Dengler &amp; Team)</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hier wird die Formel für die dredge-Funktion vorbereitet</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (die Variablen V1-V6 sind jene welche nach der</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># univariaten Variablenselektion noch übrig bleiben)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> pres_abs <span class="sc">~</span> slope_scaled <span class="sc">+</span> us_scaled <span class="sc">+</span> os_scaled <span class="sc">+</span> forest_prop_scaled <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    dist_road_only_scaled <span class="sc">+</span> dist_build_scaled</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># inn diesem Befehl kommt der Random-Factor (das Reh) hinzu</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># und es wird eine Formel daraus gemacht</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>f_dredge <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">c</span>(f, <span class="st">"+ (1 | id)"</span>), <span class="at">collapse =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.formula</span>()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Modell mit dieser Formel ausführen</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmer</span>(f_dredge, <span class="at">data =</span> DF_mod_day, <span class="at">family =</span> binomial, <span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Modell in die dredge-Funktion einfügen (siehe auch</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co"># unbedingt ?dredge)</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>all_m <span class="ot">&lt;-</span> <span class="fu">dredge</span>(m)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Importance values der einzelnen Variablen (Gibt an, wie</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co"># bedeutsam eine bestimmte Variable ist, wenn man viele</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co"># verschiedene Modelle vergleicht (multimodel inference))</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(all_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: 'importance' ist veraltet.
+Benutzen Sie stattdessen 'sw'
+Siehe help("Deprecated")</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (x) 
+UseMethod("sw")
+&lt;bytecode: 0x000002045ca89570&gt;
+&lt;environment: namespace:MuMIn&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schlussendlich wird ein Modelaverage durchgeführt</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (Schwellenwert für das delta-AIC = 2)</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(all_m, <span class="at">rank =</span> <span class="st">"AICc"</span>, <span class="at">subset =</span> delta <span class="sc">&lt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+model.avg(object = get.models(object = all_m, subset = delta &lt; 
+    2), rank = "AICc")
+
+Component model call: 
+glmer(formula = pres_abs ~ &lt;3 unique rhs&gt;, data = DF_mod_day, family = 
+     binomial, na.action = na.fail)
+
+Component models: 
+       df   logLik    AICc delta weight
+12356   7 -2337.01 4688.05  0.00   0.48
+123456  8 -2336.48 4689.00  0.95   0.30
+2356    6 -2338.78 4689.58  1.53   0.22
+
+Term codes: 
+    dist_build_scaled dist_road_only_scaled    forest_prop_scaled 
+                    1                     2                     3 
+            os_scaled          slope_scaled             us_scaled 
+                    4                     5                     6 
+
+Model-averaged coefficients:  
+(full average) 
+                      Estimate Std. Error Adjusted SE z value Pr(&gt;|z|)    
+(Intercept)           -0.49074    0.14774     0.14779   3.321 0.000898 ***
+dist_build_scaled     -0.07877    0.06433     0.06434   1.224 0.220857    
+dist_road_only_scaled  0.44281    0.04792     0.04793   9.239  &lt; 2e-16 ***
+forest_prop_scaled     0.83786    0.06487     0.06489  12.912  &lt; 2e-16 ***
+slope_scaled          -0.13548    0.04973     0.04975   2.723 0.006463 ** 
+us_scaled              0.40130    0.04101     0.04102   9.784  &lt; 2e-16 ***
+os_scaled              0.01926    0.04529     0.04530   0.425 0.670605    
+ 
+(conditional average) 
+                      Estimate Std. Error Adjusted SE z value Pr(&gt;|z|)    
+(Intercept)           -0.49074    0.14774     0.14779   3.321 0.000898 ***
+dist_build_scaled     -0.10139    0.05508     0.05510   1.840 0.065756 .  
+dist_road_only_scaled  0.44281    0.04792     0.04793   9.239  &lt; 2e-16 ***
+forest_prop_scaled     0.83786    0.06487     0.06489  12.912  &lt; 2e-16 ***
+slope_scaled          -0.13548    0.04973     0.04975   2.723 0.006463 ** 
+us_scaled              0.40130    0.04101     0.04102   9.784  &lt; 2e-16 ***
+os_scaled              0.06466    0.06284     0.06286   1.029 0.303636    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ==&gt; für alle weiteren Datensätze muss der gleiche Prozess</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># der Variablenselektion durchgespielt werden.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+
+
+<div class="footer">
+  <img src="https://github.com/ResearchMethods-ZHAW/HS21/actions/workflows/build_site.yml/badge.svg?branch=main">
+  <img class="footer-logo" src="images/zhaw_lsfm_iunr_weiss.png" alt="ZHAW LSFM Logo">
+  
+<!--
+  <p>Diese Unterlagen wurden von verschiedenen Authoren für den Kurs "Research Methods" entwickelt und stehen, wo nicht anders genannt, under der Linzenz <a href = "http://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> </p> 
+  <p>Diee vorliegende Lizenz erstreckt sich nicht auf die zitierten Werke. Diese Werke stehen unter Umständen unter urheberrechtlichem Schutz.</p>
+  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="88x31.png"></img></a>
+
+-->
+
+
+</div>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

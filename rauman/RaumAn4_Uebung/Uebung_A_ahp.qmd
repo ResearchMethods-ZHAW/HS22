@@ -1,0 +1,213 @@
+---
+title: RaumAn4 - Übung A - Analytical Hierarchy Process (AHP)
+author:
+  - name: Patrick Laube
+  - name: Nils Ratnaweera
+  - name: Nikolaos Bakogiannis
+  - name: Dominic Lüönd
+image: distill-preview-a.png  
+description: |
+  This is a step-by-step guide corresponding to this week's lecture.  
+categories: RaumAn4
+draft: false  
+---
+
+```{r, include=FALSE, purl = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Now that you have learned the theory, you will carry out concrete example of an Analytical Hierarchy Process (AHP). This is a manual approach to show you the basics of an AHP. If you want to build a more complex AHP you can use specific R AHP packages such as the [ahpsurvey package](https://cran.r-project.org/web/packages/ahpsurvey/vignettes/my-vignette.html).
+
+## Exercise 1: Define initial situation 
+
+First think of an *actual decision* you are currently facing or have previously faced (e.g. buying a bicycle or renting an apartment) and define the following points.
+
+* A goal for your AHP (e.g. Buy a bike)
+* 4 criteria on which you want to base your decision (e.g. *Price*, *Distance to Work / School*, *Size*, *Scenic Beauty*)
+* 3 different options / alternatives (e.g. 3 different apartments)
+
+```{r}
+# Goal: Rent a new apartment The 4 criteria we will use to are:
+
+# Citeria: 
+# - Price
+# - Distance to work
+# - Size
+# - Scenic Beauty
+
+# Options / Alternatives
+# 1. Weinbergstrasse 17, 8134 Adliswil, 35 m2 for 1’455 CHF, not so pretty and 45 minutes from work
+# 2. Zürichstrasse 56, 8134 Adliswil,  104 m2 for 2’960.– CHF, very pretty and 45 minutes from work
+# 3. Geissbergstrasse 18, 8184 Bachenbülach, 130 m2 for 3’800 CHF, very pretty and 30 mintues from work
+```
+
+## Exercise 2: Pairwise comparison (Paarweiser Vergleich 1 & 2)
+
+In a first step each criterion needs to be compared with another criteria in pairs. Use the following scale for weighting the criteria (see table \@ref(tab:ahprating)) . 
+
+```{r ahprating, echo = FALSE, purl = FALSE}
+library(dplyr)
+
+tibble::tribble(
+  ~Rating,	~Definition,
+  1, "The two characteristics are equally important",
+  3, "Criteria A is slightly more important than criteria B",
+  5, "Criteria A is moderately more important than criteria B",
+  7, "Criteria A is strongly more important than criteria B",
+  9, "Criteria A is absolutely more important than criteria B",
+  c(2,4,6,8), "Intermediate Values"
+) %>%
+  knitr::kable(caption = "Scale for weighting the criteria.")
+```
+
+You can use the following code to create your weighting matrix. In the matrix, two criteria are always compared twice, and these two comparisons should be the reciprocal ("Kehrwert") of each other. To illustrate this, we have added one comparison which reads as follows: 
+
+- Row 1, column 2:  *Criteria 1* is slightly more important than *Criteria 2*
+- Row 2, column 1:  *Criteria 2* is slightly less important than *Criteria 1*
+
+Create this matrix comparison matching your criteria, replacing the `0` values with your weights according to table \@ref(tab:ahprating). Note that all diagonal values should equal to `1`.
+
+```{r ahp_matrix2, echo = TRUE}
+pairwise_comparison <- c(
+  1,   3, 0, 0,
+  1/3, 1, 0, 0,
+  0,   0, 1, 0,
+  0,   0, 0, 1
+) %>% matrix(ncol = 4, byrow = TRUE) 
+```
+
+```{r}
+# criteria 1: Price
+# criteria 2: Distance to work
+# criteria 3: Size
+# criteria 4: Scenic Beauty
+pairwise_comparison <- c(
+  1,   5,   9,   9,
+  1/5, 1,   6,   7,
+  1/9, 1/6, 1,   7,
+  1/9, 1/7, 1/7, 1
+) %>%
+  matrix(ncol = 4, byrow = TRUE)
+```
+
+**Tip**: Add column and row names so your matrix is more readable. 
+
+```{r, echo = TRUE}
+criterias <- c("price", "distance","size", "beauty")
+
+rownames(pairwise_comparison) <- criterias
+colnames(pairwise_comparison) <- criterias
+```
+
+## Exercise 3: Calculation of the criteria weights 
+
+### Exercise 3.1: Normalization of matrix (Berechnung der Kritiriengewichte 1)
+
+In the next step the matrix needs to be normalized (see figure \@ref(fig:criteria-normalize). You can do this in the following two steps: 
+
+1. Calculate the sum of each column using `colSums`. Store the output in a variable (e.g. `ahp_colsums`).
+2. Divide each value in the matrix by the corresponding column sum. To achieve this, you can use the `sweep()` function on the matrix, which is very similar to `apply` (use `MARGIN = 2` (columns), `STATS = ahp_colsums` and `FUN = "/"`).
+
+```{r}
+ahp_colsums <- colSums(pairwise_comparison)
+
+pairwise_comparison_normalized <- sweep(pairwise_comparison, 2,ahp_colsums, FUN = "/")
+```
+
+```{r criteria-normalize, fig.cap="Normalizing the criteria so that each column equals to 1", purl = FALSE}
+knitr::include_graphics("images/criteria_normalize.png")
+```
+
+### Exercise 3.2: Weighting of criteria (Berechnung der Kritiriengewichte 2)
+
+This is the final step to calculate the weight of each criteria (see \@ref(fig:weights-normalize)). To do so: 
+
+1. calculate the sum of each row and store the output in a variable (e.g. `criteria_sum`). 
+2. divide the `criteria_sum` by the sum of `criteria_sum` and store the output in a variable (e.g. `criteria_weight`).
+
+Note: The sum of `criteria_weight` should equal to 1
+
+```{r include=FALSE}
+criteria_sums <- rowSums(pairwise_comparison_normalized)
+
+criteria_weight <- criteria_sums/sum(criteria_sums)
+
+sum(criteria_weight)
+```
+
+```{r weights-normalize, fig.cap="Normalizing the weights so that the sum of all weights equals to 1", purl = FALSE}
+knitr::include_graphics("images/weights_normalize.png")
+```
+
+## Exercise 4: Consistency analysis (Konsistenzanalyse 1 & 2)
+
+After the pairwise comparison is done, a consistency analysis needs to be performed to check whether the pairwise comparisons are consistent or include contradictions. A certain inconsistency is allowed within the framework of an AHP, but it should not be too great.
+
+To calculate consistency, you should proceed as explained in Slide 30 (Konsistenzanalyse 1) and the following steps:
+
+1. do a matrix multiplication (`%*%`) between `pairwise_comparison` and `criteria_weight`. 
+
+```{r}
+a_values <- pairwise_comparison %*% criteria_weight
+```
+
+2. Divide the result of 1) by `criteria_weight`
+
+```{r}
+b_values <- a_values / criteria_weight
+```
+
+3. Calculate $\lambda_{max}$ by dividing the sum of the result you obtained in 2) by the number of criteria
+
+```{r}
+lambda_max = sum(a_values)/ncol(pairwise_comparison)
+```
+
+4. calculate $CI$  ($CI = \frac{\lambda_{max} - n}{n-1}$), where `n` equals to the number of criteria
+
+```{r}
+CI <- (lambda_max - ncol(pairwise_comparison)) / (ncol(pairwise_comparison)-1)
+```
+
+5. Determine $RI$ by consulting the table \@ref(fig:randomindexbysaaty)
+
+```{r}
+RI <- 0.89
+```
+
+5. Calculate $CR$ ($CR = CI / RI$)
+
+```{r}
+CR <- CI/RI
+```
+
+6. If CR > 0.1, you will need to re-evaluate your pairwise comparisons. 
+
+```{r include=FALSE}
+CR < 0.1
+```
+
+```{r randomindexbysaaty, echo=FALSE, fig.cap="Random index by Saaty", fig.align="center", out.width="50%", purl = FALSE}
+knitr::include_graphics("images/ahp_random_index_by_saaty.png")
+```
+
+## Congratulations!
+
+You now have determined the weights on top of which you can build your decision and have determined if these weights are consistent or not. These next steps are technically very similar to what you did in the exercise above, so we will leave it up to you if you want to complete these steps or not. For sake of completness, the next step would be to:
+
+1. compare your options / alternatives with each other in a pairwise comparison (similar as to how you compared the criteria with each other). You do this for *every* criteria
+2. normalize your pairwise comparisons of your options (similar as to how how you normalized the pairwise comparisons of the criteria)
+3. Use the weights you determined in the exercise above to weigh your results from 2)
+4. Asses the best decision based on the result from 3)
+
+## Musterlösung
+
+[R-Code](mce_AHP.R) 
+```{r, echo = FALSE, message=FALSE, results = "asis", purl = FALSE, eval = FALSE}
+#distill::mypurl() # for some reason (chunk names) this code does not run. debug at some point
+```
+
+
+
+
+

@@ -1,0 +1,284 @@
+---
+title: RaumAn3 - Übung - Morans I
+author:
+  - name: Patrick Laube
+  - name: Nils Ratnaweera
+  - name: Nikolaos Bakogiannis
+image: distill-preview.png  
+description: |
+  Heute berechnen wir Moran's I auf verschiedenen Datensätzen und vergleichen die Resultate.  
+categories: RaumAn3
+draft: false  
+---
+
+  <!-- # Zum Abschluss des Themenblockes Spatial Data Science berechnen wir mit dem Moran’s I einen Index zur Berechnung der räumlichen Autokorrelation einer Choroplethenkarte. Wir verwenden nochmals die aggregierten Choroplethenkarten zur Wasserverfügbarkeit aus der ersten Übung und schauen uns an, wie stark die Werte für die Kantone und die Kantone autokorreliert sind. Anstatt einfach eine Funktion zur Berechnung von Moran’s I aufzurufen und diese dann wie eine Black Box anzuwenden, wollen wir Formel für die Berechnung des Index in Ihre Bausteine zerlegen und diese Schritt für Schritt selber nachrechnen. So seht Ihr, wie  Moran’s I wirklich funktioniert und könnte dabei erst noch die zuvor gelernten Data Science Techniken repetieren.  -->
+
+```{r, include=FALSE, purl = FALSE}
+knitr::opts_chunk$set(echo = FALSE,include = TRUE,message = FALSE, collapse=TRUE, warning=FALSE, results = "markup", fig.width = 7, fig.height = 5) 
+```
+
+Für die Berechnung von Morans $I$ benutzen wir kein externes Package, sondern erarbeiten uns alles selber, basierend auf der Formel von Moran's $I$: 
+
+$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
+Diese sieht sehr beeindruckend aus, aber wenn wir die Formel in ihre Einzelbestandteile aufteilen, sehen wir, dass diese in sich gar nicht so komplex sind.
+
+Als erster Schritt müssen wir die notwendigen Libraries und Geodaten laden:
+
+```{r, results='asis', echo = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+check_download <- function(files, folder, source = "", url = "https://github.com/ResearchMethods-ZHAW/datasets/raw/main/"){
+  full_url <- paste0(url,folder,"/",files)
+  exists_bool <- !file.exists(files)
+  if(sum(exists_bool)>0){
+    download.file(full_url[exists_bool],files[exists_bool])
+    }
+  cat(paste0("- [",files,"](",full_url,") ",source),sep = "\n")
+}
+
+check_download(c("zweitwohnungsinitiative.gpkg"),"rauman")
+
+```
+
+```{r, echo = TRUE}
+library(dplyr)
+library(ggplot2)
+library(sf)
+
+# Das Geopackage beinhaltet 3 Layers (siehe st_layers("zweitwohnungsinitiative.gpkg"))
+# In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene
+# aggregiert. Wir started mit der Aggregationsstufe "kanton"
+zweitwohnung_kanton<- read_sf("zweitwohnungsinitiative.gpkg", "kanton")
+```
+
+```{r}
+ ggplot(zweitwohnung_kanton) +
+  geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
+  scale_fill_gradientn(colours = RColorBrewer::brewer.pal(11, "RdYlGn"), limits = c(0,1))  +
+  theme(legend.position = "bottom")
+```
+
+## Aufgabe 1: Herleitung der Formel
+
+In der ersten Übung wollen wir Moran's $I$ für eine gegebene Choroplethenkarte nachrechnen. Dazu nehmen wir die Formel für Moran's $I$ und zerlegen sie in Einzelteile, die wir dann Schritt für Schritt für unsere Daten berechnen. So teilen wir ein vermeintlich komplexes Problem in überschaubare Einzelteile. Dieses Vorgehen illustriert ausserdem sehr schön ein generelles Data Science Prinzip. Divide and Conquer - Teile und Herrsche: Teile ein komplexes Problem in kleinere, beherrschbare Unterprobleme. Wir beginnen mit dem ersten Bruch und berechnen dabei zuerst den Zähler, dann dem Nenner. So können wir den Bruch auflösen und uns danach dem zweiten Bruch zuwenden:
+
+$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
+### Bruch 1
+
+Widmen wir uns dem ersten Bruch:
+
+$$\frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2}$$ 
+
+#### Zähler (von Bruch 1)
+
+Beginnen wir mit dem Zähler, $n$. Dies ist lediglich die Anzahl Messwerte in unserem Datensatz, also die Anzahl Kantone. 
+
+```{r, echo = TRUE}
+n <- nrow(zweitwohnung_kanton)
+n
+```
+
+#### Nenner (von Bruch 1)
+
+Der Nenner des ersten Bruches (${\sum_{i=1}^n (y_i - \bar{y})^2}$) ist sehr ähnlich der Berechnung der Varianz:
+
+1. Berechne den Durchschnitt aller Messwerte ($\bar{y}$)
+2. Berechne für jeden Messwert die Differenz zum Durchschnitt ($y_i - \bar{y}$)
+3. Quadriere diese Werte $(y_i - \bar{y})^2$
+4. Summiere die Quadrierten Werte $\sum_{i=1}^n$
+
+Also berechnen wir zuerst diese Differenzwerte (Messwert minus Mittelwert):
+
+```{r, echo = TRUE}
+# Die Werte aller Kantone:
+y <- zweitwohnung_kanton$ja_in_percent
+
+# Der Durchschnittswert aller Kantone
+ybar <- mean(y, na.rm = TRUE)
+
+# von jedem Wert den Durchschnittswert abziehen:
+dy <- y - ybar
+```
+
+Welche dieser Zwischenresultate sind Einzelwerte und welche Vektoren? Nun quadrieren wir die Differenzen:
+
+```{r, echo = TRUE}
+dy_2 <- dy^2
+```
+
+und summieren die Differenzen:
+
+```{r, echo = TRUE}
+dy_sum <- sum(dy_2, na.rm = TRUE)
+```
+
+#### Auflösung (Bruch 1)
+
+Beschliessen wir die Bearbeitung des ersten Bruchs indem wir den Zähler durch den Nennen dividieren:  `n` durch `dy_sum`.
+
+```{r, echo = TRUE}
+vr <- n/dy_sum
+```
+
+### Bruch 2
+
+Wenden wir uns nun also dem Bruches der Formel zu. 
+
+$$\frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
+
+Hier berechnen wir die Summe aller Gewichte sowie die gewichteten Covarianzen. Wir betrachten immer Messwertpaare, sprich paarweise Vergleiche zweier Raumeinheiten (hier Kantone). Deshalb haben die zwei Summenzeichen die beiden unterschiedlichen Laufvariablen ($i$ und $j$). Solche paarweise Vergleiche von Werten mit allen anderen Werten können wir elegant mit Kreuzmatrizen abbilden. In der Kreuzmatrix vergleichen wir jeden Messwert mit allen anderen Messwerten. Dabei gibt es zwei Kreuzmatrizen: ($w_{ij}$ ist die erste Kreuzmatrix, $(y_i - \bar{y})(y_j - \bar{y})$ ist die zweite Kreuzmatrix). 
+
+#### Zähler (Bruch 2)
+
+Der erste Term, $w_{ij}$, beschreibt die räumlichen Gewichte aller Kantone. Sind die Kantone benachbart, dann gilt ein Gewicht von 1,  sind sie nicht benachbart, gilt ein Gewicht von 0. Dies entspricht dem Schalter aus der Vorlesung.
+
+Wie wir "benachbart" definieren ist nicht festgelegt. Denkbar wären zum Beispiel folgende Optionen:
+
+- Die Kantone müssen sich berühren (dürfen sich aber nicht überlappen): `st_touches()`
+- Die Kantone müssen innerhalb einer bestimmten Distanz zueinander liegen: `st_is_within_distance()`
+- Die Kantone müssen überlappen: `st_overlaps()`
+
+Egal für welche Variante Ihr Euch entscheidet, setzt `sparse = FALSE` damit eine Kreuzmatrix erstellt wird.
+
+```{r, echo = TRUE}
+w <- st_touches(zweitwohnung_kanton, sparse = FALSE)
+
+w[1:6, 1:6]
+```
+
+(Lasst Euch nicht davon beirren, dass wir nun `TRUE` und `FALSE` statt `1` und `0` haben. In R sind `TRUE` und `1` äquivalent, sowie auch `FALSE` und `0`). 
+
+```{r}
+sel <- zweitwohnung_kanton$KANTONSNAME[1]
+```
+
+Zur Überprüfung unserer Operation: Mit `w[1,]` bekommt  ihr ein Vektor, wo bei allen Kantone, die den ersten kanton (`r sel`) berühren `TRUE` steht und bei allen anderen `FALSE`. Nun können wir überprüfen, ob die räumliche Operation funktioniert hat. 
+
+```{r, echo = TRUE}
+beruehrt_1 <- w[1, ]
+
+ggplot(zweitwohnung_kanton[beruehrt_1, ]) +
+  geom_sf(aes(fill = KANTONSNAME)) +
+  labs(title = "Welche Kanton berühren den Kanton Zürich (st_touches)")
+```
+
+```{r, include = FALSE}
+# Optional: Um alle Kantone zu visualisieren, welche sich berühren, könnt ihr folgende Funktion anwenden:
+
+my_connections <- function(sf_object,relationship_matrix){
+  require(sf)
+  require(purrr)
+  centeroids <- sf::st_centroid(st_geometry(sf_object))
+  
+  mycrs <- st_crs(sf_object)
+
+  relationship_transpose <- which(relationship_matrix,arr.ind = TRUE)
+  
+  from <- centeroids[relationship_transpose[,1]]
+  to <- centeroids[relationship_transpose[,2]]
+  
+  connection <- purrr::map2(from,to, ~sf::st_linestring(c(.x,.y))) %>%
+    st_sfc() %>%
+    st_set_crs(mycrs)
+}
+
+benachbart <- my_connections(zweitwohnung_kanton,w)
+
+ggplot(zweitwohnung_kanton) + 
+  geom_sf() + 
+  geom_sf(data = benachbart) +
+  theme_void() +
+  labs(title = "Benachbarte Kantone sind mit einer Linie verbunden")
+```
+
+Der nächste Teil sollte Euch nun bekannt vorkommen. Die Differenz aller Werte vom Mittelwert aller Werte $(y_i - \bar{y})$ kennen wir schon vom ersten Bruch und haben wir auch bereits gelöst. Nun gilt es paarweise das Produkt der Abweichungen vom Mittelwert (die Covarianz) zu berechnen $(y_i - \bar{y})(y_j - \bar{y})$.  DAzu müssen wir *das Produkt aller Wertekombinationen* berechnen. Dies erreichen wir mit der Funktion `tcrossprod()`:
+
+```{r, echo = TRUE}
+pm <- tcrossprod(dy)
+pm[1:6,1:6]
+```
+
+Nun multiplizieren wir die Covarianzen mit den Gewichten $w$ (Schalter), damit wir nur noch die Werte von den Kantonen haben, die auch effektiv benachbart sind (und eliminieren nicht-benachbarte Werte). Beachtet dass wir hier nun eine Matrix mit einer Matrix multiplizieren.
+
+```{r, echo = TRUE}
+pmw <- pm * w
+w[1:6,1:6]
+pmw[1:6,1:6]
+```
+
+Den Zähler des ersten Bruches können wir nun fertig berechnen, indem wir die Summe aller gewichten (sprich eingeschalteten) Werten bilden:
+
+```{r, echo = TRUE}
+spmw <- sum(pmw, na.rm = TRUE)
+spmw
+```
+
+#### Nenner (Bruch 2)
+
+Für den Nenner des zweiten Teils der Formal (des zweiten Bruchs) müssen wir nun nur noch alle Gewichte summieren. Diese Summer entspricht der Anzahl effektiv benachbarter Kantone und kann Anzahl der $TRUE$-Werte in $w$ bestimmt werden. 
+
+```{r, echo = TRUE}
+smw <- sum(w, na.rm = TRUE)
+```
+
+#### Auflösung (Bruch 2)
+
+So können wir den zweiten Bruch auflösen und berechnen:
+
+```{r, echo = TRUE}
+sw  <- spmw / smw
+```
+
+### Auflösung der Formel
+
+Der allerletzte Schritt besteht darin, die Werte aus den beiden Brüche miteinander zu multiplizieren.
+
+```{r, echo = TRUE}
+MI <- vr * sw
+MI
+```
+
+Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `r MI`. Wie interpretiert ihr dieses Resultate? Was erwartet ihr für eine Resultat auf Gemeinde- oder Bezirksebene?
+
+## Aufgabe 2: Morans I für Gemeinde oder Bezirke berechnen
+
+Nun könnt ihr Morans $I$ auf der Ebene der Gemeine oder Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Wenn ihr einen wenig leistungsfähigen Rechner habt, berechnet verwendet besser die Ebene "Berzirke". Importiert dazu den Layer `bezrik` oder `gemeinde` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate.
+
+```{r, echo = TRUE}
+zweitwohnung_gemeinde <- read_sf("zweitwohnungsinitiative.gpkg", "gemeinde")
+
+ggplot(zweitwohnung_gemeinde) +
+  geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
+  scale_fill_gradientn("Ja Anteil",colours = RColorBrewer::brewer.pal(11, "RdYlGn"), limits = c(0,1)) +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+morans_i <- function(sf_object,col) {
+  require(sf)
+  n <- nrow(sf_object)
+  y <- unlist(st_set_geometry(sf_object,NULL)[,col],use.names = FALSE)
+  ybar <- mean(y, na.rm = TRUE)
+  dy <- y - ybar
+  dy_sum <- sum(dy^2, na.rm = TRUE)
+  vr <- n/dy_sum
+  w <- st_touches(sf_object,sparse = FALSE)
+  pm <- tcrossprod(dy)
+  pmw <- pm * w
+  spmw <- sum(pmw, na.rm = TRUE)
+  smw <- sum(w, na.rm = TRUE)
+  sw  <- spmw / smw
+  MI <- vr * sw
+  MI
+}
+```
+
+```{r, eval = FALSE}
+MI_gemeinde <-  morans_i(zweitwohnung_gemeinde,"ja_in_percent")
+```
+
+## Musterlösung
+
+```{r, echo = FALSE, message=FALSE, results = "asis", purl = FALSE}
+#distill::mypurl()
+```
