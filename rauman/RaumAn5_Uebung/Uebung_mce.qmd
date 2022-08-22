@@ -1,5 +1,5 @@
 ---
-title: RaumAn5 - Übung - Multi-Criteria Evaluation (MCE)
+title: "Übung - Multi-Criteria Evaluation (MCE)"
 subtitle: Wind potential study in the canton of Schwyz
 author:
   - name: Patrick Laube
@@ -7,8 +7,7 @@ author:
   - name: Nikolaos Bakogiannis
   - name: Dominic Lüönd
 image: distill-preview.png
-description: |
-  This is a step-by-step guide corresponding to the PPP document "Multikriterielle Entscheidungsanalyse 1".
+description: " "
 categories: RaumAn5
 draft: false
 ---
@@ -26,20 +25,6 @@ The goal of this exercise is to do the same MCE by just using R. We will mainly 
 ```{r, results='asis', echo=FALSE, purl = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-check_download <- function(files, folder, source = "", url = "https://github.com/ResearchMethods-ZHAW/datasets/raw/main/", cat = TRUE){
-  full_url <- paste0(url,folder,"/",files)
-  exists_bool <- !file.exists(files)
-  if(sum(exists_bool)>0){
-    download.file(full_url[exists_bool],files[exists_bool])
-  }
-  urls <- paste0("- [",files,"](",full_url,") ",source)
-  if(cat){
-    cat(urls,sep = "\n")
-  }else{
-    return(urls)
-  }
-}
-
 datasets <- data.frame(
   datasets = c("dhm25m.tif", "eis25m.tif", "wind25m.tif", "Bewohnte_Flaeche.gpkg", "Nationale_Schutzgebiete.gpkg", "Seeflaechen.gpkg", "Strassen.gpkg", "Untersuchungsgebiet_Schwyz.gpkg", "Waldgebiete.gpkg"),
   description = c("Terrain model (m)", "Icing frequency (days/year)", "Average wind speed (dm/s) ", "Settlements (incl. buffer 200m)", "National protection areas", "Lake areas", "Streets", "Study area, canton of Schwyz", "Forest areas"),
@@ -53,15 +38,12 @@ datasets <- data.frame(
 library(stringr)
 library(kableExtra)
 library(dplyr)
-
-myurls <-check_download(datasets$datasets,"rauman",cat = FALSE)
-myurls <- stringr::str_match(myurls,"\\((.+)\\)")[,2]
 ```
 
 ```{r datatable, results='asis', echo=FALSE, purl = FALSE}
 datasets %>%
   mutate(
-    datasets = kableExtra::cell_spec(datasets, "html", link = myurls)
+    datasets = kableExtra::cell_spec(datasets, "html")
   ) %>%
   kableExtra::kable(caption = "Data used in this study (click on the link to download)",escape = FALSE) %>% 
   kable_styling(latex_options=c("scale_down", "HOLD_position"))
@@ -82,17 +64,17 @@ library(tmap)
 
 ```{r solutionEx1, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 #Vector data
-kt_schwyz <- read_sf("Untersuchungsgebiet_Schwyz.gpkg")
-settlements <- read_sf("Bewohnte_Flaeche.gpkg")
-forests <- read_sf("Waldgebiete.gpkg")
-protected_areas <- read_sf("Nationale_Schutzgebiete.gpkg")
-lakes <- read_sf("Seeflaechen.gpkg")
-streets <- read_sf("Strassen.gpkg") %>% st_intersection(kt_schwyz) #intersect with study area
+kt_schwyz <- read_sf("data/Untersuchungsgebiet_Schwyz.gpkg")
+settlements <- read_sf("data/Bewohnte_Flaeche.gpkg")
+forests <- read_sf("data/Waldgebiete.gpkg")
+protected_areas <- read_sf("data/Nationale_Schutzgebiete.gpkg")
+lakes <- read_sf("data/Seeflaechen.gpkg")
+streets <- read_sf("data/Strassen.gpkg") %>% st_intersection(kt_schwyz) #intersect with study area
 
 #Raster data
-eis25m <- rast("eis25m.tif")
-dhm25m <- rast("dhm25m.tif")
-wind25m <- rast("wind25m.tif")
+eis25m <- rast("data/eis25m.tif")
+dhm25m <- rast("data/dhm25m.tif")
+wind25m <- rast("data/wind25m.tif")
 ```
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}

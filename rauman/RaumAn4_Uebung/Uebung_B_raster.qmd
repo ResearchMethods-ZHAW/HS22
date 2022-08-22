@@ -1,12 +1,11 @@
 ---
-title: RaumAn4 - Übung B - Introduction to raster datasets
+title: "Übung B - Introduction to raster datasets"
 author:
   - name: Patrick Laube
   - name: Nils Ratnaweera
   - name: Nikolaos Bakogiannis
 image: distill-preview-b.png
-description: |
-  How we can import a raster dataset using R
+description: " "
 categories: RaumAn4
 draft: false  
 ---
@@ -17,17 +16,6 @@ Below we will use `terra` to demonstrate how we can import a raster dataset. In 
 
 ```{r, results='asis', echo = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
-check_download <- function(files, folder, source = "", url = "https://github.com/ResearchMethods-ZHAW/datasets/raw/main/"){
-  full_url <- paste0(url,folder,"/",files)
-  exists_bool <- !file.exists(files)
-  if(sum(exists_bool)>0){
-    download.file(full_url[exists_bool],files[exists_bool])
-    }
-  cat(paste0("- [",files,"](",full_url,") ",source),sep = "\n")
-}
-
-check_download(c("dhm25m.tif"),"rauman")
 ```
 
 ```{r, message=FALSE, warning=FALSE}
@@ -37,7 +25,7 @@ library(terra)
 Import your raster with the function `rast`
 
 ```{r, message=FALSE, warning=FALSE}
-dhm_schwyz <- rast("dhm25m.tif")
+dhm_schwyz <- rast("data/dhm25m.tif")
 ```
 
 You get some important metadata on the raster dataset when you type the variable name in the console.  
@@ -86,8 +74,10 @@ tm_shape(dhm_schwyz) +
 
 You can make layout adjustments using `tm_layout()`, check `?tm_layout` to see all of the options available!
 
-```{r, layout = "l-page"}
+::: {.column-page}
+```{r}
 tm_shape(dhm_schwyz) + 
   tm_raster(style = "cont", palette = "Spectral", legend.is.portrait = FALSE, title = "") +
   tm_layout(legend.outside = TRUE, legend.outside.position = "bottom",frame = FALSE)
 ```
+:::

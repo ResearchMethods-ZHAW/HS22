@@ -1,8 +1,5 @@
-
 # für export loesung aufgabe 2
-knitr::purl("solution_stat2.2_2.3s.Rmd", "Solution_stat2.2_2.3s.R", documentation = 0)
-
-
+knitr::purl("Statistik2_Loesung_2223s.qmd", "Statistik2_Loesung_2223s.R", documentation = 0)
 
 
 library(tidyverse)
@@ -23,9 +20,6 @@ mytheme <-
     axis.ticks = element_line(size = .75, color = "black"), 
     axis.ticks.length = unit(.5, "cm")
     )
-
-
-
 
 df <- nova # klone den originaler Datensatz
 
@@ -52,7 +46,6 @@ df %>%
   purrr::map(~ psych::describe(.$tot_sold)) # mit map können andere Funktionen 
 # auf den Datensatz angewendet werden (alternative Funktionen sind aggregate oder apply)
 
-
 # Boxplot
 ggplot(df, aes(x = label_content, y= tot_sold)) +
   # Achtung: Reihenfolge spielt hier eine Rolle!
@@ -73,8 +66,6 @@ summary.lm(model)
 # überprüft die Modelvoraussetzungen
 par(mfrow = c(2,2))
 plot(model)
-
-
 
 # überprüft die Voraussetzungen des Welch-Tests:
 # Gibt es eine hohe Varianzheterogenität und ist die relative Verteilung der 
@@ -142,10 +133,6 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
 # ermöglichen signifikante Ergebniss in den Plot zu integrieren
 # https://www.r-bloggers.com/add-p-values-and-significance-levels-to-ggplots/
 # https://cran.r-project.org/web/packages/ggsignif/vignettes/intro.html
-  
-   
-
-
 
 ## ladet die nötigen Packete und die novanimal.csv Datei in R
 nova <- read_delim("https://zenodo.org/record/3890949/files/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv?download=1", delim = ";")
@@ -163,7 +150,6 @@ nova <- read_delim("https://zenodo.org/record/3890949/files/2017_ZHAW_individual
 #     )
 
 
-
 # klone den originaler Datensatz
 df <- nova 
 
@@ -176,7 +162,6 @@ df %<>% # schaut euch das Package "magrittr" an
   #  fasse die zwei Menülinien "World & Favorite" zusammen
   mutate(article_description = str_replace_all(article_description, "Favorite|World",
                                                "Fav_World"))  
-
 # gruppiere Daten nach Menülinie, Geschlecht und Hochschulzugehörigkeit
 df %<>%
     group_by(article_description, member, week) %>% 
@@ -193,7 +178,6 @@ df %>%
   # mit map können andere Funktionen auf den Datensatz angewendet werden 
   # (alternative Funktionen sind aggregate oder apply)
   purrr::map(~ psych::describe(.$tot_sold)) 
-
 
 # visualisiere dir dein Model, was siehst du? 
 # sind möglicherweise gewiesse Voraussetzungen verletzt?
@@ -212,8 +196,6 @@ ggplot(df, aes(x = interaction(article_description, member), y= tot_sold)) +
                               "Kitchen\nMitarbeitende",  "Kitchen\nStudierende")) +
   mytheme # wie sind die Voraussetzungen erfüllt?
 
-
-
 # definiert das Modell (Skript Statistik 2)
 model <- aov(tot_sold ~ article_description * member, data = df)
 
@@ -222,7 +204,6 @@ summary.lm(model)
 # überprüft die Modelvoraussetzungen (Statistik 2)
 par(mfrow = c(2,2)) # alternativ gäbe es die ggfortify::autoplot(model) funktion
 plot(model)
-
 
 # sieht aus, als ob die Voraussetzungen für eine Anova nur geringfügig verletzt sind
 # mögliche alternativen: 
@@ -252,8 +233,6 @@ plot(model_log)
 # post-hov Vergleiche
 TukeyHSD(model_log) # gibt sehr ähnliche Resultate im Vergleich zum nicht-transformierten Model
 
-
-
 # zeigt die Ergebnisse anhand eines Boxplots
 library(multcomp)
 
@@ -280,6 +259,3 @@ ggsave("distill-preview.png",
        height = 12,
        width = 20,
        device = png)
-
-```{.r .distill-force-highlighting-css}
-```

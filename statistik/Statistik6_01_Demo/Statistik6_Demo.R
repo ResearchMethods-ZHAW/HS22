@@ -1,24 +1,14 @@
-#__________________________________________________________________________
-# Research Methods, Teil Statistik
-# Statistik 6: Demo
-# Statistik6_Demo.R | Version 0.5
-#__________________________________________________________________________
-
-# PCA ---------------------------------------------------------------------
-# Mit Beispieldaten aus Wildi (2013)
-# Idee von Ordinationen aus Wildi p. 73-74
-
 if(!require(labdsv)){install.packages("labdsv")}
 library(labdsv)
-# Für Ordinationen benötigen wir Matrizen, nicht Data.frames
 
+# Für Ordinationen benötigen wir Matrizen, nicht Data.frames
 # Generieren von Daten
 raw <- matrix(c(1, 2, 2.5, 2.5, 1, 0.5, 0, 1, 2, 4, 3, 1), nrow = 6)
 colnames(raw) <- c("spec.1", "spec.2")
 rownames(raw) <- c("r1", "r2", "r3", "r4", "r5", "r6")
 raw
 
-# originale Daten im zweidimensionalen Raum
+# Originale Daten im zweidimensionalen Raum
 x1 <- raw[,1]
 y1 <- raw[,2]
 z <- c(rep(1:6))
@@ -140,8 +130,6 @@ plot(x, y, type = "n", asp = 1, xlim = c(-1, 1), ylim = c(-0.6, 0.6))
 arrows(0,0, x[sel.sp], y[sel.sp], length = 0.08)
 text(x[sel.sp], y[sel.sp], snames, pos = 1, cex = 0.6)
 
-
-# CA ----------------------------------------------------------------------
 ca.1 <- cca(sveg^0.5)
 # Arten (o) und Communities (+) plotten
 plot(ca.1)
@@ -154,8 +142,6 @@ plot(ca.1, display = "species", type = "points")
 ca.1$CA$eig[1:2] / sum(ca.1$CA$eig)
 summary(eigenvals(ca.1))
 
-
-# DCA ---------------------------------------------------------------------
 library(vegan)
 dca.1 <- decorana(sveg, mk = 10)
 plot(dca.1, display = "sites", type = "point")
@@ -163,8 +149,6 @@ plot(dca.1, display = "sites", type = "point")
 dca.2 <- decorana(sveg, mk = 100)
 plot(dca.2, display = "sites", type = "point")
 
-
-# NMDS --------------------------------------------------------------------
 # Distanzmatrix als Start erzeugen
 mde <- vegdist(sveg, method = "euclidean")
 
@@ -185,4 +169,3 @@ plot(mmds$points)
 #Stress = S² = Abweichung der zweidimensionalen NMDS-Lösung von der originalen Distanzmatrix
 stressplot(imds, mde)
 stressplot(mmds, mde)
-

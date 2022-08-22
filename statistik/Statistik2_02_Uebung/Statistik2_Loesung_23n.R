@@ -1,5 +1,5 @@
 # Working directory muss angepasst werden
-kormoran <- read.delim("kormoran.csv", sep = ";", stringsAsFactors = T)  # 
+kormoran <- read.delim("data/kormoran.csv", sep = ";", stringsAsFactors = T)  # 
 
 # Ueberpruefen, ob Einlesen richtig funktioniert hat und welche Datenstruktur vorliegt
 str(kormoran)
@@ -66,5 +66,3 @@ aggregate(Tauchzeit~Unterart, FUN = mean, data = kormoran)
 
 summary(lm(Tauchzeit~Jahreszeit, data = kormoran))
 summary(lm(Tauchzeit~Unterart, data = kormoran))
-```{.r .distill-force-highlighting-css}
-```

@@ -1,10 +1,11 @@
 ---
-title: PrePro3 - Demo - Split-Apply-Combine
+title: "Demo - Split-Apply-Combine"
 author:
   - name: Patrick Laube
   - name: Nils Ratnaweera
   - name: Nikolaos Bakogiannis
-image: distill-preview.png  
+image: distill-preview.png
+description: " "
 categories: PrePro3
 draft: false
 bibliography: bibliography.bib
@@ -36,14 +37,12 @@ df <- data.frame(
   data = c(0, 5, 10, 5, 10, 15, 10, 15, 20)
 )
 
-
 df 
 
 sry <- df %>%
   group_by(key) %>%
   summarise(Summe = sum(data))
 
- 
 sry <- df %>%
   group_by(key) %>%
   summarise(
@@ -77,12 +76,8 @@ summarise(by_cyl_2,mean_mpg = mean(mpg))
 
 Wir laden die Wetterdaten (Quelle MeteoSchweiz) von der letzten Übung.
 
-```{r, echo = FALSE, purl = FALSE}
-download.file("https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro/weather.csv", "weather.csv")
-```
-
 ```{r}
-wetter <- read_csv("weather.csv",
+wetter <- read_csv("data/weather.csv",
                   col_types = cols(
                     col_factor(levels = NULL),    
                     col_datetime(format = "%Y%m%d%H"),

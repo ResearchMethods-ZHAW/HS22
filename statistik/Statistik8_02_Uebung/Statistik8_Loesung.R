@@ -27,14 +27,14 @@ crime.KM4$cluster <- as.factor(crime.KM4$cluster)
 crime.KM4
 str(crime.KM4)
 
-#Agglomerative Clusteranalyse
+# Agglomerative Clusteranalyse
 crime2 <- crime[,-1]
 crime.norm <- decostand(crime2, "normalize")
 crime.ch <- vegdist(crime.norm, "euc")
 # Attach site names to object of class 'dist'
 attr(crime.ch, "Labels") <- crime[,1]
 
-#Ward's minimum variance clustering
+# Ward's minimum variance clustering
 crime.ch.ward <- hclust(crime.ch, method = "ward.D2")
 par(mfrow = c(1, 1))
 plot(crime.ch.ward, labels = crime[,1], main = "Chord - Ward")
@@ -95,7 +95,7 @@ boxplot(Assault~cluster, xlab = "Cluster", ylab = "Assault",  data = crime.KM4)
 mtext(letters$mcletters$Letters, at = 1:6)
 
 ANOVA.Burglary <- aov(Burglary~cluster, data = crime.KM4)
-summary (ANOVA.Burglary)
+summary(ANOVA.Burglary)
 letters <- cld(glht(ANOVA.Burglary, linfct=mcp(cluster = "Tukey")))
 boxplot(Burglary~cluster, data = crime.KM4, xlab = "Cluster", ylab = "Burglary")
 mtext(letters$mcletters$Letters, at=1:6)

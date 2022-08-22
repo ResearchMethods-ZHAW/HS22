@@ -3,8 +3,8 @@ library(dplyr)
 library(ggplot2)
 
 #' ### Aufgabe 1: Vektor Daten runterladen und importieren
-kantone <- read_sf("kantone.gpkg")
-gemeinden <- read_sf("gemeinden.gpkg") 
+kantone <- read_sf("data/kantone.gpkg")
+gemeinden <- read_sf("data/gemeinden.gpkg") 
 
 #' ### Aufgabe 2: Daten Visualisieren
 ggplot(gemeinden) + 

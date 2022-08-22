@@ -1,10 +1,11 @@
 ---
-title: RaumAn1 - Übung B - Spatial Joins
+title: "Übung B - Spatial Joins"
 author:
   - name: Patrick Laube
   - name: Nils Ratnaweera
   - name: Nikolaos Bakogiannis
 image: distill-preview-b.png  
+description: " "
 categories: RaumAn1
 draft: false  
 ---
@@ -14,19 +15,6 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 Für die kommende Übung arbeiten wir mit nachstehendem Datensatz. Lade diesen Herunter und importiere ihn in R.
-
-```{r, echo = FALSE, purl = FALSE, results = "asis"}
-check_download <- function(files, folder, url = "https://github.com/ResearchMethods-ZHAW/datasets/raw/main/"){
-  full_url <- paste0(url,folder,"/",files)
-  exists_bool <- !file.exists(files)
-  if(sum(exists_bool)>0){
-    download.file(full_url[exists_bool],files[exists_bool])
-    }
-  cat(paste0("- [",files,"](",full_url,")"),sep = "\n")
-}
-
-check_download(c("gruental.gpkg"), "rauman")
-```
 
 Zudem brauchen wir die folgenden libraries:
 
@@ -49,10 +37,10 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
 Diese Warnmeldung weist darauf hin, dass das Geopackage `gruental.gpkg` mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl `st_layers` die Layer Namen in Erfahrung und nutze diese im Anschluss in `st_read` (als Argument `layer = `) um die layers einzeln zu importieren und in variablen zu speichern (zB in als Variable `wiesen` und `baeume`).
 
 ```{r include=FALSE}
-st_layers("gruental.gpkg")
+st_layers("data/gruental.gpkg")
 
-wiesen <- read_sf("gruental.gpkg","wiesen")
-baeume <- read_sf("gruental.gpkg", "baeume")
+wiesen <- read_sf("data/gruental.gpkg","wiesen")
+baeume <- read_sf("data/gruental.gpkg", "baeume")
 ```
 
 ### Aufgabe 2: Datensätze erkunden

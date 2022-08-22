@@ -1,27 +1,23 @@
 ---
-title: Musterloesung Beispiel
-output: distill::distill_article
+title: "Beispiel - Lösung"
+author: ???
+image: distill-preview-bsp.png
+description: " "
+categories: Statistik2
 draft: false
-categories:
-- Statistik2
 ---
 
-
-
 ```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
-knitr::purl("solution_Stat_Beispiel.Rmd", "Statistik_2_Solution_Beispiel.R", documentation = 0)
+knitr::purl("Statistik2_Loesung_Beispiel.qmd", "Statistik2_Loesung_Beispiel.R", documentation = 0)
 ```
-
-
 
 ## Musterloesung Beispiel
 - Datensatz [decay.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/statistik/decay.csv)
-- [RCode als Download](Statistik_2_Solution_Beispiel.R)
+- [RCode als Download](Statistik2_Loesung_Beispiel.R)
 - [Loesungstext Beispiel](Statistik_Loesung_Beispiel_v.02.pdf)
 
 **Übungsaufgabe (hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein
 wird)**
-
 
 - Laden Sie den Datensatz decay.csv. Dieser enthält die Zahl radioaktiver Zerfälle pro
 Zeiteinheit (amount) für Zeitpunkte (time) nach dem Start des Experimentes.
@@ -51,12 +47,11 @@ Vorgehen dokumentieren.
     - **Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg
       (Kombination aus R-Code, R Output und dessen Interpretation) und (c)
       ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**
-      
 
 **kommentierter Loesungsweg**
 
 ```{r include=FALSE}
-decay <- read.delim("decay.csv",sep = ",")
+decay <- read.delim("data/decay.csv",sep = ",")
 decay
 ```
 
@@ -94,7 +89,6 @@ plot(lm.1)
 
 Hier zeigen die wichtigen oberen Plots beide massive Abweichungen vom „Soll“. Der Plot oben links zeigt eine „Banane“ und beim Q-Q-Plot oben rechts weichen die Punkte rechts der Mitte alle stark nach oben von der Solllinie ab. Wir haben unser Modell also offensichtlich falsch spezifiziert.
 Um eine Idee zu bekommen, was falsch ist, plotten wir noch, wie das Ergebnis dieses Modells aussähe:
-
 
 **Ergebnisplot**
 
@@ -162,7 +156,6 @@ anova(lm.1, model.quad)
 ```
 
 In der Tat ist das komplexere Modell (jenes mit dem quadratischen Term) höchstsignifikant besser. Jetzt brauchen wir noch die Modelldiagnostik.
-
 
 **Modelldiagnostik**
 

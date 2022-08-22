@@ -3,6 +3,7 @@ knitr::opts_chunk$set(echo = T, collapse=TRUE)
 #export files
 knitr::purl("Demo_GLM.qmd", "Demo_GLM.R", documentation = 0)
 
+
 library(tidyverse)
 
 mytheme <- 
@@ -78,7 +79,6 @@ ggplot(cars, aes(x = hp, y = vs)) +
 
 #Modeldiagnostik (wenn nicht signifikant, dann OK)
 1 - pchisq(glm.binar$deviance,glm.binar$df.resid)  
-
 
 #Modellgüte (pseudo-R²)
 1 - (glm.binar$dev / glm.binar$null)  

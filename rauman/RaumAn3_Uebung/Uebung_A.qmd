@@ -1,12 +1,11 @@
 ---
-title: RaumAn3 - Übung - Morans I
+title: "Übung - Morans I"
 author:
   - name: Patrick Laube
   - name: Nils Ratnaweera
   - name: Nikolaos Bakogiannis
 image: distill-preview.png  
-description: |
-  Heute berechnen wir Moran's I auf verschiedenen Datensätzen und vergleichen die Resultate.  
+description: " "
 categories: RaumAn3
 draft: false  
 ---
@@ -24,22 +23,6 @@ Diese sieht sehr beeindruckend aus, aber wenn wir die Formel in ihre Einzelbesta
 
 Als erster Schritt müssen wir die notwendigen Libraries und Geodaten laden:
 
-```{r, results='asis', echo = FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-
-check_download <- function(files, folder, source = "", url = "https://github.com/ResearchMethods-ZHAW/datasets/raw/main/"){
-  full_url <- paste0(url,folder,"/",files)
-  exists_bool <- !file.exists(files)
-  if(sum(exists_bool)>0){
-    download.file(full_url[exists_bool],files[exists_bool])
-    }
-  cat(paste0("- [",files,"](",full_url,") ",source),sep = "\n")
-}
-
-check_download(c("zweitwohnungsinitiative.gpkg"),"rauman")
-
-```
-
 ```{r, echo = TRUE}
 library(dplyr)
 library(ggplot2)
@@ -48,7 +31,7 @@ library(sf)
 # Das Geopackage beinhaltet 3 Layers (siehe st_layers("zweitwohnungsinitiative.gpkg"))
 # In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene
 # aggregiert. Wir started mit der Aggregationsstufe "kanton"
-zweitwohnung_kanton<- read_sf("zweitwohnungsinitiative.gpkg", "kanton")
+zweitwohnung_kanton<- read_sf("data/zweitwohnungsinitiative.gpkg", "kanton")
 ```
 
 ```{r}
@@ -245,7 +228,7 @@ Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `
 Nun könnt ihr Morans $I$ auf der Ebene der Gemeine oder Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Wenn ihr einen wenig leistungsfähigen Rechner habt, berechnet verwendet besser die Ebene "Berzirke". Importiert dazu den Layer `bezrik` oder `gemeinde` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate.
 
 ```{r, echo = TRUE}
-zweitwohnung_gemeinde <- read_sf("zweitwohnungsinitiative.gpkg", "gemeinde")
+zweitwohnung_gemeinde <- read_sf("data/zweitwohnungsinitiative.gpkg", "gemeinde")
 
 ggplot(zweitwohnung_gemeinde) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +

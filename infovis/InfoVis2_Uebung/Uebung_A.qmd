@@ -1,7 +1,8 @@
 ---
-title: InfoVis2 - Übung A
+title: "Übung A"
 author: ???
 image: distill-preview-a.png
+description: " "
 categories: InfoVis2
 draft: false
 ---
@@ -20,17 +21,8 @@ library(tidyr)
 library(ggplot2)
 ```
 
-```{r purl = FALSE, echo = FALSE}
-if(!file.exists("temperature_2005.csv")){
-  download.file("https://github.com/ResearchMethods-ZHAW/datasets/raw/main/infovis/temperature_2005.csv","temperature_2005.csv")
-  }
-if(!file.exists("temperature_2005_metadata.csv")){
-  download.file("https://github.com/ResearchMethods-ZHAW/datasets/raw/main/infovis/temperature_2005_metadata.csv","temperature_2005_metadata.csv")
-  }
-```
-
 ```{r, message = FALSE}
-temperature <- read_csv("temperature_2005.csv")
+temperature <- read_csv("data/temperature_2005.csv")
 ```
 
 ## Aufgabe 1
@@ -46,7 +38,7 @@ knitr::kable(head(temperature_long))
 Lade anschliessend [temperature_2005_metadata.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/infovis/temperature_2005_metadata.csv) herunter und verbinde die beiden Datensätze mit einem `left_join` via `station` (bzw. `stn`). 
 
 ```{r}
-metadata <- read_csv("temperature_2005_metadata.csv")
+metadata <- read_csv("data/temperature_2005_metadata.csv")
 
 temperature_long <- left_join(temperature_long, metadata, by = c(station = "stn"))
 ```

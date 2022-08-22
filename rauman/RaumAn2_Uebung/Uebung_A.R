@@ -1,27 +1,15 @@
 #' ### Aufgabe 1
 knitr::opts_chunk$set(echo = FALSE)
 
-check_download <- function(files, folder, source = "", url = "https://github.com/ResearchMethods-ZHAW/datasets/raw/main/"){
-  full_url <- paste0(url,folder,"/",files)
-  exists_bool <- !file.exists(files)
-  if(sum(exists_bool)>0){
-    download.file(full_url[exists_bool],files[exists_bool])
-    }
-  cat(paste0("- [",files,"](",full_url,") ",source),sep = "\n")
-}
-
-check_download(c("rotmilan.gpkg","schweiz.gpkg", "luftqualitaet.gpkg"),"rauman")
-
-
 library(sf)
 library(dplyr)
 library(ggplot2)
 
-rotmilan <- read_sf("rotmilan.gpkg")
+rotmilan <- read_sf("data/rotmilan.gpkg")
 
-schweiz <- read_sf("schweiz.gpkg")
+schweiz <- read_sf("data/schweiz.gpkg")
 
-luftqualitaet <- read_sf("luftqualitaet.gpkg")
+luftqualitaet <- read_sf("data/luftqualitaet.gpkg")
 
 ggplot(rotmilan) +
   geom_sf(data = schweiz) +

@@ -1,7 +1,7 @@
 #' ## Aufgabe 1
 library(readr)
 
-sensors_combined <- read_csv("sensors_combined.csv")
+sensors_combined <- read_csv("data/sensors_combined.csv")
 
 sensors_combined$Datetime <- as.POSIXct(sensors_combined$Datetime, format = "%d%m%Y_%H%M")
 

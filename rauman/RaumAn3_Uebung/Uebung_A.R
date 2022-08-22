@@ -1,16 +1,5 @@
 knitr::opts_chunk$set(echo = FALSE)
 
-check_download <- function(files, folder, source = "", url = "https://github.com/ResearchMethods-ZHAW/datasets/raw/main/"){
-  full_url <- paste0(url,folder,"/",files)
-  exists_bool <- !file.exists(files)
-  if(sum(exists_bool)>0){
-    download.file(full_url[exists_bool],files[exists_bool])
-    }
-  cat(paste0("- [",files,"](",full_url,") ",source),sep = "\n")
-}
-
-check_download(c("zweitwohnungsinitiative.gpkg"),"rauman")
-
 library(dplyr)
 library(ggplot2)
 library(sf)
@@ -18,7 +7,7 @@ library(sf)
 # Das Geopackage beinhaltet 3 Layers (siehe st_layers("zweitwohnungsinitiative.gpkg"))
 # In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene
 # aggregiert. Wir started mit der Aggregationsstufe "kanton"
-zweitwohnung_kanton<- read_sf("zweitwohnungsinitiative.gpkg", "kanton")
+zweitwohnung_kanton<- read_sf("data/zweitwohnungsinitiative.gpkg", "kanton")
 
 ggplot(zweitwohnung_kanton) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
@@ -110,7 +99,7 @@ MI <- vr * sw
 MI
 
 #' ## Aufgabe 2: Morans I für Gemeinde oder Bezirke berechnen
-zweitwohnung_gemeinde <- read_sf("zweitwohnungsinitiative.gpkg", "gemeinde")
+zweitwohnung_gemeinde <- read_sf("data/zweitwohnungsinitiative.gpkg", "gemeinde")
 
 ggplot(zweitwohnung_gemeinde) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +

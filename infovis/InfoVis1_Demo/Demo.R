@@ -6,7 +6,7 @@ library(tidyr)
 
 # Wir können den Datensatz direkt über den URL einladen oder aber ihr nutzt den 
 # URL um den Datensatz lokal bei euch abzuspeichern und wie gewohnt einzulesen
-temperature <- read_csv("https://github.com/ResearchMethods-ZHAW/datasets/raw/main/infovis/temperature_SHA_ZER.csv")
+temperature <- read_csv("data/temperature_SHA_ZER.csv")
 
 #' ## Base-plot vs. ggplot
 plot(temperature$time, temperature$SHA, type = "l", col = "red")

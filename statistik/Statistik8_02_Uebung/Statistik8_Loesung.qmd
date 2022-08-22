@@ -1,7 +1,8 @@
 ---
-title: "Statistik 8 - Lösung"
+title: "Lösung"
 author: ???
 image: distill-preview.png
+description: " "
 categories: Statistik8
 draft: false
 ---
@@ -20,7 +21,7 @@ knitr::purl("Statistik8_Loesung.qmd", "Statistik8_Loesung.R", documentation = 0)
 
 *(hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)*
 
-- Ladet den Datensatz crime2.csv. Dieser enthält Raten von 7   Kriminatlitätsformen pro 100000 Einwohner und Jahr für die Bundesstaaten der USA.
+- Ladet den Datensatz crime2.csv. Dieser enthält Raten von 7 Kriminatlitätsformen pro 100000 Einwohner und Jahr für die Bundesstaaten der USA.
 - Führt eine k-means- und eine agglomerative Clusteranalyse eurer Wahl durch. Bitte beachet, dass wegen der sehr ungleichen Varianzen in jedem Fall eine Standardisierung stattfinden muss, damit die Distanzen zwischen den verschiedenen Kriminalitätsraten sinnvoll berechnet werden können.
 - **Überlegt in beiden Fällen, wie viele Cluster sinnvoll sind** (k-means: z. B. visuelle Betrachtung einer PCA, agglomertive Clusteranalyse: z. B. Silhoutte-Plot).
 - Entscheidet euch dann für eine der beiden Clusterungen und vergleicht dann die
@@ -32,7 +33,7 @@ erhaltenen Cluster bezüglich der Kriminalitätsformen und interpretiert die Clu
 
 ### Uebung 8.1 - Clusteranalysen -- Loesung
 
-```{r}
+```{r eval = FALSE}
 crime <- read.csv("data/crime2.csv", sep = ";")
 ```
 ```{r eval=FALSE}
@@ -41,7 +42,7 @@ crime
 
 Im mitgelieferten R-Skript habe ich die folgenden Analysen zunächst mit untransformierten, dann mit standardisierten Kriminalitätsraten berechnet. Ihr könnt die Ergebnisse vergleichen und seht, dass sie sehr unterschiedlich ausfallen.
 
-```{r}
+```{r eval = FALSE}
 crimez <- crime
 crimez[,c(2:8)] <- lapply(crime[, c(2:8)], scale)
 crimez
@@ -50,7 +51,7 @@ crimez
 „scale“ führt eine Standardisierung (z-Transformation) durch, so dass alle Variablen anschiessen einen Mittelwert von 0 und eine SD von 1 haben, ausgenommen natürlich die 1. Spalte mit den Kürzeln der Bundesstaaten.
 Anschliessend wird das SSI-Kriterium getestet und zwar für Partitionierungen von 2 bis 6 Gruppen (wie viele Gruppen man maximal haben will, muss man pragmatisch nach der jeweiligen Fragestelltung entscheiden).
 
-```{r}
+```{r eval = FALSE}
 library(vegan)
 crimez.KM.cascade <- cascadeKM(crimez[,c(2:8)],
                         inf.gr = 2, sup.gr = 6, iter = 100, criterion = "ssi")
@@ -66,7 +67,7 @@ plot(crimez.KM.cascade, sortg = TRUE)
 
 Nach SSI ist die 4-Gruppenlösung die beste, mit dieser wird also weitergerechnet.
 
-```{r}
+```{r eval = FALSE}
 # 4 Kategorien sind nach SSI offensichtlich besonders gut
 modelz <- kmeans(crimez[,c(2:8)], 4)
 modelz
@@ -131,7 +132,7 @@ Damit die Boxplots und die ANOVA direkt interpretierbar sind, werden für diese,
 
 Anschliessend kann man die 7 ANOVAs rechnen, die Posthoc-Vergleiche durchführen und die zugehörigen Boxplots mit Buchstaben für die homogenen Gruppen erzeugen. Sinnvollerweise gruppiert man die Abbildungen gleich, z. B. je 2 x 2. Das Skript ist hier simple für jede Verbrechensart wiederholt. Erfahrenere R-Nutzer können das Ganze hier natürlich durch eine Schleife abkürzen.
 
-```{r}
+```{r eval = FALSE}
 library(multcomp)
 if(!require(multcomp)){install.packages("multcomp")}
 library(multcomp)

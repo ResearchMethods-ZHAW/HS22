@@ -5,10 +5,10 @@ library(sf)
 library(ggplot2)
 
 #' ### Aufgabe 1: Geopackage "Layers"
-st_layers("gruental.gpkg")
+st_layers("data/gruental.gpkg")
 
-wiesen <- read_sf("gruental.gpkg","wiesen")
-baeume <- read_sf("gruental.gpkg", "baeume")
+wiesen <- read_sf("data/gruental.gpkg","wiesen")
+baeume <- read_sf("data/gruental.gpkg", "baeume")
 
 #' ### Aufgabe 2: Datensätze erkunden
 ggplot(wiesen) +

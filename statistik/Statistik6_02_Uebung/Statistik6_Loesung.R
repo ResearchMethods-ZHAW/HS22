@@ -104,4 +104,3 @@ summary(glmq.orig.3)
 
 # Parameterschätzung bleiben gleich, aber Signifikanzen sind niedriger als beim GLM ohne Overdispersion.
 plot(glmq.orig.3)
-

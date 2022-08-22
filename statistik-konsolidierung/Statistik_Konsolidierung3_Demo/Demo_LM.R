@@ -1,6 +1,8 @@
 #export files
 knitr::purl("Demo_LM.qmd", "Demo_LM.R", documentation = 0)
 
+
+
 # für mehr infos
 #https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html
 
@@ -32,7 +34,6 @@ plot(aov.1)
 
 #4. Schaue output an und ordne es ein
 summary.lm(aov.1)
-
 
 #5. bei meheren Kategorien wende einen post-hoc Vergleichstest an
 TukeyHSD(aov.1)
@@ -136,7 +137,6 @@ summary.lm(model)
 library(ggfortify)
 ggplot2::autoplot(model) + mytheme # gitb einige Extremwerte => was tun? (Eingabe/Einlesen 
 #überprüfen, Transformation, Extremwerte nur ausschliessen mit guter Begründung)
-
 
 # erzeuge vorhergesagte Werte und Residualwerte
 cars$predicted <- predict(model)   # bilde neue Variable mit geschätzten y-Werten

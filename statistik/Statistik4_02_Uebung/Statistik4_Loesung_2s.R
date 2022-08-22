@@ -12,7 +12,7 @@ library(readr)
 
 # lade Daten von Zenodo
 # für Informationen zu den einzelnen Variablen, siehe https://zenodo.org/record/3554884/files/2020_ZHAW_vonRickenbach_Variablen_cleaned_recoded_survey_dataset_anonym_NOVANIMAL.pdf?download=1
-nova_survey <- read_delim("https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1", 
+nova_survey <- read_delim("data/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv", 
                           delim = ";",
                           locale = locale(encoding = "Latin1")) 
 
@@ -29,8 +29,6 @@ mytheme <-
     axis.ticks = element_line(size = 1, color = "black"), 
     axis.ticks.length = unit(.5, "cm")
     )
-
-
 
 # Genereiert eine Dummyvariable: Fleisch 1, kein Fleisch 0
 df <- nova_survey %>%  # kopiert originaler Datensatz
@@ -52,7 +50,6 @@ sum(is.na(df$mensa))
 # schaut euch die Missings an in den Prädiktorvariablen "Alter", "Geschlecht", "Hochschulzugehörigkeit", "Umwelteinstellung"
 
 Amelia::missmap(df) 
-
 
 # vieles deutet darauf hin, dass die missings (fehlende Werte) 
 # zufällig zustande gekommen sind (sog. MCAR); für mehr Informationen: https://uvastatlab.github.io/2019/05/01/getting-started-with-multiple-imputation-in-r/
@@ -83,7 +80,6 @@ summary.lm(mod1)
 
 #Modellgüte (pseudo-R²)
 1 - (mod1$dev / mod1$null) # eher kleines pseudo-R2, deckt sich mit dem R-Squared aus dem obigen output summary.lm()
-
 
 # Konfusionsmatrix vom  Datensatz
 # Model Vorhersage
@@ -138,11 +134,9 @@ km
 mf <- 1-sum(diag(km)/sum(km)) # ist mit knapp 23 %  eher hoch
 mf
 
-
 # kleiner exkurs: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2636062/
 # col wise proportion, da diese die "realität" ist
 km_prop <- prop.table(km,2)
-
 
 # specificity = a / (a+c) => ability of a test to correctly 
 # classify an individual as disease-free is called the test′s specificity

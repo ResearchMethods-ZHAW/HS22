@@ -2,7 +2,7 @@ library(dplyr)
 library(ggplot2)
 library(readr)
 
-kanton <- read_csv("https://github.com/ResearchMethods-ZHAW/datasets/raw/main/infovis/tagi_data_kantone.csv") 
+kanton <- read_csv("data/tagi_data_kantone.csv") 
 
 #' ## Aufgabe 1
 # Lösung zu Aufgabe 1
@@ -22,7 +22,7 @@ plot1 +
 
 #' ## Aufgabe 3
 # Lösung zu Aufgabe 3
-gemeinde <- read_csv("https://github.com/ResearchMethods-ZHAW/datasets/raw/main/infovis/tagi_data_gemeinden.csv")
+gemeinde <- read_csv("data/tagi_data_gemeinden.csv")
 
 plot2 <- ggplot(gemeinde, aes(anteil_ausl, anteil_ja)) +
   geom_point() +

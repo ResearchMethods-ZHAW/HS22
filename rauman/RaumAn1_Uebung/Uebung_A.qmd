@@ -1,10 +1,11 @@
 ---
-title: RaumAn1 - Übungen A - Einführung
+title: "Übungen A - Einführung"
 author:
   - name: Patrick Laube
   - name: Nils Ratnaweera
   - name: Nikolaos Bakogiannis
-image: distill-preview-a.png  
+image: distill-preview-a.png
+description: " "
 categories: RaumAn1
 draft: false  
 ---
@@ -23,26 +24,11 @@ library(ggplot2)
 
 Lade zunächst die Datensätze unter folgenden Links herunter:
 
-```{r, echo = FALSE, purl = FALSE, results = "asis"}
-knitr::opts_chunk$set(echo = FALSE)
-
-check_download <- function(files, folder, source = "", url = "https://github.com/ResearchMethods-ZHAW/datasets/raw/main/"){
-  full_url <- paste0(url,folder,"/",files)
-  exists_bool <- !file.exists(files)
-  if(sum(exists_bool)>0){
-    download.file(full_url[exists_bool],files[exists_bool])
-    }
-  cat(paste0("- [",files,"](",full_url,") ",source),sep = "\n")
-}
-
-check_download(c("kantone.gpkg","gemeinden.gpkg"), "rauman", "(Quelle: [Swisstopo](https://www.swisstopo.admin.ch/en/geodata/landscape/boundaries3d.html))")
-```
-
 Es handelt sich um Geodatensätze im Format Geopackage ("\*.gpkg"), eine alternatives Datenformat zum bekannteren Format "Shapefiles". Importiere die Datensätze wie folgt:
 
 ```{r, echo = TRUE}
-kantone <- read_sf("kantone.gpkg")
-gemeinden <- read_sf("gemeinden.gpkg") 
+kantone <- read_sf("data/kantone.gpkg")
+gemeinden <- read_sf("data/gemeinden.gpkg") 
 ```
 
 Schau Dir die importierten Datensätze an. Am meisten Informationen zu `sf` Objekten bekommst du, wenn du dir den Datensatz **in der Konsole** anschaust (in dem du den Variabel-Name in der Konsole eintippst). Mit dem RStudio Viewer werden `sf` Objekte nur sehr langsam geladen und die Metadaten werden nicht angezeigt.
@@ -51,7 +37,7 @@ Schau Dir die importierten Datensätze an. Am meisten Informationen zu `sf` Obje
 
 Vektordaten (`sf` Objekte) lassen sich teilweise sehr schön in die bekannten Tidyverse workflows integrieren. Das merkt man schnell, wenn man die Daten visualisieren möchte. In InfoVis 1 & 2 haben wir intensiv mit `ggplot2` gearbeitet und dort die Layers `geom_point()` und `geom_line()` kennen gelernt. Zusätzlich beinhaltet `ggplot` die Möglichkeit, mit `geom_sf()` Vektordaten direkt und sehr einfach zu plotten. Führe die angegebenen R-Befehle aus und studiere die entstehenden Plots. Welche Unterschiede findest Du? Wie erklärst Du diese Unterschiede?
 
-```{r echo = TRUE}
+```{r echo = TRUE, eval=FALSE}
 ggplot(gemeinden) + 
   geom_sf()
 
@@ -126,7 +112,7 @@ Vor der Transformation (betrachte die Attribute `Bounding box` sowie `Geodetic C
 kantone
 ```
 
-```{r}
+```{r, eval = FALSE}
 kantone <- st_transform(kantone, 2056)
 ```
 

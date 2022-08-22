@@ -6,14 +6,14 @@ library(lubridate)
 library(tidyr)
 library(ggplot2)
 
-temperature <- read_csv("temperature_2005.csv")
+temperature <- read_csv("data/temperature_2005.csv")
 
 #' ## Aufgabe 1
 temperature_long <- pivot_longer(temperature, -time, names_to = "station", values_to = "temperature")
 
 knitr::kable(head(temperature_long))
 
-metadata <- read_csv("temperature_2005_metadata.csv")
+metadata <- read_csv("data/temperature_2005_metadata.csv")
 
 temperature_long <- left_join(temperature_long, metadata, by = c(station = "stn"))
 

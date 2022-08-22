@@ -7,7 +7,7 @@ library(stringr)
 
 #' ## Aufgabe 1
 # Variante 1
-wetter <- read_csv("weather.csv")
+wetter <- read_csv("data/weather.csv")
 wetter$stn <- as.factor(wetter$stn)
 wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H", tz = "UTC")
 
@@ -21,7 +21,7 @@ wetter <- read_csv("weather.csv",
                   )
 
 #' ## Aufgabe 2
-metadata <- read_delim("https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro/metadata.csv", delim = ";", locale = locale(encoding = "UTF-8"))
+metadata <- read_delim("data/metadata.csv", delim = ";", locale = locale(encoding = "UTF-8"))
 
 #' ## Aufgabe 3
 # 1. Schritt

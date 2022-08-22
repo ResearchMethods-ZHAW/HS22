@@ -1,7 +1,8 @@
 ---
-title: "Statistik 5 - Demo"
+title: "Demo"
 author: ???
 image: distill-preview.png
+description: " "
 categories: Statistik5
 draft: false
 ---
@@ -14,7 +15,7 @@ draft: false
 ## Split-plot ANOVA
 Based on Logan (2010), Chapter 14
 
-```{r}
+```{r eval=FALSE}
 spf <- read.delim("data/spf.csv", sep = ";") 
 spf.aov <- aov(Reaktion~Signal * Messung + Error(VP), data = spf)
 summary(spf.aov)
@@ -40,7 +41,7 @@ summary(spf.lme.2)
 ## GLMM
 Based on Zuur et al. (2009), chapter 13
 
-```{r}
+```{r eval=FALSE}
 DeerEcervi <- read.delim("data/DeerEcervi.txt", sep = "", stringsAsFactors = T)
 
 
@@ -54,7 +55,7 @@ DeerEcervi$fSex <- as.factor(DeerEcervi$Sex)
 
 Hirschlänge hier standardisiert, sonst würde der Achsenabschnitt im Modell für einen Hirsch der Länge 0 modelliert, was schlecht interpretierbar ist, jetzt ist der Achsenabschnitt für einen durschnittlich langen Hirsch
 
-```{r}
+```{r eval=FALSE}
 DeerEcervi$CLength <- DeerEcervi$Length - mean(DeerEcervi$Length)
 
 # Zunächst als GLM
@@ -86,7 +87,7 @@ for (j in AllFarms){
 
 ## GLMM
 
-```{r}
+```{r eval=FALSE}
 if(!require(MASS)){install.packages("MASS")}
 library(MASS)
 DE.PQL <- glmmPQL(Ecervi.01 ~ CLength * fSex,

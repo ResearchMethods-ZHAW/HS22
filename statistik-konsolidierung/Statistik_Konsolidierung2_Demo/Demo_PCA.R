@@ -1,4 +1,3 @@
-
 #Beispiel inspiriert von Luke Hayden: https://www.datacamp.com/community/tutorials/pca-analysis-r
 
 #Ausgangslage: viel zusammenhängende Variablen
@@ -16,7 +15,6 @@ cor
 #definiere Datei für PCA
 cars <- mtcars[,c(1:7,10,11)]
 
-
 # pca
 # achtung unterschiedliche messeinheiten, wichtig es muss noch einheitlich transfomiert werden
 library(FactoMineR) # siehe Beispiel hier: https://www.youtube.com/watch?v=vP4korRby0Q
@@ -27,13 +25,13 @@ summary(o.pca) # generiert auch automatische plots
 
 
 # plote das ganze
+library(devtools)
+install_github("vqv/ggbiplot")
 library(ggbiplot)
 ggbiplot(o.pca,choices = c(1,2))
 
 # nehme noch die autonamen hinzu
 ggbiplot(o.pca, labels=rownames(mtcars), choices = c(1,2)) # (+ mytheme) # choice gibt die axen an
-
-
 
 library(vegan)
 
@@ -53,8 +51,6 @@ plot(x,y)
 
 #Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird
 o.ca$CA$eig[1:8]/sum(o.ca$CA$eig)
-
-
 
 #Distanzmatrix als Start erzeugen
 library(MASS)
@@ -83,8 +79,6 @@ plot(o.mdm.vegan$points)
 #Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
 vegan::stressplot(o.mde.vegan, mde)
 vegan::stressplot(o.mde.mass, mde)
-
-
 
 #Mit Beispieldaten aus Wildi (2013, 2017)
 library(labdsv)
@@ -140,9 +134,7 @@ text(x[sel.sp],y[sel.sp],snames,pos=1,cex=0.6)
 # https://stats.stackexchange.com/questions/222/what-are-principal-component-scores
 # https://stats.stackexchange.com/questions/102882/steps-done-in-factor-analysis-compared-to-steps-done-in-pca/102999#102999
 
-
 #Idee von Ordinationen aus Wildi p. 73-74
-
 
 #Für Ordinationen benötigen wir Matrizen, nicht Data.frames
 #Generieren von Daten
@@ -155,7 +147,6 @@ raw
 x1 <- raw[,1]
 y1 <- raw[,2]
 z <- c(rep(1:6))
-
 
 #Plot Abhängigkeit der Arten vom Umweltgradienten
 plot(c(x1, y1)~c(z,z), type="n", axes=T, bty="l", las=1, xlim=c(1,6), ylim=c(0,5),
@@ -181,7 +172,6 @@ points(y1~x1, pch=21, type="b", col="green", lwd=2)
 points(y2~x2, pch=16, type="b",col="red", lwd=2)
 points(y3~x3, pch=17, type="b", col="blue", lwd=2)
 
-
 #zusammengefasst:-------
 
 #Durchführung der PCA
@@ -196,7 +186,6 @@ pca$loadings
 #Erklärte Varianz der Achsen in Prozent
 E <- pca$sdev^2/pca$totdev*100
 E
-
 
 ### excurs für weitere r-packages####
 
@@ -226,7 +215,6 @@ o.ca1 <- CA(sveg^0.5) #package FactoMineR
 plot(o.ca)
 summary(o.ca1)
 
-
 #Nur Arten plotten
 x<-o.ca$CA$u[,1]
 y<-o.ca$CA$u[,2]
@@ -234,7 +222,6 @@ plot(x,y)
 
 #Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird
 o.ca$CA$eig[1:63]/sum(o.ca$CA$eig)
-
 
 #NMDS----------
 
@@ -257,6 +244,3 @@ plot(o.mmds$points)
 #Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
 stressplot(o.imds,mde)
 stressplot(o.mmds,mde)
-
-```{.r .distill-force-highlighting-css}
-```

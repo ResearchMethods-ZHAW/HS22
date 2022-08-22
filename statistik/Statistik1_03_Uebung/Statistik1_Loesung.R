@@ -1,6 +1,8 @@
 #export files
 knitr::purl("Statistik1_Loesung.qmd", "Statistik1_Loesung.R", documentation = 0)
 
+
+
 # Als eine Möglichkeit, die Aufgabe 1.1 zu bearbeiten, nehmen wir hier den 
 # Datensatz  der Gästebefragung NOVANIMAL und gehen der folgenden Frage nach: 
 # Gibt es einen Zusammenhang zwischen Geschlecht und dem wahrgenommenen 
@@ -72,3 +74,4 @@ t_test <- t.test(tot_sold ~ condit, data=df, var.equl = T)
 #alternative Formulierung
 t.test(df[df$condit == "Basis", ]$tot_sold, 
                  df[df$condit == "Intervention", ]$tot_sold) 
+

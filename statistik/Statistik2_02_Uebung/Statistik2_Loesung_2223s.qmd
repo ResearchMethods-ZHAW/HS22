@@ -1,17 +1,18 @@
 ---
-title: "Statistik 2 - Übung 2.2 & 2.3s - Lösung"
-author: 
-  - Gian-Andrea Egeler
+title: "Übung 2.2 & 2.3s - Lösung"
+author: Gian-Andrea Egeler
 image: distill-preview-2223s.png
+description: " "
 categories: Statistik2
+draft: false
 ---
 
 ```{r, echo = FALSE, results='hide', message=FALSE}
 # für export loesung aufgabe 2
-knitr::purl("solution_stat2.2_2.3s.Rmd", "Solution_stat2.2_2.3s.R", documentation = 0)
+knitr::purl("Statistik2_Loesung_2223s.qmd", "Statistik2_Loesung_2223s.R", documentation = 0)
 ```
 
-> Download [R-Skript](Solution_stat2.2_2.3s.R)
+> Download [R-Skript](Statistik2_Loesung_2223s.R)
 
 # Musterlösung Übung 2.2
 
@@ -36,14 +37,9 @@ mytheme <-
     axis.ticks = element_line(size = .75, color = "black"), 
     axis.ticks.length = unit(.5, "cm")
     )
-
-
 ```
 
-
-
 ```{r, message=FALSE}
-
 df <- nova # klone den originaler Datensatz
 
 # fasst die vier Inhalte der Gerichte zu drei Inhalten zusammen.
@@ -69,7 +65,6 @@ df %>%
   purrr::map(~ psych::describe(.$tot_sold)) # mit map können andere Funktionen 
 # auf den Datensatz angewendet werden (alternative Funktionen sind aggregate oder apply)
 
-
 # Boxplot
 ggplot(df, aes(x = label_content, y= tot_sold)) +
   # Achtung: Reihenfolge spielt hier eine Rolle!
@@ -90,7 +85,6 @@ summary.lm(model)
 # überprüft die Modelvoraussetzungen
 par(mfrow = c(2,2))
 plot(model)
-
 ```
 <br> 
 **Fazit**: Inspektion der Modellvoraussetzung zeigt klare Verletzungen des Residualplots (zeigt einen "Trichter", siehe Skript Statistik 2), D.h. die Voraussetzung der Homoskedastizität sind verletzt. Mögliche nächste Schritte:
@@ -102,7 +96,6 @@ plot(model)
 <br>
 
 ```{r}
-
 # überprüft die Voraussetzungen des Welch-Tests:
 # Gibt es eine hohe Varianzheterogenität und ist die relative Verteilung der 
 # Residuen gegeben? (siehe Statistik 2)
@@ -136,19 +129,15 @@ TukeyHSD(model_log) # (vgl. Statistik 2)
 10^(model_log$coefficients[1] + model_log$coefficients[3])
 ```
 
-
-
 ## Methoden
 
 Ziel war es, die Unterschiede in den wöchentlichen Verkaufszahlen pro Menüinhalt aufzuzeigen. Da die Responsevariable (Verkaufszahlen) "metrisch" und die Prädiktorvariable kategorial sind, wurde eine einfaktorielle ANOVA gerechnet. 
 Die visuelle Inspektion des Modells zeigte insbesondere schwere Verletzungen der Homoskedastizität. Der Boxplot bestätigt dieser Befund. 
 Weil die Voraussetzungen schwer verletzt sind, wurde eine log-Transformation der Responsevariable vorgenommen. Anschliessend wurde erneut eine ANOVA gerechnet und die Modelvoraussetzungen visuell inspiziert: Homoskedastizität und Normalverteilung der Residuen sind gegeben. Für mehr Informatinen zu log-Transformationen und Darstellung der Ergebnisse findet ihr [hier](https://dzchilds.github.io/stats-for-bio/data-transformations.html#presenting-results-from-analyses-of-transformed-data)
 
-
 ## Ergebnisse
 
 Die Menüinhalte (Fleisch, Vegetarisch und Buffet) unterscheiden sich in den wöchentlichen Verkaufszahlen signifikant (F(2,15) = `r round(summary.lm(model_log)[[10]]["value"][[1]], 2)`, p < .001). Die Abbildung 1 zeigt die wöchentlichen Verkaufszahlen pro Menüinhalt.
-
 
 ```{r, echo=F, fig.cap="Die wöchentlichen Verkaufzahlen unterscheiden sich je nach Menüinhalt stark. Das Modell wurde mit den log-tranformierten Daten gerechnet.", tidy=TRUE}
 
@@ -185,26 +174,18 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
 # ermöglichen signifikante Ergebniss in den Plot zu integrieren
 # https://www.r-bloggers.com/add-p-values-and-significance-levels-to-ggplots/
 # https://cran.r-project.org/web/packages/ggsignif/vignettes/intro.html
-  
-   
 ```
 
 
 # Musterlösung Übung 2.3S (SozWis)
 
 ******
-
 - **Lese-Empfehlung** Kapitel 7 von [Manny Gimond](https://mgimond.github.io/Stats-in-R/ANOVA.html)
-
-
 ******
-
 
 ## kommentierter Lösungsweg
 
 ```{r, message=FALSE, echo=FALSE, results='hide', warning=FALSE}
-
-
 ## ladet die nötigen Packete und die novanimal.csv Datei in R
 nova <- read_delim("https://zenodo.org/record/3890949/files/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv?download=1", delim = ";")
 
@@ -220,9 +201,7 @@ nova <- read_delim("https://zenodo.org/record/3890949/files/2017_ZHAW_individual
 #     axis.ticks.length = unit(.5, "cm")
 #     )
 
-
 ```
-
 
 ```{r, message=FALSE}
 # klone den originaler Datensatz
@@ -237,7 +216,6 @@ df %<>% # schaut euch das Package "magrittr" an
   #  fasse die zwei Menülinien "World & Favorite" zusammen
   mutate(article_description = str_replace_all(article_description, "Favorite|World",
                                                "Fav_World"))  
-
 # gruppiere Daten nach Menülinie, Geschlecht und Hochschulzugehörigkeit
 df %<>%
     group_by(article_description, member, week) %>% 
@@ -255,7 +233,6 @@ df %>%
   # (alternative Funktionen sind aggregate oder apply)
   purrr::map(~ psych::describe(.$tot_sold)) 
 
-
 # visualisiere dir dein Model, was siehst du? 
 # sind möglicherweise gewiesse Voraussetzungen verletzt?
 # Boxplot
@@ -272,12 +249,10 @@ ggplot(df, aes(x = interaction(article_description, member), y= tot_sold)) +
                    labels = c("Fav_World\nMitarbeitende", "Fav_World\nStudierende",
                               "Kitchen\nMitarbeitende",  "Kitchen\nStudierende")) +
   mytheme # wie sind die Voraussetzungen erfüllt?
-
 ```
 
 
 ```{r}
-
 # definiert das Modell (Skript Statistik 2)
 model <- aov(tot_sold ~ article_description * member, data = df)
 
@@ -286,10 +261,7 @@ summary.lm(model)
 # überprüft die Modelvoraussetzungen (Statistik 2)
 par(mfrow = c(2,2)) # alternativ gäbe es die ggfortify::autoplot(model) funktion
 plot(model)
-
 ```
-
-
 
 **Fazit**: Die Inspektion des Modells zeigt kleinere Verletzungen bei der Normalverteilung der Residuen (Q-Q Plot). Aufgrund keiner starken Verbesserung durch eine Transformation der Responsevariable, entscheide ich mich für eine ANOVA ohne log-tranformierten Responsevariablen (AV).
 
@@ -321,7 +293,6 @@ plot(model_log)
 
 # post-hov Vergleiche
 TukeyHSD(model_log) # gibt sehr ähnliche Resultate im Vergleich zum nicht-transformierten Model
-
 ```
 
 *******
@@ -337,15 +308,11 @@ Kleiner Exkurs: Verkaufsdaten sind Zähldaten und perse binomial-Verteilt, da es
 * Wie weit ist der Mittelwert von "Null entfernt"? -> Wenn ja uns keine Voraussetzungen zur Normalverteilung gibt, kann auch eine Normalverteilung angenommen werden
 * Beinhalten die Daten viele "Null's"? -> Wenn ja muss eine spezielle binomial Verteilung angenommen werden, z.B. negative binomiale Transformation mit GLM (see Skript XY)
 
-
-
 ## Ergebnisse
 
 Die wöchentlichen Verkaufszahlen der Menülinien unterscheiden sich nach Hochschulzugehörigkeit signifikant (F(3,44) = `r round(summary.lm(model_log)[[10]]["value"][[1]], 2)`, p < .001). Inhaltich bedeutet dies, dass Studierende signifikant häufiger die preisgünstigere Menülinie "Favorite & World" als Mitarbeitende kaufen. Entgegen der Annahme gibt es aber keine signifikanten Unterschiede zwischen Studierende und Mitarbeitende bei dem Kauf der teureren Menülinie "Kitchen". Über die möglichen Gründe können nur spekuliert werden, hierfür bedarf es weiteren Analysen z.B. mit dem Prädiktor "Menüinhalt".
 
-
 ```{r , message=F, echo=F, fig.cap="Box-Whisker-Plots der wöchentlichen Verkaufszahlen pro Menü-Inhalte. Kleinbuchstaben bezeichnen homogene Gruppen auf *p* < .05 nach Tukeys post-hoc-Test."}
-
 # zeigt die Ergebnisse anhand eines Boxplots
 library(multcomp)
 
@@ -372,6 +339,4 @@ ggsave("distill-preview.png",
        height = 12,
        width = 20,
        device = png)
-
 ``` 
-

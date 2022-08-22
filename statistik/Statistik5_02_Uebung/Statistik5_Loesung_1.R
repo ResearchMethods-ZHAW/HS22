@@ -23,7 +23,6 @@ aov.2 <- aov(yield ~ irrigation + density + fertilizer + irrigation:density +
                irrigation:fertilizer + density:fertilizer + Error(block/irrigation/density), data = splityield)
 summary(aov.2)
 
-
 aov.3 <- aov(yield ~ irrigation + density + fertilizer + irrigation:density + 
                irrigation:fertilizer+ Error(block/irrigation/density), data = splityield)
 summary(aov.3)

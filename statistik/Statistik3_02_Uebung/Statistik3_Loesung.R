@@ -1,5 +1,5 @@
 # Aus der Excel-Tabelle wurde das relevante Arbeitsblatt als csv gespeichert
-ukraine <- read.delim("data/Ukraine_bearbeitet.csv", sep=";")
+ukraine <- read.delim("data/Ukraine_bearbeitet.csv", sep = ",")
 
 ukraine
 
@@ -29,7 +29,6 @@ write.table(cor, file = "Corrleation.csv", sep = ";", dec = ".", col.names = NA)
 
 global.model <- lm(Species_richness ~ Inclination + Heat_index + Microrelief + Grazing_intensity +
                     Litter + Stones_and_rocks + Gravel + Fine_soil + pH + CaCO3 + C_org + CN_ratio + Temperature, data = ukraine)
-
 
 # Multimodel inference
 if(!require(MuMIn)){install.packages("MuMIn")}

@@ -1,11 +1,3 @@
-#__________________________________________________________________________
-# Research Methods, Teil Statistik
-# Statistik 8: Demo
-# Statistik8_Demo.R | Version 0.5
-#__________________________________________________________________________
-
-
-# k-means clustering ------------------------------------------------------
 # das Moordatenset aus Wildi...
 if(!require(dave)){install.packages("dave")}
 library(dave)
@@ -13,7 +5,6 @@ pca <- rda(sveg^0.25, scale = TRUE)
 ca <- cca(sveg^0.5)
 
 kmeans.1 <- kmeans(sveg, 4)
-
 kmeans.1
 plot(ca, type = "n")
 points(ca, display = "sites", col = kmeans.1[[1]])
@@ -34,10 +25,6 @@ KM.cascade$partition
 # k-means visualisation
 plot(KM.cascade, sortg = TRUE)
 
-
-# Agglomarative Clusteranalyse --------------------------------------------
-#mit Daten und Skripten aus Borcard
-
 load("data/Doubs.RData")  
 # Remove empty site 8
 spe <- spe[-8, ]
@@ -45,9 +32,7 @@ env <- env[-8, ]
 spa <- spa[-8, ]
 latlong <- latlong[-8, ]
 
-
-# Dendogramme berechnen und ploten ----------------------------------------
-## Hierarchical agglomerative clustering of the species abundance data
+## Hierarchical agglomerative clustering of the species abundance 
 
 # Compute matrix of chord distance among sites
 spe.norm <- decostand(spe, "normalize")
@@ -102,8 +87,6 @@ plot(spe.ch.beta3,  labels = rownames(spe),  main = "Chord - Beta-flexible (beta
 spe.ch.ward <- hclust(spe.ch, method = "ward.D2")
 plot(spe.ch.ward, labels = rownames(spe), main = "Chord - Ward")
 
-
-# Cophenetic correlations -------------------------------------------------
 # Single linkage clustering
 spe.ch.single.coph <- cophenetic(spe.ch.single)
 cor(spe.ch, spe.ch.single.coph)
@@ -157,8 +140,6 @@ lines(lowess(spe.ch, spe.ch.ward.coph), col = "red")
 ## Select a dendrogram (Ward/chord) and apply three criteria
 ## to choose the optimal number of clusters
 
-
-# Optimal number of clusters ----------------------------------------------
 # Choose and rename the dendrogram ("hclust" object)
 hc <- spe.ch.ward
 # hc <- spe.ch.beta2
@@ -249,8 +230,6 @@ axis(1,k.best,paste("optimum", k.best, sep = "\n"),
 points(k.best,max(ng), pch = 16, col = "red", cex = 1.5)
 text(28, 0.98, "b", cex = 1.8)
 
-
-# Final dendrogram with the selected clusters -----------------------------
 # Choose the number of clusters
 k <- 4
 # Silhouette plot of the final partition
@@ -288,8 +267,6 @@ hcoplot(spe.ch.ward, spe.ch, lab = rownames(spe), k = 4)
 source("drawmap.R")
 drawmap(xy = spa, clusters = spech.ward.g, main = "Four Ward clusters along the Doubs River")
 
-
-# Miscellaneous graphical outputs -----------------------------------------
 # konvertieren von "hclust" Objekt in ein Dendogram Objekt
 dend <- as.dendrogram(spe.ch.ward)
 

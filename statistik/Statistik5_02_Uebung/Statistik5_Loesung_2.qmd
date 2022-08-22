@@ -1,6 +1,7 @@
 ---
-title: "Statistik 5 - Übung 2 - Lösung"
+title: "Übung 2 - Lösung"
 author: Gian-Andrea Egeler
+description: " "
 categories: Statistik5
 draft: false
 ---
@@ -27,7 +28,7 @@ library(stringr)
 library(ggfortify)
 library(lme4)
 
-nova <- read_delim("https://zenodo.org/record/3890949/files/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv?download=1", delim = ";", locale = locale(encoding = "latin1"))
+nova <- read_delim("data/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv", delim = ";", locale = locale(encoding = "latin1"))
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 mytheme <- 
@@ -42,17 +43,16 @@ mytheme <-
 
 ```
 
-```{r, error=FALSE}
+```{r, error=FALSE, eval=FALSE}
 df <- nova # kopiert originaler Datensatz
 
 # Genereiert eine Dummyvariable: Fleisch 1, kein Fleisch 0
-df %<>%
+df %>%
   # entfernt Personen die sich ein Buffet Teller gekauft
   filter(label_content != "Hot and Cold") %>%
   # ihr könnt keine Angabe vernachlässigen, sind (nur) 54 Personen
   filter(age_group != "keine Angaben") %>% 
-  mutate(label_content = str_replace_all(.$label_content, 
-                                         c("Fisch|Geflügel"),"Fleisch")) %>%   
+  mutate(label_content = str_replace_all(.$label_content, c("Fisch|Geflügel"),"Fleisch")) %>%   
   mutate(meat = if_else(.$label_content == "Fleisch", 1, 0)) %>%
   # setzt andere Reihenfolge für die Hochschulzugehörigkeit, nur für die Interpretation
   # nützlich: neu Referenzkategorie Studierende (vorher Mitarbeitende)
@@ -72,7 +72,7 @@ table(df$meat) # gibt die absoluten werte an
 #check out ICC: https://www.datanovia.com/en/lessons/intraclass-correlation-coefficient-in-r/
 #however data needs to be wide format
 #not working yet
-df %>% dplyr::select(ccrs, label_content) %>% tidyr::pivot_wider(names_from = "ccrs", values_fill = "label_content") -> tt
+#df %>% dplyr::select(ccrs, label_content) %>% tidyr::pivot_wider(names_from = "ccrs", values_fill = "label_content") -> tt
 
 library(lme4)
 #dauert ein paar sekunden
@@ -118,7 +118,7 @@ Die Responsevariable “Fleischkonsum” ist eine binäre Variable. Demnach wird
 
 Das Geschlecht und das Alter nehmen einen signifikanten Einfluss auf den Fleischkonsum (siehe Table 1): Männer kaufen signifikant häufiger ein fleischhaltiges Gericht als Frauen; junge Personen (15 bis 25-jährig) kaufen signifikant häufiger ein fleischhaltiges Gericht in der Mensa. Es sieht so aus, als ob die Hochschulzugehörigkeit auf den ersten Blick keinen Einfluss nimmt. Aber man müsste auch die Interaktion zwischen Geschlecht und Hochschulzugehörigkeit berücksichtigen, um ein abschliessendes Bild zu bekommen. Das kleine marginale Pseudo-R^2 zeigt auf, dass es nicht das "beste" Modell ist. Insbesondere die tiefe Varianzaufklärung für die randomisierte Variable (r2c; ccrs) scheint mit (nur) 4% sehr gering. Das sind Hinweise dafür, dass das Modell ggf. noch weitere Ebenen haben könnte (z.B. Standort Mensa).
 
-```{r, message=FALSE, echo=FALSE}
+```{r, message=FALSE, echo=FALSE, eval=FALSE}
 #replace rownames
 rownames(tab1) <-  c("Intercept", "Männer", "Mitarbeitende",
                             "26 bis 34-jährig", "35 bis 49-jährig",
@@ -132,7 +132,7 @@ knitr::kable(tab1, col.names = c("Coefficients", "Lower Limit (LL)", "Uppewr Lim
 
 Die Chance, dass Männer ein fleischhaltiges Gericht kaufen ist 2.36mal (+136%) höher als bei Frauen (siehe Table 2). Die Chance, dass 26 bis 34-jährige Personen ein fleischhaltiges Gericht kaufen ist kleiner (-21%) als bei den 15 bis 25-jährigen Personen.
 
-```{r, message=FALSE, echo=FALSE}
+```{r, message=FALSE, echo=FALSE, eval=FALSE}
 # ersetze row names
 rownames(tab2) <-  c("Intercept", "Männer", "Mitarbeitende",
                             "26 bis 34-jährig", "35 bis 49-jährig",

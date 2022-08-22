@@ -1,4 +1,4 @@
-SAR <- read.delim("SAR.csv", sep = ";")
+SAR <- read.delim("data/SAR.csv", sep = ";")
 
 SAR
 
@@ -68,5 +68,3 @@ plot(SAR$area, SAR$richness)
 abline(lm.1, col="red")
 lines(xv, yv1a, col="blue")
 lines(10^xv, 10^yv1b, col="green")
-```{.r .distill-force-highlighting-css}
-```

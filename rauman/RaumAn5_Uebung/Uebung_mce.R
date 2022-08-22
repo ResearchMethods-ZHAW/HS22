@@ -6,17 +6,17 @@ library(tmap)
 
 ## ----solutionEx1, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE--------------------------
 #Vector data
-kt_schwyz <- read_sf("Untersuchungsgebiet_Schwyz.gpkg")
-settlements <- read_sf("Bewohnte_Flaeche.gpkg")
-forests <- read_sf("Waldgebiete.gpkg")
-protected_areas <- read_sf("Nationale_Schutzgebiete.gpkg")
-lakes <- read_sf("Seeflaechen.gpkg")
-streets <- read_sf("Strassen.gpkg") %>% st_intersection(kt_schwyz) #intersect with study area
+kt_schwyz <- read_sf("data/Untersuchungsgebiet_Schwyz.gpkg")
+settlements <- read_sf("data/Bewohnte_Flaeche.gpkg")
+forests <- read_sf("data/Waldgebiete.gpkg")
+protected_areas <- read_sf("data/Nationale_Schutzgebiete.gpkg")
+lakes <- read_sf("data/Seeflaechen.gpkg")
+streets <- read_sf("data/Strassen.gpkg") %>% st_intersection(kt_schwyz) #intersect with study area
 
 #Raster data
-eis25m <- rast("eis25m.tif")
-dhm25m <- rast("dhm25m.tif")
-wind25m <- rast("wind25m.tif")
+eis25m <- rast("data/eis25m.tif")
+dhm25m <- rast("data/dhm25m.tif")
+wind25m <- rast("data/wind25m.tif")
 
 ## ----message=FALSE, warning=FALSE, include=FALSE---------------------------------------------------
 #Plot vector data

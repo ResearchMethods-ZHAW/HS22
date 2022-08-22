@@ -1,13 +1,3 @@
-#__________________________________________________________________________
-# Research Methods, Teil Statistik
-# Statistik 7: Demo
-# Statistik7_Demo.R | Version 0.6
-#__________________________________________________________________________
-
-
-# #Interpretation von Ordinationen ----------------------------------------
-# Wildi pp. 96 et seq.)
-
 # Plot Arten
 if(!require(dave)){install.packages("dave")}
 library(dave)
@@ -53,7 +43,6 @@ plot(imds$points)
 ordisurf(imds, ssit$pH.peat, add = T)
 ordisurf(imds, ssit$Waterlev.av, add = T, col = "blue")
 
-# Constrained ordination --------------------------------------------------
 # 5 Umweltvariablen gewählt, durch die die Ordination constrained werden soll
 ssit
 summary(ssit)
@@ -76,17 +65,10 @@ tot <- cca$tot.chi
 constr <- cca$CCA$tot.chi
 constr / tot
 
-
-# Redundancy analysis (RDA) -----------------------------------------------
-## Mehr Details zu RDA aus Borcard et al. (Numerical ecology with R)
-
 # Datensatz Doubs
 # Doubs Datensatz in den workspace laden
 load("data/Doubs.RData")  
 
-spe
-env
-spa
 summary(spe)
 summary(env)
 summary(spa)
@@ -155,7 +137,7 @@ coef(spe.rda)
 
 ## Triplots of the rda results (lc scores)
 ## Site scores as linear combinations of the environmental variables
-dev.new(title = "RDA scaling 1 and 2 + lc", width = 12, height = 6, noRStudioGD = TRUE)
+# dev.new(title = "RDA scaling 1 and 2 + lc", width = 12, height = 6, noRStudioGD = TRUE)
 par(mfrow = c(1, 2))
 # Scaling 1
 plot(spe.rda,scaling = 1, display = c("sp", "lc", "cn"), main = "Triplot RDA spe.hel ~ env3 - scaling 1 - lc scores")
@@ -172,7 +154,7 @@ text(-0.82, 0.55, "b", cex = 1.5)
 ## Triplots of the rda results (wa scores)
 ## Site scores as weighted averages (vegan's default)
 # Scaling 1 :  distance triplot
-dev.new(title = "RDA plot", width = 12, height = 6, noRStudioGD = TRUE)
+#dev.new(title = "RDA plot", width = 12, height = 6, noRStudioGD = TRUE)
 par(mfrow = c(1, 2))
 plot(spe.rda, scaling = 1, main = "Triplot RDA spe.hel ~ env3 - scaling 1 - wa scores")
 arrows(0, 0, spe.sc1[, 1] * 0.92, spe.sc1[, 2] * 0.92, length = 0, lty = 1, col = "red")
@@ -188,7 +170,7 @@ sel.sp
 
 # Triplots with homemade function triplot.rda(), scalings 1 and 2
 source("triplot.rda.R")
-dev.new(title = "RDA plot with triplot.rda", width = 12, height = 6, noRStudioGD = TRUE)
+#dev.new(title = "RDA plot with triplot.rda", width = 12, height = 6, noRStudioGD = TRUE)
 par(mfrow = c(1, 2))
 triplot.rda(spe.rda, site.sc = "lc", scaling = 1, cex.char2 = 0.7, pos.env = 3, 
             pos.centr = 1, mult.arrow = 1.1, mar.percent = 0.05, select.spe = sel.sp)
@@ -224,7 +206,7 @@ anova(spechem.physio2, permutations = how(nperm = 999), by = "axis")
 # Partial RDA triplots (with fitted site scores) 
 # with function triplot.rda
 # Scaling 1
-dev.new(title = "Partial RDA",width = 12, height = 6, noRStudioGD = TRUE)
+#dev.new(title = "Partial RDA",width = 12, height = 6, noRStudioGD = TRUE)
 par(mfrow = c(1, 2))
 triplot.rda(spechem.physio, site.sc = "lc", scaling = 1, 
             cex.char2 = 0.8, pos.env = 3, mar.percent = 0)

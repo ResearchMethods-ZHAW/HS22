@@ -40,7 +40,7 @@ summarise(by_cyl_2,mean_mpg = mean(mpg))
 #' ## Split-Apply-Combine (Beispiel 3)
 #' ### Daten Laden
 
-wetter <- read_csv("weather.csv",
+wetter <- read_csv("data/weather.csv",
                   col_types = list(
                     col_factor(levels = NULL),    
                     col_datetime(format = "%Y%m%d%H"),

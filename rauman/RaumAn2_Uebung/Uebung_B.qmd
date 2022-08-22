@@ -1,12 +1,11 @@
 ---
-title: RaumAn2 - Übung B - Räumliche Interpolation
+title: "Übung B - Räumliche Interpolation"
 author:
   - name: Patrick Laube
   - name: Nils Ratnaweera
   - name: Nikolaos Bakogiannis
 image: distill-preview-b.png  
-description: |
-  Räumliche Interpolationen
+description: " "
 categories: RaumAn2
 draft: false  
 ---
@@ -28,21 +27,8 @@ library(gstat) # <- ggf. installieren!
 Weiter benötigt ihr die nachstehenden Datensätze:
 
 ```{r, echo = FALSE, results='asis'}
-check_download <- function(files, folder, source = "", url = "https://github.com/ResearchMethods-ZHAW/datasets/raw/main/"){
-  full_url <- paste0(url,folder,"/",files)
-  exists_bool <- !file.exists(files)
-  if(sum(exists_bool)>0){
-    download.file(full_url[exists_bool],files[exists_bool])
-    }
-  cat(paste0("- [",files,"](",full_url,") ",source),sep = "\n")
-}
-
-check_download(c("schweiz.gpkg", "luftqualitaet.gpkg"),"rauman")
-
-
-luftqualitaet <- read_sf("luftqualitaet.gpkg")
-
-schweiz <- read_sf("schweiz.gpkg") 
+luftqualitaet <- read_sf("data/luftqualitaet.gpkg")
+schweiz <- read_sf("data/schweiz.gpkg") 
 ```
 
 Die Library `gstat` bietet verschiedene Möglichkeiten, Datenpunkte zu interpolieren, unter anderem auch die *inverse distance weighted* Methode. Leider ist das Package noch nicht so benutzerfreundlich wie `sf`: Das Package wird aber aktuell überarbeitet und in mittlerer Zukunft sollte es ebenso einfach  zugänglich sein. Damit Ihr Euch nicht mit den Eigenheiten dieser Library umschlagen müsst, haben wir eine Function vorbereitet, die Euch die Verwendung der IDW-Interpolation erleichtern soll.
@@ -100,7 +86,8 @@ Tips:
 - Wählt am Anfang eine etwas Konvervative (grosse) `cellsize` und verringert diesen nur wenn euer Rechner damit gut klar kommt
 - Da der Output aus der Interpolation im gleichen Koordinatenbezugssystem sind wie `schweiz.gpkg` kann man diese beiden Datensätze im gleichen `ggplot` darstellen. Dafür müsst ihr die *aesthetics* (`aes()`) für jeden Layer einzeln setzen, und nicht auf der Ebene von `ggplot()`.
 
-```{r, layout = "l-page", message=FALSE, warning=FALSE, fig.cap="Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz mit der Inverse Distance Weighted Methode. Die verschiedenen Plots zeigen die Veränderung der Interpolation bei steigendem IDP-Wert"}
+::: {.column-page}
+```{r, message=FALSE, warning=FALSE, fig.cap="Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz mit der Inverse Distance Weighted Methode. Die verschiedenen Plots zeigen die Veränderung der Interpolation bei steigendem IDP-Wert"}
 library(purrr)
 library(tidyr)
 
@@ -124,6 +111,7 @@ ggsave("idw.png", p, height = 18, width = 20, units = "cm")
 
 knitr::include_graphics("idw.png")
 ```
+:::
 
 ### Aufgabe 2: Interpolation mit Nearest Neighbour
 

@@ -37,7 +37,7 @@ table(cars$vs_cat, cars$am_cat) # Achtung: sieht aus, als gäbe es weniger V-Mot
 chi_sq_matrix <- xtabs(~ vs_cat + am_cat, data = as.data.frame(cars)) # in diesem Spezialfall haben wir keine Kriteriumsvariable
 
 #1.version
-chisq.test(chi_sq_matrix)
+chi_sq <-chisq.test(chi_sq_matrix)
 
 #2. version
 chi_sq <- chisq.test(cars$am_cat, cars$vs_cat)
@@ -65,9 +65,9 @@ cars %<>%
 
 # bei t-Test immer zuerst visualisieren: in diesem Fall Boxplot mit Variablen Getriebe (v- vs. s-motor) und Anzahl Pferdestärke
 ggplot2::ggplot(cars, aes(y = hp, x = vs_cat)) +
-  # stat_boxplot(geom ='errorbar', width = .25) +
-  # geom_boxplot() +
-  geom_violin()+
+  stat_boxplot(geom ='errorbar', width = .25) +
+  geom_boxplot() +
+  # geom_violin()+
   labs(x = "\nBauform Motor", y = "Pferdestärke (PS)\n") +
   mytheme
   
@@ -106,7 +106,6 @@ if(requireNamespace("dplyr")){
 
 # check data structure
 glimpse(dt)
-
 
 # plot two examples  
 if(requireNamespace("ggplot2")){

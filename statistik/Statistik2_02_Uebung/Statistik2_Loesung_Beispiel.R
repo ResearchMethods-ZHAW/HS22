@@ -1,4 +1,4 @@
-decay <- read.delim("decay.csv",sep = ",")
+decay <- read.delim("data/decay.csv",sep = ",")
 decay
 
 summary(decay)
@@ -60,5 +60,3 @@ lines(xv, yv2, col=  "blue")
 plot(decay$time, decay$amount)
 yv3 <- predict(model.nls, list(time = xv))
 lines(xv, yv3, col = "green")
-```{.r .distill-force-highlighting-css}
-```

@@ -5,9 +5,9 @@ library(stringr)
 
 #' ## Aufgabe 1
 # Lösung Aufgabe 1
-sensor1 <- read_delim("sensor1.csv",";")
-sensor2 <- read_delim("sensor2.csv",";")
-sensor3 <- read_delim("sensor3.csv",";")
+sensor1 <- read_delim("data/sensor1.csv",";")
+sensor2 <- read_delim("data/sensor2.csv",";")
+sensor3 <- read_delim("data/sensor3.csv",";")
 
 #' ## Aufgabe 2
 # Lösung Aufgabe 2
@@ -18,7 +18,7 @@ sensor_all <- full_join(sensor1_2, sensor3, by = "Datetime")
 names(sensor_all) <- c("Datetime","sensor1","sensor2","sensor3")
 
 #' ## Aufgabe 3
-sensor_fail <- read_delim("https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro/sensor_fail.csv", delim = ";")
+sensor_fail <- read_delim("data/sensor_fail.csv", delim = ";")
 
 # Lösung Aufgabe 3
 sensor_fail$Temp[sensor_fail$SensorStatus == 0] <- NA

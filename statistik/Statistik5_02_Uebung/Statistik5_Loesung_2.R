@@ -7,7 +7,7 @@ library(stringr)
 library(ggfortify)
 library(lme4)
 
-nova <- read_delim("https://zenodo.org/record/3890949/files/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv?download=1", delim = ";", locale = locale(encoding = "latin1"))
+nova <- read_delim("data/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv", delim = ";", locale = locale(encoding = "latin1"))
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 mytheme <- 
@@ -20,25 +20,23 @@ mytheme <-
     axis.ticks.length = unit(.5, "cm")
     )
 
+
 df <- nova # kopiert originaler Datensatz
 
 # Genereiert eine Dummyvariable: Fleisch 1, kein Fleisch 0
-df %<>%
+df %>%
   # entfernt Personen die sich ein Buffet Teller gekauft
   filter(label_content != "Hot and Cold") %>%
   # ihr könnt keine Angabe vernachlässigen, sind (nur) 54 Personen
   filter(age_group != "keine Angaben") %>% 
-  mutate(label_content = str_replace_all(.$label_content, 
-                                         c("Fisch|Geflügel"),"Fleisch")) %>%   
+  mutate(label_content = str_replace_all(.$label_content, c("Fisch|Geflügel"),"Fleisch")) %>%   
   mutate(meat = if_else(.$label_content == "Fleisch", 1, 0)) %>%
   # setzt andere Reihenfolge für die Hochschulzugehörigkeit, nur für die Interpretation
   # nützlich: neu Referenzkategorie Studierende (vorher Mitarbeitende)
   mutate(member = factor(.$member, levels = c("Studierende", "Mitarbeitende")))  
 
-
 # wie viele NA's hat es dirn (uns interessiert v.a. die responsevariable: meat)
 sum(is.na(df$meat)) #Amelia::missmap(df_)
-
 
 # sieht euch die Verteilung zwischen Fleisch und  kein Fleisch an, 
 # beide kategorien kommen nicht gleich häufig vor, aber nicht super tragisch
@@ -48,12 +46,10 @@ table(df$meat) # gibt die absoluten werte an
 # definiert das logistische Modell mit ccrs als random intercept und 
 # wendet es auf den Datensatz an
 
-
 #check out ICC: https://www.datanovia.com/en/lessons/intraclass-correlation-coefficient-in-r/
 #however data needs to be wide format
 #not working yet
-df %>% dplyr::select(ccrs, label_content) %>% tidyr::pivot_wider(names_from = "ccrs", values_fill = "label_content") -> tt
-
+#df %>% dplyr::select(ccrs, label_content) %>% tidyr::pivot_wider(names_from = "ccrs", values_fill = "label_content") -> tt
 
 library(lme4)
 #dauert ein paar sekunden
@@ -65,7 +61,6 @@ mod0 <- glmer(meat ~ gender + member + age_group + (1|ccrs),
 # wahrnmeldung kann vernachlässigt werden (aufgrund der unicode resp. 
 # umlaute in den variablen)
 summary(mod0) 
-
 
 ## erste Interpretation: Geschlecht (Mann) und Alter (junge Personen) scheinen den Fleischkonsum positiv zu beeinflussen + Hochschulzugehörigkeit spielt keien Rolle
 # d.h. könnte man vernachlässigen. Ich lasse aus inhaltlichen Gründen aber im Modell drin
@@ -91,7 +86,6 @@ tab1 <- cbind(Est = fixef(mod0), LL = fixef(mod0) - 1.96 * se,
 # erzeugt die Odds Ratios
 tab2 <- exp(tab1)
 
-
 #replace rownames
 rownames(tab1) <-  c("Intercept", "Männer", "Mitarbeitende",
                             "26 bis 34-jährig", "35 bis 49-jährig",
@@ -100,7 +94,7 @@ rownames(tab1) <-  c("Intercept", "Männer", "Mitarbeitende",
 # achtung wir sind hier im log raum
 knitr::kable(tab1, col.names = c("Coefficients", "Lower Limit (LL)", "Uppewr Limit (UL)"),
              caption = "Modellschätzer (Coefficients) mit dazugehörigem 95% Konfidenzintervall", digits = 2)
-             
+
 # ersetze row names
 rownames(tab2) <-  c("Intercept", "Männer", "Mitarbeitende",
                             "26 bis 34-jährig", "35 bis 49-jährig",

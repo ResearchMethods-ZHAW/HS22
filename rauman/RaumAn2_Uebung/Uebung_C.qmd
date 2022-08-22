@@ -1,10 +1,11 @@
 ---
-title: RaumAn2 - Übung C - Dichteschätzung
+title: "Übung C - Dichteschätzung"
 author:
   - name: Patrick Laube
   - name: Nils Ratnaweera
   - name: Nikolaos Bakogiannis
 image: distill-preview-c.png 
+description: " "
 categories: RaumAn2
 draft: false
 ---
@@ -22,20 +23,9 @@ library(MASS) # <- ggf. installieren!
 ```{r, echo = FALSE, results='asis'}
 knitr::opts_chunk$set(echo = FALSE)
 
-check_download <- function(files, folder, source = "", url = "https://github.com/ResearchMethods-ZHAW/datasets/raw/main/"){
-  full_url <- paste0(url,folder,"/",files)
-  exists_bool <- !file.exists(files)
-  if(sum(exists_bool)>0){
-    download.file(full_url[exists_bool],files[exists_bool])
-    }
-  cat(paste0("- [",files,"](",full_url,") ",source),sep = "\n")
-}
-
-check_download(c("schweiz.gpkg", "luftqualitaet.gpkg", "rotmilan.gpkg"),"rauman")
-
-luftqualitaet <- read_sf("luftqualitaet.gpkg") 
-rotmilan <- read_sf("rotmilan.gpkg")
-schweiz <- read_sf("schweiz.gpkg") 
+luftqualitaet <- read_sf("data/luftqualitaet.gpkg") 
+rotmilan <- read_sf("data/rotmilan.gpkg")
+schweiz <- read_sf("data/schweiz.gpkg") 
 ```
 
 ## Aufgabe 1: Rotmilan Bewegungsdaten visualisieren
@@ -94,7 +84,6 @@ Die Parameter der Funktion sollten relativ klar sein:
 - `extent` (optional): Der Perimeter, in dem die Dichteverteilung berechnet werden soll. Wenn kein Perimeter angegeben wird, wird die "bounding box" von `points` genutzt.
 
 Wenn wir nun mit `my_kde()` die Dichteverteilung berechnen, erhalten wir ein `data.frame` mit X und Y Koordinaten sowie eine Spalte `value` zurück. Nutzt diese drei Spalten mit `geom_raster()` um eure Daten mit `ggplot` zu visualisieren (`aes(x = X, y = Y, fill = value)`. 
-
 ```{r, echo = TRUE}
 rotmilan_kde <- my_kde(points = rotmilan,cellsize = 1000, bandwith = 10000, extent = schweiz)
 
@@ -149,7 +138,6 @@ thiessenpolygone <- st_cast(thiessenpolygone)
 
 thiessenpolygone_clip <- st_intersection(thiessenpolygone,schweiz)
 ```
-
 
 ```{r, fig.cap="Wenn wir jetzt die Thiessenpolygone (ohne Punkte) darstellen, wird deutlicher, wie die Dichteverteilung im Innern des Clusters aussieht. "}
 ggplot() + 
