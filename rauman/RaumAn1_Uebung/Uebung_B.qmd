@@ -39,10 +39,10 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
 Diese Warnmeldung weist darauf hin, dass das Geopackage `gruental.gpkg` mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl `st_layers` die Layer Namen in Erfahrung und nutze diese im Anschluss in `st_read` (als Argument `layer = `) um die layers einzeln zu importieren und in variablen zu speichern (zB in als Variable `wiesen` und `baeume`).
 
 ```{r include=FALSE}
-st_layers("data/gruental.gpkg")
+st_layers(here("data","gruental.gpkg"))
 
-wiesen <- read_sf("data/gruental.gpkg","wiesen")
-baeume <- read_sf("data/gruental.gpkg", "baeume")
+wiesen <- read_sf(here("data","gruental.gpkg"),"wiesen")
+baeume <- read_sf(here("data","gruental.gpkg"), "baeume")
 ```
 
 ### Aufgabe 2: Datensätze erkunden

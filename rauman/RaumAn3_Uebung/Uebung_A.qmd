@@ -33,7 +33,7 @@ library(sf)
 # Das Geopackage beinhaltet 3 Layers (siehe st_layers("zweitwohnungsinitiative.gpkg"))
 # In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene
 # aggregiert. Wir started mit der Aggregationsstufe "kanton"
-zweitwohnung_kanton<- read_sf("data/zweitwohnungsinitiative.gpkg", "kanton")
+zweitwohnung_kanton<- read_sf(here("data","zweitwohnungsinitiative.gpkg"), "kanton")
 ```
 
 ```{r}
@@ -230,7 +230,7 @@ Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `
 Nun könnt ihr Morans $I$ auf der Ebene der Gemeine oder Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Wenn ihr einen wenig leistungsfähigen Rechner habt, berechnet verwendet besser die Ebene "Berzirke". Importiert dazu den Layer `bezrik` oder `gemeinde` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate.
 
 ```{r, echo = TRUE}
-zweitwohnung_gemeinde <- read_sf("data/zweitwohnungsinitiative.gpkg", "gemeinde")
+zweitwohnung_gemeinde <- read_sf(here("data","zweitwohnungsinitiative.gpkg"), "gemeinde")
 
 ggplot(zweitwohnung_gemeinde) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +

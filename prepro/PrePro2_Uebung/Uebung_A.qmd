@@ -33,14 +33,14 @@ Lade die Wetterdaten von letzer Woche runter ([weather.csv](https://github.com/R
 
 ```{r}
 # Variante 1
-wetter <- read_csv("data/weather.csv")
+wetter <- read_csv(here("data","weather.csv"))
 wetter$stn <- as.factor(wetter$stn)
 wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H", tz = "UTC")
 ```
 
 ```{r}
 # Variate 2 (für Profis)
-wetter <- read_csv("data/weather.csv",
+wetter <- read_csv(here("data","weather.csv"),
                   col_types = cols(
                     col_factor(levels = NULL),    
                     col_datetime(format = "%Y%m%d%H"),
@@ -56,7 +56,7 @@ Lade [metadata](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro
 Hinweis: Wenn Umlaute und Sonderzeichen nicht korrekt dargestellt werden (z.B. in Gen*è*ve), hat das vermutlich mit der [Zeichencodierung](https://de.wikipedia.org/wiki/Zeichenkodierung) zu tun. Das File ist aktuell in 'ANSI' Codiert, welche für gewisse Betriebssysteme / R-Versionen ein Problem darstellt. Um das Problem zu umgehen muss man das File mit einem Editor öffnen (Windows 'Editor' oder 'Notepad++', Mac: 'TextEdit') und mit einer neuen Codierung (z.B 'UTF-8') abspeichern. Danach kann die Codierung spezifitiert werden (bei `read_delim(): mit `locale = locale(encoding = "UTF-8")`)
 
 ```{r}
-metadata <- read_delim("data/metadata.csv", delim = ";", locale = locale(encoding = "UTF-8"))
+metadata <- read_delim(here("data","metadata.csv"), delim = ";", locale = locale(encoding = "UTF-8"))
 ```
 
 ## Aufgabe 3

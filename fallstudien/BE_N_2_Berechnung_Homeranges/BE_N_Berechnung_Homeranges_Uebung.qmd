@@ -32,7 +32,7 @@ ipak(packages)
 ### Einlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Datentypen
 
 ```{r tidy=TRUE, warning=FALSE, message=FALSE, results="hide"}
-Rehe <- read_delim("data/Aufgabe3_Homeranges_Rehe_landforst_20211014.csv", delim = ";")
+Rehe <- read_delim(here("data","Aufgabe3_Homeranges_Rehe_landforst_20211014.csv"), delim = ";")
 
 str(Rehe)
 ```
@@ -117,7 +117,7 @@ legend.position="none"
 ##### Code um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann mit alpha angepasst werden
 
 ```{r tidy=TRUE,fig.keep = "none"}
-pk25_wpz <- brick("data/pk25_wpz.tif")
+pk25_wpz <- brick(here("data","pk25_wpz.tif"))
 
 xy_p <- st_as_sf(xy)
 
@@ -181,7 +181,7 @@ legend.position="none"
 #### Die Theorie zu Korrelation folgt erst ab 1.11
 
 ```{r tidy=TRUE, echo=FALSE, message=FALSE, results="hide"}
-df_with_lidar <- read_delim("data/df_with_lidar.csv", delim =";")
+df_with_lidar <- read_delim(here("data","df_with_lidar.csv"), delim =";")
 
 cor.test(~ DG_Strauchschicht+DG_us, data = df_with_lidar, method="pearson")
 ```
