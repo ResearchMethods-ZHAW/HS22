@@ -65,4 +65,59 @@ RUN if [ "${ENABLE_JUPYTER}" = "true" ]; then \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
 # [Optional] Uncomment this section to install additional R packages.
-# RUN install2.r --error --skipinstalled --ncpus -1 <your-package-list-here>
+RUN install2.r --skipinstalled --ncpus -1 \
+    tidyverse \
+    pastecs \
+    lubridate \
+    data.table \
+    ggpubr \
+    PerformanceAnalytics \
+    MuMIn \
+    AICcmodavg \
+    fitdistrplus \
+    lme4 \
+    blmeco \
+    sjPlot \
+    lattice \
+    moments \
+    readr \
+    dplyr \
+    ggplot2 \
+    tidyr \
+    scales \
+    knitr \
+    purrr \
+    stringr \
+    googlesheets4 \
+    magrittr \
+    sf \
+    gstat \
+    MASS \
+    terra \
+    tmap \
+    kableExtra \
+    here \
+    agricolae \
+    car \
+    FSA \
+    lmodel2 \
+    ggfortify \
+    multcomp \
+    nlstools \
+    hier.part \
+    AER \
+    mgcv \
+    nlme \
+    glmmML \
+    labdsv \
+    vegan \
+    dave \
+    gclus \
+    cclust \
+    cluster \
+    datasauRus \
+    FactoMineR \
+    devtools \
+    ggbiplot \
+    rosetta \
+    Amelia 
