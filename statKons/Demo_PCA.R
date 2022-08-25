@@ -1,25 +1,3 @@
----
-title: "Demo - Ordinationen"
-author: Gian-Andrea Egeler
-image: distill-preview.png  
-lerneinheit: StatKons2
----
-
-{{< include /../_before-article.qmd >}}
-
-```{r, echo = FALSE, purl = FALSE, message=FALSE, results='hide'}
-knitr::opts_chunk$set(echo = T, collapse=TRUE, message = FALSE, results = "hide", warning = FALSE)
-
-#export files
-knitr::purl("StatKons2_Demo_PCA.qmd", "Demo_PCA.R", documentation = 0)
-```
-
-> Download [R-Skript](Demo_PCA.R)
-
-# Demo Ordinationen (PCA)
-
-## PCA mit mtcars
-```{r, message=FALSE}
 #Beispiel inspiriert von Luke Hayden: https://www.datacamp.com/community/tutorials/pca-analysis-r
 
 #Ausgangslage: viel zusammenhängende Variablen
@@ -54,10 +32,7 @@ ggbiplot(o.pca,choices = c(1,2))
 
 # nehme noch die autonamen hinzu
 ggbiplot(o.pca, labels=rownames(mtcars), choices = c(1,2)) # (+ mytheme) # choice gibt die axen an
-```
 
-## CA mit mtcars
-```{r}
 library(vegan)
 
 # ebenfalls mit transformierten daten
@@ -76,10 +51,7 @@ plot(x,y)
 
 #Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird
 o.ca$CA$eig[1:8]/sum(o.ca$CA$eig)
-```
 
-## NMDS mit mtcars
-```{r}
 #Distanzmatrix als Start erzeugen
 library(MASS)
 
@@ -107,10 +79,7 @@ plot(o.mdm.vegan$points)
 #Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
 vegan::stressplot(o.mde.vegan, mde)
 vegan::stressplot(o.mde.mass, mde)
-```
 
-## PCA mit sveg
-```{r, message=FALSE}
 #Mit Beispieldaten aus Wildi (2013, 2017)
 library(labdsv)
 library(dave) # lade package für Daten sveg
@@ -164,10 +133,7 @@ text(x[sel.sp],y[sel.sp],snames,pos=1,cex=0.6)
 # https://stats.stackexchange.com/questions/102882/steps-done-in-factor-analysis-compared-to-steps-done-in-pca/102999#102999
 # https://stats.stackexchange.com/questions/222/what-are-principal-component-scores
 # https://stats.stackexchange.com/questions/102882/steps-done-in-factor-analysis-compared-to-steps-done-in-pca/102999#102999
-```
 
-## PCA mit Beispiel aus Vorlesung
-```{r}
 #Idee von Ordinationen aus Wildi p. 73-74
 
 #Für Ordinationen benötigen wir Matrizen, nicht Data.frames
@@ -236,10 +202,7 @@ pca.3 <- vegan::rda(raw, scale=FALSE) #Die Funktion rda führt ein PCA aus an we
 summary(pca.3, axes=0)
 biplot(pca.3, scaling=2)
 biplot(pca.3, scaling="species")#scaling=species macht das selbe wie scaling=2
-```
 
-## CA mit sveg
-```{r, message=FALSE}
 library(vegan)
 library(dave) #for the dataset sveg
 library(FactoMineR)# siehe Beispiel hier: https://www.youtube.com/watch?v=vP4korRby0Q
@@ -259,10 +222,7 @@ plot(x,y)
 
 #Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird
 o.ca$CA$eig[1:63]/sum(o.ca$CA$eig)
-```
 
-## NMDS mit sveg
-```{r, message=FALSE, eval=FALSE}
 #NMDS----------
 
 #Distanzmatrix als Start erzeugen
@@ -284,4 +244,3 @@ plot(o.mmds$points)
 #Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
 stressplot(o.imds,mde)
 stressplot(o.mmds,mde)
-```

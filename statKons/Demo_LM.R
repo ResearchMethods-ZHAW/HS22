@@ -1,41 +1,8 @@
----
-title: "Demo - Lineare Modelle"
-author: Gian-Andrea Egeler
-image: distill-preview.png  
-lerneinheit: StatKons3
----
-
-{{< include /../_before-article.qmd >}}
-
-```{r echo = FALSE, message=FALSE, results='hide'}
 #export files
 knitr::purl("StatKons3_Demo_LM.qmd", "Demo_LM.R", documentation = 0)
-```
 
-# Demo Lineare Modelle
 
-> Download [R-Skript](Demo_LM.R)
 
-```{r, message=FALSE, include=FALSE, purl=F}
-knitr::opts_chunk$set(echo = TRUE, collapse=FALSE, message = FALSE, results = "hide", warning = FALSE)
-
-library(tidyverse)
-if (!require("rosetta")) install.packages("rosetta", repos = "http://cran.us.r-project.org")
-library(magrittr)
-
-mytheme <- 
-  theme_classic() + 
-  theme(
-    axis.line = element_line(color = "black"), 
-    axis.text = element_text(size = 12, color = "black"), 
-    axis.title = element_text(size = 12, color = "black"), 
-    axis.ticks = element_line(size = .75, color = "black"), 
-    axis.ticks.length = unit(.5, "cm")
-    )
-```
-
-## Einfaktorielle ANOVA
-```{r, message=FALSE, eval=FALSE, purl=T}
 # für mehr infos
 #https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html
 
@@ -104,11 +71,7 @@ ggsave(filename = "distill-preview.png",
 library(rosetta)
 welch1 <- oneway.test(hp ~ cyl, data = cars, var.equal = FALSE)
 rosetta::posthocTGH(cars$hp, cars$cyl, method = "games-howell")
-```
 
-## Mehrfaktorielle ANOVA
-
-```{r, message=FALSE, echo=FALSE}
 library(tidyverse)
 #1. Wähle zusätzliche Variable aus (wenn nicht in der Aufgabe steht), 
 #was für eine Skala muss die Variable aufweisen?
@@ -137,10 +100,7 @@ summary.lm(aov.2)
 # Wie würdet ihr das machen?
 
 #Frage: was brauchts für ein Model, damit man von einer Ancova sprechen darf?
-```
 
-## Einfache Regression
-```{r, message=FALSE}
 # inspiriert von Simon Jackson: http s://drsimonj.svbtle.com/visualising-residuals
 cars <- mtcars %>% 
   #ändere die unabhängige Variable mpg in 100Km/L
@@ -218,11 +178,7 @@ ggplot(d, aes(x = kml, y = hp)) +
     #intercept
     geom_line(aes(y = mean(hp)), color = "blue") +
     mytheme
-```
 
-## Multiple regression
-
-```{r, message=FALSE}
 # Select data
 cars <- mtcars %>% 
     slice(-31) %>%
@@ -361,4 +317,3 @@ summary(avgmodel)
 # adäquatest model gemäss multimodel inference
 model_ad <- lm(hp ~ carb + disp + wt, data = mtcars)
 summary(model_ad)
-```

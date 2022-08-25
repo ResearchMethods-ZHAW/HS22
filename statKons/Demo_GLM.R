@@ -1,24 +1,8 @@
----
-title: "Demo - GLM"
-author: Gian-Andrea Egeler
-image: distill-preview.png  
-lerneinheit: StatKons4
----
-
-{{< include /../_before-article.qmd >}}
-
-```{r echo = FALSE, message=FALSE, results='hide'}
 knitr::opts_chunk$set(echo = T, collapse=TRUE)
 
 #export files
 knitr::purl("StatKons4_Demo_GLM.qmd", "Demo_GLM.R", documentation = 0)
-```
 
-# Demo GLM
-
-> Download [R-Skript](Demo_GLM.R)
-
-```{r, include=TRUE}
 
 library(tidyverse)
 
@@ -31,11 +15,7 @@ mytheme <-
     axis.ticks = element_line(size = .75, color = "black"), 
     axis.ticks.length = unit(.5, "cm")
     )
-```
 
-## Poisson Regression
-
-```{r, message=FALSE}
 ############
 # quasipoisson regression
 ############
@@ -71,11 +51,7 @@ glm.quasi.back %>%
 
 #for more infos, also for posthoc tests
 #here: https://rcompanion.org/handbook/J_01.html
-```
 
-## logistische Regression
-
-```{r , message=FALSE}
 ############
 # logistische regression
 ############
@@ -130,11 +106,7 @@ logit2prob <- function(logit){
   prob <- odds / (1 + odds)
   return(prob)
 }
-```
 
-## GAM's
-
-```{r, message=FALSE}
 ###########
 # LOESS & GAM
 ###########
@@ -156,4 +128,3 @@ ggplot2::ggplot(mtcars, aes(x = mpg, y = hp)) +
   scale_x_continuous(limits = c(0,35)) + 
   scale_y_continuous(limits = c(0,400)) + 
   mytheme
-```

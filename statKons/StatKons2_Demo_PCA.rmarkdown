@@ -5,7 +5,15 @@ image: distill-preview.png
 lerneinheit: StatKons2
 ---
 
-{{< include /../_before-article.qmd >}}
+
+
+```{r}
+#| echo: false
+#| message: false
+
+library(here)
+```
+
 
 ```{r, echo = FALSE, purl = FALSE, message=FALSE, results='hide'}
 knitr::opts_chunk$set(echo = T, collapse=TRUE, message = FALSE, results = "hide", warning = FALSE)
@@ -14,11 +22,13 @@ knitr::opts_chunk$set(echo = T, collapse=TRUE, message = FALSE, results = "hide"
 knitr::purl("StatKons2_Demo_PCA.qmd", "Demo_PCA.R", documentation = 0)
 ```
 
+
 > Download [R-Skript](Demo_PCA.R)
 
 # Demo Ordinationen (PCA)
 
 ## PCA mit mtcars
+
 ```{r, message=FALSE}
 #Beispiel inspiriert von Luke Hayden: https://www.datacamp.com/community/tutorials/pca-analysis-r
 
@@ -56,7 +66,9 @@ ggbiplot(o.pca,choices = c(1,2))
 ggbiplot(o.pca, labels=rownames(mtcars), choices = c(1,2)) # (+ mytheme) # choice gibt die axen an
 ```
 
+
 ## CA mit mtcars
+
 ```{r}
 library(vegan)
 
@@ -78,7 +90,9 @@ plot(x,y)
 o.ca$CA$eig[1:8]/sum(o.ca$CA$eig)
 ```
 
+
 ## NMDS mit mtcars
+
 ```{r}
 #Distanzmatrix als Start erzeugen
 library(MASS)
@@ -109,7 +123,9 @@ vegan::stressplot(o.mde.vegan, mde)
 vegan::stressplot(o.mde.mass, mde)
 ```
 
+
 ## PCA mit sveg
+
 ```{r, message=FALSE}
 #Mit Beispieldaten aus Wildi (2013, 2017)
 library(labdsv)
@@ -166,7 +182,9 @@ text(x[sel.sp],y[sel.sp],snames,pos=1,cex=0.6)
 # https://stats.stackexchange.com/questions/102882/steps-done-in-factor-analysis-compared-to-steps-done-in-pca/102999#102999
 ```
 
+
 ## PCA mit Beispiel aus Vorlesung
+
 ```{r}
 #Idee von Ordinationen aus Wildi p. 73-74
 
@@ -238,7 +256,9 @@ biplot(pca.3, scaling=2)
 biplot(pca.3, scaling="species")#scaling=species macht das selbe wie scaling=2
 ```
 
+
 ## CA mit sveg
+
 ```{r, message=FALSE}
 library(vegan)
 library(dave) #for the dataset sveg
@@ -261,7 +281,9 @@ plot(x,y)
 o.ca$CA$eig[1:63]/sum(o.ca$CA$eig)
 ```
 
+
 ## NMDS mit sveg
+
 ```{r, message=FALSE, eval=FALSE}
 #NMDS----------
 
@@ -285,3 +307,4 @@ plot(o.mmds$points)
 stressplot(o.imds,mde)
 stressplot(o.mmds,mde)
 ```
+
