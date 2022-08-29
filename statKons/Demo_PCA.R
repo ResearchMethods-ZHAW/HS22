@@ -24,9 +24,11 @@ o.pca <- PCA(cars, scale.unit = TRUE) # entweder korrelations oder covarianzmatr
 summary(o.pca) # generiert auch automatische plots
 
 
-# plote das ganze
+
+# plotte das ganze
 library(devtools)
 install_github("vqv/ggbiplot")
+
 library(ggbiplot)
 ggbiplot(o.pca,choices = c(1,2))
 
