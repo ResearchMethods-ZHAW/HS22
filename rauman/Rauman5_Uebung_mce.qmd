@@ -5,7 +5,7 @@
 The following exercise may seem familiar to some of you, if you have attended the bachelor program. This MCE was already conducted in the bachelor module "GIS" by using ArcGIS Pro and its ModelBuilder (see figure \@ref(fig:figmce)).
 
 ```{r figmce, echo=FALSE, fig.cap="Process model in ArcGIS Pro ModelBuilder",purl = FALSE, fig.align="center", out.width = '100%'}
-knitr::include_graphics("images/mce_process.png")
+knitr::include_graphics("rauman/images/mce_process.png")
 ```
 
 The goal of this exercise is to do the same MCE by just using R. We will mainly use functions from the R packages [sf](https://cran.r-project.org/web/packages/sf/sf.pdf) and [raster](https://cran.r-project.org/web/packages/raster/raster.pdf). Please have a look at the process model (see figure \@ref(fig:figmce)) that was created in ArcGIS Pro and try to figure out which functions in the two R packages correspond to the ones in the model. You will see that there are some similar functions available, but for some calculations a different approach is needed.
@@ -95,7 +95,7 @@ r <- terra::rast(ext(kt_schwyz),
 ```
   
 ```{r figrasterizeexclusioncriteria, echo=FALSE, fig.cap="Exclusion area in the canton of Schwyz", fig.align="center", purl = FALSE, out.width="50%"}
-knitr::include_graphics("images/exclusion_areas.png")
+knitr::include_graphics("rauman/images/exclusion_areas.png")
 ```
 
 ```{r solutionEx2, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
@@ -119,7 +119,7 @@ Next, calculate the slope in degrees based on the terrain model (dhm25m). The te
 ***Tip**: When using the terrain function use the following options: v="slope", unit="degrees", neighbors=8.*
 
 ```{r figslope, echo=FALSE, fig.cap="Example output of the calculated slope", fig.align="center", out.width="50%", purl = FALSE}
-knitr::include_graphics("images/slope.png")
+knitr::include_graphics("rauman/images/slope.png")
 ```
 
 ```{r solutionEx3, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
@@ -136,7 +136,7 @@ Within the evaluation of suitable sites for wind turbines, the distance to roads
 * ***Tip**: Use the `crop` function again to get only relevant data in the study area.*
 
 ```{r figdistancesettlements, echo=FALSE, fig.cap="Example output for the distances to settlements", purl = FALSE, fig.align="center", out.width="50%"}
-knitr::include_graphics("images/d_to_settlements.png")
+knitr::include_graphics("rauman/images/d_to_settlements.png")
 ```
 
 ```{r solutionEx4, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
@@ -178,11 +178,11 @@ reclass_settlements_ed <- terra::classify(settlements_ed, reclass_settlements)
 ```
 
 ```{r figreclassify, echo=FALSE, fig.cap="Reclassify values for all criteria", purl = FALSE, fig.align = "center", fig.show = "hold", out.width="49%"}
-knitr::include_graphics(c("images/mce_reclassify_1.png", "images/mce_reclassify_2.png"))
+knitr::include_graphics(c("rauman/images/mce_reclassify_1.png", "rauman/images/mce_reclassify_2.png"))
 ```
 
 ```{r figdistsettlementsreclass, echo=FALSE, fig.cap="Example output for the reclassified distances to settlements", fig.align="center", out.width="45%", purl = FALSE}
-knitr::include_graphics("images/d_to_settlements_reclassified.png")
+knitr::include_graphics("rauman/images/d_to_settlements_reclassified.png")
 ```
 
 ```{r solutionEx5, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
@@ -344,7 +344,7 @@ The linearly ranked criteria (Exercise 5) are now to be combined with each other
 * ***Tip**: Also keep in mind the order of the weights in your list when doing the multiplication.*
 
 ```{r figweightedoverlay, echo=FALSE, fig.cap="Weighted overall of all criteria", fig.align="center", out.width="50%", purl = FALSE}
-knitr::include_graphics("images/weighted_overlay.png")
+knitr::include_graphics("rauman/images/weighted_overlay.png")
 ```
 
 ```{r solutionEx7, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
@@ -382,7 +382,7 @@ plot(weighted_overlay, main="Weighted overlay with all criteria", axes=FALSE, le
 By simply multiplying the exclusion layer (result from exercise 2) with the weighted overlay layer (result from exercise 7) we are excluding all areas with value 0 (exclusion areas) and keeping all other areas with value 1 (e.g. 0x3=0, 1x3=3). As a conclusion of the study, create a final plot of the potential areas for wind power plants in the canton of Schwyz (like figure \@ref(fig:figfinalresults)). Furthermore, discuss the results obtained and determine three possible locations within which concrete planning of wind power plants would be possible.
 
 ```{r figfinalresults, echo=FALSE, fig.cap="Potential sites for wind power plants in Kt. Schwyz -- Spatial Resolution of 25m (red = less suitable, green = more suitable)", fig.align="center", out.width="80%", purl = FALSE}
-knitr::include_graphics("images/potential_sites.png")
+knitr::include_graphics("rauman/images/potential_sites.png")
 ```
 
 ```{r  solutionEx8, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}

@@ -122,3 +122,5 @@ RUN install2.r --skipinstalled --ncpus -1 \
     rosetta \
     Amelia 
 
+RUN R -q -e 'devtools::install_github("vqv/ggbiplot")'
+RUN install2.r --skipinstalled psych

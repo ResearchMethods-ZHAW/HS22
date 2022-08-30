@@ -83,7 +83,7 @@ Tips:
 library(purrr)
 library(tidyr)
 
-p <- lapply(1:4, function(idp){
+lapply(1:4, function(idp){
   idw <- my_idw(groundtruth = luftqualitaet,column = "value",cellsize = 1000, nmax = Inf,maxdist = Inf,idp = idp,extent = schweiz)
   ggplot() +
     geom_raster(data = idw, aes(X,Y, fill = pred)) +
@@ -99,9 +99,9 @@ p <- lapply(1:4, function(idp){
 }) %>%
   cowplot::plot_grid(plotlist = .)
 
-ggsave(here("images","idw.png"), height = 18, width = 20, units = "cm")
+#ggsave(here("images","idw.png"), height = 18, width = 20, units = "cm")
 
-knitr::include_graphics(here("images","idw.png"))
+#knitr::include_graphics(here("images","idw.png"))
 ```
 :::
 
