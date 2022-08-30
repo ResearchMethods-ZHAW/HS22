@@ -1,10 +1,18 @@
 
 
-{{< include /../_before-article.qmd >}}
+
+```{r}
+#| echo: false
+#| message: false
+
+library(here)
+```
+
 
 ```{r, echo=FALSE}
 library(tidyverse)
 ```
+
 
 ## Verschiedene Datensätze
 
@@ -19,11 +27,13 @@ In R gibt es vordefinierte Datensätze, welche gut abrufbar sind. Beispiele sind
 * USArrests
 * ...
 
+
 ```{r}
 data() # erzeugt eine Liste mit den Datensätzen, welche in R verfügbaren sind
 head(chickwts)
 str(chickwts)
 ```
+
 
 ### Kaggle
 
@@ -34,11 +44,13 @@ Auf [Kaggle](www.kaggle.com) findet ihr öffentlich zugängliche Datensätze. Ei
 * [S.F. salaries](https://www.kaggle.com/kaggle/sf-salaries)
 * ...
 
+
 ```{r}
 # Load packages and data
 data_911 <- read_delim(here("data","911.csv"), delim = ",")
 str(data_911)
 ```
+
 
 ### Tidytuesday
 
@@ -64,10 +76,12 @@ str(data_911)
 
 **Download via Github - 2. Möglichkeit**
 
+
 ```{r}
 # Beachtet dabei, dass ihr die URL zum originalen (raw) Datensatz habt 
 star_wars <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-05-14/week7_starwars.csv", locale = readr::locale(encoding = "latin1")) #not working yet 
 ```
+
 
 ### opendata.swiss
 
@@ -87,6 +101,7 @@ Auf der Seite der [Stadt Zürich Open Data](https://data.stadt-zuerich.ch/) find
 * [Häufigste Hauptsprachen](https://data.stadt-zuerich.ch/dataset/bfs_ste_bev_hauptsprachen_top50_od3011)
 * ...
 
+
 ```{r}
 # lade die Datei "Häufigste Sprachen"
 urlfile = "https://data.stadt-zuerich.ch/dataset/bfs_ste_bev_hauptsprachen_top50_od3011/download/BEV301OD3011.csv"
@@ -94,3 +109,4 @@ urlfile = "https://data.stadt-zuerich.ch/dataset/bfs_ste_bev_hauptsprachen_top50
 dat_lang <- read_delim(url(urlfile), delim = ",", col_names = T)
 head(dat_lang)
 ```
+
