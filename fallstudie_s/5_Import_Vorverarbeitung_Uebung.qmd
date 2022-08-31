@@ -1,13 +1,13 @@
+## 5. Übung
 
-
-{{< include /../../_before-article.qmd >}}
+{{< include /../_before-article.qmd >}}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r include=FALSE}
-# Benoetigte Bibliotheken ####
+## Benoetigte Bibliotheken ####
 library(tidyverse) # Data wrangling und piping
 library(lubridate) # Arbeiten mit Datumsformaten
 library(data.table)# schnelles Dateneinlesen
@@ -22,13 +22,11 @@ library(sjPlot)    # Plotten von Modellergebnissen (tab_model)
 library(lattice)   # einfaches plotten von Zusammenhängen zwischen Variablen
 ```
 
-# Aufgabe 1: Zähldaten
+## Aufgabe 1: Zähldaten
 
 Die Projektstruktur steht. Nun können die Daten eingelesen und die nötigen Datentypen definiert werden. Das tidyverse-Universum (u.a. pipes, ggplot usw.) ist in unseren Auswertungen zentral.
 
-```{r out.width = "100%", fig.align ="center", echo = FALSE}
-knitr::include_graphics("tidyverse.png")
-```
+![](/fallstudie_s/images/tidyverse.png)
 
 Die Zähldaten des Wildnispark Zürich wurden vorgängig bereinigt (z.B. wurden Stundenwerte entfernt, an denen am Zähler Wartungsarbeiten stattgefunden haben). Das macht es für uns einfach, denn wir können die Daten ohne vorgängige Bereinigung einlesen. Behaltet aber im Hinterkopf, dass die Datenaufbereitung, die Datenbereinigung mit viel Aufwand verbunden ist.
 
@@ -36,12 +34,12 @@ Die Zähldaten des Wildnispark Zürich wurden vorgängig bereinigt (z.B. wurden 
 
 ```{r eval=FALSE}
 depo <- read_csv("./HIER RELATIVEN DATEIPFAD EINGEBEN") 
-# Speicherort sowie Dateiname anpassen
+## Speicherort sowie Dateiname anpassen
 ```
 
 __Hinweis:__ Im Stundenformat zeigen die Werte bei 11:00 die Zähldaten zwischen 11:00 bis 12:00 Uhr.
 
-## 1a) 
+### 1a) 
 
 - Im Datensatz des Wildnisparks sind Datum und Uhrzeit in einer Spalte. Diese müssen __getrennt__ werden (Ich schlage hier den Ansatz des piping ( %>% ) vor. Damit können in einem "Rutsch" mehrere Operationen ausgeführt werden).
 
@@ -61,13 +59,13 @@ depo <- depo %>%
   filter(Datum >= depo_start, Datum <=  depo_end) # das Komma hat die gleiche Funktion wie ein &
 ```
 
-## 1b) 
+### 1b) 
 
 Ihr könnt selbst wählen, ob ihr Fussgänger:innen oder Velos untersuchen wollt (je nachdem ob sie in eurem Datensatz vorhanden sind).
 
 - Entfernt die überflüssigen Spalten aus dem Datensatz.
 
-## 1c) 
+### 1c) 
 
 - Berechnen des Totals (IN + OUT), da dieses in den Daten nicht vorhanden ist (wiederum mit piping). 
 
@@ -75,13 +73,13 @@ Tipp: Wenn man R sagt: "addiere mir Spalte x mit Spalte y", dann macht R das fü
 
 - Entfernt nun alle NA-Werte mit __na.omit()__.
 
-# Aufgabe 2: Meteodaten
+## Aufgabe 2: Meteodaten
 
-## 2a) 
+### 2a) 
 
 - Lest die Meteodaten ein und speichert sie unter __meteo__.
 
-## 2b) 
+### 2b) 
 
 - Auch hier müssen die Datentypen manuell gesetzt werden. 
 
@@ -99,7 +97,7 @@ https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html
 
 - Nun schneiden wir den Datensatz auf die Untersuchungsdauer zu.
 
-## 2c) 
+### 2c) 
 
 - Jetzt müssen auch hier alle nicht verfügbare Werte (NA's) herausgefiltert werden.
 
@@ -116,9 +114,9 @@ __Hinweis:__ __...__ steht im Code für folgende oder vorhergehende Zeilen im Co
 
 - Prüft nun, wie die Struktur des data.frame (df) aussieht und ob alle NA Werte entfernt wurden (sum(is.na(df$Variable))). Stimmen alle Datentypen?
 
-# Aufgabe 3: Datenvorverarbeitung (Mutationen)
+## Aufgabe 3: Datenvorverarbeitung (Mutationen)
 
-## 3a) 
+### 3a) 
 
 Jetzt fügen wir viele Convinience Variabeln hinzu. Wir brauchen:
 
@@ -165,7 +163,7 @@ mutate(Phase = if_else(Datum >= lock_1_start_2020 & Datum <= lock_1_end_2020,
                                if_else(Datum < lock_1_start_2020,
                                   "Normal", "Covid"))))
 
-# hat das gepklappt?!
+## hat das gepklappt?!
 unique(depo$Phase)
 ```
 
@@ -173,7 +171,7 @@ Frage: Welches ist das if Argument, welches das else?
 
 - Ändert die Datentypen der Spalten Wochenende, KW, Phase zu factor und sortiert die Levels, so dass diese Sinn machen (z.B. in Phase = Normal, Lockdown 1, Lockdown 2, Covid).
 
-## 3b)
+### 3b)
 
 - Nun soll noch die volle Stunde als Integer im Datensatz stehen. Diese Angabe muss etwas mühsam aus den Daten gezogen werden (darum hier der fertige Code dazu):
 
@@ -181,7 +179,7 @@ Frage: Welches ist das if Argument, welches das else?
 depo$Stunde <- as.numeric(format(as.POSIXct(depo$Zeit,format="%H:%M"),"%H"))
 ```
 
-## 3c) 
+### 3c) 
 
 Die Daten wurden durch den WPZ kalibriert (Kommastellen). 
 
@@ -196,9 +194,9 @@ depo$... <- round(..., digits = 0)
 depo$... <- as.integer(...)
 ```
 
-# Aufgabe 4: Aggregierung der Stundendaten
+## Aufgabe 4: Aggregierung der Stundendaten
 
-## 4a) 
+### 4a) 
 
 Unsere Daten liegen im Stundenformat vor. Für einige Auswertungen müssen wir aber auf ganze Tage zurückgreifen können. 
 
@@ -214,7 +212,7 @@ depo_d <- depo %>%
             ...
 ```
 
-## 4b)
+### 4b)
 
 - Aggregiere die Stundenwerte nach dem Monat (Gruppierungen __Monat, Jahr__) und speichert das neue df unter depo_m.
 
@@ -223,9 +221,9 @@ Tipp: Braucht wiederum __group_by()__ und __summarise()__. Nun brauchen wir nur 
 - Fügt den neu erstellten df eine Spalte mit Jahr + Monat hinzu. Das ist etwas mühsam, darum hier der fertige Code dazu:
 
 ```{r eval = FALSE}
-# vergewissere, dass sicher df
+## vergewissere, dass sicher df
 depo_m <- as.data.frame(depo_m)
-# sortiere das df anhand zwei Spalten aufsteigend (damit die Reihenfolge sicher stimmt)
+## sortiere das df anhand zwei Spalten aufsteigend (damit die Reihenfolge sicher stimmt)
 depo_m[with(depo_m, order(Jahr, Monat)),]
 
 depo_m <- depo_m %>% 
@@ -236,7 +234,7 @@ depo_m <- depo_m %>%
         # die Levels sind die einzelnen Einträge in der Spalte (welche ja bereits geordnet sind)
 ```
 
-## 4c)
+### 4c)
 
 Macht euch mit den Daten vertraut. Plottet sie, seht euch die df's an, versteht, was sie repräsentieren.
 

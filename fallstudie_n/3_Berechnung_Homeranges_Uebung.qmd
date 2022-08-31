@@ -1,6 +1,6 @@
+# 3. Aufgabe
 
-
-{{< include /../../_before-article.qmd >}}
+{{< include /../_before-article.qmd >}}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
@@ -14,11 +14,11 @@ knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
 ipak <- function(pkg){
 new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
 if (length(new.pkg))
-install.packages(new.pkg, repos = "http://cran.us.r-project.org", dependencies = TRUE)
+install.packages(new.pkg, dependencies = TRUE)
 sapply(pkg, require, character.only = TRUE)
 }
 packages <- c("sf", "raster", "tidyverse", "adehabitatHR", "maptools", "sp", 
-              "ggspatial", "rgeos", "rgdal", "pastecs")
+              "ggspatial", "rgeos", "rgdal")
 ipak(packages)
 ```
 
@@ -68,7 +68,7 @@ kud <- kernelUD(xy, h=href, grid=25)
 
 # Berechnung der Home Range (95% Isopleth)
 
-homerange <- getverticeshr(kud, percent=50)             
+homerange <- getverticeshr(kud, percent=95)             
 
 # Schreibt HR in den oben beschriebenen Ordner (als Shapefile)
 
@@ -109,7 +109,7 @@ legend.position="none"
 
 ##### Code um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann mit alpha angepasst werden
 
-```{r tidy=TRUE}
+```{r tidy=TRUE,fig.keep = "none"}
 pk25_wpz <- brick(here("data","pk25_wpz.tif"))
 
 xy_p <- st_as_sf(xy)
@@ -125,7 +125,6 @@ axis.text = element_blank(),
 axis.ticks = element_blank(),
 legend.position="none"
 )
-
 ```
 
 ### Nachbauen des Sampling Grids mit den Kreisen (Wird als Grundlage für Extraktion der Umweltvariablen innerhalb der Homeranges benötigt)
@@ -168,33 +167,14 @@ axis.text = element_blank(),
 axis.ticks = element_blank(),
 legend.position="none"
 )
-
-
 ```
 
 ### Aufgabe 3: Testen der Variablen der Vegetationsschichten von letzter Woche auf einen linearen Zusammenhang (Korrelation; Funktion cor.test). DG_Baumschicht vs. DG_os / DG_Strauchschicht vs. DG_us aus dem Datensatz df_with_lidar den wir letzte Woche erstellt haben
 
 #### Die Theorie zu Korrelation folgt erst ab 1.11
 
-```{r tidy=TRUE,message=FALSE}
+```{r tidy=TRUE, echo=FALSE, message=FALSE, results="hide"}
 df_with_lidar <- read_delim(here("data","df_with_lidar.csv"), delim =";")
 
-library(pastecs)
-
-round(stat.desc(cbind(df_with_lidar$DG_us,df_with_lidar$DG_os,
-                      df_with_lidar$DG_Strauchschicht,df_with_lidar$DG_Baumschicht), 
-                basic= F, norm= T), 3)
-
-# Histogram der Verteilung und die aus den Daten berechnete Normalverteilung als Linie 
-# dargestellt
-
-ggplot(df_with_lidar, aes(DG_os)) + geom_histogram(aes(y=..density..), 
-        color = "black", fill = "white") + 
-     stat_function(fun = dnorm, args = list(mean = 
-        mean(df_with_lidar$DG_os, na.rm = T), 
-        sd = sd(df_with_lidar$DG_os, na.rm = T)), color = "black",size = 1)
-
-# testen auf Korrelation 
-
-cor.test(~ DG_Baumschicht+DG_os, data = df_with_lidar, method="pearson")
+cor.test(~ DG_Strauchschicht+DG_us, data = df_with_lidar, method="pearson")
 ```
