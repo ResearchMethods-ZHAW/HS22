@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Research Methods - 42&nbsp; Stat8: Demo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../stat5-8/Statistik8_Loesung.html" rel="next">
+<link href="../stat5-8/Statistik7_Uebung.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Stat8: Demo</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Research Methods</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ResearchMethods-ZHAW/HS22/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Willkommen</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">Prepro</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 1: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PrePro 1: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro3_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 3: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 3: Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">InfoVis</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Demo A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Script_eda.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Demo B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis2_cairo_wheel.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Cairo Wheel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung B</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Stat1-4</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Loesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Novanimal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: NOVANIMAL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Loesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_2223s.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung 2223s</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_23n.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung 23n</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_Beispiel.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung Beispiel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Lösung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2n.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 2n</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2s.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 2s</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Stat5-8</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Lösung 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Loesung_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Lösung 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Lösung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Lösung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Demo.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Stat8: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Lösung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">StatKons</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons1_Demo_assoziationen.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Demo 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons1_Demo_open_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Datensätze</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons1_Demo_suggest_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Datensätze</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons2_Demo_PCA.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons2: Demo</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons3_Demo_LM.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons3: Demo</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons4_Demo_GLM.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons4: Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Rauman</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman1_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 1: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman1_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 1: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman2_Uebung_C.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung C</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman3_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 3: Übung A</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman4_Uebung_A_ahp.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 4: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman4_Uebung_B_raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 4: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman5_Uebung_mce.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 5: Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">Fallstudie S</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/1_Einleitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1. Einleitung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/2_Felderhebung_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2: Felderhebung Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/2_Felderhebung_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2: Felderhebung Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/3_Aufgabenstellung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Aufgabenstellung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/4_Projektierung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">4. Anleitung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/5_Import_Vorverarbeitung_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5. Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/5_Import_Vorverarbeitung_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5. Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/6_Deskriptive_Analysen_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6. Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/6_Desktiptive_Analysen_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6. Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/7_Multivariate_Statistik_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7. Lösung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/7_Multivariate_Statistik_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7. Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">Fallstudie N</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/1_Vorbemerkung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1. Vorbemerkung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/2_Datenverarbeitung_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2. Lösung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/2_Datenverarbeitung_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2. Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/3_Berechnung_Homeranges_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Lösung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/3_Berechnung_Homeranges_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Aufgabe</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/4_Multivariate_Modelle_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">4. Lösung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/4_Multivariate_Modelle_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">4. Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/5_Variablenselektion_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5. Lösung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/5_Variablenselektion_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5. Aufgabe</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/6_Guete_und_Diagnostics_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6. Lösung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/6_Guete_und_Diagnostics_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6. Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/7_Modelle_mit_Nutzungsintensitaet.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7. Nutzungsintensität</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#cluster-analysen" id="toc-cluster-analysen" class="nav-link active" data-scroll-target="#cluster-analysen">Cluster-Analysen</a>
+  <ul class="collapse">
+  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">k-means clustering</a></li>
+  <li><a href="#agglomarative-clusteranalyse" id="toc-agglomarative-clusteranalyse" class="nav-link" data-scroll-target="#agglomarative-clusteranalyse">Agglomarative Clusteranalyse</a></li>
+  <li><a href="#dendogramme-berechnen-und-ploten" id="toc-dendogramme-berechnen-und-ploten" class="nav-link" data-scroll-target="#dendogramme-berechnen-und-ploten">Dendogramme berechnen und ploten</a></li>
+  <li><a href="#cophenetic-correlations" id="toc-cophenetic-correlations" class="nav-link" data-scroll-target="#cophenetic-correlations">Cophenetic correlations</a></li>
+  <li><a href="#optimale-anzahl-cluster" id="toc-optimale-anzahl-cluster" class="nav-link" data-scroll-target="#optimale-anzahl-cluster">Optimale Anzahl Cluster</a></li>
+  <li><a href="#final-dendrogram-with-the-selected-clusters" id="toc-final-dendrogram-with-the-selected-clusters" class="nav-link" data-scroll-target="#final-dendrogram-with-the-selected-clusters">Final dendrogram with the selected clusters</a></li>
+  <li><a href="#miscellaneous-graphical-outputs" id="toc-miscellaneous-graphical-outputs" class="nav-link" data-scroll-target="#miscellaneous-graphical-outputs">Miscellaneous graphical outputs</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-title">Stat8: Demo</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<section id="cluster-analysen" class="level1">
+<h1>Cluster-Analysen</h1>
+<ul>
+<li><a href="Statistik8_Demo.R">Demoscript als Download</a></li>
+<li>Datensatz <a href="https://github.com/ResearchMethods-ZHAW/datasets/raw/main/statistik/Doubs.RData">Doubs.RData</a></li>
+<li>Funktion drawmap.R <a href="drawmap.R">drawmap.R</a></li>
+<li>Funktion hcoplot.R <a href="hcoplot.R">hcoplot.R</a></li>
+</ul>
+<section id="k-means-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-clustering">k-means clustering</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># das Moordatenset aus Wildi...</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dave)){<span class="fu">install.packages</span>(<span class="st">"dave"</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: dave</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: cluster</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: labdsv</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: mgcv</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: nlme</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is mgcv 1.8-40. For overview type 'help("mgcv-package")'.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is labdsv 2.0-1
+convert existing ordinations with as.dsvord()</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'labdsv'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    density</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: vegan</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: permute</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: lattice</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is vegan 2.6-2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: nnet</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'nnet'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:mgcv':
+
+    multinom</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: tree</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">rda</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>ca <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>kmeans<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(sveg, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>kmeans<span class="fl">.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca, <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(ca, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">col =</span> kmeans<span class="fl">.1</span>[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>kmeans<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(sveg, <span class="dv">3</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca, <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pca, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col =</span> kmeans<span class="fl">.2</span>[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pca, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col=</span>kmeans<span class="fl">.2</span>[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k-means partitioning, 2 to 10 groups</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>KM.cascade <span class="ot">&lt;-</span> <span class="fu">cascadeKM</span>(sveg,  <span class="at">inf.gr =</span> <span class="dv">2</span>, <span class="at">sup.gr =</span> <span class="dv">10</span>, <span class="at">iter =</span> <span class="dv">100</span>, <span class="at">criterion =</span> <span class="st">"ssi"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(KM.cascade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Length Class  Mode     
+partition 567    -none- numeric  
+results    18    -none- numeric  
+criterion   1    -none- character
+size       90    -none- numeric  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>KM.cascade<span class="sc">$</span>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      2 groups     3 groups     4 groups     5 groups     6 groups     7 groups
+SSE 1840.13571 1629.4399038 1488.2961538 1378.3369048 1286.5005411 1214.3219697
+ssi    0.26103    0.2752258    0.3467853    0.3033231    0.4041437    0.4328301
+        8 groups     9 groups    10 groups
+SSE 1156.7314935 1101.5523810 1053.1476190
+ssi    0.3716024    0.5261008    0.4702227</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>KM.cascade<span class="sc">$</span>partition</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    2 groups 3 groups 4 groups 5 groups 6 groups 7 groups 8 groups 9 groups
+501        2        1        2        1        5        3        6        7
+502        2        1        4        3        6        4        3        5
+503        2        1        2        1        5        3        6        7
+504        2        1        2        1        5        3        6        7
+505        2        1        4        3        6        4        3        5
+506        2        1        2        1        6        4        3        5
+507        2        1        2        1        5        3        6        7
+508        2        1        2        1        5        3        6        7
+509        2        1        2        1        5        3        6        7
+510        2        1        4        3        3        7        8        2
+511        2        1        2        1        5        3        6        7
+512        2        1        4        3        6        4        3        5
+513        2        1        4        3        3        7        8        4
+514        2        1        4        3        6        4        3        5
+515        2        1        4        3        6        4        3        5
+516        2        1        4        3        6        4        3        5
+517        2        1        4        3        3        7        8        2
+518        1        2        3        4        2        2        7        1
+519        2        1        4        3        6        4        3        5
+520        2        1        4        3        3        7        8        2
+521        2        1        2        1        5        3        6        2
+522        2        1        4        3        6        4        3        5
+523        1        2        3        4        2        2        7        1
+524        2        1        2        1        5        3        6        2
+525        2        1        2        1        5        3        6        2
+526        1        3        1        4        2        2        7        1
+527        2        1        4        3        3        7        8        4
+528        2        1        4        3        3        7        8        4
+529        2        1        4        3        3        7        8        4
+530        2        1        4        3        3        7        8        2
+531        1        2        3        5        4        5        5        6
+532        2        1        4        3        3        7        8        4
+533        2        1        4        3        3        7        8        2
+534        2        2        3        5        4        5        5        6
+535        1        2        3        5        4        5        5        6
+536        2        1        4        3        3        7        8        4
+537        2        1        4        3        3        7        8        4
+538        1        2        3        4        2        2        7        1
+539        1        3        1        2        1        6        2        8
+540        2        1        2        1        5        3        6        7
+541        1        3        1        2        1        6        1        9
+542        1        3        1        2        1        6        2        8
+543        1        3        1        2        1        6        1        9
+544        2        2        3        5        4        5        5        6
+545        1        2        3        4        2        2        7        1
+546        1        2        3        5        4        5        5        6
+547        2        2        3        5        4        5        5        4
+548        1        3        1        2        1        6        1        9
+549        1        2        3        5        4        5        5        6
+550        1        2        3        5        4        5        5        6
+551        1        3        1        4        2        1        4        3
+552        1        3        1        2        1        6        1        9
+553        1        3        1        2        1        6        4        3
+554        1        3        1        4        2        1        4        3
+555        1        3        1        4        2        1        4        3
+556        1        3        1        2        1        6        1        9
+557        1        3        1        4        2        1        4        3
+558        1        3        1        4        2        1        4        3
+559        1        3        1        4        2        2        7        1
+560        1        3        1        4        2        2        7        1
+561        1        2        3        4        2        2        7        1
+562        1        3        1        2        1        6        2        8
+563        1        3        1        4        2        1        4        3
+    10 groups
+501         5
+502         6
+503         5
+504         5
+505         6
+506         6
+507         5
+508         5
+509         5
+510        10
+511         8
+512         6
+513         2
+514         6
+515         6
+516         6
+517        10
+518         8
+519         6
+520        10
+521        10
+522         6
+523         1
+524        10
+525        10
+526         1
+527         2
+528         2
+529         2
+530        10
+531         9
+532         2
+533        10
+534         9
+535         9
+536         2
+537         2
+538         8
+539         3
+540         5
+541         7
+542         3
+543         7
+544         9
+545         1
+546         9
+547         2
+548         7
+549         9
+550         9
+551         4
+552         7
+553         4
+554         4
+555         4
+556         7
+557         4
+558         4
+559         1
+560         1
+561         1
+562         3
+563         4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k-means visualisation</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(KM.cascade, <span class="at">sortg =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="agglomarative-clusteranalyse" class="level2">
+<h2 class="anchored" data-anchor-id="agglomarative-clusteranalyse">Agglomarative Clusteranalyse</h2>
+<p>mit Daten und Skripten aus Borcard et al.&nbsp;(2018)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Doubs.RData"</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove empty site 8</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> spe[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> env[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>spa <span class="ot">&lt;-</span> spa[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>latlong <span class="ot">&lt;-</span> latlong[<span class="sc">-</span><span class="dv">8</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dendogramme-berechnen-und-ploten" class="level2">
+<h2 class="anchored" data-anchor-id="dendogramme-berechnen-und-ploten">Dendogramme berechnen und ploten</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Hierarchical agglomerative clustering of the species abundance </span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute matrix of chord distance among sites</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>spe.norm <span class="ot">&lt;-</span> <span class="fu">decostand</span>(spe, <span class="st">"normalize"</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>spe.ch <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(spe.norm, <span class="st">"euc"</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach site names to object of class 'dist'</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(spe.ch, <span class="st">"Labels"</span>) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(spe)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute single linkage agglomerative clustering</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>spe.ch.single <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"single"</span>)</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a dendrogram using the default options</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.single, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Single linkage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute complete-linkage agglomerative clustering</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>spe.ch.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"complete"</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.complete, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Complete linkage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute UPGMA agglomerative clustering</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>spe.ch.UPGMA <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"average"</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.UPGMA, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - UPGMA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute centroid clustering</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>spe.ch.centroid <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"centroid"</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.centroid, <span class="at">labels =</span> <span class="fu">rownames</span>(spe),  <span class="at">main =</span> <span class="st">"Chord - Centroid"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-8-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute Ward's minimum variance clustering</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>spe.ch.ward <span class="ot">&lt;-</span><span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.ward, <span class="at">labels =</span> <span class="fu">rownames</span>(spe),  <span class="at">main =</span> <span class="st">"Chord - Ward"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-8-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute beta-flexible clustering using cluster::agnes()</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># beta = -0.1</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>spe.ch.beta1 <span class="ot">&lt;-</span> <span class="fu">agnes</span>(spe.ch, <span class="at">method =</span> <span class="st">"flexible"</span>, <span class="at">par.method =</span> <span class="fl">0.55</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># beta = -0.25</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>spe.ch.beta2 <span class="ot">&lt;-</span> <span class="fu">agnes</span>(spe.ch, <span class="at">method =</span> <span class="st">"flexible"</span>, <span class="at">par.method =</span> <span class="fl">0.625</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># beta = -0.5</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>spe.ch.beta3 <span class="ot">&lt;-</span> <span class="fu">agnes</span>(spe.ch, <span class="at">method =</span> <span class="st">"flexible"</span>, <span class="at">par.method =</span> <span class="fl">0.75</span>)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the class of agnes objects</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(spe.ch.beta1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "agnes" "twins"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>spe.ch.beta1 <span class="ot">&lt;-</span> <span class="fu">as.hclust</span>(spe.ch.beta1)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(spe.ch.beta1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hclust"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>spe.ch.beta2 <span class="ot">&lt;-</span> <span class="fu">as.hclust</span>(spe.ch.beta2)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>spe.ch.beta3 <span class="ot">&lt;-</span> <span class="fu">as.hclust</span>(spe.ch.beta3)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.beta1, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Beta-flexible (beta=-0.1)"</span>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.beta2, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Beta-flexible (beta=-0.25)"</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.beta3,  <span class="at">labels =</span> <span class="fu">rownames</span>(spe),  <span class="at">main =</span> <span class="st">"Chord - Beta-flexible (beta=-0.5)"</span>)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute Ward's minimum variance clustering</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>spe.ch.ward <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.ward, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Ward"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-8-6.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="cophenetic-correlations" class="level2">
+<h2 class="anchored" data-anchor-id="cophenetic-correlations">Cophenetic correlations</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Single linkage clustering</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>spe.ch.single.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.single)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.single.coph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5015116</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete linkage clustering</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>spe.ch.comp.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.complete)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.comp.coph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7567998</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average clustering</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>spe.ch.UPGMA.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.UPGMA)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.UPGMA.coph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8537529</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ward clustering</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>spe.ch.ward.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.ward)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.ward.coph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7821555</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shepard-like diagrams</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.single.coph,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)),</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"Single linkage"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>,</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">round</span>(<span class="fu">cor</span>(spe.ch, spe.ch.single.coph), <span class="dv">3</span>))))</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.single.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.comp.coph,</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)),</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"Complete linkage"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>,</span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">round</span>(<span class="fu">cor</span>(spe.ch, spe.ch.comp.coph), <span class="dv">3</span>))))</span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.comp.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.UPGMA.coph,</span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)),</span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"UPGMA"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>,</span>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">round</span>( <span class="fu">cor</span>(spe.ch, spe.ch.UPGMA.coph), <span class="dv">3</span>))))</span>
+<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.UPGMA.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.ward.coph,</span>
+<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb51-29"><a href="#cb51-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(spe.ch.ward<span class="sc">$</span>height)),</span>
+<span id="cb51-30"><a href="#cb51-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"Ward"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>, </span>
+<span id="cb51-31"><a href="#cb51-31" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">round</span>(<span class="fu">cor</span>(spe.ch, spe.ch.ward.coph), <span class="dv">3</span>))))</span>
+<span id="cb51-32"><a href="#cb51-32" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb51-33"><a href="#cb51-33" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.ward.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="optimale-anzahl-cluster" class="level2">
+<h2 class="anchored" data-anchor-id="optimale-anzahl-cluster">Optimale Anzahl Cluster</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Select a dendrogram (Ward/chord) and apply three criteria</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="do">## to choose the optimal number of clusters</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose and rename the dendrogram ("hclust" object)</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> spe.ch.ward</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co"># hc &lt;- spe.ch.beta2</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co"># hc &lt;- spe.ch.complete</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Average silhouette widths (Rousseeuw quality index)</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>Si <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(spe))</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(spe) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>  sil <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(<span class="fu">cutree</span>(hc, <span class="at">k =</span> k), spe.ch)</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>  Si[k] <span class="ot">&lt;-</span> <span class="fu">summary</span>(sil)<span class="sc">$</span>avg.width</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>k.best <span class="ot">&lt;-</span> <span class="fu">which.max</span>(Si)</span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe), Si, <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Silhouette-optimal number of clusters"</span>,</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>, <span class="at">ylab =</span> <span class="st">"Average silhouette width"</span>)</span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, k.best,<span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>), <span class="at">col =</span> <span class="st">"red"</span>, </span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(k.best,<span class="fu">max</span>(Si), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimal number of clusters according to matrix correlation </span></span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a><span class="co"># statistic (Pearson)</span></span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Homemade function grpdist from Borcard et al. (2018)</span></span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a>grpdist <span class="ot">&lt;-</span> <span class="cf">function</span>(X)</span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(cluster)</span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>  veg <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.factor</span>(X))</span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a>  distgr <span class="ot">&lt;-</span> <span class="fu">daisy</span>(veg, <span class="st">"gower"</span>)</span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a>  distgr</span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a>kt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe), <span class="at">r =</span> <span class="dv">0</span>)</span>
+<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(spe) <span class="sc">-</span> <span class="dv">1</span>)) </span>
+<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a>  gr <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc, i)</span>
+<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a>  distgr <span class="ot">&lt;-</span> <span class="fu">grpdist</span>(gr)</span>
+<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a>  mt <span class="ot">&lt;-</span> <span class="fu">cor</span>(spe.ch, distgr, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a>  kt[i, <span class="dv">2</span>] <span class="ot">&lt;-</span> mt</span>
+<span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-48"><a href="#cb52-48" aria-hidden="true" tabindex="-1"></a>k.best <span class="ot">&lt;-</span> <span class="fu">which.max</span>(kt<span class="sc">$</span>r)</span>
+<span id="cb52-49"><a href="#cb52-49" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kt<span class="sc">$</span>k,kt<span class="sc">$</span>r, <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb52-50"><a href="#cb52-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Matrix correlation-optimal number of clusters"</span>,</span>
+<span id="cb52-51"><a href="#cb52-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>, <span class="at">ylab =</span> <span class="st">"Pearson's correlation"</span>)</span>
+<span id="cb52-52"><a href="#cb52-52" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, k.best, <span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb52-53"><a href="#cb52-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb52-54"><a href="#cb52-54" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(k.best, <span class="fu">max</span>(kt<span class="sc">$</span>r), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimal number of clusters according as per indicator species</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co"># analysis (IndVal, Dufrene-Legendre; package: labdsv)</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>IndVal <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(spe))</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>ng <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(spe))</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(spe) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  iva <span class="ot">&lt;-</span> <span class="fu">indval</span>(spe, <span class="fu">cutree</span>(hc, <span class="at">k =</span> k), <span class="at">numitr =</span> <span class="dv">1000</span>)</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  gr <span class="ot">&lt;-</span> <span class="fu">factor</span>(iva<span class="sc">$</span>maxcls[iva<span class="sc">$</span>pval <span class="sc">&lt;=</span> <span class="fl">0.05</span>])</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  ng[k] <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">levels</span>(gr)) <span class="sc">/</span> k</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>  iv <span class="ot">&lt;-</span> iva<span class="sc">$</span>indcls[iva<span class="sc">$</span>pval <span class="sc">&lt;=</span> <span class="fl">0.05</span>]</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>  IndVal[k] <span class="ot">&lt;-</span> <span class="fu">sum</span>(iv)</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>k.best <span class="ot">&lt;-</span> <span class="fu">which.max</span>(IndVal[ng <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>col3 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(spe))</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>col3[ng <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe), IndVal, <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"IndVal-optimal number of clusters"</span>,</span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>, <span class="at">ylab =</span> <span class="st">"IndVal sum"</span>, <span class="at">col =</span> col3)</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,k.best,<span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">which.max</span>(IndVal),<span class="fu">max</span>(IndVal),<span class="at">pch =</span> <span class="dv">16</span>,<span class="at">col =</span> <span class="st">"red"</span>,<span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">28</span>, <span class="fl">15.7</span>, <span class="st">"a"</span>, <span class="at">cex =</span> <span class="fl">1.8</span>)</span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe),ng,</span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>,</span>
+<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Ratio"</span>,</span>
+<span id="cb53-32"><a href="#cb53-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Proportion of clusters with significant indicator species"</span>,</span>
+<span id="cb53-33"><a href="#cb53-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> col3)</span>
+<span id="cb53-34"><a href="#cb53-34" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,k.best,<span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb53-35"><a href="#cb53-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb53-36"><a href="#cb53-36" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(k.best,<span class="fu">max</span>(ng), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb53-37"><a href="#cb53-37" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">28</span>, <span class="fl">0.98</span>, <span class="st">"b"</span>, <span class="at">cex =</span> <span class="fl">1.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="final-dendrogram-with-the-selected-clusters" class="level2">
+<h2 class="anchored" data-anchor-id="final-dendrogram-with-the-selected-clusters">Final dendrogram with the selected clusters</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose the number of clusters</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Silhouette plot of the final partition</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>spech.ward.g <span class="ot">&lt;-</span> <span class="fu">cutree</span>(spe.ch.ward, <span class="at">k =</span> k)</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>sil <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(spech.ward.g, spe.ch)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(sil) <span class="ot">&lt;-</span> <span class="fu">row.names</span>(spe)</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sil, <span class="at">main =</span> <span class="st">"Silhouette plot - Chord - Ward"</span>, <span class="at">cex.names =</span> <span class="fl">0.8</span>, <span class="at">col =</span> <span class="dv">2</span><span class="sc">:</span>(k <span class="sc">+</span> <span class="dv">1</span>), <span class="at">nmax =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reorder clusters</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(gclus)){<span class="fu">install.packages</span>(<span class="st">"gclus"</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: gclus</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'gclus':
+  method         from 
+  reorder.hclust vegan</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"gclus"</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>spe.chwo <span class="ot">&lt;-</span> <span class="fu">reorder.hclust</span>(spe.ch.ward, spe.ch)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot reordered dendrogram with group labels</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.chwo, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">xlab =</span> <span class="st">"4 groups"</span>, <span class="at">ylab =</span> <span class="st">"Height"</span>, <span class="at">sub =</span> <span class="st">""</span>,</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Chord - Ward (reordered)"</span>, <span class="at">labels =</span> <span class="fu">cutree</span>(spe.chwo, <span class="at">k =</span> k))</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rect.hclust</span>(spe.chwo, <span class="at">k =</span> k)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the final dendrogram with group colors (RGBCMY...)</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Fast method using the additional hcoplot() function:</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage:</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="co"># hcoplot(tree = hclust.object,</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   diss = dissimilarity.matrix,</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   lab = object labels (default NULL),</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   k = nb.clusters,</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   title = paste("Reordered dendrogram from",deparse(tree$call),</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   sep="\n"))</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"stat5-8"</span>,<span class="st">"hcoplot.R"</span>))</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="fu">hcoplot</span>(spe.ch.ward, spe.ch, <span class="at">lab =</span> <span class="fu">rownames</span>(spe), <span class="at">k =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-11-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Ward clusters on a map of the Doubs River</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (see Chapter 2)</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"stat5-8"</span>,<span class="st">"drawmap.R"</span>))</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="fu">drawmap</span>(<span class="at">xy =</span> spa, <span class="at">clusters =</span> spech.ward.g, <span class="at">main =</span> <span class="st">"Four Ward clusters along the Doubs River"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-11-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="miscellaneous-graphical-outputs" class="level2">
+<h2 class="anchored" data-anchor-id="miscellaneous-graphical-outputs">Miscellaneous graphical outputs</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># konvertieren von "hclust" Objekt in ein Dendogram Objekt</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(spe.ch.ward)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Heat map of the dissimilarity matrix ordered with the dendrogram</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(<span class="fu">as.matrix</span>(spe.ch), <span class="at">Rowv =</span> dend, <span class="at">symm =</span> <span class="cn">TRUE</span>, <span class="at">margin =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik8_Demo_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordered community table</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Species are ordered by their weighted averages on site scores.</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Dots represent absences.</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>or <span class="ot">&lt;-</span> <span class="fu">vegemite</span>(spe, spe.chwo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                    
+      32222222222  111111     1111  
+      098762105439598765064732213481
+ Icme 5432121.......................
+ Abbr 54332431.....1................
+ Blbj 54542432.1...1................
+ Anan 54432222.....111..............
+ Gyce 5555443212...11...............
+ Scer 522112221...21................
+ Cyca 53421321.....1111.............
+ Rham 55432333.....221..............
+ Legi 35432322.1...1111.............
+ Alal 55555555352..322..............
+ Chna 12111322.1...211..............
+ Titi 53453444...1321111.21.........
+ Ruru 55554555121455221..1..........
+ Albi 53111123.....2341.............
+ Baba 35342544.....23322.........1..
+ Eslu 453423321...41111..12.1....1..
+ Gogo 5544355421..242122111......1..
+ Pefl 54211432....41321..12.........
+ Pato 2211.222.....3344.............
+ Sqce 3443242312152132232211..11.1..
+ Lele 332213221...52235321.1........
+ Babl .1111112...32534554555534124..
+ Teso .1...........11254........23..
+ Phph .1....11...13334344454544455..
+ Cogo ..............1123......2123..
+ Satr .1..........2.12341345555355.3
+ Thth .1............11.2......2134..
+30 sites, 27 species</code></pre>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../stat5-8/Statistik7_Uebung.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Stat7: Übung</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../stat5-8/Statistik8_Loesung.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-title">Stat8: Lösung</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb64" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat8: Demo</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>{{&lt; include /../_before-article.qmd &gt;}}</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::purl("Statistik8_Demo.qmd", "Statistik8_Demo.R", documentation = 0)</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Cluster-Analysen</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Demoscript als Download</span><span class="co">](Statistik8_Demo.R)</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz <span class="co">[</span><span class="ot">Doubs.RData</span><span class="co">](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/statistik/Doubs.RData)</span></span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Funktion drawmap.R <span class="co">[</span><span class="ot">drawmap.R</span><span class="co">](drawmap.R)</span></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Funktion hcoplot.R <span class="co">[</span><span class="ot">hcoplot.R</span><span class="co">](hcoplot.R)</span></span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## k-means clustering</span></span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a><span class="co"># das Moordatenset aus Wildi...</span></span>
+<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dave)){<span class="fu">install.packages</span>(<span class="st">"dave"</span>)}</span>
+<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave)</span>
+<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">rda</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a>ca <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>)</span>
+<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-27"><a href="#cb64-27" aria-hidden="true" tabindex="-1"></a>kmeans<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(sveg, <span class="dv">4</span>)</span>
+<span id="cb64-28"><a href="#cb64-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-29"><a href="#cb64-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb64-30"><a href="#cb64-30" aria-hidden="true" tabindex="-1"></a>kmeans<span class="fl">.1</span></span>
+<span id="cb64-31"><a href="#cb64-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-34"><a href="#cb64-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-35"><a href="#cb64-35" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca, <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb64-36"><a href="#cb64-36" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(ca, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">col =</span> kmeans<span class="fl">.1</span>[[<span class="dv">1</span>]])</span>
+<span id="cb64-37"><a href="#cb64-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-38"><a href="#cb64-38" aria-hidden="true" tabindex="-1"></a>kmeans<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(sveg, <span class="dv">3</span>)</span>
+<span id="cb64-39"><a href="#cb64-39" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca, <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb64-40"><a href="#cb64-40" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pca, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col =</span> kmeans<span class="fl">.2</span>[[<span class="dv">1</span>]])</span>
+<span id="cb64-41"><a href="#cb64-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-42"><a href="#cb64-42" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb64-43"><a href="#cb64-43" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pca, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col=</span>kmeans<span class="fl">.2</span>[[<span class="dv">1</span>]])</span>
+<span id="cb64-44"><a href="#cb64-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-45"><a href="#cb64-45" aria-hidden="true" tabindex="-1"></a><span class="co"># k-means partitioning, 2 to 10 groups</span></span>
+<span id="cb64-46"><a href="#cb64-46" aria-hidden="true" tabindex="-1"></a>KM.cascade <span class="ot">&lt;-</span> <span class="fu">cascadeKM</span>(sveg,  <span class="at">inf.gr =</span> <span class="dv">2</span>, <span class="at">sup.gr =</span> <span class="dv">10</span>, <span class="at">iter =</span> <span class="dv">100</span>, <span class="at">criterion =</span> <span class="st">"ssi"</span>)</span>
+<span id="cb64-47"><a href="#cb64-47" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(KM.cascade)</span>
+<span id="cb64-48"><a href="#cb64-48" aria-hidden="true" tabindex="-1"></a>KM.cascade<span class="sc">$</span>results</span>
+<span id="cb64-49"><a href="#cb64-49" aria-hidden="true" tabindex="-1"></a>KM.cascade<span class="sc">$</span>partition</span>
+<span id="cb64-50"><a href="#cb64-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-51"><a href="#cb64-51" aria-hidden="true" tabindex="-1"></a><span class="co"># k-means visualisation</span></span>
+<span id="cb64-52"><a href="#cb64-52" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(KM.cascade, <span class="at">sortg =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb64-53"><a href="#cb64-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-54"><a href="#cb64-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-55"><a href="#cb64-55" aria-hidden="true" tabindex="-1"></a><span class="fu">## Agglomarative Clusteranalyse</span></span>
+<span id="cb64-56"><a href="#cb64-56" aria-hidden="true" tabindex="-1"></a>mit Daten und Skripten aus Borcard et al. (2018)</span>
+<span id="cb64-57"><a href="#cb64-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-60"><a href="#cb64-60" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-61"><a href="#cb64-61" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Doubs.RData"</span>))  </span>
+<span id="cb64-62"><a href="#cb64-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-63"><a href="#cb64-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb64-64"><a href="#cb64-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove empty site 8</span></span>
+<span id="cb64-65"><a href="#cb64-65" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> spe[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb64-66"><a href="#cb64-66" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> env[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb64-67"><a href="#cb64-67" aria-hidden="true" tabindex="-1"></a>spa <span class="ot">&lt;-</span> spa[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb64-68"><a href="#cb64-68" aria-hidden="true" tabindex="-1"></a>latlong <span class="ot">&lt;-</span> latlong[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb64-69"><a href="#cb64-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-70"><a href="#cb64-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-71"><a href="#cb64-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dendogramme berechnen und ploten</span></span>
+<span id="cb64-74"><a href="#cb64-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-75"><a href="#cb64-75" aria-hidden="true" tabindex="-1"></a><span class="do">## Hierarchical agglomerative clustering of the species abundance </span></span>
+<span id="cb64-76"><a href="#cb64-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-77"><a href="#cb64-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute matrix of chord distance among sites</span></span>
+<span id="cb64-78"><a href="#cb64-78" aria-hidden="true" tabindex="-1"></a>spe.norm <span class="ot">&lt;-</span> <span class="fu">decostand</span>(spe, <span class="st">"normalize"</span>)</span>
+<span id="cb64-79"><a href="#cb64-79" aria-hidden="true" tabindex="-1"></a>spe.ch <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(spe.norm, <span class="st">"euc"</span>)</span>
+<span id="cb64-80"><a href="#cb64-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-81"><a href="#cb64-81" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach site names to object of class 'dist'</span></span>
+<span id="cb64-82"><a href="#cb64-82" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(spe.ch, <span class="st">"Labels"</span>) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(spe)</span>
+<span id="cb64-83"><a href="#cb64-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-84"><a href="#cb64-84" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb64-85"><a href="#cb64-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-86"><a href="#cb64-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute single linkage agglomerative clustering</span></span>
+<span id="cb64-87"><a href="#cb64-87" aria-hidden="true" tabindex="-1"></a>spe.ch.single <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"single"</span>)</span>
+<span id="cb64-88"><a href="#cb64-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a dendrogram using the default options</span></span>
+<span id="cb64-89"><a href="#cb64-89" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.single, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Single linkage"</span>)</span>
+<span id="cb64-90"><a href="#cb64-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-91"><a href="#cb64-91" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute complete-linkage agglomerative clustering</span></span>
+<span id="cb64-92"><a href="#cb64-92" aria-hidden="true" tabindex="-1"></a>spe.ch.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"complete"</span>)</span>
+<span id="cb64-93"><a href="#cb64-93" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.complete, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Complete linkage"</span>)</span>
+<span id="cb64-94"><a href="#cb64-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-95"><a href="#cb64-95" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute UPGMA agglomerative clustering</span></span>
+<span id="cb64-96"><a href="#cb64-96" aria-hidden="true" tabindex="-1"></a>spe.ch.UPGMA <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"average"</span>)</span>
+<span id="cb64-97"><a href="#cb64-97" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.UPGMA, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - UPGMA"</span>)</span>
+<span id="cb64-98"><a href="#cb64-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-99"><a href="#cb64-99" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute centroid clustering</span></span>
+<span id="cb64-100"><a href="#cb64-100" aria-hidden="true" tabindex="-1"></a>spe.ch.centroid <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"centroid"</span>)</span>
+<span id="cb64-101"><a href="#cb64-101" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.centroid, <span class="at">labels =</span> <span class="fu">rownames</span>(spe),  <span class="at">main =</span> <span class="st">"Chord - Centroid"</span>)</span>
+<span id="cb64-102"><a href="#cb64-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-103"><a href="#cb64-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute Ward's minimum variance clustering</span></span>
+<span id="cb64-104"><a href="#cb64-104" aria-hidden="true" tabindex="-1"></a>spe.ch.ward <span class="ot">&lt;-</span><span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb64-105"><a href="#cb64-105" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.ward, <span class="at">labels =</span> <span class="fu">rownames</span>(spe),  <span class="at">main =</span> <span class="st">"Chord - Ward"</span>)</span>
+<span id="cb64-106"><a href="#cb64-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-107"><a href="#cb64-107" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute beta-flexible clustering using cluster::agnes()</span></span>
+<span id="cb64-108"><a href="#cb64-108" aria-hidden="true" tabindex="-1"></a><span class="co"># beta = -0.1</span></span>
+<span id="cb64-109"><a href="#cb64-109" aria-hidden="true" tabindex="-1"></a>spe.ch.beta1 <span class="ot">&lt;-</span> <span class="fu">agnes</span>(spe.ch, <span class="at">method =</span> <span class="st">"flexible"</span>, <span class="at">par.method =</span> <span class="fl">0.55</span>)</span>
+<span id="cb64-110"><a href="#cb64-110" aria-hidden="true" tabindex="-1"></a><span class="co"># beta = -0.25</span></span>
+<span id="cb64-111"><a href="#cb64-111" aria-hidden="true" tabindex="-1"></a>spe.ch.beta2 <span class="ot">&lt;-</span> <span class="fu">agnes</span>(spe.ch, <span class="at">method =</span> <span class="st">"flexible"</span>, <span class="at">par.method =</span> <span class="fl">0.625</span>)</span>
+<span id="cb64-112"><a href="#cb64-112" aria-hidden="true" tabindex="-1"></a><span class="co"># beta = -0.5</span></span>
+<span id="cb64-113"><a href="#cb64-113" aria-hidden="true" tabindex="-1"></a>spe.ch.beta3 <span class="ot">&lt;-</span> <span class="fu">agnes</span>(spe.ch, <span class="at">method =</span> <span class="st">"flexible"</span>, <span class="at">par.method =</span> <span class="fl">0.75</span>)</span>
+<span id="cb64-114"><a href="#cb64-114" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the class of agnes objects</span></span>
+<span id="cb64-115"><a href="#cb64-115" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(spe.ch.beta1)</span>
+<span id="cb64-116"><a href="#cb64-116" aria-hidden="true" tabindex="-1"></a>spe.ch.beta1 <span class="ot">&lt;-</span> <span class="fu">as.hclust</span>(spe.ch.beta1)</span>
+<span id="cb64-117"><a href="#cb64-117" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(spe.ch.beta1)</span>
+<span id="cb64-118"><a href="#cb64-118" aria-hidden="true" tabindex="-1"></a>spe.ch.beta2 <span class="ot">&lt;-</span> <span class="fu">as.hclust</span>(spe.ch.beta2)</span>
+<span id="cb64-119"><a href="#cb64-119" aria-hidden="true" tabindex="-1"></a>spe.ch.beta3 <span class="ot">&lt;-</span> <span class="fu">as.hclust</span>(spe.ch.beta3)</span>
+<span id="cb64-120"><a href="#cb64-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-121"><a href="#cb64-121" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb64-122"><a href="#cb64-122" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.beta1, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Beta-flexible (beta=-0.1)"</span>)</span>
+<span id="cb64-123"><a href="#cb64-123" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.beta2, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Beta-flexible (beta=-0.25)"</span>)</span>
+<span id="cb64-124"><a href="#cb64-124" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.beta3,  <span class="at">labels =</span> <span class="fu">rownames</span>(spe),  <span class="at">main =</span> <span class="st">"Chord - Beta-flexible (beta=-0.5)"</span>)</span>
+<span id="cb64-125"><a href="#cb64-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-126"><a href="#cb64-126" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute Ward's minimum variance clustering</span></span>
+<span id="cb64-127"><a href="#cb64-127" aria-hidden="true" tabindex="-1"></a>spe.ch.ward <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb64-128"><a href="#cb64-128" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.ward, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Ward"</span>)</span>
+<span id="cb64-129"><a href="#cb64-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-130"><a href="#cb64-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-131"><a href="#cb64-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cophenetic correlations</span></span>
+<span id="cb64-132"><a href="#cb64-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-135"><a href="#cb64-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-136"><a href="#cb64-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Single linkage clustering</span></span>
+<span id="cb64-137"><a href="#cb64-137" aria-hidden="true" tabindex="-1"></a>spe.ch.single.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.single)</span>
+<span id="cb64-138"><a href="#cb64-138" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.single.coph)</span>
+<span id="cb64-139"><a href="#cb64-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-140"><a href="#cb64-140" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete linkage clustering</span></span>
+<span id="cb64-141"><a href="#cb64-141" aria-hidden="true" tabindex="-1"></a>spe.ch.comp.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.complete)</span>
+<span id="cb64-142"><a href="#cb64-142" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.comp.coph)</span>
+<span id="cb64-143"><a href="#cb64-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-144"><a href="#cb64-144" aria-hidden="true" tabindex="-1"></a><span class="co"># Average clustering</span></span>
+<span id="cb64-145"><a href="#cb64-145" aria-hidden="true" tabindex="-1"></a>spe.ch.UPGMA.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.UPGMA)</span>
+<span id="cb64-146"><a href="#cb64-146" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.UPGMA.coph)</span>
+<span id="cb64-147"><a href="#cb64-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-148"><a href="#cb64-148" aria-hidden="true" tabindex="-1"></a><span class="co"># Ward clustering</span></span>
+<span id="cb64-149"><a href="#cb64-149" aria-hidden="true" tabindex="-1"></a>spe.ch.ward.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.ward)</span>
+<span id="cb64-150"><a href="#cb64-150" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.ward.coph)</span>
+<span id="cb64-151"><a href="#cb64-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-152"><a href="#cb64-152" aria-hidden="true" tabindex="-1"></a><span class="co"># Shepard-like diagrams</span></span>
+<span id="cb64-153"><a href="#cb64-153" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb64-154"><a href="#cb64-154" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.single.coph,</span>
+<span id="cb64-155"><a href="#cb64-155" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb64-156"><a href="#cb64-156" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)),</span>
+<span id="cb64-157"><a href="#cb64-157" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"Single linkage"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>,</span>
+<span id="cb64-158"><a href="#cb64-158" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">round</span>(<span class="fu">cor</span>(spe.ch, spe.ch.single.coph), <span class="dv">3</span>))))</span>
+<span id="cb64-159"><a href="#cb64-159" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb64-160"><a href="#cb64-160" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.single.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb64-161"><a href="#cb64-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-162"><a href="#cb64-162" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.comp.coph,</span>
+<span id="cb64-163"><a href="#cb64-163" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb64-164"><a href="#cb64-164" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)),</span>
+<span id="cb64-165"><a href="#cb64-165" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"Complete linkage"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>,</span>
+<span id="cb64-166"><a href="#cb64-166" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">round</span>(<span class="fu">cor</span>(spe.ch, spe.ch.comp.coph), <span class="dv">3</span>))))</span>
+<span id="cb64-167"><a href="#cb64-167" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb64-168"><a href="#cb64-168" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.comp.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb64-169"><a href="#cb64-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-170"><a href="#cb64-170" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.UPGMA.coph,</span>
+<span id="cb64-171"><a href="#cb64-171" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb64-172"><a href="#cb64-172" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)),</span>
+<span id="cb64-173"><a href="#cb64-173" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"UPGMA"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>,</span>
+<span id="cb64-174"><a href="#cb64-174" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">round</span>( <span class="fu">cor</span>(spe.ch, spe.ch.UPGMA.coph), <span class="dv">3</span>))))</span>
+<span id="cb64-175"><a href="#cb64-175" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb64-176"><a href="#cb64-176" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.UPGMA.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb64-177"><a href="#cb64-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-178"><a href="#cb64-178" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.ward.coph,</span>
+<span id="cb64-179"><a href="#cb64-179" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb64-180"><a href="#cb64-180" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(spe.ch.ward<span class="sc">$</span>height)),</span>
+<span id="cb64-181"><a href="#cb64-181" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"Ward"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>, </span>
+<span id="cb64-182"><a href="#cb64-182" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">round</span>(<span class="fu">cor</span>(spe.ch, spe.ch.ward.coph), <span class="dv">3</span>))))</span>
+<span id="cb64-183"><a href="#cb64-183" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb64-184"><a href="#cb64-184" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.ward.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb64-185"><a href="#cb64-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-186"><a href="#cb64-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-187"><a href="#cb64-187" aria-hidden="true" tabindex="-1"></a><span class="fu">## Optimale Anzahl Cluster</span></span>
+<span id="cb64-190"><a href="#cb64-190" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-191"><a href="#cb64-191" aria-hidden="true" tabindex="-1"></a><span class="do">## Select a dendrogram (Ward/chord) and apply three criteria</span></span>
+<span id="cb64-192"><a href="#cb64-192" aria-hidden="true" tabindex="-1"></a><span class="do">## to choose the optimal number of clusters</span></span>
+<span id="cb64-193"><a href="#cb64-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-194"><a href="#cb64-194" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose and rename the dendrogram ("hclust" object)</span></span>
+<span id="cb64-195"><a href="#cb64-195" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> spe.ch.ward</span>
+<span id="cb64-196"><a href="#cb64-196" aria-hidden="true" tabindex="-1"></a><span class="co"># hc &lt;- spe.ch.beta2</span></span>
+<span id="cb64-197"><a href="#cb64-197" aria-hidden="true" tabindex="-1"></a><span class="co"># hc &lt;- spe.ch.complete</span></span>
+<span id="cb64-198"><a href="#cb64-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-199"><a href="#cb64-199" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb64-200"><a href="#cb64-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-201"><a href="#cb64-201" aria-hidden="true" tabindex="-1"></a><span class="co"># Average silhouette widths (Rousseeuw quality index)</span></span>
+<span id="cb64-202"><a href="#cb64-202" aria-hidden="true" tabindex="-1"></a>Si <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(spe))</span>
+<span id="cb64-203"><a href="#cb64-203" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(spe) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb64-204"><a href="#cb64-204" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb64-205"><a href="#cb64-205" aria-hidden="true" tabindex="-1"></a>  sil <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(<span class="fu">cutree</span>(hc, <span class="at">k =</span> k), spe.ch)</span>
+<span id="cb64-206"><a href="#cb64-206" aria-hidden="true" tabindex="-1"></a>  Si[k] <span class="ot">&lt;-</span> <span class="fu">summary</span>(sil)<span class="sc">$</span>avg.width</span>
+<span id="cb64-207"><a href="#cb64-207" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb64-208"><a href="#cb64-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-209"><a href="#cb64-209" aria-hidden="true" tabindex="-1"></a>k.best <span class="ot">&lt;-</span> <span class="fu">which.max</span>(Si)</span>
+<span id="cb64-210"><a href="#cb64-210" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe), Si, <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb64-211"><a href="#cb64-211" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Silhouette-optimal number of clusters"</span>,</span>
+<span id="cb64-212"><a href="#cb64-212" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>, <span class="at">ylab =</span> <span class="st">"Average silhouette width"</span>)</span>
+<span id="cb64-213"><a href="#cb64-213" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, k.best,<span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>), <span class="at">col =</span> <span class="st">"red"</span>, </span>
+<span id="cb64-214"><a href="#cb64-214" aria-hidden="true" tabindex="-1"></a>     <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb64-215"><a href="#cb64-215" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(k.best,<span class="fu">max</span>(Si), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb64-216"><a href="#cb64-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-217"><a href="#cb64-217" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimal number of clusters according to matrix correlation </span></span>
+<span id="cb64-218"><a href="#cb64-218" aria-hidden="true" tabindex="-1"></a><span class="co"># statistic (Pearson)</span></span>
+<span id="cb64-219"><a href="#cb64-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-220"><a href="#cb64-220" aria-hidden="true" tabindex="-1"></a><span class="co"># Homemade function grpdist from Borcard et al. (2018)</span></span>
+<span id="cb64-221"><a href="#cb64-221" aria-hidden="true" tabindex="-1"></a>grpdist <span class="ot">&lt;-</span> <span class="cf">function</span>(X)</span>
+<span id="cb64-222"><a href="#cb64-222" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb64-223"><a href="#cb64-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(cluster)</span>
+<span id="cb64-224"><a href="#cb64-224" aria-hidden="true" tabindex="-1"></a>  veg <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.factor</span>(X))</span>
+<span id="cb64-225"><a href="#cb64-225" aria-hidden="true" tabindex="-1"></a>  distgr <span class="ot">&lt;-</span> <span class="fu">daisy</span>(veg, <span class="st">"gower"</span>)</span>
+<span id="cb64-226"><a href="#cb64-226" aria-hidden="true" tabindex="-1"></a>  distgr</span>
+<span id="cb64-227"><a href="#cb64-227" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb64-228"><a href="#cb64-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-229"><a href="#cb64-229" aria-hidden="true" tabindex="-1"></a>kt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe), <span class="at">r =</span> <span class="dv">0</span>)</span>
+<span id="cb64-230"><a href="#cb64-230" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(spe) <span class="sc">-</span> <span class="dv">1</span>)) </span>
+<span id="cb64-231"><a href="#cb64-231" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb64-232"><a href="#cb64-232" aria-hidden="true" tabindex="-1"></a>  gr <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc, i)</span>
+<span id="cb64-233"><a href="#cb64-233" aria-hidden="true" tabindex="-1"></a>  distgr <span class="ot">&lt;-</span> <span class="fu">grpdist</span>(gr)</span>
+<span id="cb64-234"><a href="#cb64-234" aria-hidden="true" tabindex="-1"></a>  mt <span class="ot">&lt;-</span> <span class="fu">cor</span>(spe.ch, distgr, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb64-235"><a href="#cb64-235" aria-hidden="true" tabindex="-1"></a>  kt[i, <span class="dv">2</span>] <span class="ot">&lt;-</span> mt</span>
+<span id="cb64-236"><a href="#cb64-236" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb64-237"><a href="#cb64-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-238"><a href="#cb64-238" aria-hidden="true" tabindex="-1"></a>k.best <span class="ot">&lt;-</span> <span class="fu">which.max</span>(kt<span class="sc">$</span>r)</span>
+<span id="cb64-239"><a href="#cb64-239" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kt<span class="sc">$</span>k,kt<span class="sc">$</span>r, <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb64-240"><a href="#cb64-240" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Matrix correlation-optimal number of clusters"</span>,</span>
+<span id="cb64-241"><a href="#cb64-241" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>, <span class="at">ylab =</span> <span class="st">"Pearson's correlation"</span>)</span>
+<span id="cb64-242"><a href="#cb64-242" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, k.best, <span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb64-243"><a href="#cb64-243" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb64-244"><a href="#cb64-244" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(k.best, <span class="fu">max</span>(kt<span class="sc">$</span>r), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb64-245"><a href="#cb64-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-246"><a href="#cb64-246" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimal number of clusters according as per indicator species</span></span>
+<span id="cb64-247"><a href="#cb64-247" aria-hidden="true" tabindex="-1"></a><span class="co"># analysis (IndVal, Dufrene-Legendre; package: labdsv)</span></span>
+<span id="cb64-248"><a href="#cb64-248" aria-hidden="true" tabindex="-1"></a>IndVal <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(spe))</span>
+<span id="cb64-249"><a href="#cb64-249" aria-hidden="true" tabindex="-1"></a>ng <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(spe))</span>
+<span id="cb64-250"><a href="#cb64-250" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(spe) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb64-251"><a href="#cb64-251" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb64-252"><a href="#cb64-252" aria-hidden="true" tabindex="-1"></a>  iva <span class="ot">&lt;-</span> <span class="fu">indval</span>(spe, <span class="fu">cutree</span>(hc, <span class="at">k =</span> k), <span class="at">numitr =</span> <span class="dv">1000</span>)</span>
+<span id="cb64-253"><a href="#cb64-253" aria-hidden="true" tabindex="-1"></a>  gr <span class="ot">&lt;-</span> <span class="fu">factor</span>(iva<span class="sc">$</span>maxcls[iva<span class="sc">$</span>pval <span class="sc">&lt;=</span> <span class="fl">0.05</span>])</span>
+<span id="cb64-254"><a href="#cb64-254" aria-hidden="true" tabindex="-1"></a>  ng[k] <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">levels</span>(gr)) <span class="sc">/</span> k</span>
+<span id="cb64-255"><a href="#cb64-255" aria-hidden="true" tabindex="-1"></a>  iv <span class="ot">&lt;-</span> iva<span class="sc">$</span>indcls[iva<span class="sc">$</span>pval <span class="sc">&lt;=</span> <span class="fl">0.05</span>]</span>
+<span id="cb64-256"><a href="#cb64-256" aria-hidden="true" tabindex="-1"></a>  IndVal[k] <span class="ot">&lt;-</span> <span class="fu">sum</span>(iv)</span>
+<span id="cb64-257"><a href="#cb64-257" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb64-258"><a href="#cb64-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-259"><a href="#cb64-259" aria-hidden="true" tabindex="-1"></a>k.best <span class="ot">&lt;-</span> <span class="fu">which.max</span>(IndVal[ng <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb64-260"><a href="#cb64-260" aria-hidden="true" tabindex="-1"></a>col3 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(spe))</span>
+<span id="cb64-261"><a href="#cb64-261" aria-hidden="true" tabindex="-1"></a>col3[ng <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb64-262"><a href="#cb64-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-263"><a href="#cb64-263" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb64-264"><a href="#cb64-264" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe), IndVal, <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb64-265"><a href="#cb64-265" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"IndVal-optimal number of clusters"</span>,</span>
+<span id="cb64-266"><a href="#cb64-266" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>, <span class="at">ylab =</span> <span class="st">"IndVal sum"</span>, <span class="at">col =</span> col3)</span>
+<span id="cb64-267"><a href="#cb64-267" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,k.best,<span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb64-268"><a href="#cb64-268" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb64-269"><a href="#cb64-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-270"><a href="#cb64-270" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">which.max</span>(IndVal),<span class="fu">max</span>(IndVal),<span class="at">pch =</span> <span class="dv">16</span>,<span class="at">col =</span> <span class="st">"red"</span>,<span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb64-271"><a href="#cb64-271" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">28</span>, <span class="fl">15.7</span>, <span class="st">"a"</span>, <span class="at">cex =</span> <span class="fl">1.8</span>)</span>
+<span id="cb64-272"><a href="#cb64-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-273"><a href="#cb64-273" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe),ng,</span>
+<span id="cb64-274"><a href="#cb64-274" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb64-275"><a href="#cb64-275" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>,</span>
+<span id="cb64-276"><a href="#cb64-276" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Ratio"</span>,</span>
+<span id="cb64-277"><a href="#cb64-277" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Proportion of clusters with significant indicator species"</span>,</span>
+<span id="cb64-278"><a href="#cb64-278" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> col3)</span>
+<span id="cb64-279"><a href="#cb64-279" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,k.best,<span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb64-280"><a href="#cb64-280" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb64-281"><a href="#cb64-281" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(k.best,<span class="fu">max</span>(ng), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb64-282"><a href="#cb64-282" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">28</span>, <span class="fl">0.98</span>, <span class="st">"b"</span>, <span class="at">cex =</span> <span class="fl">1.8</span>)</span>
+<span id="cb64-283"><a href="#cb64-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-284"><a href="#cb64-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-285"><a href="#cb64-285" aria-hidden="true" tabindex="-1"></a><span class="fu">## Final dendrogram with the selected clusters</span></span>
+<span id="cb64-288"><a href="#cb64-288" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-289"><a href="#cb64-289" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose the number of clusters</span></span>
+<span id="cb64-290"><a href="#cb64-290" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb64-291"><a href="#cb64-291" aria-hidden="true" tabindex="-1"></a><span class="co"># Silhouette plot of the final partition</span></span>
+<span id="cb64-292"><a href="#cb64-292" aria-hidden="true" tabindex="-1"></a>spech.ward.g <span class="ot">&lt;-</span> <span class="fu">cutree</span>(spe.ch.ward, <span class="at">k =</span> k)</span>
+<span id="cb64-293"><a href="#cb64-293" aria-hidden="true" tabindex="-1"></a>sil <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(spech.ward.g, spe.ch)</span>
+<span id="cb64-294"><a href="#cb64-294" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(sil) <span class="ot">&lt;-</span> <span class="fu">row.names</span>(spe)</span>
+<span id="cb64-295"><a href="#cb64-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-296"><a href="#cb64-296" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sil, <span class="at">main =</span> <span class="st">"Silhouette plot - Chord - Ward"</span>, <span class="at">cex.names =</span> <span class="fl">0.8</span>, <span class="at">col =</span> <span class="dv">2</span><span class="sc">:</span>(k <span class="sc">+</span> <span class="dv">1</span>), <span class="at">nmax =</span> <span class="dv">100</span>)</span>
+<span id="cb64-297"><a href="#cb64-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-298"><a href="#cb64-298" aria-hidden="true" tabindex="-1"></a><span class="co"># Reorder clusters</span></span>
+<span id="cb64-299"><a href="#cb64-299" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(gclus)){<span class="fu">install.packages</span>(<span class="st">"gclus"</span>)}</span>
+<span id="cb64-300"><a href="#cb64-300" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"gclus"</span>)</span>
+<span id="cb64-301"><a href="#cb64-301" aria-hidden="true" tabindex="-1"></a>spe.chwo <span class="ot">&lt;-</span> <span class="fu">reorder.hclust</span>(spe.ch.ward, spe.ch)</span>
+<span id="cb64-302"><a href="#cb64-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-303"><a href="#cb64-303" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot reordered dendrogram with group labels</span></span>
+<span id="cb64-304"><a href="#cb64-304" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb64-305"><a href="#cb64-305" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.chwo, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">xlab =</span> <span class="st">"4 groups"</span>, <span class="at">ylab =</span> <span class="st">"Height"</span>, <span class="at">sub =</span> <span class="st">""</span>,</span>
+<span id="cb64-306"><a href="#cb64-306" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Chord - Ward (reordered)"</span>, <span class="at">labels =</span> <span class="fu">cutree</span>(spe.chwo, <span class="at">k =</span> k))</span>
+<span id="cb64-307"><a href="#cb64-307" aria-hidden="true" tabindex="-1"></a><span class="fu">rect.hclust</span>(spe.chwo, <span class="at">k =</span> k)</span>
+<span id="cb64-308"><a href="#cb64-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-309"><a href="#cb64-309" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the final dendrogram with group colors (RGBCMY...)</span></span>
+<span id="cb64-310"><a href="#cb64-310" aria-hidden="true" tabindex="-1"></a><span class="co"># Fast method using the additional hcoplot() function:</span></span>
+<span id="cb64-311"><a href="#cb64-311" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage:</span></span>
+<span id="cb64-312"><a href="#cb64-312" aria-hidden="true" tabindex="-1"></a><span class="co"># hcoplot(tree = hclust.object,</span></span>
+<span id="cb64-313"><a href="#cb64-313" aria-hidden="true" tabindex="-1"></a><span class="co">#   diss = dissimilarity.matrix,</span></span>
+<span id="cb64-314"><a href="#cb64-314" aria-hidden="true" tabindex="-1"></a><span class="co">#   lab = object labels (default NULL),</span></span>
+<span id="cb64-315"><a href="#cb64-315" aria-hidden="true" tabindex="-1"></a><span class="co">#   k = nb.clusters,</span></span>
+<span id="cb64-316"><a href="#cb64-316" aria-hidden="true" tabindex="-1"></a><span class="co">#   title = paste("Reordered dendrogram from",deparse(tree$call),</span></span>
+<span id="cb64-317"><a href="#cb64-317" aria-hidden="true" tabindex="-1"></a><span class="co">#   sep="\n"))</span></span>
+<span id="cb64-318"><a href="#cb64-318" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"stat5-8"</span>,<span class="st">"hcoplot.R"</span>))</span>
+<span id="cb64-319"><a href="#cb64-319" aria-hidden="true" tabindex="-1"></a><span class="fu">hcoplot</span>(spe.ch.ward, spe.ch, <span class="at">lab =</span> <span class="fu">rownames</span>(spe), <span class="at">k =</span> <span class="dv">4</span>)</span>
+<span id="cb64-320"><a href="#cb64-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-321"><a href="#cb64-321" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Ward clusters on a map of the Doubs River</span></span>
+<span id="cb64-322"><a href="#cb64-322" aria-hidden="true" tabindex="-1"></a><span class="co"># (see Chapter 2)</span></span>
+<span id="cb64-323"><a href="#cb64-323" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">here</span>(<span class="st">"stat5-8"</span>,<span class="st">"drawmap.R"</span>))</span>
+<span id="cb64-324"><a href="#cb64-324" aria-hidden="true" tabindex="-1"></a><span class="fu">drawmap</span>(<span class="at">xy =</span> spa, <span class="at">clusters =</span> spech.ward.g, <span class="at">main =</span> <span class="st">"Four Ward clusters along the Doubs River"</span>)</span>
+<span id="cb64-325"><a href="#cb64-325" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-326"><a href="#cb64-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-327"><a href="#cb64-327" aria-hidden="true" tabindex="-1"></a><span class="fu">## Miscellaneous graphical outputs</span></span>
+<span id="cb64-330"><a href="#cb64-330" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-331"><a href="#cb64-331" aria-hidden="true" tabindex="-1"></a><span class="co"># konvertieren von "hclust" Objekt in ein Dendogram Objekt</span></span>
+<span id="cb64-332"><a href="#cb64-332" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(spe.ch.ward)</span>
+<span id="cb64-333"><a href="#cb64-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-334"><a href="#cb64-334" aria-hidden="true" tabindex="-1"></a><span class="co"># Heat map of the dissimilarity matrix ordered with the dendrogram</span></span>
+<span id="cb64-335"><a href="#cb64-335" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(<span class="fu">as.matrix</span>(spe.ch), <span class="at">Rowv =</span> dend, <span class="at">symm =</span> <span class="cn">TRUE</span>, <span class="at">margin =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb64-336"><a href="#cb64-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-337"><a href="#cb64-337" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordered community table</span></span>
+<span id="cb64-338"><a href="#cb64-338" aria-hidden="true" tabindex="-1"></a><span class="co"># Species are ordered by their weighted averages on site scores.</span></span>
+<span id="cb64-339"><a href="#cb64-339" aria-hidden="true" tabindex="-1"></a><span class="co"># Dots represent absences.</span></span>
+<span id="cb64-340"><a href="#cb64-340" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb64-341"><a href="#cb64-341" aria-hidden="true" tabindex="-1"></a>or <span class="ot">&lt;-</span> <span class="fu">vegemite</span>(spe, spe.chwo)</span>
+<span id="cb64-342"><a href="#cb64-342" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>
