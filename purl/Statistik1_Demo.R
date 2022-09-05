@@ -85,4 +85,3 @@ ggplot (blume.long, aes(cultivar,size)) +
   geom_boxplot(size = 1) + 
   mytheme +
   labs(x="Cultivar",y="Size (cm)")
-

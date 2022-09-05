@@ -40,7 +40,7 @@ allmodels <- dredge(global.model)
 allmodels
 
 # Importance values der Variablen
-importance(allmodels)
+sw(allmodels)
 
 # Modelaveraging (Achtung: dauert mit 13 Variablen einige Minuten)
 summary(model.avg(allmodels, rank = "AICc"), subset = TRUE)

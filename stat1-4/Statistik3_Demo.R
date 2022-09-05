@@ -131,7 +131,7 @@ options(na.action = "na.fail")
 
 allmodels <- dredge(global.model)
 allmodels
-importance(allmodels)
+sw(allmodels)
 
 avgmodel <- model.avg(allmodels, subset = TRUE)
 summary(avgmodel)

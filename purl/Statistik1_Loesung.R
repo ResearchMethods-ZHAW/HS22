@@ -4,7 +4,6 @@
 
 
 nova <- read_delim(file = here("data","2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv"), delim = ";")
-
 nova_survey <- read_delim(file = here("data","2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv"), delim = ";")
 
 #überprüfe die Datenstruktur
@@ -93,4 +92,3 @@ t_test <- t.test(tot_sold ~ condit, data=df, var.equl = T)
 #alternative Formulierung
 t.test(df[df$condit == "Basis", ]$tot_sold, 
                  df[df$condit == "Intervention", ]$tot_sold) 
-

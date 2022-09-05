@@ -37,6 +37,7 @@ aggregate(size~cultivar, blume2, function(x) c(Mean = mean(x), SD = sd(x), Min =
 lm.1 <- lm(size~cultivar, data = blume2)
 summary(lm.1)
 
+#Load library
 if(!require(agricolae)){install.packages("agricolae")}
 library(agricolae)
 
@@ -50,15 +51,19 @@ text(1, 4.8, "a")
 text(2, 4.8, "c")
 text(3, 4.8, "b")
 
+#Load library
 library(tidyverse)
+
 ggplot(iris, aes(Species, Sepal.Width)) + geom_boxplot(size = 1) +
   annotate("text", y = 5, x = 1:3, label = c("a", "c", "b"))
 
 shapiro.test(blume2$size[blume2$cultivar == "a"])
 var.test(blume2$size[blume2$cultivar == "a"], blume2$size[blume2$cultivar == "b"])
 
+#Load library
 if(!require(car)){install.packages("car")}
 library(car)
+
 leveneTest(blume2$size[blume2$cultivar == "a"], blume2$size[blume2$cultivar == "b"], center=mean)
 
 wilcox.test(blume2$size[blume2$cultivar == "a"], blume2$size[blume2$cultivar == "b"])
@@ -66,8 +71,11 @@ wilcox.test(blume2$size[blume2$cultivar == "a"], blume2$size[blume2$cultivar == 
 summary(aov(size~cultivar, data = blume2))
 
 kruskal.test(size~cultivar, data = blume2)
+
+#Load library
 if(!require(FSA)){install.packages("FSA")} 
 library(FSA)
+
 #korrigierte p-Werte nach Bejamini-Hochberg
 dunnTest(size~cultivar, method = "bh", data = blume2) 
 
@@ -80,7 +88,6 @@ f <- c(10, 12, 11, 13, 10, 9, 2, 4, 7, 13)
 blume3 <- data.frame(cultivar=c(rep("a", 20), rep("b", 20), rep("c", 20)),
                    house = c(rep(c(rep("yes", 10), rep("no", 10)), 3)),
                   size = c(a, b, c, d, e, f))
-
 blume3
 
 boxplot(size~cultivar + house, data = blume3)
@@ -98,6 +105,7 @@ interaction.plot(blume3$house, blume3$cultivar, blume3$size)
 anova(lm(blume3$size~blume3$cultivar*blume3$house), lm(blume3$size~blume3$cultivar+blume3$house))
 anova(lm(blume3$size~blume3$house), lm(blume3$size~blume3$cultivar * blume3$house))
 
+#Load library
 library(car)
 
 blume <- data.frame(a, b)
@@ -113,15 +121,20 @@ anova(lm.2)
 summary(lm.2)
 
 #Model II-Regression
+
+#Load library
 if(!require(lmodel2)){install.packages("lmodel2")} 
 library(lmodel2)
+
 lmodel2(b~a)
 
 par(mfrow=c(2, 2)) #4 Plots in einem Fenster
 plot(lm(b~a))
 
+#Load library
 if(!require(ggfortify)){install.packages("ggfortify")}
 library(ggfortify)
+
 autoplot(lm(b~a))
 
 # Modellstatistik nicht OK
