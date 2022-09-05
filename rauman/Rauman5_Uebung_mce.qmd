@@ -1,17 +1,23 @@
-# Rauman 5: Übung
+---
+date: 2022-12-12
+lesson: RaumAn5
+thema: Multi-Criteria Evaluation (MCE)
+index: 1
+---
 
+# Rauman 5: Übung
 
 {{< include /../_before-article.qmd >}}
 
-The following exercise may seem familiar to some of you, if you have attended the bachelor program. This MCE was already conducted in the bachelor module "GIS" by using ArcGIS Pro and its ModelBuilder (see figure \@ref(fig:figmce)).
+The following exercise may seem familiar to some of you, if you have attended the bachelor program. This MCE was already conducted in the bachelor module "GIS" by using ArcGIS Pro and its ModelBuilder (see @fig-mce-process).
 
-![](rauman/images/mce_process.png)
+![MCE Process](images/mce_process.png){#fig-mce-process}
 
-The goal of this exercise is to do the same MCE by just using R. We will mainly use functions from the R packages [sf](https://cran.r-project.org/web/packages/sf/sf.pdf) and [raster](https://cran.r-project.org/web/packages/raster/raster.pdf). Please have a look at the process model (see figure \@ref(fig:figmce)) that was created in ArcGIS Pro and try to figure out which functions in the two R packages correspond to the ones in the model. You will see that there are some similar functions available, but for some calculations a different approach is needed.
+The goal of this exercise is to do the same MCE by just using R. We will mainly use functions from the R packages [sf](https://cran.r-project.org/web/packages/sf/sf.pdf) and [raster](https://cran.r-project.org/web/packages/raster/raster.pdf). Please have a look at the process model (see @fig-mce-process) that was created in ArcGIS Pro and try to figure out which functions in the two R packages correspond to the ones in the model. You will see that there are some similar functions available, but for some calculations a different approach is needed.
 
 ## Exercises 1: Load and view data
 
-```{r, results='asis', echo=FALSE, purl = FALSE}
+```{r, results='asis', echo=FALSE, purl = FALSE, message=F}
 knitr::opts_chunk$set(echo = TRUE)
 
 datasets <- data.frame(
@@ -30,6 +36,8 @@ library(dplyr)
 ```
 
 ```{r datatable, results='asis', echo=FALSE, purl = FALSE}
+#| label: tbl-data
+#| tbl-cap: Data used in this study
 datasets %>%
   mutate(
     datasets = kableExtra::cell_spec(datasets, "html")
@@ -38,13 +46,13 @@ datasets %>%
   kable_styling(latex_options=c("scale_down", "HOLD_position"))
 ```
 
-The raster data can be loaded by using the function `terra::rast` and the vector data with `sf::read_sf`. View the available data layers (see Table \ref{tab:datatable}) and plot them in an appealing way. For visualization you can use the functions `plot` for raster data and `ggplot` for vector data.
+The raster data can be loaded by using the function `terra::rast` and the vector data with `sf::read_sf`. View the available data layers (see @tbl-data) and plot them in an appealing way. For visualization you can use the functions `plot` for raster data and `ggplot` for vector data.
 
 <!-- Some data sets exceed the boundaries of the study area. Use the function `crop`  on raster data sets and `st_intersection` for sf/vector data to extract the relevant areas. -->
 
 We will use the following packages in this exercise:
 
-```{r}
+```{r message=F}
 library(sf)
 library(terra)
 library(dplyr)
@@ -93,7 +101,7 @@ r <- terra::rast(ext(kt_schwyz),
           crs = "EPSG:21781")
 ```
   
-![](rauman/images/exclusion_areas.png)
+![](images/exclusion_areas.png){width=50%}
 
 ```{r solutionEx2, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 #Merge exclusion area
@@ -115,7 +123,7 @@ Next, calculate the slope in degrees based on the terrain model (dhm25m). The te
 
 ***Tip**: When using the terrain function use the following options: v="slope", unit="degrees", neighbors=8.*
 
-![](rauman/images/slope.png)
+![](images/slope.png){width=50%}
 
 ```{r solutionEx3, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 slope <- terra::terrain(dhm25m, v="slope",unit="degrees", neighbors=8)
@@ -130,7 +138,7 @@ Within the evaluation of suitable sites for wind turbines, the distance to roads
 * ***Tip**: In order to perform the `distance` function, you need to `rasterize` the criteria as well. You can use the same command as in exercise 2 but use only option field = 1.*
 * ***Tip**: Use the `crop` function again to get only relevant data in the study area.*
 
-![](rauman/images/d_to_settlements.png)
+![](images/d_to_settlements.png){width=50%}
 
 ```{r solutionEx4, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 #create raster layers from vector 
@@ -170,14 +178,15 @@ reclass_settlements <- c(0,80,0,
 reclass_settlements_ed <- terra::classify(settlements_ed, reclass_settlements)
 ```
 
+::: {#fig-mce-reclassify layout-ncol=2}
+![](images/mce_reclassify_1.png)
 
-<!--figreclassify-->
-![](rauman/images/mce_reclassify_1.png)
+![](images/mce_reclassify_2.png)
 
-![](rauman/images/mce_reclassify_2.png)
+MCE Reclassify
+:::
 
-
-![](rauman/images/d_to_settlements_reclassified.png)
+![](images/d_to_settlements_reclassified.png){width=50%}
 
 ```{r solutionEx5, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 #### reclassify wind
@@ -332,12 +341,12 @@ weights <- rowSums(ahp_matrix) #add row sum
 
 ## Exercise 7: Weighted Overlay
 
-The linearly ranked criteria (Exercise 5) are now to be combined with each other, taking into account the weighting determined using the AHP (Exercise 6). This weighted overlay can be performed by using raster calculations and simply multiplying each criteria with its weight and adding them together (see figure \@ref(fig:figweightedoverlay)).
+The linearly ranked criteria (Exercise 5) are now to be combined with each other, taking into account the weighting determined using the AHP (Exercise 6). This weighted overlay can be performed by using raster calculations and simply multiplying each criteria with its weight and adding them together (see @fig-weighted-overlay).
 
 * ***Tip**: As the raster sets have slightly different origins, increase the tolerance by using rasterOptions(tolerance = 0.5).*
 * ***Tip**: Also keep in mind the order of the weights in your list when doing the multiplication.*
 
-![](rauman/images/weighted_overlay.png)
+![Weighted Overlay](images/weighted_overlay.png){#fig-weighted-overlay width=50%}
 
 ```{r solutionEx7, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 # rasterOptions(tolerance = 0.5) #raster sets have different origins, increase tolerance
@@ -371,9 +380,9 @@ plot(weighted_overlay, main="Weighted overlay with all criteria", axes=FALSE, le
 
 ## Exercise 8: Intersecting potential areas with exclusion criteria
 
-By simply multiplying the exclusion layer (result from exercise 2) with the weighted overlay layer (result from exercise 7) we are excluding all areas with value 0 (exclusion areas) and keeping all other areas with value 1 (e.g. 0x3=0, 1x3=3). As a conclusion of the study, create a final plot of the potential areas for wind power plants in the canton of Schwyz (like figure \@ref(fig:figfinalresults)). Furthermore, discuss the results obtained and determine three possible locations within which concrete planning of wind power plants would be possible.
+By simply multiplying the exclusion layer (result from exercise 2) with the weighted overlay layer (result from exercise 7) we are excluding all areas with value 0 (exclusion areas) and keeping all other areas with value 1 (e.g. 0x3=0, 1x3=3). As a conclusion of the study, create a final plot of the potential areas for wind power plants in the canton of Schwyz (like @fig-potential-sites). Furthermore, discuss the results obtained and determine three possible locations within which concrete planning of wind power plants would be possible.
 
-![](rauman/images/potential_sites.png)
+![Potential Sites](images/potential_sites.png){#fig-potential-sites}
 
 ```{r  solutionEx8, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 # Transforming  the layer depicting the exclusion areas from SpatRaster class to RasterLayer class, so we can perform the final raster multiplication operation

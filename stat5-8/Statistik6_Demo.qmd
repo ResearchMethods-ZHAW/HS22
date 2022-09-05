@@ -1,3 +1,10 @@
+---
+date: 2022-11-15
+lesson: Stat6
+thema: Einführung in "multivariate" Methoden
+index: 1
+---
+
 # Stat6: Demo
 
 {{< include /../_before-article.qmd >}}
@@ -6,13 +13,13 @@
 # knitr::purl("Statistik6_Demo.qmd", "Statistik6_Demo.R", documentation = 0)
 ```
 
-# Ordinationen I
+## Ordinationen I
 
 [Demoscript als Download](Statistik6_Demo.R)
 
-## PCA
+### PCA
 
-```{r}
+```{r message=F}
 if(!require(labdsv)){install.packages("labdsv")}
 library(labdsv)
 
@@ -154,7 +161,7 @@ arrows(0,0, x[sel.sp], y[sel.sp], length = 0.08)
 text(x[sel.sp], y[sel.sp], snames, pos = 1, cex = 0.6)
 ```
 
-## CA
+### CA
 
 ```{r}
 ca.1 <- cca(sveg^0.5)
@@ -170,7 +177,7 @@ ca.1$CA$eig[1:2] / sum(ca.1$CA$eig)
 summary(eigenvals(ca.1))
 ```
 
-## DCA
+### DCA
  
 ```{r}
 library(vegan)
@@ -181,9 +188,9 @@ dca.2 <- decorana(sveg, mk = 100)
 plot(dca.2, display = "sites", type = "point")
 ```
 
-## NMDS
+### NMDS
  
-```{r}
+```{r message=F}
 # Distanzmatrix als Start erzeugen
 mde <- vegdist(sveg, method = "euclidean")
 

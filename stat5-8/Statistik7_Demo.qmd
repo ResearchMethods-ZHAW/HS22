@@ -1,3 +1,10 @@
+---
+date: 2022-11-21
+lesson: Stat7
+thema: Ordinationen II
+index: 1
+---
+
 # Stat7: Demo
 
 {{< include /../_before-article.qmd >}}
@@ -16,7 +23,7 @@
 
 Wildi pp. 96 et seq.
 
-```{r}
+```{r message=F}
 ## Plot Arten
 if(!require(dave)){install.packages("dave")}
 library(dave)
@@ -63,7 +70,6 @@ ordisurf(imds, ssit$pH.peat, add = T)
 ordisurf(imds, ssit$Waterlev.av, add = T, col = "blue")
 ```
 
-
 ### Constrained ordination
 
 ```{r, eval=FALSE}
@@ -108,7 +114,7 @@ summary(env)
 summary(spa)
 ```
 
-```{r}
+```{r message=F}
 ## Entfernen der Untersuchungsfläche ohne Arten
 spe <- spe[-8, ]
 env <- env[-8, ]
@@ -167,7 +173,7 @@ spe.hel
 spe.rda <- rda(spe.hel ~ ., env3) # Observe the shortcut formula
 ```
 
-```{r, eval=FALSE}
+```{r eval=FALSE}
 spe.rda
 summary(spe.rda)	# Scaling 2 (default)
 ```
@@ -177,7 +183,7 @@ summary(spe.rda)	# Scaling 2 (default)
 coef(spe.rda)
 ```
 
-```{r eval=F}
+```{r error=F}
 ## Unadjusted R^2 und Adjusted R^2
 (R2 <- RsquareAdj(spe.rda))
 
@@ -195,7 +201,6 @@ plot(spe.rda, display = c("sp", "lc", "cn"), main = "Triplot RDA spe.hel ~ env3 
 spe.sc2 <- scores(spe.rda, choices = 1:2, display = "sp")
 arrows(0, 0, spe.sc2[, 1] * 0.92, spe.sc2[, 2] * 0.92,length = 0, lty = 1, col = "red")
 text(-0.82, 0.55, "b", cex = 1.5)
-
 
 ### Triplots of the rda results (wa scores)
 ### Site scores as weighted averages (vegan's default)
@@ -215,7 +220,7 @@ sel.sp <- which(spe.good[, 2] >= 0.6)
 sel.sp
 
 ## Triplots with homemade function triplot.rda(), scalings 1 and 2
-source("triplot.rda.R")
+source(here("stat5-8", "triplot.rda.R"))
 ##dev.new(title = "RDA plot with triplot.rda", width = 12, height = 6, noRStudioGD = TRUE)
 par(mfrow = c(1, 2))
 triplot.rda(spe.rda, site.sc = "lc", scaling = 1, cex.char2 = 0.7, pos.env = 3, 
@@ -242,7 +247,7 @@ anova(spe.rda, by = "axis", permutations = how(nperm = 999))
 summary(spechem.physio)
 ```
 
-```{r eval=F}
+```{r}
 ## Formula interface; X and W variables must be in the same 
 ## data frame
 (spechem.physio2 <- rda(spe.hel ~ pH + har + pho + nit + amm + oxy + bod 
@@ -270,7 +275,7 @@ text(-3.34, 3.64, "b", cex = 2)
 
 ### Variation partioning
 
-```{r eval=F}
+```{r}
 ### Variation partitioning with two sets of explanatory variables
 
 ## Explanation of fraction labels (two, three and four explanatory 

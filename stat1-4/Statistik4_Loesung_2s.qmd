@@ -1,4 +1,11 @@
-# Stat4: Lösung 2s
+---
+date: 2022-11-08
+lesson: Stat4
+thema: Komplexere Regressionsmethoden
+index: 4
+---
+
+# Stat4: Lösung 4.2S
 
 {{< include /../_before-article.qmd >}}
 
@@ -9,15 +16,13 @@
 
 >Download [R-Skript](Statistik4_Loesung_2s.R) 
 
-# Musterlösung Übung 4.2S: Multiple logistische Regression (SozWis)
+## Musterlösung Übung 4.2S: Multiple logistische Regression (SozWis)
 
-*****
 - **Lese-Empfehlung** Kapitel 6 von [Manny Gimond]( https://mgimond.github.io/Stats-in-R/Logistic.html)
 - **Lese-Empfehlung** Kapitel 4 von [Gareth (2016)](http://faculty.marshall.usc.edu/gareth-james/ISL/ISLR%20Seventh%20Printing.pdf)
 - **Lese-Empfehlung** Vorlesungsfolien von Oscar Torres-Reyna [Princeton University](https://www.princeton.edu/~otorres/LogitR101.pdf)
-*****
 
-## kommentierter Loesungsweg
+### Kommentierter Lösungsweg
 ```{r, message=FALSE, echo=FALSE, results='hide', warning=FALSE}
 library(dplyr)
 library(readr)
@@ -49,7 +54,7 @@ mytheme <-
     )
 ```
 
-```{r }
+```{r warning=F}
 # Genereiert eine Dummyvariable: Fleisch 1, kein Fleisch 0
 df <- nova_survey %>%  # kopiert originaler Datensatz
   rename(umwelteinstellung = tho_2) %>% # änderung name der variable
@@ -169,11 +174,11 @@ sens = km_prop[4] / (km_prop[3] + km_prop[4])
 sens
 ```
 
-## Methode
+### Methode
 
 In der Aufgabe war es das Ziel zu schauen, ob wir einen potenziellen Besuch eines Mensagasts vorhersagen können und zwar in Abhängigkeit von den sozioökonimischen Variablen, wahrgenommene Fleischkonsum und der Umwelteinstellung. Die Kriteriumsvariable "Mensa" weist eine binäre Verteilung auf: Deshalb rechnen wir eine multiple logistische Regression mit den Prädiktoren “Alter”, “Geschlecht”, “Hochschulzugehörigkeit”, "Fleischkonsum" und "Umwelteinstellung. Mehr Informatinen zu den logistischen Regressinen findet ihr im Buch von Crawley (2015) oder auch im Buch von [Gareth (2016)](http://faculty.marshall.usc.edu/gareth-james/ISL/ISLR%20Seventh%20Printing.pdf), Kapitel 4.3; passendes Video [hier](https://www.youtube.com/watch?v=31Q5FGRnxt4&list=PL5-da3qGB5IC4vaDba5ClatUmFppXLAhE&index=2).
 
-## Ergebnisse
+### Ergebnisse
 ```{r , message=FALSE, echo=FALSE,fig.cap="Konfusionsmatrix"}
 knitr::kable(km)
 ```
@@ -189,4 +194,4 @@ Es gibt verschiedene Gründe für diesen schlechten Modelfit:
 - eine bessere Link-Funktion für das GLM suchen z.B. probit 
 - [polynomiale Kontraste](https://stats.stackexchange.com/questions/195246/how-to-handle-ordinal-categorical-variable-as-independent-variable)
 - Smooth Splines [hier](https://www.frontiersin.org/articles/10.3389/fams.2017.00015/full)
-- multinomiale Regression z.M. nnet::mulitom()[hier](https://stats.idre.ucla.edu/r/dae/multinomial-logistic-regression/) 
+- multinomiale Regression z.M. nnet::mulitom() [hier](https://stats.idre.ucla.edu/r/dae/multinomial-logistic-regression/) 

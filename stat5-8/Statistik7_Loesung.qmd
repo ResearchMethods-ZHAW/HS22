@@ -1,3 +1,10 @@
+---
+date: 2022-11-21
+lesson: Stat7
+thema: Ordinationen II
+index: 3
+---
+
 # Stat7: Lösung
 
 {{< include /../_before-article.qmd >}}
@@ -6,10 +13,10 @@
 # knitr::purl("Statistik7_Loesung.qmd", "Statistik7_Loesung.R", documentation = 0)
 ```
 
-## Musterloesung Aufgabe 7.1: RDA
+## Musterlösung Aufgabe 7.1: RDA
 
 - [R-Skript als Download](Statistik7_Loesung.R)
-- [Loesungstext](Statistik_Loesungstext_7.1.pdf)
+- [Lösungstext](Statistik_Loesungstext_7.1.pdf)
 
 - **Übungsaufgabe (hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)**
 
@@ -20,7 +27,7 @@
 - Während im Text normalerweise die Variablen ausgeschrieben werden solltet, genügt es hier (da ihr die entsprechenden Infos nicht bekommen habt und nur raten könntet), wenn ihr die Abkürzungen aus dem dataframe nehmt.
 
 __Moordatensatz laden__ 
-```{r}
+```{r message=F}
 if(!require(dave)){install.packages("dave")}
 library(dave)
 data(sveg)
@@ -100,7 +107,6 @@ spe.sc2 <- scores(spe.rda, choices = c(1,3), display = "sp")
 arrows(0, 0, spe.sc2[, 1] * 0.92, spe.sc2[, 2] * 0.92,length = 0,
        lty = 1,col = "red")
 text(-0.82, 0.55, "b", cex = 1.5)
-
 
 ## Triplots of the rda results (wa scores)
 ## Site scores as weighted averages (vegan's default)

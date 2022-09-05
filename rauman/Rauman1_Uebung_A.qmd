@@ -1,3 +1,10 @@
+---
+date: 2022-11-28
+lesson: RaumAn1
+thema: Einführung
+index: 1
+---
+
 # Rauman 1: Übung A
 
 {{< include /../_before-article.qmd >}}
@@ -6,13 +13,13 @@ Es gibt bereits eine Vielzahl von Packages um in R mit räumlichen Daten zu arbe
 
 Für die kommenden Übungen könnt ihr folgende Packages installieren bzw. laden:
 
-```{r warning=FALSE, echo = TRUE}
+```{r warning=FALSE, echo = TRUE, message=F}
 library(sf)
 library(dplyr)
 library(ggplot2)
 ```
 
-### Aufgabe 1: Vektor Daten runterladen und importieren
+## Aufgabe 1: Vektor Daten runterladen und importieren
 
 Lade zunächst die Datensätze unter folgenden Links herunter:
 
@@ -25,11 +32,11 @@ gemeinden <- read_sf(here("data","gemeinden.gpkg"))
 
 Schau Dir die importierten Datensätze an. Am meisten Informationen zu `sf` Objekten bekommst du, wenn du dir den Datensatz **in der Konsole** anschaust (in dem du den Variabel-Name in der Konsole eintippst). Mit dem RStudio Viewer werden `sf` Objekte nur sehr langsam geladen und die Metadaten werden nicht angezeigt.
 
-### Aufgabe 2: Daten Visualisieren
+## Aufgabe 2: Daten Visualisieren
 
 Vektordaten (`sf` Objekte) lassen sich teilweise sehr schön in die bekannten Tidyverse workflows integrieren. Das merkt man schnell, wenn man die Daten visualisieren möchte. In InfoVis 1 & 2 haben wir intensiv mit `ggplot2` gearbeitet und dort die Layers `geom_point()` und `geom_line()` kennen gelernt. Zusätzlich beinhaltet `ggplot` die Möglichkeit, mit `geom_sf()` Vektordaten direkt und sehr einfach zu plotten. Führe die angegebenen R-Befehle aus und studiere die entstehenden Plots. Welche Unterschiede findest Du? Wie erklärst Du diese Unterschiede?
 
-```{r echo = TRUE, eval=FALSE}
+```{r echo = TRUE}
 ggplot(gemeinden) + 
   geom_sf()
 
@@ -37,7 +44,7 @@ ggplot(kantone) +
   geom_sf()
 ```
 
-### Input: Koodinatensysteme
+## Input: Koodinatensysteme
 
 In der obigen visualierung fällt folgendes auf:
 
@@ -62,22 +69,22 @@ Nun gilt es, anhand der Koordinaten die in der Spalte `geometry` ersichtlich sin
 **Bedienungshinweise**:
 
 <fig>
-<img src = "rauman1/images/koordinatenpaar.jpg" width = 50%>
+<img src = "images/koordinatenpaar.jpg" width = 50%>
 <figcaption>Koordinanten (des Fadenkreuzes) werden im ausgewählten Koordinatensystem dargestellt</figcaption>
 </fig>
 
 <fig>
-<img src = "rauman1/images/koordinatensystem.jpg" width = 50%>
+<img src = "images/koordinatensystem.jpg" width = 50%>
 <figcaption>Das Koordinatensystem, in welchem die Koordinaten dargestellt werden sollen, kann mit "Change" angepasst werden</figcaption>
 </fig>
 
-<img src = "rauman1/images/reproject.jpg" width = 50%>
+<img src = "images/reproject.jpg" width = 50%>
 <figcaption>Für Enthusiasten: Schau Dir die Schweiz in verschiedenen Koordinatensystemen an, in dem Du auf "Reproject Map" klickst</figcaption>
 </fig>
 
 Wenn man diese Koordinaten mit den Koordinaten unserer Datensätze vergleicht, dann ist schnell klar, dass es sich beim Datensatz `kantone` um das Koordinatensystem WGS84 handelt und bei `gemeinden` das Koordinatensystem CH1903+ LV95. Diese Koordinatensyteme weisen wir nun mit `st_set_crs()` und dem entsprechenden *EPSG*-Code (siehe die jeweiligen Links) zu.
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, warning=F}
 kantone <- st_set_crs(kantone, 4326)
 gemeinden <- st_set_crs(gemeinden, 2056)
 
@@ -93,7 +100,7 @@ ggplot() +
   coord_sf(datum = 2056)
 ```
 
-### Aufgabe 3: Koordinatensyteme *transformieren*
+## Aufgabe 3: Koordinatensyteme *transformieren*
 
 In der vorherigen Übung haben wir das bestehende Koordinatensystem *zugewiesen*. Dabei haben wir die bestehenden Koordinaten (in der Spalte `geom`) *nicht* manipuliert. Ganz anders ist eine *Transformation* der Daten von einem Koordinatensystem in das andere. Bei einer Transformation werden die Koordinaten in das neue Koordinatensystem umgerechnet und somit manipuliert. Aus praktischen Gründen wollen <!-- Was sind diese Gründe? genauer erläutern? -->
 wir all unsere Daten ins neue Schweizer Koordinatensystem CH1903+ LV95 transfomieren. Transformiere den Datensatz `kantone` mit `st_transform()`in CH1903+ LV95, nutze dafür den korrekten EPSG-Code.
@@ -114,7 +121,7 @@ Nach der Transformation (betrachte die Attribute `Bounding box` sowie `Projected
 kantone
 ```
 
-### Aufgabe 4: Chloroplethen Karte
+## Aufgabe 4: Chloroplethen Karte
 
 Nun wollen wir die Gemeinden respektive die Kantone nach ihrer Einwohnerzahl einfärben. Dafür verwenden wir wie gewohnt die Methode `aes(fill = ...)` von `ggplot`. 
 

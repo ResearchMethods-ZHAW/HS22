@@ -1,5 +1,11 @@
-# Stat2: Loesung
+---
+date: 2022-11-01
+lesson: Stat2
+thema: Einführung in lineare Modelle
+index: 4
+---
 
+# Stat2: Lösung  2.1
 
 {{< include /../_before-article.qmd >}}
 
@@ -20,7 +26,7 @@ SAR <- read.delim(here("data","SAR.csv"), sep = ";")
 SAR
 ```
 
-**Explorative Datenanalyse**
+### Explorative Datenanalyse
 
 ```{r}
 summary(SAR)
@@ -29,19 +35,19 @@ boxplot(SAR$richness) # extrem rechtsschief
 plot(richness~area, data = SAR) # sieht nicht linear aus
 ```
 
-**Einfaches lineares Modell**
+### Einfaches lineares Modell
 ```{r}
 lm.1 <- lm(richness~area, data = SAR)
 summary(lm.1)
 ```
 
-**Modelldiagnostik**
+### Modelldiagnostik
 ```{r}
 par(mfrow = c(2, 2))
 plot(lm.1)
 ```
 
-**Ergebnisplot**
+### Ergebnisplot
 ```{r}
 par(mfrow = c(1, 1))
 plot(SAR$area, SAR$richness, xlab = "Area [m²]", ylab = "Species richness")
@@ -49,7 +55,7 @@ abline(lm(richness~area, data = SAR), col = "red") #Alternative 1
 abline(lm.1, col = "red") #Alternative 2
 ```
 
-**Lösung A: log-Transformation der abhängigen Variablen**
+## Lösung A: log-Transformation der abhängigen Variablen
 ```{r} 
 par(mfrow=c(1,2))
 boxplot(SAR$richness)
@@ -62,14 +68,14 @@ lm.2 <- lm(log_richness~area, data = SAR)
 summary(lm.2)
 ```
 
-**Modelldiagnostik**
+### Modelldiagnostik
 ```{r}
 par(mfrow = c(2, 2))
 plot(lm.2)
 ```
 #sieht noch schlechter aus
 
-**Lösung B: log-Transformation beider Variablen**
+## Lösung B: log-Transformation beider Variablen
 ```{r}
 par(mfrow=c(1,2))
 boxplot(SAR$area)
@@ -82,7 +88,7 @@ lm.3 <- lm(log_richness~log_area, data = SAR)
 summary(lm.3)
 ```
 
-**Modelldiagnostik**
+### Modelldiagnostik
 ```{r}
 par(mfrow = c(2, 2))
 plot(lm.3)
@@ -96,20 +102,20 @@ par(mfrow = c(1, 1))
 xv <- seq(0, 100, 0.1)
 ```
 
-**Ergebnisplots**
+## Ergebnisplots
 ```{r}
 par(mfrow = c(1,1))
 xv <- seq(0,100,0.1)
 ```
 
-A. lineares Modell mit log-transformierter Abhaengiger
+### A. lineares Modell mit log-transformierter Abhängiger
 ```{r}
 plot(SAR$area, SAR$richness)
 yv1a <- 10^predict(lm.2, list(area = xv))
 lines(xv, yv1a, col = "blue")
 ```
 
-B. lineares Modell mit log-Transformation beider Variablen
+### B. lineares Modell mit log-Transformation beider Variablen
 ```{r}
 xvlog <- seq(-4,2,0.1)
 plot(SAR$log_area, SAR$log_richness, xlab = "log10 (Fläche [m²])", ylab = "log10 (Artenreichtum)")
@@ -117,7 +123,7 @@ yv1b <- predict(lm.3, list(log_area = xvlog))
 lines(xvlog, yv1b, col = "green")
 ```
 
-B. lineares Modell mit log-Transformation beider Variablen (zurücktransformiert)
+### C. lineares Modell mit log-Transformation beider Variablen (zurücktransformiert)
 
 ```{r}
 plot(SAR$area, SAR$richness, xlab = "Fläche [m²]", ylab = "Artenreichtum")
@@ -125,7 +131,7 @@ yv1b <- predict(lm.3, list(log_area = xv))
 lines(10^xv, 10^yv1b, col = "green")
 ```
 
-Modelle im Vergleich
+## Modelle im Vergleich
 ```{r}
 #Modelle im Vergleich
 plot(SAR$area, SAR$richness)

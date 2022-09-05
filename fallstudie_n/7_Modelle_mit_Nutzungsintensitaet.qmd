@@ -6,7 +6,7 @@
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Neue packages die wir fuer die Modelle und die Diagnostics brauchen
+Neue packages die wir für die Modelle und die Diagnostics brauchen
 
 ```{r tidy= TRUE, results='hide', warning=FALSE, message=FALSE, eval=FALSE}
 # neue Packages: DHARMa, car, MASS, ROCR, sjPlot, sjstats, rms, ggeffects, cowplot
@@ -36,14 +36,14 @@ DF_mod_day <- read_delim(here("data","Datensatz_Habitatnutzung_Modelle_20191101.
          id = as.factor(id))
 ```
 
-## ursprüngliche Funktion und Modelformel
+- Ursprüngliche Funktion und Modelformel
 
 ```{r ridy = T, eval=FALSE}
 # glmer(formula, data = , family = binomial)
 
 # 1) formula: 
-# Abhaengige Variable ~ Erklaerende Variable + Random Factor 
-# In unseren Modellen kontrollieren wir fuer individuelle Unterschiede bei den Rehen 
+# Abhängige Variable ~ Erklärende Variable + Random Factor 
+# In unseren Modellen kontrollieren wir für individuelle Unterschiede bei den Rehen 
 # indem wir einen Random Factor definieren => (1 | id) 
 
 # 2) data: 
@@ -54,10 +54,10 @@ DF_mod_day <- read_delim(here("data","Datensatz_Habitatnutzung_Modelle_20191101.
 
 # Verteilung der abhängigen Variable bei der Nutzungsintensität aus?
 
-ggplot(DF_mod_day, aes(nmb)) + geom_histogram()
+ggplot(DF_mod_day, äs(nmb)) + geom_histogram()
 ```
 
-## Hinsichtlich der Nutzungsintensität müssen wir die Formel erweitern:
+- Hinsichtlich der Nutzungsintensität müssen wir die Formel erweitern:
 
 ```{r tidy=TRUE, fig.keep="none", warning=FALSE, message=FALSE, results='hide', eval=FALSE}
 # Erweiterung um einen sog. Offset-Term, der hier gebraucht wird, um für die Anzahl der GPS Lokalisationen (in der Spalte GPStot aufgeführt) zu korrigeren (eigentlich eine Skalierung der abhängigen Variable um die relative Nutzungsintensität zu modellieren) 
@@ -84,8 +84,8 @@ avgmodel <- model.avg(all_m, rank="AICc", subset = delta < 2)
 summary(avgmodel)
 ```
 
-## Model testing for over/underdispersion, zeroinflation and spatial autocorrelation following the DHARMa package.
-## unbedingt die Vignette des DHARMa-Package konsultieren: https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html
+- Model testing for over/underdispersion, zeroinflation and spatial autocorrelation following the DHARMa package.
+- unbedingt die Vignette des DHARMa-Package konsultieren: [Link](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html)
 
 ```{r tidy=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
 f_count <- nmb ~
@@ -105,7 +105,7 @@ summary(m_day_count)
 
 tab_model(m_day_count, transform = NULL, show.se = T)
 
-# Residuals werden ueber eine Simulation auf eine Standard-Skala transformiert und kaennen anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt werden (dauert je nach dem sehr lange)
+# Residuals werden über eine Simulation auf eine Standard-Skala transformiert und kännen anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt werden (dauert je nach dem sehr lange)
 
 simulationOutput <- simulateResiduals(fittedModel = m_day_count, n = 10000)
 
@@ -131,13 +131,13 @@ dM = as.matrix(dist(cbind(DF_mod_day$x, DF_mod_day$y)))
 
 testSpatialAutocorrelation(simulationOutput, distMat = dM, plot = F)
 
-# Testen auf Multicollinearitaet (dh zu starke Korrelationen im finalen Modell, zB falls auf Grund der oekologsichen Plausibilitaet stark korrelierte Variablen im Modell)
+# Testen auf Multicollinearität (dh zu starke Korrelationen im finalen Modell, zB falls auf Grund der ökologsichen Plausibilität stark korrelierte Variablen im Modell)
 #--> funktioniert bei glmmTMB Modellen mit dieser Funktion aus dem performace package:
 
 check_collinearity(m_day_count)
 ```
 
-## AUC funktioniert nicht bei nicht-binären abhängigen Variablen, daher müssen wir eine andere Möglichkeit finden um den Goodness-of-fit der Modelle abzuschätzen:
+- AUC funktioniert nicht bei nicht-binären abhängigen Variablen, daher müssen wir eine andere Möglichkeit finden um den Goodness-of-fit der Modelle abzuschätzen:
 
 ```{r tidy=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
 # Zitat B.Bokler 2013: "GLMMs are still part of the statistical frontier, and not all of the answers about how to use them are known (even by experts)"
@@ -145,18 +145,18 @@ check_collinearity(m_day_count)
 r2(m_day_count)
 ```
 
-## Plots der vorhergesagten relativen Nutzungsintensität funktionieren nach dem selben Prinzip das wir bereits kennen:
+- Plots der vorhergesagten relativen Nutzungsintensität funktionieren nach dem selben Prinzip das wir bereits kennen:
 
 ```{r tidy=TRUE, fig.width=5, fig.height=3 , warning=FALSE, message=FALSE, eval=FALSE}
 # graphische Darstellung der gesamten Modellresultate
 
 plot_model(m_day_count,transform = NULL, show.values = TRUE, value.offset = .3)
 
-# Plotten der vorhergesagten Wahrscheinlichkeit, dass ein Kreis besetzt ist, in Abhaengigkeit der erklaerenden Variable basierend auf den Modellresultaten.
+# Plotten der vorhergesagten Wahrscheinlichkeit, dass ein Kreis besetzt ist, in Abhängigkeit der erklärenden Variable basierend auf den Modellresultaten.
 
 plot_model(m_day_count,type = "pred", terms = "dist_road_scaled")
 
-# Problem: skalierte Variablen lassen sich nicht so ohne Weiteres plotten, hier ein quick-and-dirty hack um das Problem zu umgehen. Die Einstellungen muessen fuer jede Variable geaendert werden
+# Problem: skalierte Variablen lassen sich nicht so ohne Weiteres plotten, hier ein quick-and-dirty hack um das Problem zu umgehen. Die Einstellungen müssen für jede Variable geändert werden
 
 p <- plot_model(m_day_count,type = "pred", terms = "dist_road_scaled") 
 

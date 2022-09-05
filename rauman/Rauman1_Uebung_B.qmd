@@ -1,3 +1,9 @@
+---
+date: 2022-11-28
+lesson: RaumAn1
+thema: Spatial Joins
+index: 2
+---
 
 # Rauman 1: Übung B
 
@@ -11,7 +17,7 @@ Für die kommende Übung arbeiten wir mit nachstehendem Datensatz. Lade diesen H
 
 Zudem brauchen wir die folgenden libraries:
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, message=F}
 library(dplyr)
 library(sf)
 library(ggplot2)
@@ -75,7 +81,7 @@ Um die berechneten Werte in den Datensatz `baeume` zu überführen braucht es no
 2. Nutze die Spalte `baum_id` in `baeume_wiesen_df` um den berechneten `wiesen_anteil` in den Datenatz `baeume` zu überführen. Tipp: Nutze dafür einen `left_join`
 3. Ersetze alle `NA` Werte in der Spalte `wiesen_anteil` mit 0.
 
-```{r}
+```{r warning=F}
 baeume_20m <- st_buffer(baeume, 20)
 
 baeume_wiesen <- st_intersection(baeume_20m, wiesen) 
@@ -90,7 +96,7 @@ baeume_2 <- left_join(baeume, baeume_wiesen_df, by = "baum_id") %>%
   mutate(wiesen_anteil = ifelse(is.na(wiesen_anteil),0,wiesen_anteil))
 ```
 
-::: {.column-page}
+::: {.column-body}
 ```{r, fig.cap="Nach dieser Übung kannst du das Resultat optional in dieser Weise visualisieren."}
 ggplot() +
   geom_sf(data = wiesen) +

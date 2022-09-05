@@ -1,3 +1,10 @@
+---
+date: 2022-11-15
+lesson: Stat6
+thema: Einführung in "multivariate" Methoden
+index: 3
+---
+
 # Stat6: Lösung
 
 {{< include /../_before-article.qmd >}}
@@ -7,9 +14,9 @@
 ```
 
 - [R-Skript als Download](Statistik6_Loesung.R)
-- [Loesungstext](Statistik_Loesungstext_6.1.pdf)
+- [Lösungstext](Statistik_Loesungstext_6.1.pdf)
 
-```{r eval=TRUE}
+```{r eval=TRUE, message=F}
 load(here("data","Doubs.RData"))
 summary(env)
 summary(spe)
@@ -81,7 +88,8 @@ plot(lm.pc.1)
 
 Nicht besonders toll, ginge aber gerade noch. Da wir aber ohnehin Zähldaten haben, können wir es mit einem Poisson-GLM versuchen
 
-#Alternativ mit glm
+**Alternativ mit glm**
+
 ```{r}
 glm.pc.1 <- glm(species_richness ~ PC1 + PC2 + PC3 + PC4, family = "poisson", data = doubs)
 summary(glm.pc.1)
@@ -106,7 +114,7 @@ cor
 Die Korrelationsmatrix betrachtet man am besten in Excel.
 Es zeigt sich, dass es zwei grosse Gruppen von untereinander hochkorrelierten Variablen gibt: zum einen dfs-ele-dis-har-nit, zum anderen pho-nit-amm-oxy-bod, während slo und pH mit jeweils keiner anderen Variablen hochkorreliert sind. Insofern behalten wir eine aus der ersten Gruppe (ele), eine aus der zweiten Gruppe (pho) und die beiden «unabhängigen».
 
-```{r}
+```{r message=F}
 # Globalmodell (als hinreichend unabhängige Variablen werden ele, slo, pH und pho aufgenommen)
 lm.orig.1 <- lm(species_richness ~ ele + slo + pH + pho, data = doubs)
 summary(lm.orig.1)

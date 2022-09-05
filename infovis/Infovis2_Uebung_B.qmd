@@ -1,5 +1,11 @@
-# Infovis 2: Übung B
+---
+date: 2022-10-25
+lesson: InfoVis2
+thema: Vertiefung ggplot
+index: 3
+---
 
+# Infovis 2: Übung B
 
 {{< include /../_before-article.qmd >}}
 
@@ -52,7 +58,7 @@ ggplot(mtcars2, aes(name, value_scaled, group = car, color = factor(gear))) +
 Polar Plots eignen sich unter anderem für Daten, die zyklischer Natur sind, wie zum Beispiel zeitlich geprägte Daten (Tages-, Wochen-, oder Jahresrhythmen). Aus den Beispiels-Datensätzen  habe ich zwei Datensätze gefunden, die zeitlich geprägt sind:
 
 - [`beaver1` und `beaver2`](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/beavers.html)
-[`AirPassenger`](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/AirPassengers.html)
+- [`AirPassenger`](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/AirPassengers.html)
 
 Beide Datensätze müssen noch etwas umgeformt werden, bevor wir sie für einen Radialplot verwenden können. In Aufgabe 2 verwenden wir die Biber-Datensätze, in der nächsten Aufgabe (3) die Passagier-Daten.
 
@@ -101,10 +107,6 @@ beaver_new %>%
 
 ```
 
----
-
-{{< include /../_before-article.qmd >}}
-
 ## Aufgabe 3: Raster Visualisierung mit Flugpassagieren
 
 Analog Aufgabe 2, dieses Mal mit dem Datensatz [`AirPassanger`](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/AirPassengers.html)
@@ -121,6 +123,8 @@ Damit wir den Datensatz verwenden können, müssen wir ihn zuerst in eine `matri
 
 ```{r, echo = T}
 AirPassengers2 <- tapply(AirPassengers, list(year = floor(time(AirPassengers)), month = month.abb[cycle(AirPassengers)]), c)
+
+AirPassengers2
 ```
 
 Aus der `matrix` muss noch ein Dataframe her, zudem müssen wir aus der breiten Tabelle eine lange Tabelle machen:

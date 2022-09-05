@@ -2,13 +2,15 @@
 
 {{< include /../_before-article.qmd >}}
 
-## Modellguete und -diagnostics MM / Habitatselektionsmodell
+## Modellgüte und -diagnostics MM / Habitatselektionsmodell
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
 ```
 
-### Neue packages die wir fuer die Modelle und die Diagnostics brauchen
+### Libraries laden
+
+Neue packages die wir für die Modelle und die Diagnostics brauchen
 
 ```{r results='hide', warning=FALSE, message=FALSE}
 # neue Packages: DHARMa, car, MASS, ROCR, sjPlot, sjstats, ggeffects, cowplot, gstat
@@ -26,7 +28,9 @@ packages <- c("lme4", "bbmle", "MuMIn", "tidyverse", "DHARMa", "car", "MASS", "R
 ipak(packages)
 ```
 
-### Der Modellfit von letzter Woche als Ausgangspunkt für die heutige Übung
+### Ausgangslage
+
+- Der Modellfit von letzter Woche als Ausgangspunkt für die heutige Übung
 
 ```{r tidy=TRUE, fig.keep="none", warning=FALSE, message=FALSE, results='hide'}
 DF_mod_day <- read_delim(here("data","Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv"), 
@@ -59,8 +63,7 @@ avgmodel <- model.avg(all_m, rank="AICc", subset = delta < 2)
 summary(avgmodel)
 ```
 
-
-### Die Modellresultate aus dem avgmodel sind grundaetzlich die finalen Resultate die bereits interpretiert werden koennten. Allerdings funktionieren die Diagnosetests und die Darstellung der Resultate mit diesem gemittelten Modell nicht sehr gut, weshalb wir einen re-fit mit glmer machen muessen (an den Resultaten aendert sich dadurch nichts) 
+- Die Modellresultate aus dem avgmodel sind grundätzlich die finalen Resultate die bereits interpretiert werden könnten. Allerdings funktionieren die Diagnosetests und die Darstellung der Resultate mit diesem gemittelten Modell nicht sehr gut, weshalb wir einen re-fit mit glmer machen müssen (an den Resultaten ändert sich dadurch nichts) 
 
 ```{r tidy=TRUE, fig.keep="none", warning=FALSE, message=FALSE, results='hide'}
 f_pres_abs <- pres_abs ~
@@ -74,7 +77,7 @@ f_pres_abs <- pres_abs ~
 
 m_day <- glmer(f_pres_abs, data= DF_mod_day, family = binomial, na.action = "na.fail")
 
-# hier noch zum Vergleich, dass die Resulate sich nur marginal veraendern 
+# hier noch zum Vergleich, dass die Resulate sich nur marginal verändern 
 
 summary(avgmodel)
 summary(m_day)
@@ -84,10 +87,11 @@ summary(m_day)
 # 95% range of the roe deer effects is approximately: -0.97 - 0.97
 ```
 
-### Aufgabe 1: Berechung der AUC (area under the receiver operating characteristic curve)
-##### = Mass der Modellguete
+### Aufgabe 1
 
-### Fuer die Berechnung des AUC findet ihr weiterfuehrende Informationen unter: https://www.wsl.ch/staff/niklaus.zimmermann/programs/progs/simtest.pdf) 
+Berechung der AUC (area under the receiver operating characteristic curve)**= Mass der Modellgüte**
+
+Für die Berechnung des AUC findet ihr weiterführende Informationen unter: [Link](https://www.wsl.ch/staff/niklaus.zimmermann/programs/progs/simtest.pdf) 
 
 ```{r tidy=TRUE, fig.keep="none", warning=FALSE, message=FALSE}
 prob <- predict(m_day,type=c("response"))   
@@ -99,14 +103,16 @@ auc <- performance(pred, measure = "auc")@y.values[[1]]
 auc
 ```
 
-### Aufgabe 2: Interpretieren der Modell-Residuen mittels Tests auf verschiedene Aspekte
+### Aufgabe 2
 
-### Model testing for over/underdispersion, zeroinflation and spatial autocorrelation following the DHARMa package.
-### unbedingt die Vignette des DHARMa-Package konsultieren: https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html
+Interpretieren der Modell-Residuen mittels Tests auf verschiedene Aspekte
+
+- Model testing for over/underdispersion, zeroinflation and spatial autocorrelation following the DHARMa package.
+- unbedingt die Vignette des DHARMa-Package konsultieren: [Link](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html)
 
 ```{r tidy=TRUE, warning=FALSE, message=FALSE}
-# Residuals werden ueber eine Simulation auf eine Standard-Skala transformiert und 
-# koennen anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt 
+# Residuals werden über eine Simulation auf eine Standard-Skala transformiert und 
+# können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt 
 # werden (dauert je nach dem sehr lange)
 
 simulationOutput <- simulateResiduals(fittedModel = m_day, n = 10000)
@@ -140,8 +146,8 @@ res2 = recalculateResiduals(simulationOutput, group = groupLocations$group)
 # running the spatial test on grouped residuals
 testSpatialAutocorrelation(res2, groupLocations$x, groupLocations$y, plot = F)
 
-# Testen auf Multicollinearitaet (dh zu starke Korrelationen im finalen Modell, zB falls 
-# auf Grund der oekologischen Plausibilitaet stark korrelierte Variablen im Modell)
+# Testen auf Multicollinearität (dh zu starke Korrelationen im finalen Modell, zB falls 
+# auf Grund der ökologischen Plausibilität stark korrelierte Variablen im Modell)
 # use VIF values: if values less then 5 is ok (sometimes > 10), if mean of VIF values 
 # not substantially greater than 1 (say 5), no need to worry.
 
@@ -149,10 +155,12 @@ car::vif(m_day)
 mean(car::vif(m_day))
 ```
 
-### Aufgabe 4: Ermittlung des individuellen Beitrags der einzelen Variablen im Gesamtmodell
+### Aufgabe 4 
 
-##### Bestimmen delta AIC nach Coppes et al. 2017 -> Vergleich des Gesamtmodells gegenüber einem Modell ohne die entsprechende Variable.
+Ermittlung des individuellen Beitrags der einzelen Variablen im Gesamtmodell
 
+- **Bestimmen delta AIC nach Coppes et al. 2017 -> Vergleich des Gesamtmodells gegenüber einem Modell ohne die entsprechende Variable.**
+- **Auftrag auf den 22.11.2021: Jede Gruppe kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)**
 
 ```{r tidy=TRUE, fig.width=5, fig.height=3 , warning=FALSE, message=FALSE}
 m_os <- glmer(pres_abs ~
@@ -206,5 +214,3 @@ m_slope <- glmer(pres_abs ~
 
 bbmle::AICtab(m_day, m_os, m_us, m_road, m_forest, m_build, m_slope)
 ```
-
-# Auftrag auf den 22.11.2021: Jede Gruppe kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Praesentation noetig)

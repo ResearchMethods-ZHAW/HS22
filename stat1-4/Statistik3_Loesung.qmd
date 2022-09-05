@@ -1,5 +1,11 @@
+---
+date: 2022-11-07
+lesson: Stat3
+thema: Lineare Modelle II
+index: 3
+---
 
-# Stat3: Lösung 
+# Stat3: Lösung
 
 {{< include /../_before-article.qmd >}}
 
@@ -8,7 +14,7 @@
 ```
 
 - Download [R-Skript](Statistik3_Loesung.R)
-- [Lösungstext als Download](Statistik_Loesung_3.1_v.02.pdf)
+- [Lösungstext als Download](Statistik_Loesung_3.1.pdf)
       
 ## Lösung Übung 3.1
 
@@ -31,7 +37,7 @@ Man erkennt, dass alle Spalten bis auf die erste mit der Plot ID numerisch (num 
 dass die abhängige Variable in Spalte 2 sowie die Prediktorvariablen in den Spalten 3 bis 23
 stehen.
 
-```{r, eval=FALSE}
+```{r}
 #Explorative Datenanalyse der abhängigen Variablen
 boxplot(ukraine$Species_richness)
 ```
@@ -113,7 +119,7 @@ verbleiben. (2) Den informationstheoretischen Ansatz, bei dem alle denkbaren Mod
 berechnet und verglichen werden (also alle möglichen Kombinationen von 13,12,…, 1, 0
 Parametern). Diese Lösung stelle ich im Folgenden vor:
 
-```{r}
+```{r message=F}
 # Multimodel inference
 if(!require(MuMIn)){install.packages("MuMIn")}
 library(MuMIn)
@@ -141,7 +147,7 @@ berechnen.
 
 ```{r}
 # Importance values der Variablen
-importance(allmodels)
+sw(allmodels)
 ```
 
 Demnach ist Heat.index die wichtigste Variable (in 100% aller relevanten Modelle), während

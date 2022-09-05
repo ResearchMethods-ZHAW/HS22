@@ -1,5 +1,11 @@
-# Infovis 1: Demo A
+---
+date: 2022-10-24
+lesson: InfoVis1
+thema: Plots & Facets
+index: 1
+---
 
+# Infovis 1: Demo A
 
 {{< include /../_before-article.qmd >}}
 
@@ -17,8 +23,8 @@ library(tidyr)
 
 Als erstes laden wir den Temperaturdatensatz ein. Es handelt sich dabei um eine leicht modifizierte Variante der Daten aus PrePro1 und PrePro2.
 
-```{r}
-# Wir können den Datensatz direkt über den URL einladen oder aber ihr nutzt den 
+```{r, message = F}
+# Wir können den Datensatz direkt über die URL einladen oder aber ihr nutzt die 
 # URL um den Datensatz lokal bei euch abzuspeichern und wie gewohnt einzulesen
 temperature <- read_csv(here("data","temperature_SHA_ZER.csv"))
 ```
@@ -102,7 +108,7 @@ ggplot(temperature_long, aes(time,temp, colour = station)) +
 
 Im obigen Plot fällt auf, dass stündliche Werte eine zu hohe Auflösung ist, wenn wir daten über 2 Jahre visualisieren. Mit *Split Apply Combine* (PrePro 3) können wir die Auflösung unserer Daten verändern: 
 
-```{r}
+```{r message = F}
 temperature_day <- temperature_long %>%
   mutate(time = as.Date(time)) 
 
@@ -111,6 +117,8 @@ temperature_day
 temperature_day <- temperature_day %>%
   group_by(station, time) %>%
   summarise(temp = mean(temp))
+
+temperature_day  
 ```
 
 ## X/Y-Achse anpassen
@@ -242,7 +250,6 @@ p +
   theme(legend.position="none")
 ```
 
-
 Wie üblich wurde diese Änderung nicht gespeichert, sondern nur das Resultat davon ausgeben. Wenn die Änderung in meinem Plot (in der Variabel) abspeichern will, muss ich die Variabel überschreiben:
 
 ```{r}
@@ -254,7 +261,7 @@ p <- p +
 
 Mit `geom_smooth()` kann `ggplot` eine Trendlinie auf der Baiss von Punktdaten berechnen. Die zugrunde liegende statistische Methode kann selbst gewählt werden (ohne Angabe verwendet `ggplot` bei < 1'000 Messungen `stats::loess`, ansonsten `mgcv::gam`)
 
-```{r}
+```{r message = FALSE}
 p <- p +
   geom_smooth(colour = "black")
 

@@ -1,5 +1,5 @@
-
 # 5. Lösung
+
 {{< include /../_before-article.qmd >}}
 
 ## Variablenselektion Multivariate Modelle / Habitatselektionsmodell
@@ -8,7 +8,7 @@
 knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
 ```
 
-### libraries laden
+### Libraries laden
 
 ```{r results='hide', warning=FALSE, message=FALSE}
 ### Funktion um Packages direkt zu installieren und / oder zu laden
@@ -27,9 +27,12 @@ ipak(packages)
 ```
 
 ### Variablenselektion
-### -> Vorgehen analog Coppes et al. 
 
-### Aufgabe 1: Mit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden. 
+-> Vorgehen analog Coppes et al. 
+
+### Aufgabe 1
+
+Mit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden. 
 
 ```{r tidy=TRUE, message=FALSE, results='hide'}
 DF_mod <- read_delim(here("data","Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv"), 
@@ -38,10 +41,9 @@ DF_mod <- read_delim(here("data","Aufgabe4_Datensatz_Habitatnutzung_Modelle_2021
 DF_mod_day <- DF_mod %>%
   filter(time_of_day == "day")
 
-
 round(cor(DF_mod_day[,6:12], method = "kendall"),2)
 
-# hier kann die Schwelle fuer die Korrelation gesetzt werden, 0.7 ist liberal / 
+# hier kann die Schwelle für die Korrelation gesetzt werden, 0.7 ist liberal / 
 # 0.5 konservativ
 
 cor <- round(cor(DF_mod_day[,6:12], method = "kendall"),2) 
@@ -49,9 +51,11 @@ cor[abs(cor)<0.7] <-0
 cor
 ```
 
-### Selektion der Variablen in einem univariaten Model
+### Aufgabe 2
 
-### Aufgabe 2: Skalieren der Variablen, damit ihr Einfluss vergleichbar wird (Problem verschiedene Skalen der Variablen (bspw. Neigung in Grad, Distanz in Metern))
+**Selektion der Variablen in einem univariaten Model**
+
+Skalieren der Variablen, damit ihr Einfluss vergleichbar wird (Problem verschiedene Skalen der Variablen (bspw. Neigung in Grad, Distanz in Metern))
 
 ```{r tidy=TRUE,tidy.opts=list(width.cutoff=50)}
 DF_mod_day %<>%
@@ -63,13 +67,13 @@ DF_mod_day %<>%
          dist_road_only_scaled = scale(dist_road_only),
          dist_build_scaled = scale(dist_build),
          id = as.factor(id))
-  
 ```
 
-### Aufgabe 3: Ein erstes GLMM (Generalized Linear Mixed Effects Modell) aufbauen: Funktion und Modelformel
+### Aufgabe 3
 
-### wichtige Seite auf der man viele Hilfestellungen zu GLMM’s finden kann:
-### https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html
+Ein erstes GLMM (Generalized Linear Mixed Effects Modell) aufbauen: Funktion und Modelformel
+
+> wichtige [Seite](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html) auf der man viele Hilfestellungen zu GLMM’s finden kann.
 
 ```{r tidy=TRUE, results='hide', fig.keep='none', message=FALSE}
 # wir werden das package lme4 mit der Funktion glmer verwenden 
@@ -81,8 +85,8 @@ DF_mod_day %<>%
 # glmer(formula, data = , family = binomial)
 
 # 1) formula: 
-# Abhaengige Variable ~ Erklaerende Variable + Random Factor 
-# In unseren Modellen kontrollieren wir fuer individuelle Unterschiede bei den Rehen 
+# Abhängige Variable ~ Erklärende Variable + Random Factor 
+# In unseren Modellen kontrollieren wir für individuelle Unterschiede bei den Rehen 
 # indem wir einen Random Factor definieren => (1 | id) 
 
 # 2) data: 
@@ -91,38 +95,40 @@ DF_mod_day %<>%
 # 3) family: 
 # hier binomial
 
-# warum binomial? Verteilung Daten der Abhaengigen Variable Präsenz/Absenz 
+# warum binomial? Verteilung Daten der Abhängigen Variable Präsenz/Absenz 
 
 ggplot(DF_mod_day, aes(pres_abs)) + geom_histogram()
 
-# --> Binaere Verteilung => Binomiale Verteilung mit n = 1 
+# --> Binäre Verteilung => Binomiale Verteilung mit n = 1 
 
-# und wie schaut es bei der Verteilung der Daten der Abhaengigen Variable 
-# Nutzungsintensitaet (nmb) aus?
+# und wie schaut es bei der Verteilung der Daten der Abhängigen Variable 
+# Nutzungsintensität (nmb) aus?
 
 ggplot(DF_mod_day, aes(nmb)) + geom_histogram()
 
 # --> Negativbinomiale Verteilung 
 ```
 
-### Aufgabe 4: Mit der GLMM Formel bauen wir in einem ersten Schritt eine univariate Variablenselektion auf.
+### Aufgabe 4
 
-##### Als abhaengige Variable verwenden wir in der ersten Phase die Praesenz/Absenz der Rehe in den Kreisen
+Mit der GLMM Formel bauen wir in einem ersten Schritt eine univariate Variablenselektion auf.
+
+**Als abhängige Variable verwenden wir in der ersten Phase die Präsenz/Absenz der Rehe in den Kreisen**
 
 ```{r tidy=TRUE, eval=FALSE, message=FALSE}
-# Die erklaerende Variable in m1 ist die erste Variable der korrelierenden Beziehung
-# Die erklaerende Variable in m2 ist die zweite Variable der korrelierenden Beziehung
+# Die erklärende Variable in m1 ist die erste Variable der korrelierenden Beziehung
+# Die erklärende Variable in m2 ist die zweite Variable der korrelierenden Beziehung
 
 m1 <- glmer(Abhaengige_Variable ~ Erklaerende_Variable + (1 | id), data = DF_mod_day, 
             family = binomial)
 m2 <- glmer(Abhaengige_Variable ~ Erklaerende_Variable + (1 | id), data = DF_mod_day, 
             family = binomial)
 
-# mit dieser Funktion koennen die Modellergebnisse inspiziert werden
+# mit dieser Funktion können die Modellergebnisse inspiziert werden
 summary(m1)
 
 # Mit dieser Funktion kann der Informationgehalt der beiden Modelle gegeneinander 
-# abgeschaetzt werden
+# abgeschätzt werden
 bbmle::AICtab(m1, m2)
 
 # tieferer AIC -> besser (AIC = Akaike information criterion) -> als deltaAIC ausgewiesen
@@ -145,9 +151,11 @@ bbmle::AICtab(m1, m2)
 # korrelierte Variablen in das Modell einfliessen zu lassen 
 ```
 
-### Selektion der Variablen in einem multivariaten Model
+### Aufgabe 5
 
-##### Aufgabe 5: Mit folgendem Code kann eine automatisierte Variablenselektion (dredge-Funktion) und ein Modelaveraging aufgebaut werden (siehe auch Stats-Skript von J.Dengler & Team)
+**Selektion der Variablen in einem multivariaten Model**
+
+Mit folgendem Code kann eine automatisierte Variablenselektion (dredge-Funktion) und ein Modelaveraging aufgebaut werden (siehe auch Stats-Skript von J.Dengler & Team)
 
 ```{r tidy=TRUE,message=FALSE, eval=T }
 # hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V6 

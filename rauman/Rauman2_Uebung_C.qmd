@@ -1,11 +1,17 @@
-# Rauman 2: Übung C
+---
+date: 2022-11-29
+lesson: RaumAn2
+thema: Dichteschätzung
+index: 3
+---
 
+# Rauman 2: Übung C
 
 {{< include /../_before-article.qmd >}}
 
 Nun wollen wir für die bereits verwendeten Datensätze `luftqualitaet.gpkg` und `rotmilan.gpkg` Dichteschätzungen durchführen. Ladet dafür die notwendigen Package und ladet bei Bedarf die Datensätze herunter.
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, message=F}
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -101,7 +107,7 @@ Wir können die tiefen Werte ausblenden, indem wir nur die höchsten 5% der Wert
 
 Zusätzlich hilft eine logarithmische Transformation der Werte, die Farbskala etwas sichtbarer zu machen.
 
-```{r}
+```{r warning=F}
 q95 <- quantile(rotmilan_kde$value,probs = 0.95)
 
 rotmilan_kde <- rotmilan_kde %>%

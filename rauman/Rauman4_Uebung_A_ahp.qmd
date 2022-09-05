@@ -1,5 +1,11 @@
-# Rauman 4: Übung A
+---
+date: 2022-12-06
+lesson: RaumAn4
+thema: Analytical Hierarchy Process (AHP)
+index: 1
+---
 
+# Rauman 4: Übung A
 
 {{< include /../_before-article.qmd >}}
 
@@ -34,9 +40,11 @@ First think of an *actual decision* you are currently facing or have previously 
 
 ## Exercise 2: Pairwise comparison (Paarweiser Vergleich 1 & 2)
 
-In a first step each criterion needs to be compared with another criteria in pairs. Use the following scale for weighting the criteria (see table \@ref(tab:ahprating)) . 
+In a first step each criterion needs to be compared with another criteria in pairs. Use the following scale for weighting the criteria (see table @tbl-ahprating). 
 
-```{r ahprating, echo = FALSE, purl = FALSE}
+```{r, echo = FALSE, purl = FALSE, message=F}
+#| label: tbl-ahprating
+#| tbl-cap: AHP Ratings
 library(dplyr)
 
 tibble::tribble(
@@ -56,7 +64,7 @@ You can use the following code to create your weighting matrix. In the matrix, t
 - Row 1, column 2:  *Criteria 1* is slightly more important than *Criteria 2*
 - Row 2, column 1:  *Criteria 2* is slightly less important than *Criteria 1*
 
-Create this matrix comparison matching your criteria, replacing the `0` values with your weights according to table \@ref(tab:ahprating). Note that all diagonal values should equal to `1`.
+Create this matrix comparison matching your criteria, replacing the `0` values with your weights according to table @tbl-ahprating. Note that all diagonal values should equal to `1`.
 
 ```{r ahp_matrix2, echo = TRUE}
 pairwise_comparison <- c(
@@ -105,7 +113,7 @@ ahp_colsums <- colSums(pairwise_comparison)
 pairwise_comparison_normalized <- sweep(pairwise_comparison, 2,ahp_colsums, FUN = "/")
 ```
 
-![](rauman/images/criteria_normalize.png)
+![](images/criteria_normalize.png)
 
 ### Exercise 3.2: Weighting of criteria (Berechnung der Kritiriengewichte 2)
 
@@ -124,7 +132,7 @@ criteria_weight <- criteria_sums/sum(criteria_sums)
 sum(criteria_weight)
 ```
 
-![](rauman/images/weights_normalize.png)
+![](images/weights_normalize.png)
 
 ## Exercise 4: Consistency analysis (Konsistenzanalyse 1 & 2)
 
@@ -174,7 +182,7 @@ CR <- CI/RI
 CR < 0.1
 ```
 
-![](rauman/images/ahp_random_index_by_saaty.png)
+![](images/ahp_random_index_by_saaty.png)
 
 ## Congratulations!
 
@@ -184,7 +192,3 @@ You now have determined the weights on top of which you can build your decision 
 2. normalize your pairwise comparisons of your options (similar as to how how you normalized the pairwise comparisons of the criteria)
 3. Use the weights you determined in the exercise above to weigh your results from 2)
 4. Asses the best decision based on the result from 3)
-
-
-
-

@@ -1,3 +1,9 @@
+---
+date: 2022-10-11
+lesson: PrePro1
+thema: Datentypen
+index: 1
+---
 
 {{< include ../_before-article.qmd >}}
 
@@ -24,7 +30,7 @@ x
 typeof(x)
 ```
 
-Statt `<-`kann auch `=` verwendet werden. Dies funktioniert aber nicht in allen Situationen, und ist zudem leicht mit `==` zu verwechseln.
+Statt `<-` kann auch `=` verwendet werden. Dies funktioniert aber nicht in allen Situationen, und ist zudem leicht mit `==` zu verwechseln.
 
 ```{r}
 y = 7.3
@@ -40,7 +46,6 @@ typeof(z)
 is.integer(z)
 is.numeric(z)
 is.double(z)
-
 ```
 
 #### Ganzzahl / Integer
@@ -293,6 +298,8 @@ Diese Rohdaten können nun helfen, um Hilfsvariablen (**convenience variables**)
 df$Groesse[df$Einwohner > 300000] <- "gross"
 df$Groesse[df$Einwohner <= 300000 & df$Einwohner > 150000] <- "mittel"
 df$Groesse[df$Einwohner <= 150000] <- "klein"
+
+df$Groesse
 ```
 
 Oder aber, die Ankunftszeit kann von der Spalte `Ankunft`abgeleitet werden. Dazu brauchen wir aber das Package `lubridate`
@@ -303,4 +310,6 @@ library(lubridate)
 
 ```{r}
 df$Ankunft_stunde <- hour(df$Ankunft)
+
+df$Ankunft_stunde
 ```

@@ -26,7 +26,7 @@ library(lattice)   # einfaches plotten von Zusammenhängen zwischen Variablen
 
 Die Projektstruktur steht. Nun können die Daten eingelesen und die nötigen Datentypen definiert werden. Das tidyverse-Universum (u.a. pipes, ggplot usw.) ist in unseren Auswertungen zentral.
 
-![](/fallstudie_s/images/tidyverse.png)
+![](/fallstudie_s/images/tidyverse.png){width=50%}
 
 Die Zähldaten des Wildnispark Zürich wurden vorgängig bereinigt (z.B. wurden Stundenwerte entfernt, an denen am Zähler Wartungsarbeiten stattgefunden haben). Das macht es für uns einfach, denn wir können die Daten ohne vorgängige Bereinigung einlesen. Behaltet aber im Hinterkopf, dass die Datenaufbereitung, die Datenbereinigung mit viel Aufwand verbunden ist.
 
@@ -44,7 +44,6 @@ __Hinweis:__ Im Stundenformat zeigen die Werte bei 11:00 die Zähldaten zwischen
 - Im Datensatz des Wildnisparks sind Datum und Uhrzeit in einer Spalte. Diese müssen __getrennt__ werden (Ich schlage hier den Ansatz des piping ( %>% ) vor. Damit können in einem "Rutsch" mehrere Operationen ausgeführt werden).
 
 - Ebenfalls muss das Datum als solches definiert werden. Welches Format hat es (im Code: format = "HIER DATUMSFORMAT")?
-
 - Schliesslich schneiden wir den Datensatz auf die Untersuchungsdauer zu.
 
 ```{r eval=FALSE}
@@ -94,7 +93,6 @@ __Hinweis__ Was ist eigentlich Niederschlag:
 https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html
 
 - Werden den anderen Spalten die richtigen Typen zugewiesen? Falls nicht, ändert die Datentypen.
-
 - Nun schneiden wir den Datensatz auf die Untersuchungsdauer zu.
 
 ### 2c) 
@@ -184,9 +182,7 @@ depo$Stunde <- as.numeric(format(as.POSIXct(depo$Zeit,format="%H:%M"),"%H"))
 Die Daten wurden durch den WPZ kalibriert (Kommastellen). 
 
 - Rundet sie auf 0 Nachkommastellen (Ganzzahl; unser Modell kann nicht mit Kommazahlen in der ahbängigen Variable umgehen). 
-
 - Definiert sie sicherheitshalber als Integer
-
 - Macht das für IN, OUT und Total.
 
 ```{r eval=FALSE}
@@ -243,7 +239,6 @@ Z.B. sind folgende Befehle und Plots wichtig:
 - str()
 - summarize()
 - head()
-
 - Scatterplot, x = Datum, y = Anzahl pro Zeiteinheit
 - Histrogram
 - usw.

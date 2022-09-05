@@ -1,5 +1,11 @@
-# Stat2: Lösung 23n
+---
+date: 2022-11-01
+lesson: Stat2
+thema: Einführung in lineare Modelle
+index: 6
+---
 
+# Stat2: Lösung 2.3N
 
 {{< include /../_before-article.qmd >}}
 
@@ -8,44 +14,23 @@
 ```
 
 - [RCode als Download](Statistik2_Loesung_23n.R)
-- [Loesungstext 2.3](Statistik_Loesung_2.3N_v.02.pdf)
+- [Lösungstext 2.3](Statistik_Loesung_2.3N.pdf)
 
-**Übungsaufgabe (hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein
-wird)**
-- Laden Sie den Datensatz kormoran.csv mit ein Dieser enthält Tauchzeiten
-(hier ohne Einheit) von Kormoranen in Abhängigkeit von Jahreszeit und Unterart.
-Unterarten: Phalacrocorax carbo carbo (C) und Phalacrocorax carbo sinensis (S);
-Jahreszeiten: F = Frühling, S = Sommer, H = Herbst, W = Winter.
-- **Ihre Gesamtaufgabe ist es, aus diesen Daten ein minimal adäquates Modell zu
-ermitteln, das diese Abhängigkeit beschreibt.**
-- Bitte erklären und begründen Sie die einzelnen Schritte, die Sie unternehmen, um zu
-diesem Ergebnis zu kommen. Dazu erstellen Sie bitte ein Word-Dokument, in das Sie
-Schritt für Schritt den verwendeten R-Code, die dazu gehörigen Ausgaben von R, Ihre
-Interpretation derselben und die sich ergebenden Schlussfolgerungen für das weitere
-Vorgehen dokumentieren.
+**Übungsaufgabe (hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)**
+
+- Laden Sie den Datensatz kormoran.csv mit ein Dieser enthält Tauchzeiten (hier ohne Einheit) von Kormoranen in Abhängigkeit von Jahreszeit und Unterart. Unterarten: Phalacrocorax carbo carbo (C) und Phalacrocorax carbo sinensis (S); Jahreszeiten: F = Frühling, S = Sommer, H = Herbst, W = Winter.
+- **Ihre Gesamtaufgabe ist es, aus diesen Daten ein minimal adäquates Modell zu ermitteln, das diese Abhängigkeit beschreibt.**
+- Bitte erklären und begründen Sie die einzelnen Schritte, die Sie unternehmen, um zu diesem Ergebnis zu kommen. Dazu erstellen Sie bitte ein Word-Dokument, in das Sie Schritt für Schritt den verwendeten R-Code, die dazu gehörigen Ausgaben von R, Ihre Interpretation derselben und die sich ergebenden Schlussfolgerungen für das weitere Vorgehen dokumentieren.
 - Dieser Ablauf sollte insbesondere beinhalten:
-  - Überprüfen der Datenstruktur nach dem Einlesen, welches sind die abhängige(n)
-    und welches die unabängige(n) Variablen, welches statistische Verfahren wenden Sie
-    an?
-  - Explorative Datenanalyse, um zu sehen, ob schon vor dem Start der Analysen
-    Transformationen o.ä. vorgenommen werden sollten
-  - Definition eines vollen Modelles, das nach statistischen Kritierien zum minimal
-    adäquaten Modell reduziert wird
-  - Durchführen der Modelldiagnostik, um zu entscheiden, ob das gewählte Vorgehen
-    korrekt war oder ggf. angepasst werden muss
-  - Generieren aller Zahlen, Statistiken und Tabellen, die für eine wiss.
-    Ergebnisdarstellung benötigt werden
-- Formulieren Sie abschliessend einen Methoden- und Ergebnisteil (ggf. incl.
-  adäquaten Abbildungen) zu dieser Untersuchung in der Form einer
-  wissenschaftlichen Arbeit (ausformulierte schriftliche Zusammenfassung, mit je
-  einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und
-  Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige
-  Redundanz dagegen vermieden werden.
-- **Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg
-  (Kombination aus R-Code, R Output und dessen Interpretation) und (c)
-  ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**
+  - Überprüfen der Datenstruktur nach dem Einlesen, welches sind die abhängige(n) und welches die unabängige(n) Variablen, welches statistische Verfahren wenden Sie an?
+  - Explorative Datenanalyse, um zu sehen, ob schon vor dem Start der Analysen Transformationen o.ä. vorgenommen werden sollten
+  - Definition eines vollen Modelles, das nach statistischen Kritierien zum minimal adäquaten Modell reduziert wird
+  - Durchführen der Modelldiagnostik, um zu entscheiden, ob das gewählte Vorgehen korrekt war oder ggf. angepasst werden muss
+  - Generieren aller Zahlen, Statistiken und Tabellen, die für eine wiss. Ergebnisdarstellung benötigt werden
+- Formulieren Sie abschliessend einen Methoden- und Ergebnisteil (ggf. incl. adäquaten Abbildungen) zu dieser Untersuchung in der Form einer wissenschaftlichen Arbeit (ausformulierte schriftliche Zusammenfassung, mit je einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige Redundanz dagegen vermieden werden.
+- **Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation) und (c) ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**
 
-**kommentierter Lösungsweg**
+## Kommentierter Lösungsweg
 
 ```{r}
 # Working directory muss angepasst werden
@@ -134,20 +119,14 @@ plot(aov.3)
 ```
 
 Rechts oben: Punkt 20 jetzt auf der Linie, aber Punkt 1 weicht umso deutlicher ab -> keine Verbesserung -> wir bleiben bei den untransformierten Daten.
-
-```{r}
-# Ergebnisdarstellung
-```
-
 Da wir keine Interaktion zwischen Unterart und Jahreszeit festgestellt haben, brauchen wir auch keinen Interaktionsplot (unnötig kompliziert), statt dessen können wir die Ergebnisse am besten mit zwei getrennten Plots für die beiden Faktoren darstellen. Bitte die Achsenbeschriftungen und den Tukey post-hoc-Test nicht vergessen.
 
-```{r}
+```{r message=F}
 par(mfrow = c(1, 1)) #Zurückschalten auf Einzelplots
 if(!require(multcomp)){install.packages("multcomp")} 
 library(multcomp)
 
 boxplot(Tauchzeit~Unterart, data = kormoran)
-
 
 letters <- cld(glht(aov.2, linfct = mcp(Jahreszeit = "Tukey")))
 boxplot(Tauchzeit~Jahreszeit, data = kormoran)

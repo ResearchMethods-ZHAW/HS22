@@ -1,3 +1,9 @@
+---
+date: 2022-11-29
+lesson: RaumAn2
+thema: G-Funktion
+index: 1
+---
 
 # Rauman 2: Übung A
 
@@ -6,7 +12,7 @@
   <!-- In dieser zweiten Übung wirst Du wiederum Geodatensätze verarbeiten und darstellen. Wir starten mit einem Punktdatensatz zu einem Messnetz zur Erhebung der Luftqualität in der Schweiz (Stickstoffdioxid NO2 um genau zu sein). Im Gegensatz zum Punktdatensatz zur Wasserverfügbarkeit aus der vorherigen Übung, sind die Messstellen des Messnetzes zur Luftqualität sehr unregelmässig im Raum verteilt. Trotzdem möchten wir versuchen ein kontinuierliches Raster von Luftqualitätswerten für die ganze Schweiz zu interpolieren. Wir starten mit der einfachen Interpolations-Methode Inverse Distance Weighting IDW. Danach wollen wir für den gleichen Datensatz nach dem Ansatz der nächsten Nachbarn die Thiessen Polygone konstruieren. Im zweiten Teil der Übung wollen wir Dichteverteilung untersuchen. Dabei untersuchen wir einen Datensatz mit Bewegungsdaten eines Rotmilans in der Schweiz. Mittels einer Kernel Density Estimation (KDE) berechnen wir eine kontinuierliche Dichteverteilung, über die wir eine Annäherung an das Habitat des untersuchten Greifvogels berechnen können. Bevor wir aber starten, schauen wir uns die Punktdatensätze genauer an indem wir die G-Function berechnen und plotten. 
 -->
 
-### Aufgabe 1
+## Aufgabe 1
 
 Für die heutige Übung benötigen wir nachstehende Datensätze. Lade diese herunter und importiere sie in R. Prüfe, ob das CRS korrekt gesetzt wurde, setze es wenn nötig. Mache dich mit den Daten vertraut (visualieren, durchscrollen usw).
 
@@ -15,9 +21,10 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 - Der Datensatz `rotmilan.gpkg` stammt aus einem grösseren Forschungsprojekt der Vogelwarte Sempach [Mechanismen der Populationsdynamik beim Rotmilan](https://www.vogelwarte.ch/de/projekte/oekologische-forschung/mechanismen-der-populationsdynamik-beim-rotmilan). Der Datensatz wurde über die Plattform [movebank](http://www.movebank.org/panel_embedded_movebank_webapp?gwt_fragment=page%3Dsearch_map_linked%2CindividualIds%3D676571254%2Clat%3D44.465151013519666%2Clon%3D9.096679687499508%2Cz%3D5) zur Verfügung gestellt. Es handelt sich dabei um ein einzelnes Individuum, welches seit 2017 mit einem Sender versehen ist und über ganz Mitteleuropa zieht. Wir arbeiten in dieser Übung nur mit denjenigen Datenpunkten, die in der Schweiz erfasst wurden. Wer den ganzen Datensatz analysieren möchte, kann sich diesen über den Movebank-Link runterladen.
-- Der Datensatz `luftqualitaet.gpkg` beinhaltet Messungen von Stickstoffdioxid $NO_2$ aus dem Jahr 2015 für 97 Messstellen in der Schweiz. Stickstoffdioxid entstehen beim Verbrennen von Brenn- und Treibstoffen, insbesondere bei hohen Verbrennungstemperaturen, wobei der Strassenverkehr als Hauptquelle gilt. Mehr Informationen dazu findet ihr [hier](https://www.bafu.admin.ch/bafu/de/home/themen/thema-luft/luft--daten--indikatoren-und-karten/luft--indikatoren/indikator-luft.pt.html/aHR0cHM6Ly93d3cuaW5kaWthdG9yZW4uYWRtaW4uY2gvUHVibG/ljL0FlbURldGFpbD9pbmQ9TFUwMjAmbG5nPWRlJlN1Ymo9Tg%3d%3d.html)
+- Der Datensatz `luftqualitaet.gpkg` beinhaltet Messungen von Stickstoffdioxid $NO_2$ aus dem Jahr 2015 für 97 Messstellen in der Schweiz. Stickstoffdioxid entstehen beim Verbrennen von Brenn- und Treibstoffen, insbesondere bei hohen Verbrennungstemperaturen, wobei der Strassenverkehr als Hauptquelle gilt. 
+Mehr Informationen dazu findet ihr [hier](https://www.bafu.admin.ch/bafu/de/home/themen/thema-luft/luft--daten--indikatoren-und-karten/luft--indikatoren/indikator-luft.pt.html/aHR0cHM6Ly93d3cuaW5kaWthdG9yZW4uYWRtaW4uY2gvUHVibG/ljL0FlbURldGFpbD9pbmQ9TFUwMjAmbG5nPWRlJlN1Ymo9Tg%3d%3d.html).
 
-```{r}
+```{r message=F}
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -36,11 +43,11 @@ ggplot(rotmilan) +
   scale_color_datetime(low = "blue", high = "red")
 ```
 
-### Aufgabe 2
+## Aufgabe 2
 
 Als erstes berechnen wir die G-Function für die Rotmilanpositionen:
 
-#### Schritt 1:
+### Schritt 1
 
 Mit `st_distance()` können Distanzen zwischen zwei `sf` Datensätze berechnet werden. Wird nur ein Datensatz angegeben, wird eine Kreuzmatrix erstellt wo die Distanzen zwischen allen Features zu allen anderen Features dargestellt werden. Wir nützen diese Funktion zur Berechnung der nächsten Nachbarn.
 
@@ -55,7 +62,7 @@ ncol(rotmilan_distanzmatrix)
 rotmilan_distanzmatrix[1:6,1:6] 
 ```
 
-#### Schritt 2
+### Schritt 2
 
 Nun wollen wir wissen, wie gross die *kürzeste* Distanz von jedem Punkt zu seinem nächsten Nachbarn beträgt, also die *kürzeste Distanz pro Zeile*. Bevor wir diese ermitteln müssen wir die diagonalen Werte noch entfernen, denn diese stellen ja jeweils die Distanz zu sich selber dar und sind immer `0`. Danach kann mit `apply()` eine Funktion (`FUN = min`) über die Zeilen (`MARGIN = 1`) einer Matrix (`X = rotmilan_distanzmatrix`) gerechnet werden. Zusätzlich müssen wir noch `na.rm = TRUE` setzen, damit `NA` Werte von der Berechnung ausgeschlossen werden. Das Resultat ist ein Vektor mit gleich vielen Werten wie Zeilen in der Matrix.
 
@@ -67,7 +74,7 @@ rotmilan_distanzmatrix[1:6,1:6]
 rotmilan_mindist <- apply(rotmilan_distanzmatrix,1,min, na.rm = TRUE)
 ```
 
-#### Schritt 3
+### Schritt 3
 
 Nun müssen wir die Distanzen nach ihrer Grösse sortieren 
 
@@ -75,7 +82,7 @@ Nun müssen wir die Distanzen nach ihrer Grösse sortieren
 rotmilan_mindist <- sort(rotmilan_mindist) 
 ```
 
-#### Schritt 4
+### Schritt 4
 
 Jetzt berechnen wir die kummulierte Häufigkeit von jeder Distanz berechnen. Die kummulierte Häufikgeit vom ersten Wert ist 1 (der Index des ersten Wertes) dividiert durch die Anzahl Werte insgesamt. Mit `seq_along` erhalten wir die Indizes aller Werte, mit `lenth` die Anzahl Werte insgesamt.
 
@@ -83,7 +90,7 @@ Jetzt berechnen wir die kummulierte Häufigkeit von jeder Distanz berechnen. Die
 kumm_haeufgikeit <- seq_along(rotmilan_mindist) / length(rotmilan_mindist)
 ```
 
-#### Schritt 5
+### Schritt 5
 
 Nun wollen wir die kumulierte Häufigkeit der Werte in einer Verteilungsfunktion (engl: [Empirical Cumulative Distribution Function, ECDF](https://en.wikipedia.org/wiki/Empirical_distribution_function)) darstellen. Dafür müssen wir die beiden Vektoren zuerst noch in einen Dataframe packen, damit `ggplot` damit klar kommt. 
 
@@ -144,10 +151,4 @@ mindist_df <- rbind(luftqualitaet_mindist_df,rotmilan_mindist_df)
 ggplot(mindist_df,) + 
   geom_line(aes(distanzen, kumm_haeufgikeit, colour = data)) +
   labs(x = "Distanz (Meter)", y = "Häufigkeit (kummuliert)", colour = "Datensatz")
-
 ```
-
-
-
-
-

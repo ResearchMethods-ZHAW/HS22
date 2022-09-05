@@ -1,3 +1,10 @@
+---
+date: 2022-11-14
+lesson: Stat5
+thema: Von linearen Modellen zu GLMMs
+index: 4
+---
+
 # Stat5: Lösung 2
 
 {{< include /../_before-article.qmd >}}
@@ -9,14 +16,12 @@
 
 >Download [R-Skript](Statistik5_Loesung_2.R) 
 
-# Musterlösung Übung 5.2: GLMM
+## Musterlösung Übung 5.2: GLMM
 
-*****
 > Lese-Empfehlung Kapitel 4.3.1 von [Christopher Molnar](https://christophm.github.io/interpretable-ml-book/extend-lm.html#glm)
-- Interessierte [hier](https://rpsychologist.com/r-guide-longitudinal-lme-lmer) oder [hier](https://rpubs.com/kaz_yos/glmm1)
-****
+> Interessierte [hier](https://rpsychologist.com/r-guide-longitudinal-lme-lmer) oder [hier](https://rpubs.com/kaz_yos/glmm1)
 
-## kommentierter Lösungsweg
+### Kommentierter Lösungsweg
 ```{r, message=FALSE, echo=FALSE, results='hide', warning=FALSE}
 library(dplyr)
 library(readr)
@@ -24,7 +29,7 @@ library(stringr)
 library(ggfortify)
 library(lme4)
 
-nova <- read_delim(here("data","2017_ZHAW_individual_menu_sales_NOVANIMAL.csv"), delim = ";", locale = locale(encoding = "latin1"))
+nova <- read_delim(here("data","2017_ZHAW_individual_menu_sales_NOVANIMAL.csv"), delim = ";", locale = locale(encoding = "UTF-8"))
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 mytheme <- 
@@ -39,7 +44,7 @@ mytheme <-
 
 ```
 
-```{r, error=FALSE, eval=FALSE}
+```{r warning=F}
 df <- nova # kopiert originaler Datensatz
 
 # Genereiert eine Dummyvariable: Fleisch 1, kein Fleisch 0
@@ -106,15 +111,15 @@ tab1 <- cbind(Est = fixef(mod0), LL = fixef(mod0) - 1.96 * se,
 tab2 <- exp(tab1)
 ```
 
-## Methoden
+### Methoden
 
 Die Responsevariable “Fleischkonsum” ist eine binäre Variable. Demnach wird eine multiple logistische Regression mit den Prädiktoren “Alter (Gruppen)”, “Geschlecht” und “Hochschulzugehörigkeit” gerechnet. Da in den Daten gewisse Individuen mehrmals vorkommen, wird das Individuum (Variable ccrs) als variabler Effekt in das Modell aufgenommen.
 
-## Ergebnisse
+### Ergebnisse
 
 Das Geschlecht und das Alter nehmen einen signifikanten Einfluss auf den Fleischkonsum (siehe Table 1): Männer kaufen signifikant häufiger ein fleischhaltiges Gericht als Frauen; junge Personen (15 bis 25-jährig) kaufen signifikant häufiger ein fleischhaltiges Gericht in der Mensa. Es sieht so aus, als ob die Hochschulzugehörigkeit auf den ersten Blick keinen Einfluss nimmt. Aber man müsste auch die Interaktion zwischen Geschlecht und Hochschulzugehörigkeit berücksichtigen, um ein abschliessendes Bild zu bekommen. Das kleine marginale Pseudo-R^2 zeigt auf, dass es nicht das "beste" Modell ist. Insbesondere die tiefe Varianzaufklärung für die randomisierte Variable (r2c; ccrs) scheint mit (nur) 4% sehr gering. Das sind Hinweise dafür, dass das Modell ggf. noch weitere Ebenen haben könnte (z.B. Standort Mensa).
 
-```{r, message=FALSE, echo=FALSE, eval=FALSE}
+```{r, message=FALSE, echo=FALSE}
 #replace rownames
 rownames(tab1) <-  c("Intercept", "Männer", "Mitarbeitende",
                             "26 bis 34-jährig", "35 bis 49-jährig",
@@ -128,7 +133,7 @@ knitr::kable(tab1, col.names = c("Coefficients", "Lower Limit (LL)", "Uppewr Lim
 
 Die Chance, dass Männer ein fleischhaltiges Gericht kaufen ist 2.36mal (+136%) höher als bei Frauen (siehe Table 2). Die Chance, dass 26 bis 34-jährige Personen ein fleischhaltiges Gericht kaufen ist kleiner (-21%) als bei den 15 bis 25-jährigen Personen.
 
-```{r, message=FALSE, echo=FALSE, eval=FALSE}
+```{r, message=FALSE, echo=FALSE}
 # ersetze row names
 rownames(tab2) <-  c("Intercept", "Männer", "Mitarbeitende",
                             "26 bis 34-jährig", "35 bis 49-jährig",

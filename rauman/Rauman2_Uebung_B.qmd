@@ -1,5 +1,11 @@
-# Rauman 2: Übung B
+---
+date: 2022-11-29
+lesson: RaumAn2
+thema: Räumliche Interpolation
+index: 2
+---
 
+# Rauman 2: Übung B
 
 {{< include /../_before-article.qmd >}}
 
@@ -9,7 +15,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 In dieser Übung geht es darum, zwei verschiedene Interpolationsverfahren in R umzusetzen. Im ersten Interpolationsverfahren verwenden wir die *inverse distance weighted interpolation*, später verwenden wir die *nearest neighbour* methode. Dazu braucht ihr die folgenden Packages:
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, message = FALSE}
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -19,7 +25,7 @@ library(gstat) # <- ggf. installieren!
 
 Weiter benötigt ihr die nachstehenden Datensätze:
 
-```{r, echo = FALSE, results='asis'}
+```{r, echo = TRUE, results='asis'}
 luftqualitaet <- read_sf(here("data","luftqualitaet.gpkg"))
 schweiz <- read_sf(here("data","schweiz.gpkg")) 
 ```
@@ -79,8 +85,8 @@ Tips:
 - Wählt am Anfang eine etwas Konvervative (grosse) `cellsize` und verringert diesen nur wenn euer Rechner damit gut klar kommt
 - Da der Output aus der Interpolation im gleichen Koordinatenbezugssystem sind wie `schweiz.gpkg` kann man diese beiden Datensätze im gleichen `ggplot` darstellen. Dafür müsst ihr die *aesthetics* (`aes()`) für jeden Layer einzeln setzen, und nicht auf der Ebene von `ggplot()`.
 
-::: {.column-page}
-```{r, message=FALSE, warning=FALSE, fig.cap="Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz mit der Inverse Distance Weighted Methode. Die verschiedenen Plots zeigen die Veränderung der Interpolation bei steigendem IDP-Wert"}
+::: {.column-body}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, fig.cap="Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz mit der Inverse Distance Weighted Methode. Die verschiedenen Plots zeigen die Veränderung der Interpolation bei steigendem IDP-Wert"}
 library(purrr)
 library(tidyr)
 
@@ -100,14 +106,10 @@ lapply(1:4, function(idp){
 }) %>%
   cowplot::plot_grid(plotlist = .)
 
-ggsave(here("images","idw.png"), height = 18, width = 20, units = "cm")
+ggsave(here("rauman/images","idw.png"), height = 18, width = 20, units = "cm")
 
 ```
 :::
-
-
-![](images/idw.png")
-
 
 ### Aufgabe 2: Interpolation mit Nearest Neighbour
 

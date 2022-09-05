@@ -1,5 +1,12 @@
-# Stat4: Lösung
+---
+date: 2022-11-08
+lesson: Stat4
+thema: Komplexere Regressionsmethoden
+index: 3
+---
 
+# Stat4: Lösung 4.1
+ 
 {{< include /../_before-article.qmd >}}
 
 ```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
@@ -9,7 +16,7 @@
 ## Musterlösung Übung 4.1: Nicht-lineare Regression
 
 - [R-Code als Download](Statistik4_Loesung_1.R)
-- [Loesungstext Beispiel](Statistik_Loesung_4.1_v.02.pdf)
+- [Lösungstext Beispiel](Statistik_Loesung_4.1.pdf)
 
 **Übungsaufgabe (hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)**
 
@@ -18,7 +25,7 @@
   (Vegetationsaufnahmen) der Pflanzengesellschaft Lolio-Cynosuretum im
   Nationalpark Kurische Nehrung (Russland) auf Flächengrössen (Area) von 0.0001 bis
   900 m².
-- **Ermitteln Sie den funktionellen Zusammenhang, der die Zunahme der Artenzahl mit der     Flächengrösse am besten beschreibt. Berücksichtigen Sie dabei mindestens die            Potenzfunktion (power function), die logarithmische Funktion (logarithmic function)     und eine Funktion mit Sättigung (saturation, asymptote) Ihrer Wahl**
+- **Ermitteln Sie den funktionellen Zusammenhang, der die Zunahme der Artenzahl mit der Flächengrösse am besten beschreibt. Berücksichtigen Sie dabei mindestens die Potenzfunktion (power function), die logarithmische Funktion (logarithmic function) und eine Funktion mit Sättigung (saturation, asymptote) Ihrer Wahl**
 - Bitte erklären und begründen Sie die einzelnen Schritte, die Sie unternehmen, um zu
   diesem Ergebnis zu kommen. Dazu erstellen Sie bitte ein Word-Dokument, in das Sie
   Schritt für Schritt den verwendeten R-Code, die dazu gehörigen Ausgaben von R, Ihre
@@ -42,8 +49,7 @@
   einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und
   Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige
   Redundanz dagegen vermieden werden.
-- **Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg       (Kombination aus R-Code, R Output und dessen Interpretation) und (c)                  ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**
-
+- **Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation) und (c) ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**
 
 ### Musterlösung Übung 4.1 - Nicht-lineare Regression
 
@@ -62,7 +68,7 @@ Es liegt in der Tat ein nicht-linearer Zusammenhang vor, der sich gut mit nls an
 Die Daten beinhalten keine erkennbaren Fehler, da der Artenreichtum der geschachtelten
 Plots mit der Fläche ansteigt.
 
-```{r}
+```{r message=F}
 # Potenzfunktion selbst definiert
 if(!require(nlstools)){install.packages("nlstools")}
 library(nlstools)
@@ -73,13 +79,13 @@ Falls die Funktion so keine Ergebnisse liefert, oder das Ergebnis unsinnig aussi
 es später plottet, müsste man hier geeignete Startwerte angeben, die man aus der
 Betrachtung der Daten oder aus Erfahrungen mit der Funktion für ähnliche Datensets gewinnt,etwa so:
 
-```{r}
+```{r warning=F}
 power.model <- nls(Species.richness~c * Area^z, start = (list(c = 1, z = 0.2)), data = curonian)
 summary(power.model)
 ```
 Das Ergebnis ist identisch
 
-```{r}
+```{r warning=F}
 #logarithmische Funktion selbst definiert
 logarithmic.model <- nls(Species.richness~b0 + b1 * log10(Area), data = curonian)
 summary(logarithmic.model)
@@ -91,10 +97,9 @@ als selbststartende Funktionen, was meist besser funktioniert als
 wenn man sich selbst Gedanken
 über Startwerte usw. machen muss. Man kann sie aber auch selbst definieren
 
-
 _Im Folgenden habe ich ein paar unterschiedliche Sättigungsfunktionen mit verschiedenen Einstellungen durchprobiert, um zu zeigen, was alles passieren kann…_
 
-```{r}
+```{r warning=F}
 micmen.1 <- nls(Species.richness~SSmicmen(Area, Vm, K), data = curonian)
 summary(micmen.1)
 
@@ -131,7 +136,7 @@ summary(logistic.model)
 
 Das ist etwas, was einem bei nls immer wieder passieren kann. Die Iteration ist nach der eingestellten max. Iterationszahl noch nicht zu einem Ergebnis konvergiert. Um ein Ergebnis für diese Funktion zu bekommen, müsste man mit den Einstellungen von nls „herumspielen“, etwas bei den Startwerten oder den max. Um das effizient zu machen, braucht man aber etwas Erfahrung Interationszahlen (man kann z. B. manuell die Maximalzahl der Iterationen erhöhen, indem man in den Funktionsaufruf etwa maxiter =100 als zusätzliches Argument reinschreibtn). 
 
-#Logistische Regression mit Startwerten
+**Logistische Regression mit Startwerten**
 ```{r}
 logistic.model.2 <- nls(Species.richness~asym/(1 + exp((xmid-Area) / scal)), 
                       control = nls.control(maxiter = 100), 

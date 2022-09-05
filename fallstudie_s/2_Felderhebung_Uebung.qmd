@@ -1,13 +1,12 @@
 # 2: Felderhebung Übung
 
-
 {{< include /../_before-article.qmd >}}
 
-# Einführung und Installation
+## Einführung und Installation
 
 Es gibt eine Vielzahl an möglichen Methoden zur Erfassung der Besucherzahlen. Automatische Zählgeräte bieten die Möglichkeit lange und durchgehende Zeitreihen zu erfassen. Diese müssen aber natürlich auch ausgewertet werden. Hier erhaltet ihr erste Inputs dazu.
 
-![](fallstudie_s/images/gruental.jpg)
+![](images/gruental.jpg){width=50%}
 
 ## Ziele
 
@@ -18,15 +17,15 @@ Es gibt eine Vielzahl an möglichen Methoden zur Erfassung der Besucherzahlen. A
 
 Die Geräte werden innerhalb der auf Abbildung 1 gekennzeichneten Standorte platziert. Damit soll überprüft werden, wie stark frequentiert die Waldränder der ökologisch aufgewerteten Seeparzelle sind.
 
-![](fallstudie_s/images/Perimeter_Felderhebung.png)
+![](images/Perimeter_Felderhebung.png){width=50%}
 
 Datenschutz ist ein wichtiges Thema. Die Besuchenden werden über den Zweck der Kameras informiert, die Daten nach der Bearbeitung wieder gelöscht und nicht weitergegeben.
 
-![](fallstudie_s/images/Begleitzettel_Kamera.png)
+![](images/Begleitzettel_Kamera.png){width=50%}
 
 Nun geht es ins Feld uns die Geräte werden installiert.
 
-# Auswertung
+## Auswertung
 
 __AUFGABE ab dem 12.10.2021__
 
@@ -35,11 +34,8 @@ _Nachdem die Kameras für zwei Wochen im Einsatz standen, werden die Daten ausge
 Bereits beim Detektieren der Sichtungen muss einem klar sein, was man auswerten möchte. Nur so können die relevanten Variablen erfasst werden.
 
 - Im Rahmen dieser Felderhebung erhaltet ihr von Adrian eine Excel-Vorlage zur Verifizeriung der automatisch detektierten Sichtungen.
-
 - Verifiziert __kurz__, was euch der Algorithmus geliefert hat.
-
 - Als nächstes geht es ins R. Da wir für unsere Auswertungen zu wenige Sichtungen haben, verwendet bitte den Datensatz __DummyData__ (ReMe HS21 MSc ENR_/Fallstudie Biodiversity & Ecosystems/S_Daten/Felderhebungen). Eure Verifizierung braucht ihr nicht mehr.
-
 
 ## Datenanalyse in R
 
@@ -218,7 +214,7 @@ ggplot(Wildtier, mapping=aes(x=Wildtier, y=freq*100))+ # kann auch prozentual da
 
 ```
 
-### Vorbereitungen
+## Vorbereitungen
 
 Fuer diese Aufgabe benoetigen wir folgende Bibliotheken:
 
@@ -277,22 +273,19 @@ hist(west$Anzahl[west$Art=="Mensch" &
 Beim Scatterplot soll auf der x-Achse das Datum stehen, auf der y-Achse die Anzahl der Personen.
 Auch hier wollen wir keine Wildtiere im Plot.
 
-### Aufgabe 3: Daten ausschliessen
+### Aufgabe 4: Daten ausschliessen
 Fuer die weiteren Analysen schliessen wir die Wildtiere komplett aus.
 
 - Nutzt dazu wiederum den Befehl __filter()__ und ueberschreibt die Datensaetze __ost__ und __west__.
-
 Dennoch wolle wir auch wissen, welche Tiere auf dem Areal (ost und west zusammen, also df __cam__) unterwegs sind.
-
 - Dafuer gibts einen separaten Datensatz namens __Tiere__. Nutzt dazu den Befehl __filter()__.
 
-### Aufgabe 4: Explorative Analysen
+### Aufgabe 5: Explorative Analysen
 Berechnet zuerst die totale Anzahl Menschen / Standort mit __sum(DATENSATZ$SPALTENNAME)__.
 
 Gruppieren und summieren:
 
 - Berechnet nun die Anzahl Menschen pro Aktivität und Standort (= Akt_ost und Akt_west).
-
 - Berechnet auch die Anzahl Begleittier pro Kategorie und Standort (= Begleittier_ost und Begleittier_west).
 
 Untenstehender Code eigent sich dazu ganz gut:
@@ -309,7 +302,7 @@ Nun soll noch berechnet werden, wie viele unterschiedliche Wildtiere auf dem gan
 
 Recycelt dazu obenstenenden Code.
 
-### Aufgabe 5: Visualisieren
+### Aufgabe 6: Visualisieren
 
 __Verteilung der Aktivitäten als Pie Chart__
 
@@ -356,4 +349,3 @@ ggplot(Wildtier, mapping=aes(x=Wildtier, y=freq*100))+ # kann auch prozentual da
 ```
 
 Bei Bedraf koennen die selben Plots fuer den zweiten Standort gemacht werden.
-

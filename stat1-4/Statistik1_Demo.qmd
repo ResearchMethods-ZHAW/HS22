@@ -1,3 +1,10 @@
+---
+date: 2022-10-31
+lesson: Stat1
+thema: Grundlagen der Statistik
+index: 1
+---
+
 # Stat1: Demo
 
 {{< include /../_before-article.qmd >}}
@@ -8,7 +15,7 @@
 
 [Demoskript als Download](Statistik1_Demo.R)
 
-### Binomialtest
+## Binomialtest
 
 In Klammern übergibt man die Anzahl der Erfolge und die Stichprobengrösse
 
@@ -17,7 +24,7 @@ binom.test(43, 100)
 binom.test(57, 100)
 ```
 
-### Chi-Quadrat-Test & Fishers Test
+## Chi-Quadrat-Test & Fishers Test
 
 Ermitteln des kritischen Wertes
 
@@ -25,7 +32,7 @@ Ermitteln des kritischen Wertes
 qchisq(0.95, 1)
 ```
 
-Direkter Test in R (dazu Werte als Matrix nötig)
+## Direkter Test in R (dazu Werte als Matrix nötig)
 
 ```{r}
 count <- matrix(c(38, 14, 11, 51), nrow = 2)
@@ -34,7 +41,7 @@ chisq.test(count)
 fisher.test(count)
 ```
 
-### t-Test
+## t-Test
 
 ```{r}
 a <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14)
@@ -48,20 +55,20 @@ hist(blume$a)
 hist(blume$b)
 ```
 
-zweiseitiger t-Test
+## Zweiseitiger t-Test
 
 ```{r}
 t.test(blume$a, blume$b)
 ```
 
-einseitiger t-Test
+## Einseitiger t-Test
 
 ```{r}
 t.test(blume$a, blume$b, alternative = "greater") #einseitig
 t.test(blume$a, blume$b, alternative = "less") #einseitig
 ```
 
-klassischer t-Test vs. Welch Test
+## Klassischer t-Test vs. Welch Test
 
 ```{r}
 # Varianzen gleich, klassischer t-Test
@@ -72,7 +79,7 @@ t.test(blume$a, blume$b, var.equal = T)
 t.test(blume$a, blume$b, var.equal = F) 
 ```
 
-gepaarter t-Test
+## Gepaarter t-Test
 
 ```{r}
 t.test(blume$a, blume$b, paired = T)
@@ -106,9 +113,9 @@ t.test(size~cultivar, blume.long, var.equal = T)
 t.test(size~cultivar, blume.long, paired = T)
 ```
 
-### Base R vs. ggplot2
+## Base R vs. ggplot2
 
-```{r}
+```{r message=F}
 library(tidyverse)
 ggplot(blume.long, aes(cultivar, size)) + geom_boxplot()
 ggplot(blume.long, aes(cultivar, size)) + geom_boxplot() + theme_classic()
@@ -148,5 +155,4 @@ ggplot (blume.long, aes(cultivar,size)) +
   geom_boxplot(size = 1) + 
   mytheme +
   labs(x="Cultivar",y="Size (cm)")
-
 ```
