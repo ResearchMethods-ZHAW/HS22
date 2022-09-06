@@ -36,7 +36,7 @@ Einlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Date
 #| warning: false
 #| message: false
 #| results: hide
-Rehe <- read_delim(here("data","Aufgabe3_Homeranges_Rehe_landforst_20211014.csv"), delim = ";")
+Rehe <- read_delim("data/Aufgabe3_Homeranges_Rehe_landforst_20211014.csv", delim = ";")
 
 str(Rehe)
 ```
@@ -141,7 +141,7 @@ Code um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann m
 ```{r}
 #| tidy: true
 #| fig.keep: none
-pk25_wpz <- brick(here("data","pk25_wpz.tif"))
+pk25_wpz <- brick("data/pk25_wpz.tif")
 
 xy_p <- st_as_sf(xy)
 
@@ -214,7 +214,7 @@ Testen der Variablen der Vegetationsschichten von letzter Woche auf einen linear
 #| echo: false
 #| message: false
 #| results: hide
-df_with_lidar <- read_delim(here("data","df_with_lidar.csv"), delim =";")
+df_with_lidar <- read_delim("data/df_with_lidar.csv", delim =";")
 
 cor.test(~ DG_Strauchschicht+DG_us, data = df_with_lidar, method="pearson")
 ```
