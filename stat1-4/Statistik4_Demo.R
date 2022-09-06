@@ -1,25 +1,3 @@
----
-date: 2022-11-08
-lesson: Stat4
-thema: Komplexere Regressionsmethoden
-index: 1
----
-
-# Stat4: Demo
-
-{{< include /../_before-article.qmd >}}
-
-
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
-knitr::purl("stat1-4/Statistik4_Demo.qmd", "stat1-4/Statistik4_Demo.R", documentation = 0)
-```
-
-- [Demoscript als Download](Statistik4_Demo.R)
-- Datensatz [loyn.csv](https://media.githubusercontent.com/media/ResearchMethods-ZHAW/datasets/main/statistik/loyn.csv)
-
-## von LMs zu GLMs
-
-```{r}
 temp <- c(10, 12 ,16, 20, 24, 25, 30, 33, 37)
 besucher <- c(40, 12, 50, 500, 400, 900, 1500, 900, 2000)
 strand <- data.frame("Temperatur" = temp, "Besucher" = besucher)
@@ -43,12 +21,7 @@ glm.poisson <- glm(Besucher~Temperatur, family = poisson, data = strand)
 
 summary(glm.gaussian)
 summary(glm.poisson)
-```
 
-Rücktranformation der Werte auf die orginale Skale (Hier Exponentialfunktion da family=possion als Link-Funktion den natürlichen Logarithmus (log) verwendet)
-Besucher = exp(3.50 + 0.11 Temperatur/°C)
-
-```{r message=F}
 exp(3.500301) # Anzahl besucher bei 0°C
 exp(glm.poisson$coefficients[1]) # Werte aus Modell
 exp(3.500301 + 30*0.112817) # Anzahl besucher bei 30°C
@@ -79,12 +52,7 @@ lines(xv, exp(yv2), lwd = 3, col = "red")
 
 yv3 <- predict(glm.quasi, list(Temperatur = xv))
 lines(xv, exp(yv3), lwd = 3, col = "green")
-```
 
-
-## Logistische Regression
-
-```{r}
 bathing <- data.frame(
   "temperature" = c(1, 2, 5, 9, 14, 14, 15, 19, 22, 24, 25, 26, 27, 28, 29),
   "bathing" = c(0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1))
@@ -125,11 +93,7 @@ plot(bathing~temperature, xlab = "Temperature (°C)",
 points(model.predict$fit ~ xs, type="l")
 lines(model.predict$fit+model.predict$se.fit ~ xs, type = "l", lty = 2)
 lines(model.predict$fit-model.predict$se.fit ~ xs, type = "l", lty = 2)
-```
 
-## Nicht-lineare Regression 
-
-```{r message=F}
 if(!require(AICcmodavg)){install.packages("AICcmodavg")}
 if(!require(nlstools)){install.packages("nlstools")}
 library(AICcmodavg)
@@ -187,21 +151,13 @@ cand.models[[2]] <- logistic.model
 Modnames <- c("Power", "Logistic")
 
 aictab(cand.set = cand.models, modnames = Modnames)
-```
 
-## Smoother
-
-```{r}
 loyn$log_AREA<-log10(loyn$AREA)       
 plot(ABUND~log_AREA, data = loyn)
 lines(lowess(loyn$log_AREA, loyn$ABUND, f = 0.25), lwd = 2, col = "red")
 lines(lowess(loyn$log_AREA, loyn$ABUND, f = 0.5), lwd = 2, col = "blue")
 lines(lowess(loyn$log_AREA, loyn$ABUND, f = 1), lwd = 2, col = "green")
-```
 
-## GAMs
-
-```{r message=F}
 if(!require(mgcv)){install.packages("mgcv")}
 library(mgcv)
 
@@ -216,4 +172,3 @@ lines(xv, yv, lwd = 2, col = "red")
 
 AICc(gam.1)
 summary(gam.1)
-```

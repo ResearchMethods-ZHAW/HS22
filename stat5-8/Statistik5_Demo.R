@@ -1,27 +1,3 @@
----
-date: 2022-11-14
-lesson: Stat5
-thema: Von linearen Modellen zu GLMMs
-index: 1
----
-
-# Stat5: Demo
-
-{{< include /../_before-article.qmd >}}
-
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
-knitr::purl("stat5-8/Statistik5_Demo.qmd", "stat5-8/Statistik5_Demo.R", documentation = 0)
-```
-
-# Von linearen Modellen zu GLMMs
-- [Demoscript als Download](Statistik5_Demo.R)
-- Datensatz [spf.csv](https://media.githubusercontent.com/media/ResearchMethods-ZHAW/datasets/main/statistik/spf.csv)
-- Datensatz [DeerEcervi.txt](https://media.githubusercontent.com/media/ResearchMethods-ZHAW/datasets/main/statistik/DeerEcervi.txt)
-
-## Split-plot ANOVA
-Based on Logan (2010), Chapter 14
-
-```{r message=F}
 spf <- read.delim(here("data","spf.csv"), sep = ";") 
 spf.aov <- aov(Reaktion~Signal * Messung + Error(VP), data = spf)
 summary(spf.aov)
@@ -42,12 +18,7 @@ anova(spf.lme.2)
 
 summary(spf.lme.1)
 summary(spf.lme.2)
-```
 
-## GLMM
-Based on Zuur et al. (2009), chapter 13
-
-```{r}
 DeerEcervi <- read.delim(here("data","DeerEcervi.txt"), sep = "", stringsAsFactors = T)
 
 # Anzahl Larven hier in Presence/Absence übersetzt
@@ -56,11 +27,7 @@ DeerEcervi$Ecervi.01[DeerEcervi$Ecervi>0] <- 1
 
 #Numerische Geschlechtscodierung als Factor
 DeerEcervi$fSex <- as.factor(DeerEcervi$Sex)
-```
 
-Hirschlänge hier standardisiert, sonst würde der Achsenabschnitt im Modell für einen Hirsch der Länge 0 modelliert, was schlecht interpretierbar ist, jetzt ist der Achsenabschnitt für einen durschnittlich langen Hirsch
-
-```{r message=F}
 DeerEcervi$CLength <- DeerEcervi$Length - mean(DeerEcervi$Length)
 
 # Zunächst als GLM
@@ -86,11 +53,7 @@ for (j in AllFarms){
     P.DE2 <- predict(DE.glm, mydata, type = "response")
     lines(mydata$CLength[I], P.DE2[I])
   }}
-```
 
-## GLMM
-
-```{r message=F}
 if(!require(MASS)){install.packages("MASS")}
 library(MASS)
 DE.PQL <- glmmPQL(Ecervi.01 ~ CLength * fSex,
@@ -119,4 +82,3 @@ library(glmmML)
 DE.glmmML <- glmmML(Ecervi.01 ~ CLength * fSex,
                   cluster = Farm, family = binomial, data = DeerEcervi)
 summary(DE.glmmML)
-```
