@@ -17,7 +17,11 @@ The goal of this exercise is to do the same MCE by just using R. We will mainly 
 
 ## Exercises 1: Load and view data
 
-```{r, results='asis', echo=FALSE, purl = FALSE, message=F}
+```{r}
+#| results: asis
+#| echo: false
+#| purl: false
+#| message: false
 knitr::opts_chunk$set(echo = TRUE)
 
 datasets <- data.frame(
@@ -35,7 +39,11 @@ library(kableExtra)
 library(dplyr)
 ```
 
-```{r datatable, results='asis', echo=FALSE, purl = FALSE}
+```{r}
+#| label: datatable
+#| results: asis
+#| echo: false
+#| purl: false
 #| label: tbl-data
 #| tbl-cap: Data used in this study
 datasets %>%
@@ -52,14 +60,20 @@ The raster data can be loaded by using the function `terra::rast` and the vector
 
 We will use the following packages in this exercise:
 
-```{r message=F}
+```{r}
+#| message: false
 library(sf)
 library(terra)
 library(dplyr)
 library(tmap)
 ```
 
-```{r solutionEx1, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+```{r}
+#| label: solutionEx1
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
 #Vector data
 kt_schwyz <- read_sf(here("data","Untersuchungsgebiet_Schwyz.gpkg"))
 settlements <- read_sf(here("data","Bewohnte_Flaeche.gpkg"))
@@ -74,7 +88,10 @@ dhm25m <- rast(here("data","dhm25m.tif"))
 wind25m <- rast(here("data","wind25m.tif"))
 ```
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r}
+#| message: false
+#| warning: false
+#| include: false
 #Plot vector data
 tm_shape(lakes) + tm_polygons(col = "dodgerblue3") +
   tm_shape(streets) + tm_lines(col = "gray18") +
@@ -82,7 +99,10 @@ tm_shape(lakes) + tm_polygons(col = "dodgerblue3") +
   tm_shape(settlements) + tm_polygons(col = "gray",alpha = 0.5)
 ```
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r}
+#| message: false
+#| warning: false
+#| include: false
 tm_shape(dhm25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
 tm_shape(eis25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
 tm_shape(wind25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
@@ -95,7 +115,8 @@ Merge the exclusion criteria settlement areas, national protected areas, lake ar
 * ***Tip**: To achieve a raster with only 0 and 1 use the `rasterize` options field = 0 and background = 1.*
 * ***Tip**: In order to rasterize vector data, you need to create an empty raster beforehand. This raster should have the same boundaries (extent), resolution and coordinate system (crs) as the other raster sets. Use the following code to do so.*
   
-```{r create_empty_raster}
+```{r}
+#| label: create_empty_raster
 r <- terra::rast(ext(kt_schwyz), 
           resolution = c(250, 250), 
           crs = "EPSG:21781")
@@ -103,7 +124,12 @@ r <- terra::rast(ext(kt_schwyz),
   
 ![](images/exclusion_areas.png){width=50%}
 
-```{r solutionEx2, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+```{r}
+#| label: solutionEx2
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
 #Merge exclusion area
 exclusion_areas <- dplyr::bind_rows(settlements, forests, protected_areas, lakes)
 
@@ -125,7 +151,12 @@ Next, calculate the slope in degrees based on the terrain model (dhm25m). The te
 
 ![](images/slope.png){width=50%}
 
-```{r solutionEx3, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+```{r}
+#| label: solutionEx3
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
 slope <- terra::terrain(dhm25m, v="slope",unit="degrees", neighbors=8)
 slope_250 <- slope %>% aggregate(.,fact = 10)
 plot(slope_250, main="Slope", axes=FALSE)
@@ -140,7 +171,12 @@ Within the evaluation of suitable sites for wind turbines, the distance to roads
 
 ![](images/d_to_settlements.png){width=50%}
 
-```{r solutionEx4, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+```{r}
+#| label: solutionEx4
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
 #create raster layers from vector 
 raster_settlements <- terra::rasterize(vect(settlements), r, field = 1)
 raster_protected_areas <- terra::rasterize(vect(protected_areas), r, field = 1) 
@@ -161,7 +197,8 @@ The data layers slope, wind speed, icing frequency and the in exercise 4 calcula
 * ***Tip**: Keep in mind the min and max values of each raster layer.*
 * ***Tip**: Here is an example code to reclassify the distances to settlements.*
 
-```{r examplereclassifysettlements}
+```{r}
+#| label: examplereclassifysettlements
 settlements_max <- minmax(settlements_ed)[2]
 
 reclass_settlements <- c(0,80,0,
@@ -188,7 +225,12 @@ MCE Reclassify
 
 ![](images/d_to_settlements_reclassified.png){width=50%}
 
-```{r solutionEx5, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+```{r}
+#| label: solutionEx5
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
 #### reclassify wind
 wind250m <- wind25m %>% aggregate(.,fact = 10)
 wind_max <- minmax(wind250m)[2]
@@ -309,7 +351,8 @@ Perform an AHP to weight the criteria underlying the MCE. First compare the crit
           Wind       Streets          Ice    Settlements       Forest         Slope  Protected areas 
     0.33862692    0.09816760    0.06166626    0.24969460    0.03515759    0.18043000      0.03625702 
   
-```{r ahp_mce}
+```{r}
+#| label: ahp_mce
 ahp_matrix <- c(
   1, 0, 0, 0, 0, 0, 0, #Wind
   0, 1, 0, 0, 0, 0, 0, #Distance to streets
@@ -321,7 +364,12 @@ ahp_matrix <- c(
 ) %>% matrix(ncol = 7, byrow = TRUE)
 ```
 
-```{r solutionEx6, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+```{r}
+#| label: solutionEx6
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
 #create AHP
 ahp_matrix <- c(
   1,   6,   7,   3,   7, 4,   5, #Wind
@@ -348,7 +396,12 @@ The linearly ranked criteria (Exercise 5) are now to be combined with each other
 
 ![Weighted Overlay](images/weighted_overlay.png){#fig-weighted-overlay width=50%}
 
-```{r solutionEx7, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+```{r}
+#| label: solutionEx7
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
 # rasterOptions(tolerance = 0.5) #raster sets have different origins, increase tolerance
 
 wind_f <- (reclass_wind * weights[1])
@@ -384,7 +437,12 @@ By simply multiplying the exclusion layer (result from exercise 2) with the weig
 
 ![Potential Sites](images/potential_sites.png){#fig-potential-sites}
 
-```{r  solutionEx8, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+```{r}
+#| label: solutionEx8
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
 # Transforming  the layer depicting the exclusion areas from SpatRaster class to RasterLayer class, so we can perform the final raster multiplication operation
 raster_exclusion_areas <- raster_exclusion_areas %>% raster::raster()
 final_model <- weighted_overlay * raster_exclusion_areas
@@ -394,6 +452,11 @@ plot(final_model, main="Potential sites for wind power plants in Kt. Schwyz", ax
 ## Musterlösung
 
 [R-Code](Uebung_mce.R) 
-```{r, echo = FALSE, message=FALSE, results = "asis", purl = FALSE, eval = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: asis
+#| purl: false
+#| eval: false
 #distill::mypurl() # for some reason (chunk names) this code does not run. debug at some point
 ```

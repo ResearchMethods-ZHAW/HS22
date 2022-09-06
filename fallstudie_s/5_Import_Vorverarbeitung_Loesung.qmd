@@ -2,11 +2,13 @@
 
 {{< include /../_before-article.qmd >}}
 
-```{r include=FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, results = "hide", fig.align="left")
 ```
 
-```{r echo=FALSE}
+```{r}
+#| echo: false
 # Benoetigte Bibliotheken ####
 library(tidyverse) # Data wrangling und piping
 library(lubridate) # Arbeiten mit Datumsformaten
@@ -67,7 +69,9 @@ Sommerferien_2021_start <- as.Date("2021-07-17")
 
 # Aufgabe 1: Zähldaten
 
-```{r warning=FALSE, results="hide"}
+```{r}
+#| warning: false
+#| results: hide
 #.################################################################################################
 # 1. DATENIMPORT #####
 #.################################################################################################
@@ -110,7 +114,9 @@ depo <- na.omit(depo)
 
 # Aufgabe 2: Meteodaten
 
-```{r warning=FALSE, results="hide"}
+```{r}
+#| warning: false
+#| results: hide
 # 1.2 Meteodaten ####
 # Einlesen
 meteo <- fread(here("data","order_97149_data.txt"))
@@ -144,7 +150,9 @@ sum(is.na(meteo)) # zeigt die Anzahl NA's im data.frame an
 
 # Aufgabe 3: Datenvorverarbeitung (Mutationen)
 
-```{r warning=FALSE, results="hide"}
+```{r}
+#| warning: false
+#| results: hide
 #.################################################################################################
 # 2. VORBEREITUNG DER DATEN #####
 #.################################################################################################
@@ -206,7 +214,9 @@ depo$Fuss_OUT <- round(depo$Fuss_OUT, digits = 0)
 
 # Aufgabe 4: Aggregierung der Stundendaten
 
-```{r warning=FALSE, results="hide"}
+```{r}
+#| warning: false
+#| results: hide
 # 2.3 Aggregierung der Stundendaten zu ganzen Tagen ####
 # Zur Berechnung von Kennwerten ist es hilfreich, wenn neben den Stundendaten auch auf Ganztagesdaten
 # zurueckgegriffen werden kann

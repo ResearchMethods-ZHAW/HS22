@@ -9,7 +9,11 @@ index: 3
  
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
 # knitr::purl("Statistik4_Loesung_1.qmd", "Statistik4_Loesung_1.R", documentation = 0)
 ```
 
@@ -68,7 +72,8 @@ Es liegt in der Tat ein nicht-linearer Zusammenhang vor, der sich gut mit nls an
 Die Daten beinhalten keine erkennbaren Fehler, da der Artenreichtum der geschachtelten
 Plots mit der Fläche ansteigt.
 
-```{r message=F}
+```{r}
+#| message: false
 # Potenzfunktion selbst definiert
 if(!require(nlstools)){install.packages("nlstools")}
 library(nlstools)
@@ -79,13 +84,15 @@ Falls die Funktion so keine Ergebnisse liefert, oder das Ergebnis unsinnig aussi
 es später plottet, müsste man hier geeignete Startwerte angeben, die man aus der
 Betrachtung der Daten oder aus Erfahrungen mit der Funktion für ähnliche Datensets gewinnt,etwa so:
 
-```{r warning=F}
+```{r}
+#| warning: false
 power.model <- nls(Species.richness~c * Area^z, start = (list(c = 1, z = 0.2)), data = curonian)
 summary(power.model)
 ```
 Das Ergebnis ist identisch
 
-```{r warning=F}
+```{r}
+#| warning: false
 #logarithmische Funktion selbst definiert
 logarithmic.model <- nls(Species.richness~b0 + b1 * log10(Area), data = curonian)
 summary(logarithmic.model)
@@ -99,7 +106,8 @@ wenn man sich selbst Gedanken
 
 _Im Folgenden habe ich ein paar unterschiedliche Sättigungsfunktionen mit verschiedenen Einstellungen durchprobiert, um zu zeigen, was alles passieren kann…_
 
-```{r warning=F}
+```{r}
+#| warning: false
 micmen.1 <- nls(Species.richness~SSmicmen(Area, Vm, K), data = curonian)
 summary(micmen.1)
 
@@ -127,7 +135,8 @@ asym.model <- nls(Species.richness~SSasympOrig(Area, Asym, lrc), data = curonian
 summary(asym.model)
 ```
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 logistic.model <- nls(Species.richness~SSlogis(Area, asym, xmid, scal), data = curonian)
 summary(logistic.model)
 ```

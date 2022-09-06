@@ -9,13 +9,17 @@ index: 2
 
 {{< include ../_before-article.qmd >}}
 
-```{r include=FALSE, purl=F}
+```{r}
+#| include: false
+#| purl: false
 knitr::opts_chunk$set(echo = TRUE, include = F, collapse=TRUE)
 ```
 
 Für die Musterlösungen werden wir die nachstehenden Libraries verwenden:
 
-```{r,message=FALSE, echo = FALSE}
+```{r}
+#| message: false
+#| echo: false
 library(dplyr)
 library(readr)
 library(lubridate)
@@ -77,7 +81,8 @@ metadata <- cbind(metadata,koordinaten)
 
 Nun wollen wir den Datensatz `wetter`mit den Informationen aus `metadata` anreichern. Uns interessiert aber nur das Stationskürzel, der Name, die x/y Koordinaten sowie die Meereshöhe. Lösche die nicht benötigten Spalten (oder selektiere die benötigten Spalten).
 
-```{r, message=F}
+```{r}
+#| message: false
 metadata <- metadata[,c("stn", "Name", "x","y","Meereshoehe")]
 ```
 
@@ -107,7 +112,8 @@ wetter$month <- month(wetter$time)
 Berechne mit der Spalte `month` die Durchschnittstemperatur pro Monat.
 
 
-```{r, warning=F}
+```{r}
+#| warning: false
 mean(wetter$tre200h0[wetter$month == 1])
 mean(wetter$tre200h0[wetter$month == 2])
 mean(wetter$tre200h0[wetter$month == 3])

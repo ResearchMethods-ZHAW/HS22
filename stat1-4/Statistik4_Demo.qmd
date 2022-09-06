@@ -43,7 +43,8 @@ summary(glm.poisson)
 Rücktranformation der Werte auf die orginale Skale (Hier Exponentialfunktion da family=possion als Link-Funktion den natürlichen Logarithmus (log) verwendet)
 Besucher = exp(3.50 + 0.11 Temperatur/°C)
 
-```{r message=F}
+```{r}
+#| message: false
 exp(3.500301) # Anzahl besucher bei 0°C
 exp(glm.poisson$coefficients[1]) # Werte aus Modell
 exp(3.500301 + 30*0.112817) # Anzahl besucher bei 30°C
@@ -124,7 +125,8 @@ lines(model.predict$fit-model.predict$se.fit ~ xs, type = "l", lty = 2)
 
 ## Nicht-lineare Regression 
 
-```{r message=F}
+```{r}
+#| message: false
 if(!require(AICcmodavg)){install.packages("AICcmodavg")}
 if(!require(nlstools)){install.packages("nlstools")}
 library(AICcmodavg)
@@ -196,7 +198,8 @@ lines(lowess(loyn$log_AREA, loyn$ABUND, f = 1), lwd = 2, col = "green")
 
 ## GAMs
 
-```{r message=F}
+```{r}
+#| message: false
 if(!require(mgcv)){install.packages("mgcv")}
 library(mgcv)
 

@@ -9,7 +9,11 @@ index: 3
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
 # knitr::purl("Statistik2_Loesung_Beispiel.qmd", "Statistik2_Loesung_Beispiel.R", documentation = 0)
 ```
 
@@ -52,7 +56,8 @@ Vorgehen dokumentieren.
 
 ## Kommentierter Lösungsweg
 
-```{r include=FALSE}
+```{r}
+#| include: false
 decay <- read.delim(here("data","decay.csv"),sep = ",")
 decay
 ```
@@ -176,7 +181,8 @@ summary(model.nls)
 
 ### Modelldiagnostik
 
-```{r message=F}
+```{r}
+#| message: false
 if(!require(nlstools)){install.packages("nlstools")}
 library(nlstools)
 residuals.nls <- nlsResiduals(model.nls)

@@ -16,7 +16,8 @@ index: 1
 
 Für die heutige Übung benötigen wir nachstehende Datensätze. Lade diese herunter und importiere sie in R. Prüfe, ob das CRS korrekt gesetzt wurde, setze es wenn nötig. Mache dich mit den Daten vertraut (visualieren, durchscrollen usw).
 
-```{r, echo = FALSE}
+```{r}
+#| echo: false
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -24,7 +25,8 @@ knitr::opts_chunk$set(echo = FALSE)
 - Der Datensatz `luftqualitaet.gpkg` beinhaltet Messungen von Stickstoffdioxid $NO_2$ aus dem Jahr 2015 für 97 Messstellen in der Schweiz. Stickstoffdioxid entstehen beim Verbrennen von Brenn- und Treibstoffen, insbesondere bei hohen Verbrennungstemperaturen, wobei der Strassenverkehr als Hauptquelle gilt. 
 Mehr Informationen dazu findet ihr [hier](https://www.bafu.admin.ch/bafu/de/home/themen/thema-luft/luft--daten--indikatoren-und-karten/luft--indikatoren/indikator-luft.pt.html/aHR0cHM6Ly93d3cuaW5kaWthdG9yZW4uYWRtaW4uY2gvUHVibG/ljL0FlbURldGFpbD9pbmQ9TFUwMjAmbG5nPWRlJlN1Ymo9Tg%3d%3d.html).
 
-```{r message=F}
+```{r}
+#| message: false
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -36,7 +38,9 @@ schweiz <- read_sf(here("data","schweiz.gpkg"))
 luftqualitaet <- read_sf(here("data","luftqualitaet.gpkg"))
 ```
 
-```{r, fig.cap="Eine solche Visualisierung zeigt dir beispielsweise die räumliche Ausdehnung der Datenpunkte"}
+```{r}
+#| fig.cap: Eine solche Visualisierung zeigt dir beispielsweise die räumliche Ausdehnung
+#|   der Datenpunkte
 ggplot(rotmilan) +
   geom_sf(data = schweiz) +
   geom_sf(aes(colour = timestamp), alpha = 0.2) +
@@ -51,7 +55,8 @@ Als erstes berechnen wir die G-Function für die Rotmilanpositionen:
 
 Mit `st_distance()` können Distanzen zwischen zwei `sf` Datensätze berechnet werden. Wird nur ein Datensatz angegeben, wird eine Kreuzmatrix erstellt wo die Distanzen zwischen allen Features zu allen anderen Features dargestellt werden. Wir nützen diese Funktion zur Berechnung der nächsten Nachbarn.
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 rotmilan_distanzmatrix <- st_distance(rotmilan)
 
 nrow(rotmilan_distanzmatrix)
@@ -66,7 +71,8 @@ rotmilan_distanzmatrix[1:6,1:6]
 
 Nun wollen wir wissen, wie gross die *kürzeste* Distanz von jedem Punkt zu seinem nächsten Nachbarn beträgt, also die *kürzeste Distanz pro Zeile*. Bevor wir diese ermitteln müssen wir die diagonalen Werte noch entfernen, denn diese stellen ja jeweils die Distanz zu sich selber dar und sind immer `0`. Danach kann mit `apply()` eine Funktion (`FUN = min`) über die Zeilen (`MARGIN = 1`) einer Matrix (`X = rotmilan_distanzmatrix`) gerechnet werden. Zusätzlich müssen wir noch `na.rm = TRUE` setzen, damit `NA` Werte von der Berechnung ausgeschlossen werden. Das Resultat ist ein Vektor mit gleich vielen Werten wie Zeilen in der Matrix.
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 diag(rotmilan_distanzmatrix) <- NA # entfernt alle diagonalen Werte
 
 rotmilan_distanzmatrix[1:6,1:6] 
@@ -78,7 +84,8 @@ rotmilan_mindist <- apply(rotmilan_distanzmatrix,1,min, na.rm = TRUE)
 
 Nun müssen wir die Distanzen nach ihrer Grösse sortieren 
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 rotmilan_mindist <- sort(rotmilan_mindist) 
 ```
 
@@ -86,7 +93,8 @@ rotmilan_mindist <- sort(rotmilan_mindist)
 
 Jetzt berechnen wir die kummulierte Häufigkeit von jeder Distanz berechnen. Die kummulierte Häufikgeit vom ersten Wert ist 1 (der Index des ersten Wertes) dividiert durch die Anzahl Werte insgesamt. Mit `seq_along` erhalten wir die Indizes aller Werte, mit `lenth` die Anzahl Werte insgesamt.
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 kumm_haeufgikeit <- seq_along(rotmilan_mindist) / length(rotmilan_mindist)
 ```
 
@@ -94,7 +102,8 @@ kumm_haeufgikeit <- seq_along(rotmilan_mindist) / length(rotmilan_mindist)
 
 Nun wollen wir die kumulierte Häufigkeit der Werte in einer Verteilungsfunktion (engl: [Empirical Cumulative Distribution Function, ECDF](https://en.wikipedia.org/wiki/Empirical_distribution_function)) darstellen. Dafür müssen wir die beiden Vektoren zuerst noch in einen Dataframe packen, damit `ggplot` damit klar kommt. 
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 rotmilan_mindist_df <- data.frame(distanzen = rotmilan_mindist,
                                   kumm_haeufgikeit = kumm_haeufgikeit)
 

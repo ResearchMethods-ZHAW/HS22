@@ -13,7 +13,10 @@ Es gibt bereits eine Vielzahl von Packages um in R mit räumlichen Daten zu arbe
 
 Für die kommenden Übungen könnt ihr folgende Packages installieren bzw. laden:
 
-```{r warning=FALSE, echo = TRUE, message=F}
+```{r}
+#| warning: false
+#| echo: true
+#| message: false
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -25,7 +28,8 @@ Lade zunächst die Datensätze unter folgenden Links herunter:
 
 Es handelt sich um Geodatensätze im Format Geopackage ("\*.gpkg"), eine alternatives Datenformat zum bekannteren Format "Shapefiles". Importiere die Datensätze wie folgt:
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 kantone <- read_sf(here("data","kantone.gpkg"))
 gemeinden <- read_sf(here("data","gemeinden.gpkg")) 
 ```
@@ -36,7 +40,8 @@ Schau Dir die importierten Datensätze an. Am meisten Informationen zu `sf` Obje
 
 Vektordaten (`sf` Objekte) lassen sich teilweise sehr schön in die bekannten Tidyverse workflows integrieren. Das merkt man schnell, wenn man die Daten visualisieren möchte. In InfoVis 1 & 2 haben wir intensiv mit `ggplot2` gearbeitet und dort die Layers `geom_point()` und `geom_line()` kennen gelernt. Zusätzlich beinhaltet `ggplot` die Möglichkeit, mit `geom_sf()` Vektordaten direkt und sehr einfach zu plotten. Führe die angegebenen R-Befehle aus und studiere die entstehenden Plots. Welche Unterschiede findest Du? Wie erklärst Du diese Unterschiede?
 
-```{r echo = TRUE}
+```{r}
+#| echo: true
 ggplot(gemeinden) + 
   geom_sf()
 
@@ -53,7 +58,8 @@ In der obigen visualierung fällt folgendes auf:
 
 Dies hat natürlich damit zu tun, dass die beiden Datensätze in unterschiedlichen Koordinatensystemen erfasst wurden. Koordinatensysteme werden mit CRS (**C**oordinate **R**eference **S**ystem) abgekürzt. Mit `st_crs()` können die zugewiesenen Koordinatensysteme abgefragt werden.
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 st_crs(kantone)
 st_crs(gemeinden)
 ```
@@ -84,7 +90,9 @@ Nun gilt es, anhand der Koordinaten die in der Spalte `geometry` ersichtlich sin
 
 Wenn man diese Koordinaten mit den Koordinaten unserer Datensätze vergleicht, dann ist schnell klar, dass es sich beim Datensatz `kantone` um das Koordinatensystem WGS84 handelt und bei `gemeinden` das Koordinatensystem CH1903+ LV95. Diese Koordinatensyteme weisen wir nun mit `st_set_crs()` und dem entsprechenden *EPSG*-Code (siehe die jeweiligen Links) zu.
 
-```{r, echo = TRUE, warning=F}
+```{r}
+#| echo: true
+#| warning: false
 kantone <- st_set_crs(kantone, 4326)
 gemeinden <- st_set_crs(gemeinden, 2056)
 
@@ -107,17 +115,20 @@ wir all unsere Daten ins neue Schweizer Koordinatensystem CH1903+ LV95 transfomi
 
 Vor der Transformation (betrachte die Attribute `Bounding box` sowie `Geodetic CRS`): 
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 kantone
 ```
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 kantone <- st_transform(kantone, 2056)
 ```
 
 Nach der Transformation (betrachte die Attribute `Bounding box` sowie `Projected CRS`):
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 kantone
 ```
 
@@ -130,7 +141,11 @@ Tips:
 - um die *scientific notation* (z.B. `3e+03`) zu verhindern, könnt ihr den Befehl `options(scipen = 999)` ausführen
 - um die Darstellung der Gemeinde- (bzw. Kantons-) Grenzen zu verhindern, könnt ihr im entsprechenden Layer `color = NA` setzen. Alternativ könnt ihr die Linienbreite mit `size = ` verändern.
 
-```{r, fig.show="hold", out.width="49%", fig.cap="Der Vergleich dieser beiden Darstellungen veranschaulicht die MAUP Problematik sehr deutlich"}
+```{r}
+#| fig.show: hold
+#| out.width: 49%
+#| fig.cap: Der Vergleich dieser beiden Darstellungen veranschaulicht die MAUP Problematik
+#|   sehr deutlich
 ggplot(kantone, aes(fill = EINWOHNERZ/1e6)) +
   geom_sf(color= "white",size = .05) +
   labs(title = "Anzahl Einwohner pro Kanton",

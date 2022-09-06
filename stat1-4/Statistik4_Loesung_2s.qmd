@@ -9,7 +9,10 @@ index: 4
 
 {{< include /../_before-article.qmd >}}
 
-```{r echo = FALSE, message=FALSE, results="hide"}
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
 #export files
 # knitr::purl("Statistik4_Loesung_2s.qmd", "Statistik4_Loesung_2s.R", documentation = 0)
 ```
@@ -23,7 +26,11 @@ index: 4
 - **Lese-Empfehlung** Vorlesungsfolien von Oscar Torres-Reyna [Princeton University](https://www.princeton.edu/~otorres/LogitR101.pdf)
 
 ### Kommentierter Lösungsweg
-```{r, message=FALSE, echo=FALSE, results='hide', warning=FALSE}
+```{r}
+#| message: false
+#| echo: false
+#| results: hide
+#| warning: false
 library(dplyr)
 library(readr)
 library(magrittr)
@@ -54,7 +61,8 @@ mytheme <-
     )
 ```
 
-```{r warning=F}
+```{r}
+#| warning: false
 # Genereiert eine Dummyvariable: Fleisch 1, kein Fleisch 0
 df <- nova_survey %>%  # kopiert originaler Datensatz
   rename(umwelteinstellung = tho_2) %>% # änderung name der variable
@@ -179,7 +187,10 @@ sens
 In der Aufgabe war es das Ziel zu schauen, ob wir einen potenziellen Besuch eines Mensagasts vorhersagen können und zwar in Abhängigkeit von den sozioökonimischen Variablen, wahrgenommene Fleischkonsum und der Umwelteinstellung. Die Kriteriumsvariable "Mensa" weist eine binäre Verteilung auf: Deshalb rechnen wir eine multiple logistische Regression mit den Prädiktoren “Alter”, “Geschlecht”, “Hochschulzugehörigkeit”, "Fleischkonsum" und "Umwelteinstellung. Mehr Informatinen zu den logistischen Regressinen findet ihr im Buch von Crawley (2015) oder auch im Buch von [Gareth (2016)](http://faculty.marshall.usc.edu/gareth-james/ISL/ISLR%20Seventh%20Printing.pdf), Kapitel 4.3; passendes Video [hier](https://www.youtube.com/watch?v=31Q5FGRnxt4&list=PL5-da3qGB5IC4vaDba5ClatUmFppXLAhE&index=2).
 
 ### Ergebnisse
-```{r , message=FALSE, echo=FALSE,fig.cap="Konfusionsmatrix"}
+```{r}
+#| message: false
+#| echo: false
+#| fig.cap: Konfusionsmatrix
 knitr::kable(km)
 ```
 

@@ -9,11 +9,14 @@ index: 3
 
 {{< include ../_before-article.qmd >}}
 
-```{r include=FALSE, purl=F}
+```{r}
+#| include: false
+#| purl: false
 knitr::opts_chunk$set(echo = FALSE, collapse=TRUE)
 ```
 
-```{r,message=F}
+```{r}
+#| message: false
 library(dplyr)
 library(readr)
 library(lubridate)
@@ -24,7 +27,8 @@ library(stringr)
 
 Gegeben sind die Daten von drei Sensoren ([sensor1.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro/sensor1.csv), [sensor2.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro/sensor2.csv), [sensor3.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro/sensor3.csv)). Lade die Datensätze runter und lese sie ein.
 
-```{r, message=F}
+```{r}
+#| message: false
 # Lösung Aufgabe 1
 
 sensor1 <- read_delim(here("data","sensor1.csv"),";")
@@ -46,7 +50,9 @@ sensor_all <- full_join(sensor1_2, sensor3, by = "Datetime")
 names(sensor_all) <- c("Datetime","sensor1","sensor2","sensor3")
 ```
 
-```{r echo=FALSE, purl=FALSE}
+```{r}
+#| echo: false
+#| purl: false
 knitr::kable(head(sensor_all))
 ```
 
@@ -54,13 +60,17 @@ knitr::kable(head(sensor_all))
 
 Importiere die Datei [sensor_1_fail.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro/sensor_fail.csv) in `R`.
 
-```{r, message = F}
+```{r}
+#| message: false
 sensor_fail <- read_delim(here("data","sensor_fail.csv"), delim = ";")
 ```
 
 `sensor_fail.csv` hat eine Variabel `SensorStatus`: `1` bedeutet der Sensor misst, `0` bedeutet der Sensor miss nicht. Fälschlicherweise wurde auch dann der Messwert `Temp = 0` erfasst, wenn `Sensorstatus = 0`. Richtig wäre hier `NA` (not available). Korrigiere den Datensatz entsprechend.
 
-```{r,  echo = F, eval = T, purl=F}
+```{r}
+#| echo: false
+#| eval: !expr T
+#| purl: false
 knitr::kable(sensor_fail)
 ```
 
@@ -74,7 +84,8 @@ sensor_fail$Temp[sensor_fail$SensorStatus == 0] <- NA
 
 Warum spielt das es eine Rolle, ob `0` oder `NA` erfasst wird? Berechne die Mittlere der Temperatur / Feuchtigkeit nach der Korrektur. 
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 # Lösung Aufgabe 4
 
 # Mittelwerte der korrigierten Sensordaten: mit na.rm = TRUE werden NA-Werte aus der Berechnung entfernt. 
@@ -84,6 +95,10 @@ mean(sensor_fail$Temp, na.rm = TRUE)
 
 ## Musterlösung
 
-```{r, echo = FALSE, message=FALSE, results = "asis", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: asis
+#| purl: false
 #distill::mypurl()
 ```
