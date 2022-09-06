@@ -99,7 +99,7 @@ if(!require(nlstools)){install.packages("nlstools")}
 library(AICcmodavg)
 library(nlstools)
 
-loyn <- read.delim(here("data","loyn.csv"), sep = ",") # Verzeichnis muss dort gesetzt sein wo Daten sind
+loyn <- read.delim("data/loyn.csv", sep = ",") # Verzeichnis muss dort gesetzt sein wo Daten sind
 
 #Selbstdefinierte Funktion, hier Potenzfunktion
 power.model <- nls(ABUND~c*AREA^z, start = (list(c = 1, z = 0)), data = loyn)

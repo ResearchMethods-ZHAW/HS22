@@ -1,4 +1,4 @@
-compensation <- read.delim(here("data","ipomopsis.csv"), sep = ",", stringsAsFactors = T)
+compensation <- read.delim("data/ipomopsis.csv", sep = ",", stringsAsFactors = T)
 
 summary(compensation)
 
@@ -84,7 +84,7 @@ lines(xv, yv, col = "orange", lwd = 3)
 yv <- predict(lm.5, list(x = xv))
 lines(xv, yv, col = "black", lwd = 3)
 
-loyn <- read.delim(here("data","loyn.csv"), sep = ",")
+loyn <- read.delim("data/loyn.csv", sep = ",")
 summary(loyn)
 
 cor <- cor(loyn[, 2:7])
@@ -131,7 +131,7 @@ options(na.action = "na.fail")
 
 allmodels <- dredge(global.model)
 allmodels
-importance(allmodels)
+sw(allmodels)
 
 avgmodel <- model.avg(allmodels, subset = TRUE)
 summary(avgmodel)

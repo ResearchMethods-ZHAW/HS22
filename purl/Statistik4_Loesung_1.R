@@ -1,4 +1,4 @@
-curonian <- read.delim(here("data","Curonian_spit.csv"), sep=",")
+curonian <- read.delim("data/Curonian_spit.csv", sep=",")
 str(curonian)
 summary(curonian)
 

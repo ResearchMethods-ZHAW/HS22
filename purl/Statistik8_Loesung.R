@@ -1,4 +1,4 @@
-crime <- read.csv(here("data","crime2.csv"), sep = ";")
+crime <- read.csv("data/crime2.csv", sep = ";")
 crime
 
 crimez <- crime

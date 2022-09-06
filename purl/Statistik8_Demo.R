@@ -25,7 +25,7 @@ KM.cascade$partition
 # k-means visualisation
 plot(KM.cascade, sortg = TRUE)
 
-load(here("data","Doubs.RData"))  
+load("data/Doubs.RData")  
 # Remove empty site 8
 spe <- spe[-8, ]
 env <- env[-8, ]

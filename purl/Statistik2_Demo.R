@@ -63,7 +63,6 @@ var.test(blume2$size[blume2$cultivar == "a"], blume2$size[blume2$cultivar == "b"
 #Load library
 if(!require(car)){install.packages("car")}
 library(car)
-
 leveneTest(blume2$size[blume2$cultivar == "a"], blume2$size[blume2$cultivar == "b"], center=mean)
 
 wilcox.test(blume2$size[blume2$cultivar == "a"], blume2$size[blume2$cultivar == "b"])

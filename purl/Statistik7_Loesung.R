@@ -52,7 +52,6 @@ arrows(0, 0, spe.sc2[, 1] * 0.92, spe.sc2[, 2] * 0.92,length = 0,
        lty = 1,col = "red")
 text(-0.82, 0.55, "b", cex = 1.5)
 
-
 ## Triplots of the rda results (wa scores)
 ## Site scores as weighted averages (vegan's default)
 # Scaling 1 :  distance triplot

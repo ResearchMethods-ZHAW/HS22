@@ -1,4 +1,4 @@
-decay <- read.delim(here("data","decay.csv"),sep = ",")
+decay <- read.delim("data/decay.csv",sep = ",")
 decay
 
 summary(decay)
