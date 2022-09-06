@@ -9,8 +9,12 @@ index: 1
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
-knitr::purl("stat5-8/Statistik7_Demo.qmd", "stat5-8/Statistik7_Demo.R", documentation = 0)
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
+# knitr::purl("Statistik7_Demo.qmd", "Statistik7_Demo.R", documentation = 0)
 ```
 
 ## Ordinationen II
@@ -23,7 +27,8 @@ knitr::purl("stat5-8/Statistik7_Demo.qmd", "stat5-8/Statistik7_Demo.R", document
 
 Wildi pp. 96 et seq.
 
-```{r message=F}
+```{r}
+#| message: false
 ## Plot Arten
 if(!require(dave)){install.packages("dave")}
 library(dave)
@@ -72,7 +77,8 @@ ordisurf(imds, ssit$Waterlev.av, add = T, col = "blue")
 
 ### Constrained ordination
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 ## 5 Umweltvariablen gewählt, durch die die Ordination constrained werden soll
 ssit
 summary(ssit)
@@ -83,7 +89,8 @@ data(sveg)
 summary(sveg)
 ```
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 ## RDA = constrained PCA
 rda <- rda(sveg~., ssit5)
 plot(rda)
@@ -108,13 +115,15 @@ Mehr Details zu RDA aus Borcard et al. (Numerical ecology with R)
 load(here("data","Doubs.RData"))  
 ```
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 summary(spe)
 summary(env)
 summary(spa)
 ```
 
-```{r message=F}
+```{r}
+#| message: false
 ## Entfernen der Untersuchungsfläche ohne Arten
 spe <- spe[-8, ]
 env <- env[-8, ]
@@ -163,7 +172,8 @@ library(vegan)
 spe.hel <- decostand(spe, "hellinger")
 ```
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 spe.hel
 ```
 ```{r}
@@ -173,17 +183,20 @@ spe.hel
 spe.rda <- rda(spe.hel ~ ., env3) # Observe the shortcut formula
 ```
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 spe.rda
 summary(spe.rda)	# Scaling 2 (default)
 ```
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 ## Canonical coefficients from the rda object
 coef(spe.rda)
 ```
 
-```{r error=F}
+```{r}
+#| error: false
 ## Unadjusted R^2 und Adjusted R^2
 (R2 <- RsquareAdj(spe.rda))
 
@@ -243,7 +256,8 @@ anova(spe.rda, by = "axis", permutations = how(nperm = 999))
 (spechem.physio <- rda(spe.hel, envchem, envtopo))
 ```
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 summary(spechem.physio)
 ```
 

@@ -9,8 +9,12 @@ index: 1
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
-knitr::purl("stat5-8/Statistik6_Demo.qmd", "stat5-8/Statistik6_Demo.R", documentation = 0)
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
+# knitr::purl("Statistik6_Demo.qmd", "Statistik6_Demo.R", documentation = 0)
 ```
 
 ## Ordinationen I
@@ -19,7 +23,8 @@ knitr::purl("stat5-8/Statistik6_Demo.qmd", "stat5-8/Statistik6_Demo.R", document
 
 ### PCA
 
-```{r message=F}
+```{r}
+#| message: false
 if(!require(labdsv)){install.packages("labdsv")}
 library(labdsv)
 
@@ -95,7 +100,8 @@ library(dave)
 data(sveg)
 ```
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 str(sveg)
 summary(sveg)
 names(sveg)
@@ -106,7 +112,8 @@ names(sveg)
 pca.5 <- pca(sveg^0.25, cor = T)
 ```
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 # Koordinaten im Ordinationsraum
 pca.5$scores
 
@@ -190,7 +197,8 @@ plot(dca.2, display = "sites", type = "point")
 
 ### NMDS
  
-```{r message=F}
+```{r}
+#| message: false
 # Distanzmatrix als Start erzeugen
 mde <- vegdist(sveg, method = "euclidean")
 

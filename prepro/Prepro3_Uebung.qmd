@@ -15,7 +15,8 @@ Gegeben sei ein Datensatz "[sensors_combined.csv](https://github.com/ResearchMet
 
 Formatiere die `Datetime` Spalte in `POSIXct` um. Verwende dazu die Funktion `as.POSIXct` (lies mit `?strftime()` nochmal nach wie du das spezfische Format (die "Schablone") festlegen kannst.
 
-```{r message=F}
+```{r}
+#| message: false
 library(readr)
 
 sensors_combined <- read_csv(here("data","sensors_combined.csv"))
@@ -33,7 +34,8 @@ Tipp:
 - Alternativ kannst du (mit vorangestelltem Minuszeichen, `-`) die Spalte, bezeichnen, die *nicht* pivotiert werden soll. 
 - In beiden Fällen musst du die Spalten weder mit Anführungs- und Schlusszeichen noch mit dem `$`-Zeichen versehen.
 
-```{r message=F}
+```{r}
+#| message: false
 library(tidyr)
 
 # Variante 1 (Spalten abwählen)
@@ -49,7 +51,8 @@ Gruppiere `sensors_long` nach der neuen Spalte wo die Sensor-Information enthalt
 
 Der Output sieht folgendermassen aus: 
 
-```{r message=F}
+```{r}
+#| message: false
 library(dplyr)
 
 sensors_long %>%
@@ -61,7 +64,8 @@ sensors_long %>%
 
 Erstelle für `sensors_long` eine neue *convenience* Variabel `month` welche den Monat beinhaltet (Tipp: verwende dazu die Funktion `month` aus `lubridate`). Gruppiere nun nach `month` *und* Sensor und berechne die mittlere Temperatur. 
 
-```{r message=F}
+```{r}
+#| message: false
 library(lubridate)
 
 sensors_long %>%
@@ -93,7 +97,8 @@ weather_summary <- weather %>%
 
 Visualisiere im Anschluss das Resultat:
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 plot(weather_summary$week, weather_summary$temp_mean, type = "l")
 ```
 
@@ -113,7 +118,9 @@ weather_summary2 <- weather %>%
   )
 ```
 
-```{r, fig.cap="baseplot mag keine long tables und macht aus den beiden Jahren eine kontinuierliche Linie"}
+```{r}
+#| fig.cap: baseplot mag keine long tables und macht aus den beiden Jahren eine kontinuierliche
+#|   Linie
 plot(weather_summary2$week, weather_summary2$temp_mean, type = "l")
 ```
 
@@ -126,7 +133,8 @@ weather_summary2 <- weather_summary2 %>%
   pivot_wider(names_from = year, values_from = temp_mean,names_prefix = "year")
 ```
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 plot(weather_summary2$week, weather_summary2$year2000, type = "l",col = "blue")
 lines(weather_summary2$week, weather_summary2$year2001, type = "l",col = "red")
 ```

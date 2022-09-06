@@ -9,8 +9,12 @@ index: 3
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
-knitr::purl("stat1-4/Statistik3_Loesung.qmd", "stat1-4/Statistik3_Loesung.R", documentation = 0)
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
+# knitr::purl("Statistik3_Loesung.qmd", "Statistik3_Loesung.R", documentation = 0)
 ```
 
 - Download [R-Skript](Statistik3_Loesung.R)
@@ -25,7 +29,8 @@ Schon vor dem Einlesen kürzt man am besten bereits in Excel die Variablennamen 
 ukraine <- read.delim(here("data","Ukraine_bearbeitet.csv"), sep = ",")
 ```
 
-```{r, eval= F}
+```{r}
+#| eval: false
 ukraine
 ```
 
@@ -48,7 +53,8 @@ theoretisch ein glm mit Poisson-Verteilung rechnen; bei einem Mittelwert, der hi
 Null verschieden ist (hier: ca. 40), ist eine Poisson-Verteilung aber praktisch nicht von einer
 Normalverteilung zu unterscheiden und wir können uns den Aufwand auch sparen).
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 cor <- cor(ukraine[,3:23])
 cor
 cor[abs(cor)<0.7] <- 0
@@ -71,7 +77,8 @@ entweder auf die drei Variablen oder auf die eine Beobachtung zu verzichten. Da 
 eher mehr unabhängige Variablen haben als wir händeln können, entscheide ich pragmatisch
 für ersteres. Wir rechnen die Korrelation also noch einmal ohne diese drei Spalten (es sind die Nummern 12:14, wie wir aus der anfänglichen Variablenbetrachtung oben wissen).
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 cor <- cor(ukraine[, c(3:11, 15:23)])
 cor[abs(cor)<0.7] <- 0
 cor
@@ -94,7 +101,8 @@ cor[abs(cor)<0.6] <- 0
 cor
 ```
 
-```{r include=FALSE}
+```{r}
+#| include: false
 write.table(cor, file = "Corrleation.csv", sep = ";", dec = ".", col.names = NA)
 ```
 
@@ -119,7 +127,8 @@ verbleiben. (2) Den informationstheoretischen Ansatz, bei dem alle denkbaren Mod
 berechnet und verglichen werden (also alle möglichen Kombinationen von 13,12,…, 1, 0
 Parametern). Diese Lösung stelle ich im Folgenden vor:
 
-```{r message=F}
+```{r}
+#| message: false
 # Multimodel inference
 if(!require(MuMIn)){install.packages("MuMIn")}
 library(MuMIn)
@@ -128,7 +137,8 @@ options(na.action = "na.fail")
 allmodels <- dredge(global.model)
 ```
 
-```{r,eval=FALSE}
+```{r}
+#| eval: false
 allmodels
 ```
 
@@ -154,7 +164,8 @@ Demnach ist Heat.index die wichtigste Variable (in 100% aller relevanten Modelle
 ferner Litter, CaCO3, CN_ratio und Grazing_intensity in mehr als 50% der relevanten Modelle
 enthalten sind.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 # Modelaveraging (Achtung: dauert mit 13 Variablen einige Minuten)
 summary(model.avg(allmodels, rank = "AICc"), subset = TRUE)
 ```

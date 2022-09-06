@@ -9,8 +9,12 @@ index: 4
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
-knitr::purl("stat5-8/Statistik5_Loesung_2.qmd", "stat5-8/Statistik5_Loesung_2.R", documentation = 0)
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#export files
+# knitr::purl("Statistik5_Loesung_2.qmd", "Statistik5_Loesung_2.R", documentation = 0)
 ```
 
 >Download [R-Skript](Statistik5_Loesung_2.R) 
@@ -21,7 +25,11 @@ knitr::purl("stat5-8/Statistik5_Loesung_2.qmd", "stat5-8/Statistik5_Loesung_2.R"
 > Interessierte [hier](https://rpsychologist.com/r-guide-longitudinal-lme-lmer) oder [hier](https://rpubs.com/kaz_yos/glmm1)
 
 ### Kommentierter Lösungsweg
-```{r, message=FALSE, echo=FALSE, results='hide', warning=FALSE}
+```{r}
+#| message: false
+#| echo: false
+#| results: hide
+#| warning: false
 library(dplyr)
 library(readr)
 library(stringr)
@@ -43,7 +51,8 @@ mytheme <-
 
 ```
 
-```{r warning=F}
+```{r}
+#| warning: false
 df <- nova # kopiert originaler Datensatz
 
 # Genereiert eine Dummyvariable: Fleisch 1, kein Fleisch 0
@@ -118,7 +127,9 @@ Die Responsevariable “Fleischkonsum” ist eine binäre Variable. Demnach wird
 
 Das Geschlecht und das Alter nehmen einen signifikanten Einfluss auf den Fleischkonsum (siehe Table 1): Männer kaufen signifikant häufiger ein fleischhaltiges Gericht als Frauen; junge Personen (15 bis 25-jährig) kaufen signifikant häufiger ein fleischhaltiges Gericht in der Mensa. Es sieht so aus, als ob die Hochschulzugehörigkeit auf den ersten Blick keinen Einfluss nimmt. Aber man müsste auch die Interaktion zwischen Geschlecht und Hochschulzugehörigkeit berücksichtigen, um ein abschliessendes Bild zu bekommen. Das kleine marginale Pseudo-R^2 zeigt auf, dass es nicht das "beste" Modell ist. Insbesondere die tiefe Varianzaufklärung für die randomisierte Variable (r2c; ccrs) scheint mit (nur) 4% sehr gering. Das sind Hinweise dafür, dass das Modell ggf. noch weitere Ebenen haben könnte (z.B. Standort Mensa).
 
-```{r, message=FALSE, echo=FALSE}
+```{r}
+#| message: false
+#| echo: false
 #replace rownames
 rownames(tab1) <-  c("Intercept", "Männer", "Mitarbeitende",
                             "26 bis 34-jährig", "35 bis 49-jährig",
@@ -132,7 +143,9 @@ knitr::kable(tab1, col.names = c("Coefficients", "Lower Limit (LL)", "Uppewr Lim
 
 Die Chance, dass Männer ein fleischhaltiges Gericht kaufen ist 2.36mal (+136%) höher als bei Frauen (siehe Table 2). Die Chance, dass 26 bis 34-jährige Personen ein fleischhaltiges Gericht kaufen ist kleiner (-21%) als bei den 15 bis 25-jährigen Personen.
 
-```{r, message=FALSE, echo=FALSE}
+```{r}
+#| message: false
+#| echo: false
 # ersetze row names
 rownames(tab2) <-  c("Intercept", "Männer", "Mitarbeitende",
                             "26 bis 34-jährig", "35 bis 49-jährig",

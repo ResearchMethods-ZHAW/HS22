@@ -231,4 +231,4 @@ RUN install2.r --skipinstalled --ncpus -1 \
     cowplot \
     glmmTMB \
     performance \
-    kableExtra \
+    kableExtra 

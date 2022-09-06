@@ -2,7 +2,9 @@
 
 {{< include /../_before-article.qmd >}}
 
-```{r setup, include=FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
 ```
 
@@ -10,7 +12,10 @@ knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
 
 ### Libraries laden
 
-```{r results='hide', warning=FALSE, message=FALSE}
+```{r}
+#| results: hide
+#| warning: false
+#| message: false
 ipak <- function(pkg){
 new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
 if (length(new.pkg))
@@ -26,7 +31,11 @@ ipak(packages)
 
 Einlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Datentypen
 
-```{r tidy=TRUE, warning=FALSE, message=FALSE, results="hide"}
+```{r}
+#| tidy: true
+#| warning: false
+#| message: false
+#| results: hide
 Rehe <- read_delim(here("data","Aufgabe3_Homeranges_Rehe_landforst_20211014.csv"), delim = ";")
 
 str(Rehe)
@@ -36,7 +45,10 @@ str(Rehe)
 
 In Datensatz Rehe eine neue Spalte mit Datum und Zeit in einer Spalte kreieren. Beim Format hat sich ein Fehler eingeschlichen. Findet ihr ihn?
 
-```{r tidy=TRUE, eval=TRUE, warnings = FALSE}
+```{r}
+#| tidy: true
+#| eval: true
+#| warnings: false
 Rehe <- Rehe %>%
   mutate(UTC_DateTime = as.POSIXct(paste(UTC_Date, UTC_Time), 
                                    format = "%Y-%m-%d %H:%M:%S"))
@@ -53,7 +65,12 @@ Herumschrauben an den Einstellungen von:
 
 **--> Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
 
-```{r tidy=TRUE, warning=FALSE, message=FALSE, fig.keep="none", results="hide"}
+```{r}
+#| tidy: true
+#| warning: false
+#| message: false
+#| fig.keep: none
+#| results: hide
 x <- Rehe$X[Rehe$TierID== "RE13"]    
 y <- Rehe$Y[Rehe$TierID== "RE13"]
 xy <- data.frame(cbind (x, y, rep(1, length(x))))       
@@ -85,7 +102,12 @@ st_write(hr, dsn= "Results", layer="HR_RE13", driver="ESRI Shapefile",
          delete_layer = T )
 ```
 
-```{r tidy=TRUE, warning=FALSE, message=FALSE, fig.keep="none", results="hide"}
+```{r}
+#| tidy: true
+#| warning: false
+#| message: false
+#| fig.keep: none
+#| results: hide
 # mit diesem Befehl kann die HR geplottet werden
 
 ggplot(hr, aes(color = "red", fill="red")) + 
@@ -116,7 +138,9 @@ legend.position="none"
 
 Code um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann mit alpha angepasst werden.
 
-```{r tidy=TRUE,fig.keep = "none"}
+```{r}
+#| tidy: true
+#| fig.keep: none
 pk25_wpz <- brick(here("data","pk25_wpz.tif"))
 
 xy_p <- st_as_sf(xy)
@@ -140,7 +164,11 @@ Nachbauen des Sampling Grids mit den Kreisen (Wird als Grundlage für Extraktion
 - cellsize des Grids: c(25, 25)
 - Anzahl Kreise in X und Y Richtung: c(100, 160)
 
-```{r tidy=TRUE, message=FALSE, results="hide", fig.keep='none'}
+```{r}
+#| tidy: true
+#| message: false
+#| results: hide
+#| fig.keep: none
 x25       <- GridTopology(c(684000, 234000), c(25, 25), c(100, 160)) 
 data25    = data.frame(1:(100*160))           
 # Erstellt aus der GridTopology und den Daten ein SpatialGridDataFrame
@@ -181,7 +209,11 @@ Testen der Variablen der Vegetationsschichten von letzter Woche auf einen linear
 
 **Die Theorie zu Korrelation folgt erst ab 1.11**
 
-```{r tidy=TRUE, echo=FALSE, message=FALSE, results="hide"}
+```{r}
+#| tidy: true
+#| echo: false
+#| message: false
+#| results: hide
 df_with_lidar <- read_delim(here("data","df_with_lidar.csv"), delim =";")
 
 cor.test(~ DG_Strauchschicht+DG_us, data = df_with_lidar, method="pearson")

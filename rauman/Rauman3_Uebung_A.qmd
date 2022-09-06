@@ -11,7 +11,9 @@ index: 1
 
   <!-- # Zum Abschluss des Themenblockes Spatial Data Science berechnen wir mit dem Moran’s I einen Index zur Berechnung der räumlichen Autokorrelation einer Choroplethenkarte. Wir verwenden nochmals die aggregierten Choroplethenkarten zur Wasserverfügbarkeit aus der ersten Übung und schauen uns an, wie stark die Werte für die Kantone und die Kantone autokorreliert sind. Anstatt einfach eine Funktion zur Berechnung von Moran’s I aufzurufen und diese dann wie eine Black Box anzuwenden, wollen wir Formel für die Berechnung des Index in Ihre Bausteine zerlegen und diese Schritt für Schritt selber nachrechnen. So seht Ihr, wie  Moran’s I wirklich funktioniert und könnte dabei erst noch die zuvor gelernten Data Science Techniken repetieren.  -->
 
-```{r, include=FALSE, purl = FALSE}
+```{r}
+#| include: false
+#| purl: false
 knitr::opts_chunk$set(echo = FALSE,include = TRUE,message = FALSE, collapse=TRUE, warning=FALSE, results = "markup", fig.width = 7, fig.height = 5) 
 ```
 
@@ -22,7 +24,8 @@ Diese sieht sehr beeindruckend aus, aber wenn wir die Formel in ihre Einzelbesta
 
 Als erster Schritt müssen wir die notwendigen Libraries und Geodaten laden:
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 library(dplyr)
 library(ggplot2)
 library(sf)
@@ -55,7 +58,8 @@ $$\frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2}$$
 
 Beginnen wir mit dem Zähler, $n$. Dies ist lediglich die Anzahl Messwerte in unserem Datensatz, also die Anzahl Kantone. 
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 n <- nrow(zweitwohnung_kanton)
 n
 ```
@@ -71,7 +75,8 @@ Der Nenner des ersten Bruches (${\sum_{i=1}^n (y_i - \bar{y})^2}$) ist sehr ähn
 
 Also berechnen wir zuerst diese Differenzwerte (Messwert minus Mittelwert):
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 # Die Werte aller Kantone:
 y <- zweitwohnung_kanton$ja_in_percent
 
@@ -84,13 +89,15 @@ dy <- y - ybar
 
 Welche dieser Zwischenresultate sind Einzelwerte und welche Vektoren? Nun quadrieren wir die Differenzen:
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 dy_2 <- dy^2
 ```
 
 und summieren die Differenzen:
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 dy_sum <- sum(dy_2, na.rm = TRUE)
 ```
 
@@ -98,7 +105,8 @@ dy_sum <- sum(dy_2, na.rm = TRUE)
 
 Beschliessen wir die Bearbeitung des ersten Bruchs indem wir den Zähler durch den Nennen dividieren:  `n` durch `dy_sum`.
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 vr <- n/dy_sum
 ```
 
@@ -122,7 +130,8 @@ Wie wir "benachbart" definieren ist nicht festgelegt. Denkbar wären zum Beispie
 
 Egal für welche Variante Ihr Euch entscheidet, setzt `sparse = FALSE` damit eine Kreuzmatrix erstellt wird.
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 w <- st_touches(zweitwohnung_kanton, sparse = FALSE)
 
 w[1:6, 1:6]
@@ -136,7 +145,8 @@ sel <- zweitwohnung_kanton$KANTONSNAME[1]
 
 Zur Überprüfung unserer Operation: Mit `w[1,]` bekommt  ihr ein Vektor, wo bei allen Kantone, die den ersten kanton (`r sel`) berühren `TRUE` steht und bei allen anderen `FALSE`. Nun können wir überprüfen, ob die räumliche Operation funktioniert hat. 
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 beruehrt_1 <- w[1, ]
 
 ggplot(zweitwohnung_kanton[beruehrt_1, ]) +
@@ -144,7 +154,8 @@ ggplot(zweitwohnung_kanton[beruehrt_1, ]) +
   labs(title = "Welche Kanton berühren den Kanton Zürich (st_touches)")
 ```
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 # Optional: Um alle Kantone zu visualisieren, welche sich berühren, könnt ihr folgende Funktion anwenden:
 
 my_connections <- function(sf_object,relationship_matrix){
@@ -175,14 +186,16 @@ ggplot(zweitwohnung_kanton) +
 
 Der nächste Teil sollte Euch nun bekannt vorkommen. Die Differenz aller Werte vom Mittelwert aller Werte $(y_i - \bar{y})$ kennen wir schon vom ersten Bruch und haben wir auch bereits gelöst. Nun gilt es paarweise das Produkt der Abweichungen vom Mittelwert (die Covarianz) zu berechnen $(y_i - \bar{y})(y_j - \bar{y})$.  DAzu müssen wir *das Produkt aller Wertekombinationen* berechnen. Dies erreichen wir mit der Funktion `tcrossprod()`:
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 pm <- tcrossprod(dy)
 pm[1:6,1:6]
 ```
 
 Nun multiplizieren wir die Covarianzen mit den Gewichten $w$ (Schalter), damit wir nur noch die Werte von den Kantonen haben, die auch effektiv benachbart sind (und eliminieren nicht-benachbarte Werte). Beachtet dass wir hier nun eine Matrix mit einer Matrix multiplizieren.
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 pmw <- pm * w
 w[1:6,1:6]
 pmw[1:6,1:6]
@@ -190,7 +203,8 @@ pmw[1:6,1:6]
 
 Den Zähler des ersten Bruches können wir nun fertig berechnen, indem wir die Summe aller gewichten (sprich eingeschalteten) Werten bilden:
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 spmw <- sum(pmw, na.rm = TRUE)
 spmw
 ```
@@ -199,7 +213,8 @@ spmw
 
 Für den Nenner des zweiten Teils der Formal (des zweiten Bruchs) müssen wir nun nur noch alle Gewichte summieren. Diese Summer entspricht der Anzahl effektiv benachbarter Kantone und kann Anzahl der $TRUE$-Werte in $w$ bestimmt werden. 
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 smw <- sum(w, na.rm = TRUE)
 ```
 
@@ -207,7 +222,8 @@ smw <- sum(w, na.rm = TRUE)
 
 So können wir den zweiten Bruch auflösen und berechnen:
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 sw  <- spmw / smw
 ```
 
@@ -215,7 +231,8 @@ sw  <- spmw / smw
 
 Der allerletzte Schritt besteht darin, die Werte aus den beiden Brüche miteinander zu multiplizieren.
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 MI <- vr * sw
 MI
 ```
@@ -226,7 +243,8 @@ Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `
 
 Nun könnt ihr Morans $I$ auf der Ebene der Gemeine oder Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Wenn ihr einen wenig leistungsfähigen Rechner habt, berechnet verwendet besser die Ebene "Berzirke". Importiert dazu den Layer `bezrik` oder `gemeinde` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate.
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 zweitwohnung_gemeinde <- read_sf(here("data","zweitwohnungsinitiative.gpkg"), "gemeinde")
 
 ggplot(zweitwohnung_gemeinde) +
@@ -255,12 +273,17 @@ morans_i <- function(sf_object,col) {
 }
 ```
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 MI_gemeinde <-  morans_i(zweitwohnung_gemeinde,"ja_in_percent")
 ```
 
 ## Musterlösung
 
-```{r, echo = FALSE, message=FALSE, results = "asis", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: asis
+#| purl: false
 #distill::mypurl()
 ```

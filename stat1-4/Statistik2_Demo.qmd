@@ -9,8 +9,12 @@ index: 1
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
-knitr::purl("stat1-4/Statistik2_Demo.qmd", "stat1-4/Statistik2_Demo.R", documentation = 0)
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
+# knitr::purl("Statistik2_Demo.qmd", "Statistik2_Demo.R", documentation = 0)
 ```
 
 [Demoscript als Download](Statistik2_Demo.R)
@@ -64,7 +68,8 @@ summary(lm.1)
 
 ## Tukeys Posthoc-Test
 
-```{r message=F}
+```{r}
+#| message: false
 #Load library
 if(!require(agricolae)){install.packages("agricolae")}
 library(agricolae)
@@ -84,7 +89,8 @@ text(2, 4.8, "c")
 text(3, 4.8, "b")
 ```
 
-```{r, message=F}
+```{r}
+#| message: false
 #Load library
 library(tidyverse)
 
@@ -99,7 +105,9 @@ shapiro.test(blume2$size[blume2$cultivar == "a"])
 var.test(blume2$size[blume2$cultivar == "a"], blume2$size[blume2$cultivar == "b"])
 ```
 
-```{r message=F, warning=F}
+```{r}
+#| message: false
+#| warning: false
 #Load library
 if(!require(car)){install.packages("car")}
 library(car)
@@ -123,7 +131,8 @@ summary(aov(size~cultivar, data = blume2))
 kruskal.test(size~cultivar, data = blume2)
 ```
 
-```{r message=F}
+```{r}
+#| message: false
 #Load library
 if(!require(FSA)){install.packages("FSA")} 
 library(FSA)
@@ -173,7 +182,8 @@ anova(lm(blume3$size~blume3$house), lm(blume3$size~blume3$cultivar * blume3$hous
 
 ## Korrelationen
 
-```{r warning=F}
+```{r}
+#| warning: false
 #Load library
 library(car)
 
@@ -192,7 +202,8 @@ summary(lm.2)
 #Model II-Regression
 ```
 
-```{r message=F}
+```{r}
+#| message: false
 #Load library
 if(!require(lmodel2)){install.packages("lmodel2")} 
 library(lmodel2)
@@ -207,7 +218,8 @@ par(mfrow=c(2, 2)) #4 Plots in einem Fenster
 plot(lm(b~a))
 ```
 
-```{r message=F}
+```{r}
+#| message: false
 #Load library
 if(!require(ggfortify)){install.packages("ggfortify")}
 library(ggfortify)

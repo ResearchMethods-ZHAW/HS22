@@ -21,7 +21,8 @@ knitr::purl("stat5-8/Statistik5_Demo.qmd", "stat5-8/Statistik5_Demo.R", document
 ## Split-plot ANOVA
 Based on Logan (2010), Chapter 14
 
-```{r message=F}
+```{r}
+#| message: false
 spf <- read.delim(here("data","spf.csv"), sep = ";") 
 spf.aov <- aov(Reaktion~Signal * Messung + Error(VP), data = spf)
 summary(spf.aov)
@@ -60,7 +61,8 @@ DeerEcervi$fSex <- as.factor(DeerEcervi$Sex)
 
 Hirschlänge hier standardisiert, sonst würde der Achsenabschnitt im Modell für einen Hirsch der Länge 0 modelliert, was schlecht interpretierbar ist, jetzt ist der Achsenabschnitt für einen durschnittlich langen Hirsch
 
-```{r message=F}
+```{r}
+#| message: false
 DeerEcervi$CLength <- DeerEcervi$Length - mean(DeerEcervi$Length)
 
 # Zunächst als GLM
@@ -90,7 +92,8 @@ for (j in AllFarms){
 
 ## GLMM
 
-```{r message=F}
+```{r}
+#| message: false
 if(!require(MASS)){install.packages("MASS")}
 library(MASS)
 DE.PQL <- glmmPQL(Ecervi.01 ~ CLength * fSex,

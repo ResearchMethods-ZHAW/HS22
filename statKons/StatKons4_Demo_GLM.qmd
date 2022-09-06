@@ -9,14 +9,21 @@ index: 1
 
 {{< include /../_before-article.qmd >}}
 
-```{r echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
 knitr::opts_chunk$set(echo = T, collapse=TRUE)
-knitr::purl("statKons/StatKons4_Demo_GLM.qmd", "statKons/Demo_GLM.R", documentation = 0)
+
+#export files
+# knitr::purl("StatKons4_Demo_GLM.qmd", "Demo_GLM.R", documentation = 0)
 ```
 
 > Download [R-Skript](Demo_GLM.R)
 
-```{r, include=TRUE, message=F}
+```{r}
+#| include: true
+#| message: false
 library(tidyverse)
 
 mytheme <- 
@@ -32,7 +39,8 @@ mytheme <-
 
 ## Poisson Regression
 
-```{r, message=FALSE}
+```{r}
+#| message: false
 ############
 # quasipoisson regression
 ############
@@ -72,7 +80,8 @@ glm.quasi.back %>%
 
 ## logistische Regression
 
-```{r , message=FALSE}
+```{r}
+#| message: false
 ############
 # logistische regression
 ############
@@ -131,7 +140,8 @@ logit2prob <- function(logit){
 
 ## GAM's
 
-```{r, message=FALSE}
+```{r}
+#| message: false
 ###########
 # LOESS & GAM
 ###########

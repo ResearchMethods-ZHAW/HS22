@@ -9,8 +9,12 @@ index: 3
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
-knitr::purl("stat1-4/Statistik4_Loesung_2n.qmd", "stat1-4/Statistik4_Loesung_2n.R", documentation = 0)
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
+# knitr::purl("Statistik4_Loesung_2n.qmd", "Statistik4_Loesung_2n.R", documentation = 0)
 ```
 
 ## Musterlösung Aufgabe 4.2N: Multiple logistische Regression
@@ -43,7 +47,8 @@ summary (glm.1)
 
 Modell ist signifikant (p-Wert in Zeile RATIO ist < 0.05). Jetzt müssen wir noch prüfen, ob es auch valide ist:
 
-```{r message=F}
+```{r}
+#| message: false
 # Modelldiagnostik für das gewählte Modell (wenn nicht signifikant, dann OK)
 1 - pchisq(glm.1$deviance, glm.1$df.resid)
 

@@ -2,7 +2,9 @@
 
 {{< include /../_before-article.qmd >}}
 
-```{r include=FALSE, echo=F}
+```{r}
+#| include: false
+#| echo: false
 # Benoetigte Bibliotheken ####
 library(tidyverse) # Data wrangling und piping
 library(lubridate) # Arbeiten mit Datumsformaten
@@ -375,7 +377,8 @@ Wir haben relativ lange Zeitreihen. Zur Visualisierung des generellen Trends gre
 
 Haltet euch dabei an untenstehenden Plot:
 
-```{r echo = F}
+```{r}
+#| echo: false
 ggplot(depo_m, mapping = aes(Ym, Total, group = 1))+ # group 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird
   #zeichne Lockdown 1
   geom_rect(mapping = aes(xmin="2020 3", xmax="2020 5",
@@ -397,7 +400,8 @@ __Hinweis:__
 - Nutzt zum plotten __ggplot()__
 - folgende Codeschnipsel helfen euch:
 
-```{r eval = F}
+```{r}
+#| eval: false
 ggplot(data = depo_m, mapping = aes(Ym, Total, group = 1))+ # group 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird
   # zeichne Lockdown 1; ein einfaches Rechteck. bestimme mit min und max die Dimensionen
   geom_rect(mapping = aes(xmin="2020 3", xmax="2020 5",
@@ -424,7 +428,8 @@ Nachdem wir nun wissen, wie sich die Besuchszahlen während der Untersuchungsdau
 
 - Berechnet zuerst die Totale Anzahl pro Wochentag pro Phase.
 
-```{r eval=F}
+```{r}
+#| eval: false
 mean_phase_wd <- depo_d %>% 
   group_by(...) %>% 
   ...
@@ -432,7 +437,8 @@ mean_phase_wd <- depo_d %>%
 
 - Speichert das als .csv
 
-```{r eval=F}
+```{r}
+#| eval: false
 write.csv(mean_phase_wd, "results/mean_phase_wd.csv")
 ```
 
@@ -440,7 +446,8 @@ write.csv(mean_phase_wd, "results/mean_phase_wd.csv")
 
 - Erstellt einen Boxplot nach untenstehender Vorgabe:
 
-```{r echo=F}
+```{r}
+#| echo: false
 ggplot(data = depo_d)+
   geom_boxplot(mapping = aes(x= Wochentag, y = Total, fill = Phase))+
   labs(title="", y= "Fussgänger:innen pro Tag")+
@@ -454,7 +461,8 @@ __Hinweis:__
 - Nutzt zum plotten __ggplot()__
 - folgende Codeschnipsel helfen euch:
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 ggplot(data = depo_d)+
   geom_boxplot(mapping = aes(x= Wochentag, y = Total, fill = Phase))+
   ...
@@ -482,7 +490,8 @@ ggplots haben Daten lieber im Format long als wide.
 
 - Plottet den Tagesgang, unterteilt nach den 7 Wochentagen nun für unsere 4 Phasen.
 
-```{r echo=F} 
+```{r} 
+#| echo: false
 ggplot(subset(Mean_h, Phase %in% c("Normal")), 
                      mapping=aes(x = Stunde, y = Total, colour = Wochentag, linetype = Wochentag))+
   geom_line(size = 2)+
@@ -497,7 +506,8 @@ ggplot(subset(Mean_h, Phase %in% c("Normal")),
 
 Für die Phase "Normal" benutze ich folgenden Codeschnipsel. Speichert den Plot ab (hier: __tag_norm__).
 
-```{r eval=F}
+```{r}
+#| eval: false
 tag_norm <- ggplot(subset(Mean_h, Phase %in% c("Normal")), 
                      mapping=aes(x = Stunde, y = Total, colour = Wochentag, linetype = Wochentag))+
   ...
@@ -509,7 +519,8 @@ __Hinweis:__ Achtet darauf, dass die Skalierung der y-Achse bei allen 4 Plots di
 
 - Arrangiert die vier erstellten Plots und speichert das Resultat. Das ist etwas tricky, darum hier der vollständige Code.
 
-```{r eval=F}
+```{r}
+#| eval: false
 # Arrange und Export Tagesgang
 ggarrange(tag_lock_1+            # plot 1 aufrufen
             rremove("x.text")+   # plot 1 braucht es nicht alle Achsenbeschriftungen
@@ -551,7 +562,8 @@ Die Zeitreihen der 4 Phasen unterscheiden sich deutlich voneinander. Totale Summ
 - Gruppiert nach Phase und berechnet den Durchschnitt Total, IN und OUT und speichert das df unter __mean_phase_d__.
 - Ergänzt das mit der prozentualen Richtungsverteilung
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 mean_phase_d <- mean_phase_d %>% 
   mutate(Proz_IN = round(100/Total*IN, 1)) %>% # berechnen und auf eine Nachkommastelle runden
   ...
@@ -560,13 +572,15 @@ mean_phase_d <- mean_phase_d %>%
 - Speichert das Ergebnis als .csv
 - Selektiert nun die absoluten Zahlen im df __mean_phase_d__ sowie die relativen und speichert das jeweils in einem df __mean_phase_d_abs__ und __mean_phase_d_proz__.
 
-```{r eval=F}
+```{r}
+#| eval: false
 mean_phase_d_abs <- mean_phase_d %>% dplyr::select(-c(Total, Proz_IN, Proz_OUT))
 ```
 
 - transformiert beide df mittels __pivot_longer()__ von wide zu long:
 
-```{r eval=F}
+```{r}
+#| eval: false
 mean_phase_d_abs <- pivot_longer(mean_phase_d_abs, cols = c("IN","OUT"), 
              names_to = "Gruppe", values_to = "Durchschnitt")
 ```
@@ -577,7 +591,8 @@ Nun visualisieren wie die Verteilung der absoluten und der relativen Zahlen nach
 
 - Erstellt je einen Plot zu den absoluten und den relativen Zahlen nach den unterstehenden Vorgaben und speichert beide Plots im Environment:
 
-```{r echo=F}
+```{r}
+#| echo: false
 ggplot(data = mean_phase_d_abs, mapping = aes(x = Gruppe, y = Durchschnitt, fill = Phase))+
   geom_col(position = "dodge", width = 0.8)+
   scale_fill_manual(values = c("royalblue", "red4", "orangered", "gold2"), name = "Phase")+

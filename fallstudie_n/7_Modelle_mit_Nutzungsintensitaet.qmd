@@ -2,13 +2,20 @@
 
 {{< include /../_before-article.qmd >}}
 
-```{r setup, include=FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 Neue packages die wir für die Modelle und die Diagnostics brauchen
 
-```{r tidy= TRUE, results='hide', warning=FALSE, message=FALSE, eval=FALSE}
+```{r}
+#| tidy: true
+#| results: hide
+#| warning: false
+#| message: false
+#| eval: false
 # neue Packages: DHARMa, car, MASS, ROCR, sjPlot, sjstats, rms, ggeffects, cowplot
 
 ipak <- function(pkg){
@@ -23,7 +30,13 @@ packages <- c("lme4", "bbmle", "MuMIn", "tidyverse", "DHARMa", "car", "MASS", "R
 ipak(packages)
 ```
 
-```{r tidy=TRUE, fig.keep="none", warning=FALSE, message=FALSE, results='hide', eval=FALSE}
+```{r}
+#| tidy: true
+#| fig.keep: none
+#| warning: false
+#| message: false
+#| results: hide
+#| eval: false
 DF_mod_day <- read_delim(here("data","Datensatz_Habitatnutzung_Modelle_20191101.csv"), delim = ";") %>%
   filter(time_of_day == "day") %>%
   mutate(slope_scaled = scale(slope),
@@ -38,7 +51,9 @@ DF_mod_day <- read_delim(here("data","Datensatz_Habitatnutzung_Modelle_20191101.
 
 - Ursprüngliche Funktion und Modelformel
 
-```{r ridy = T, eval=FALSE}
+```{r}
+#| ridy: !expr T
+#| eval: false
 # glmer(formula, data = , family = binomial)
 
 # 1) formula: 
@@ -59,7 +74,13 @@ ggplot(DF_mod_day, äs(nmb)) + geom_histogram()
 
 - Hinsichtlich der Nutzungsintensität müssen wir die Formel erweitern:
 
-```{r tidy=TRUE, fig.keep="none", warning=FALSE, message=FALSE, results='hide', eval=FALSE}
+```{r}
+#| tidy: true
+#| fig.keep: none
+#| warning: false
+#| message: false
+#| results: hide
+#| eval: false
 # Erweiterung um einen sog. Offset-Term, der hier gebraucht wird, um für die Anzahl der GPS Lokalisationen (in der Spalte GPStot aufgeführt) zu korrigeren (eigentlich eine Skalierung der abhängigen Variable um die relative Nutzungsintensität zu modellieren) 
 
 f_count <- nmb ~
@@ -87,7 +108,11 @@ summary(avgmodel)
 - Model testing for over/underdispersion, zeroinflation and spatial autocorrelation following the DHARMa package.
 - unbedingt die Vignette des DHARMa-Package konsultieren: [Link](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html)
 
-```{r tidy=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+```{r}
+#| tidy: true
+#| warning: false
+#| message: false
+#| eval: false
 f_count <- nmb ~
   slope_scaled +
   dist_road_scaled +
@@ -139,7 +164,11 @@ check_collinearity(m_day_count)
 
 - AUC funktioniert nicht bei nicht-binären abhängigen Variablen, daher müssen wir eine andere Möglichkeit finden um den Goodness-of-fit der Modelle abzuschätzen:
 
-```{r tidy=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+```{r}
+#| tidy: true
+#| warning: false
+#| message: false
+#| eval: false
 # Zitat B.Bokler 2013: "GLMMs are still part of the statistical frontier, and not all of the answers about how to use them are known (even by experts)"
 
 r2(m_day_count)
@@ -147,7 +176,13 @@ r2(m_day_count)
 
 - Plots der vorhergesagten relativen Nutzungsintensität funktionieren nach dem selben Prinzip das wir bereits kennen:
 
-```{r tidy=TRUE, fig.width=5, fig.height=3 , warning=FALSE, message=FALSE, eval=FALSE}
+```{r}
+#| tidy: true
+#| fig.width: 5.0
+#| fig.height: 3.0
+#| warning: false
+#| message: false
+#| eval: false
 # graphische Darstellung der gesamten Modellresultate
 
 plot_model(m_day_count,transform = NULL, show.values = TRUE, value.offset = .3)

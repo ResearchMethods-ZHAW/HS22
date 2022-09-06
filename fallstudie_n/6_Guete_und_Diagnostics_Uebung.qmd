@@ -4,7 +4,9 @@
 
 ## Modellgüte und -diagnostics MM / Habitatselektionsmodell
 
-```{r setup, include=FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
 ```
 
@@ -12,7 +14,10 @@ knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
 
 Neue packages die wir für die Modelle und die Diagnostics brauchen
 
-```{r results='hide', warning=FALSE, message=FALSE}
+```{r}
+#| results: hide
+#| warning: false
+#| message: false
 # neue Packages: DHARMa, car, MASS, ROCR, sjPlot, sjstats, ggeffects, cowplot, gstat
 
 ipak <- function(pkg){
@@ -32,7 +37,12 @@ ipak(packages)
 
 - Der Modellfit von letzter Woche als Ausgangspunkt für die heutige Übung
 
-```{r tidy=TRUE, fig.keep="none", warning=FALSE, message=FALSE, results='hide'}
+```{r}
+#| tidy: true
+#| fig.keep: none
+#| warning: false
+#| message: false
+#| results: hide
 DF_mod_day <- read_delim(here("data","Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv"), 
                          delim = ";") %>%
   filter(time_of_day == "day") %>%
@@ -65,7 +75,12 @@ summary(avgmodel)
 
 - Die Modellresultate aus dem avgmodel sind grundätzlich die finalen Resultate die bereits interpretiert werden könnten. Allerdings funktionieren die Diagnosetests und die Darstellung der Resultate mit diesem gemittelten Modell nicht sehr gut, weshalb wir einen re-fit mit glmer machen müssen (an den Resultaten ändert sich dadurch nichts) 
 
-```{r tidy=TRUE, fig.keep="none", warning=FALSE, message=FALSE, results='hide'}
+```{r}
+#| tidy: true
+#| fig.keep: none
+#| warning: false
+#| message: false
+#| results: hide
 f_pres_abs <- pres_abs ~
   dist_build_scaled +
   dist_road_only_scaled +
@@ -89,7 +104,12 @@ Berechung der AUC (area under the receiver operating characteristic curve) **= M
 
 Für die Berechnung des AUC findet ihr weiterführende Informationen unter: [Link](https://www.wsl.ch/staff/niklaus.zimmermann/programs/progs/simtest.pdf)) 
 
-```{r tidy=TRUE, eval=FALSE, fig.keep="none", warning=FALSE, message=FALSE}
+```{r}
+#| tidy: true
+#| eval: false
+#| fig.keep: none
+#| warning: false
+#| message: false
 prob <- predict(m_day,type=c("response"))   
 pred <- prediction(prob, DF_mod_day$pres_abs)    
 
@@ -108,7 +128,11 @@ Interpretieren der Modell-Residuen mittels Tests auf verschiedene Aspekte
 - Model testing for over/underdispersion, zeroinflation and spatial autocorrelation following the DHARMa package.
 - unbedingt die Vignette des DHARMa-Package konsultieren: [Link](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html)
 
-```{r tidy=TRUE, eval=FALSE,warning=FALSE, message=FALSE}
+```{r}
+#| tidy: true
+#| eval: false
+#| warning: false
+#| message: false
 # Residuals werden über eine Simulation auf eine Standard-Skala transformiert und 
 # können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt 
 # werden (dauert je nach dem sehr lange)
@@ -157,7 +181,13 @@ mean(car::vif(m_day))
 
 Graphische Darstellung der Modellresultate
 
-```{r tidy=TRUE,eval=FALSE, fig.width=5, fig.height=3 , warning=FALSE, message=FALSE}
+```{r}
+#| tidy: true
+#| eval: false
+#| fig.width: 5.0
+#| fig.height: 3.0
+#| warning: false
+#| message: false
 # graphische Darstellung der gesamten Modellresultate
 
 plot_model(m_day,transform = NULL, show.values = TRUE, value.offset = .3)
