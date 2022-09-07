@@ -9,7 +9,11 @@ index: 1
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
 # knitr::purl("Statistik8_Demo.qmd", "Statistik8_Demo.R", documentation = 0)
 ```
 
@@ -22,7 +26,8 @@ index: 1
 
 ## k-means clustering
 
-```{r message=F}
+```{r}
+#| message: false
 # das Moordatenset aus Wildi...
 if(!require(dave)){install.packages("dave")}
 library(dave)
@@ -31,7 +36,8 @@ ca <- cca(sveg^0.5)
 
 kmeans.1 <- kmeans(sveg, 4)
 ```
-```{r eval=FALSE}
+```{r}
+#| eval: false
 kmeans.1
 ```
 ```{r}
@@ -59,9 +65,10 @@ plot(KM.cascade, sortg = TRUE)
 mit Daten und Skripten aus Borcard et al. (2018)
 
 ```{r}
-load(here("data","Doubs.RData"))  
+load("data/Doubs.RData")  
 ```
-```{r eval=FALSE}
+```{r}
+#| eval: false
 # Remove empty site 8
 spe <- spe[-8, ]
 env <- env[-8, ]
@@ -278,7 +285,8 @@ text(28, 0.98, "b", cex = 1.8)
 ```
 
 ## Final dendrogram with the selected clusters
-```{r message=F}
+```{r}
+#| message: false
 # Choose the number of clusters
 k <- 4
 # Silhouette plot of the final partition

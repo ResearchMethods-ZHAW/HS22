@@ -9,15 +9,21 @@ index: 3
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
 # knitr::purl("Statistik6_Loesung.qmd", "Statistik6_Loesung.R", documentation = 0)
 ```
 
 - [R-Skript als Download](Statistik6_Loesung.R)
 - [Lösungstext](Statistik_Loesungstext_6.1.pdf)
 
-```{r eval=TRUE, message=F}
-load(here("data","Doubs.RData"))
+```{r}
+#| eval: true
+#| message: false
+load("data/Doubs.RData")
 summary(env)
 summary(spe)
 
@@ -104,7 +110,8 @@ LM oder GLM sind für die Analyse möglich, Modellwahl nach Gusto. Man muss jetz
 
 **Zum Vergleich die Modellierung mit den Originaldaten**
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 # Korrelationen zwischen Prädiktoren
 cor <- cor(doubs[, 1:11])
 cor[abs(cor)<.7] <- 0
@@ -114,7 +121,8 @@ cor
 Die Korrelationsmatrix betrachtet man am besten in Excel.
 Es zeigt sich, dass es zwei grosse Gruppen von untereinander hochkorrelierten Variablen gibt: zum einen dfs-ele-dis-har-nit, zum anderen pho-nit-amm-oxy-bod, während slo und pH mit jeweils keiner anderen Variablen hochkorreliert sind. Insofern behalten wir eine aus der ersten Gruppe (ele), eine aus der zweiten Gruppe (pho) und die beiden «unabhängigen».
 
-```{r message=F}
+```{r}
+#| message: false
 # Globalmodell (als hinreichend unabhängige Variablen werden ele, slo, pH und pho aufgenommen)
 lm.orig.1 <- lm(species_richness ~ ele + slo + pH + pho, data = doubs)
 summary(lm.orig.1)

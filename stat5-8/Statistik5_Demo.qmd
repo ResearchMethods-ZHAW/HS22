@@ -17,8 +17,9 @@ index: 1
 ## Split-plot ANOVA
 Based on Logan (2010), Chapter 14
 
-```{r message=F}
-spf <- read.delim(here("data","spf.csv"), sep = ";") 
+```{r}
+#| message: false
+spf <- read.delim("data/spf.csv", sep = ";") 
 spf.aov <- aov(Reaktion~Signal * Messung + Error(VP), data = spf)
 summary(spf.aov)
 
@@ -44,7 +45,7 @@ summary(spf.lme.2)
 Based on Zuur et al. (2009), chapter 13
 
 ```{r}
-DeerEcervi <- read.delim(here("data","DeerEcervi.txt"), sep = "", stringsAsFactors = T)
+DeerEcervi <- read.delim("data/DeerEcervi.txt", sep = "", stringsAsFactors = T)
 
 # Anzahl Larven hier in Presence/Absence übersetzt
 DeerEcervi$Ecervi.01 <- DeerEcervi$Ecervi
@@ -56,7 +57,8 @@ DeerEcervi$fSex <- as.factor(DeerEcervi$Sex)
 
 Hirschlänge hier standardisiert, sonst würde der Achsenabschnitt im Modell für einen Hirsch der Länge 0 modelliert, was schlecht interpretierbar ist, jetzt ist der Achsenabschnitt für einen durschnittlich langen Hirsch
 
-```{r message=F}
+```{r}
+#| message: false
 DeerEcervi$CLength <- DeerEcervi$Length - mean(DeerEcervi$Length)
 
 # Zunächst als GLM
@@ -86,7 +88,8 @@ for (j in AllFarms){
 
 ## GLMM
 
-```{r message=F}
+```{r}
+#| message: false
 if(!require(MASS)){install.packages("MASS")}
 library(MASS)
 DE.PQL <- glmmPQL(Ecervi.01 ~ CLength * fSex,

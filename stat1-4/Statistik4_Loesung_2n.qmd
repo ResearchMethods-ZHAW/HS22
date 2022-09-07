@@ -9,7 +9,11 @@ index: 3
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
 # knitr::purl("Statistik4_Loesung_2n.qmd", "Statistik4_Loesung_2n.R", documentation = 0)
 ```
 
@@ -19,7 +23,7 @@ index: 3
 - [Lösungstext](Statistik_Loesung_4.2N.pdf)
 
 ```{r}
-polis <- read.csv(here("data","polis.csv"))
+polis <- read.csv("data/polis.csv")
 polis
 
 str(polis)
@@ -43,7 +47,8 @@ summary (glm.1)
 
 Modell ist signifikant (p-Wert in Zeile RATIO ist < 0.05). Jetzt müssen wir noch prüfen, ob es auch valide ist:
 
-```{r message=F}
+```{r}
+#| message: false
 # Modelldiagnostik für das gewählte Modell (wenn nicht signifikant, dann OK)
 1 - pchisq(glm.1$deviance, glm.1$df.resid)
 

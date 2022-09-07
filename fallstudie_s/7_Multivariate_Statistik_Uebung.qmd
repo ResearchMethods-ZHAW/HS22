@@ -2,7 +2,9 @@
 
 {{< include /../_before-article.qmd >}}
 
-```{r setup, include=FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -48,7 +50,8 @@ Problem: verschiedene Skalen der Variablen (z.B. Temperatur in Grad Celsius, Nie
 
 - Lösung: Skalieren aller Variablen mit Masseinheiten gemäss unterstehendem Code:
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 umwelt <- umwelt %>% 
   mutate(tre200jx_scaled = scale(tre200jx)%>%
   ...
@@ -62,7 +65,8 @@ Korrelierende Variablen können das Modellergebnis verfälschen. Daher muss vor 
 
 - Teste mittels folgendem Code auf eine Korrelation zwischen den Messwerten.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 cor <-  cor(umwelt[,ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : 
                      LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)])
 ```
@@ -73,13 +77,15 @@ cor <-  cor(umwelt[,ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN :
 
 Mit dem folgenden Code kann eine Korrelationsmatrix (mit den Messwerten) aufgebaut werden. Hier kann auch die Schwelle für die Korrelation gesetzt werden (0.7 ist liberal / 0.5 konservativ).
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 cor[abs(cor) < 0.7] <-  0 #Setzt alle Werte kleiner 0.7 auf 0
 ```
 
 Zur Visualisierung kann ein einfacher Plot erstellt werden.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 chart.Correlation(umwelt[,ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : 
                      LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)], histogram=TRUE, pch=19)
 ```
@@ -95,7 +101,8 @@ Was passiert in der Funktion? Macht es Sinn, die Funktion auszuführen?
 
 __Hinweis:__ untenstehender Code ist rechenentensiv.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 f <- Total ~ Wochentag + Ferien + Phase +
   tre200jx_scaled + rre150j0_scaled + sremaxdv_scaled
 # Jetzt kommt der Random-Factor hinzu und es wird eine Formel daraus gemacht
@@ -129,7 +136,8 @@ __Hinweis:__ es kann sein, dass nicht jede Verteilung geplottet werden kann, es 
 
 __Hinweis:__ CDF =  Cumulative distribution function; Wikipedia = "Anschaulich entspricht dabei der Wert der Verteilungsfunktion an der Stelle x der Wahrscheinlichkeit, dass die zugehörige Zufallsvariable X einen Wert kleiner oder gleich x annimmt." 
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 f1<-fitdist(umwelt$Anzahl_Total,"norm")  # Normalverteilung
 f1_1<-fitdist(umwelt$Anzahl_Total,"lnorm")  # log-Normalvert. 
 f2<-fitdist(umwelt$Anzahl_Total,"pois")  # Poisson
@@ -171,7 +179,8 @@ Falls ihr der Meinung seid, KW und / oder Jahr sind keine "guten" random factor,
 
 Die Modellformel lautet:
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 Tages_Model <- glmer(ABHAENGIGE VARIABLE ~ ERKLAERENDE VARIABLE 1 + ERKLAERENDE VARIABLE 2 +
                       ERKLAERENDE VARIABLE 3 + ERKLAERENDE VARIABLE 4 + 
                       ERKLAERENDE VARIABLE 5 + ERKLAERENDE VARIABLE 6 +
@@ -191,7 +200,8 @@ Löst zuerst Aufgabe 6b bevor ihr alternative Modelle rechnet; das kommt in Aufg
 
 __Hinweis:__ glmer bringt einige eigene Funktionen mit, mit denen sich testen lässt, ob das Modell valide ist. Unten sind sie aufgeführt (--> analog zu den Funktionen aus der Vorlesung, aber halt für glmer).
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 ## Verteilung der Residuen (Varainzhomogenitaet)
 plot(Tages_Model, type = c("p", "smooth"))
 ## Pruefen auf Normalverteilung der Residuen
@@ -219,7 +229,8 @@ https://stats.stackexchange.com/questions/240455/fitting-exponential-regression-
 
 - Hypothese: "Es gehen weniger Leute in den Wald, wenn es zu heiss ist" --> auf quadratischen Term Temperatur testen (Codeblock unten).
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 ...
 tre200jx_scaled + I(tre200jx_scaled^2) + 
   ...
@@ -231,7 +242,8 @@ __Hinweis:__ Interaktionen berechnen ist sehr rechenintensiv. Auch die Interpret
 
 - Wenn ihr verschiedene Modelle gerechnet habt, können diese über den AICc verglichen werden. Folgender Code kann dazu genutzt werden:
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 ## Vergleich der Modellguete mittels AICc
 cand.models<-list()
 cand.models[[1]] <- Tages_Model
@@ -264,7 +276,8 @@ https://www.datanovia.com/en/lessons/transform-data-to-normal-distribution-in-r/
 
 - Berechne den skewness coefficient 
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 library(moments)
 skewness(umwelt$Anzahl_Total)
 ## A positive value means the distribution is positively skewed (rechtsschief).
@@ -278,7 +291,8 @@ skewness(umwelt$Anzahl_Total)
 
 Modellresultate können mit __summary()__ angezeigt werden. Ich verwende aber lieber die Funktion __tab_model()__! Die Resultate werden gerundet und praktisch im separaten Fenster angezeigt. Von dort kann man sie via copy + paste ins (z.B.) Word bringen. 
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 tab_model(MODELLNAME, transform = NULL, show.se = TRUE)
 ## The marginal R squared values are those associated with your fixed effects, 
 ## the conditional ones are those of your fixed effects plus the random effects. 
@@ -291,19 +305,24 @@ tab_model(MODELLNAME, transform = NULL, show.se = TRUE)
 
 Das Resultat soll sich für kontinuierliche Variablen an untenstehendem Plot orientieren:
 
-```{r echo=FALSE, eval=FALSE}
+```{r}
+#| echo: false
+#| eval: false
 Tempplot
 ```
 
 Für diskrete Variablen haltet ihr euch bitte an diesen Plot:
 
-```{r echo=FALSE, eval=FALSE}
+```{r}
+#| echo: false
+#| eval: false
 lockplot
 ```
 
 Einige Codeblocks, die euch dabei helfen können:
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 t <- plot_model(NAME_DES_BESTEN_MODELLS, # hier sagen wir, aus welchem Modell geplottet werden soll
                 
                 # Wir moechten nicht nur die tatsaechlichen Werte geplottet, sondern 

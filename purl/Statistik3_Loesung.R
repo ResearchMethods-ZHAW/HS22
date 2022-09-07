@@ -1,5 +1,5 @@
 # Aus der Excel-Tabelle wurde das relevante Arbeitsblatt als csv gespeichert
-ukraine <- read.delim(here("data","Ukraine_bearbeitet.csv"), sep = ",")
+ukraine <- read.delim("data/Ukraine_bearbeitet.csv", sep = ",")
 
 ukraine
 
@@ -40,7 +40,7 @@ allmodels <- dredge(global.model)
 allmodels
 
 # Importance values der Variablen
-importance(allmodels)
+sw(allmodels)
 
 # Modelaveraging (Achtung: dauert mit 13 Variablen einige Minuten)
 summary(model.avg(allmodels, rank = "AICc"), subset = TRUE)

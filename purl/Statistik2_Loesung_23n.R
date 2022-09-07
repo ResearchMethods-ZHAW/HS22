@@ -1,5 +1,5 @@
 # Working directory muss angepasst werden
-kormoran <- read.delim(here("data","kormoran.csv"), sep = ";", stringsAsFactors = T)  # 
+kormoran <- read.delim("data/kormoran.csv", sep = ";", stringsAsFactors = T)  # 
 
 # Ueberpruefen, ob Einlesen richtig funktioniert hat und welche Datenstruktur vorliegt
 str(kormoran)
@@ -48,14 +48,11 @@ aov.3
 summary(aov.3)
 plot(aov.3)
 
-# Ergebnisdarstellung
-
 par(mfrow = c(1, 1)) #Zurückschalten auf Einzelplots
 if(!require(multcomp)){install.packages("multcomp")} 
 library(multcomp)
 
 boxplot(Tauchzeit~Unterart, data = kormoran)
-
 
 letters <- cld(glht(aov.2, linfct = mcp(Jahreszeit = "Tukey")))
 boxplot(Tauchzeit~Jahreszeit, data = kormoran)

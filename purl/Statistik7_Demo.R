@@ -67,7 +67,7 @@ constr / tot
 
 ## Datensatz Doubs
 ## Doubs Datensatz in den workspace laden
-load(here("data","Doubs.RData"))  
+load("data/Doubs.RData")  
 
 summary(spe)
 summary(env)
@@ -150,7 +150,6 @@ spe.sc2 <- scores(spe.rda, choices = 1:2, display = "sp")
 arrows(0, 0, spe.sc2[, 1] * 0.92, spe.sc2[, 2] * 0.92,length = 0, lty = 1, col = "red")
 text(-0.82, 0.55, "b", cex = 1.5)
 
-
 ### Triplots of the rda results (wa scores)
 ### Site scores as weighted averages (vegan's default)
 ## Scaling 1 :  distance triplot
@@ -169,7 +168,7 @@ sel.sp <- which(spe.good[, 2] >= 0.6)
 sel.sp
 
 ## Triplots with homemade function triplot.rda(), scalings 1 and 2
-source("triplot.rda.R")
+source(here("stat5-8", "triplot.rda.R"))
 ##dev.new(title = "RDA plot with triplot.rda", width = 12, height = 6, noRStudioGD = TRUE)
 par(mfrow = c(1, 2))
 triplot.rda(spe.rda, site.sc = "lc", scaling = 1, cex.char2 = 0.7, pos.env = 3, 

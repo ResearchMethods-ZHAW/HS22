@@ -9,13 +9,17 @@ index: 2
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, purl = FALSE}
+```{r}
+#| echo: false
+#| purl: false
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
 Für die heutige Übung brauchst du den Datensatz [temperature_2005.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/infovis/temperature_2005.csv). Dabei handelt es sich wieder um Teperaturwerte verschiedener Stationen, diesmal aus dem Jahr 2005. Das Datum ist so formatiert, dass `R` (isbesondere `read_csv`) es korrekt als `datetime` erkennen und als `POSIXct` einlesen sollte.
 
-```{r, message = FALSE, echo = TRUE}
+```{r}
+#| message: false
+#| echo: true
 library(readr)
 library(dplyr)
 library(lubridate)
@@ -23,8 +27,9 @@ library(tidyr)
 library(ggplot2)
 ```
 
-```{r, message = FALSE}
-temperature <- read_csv(here("data","temperature_2005.csv"))
+```{r}
+#| message: false
+temperature <- read_csv("data/temperature_2005.csv")
 ```
 
 ## Aufgabe 1
@@ -39,8 +44,9 @@ knitr::kable(head(temperature_long))
 
 Lade anschliessend [temperature_2005_metadata.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/infovis/temperature_2005_metadata.csv) herunter und verbinde die beiden Datensätze mit einem `left_join` via `station` (bzw. `stn`). 
 
-```{r message = FALSE}
-metadata <- read_csv(here("data","temperature_2005_metadata.csv"))
+```{r}
+#| message: false
+metadata <- read_csv("data/temperature_2005_metadata.csv")
 
 temperature_long <- left_join(temperature_long, metadata, by = c(station = "stn"))
 ```
@@ -49,7 +55,8 @@ temperature_long <- left_join(temperature_long, metadata, by = c(station = "stn"
 
 Erstelle ein Scatterplot (`time` vs. `temperature`) wobei die Punkte aufgrund ihrer Meereshöhe eingefärbt werden sollen. Tiefe Werte sollen dabei blau eingefärbt werden und hohe Werte rot (`scale_color_gradient`). Verkleinere die Punkte um übermässiges Überplotten der Punkten zu vermeiden (`size =`). Weiter sollen auf der x-Achse im Abstand von 3 Monaten der jeweilige Monat vermerkt sein (`date_breaks` bzw. `date_labels` von `scale_x_datetime()`).
 
-```{r warning = F}
+```{r}
+#| warning: false
 # Musterlösung
 
 ggplot(temperature_long, aes(time,temperature, color = Meereshoehe)) +
@@ -65,7 +72,8 @@ Erstelle eine Zusatzvariabel `Date` mit dem Datum der jeweiligen Messung ( mit `
 
 Um die Metadaten  (`Name`, `Meereshoehe`, `x`, `y`) nicht zu verlieren kannst du den Join aus der ersten Übung wieder ausführen. Alternativ (schneller aber auch schwerer zu verstehen) kannst du diese Variabeln innerhalb deines `group_by` verwenden.
 
-```{r, message = F}
+```{r}
+#| message: false
 temperature_long <- temperature_long %>%
   mutate(time = as.Date(time)) %>%
   group_by(time, station, Name, Meereshoehe, x, y) %>%
@@ -76,7 +84,8 @@ temperature_long <- temperature_long %>%
 
 Wiederhole nun den Plot aus der ersten Aufgabe mit den aggregierten Daten aus der vorherigen Aufgabe. Um die labels korrekt zu setzen musst du `scale_x_datetime` mit `scale_x_date` ersetzen. 
 
-```{r warning = F}
+```{r}
+#| warning: false
 p <- ggplot(temperature_long, aes(time,temperature, color = Meereshoehe)) +
   geom_point(size = 0.5) +
   labs(x = "", y = "Temperatur in ° Celsius") +
@@ -90,7 +99,9 @@ p
 
 Füge am obigen Plot eine schwarze, gestrichelte Trendlinie hinzu.
 
-```{r, message=F, warning = F}
+```{r}
+#| message: false
+#| warning: false
 # Musterlösung
 
 p <- p +
@@ -103,7 +114,9 @@ p
 
 Positioniere die Legende oberhalb des Plots (nutze dazu `theme()` mit `legend.position`). 
 
-```{r, message=F, warning=F}
+```{r}
+#| message: false
+#| warning: false
 # Musterlösung
 
 p <- p + 
@@ -116,7 +129,9 @@ p
 
 Füge den Temperaturwerten auf der y-Ache ein `°C` hinzu (siehe unten und studiere [diesen Tipp](https://stackoverflow.com/a/35967126/4139249) zur Hilfe). 
 
-```{r, message=F, warning = F}
+```{r}
+#| message: false
+#| warning: false
 # Musterlösung
 
 p +
@@ -134,7 +149,8 @@ Jetzt verlassen wir den Scatterplot und machen einen Boxplot mit den Temperaturd
 - Beachte den Unterschied zwischen "`.~`" und "`~.`" bei `facet_grid()`
 - verschiebe nach Bedarf die Legende
 
-```{r warning = F}
+```{r}
+#| warning: false
 # Musterlösung
 
 temperature_long <- mutate(temperature_long, monat = month(time,label = T,abbr = F))
@@ -152,7 +168,9 @@ Als letzter wichtiger Plottyp noch zwei Übungen zum Histogramm. Erstelle ein Hi
 
 Tip: Nutze `cut` um die Stationen in die drei Gruppen aufzuteilen
 
-```{r, warning=F, message = F}
+```{r}
+#| warning: false
+#| message: false
 # Musterlösung
 
 temperature_long <- temperature_long %>%
@@ -167,6 +185,10 @@ ggplot(temperature_long, aes(temperature)) +
 
 ## Musterlösung
 
-```{r, echo = FALSE, message=FALSE, results = "asis", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: asis
+#| purl: false
 #distill::mypurl()
 ```

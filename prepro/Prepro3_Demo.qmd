@@ -9,7 +9,11 @@ index: 1
 
 {{< include ../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "asis", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: asis
+#| purl: false
 #distill::mypurl()
 ```
 
@@ -19,7 +23,8 @@ Wir können Euch nicht sämtliche Möglichkeiten von tidyverse zeigen. Wir fokus
 
 Wir benötigen dazu folgende Packages:
 
-```{r, message=F}
+```{r}
+#| message: false
 library(dplyr)
 library(tidyr)
 library(lubridate)
@@ -52,11 +57,13 @@ sry <- df %>%
 
 ## Split-Apply-Combine (Beispiel 2)
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 ?mtcars
 ```
 
-```{r message=F}
+```{r}
+#| message: false
 mtcars <- mtcars                          # Einlesen des Beispielsdatensatzes mtcars
 by_cyl <- group_by(mtcars, cyl)           # Gruppieren nach Anzahl Zylinder (cyl)
 summarise(by_cyl,mean_mpg = mean(mpg))    # Berechnen des Mittelwerts pro 
@@ -75,7 +82,7 @@ summarise(by_cyl_2,mean_mpg = mean(mpg))
 Wir laden die Wetterdaten (Quelle MeteoSchweiz) von der letzten Übung.
 
 ```{r}
-wetter <- read_csv(here("data","weather.csv"),
+wetter <- read_csv("data/weather.csv",
                   col_types = cols(
                     col_factor(levels = NULL),    
                     col_datetime(format = "%Y%m%d%H"),
@@ -140,7 +147,8 @@ Auf Deutsch übersetzt heisst die obige Operation folgendermassen:
 
 Diese Übersetzung `R`-> Deutsch unterscheidet sich vor allem darin, dass die Operation auf Deutsch *verkettet* ausgesprochen wird (Operation 1->2->3) während der Computer *verschachtelt* liest 3(2(1)). Um `R` näher an die gesprochene Sprache zu bringen, kann man den `%>%`-Operator verwenden  (siehe ^[@wickham2017, Kapitel 14 / http://r4ds.had.co.nz/pipes.html]). 
 
-```{r, eval = F}
+```{r}
+#| eval: false
 # 1 nimm den Datensatz "wetter"
 # 2 Bilde Gruppen pro Monat
 # 3 berechne das Temperaturmittel 
@@ -164,7 +172,8 @@ Zu `dplyr` gibt es etliche Tutorials online (siehe^[@wickham2017, Kapitel 10 / h
 - `summarise()` fasst einen Datensatz zusammen. Dabei reduziert sich die Anzahl Beobachtungen (Zeilen) auf die Anzahl Gruppen (z.B. eine zusammengefasste Beobachtung (Zeile) pro Jahr). Zudem reduziert sich die Anzahl Variablen (Spalten) auf diejenigen, die in der "summarise" Funktion spezifiziert wurde (z.B. `temp_mittel`).
 - mit `mutate` wird ein `data.frame` vom Umfang her belassen, es werden lediglich *zusätzliche* Variablen (Spalten) hinzugefügt (siehe Beispiel unten).
 
-```{r, eval=T}
+```{r}
+#| eval: !expr T
 # Maximal und minimal Temperatur pro Kalenderwoche
 weather_summary <- wetter %>%               #1) nimm den Datensatz "wetter"
   filter(month == 1) %>%                    #2) filter auf den Monat Januar
@@ -205,13 +214,17 @@ weather_summary_long <- weather_summary %>%
 
 Die ersten 6 Zeilen von `weather_summary_long`:
 
-```{r, echo = F, purl=F}
+```{r}
+#| echo: false
+#| purl: false
 knitr::kable(head(weather_summary_long))
 ```
 
 Die ersten 6 Zeilen von `wetter_sry`:
 
-```{r, echo = F, purl = F}
+```{r}
+#| echo: false
+#| purl: false
 knitr::kable(head(weather_summary,6))
 ```
 

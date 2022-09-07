@@ -9,7 +9,11 @@ index: 3
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
 # knitr::purl("Statistik7_Loesung.qmd", "Statistik7_Loesung.R", documentation = 0)
 ```
 
@@ -27,13 +31,15 @@ index: 3
 - Während im Text normalerweise die Variablen ausgeschrieben werden solltet, genügt es hier (da ihr die entsprechenden Infos nicht bekommen habt und nur raten könntet), wenn ihr die Abkürzungen aus dem dataframe nehmt.
 
 __Moordatensatz laden__ 
-```{r message=F}
+```{r}
+#| message: false
 if(!require(dave)){install.packages("dave")}
 library(dave)
 data(sveg)
 data(ssit)
 ```
-```{r eval=FALSE}
+```{r}
+#| eval: false
 summary(sveg)
 summary(ssit)
 str(ssit)
@@ -71,7 +77,8 @@ RDA of the Hellinger-transformed mire species data, constrained by all the envir
 ## mit allen Umweltvarialben die in env2 enthalten sind
 (spe.rda <- rda(spe.hel ~ ., env2)) # Observe the shortcut formula
 ```
-```{r eval=FALSE}
+```{r}
+#| eval: false
 summary(spe.rda)	# Skalierung 2 (default)
 ```
 ```{r}
@@ -120,7 +127,8 @@ arrows(0, 0, spe.sc2[, 1] * 0.92, spe.sc2[, 2] * 0.92, length = 0, lty = 1, col 
 
 Auswahl der höchstkorrelierten Arten (Grenzwert kann subjektiv nach Bedarf gesetzt werden, hier 0.5).
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 # Select species with goodness-of-fit at least 0.6 in the 
 # ordination plane formed by axes 1 and 2
 spe.good <- goodness(spe.rda)
@@ -150,7 +158,8 @@ Visualisierung von RDA 3 vs. RDA 1 machen.
 - **Simple syntax; X and W may be in separate tables of quantitative** 
 - **variables**
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 spechem.physio <- rda(spe.hel, envchem, envtopo)
 summary(spechem.physio)
 

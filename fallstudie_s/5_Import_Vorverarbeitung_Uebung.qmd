@@ -2,11 +2,14 @@
 
 {{< include /../_before-article.qmd >}}
 
-```{r setup, include=FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r include=FALSE}
+```{r}
+#| include: false
 ## Benoetigte Bibliotheken ####
 library(tidyverse) # Data wrangling und piping
 library(lubridate) # Arbeiten mit Datumsformaten
@@ -32,7 +35,8 @@ Die Zähldaten des Wildnispark Zürich wurden vorgängig bereinigt (z.B. wurden 
 
 - Lest die Zählaten ein, speichert ihn unter der Variable __depo__ und sichtet den Datensatz (z.B. str(), head(), view() usw.).
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 depo <- read_csv("./HIER RELATIVEN DATEIPFAD EINGEBEN") 
 ## Speicherort sowie Dateiname anpassen
 ```
@@ -46,7 +50,8 @@ __Hinweis:__ Im Stundenformat zeigen die Werte bei 11:00 die Zähldaten zwischen
 - Ebenfalls muss das Datum als solches definiert werden. Welches Format hat es (im Code: format = "HIER DATUMSFORMAT")?
 - Schliesslich schneiden wir den Datensatz auf die Untersuchungsdauer zu.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 str(depo)
 
 depo <- depo %>%
@@ -84,7 +89,8 @@ Tipp: Wenn man R sagt: "addiere mir Spalte x mit Spalte y", dann macht R das fü
 
 Tipp: Das Datum wird als Integer erkannt. Zuerst muss es in Text umgewandelt werden aus dem dann das eigentliche Datum herausgelesen werden kann. Das ist mühsam - darum hier der Code.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 meteo <- transform(meteo, time = as.Date(as.character(time), "%Y%m%d"))
 ```
 
@@ -101,7 +107,8 @@ https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html
 
 Tipp: Entweder geht das mit __na.omit()__ für alle Spalten oder, etwas konservativer, können mit __filter()__ die zu filternden Spalten definiert werden. Mit folgendem Codeblock können z.B. alle Werte gefiltert werden, die in der Spalte stn nicht gleich NA sind (es werden also die Werte behalten, die vorhanden sind). Der Code muss für die anderen relevanten Spalten noch ergänzt werden.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 meteo <- meteo %>%
   filter(!is.na(stn))%>%
   ...%>%
@@ -122,7 +129,8 @@ Jetzt fügen wir viele Convinience Variabeln hinzu. Wir brauchen:
   
 Tipp: R sortiert die Levels alphabetisch. Da das in unserem Fall aber sehr unpraktisch ist, müssen die Levels manuell bestimmt werden
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
   ...
   mutate(Wochentag = base::factor(Wochentag, 
                             levels = c("Montag", "Dienstag", "Mittwoch", 
@@ -134,7 +142,8 @@ Frage: Was bedeutet __base::__ vor den eigentlichen Befehl?
 
 - Ist es ein Werktag oder Wochenende?
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
   ...
   mutate(Wochenende = if_else(Wochentag == "Montag" | Wochentag == "Dienstag" | 
                            Wochentag == "Mittwoch" | Wochentag == "Donnerstag" | 
@@ -152,7 +161,8 @@ Frage: Was bedeuten die __|__ (zu erstellen mit AltGr + 7)? Welches ist das if A
 
 __Hinweis I:__ ich mache den letzten Punkt nachgelagert, da zu viele Operationen in einem Schritt auch schon mal etwas durcheinander erzeugen können. __Hinweis II:__ Wir packen alle Phasen (normal, die beiden Lockdowns und Covid aber ohne Lockdown) in eine Spalte --> long-format ist schöner (und praktischer für das plotten) als wide-format.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 depo <- depo %>%
 mutate(Phase = if_else(Datum >= lock_1_start_2020 & Datum <= lock_1_end_2020,
                           "Lockdown_1",
@@ -173,7 +183,8 @@ Frage: Welches ist das if Argument, welches das else?
 
 - Nun soll noch die volle Stunde als Integer im Datensatz stehen. Diese Angabe muss etwas mühsam aus den Daten gezogen werden (darum hier der fertige Code dazu):
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 depo$Stunde <- as.numeric(format(as.POSIXct(depo$Zeit,format="%H:%M"),"%H"))
 ```
 
@@ -185,7 +196,8 @@ Die Daten wurden durch den WPZ kalibriert (Kommastellen).
 - Definiert sie sicherheitshalber als Integer
 - Macht das für IN, OUT und Total.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 depo$... <- round(..., digits = 0)
 depo$... <- as.integer(...)
 ```
@@ -200,7 +212,8 @@ Unsere Daten liegen im Stundenformat vor. Für einige Auswertungen müssen wir a
 
 Tipp: Wenn man die Convinience Variablen als grouping variable einspeisst, dann werden sie in das neue df übernommen und müssen nicht nochmals hinzugefügt werden
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 depo_d <- depo %>% 
   group_by(VARIABLE1, VARIABLE2, ...) %>%   # Gruppieren nach den Variablen
   summarise(Total = sum(Fuss_IN + Fuss_OUT),# Berechnen der gewünschten Werte
@@ -216,7 +229,8 @@ Tipp: Braucht wiederum __group_by()__ und __summarise()__. Nun brauchen wir nur 
 
 - Fügt den neu erstellten df eine Spalte mit Jahr + Monat hinzu. Das ist etwas mühsam, darum hier der fertige Code dazu:
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 ## vergewissere, dass sicher df
 depo_m <- as.data.frame(depo_m)
 ## sortiere das df anhand zwei Spalten aufsteigend (damit die Reihenfolge sicher stimmt)

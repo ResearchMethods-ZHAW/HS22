@@ -1,7 +1,6 @@
 # für export loesung aufgabe 2
 # knitr::purl("Statistik2_Loesung_2223s.qmd", "Statistik2_Loesung_2223s.R", documentation = 0)
 
-
 library(tidyverse)
 # library(ggfortify) # zur Testung der Voraussetzungen
 library(magrittr)
@@ -99,7 +98,6 @@ TukeyHSD(model_log) # (vgl. Statistik 2)
 # für Vegi
 10^(model_log$coefficients[1] + model_log$coefficients[3])
 
-
 # plottet die originalen Beobachtungen, die nicht tranformierten Daten werden 
 # hier aufgezeigt
 # Wichtig: einen Verweis auf die Log-Transformation benötigt es jedoch
@@ -135,7 +133,7 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
 # https://cran.r-project.org/web/packages/ggsignif/vignettes/intro.html
 
 ## ladet die nötigen Packete und die novanimal.csv Datei in R
-nova <- read_delim(here("data","2017_ZHAW_individual_menu_sales_NOVANIMAL.csv"), delim = ";")
+nova <- read_delim("data/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv", delim = ";")
 
 #if not loaded above, load it here
 # ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())

@@ -9,7 +9,11 @@ index: 1
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
 # knitr::purl("Statistik3_Demo.qmd", "Statistik3_Demo.R", documentation = 0)
 ```
 
@@ -22,10 +26,11 @@ index: 1
 Experiment zur Fruchtproduktion (“Fruit”) von Ipomopsis sp. (“Fruit”) in Abhängigkeit Ungrazedvon der Beweidung (Grazing mit 2 Levels: Grazed, Ungrazed) und korrigiert für die Pflanzengrösse vor der Beweidung (hier ausgedrückt als Durchmesser an der Spitze des Wurzelstock: “Root”)
 
 ```{r}
-compensation <- read.delim(here("data","ipomopsis.csv"), sep = ",", stringsAsFactors = T)
+compensation <- read.delim("data/ipomopsis.csv", sep = ",", stringsAsFactors = T)
 ```
 
-```{r message=F}
+```{r}
+#| message: false
 summary(compensation)
 
 plot(Fruit~Root, data = compensation)
@@ -84,7 +89,8 @@ plot(lm.quad)
 ## Multiple lineare Regression
 
 ### Simulation Overfitting
-```{r eval=FALSE}
+```{r}
+#| eval: false
 test <- data.frame("x" = c(1, 2, 3, 4, 5, 6), "y" = c(34, 21, 70, 47, 23, 45))
 
 par(mfrow=c(1,1))
@@ -121,12 +127,13 @@ lines(xv, yv, col = "black", lwd = 3)
 
 ### Multiple lineare Regression basierend auf Logan, Beispiel 9A 
 ```{r}
-loyn <- read.delim(here("data","loyn.csv"), sep = ",")
+loyn <- read.delim("data/loyn.csv", sep = ",")
 summary(loyn)
 ```
 
 ### Korrelation zwischen den Prädiktoren
-```{r message=F}
+```{r}
+#| message: false
 cor <- cor(loyn[, 2:7])
 print(cor, digits = 2)
 
@@ -160,7 +167,8 @@ plot(lm.1)
 ```
 
 ### Hierarchical partitioning
-```{r message=F}
+```{r}
+#| message: false
 if(!require(hier.part)){install.packages("hier.part")}
 library(hier.part)
 
@@ -175,7 +183,9 @@ avPlots(lm.1, ask = F)
 
 ## Multimodel inference
 
-```{r message=F, warning=F}
+```{r}
+#| message: false
+#| warning: false
 if(!require(MuMIn)){install.packages("MuMIn")}
 library(MuMIn)
 

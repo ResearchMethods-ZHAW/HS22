@@ -9,7 +9,8 @@ index: 2
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE}
+```{r}
+#| echo: false
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -17,7 +18,9 @@ Für die kommende Übung arbeiten wir mit nachstehendem Datensatz. Lade diesen H
 
 Zudem brauchen wir die folgenden libraries:
 
-```{r, echo = TRUE, message=F}
+```{r}
+#| echo: true
+#| message: false
 library(dplyr)
 library(sf)
 library(ggplot2)
@@ -35,18 +38,20 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
 
 Diese Warnmeldung weist darauf hin, dass das Geopackage `gruental.gpkg` mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl `st_layers` die Layer Namen in Erfahrung und nutze diese im Anschluss in `st_read` (als Argument `layer = `) um die layers einzeln zu importieren und in variablen zu speichern (zB in als Variable `wiesen` und `baeume`).
 
-```{r include=FALSE}
-st_layers(here("data","gruental.gpkg"))
+```{r}
+#| include: false
+st_layers("data/gruental.gpkg")
 
-wiesen <- read_sf(here("data","gruental.gpkg"),"wiesen")
-baeume <- read_sf(here("data","gruental.gpkg"), "baeume")
+wiesen <- read_sf("data/gruental.gpkg","wiesen")
+baeume <- read_sf("data/gruental.gpkg", "baeume")
 ```
 
 ### Aufgabe 2: Datensätze erkunden
 
 Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Visualisierungsmöglichkeiten von `ggplot` (insbesondere `geom_sf`).
 
-```{r, fig.cap="Beispielsweise kannst du die Daten in dieser Weise visualisieren."}
+```{r}
+#| fig.cap: Beispielsweise kannst du die Daten in dieser Weise visualisieren.
 ggplot(wiesen) +
   geom_sf(fill = "chartreuse4") +
   geom_sf(data = baeume) +
@@ -81,7 +86,8 @@ Um die berechneten Werte in den Datensatz `baeume` zu überführen braucht es no
 2. Nutze die Spalte `baum_id` in `baeume_wiesen_df` um den berechneten `wiesen_anteil` in den Datenatz `baeume` zu überführen. Tipp: Nutze dafür einen `left_join`
 3. Ersetze alle `NA` Werte in der Spalte `wiesen_anteil` mit 0.
 
-```{r warning=F}
+```{r}
+#| warning: false
 baeume_20m <- st_buffer(baeume, 20)
 
 baeume_wiesen <- st_intersection(baeume_20m, wiesen) 
@@ -97,7 +103,8 @@ baeume_2 <- left_join(baeume, baeume_wiesen_df, by = "baum_id") %>%
 ```
 
 ::: {.column-body}
-```{r, fig.cap="Nach dieser Übung kannst du das Resultat optional in dieser Weise visualisieren."}
+```{r}
+#| fig.cap: Nach dieser Übung kannst du das Resultat optional in dieser Weise visualisieren.
 ggplot() +
   geom_sf(data = wiesen) +
   geom_sf(data = baeume_20m, fill = NA, color = "grey") +
@@ -109,7 +116,11 @@ ggplot() +
 
 ## Musterlösung
 
-```{r, echo = FALSE, message=FALSE, results = "asis", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: asis
+#| purl: false
 #distill::mypurl()
 ```
 

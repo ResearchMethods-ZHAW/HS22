@@ -1,4 +1,4 @@
-splityield <- read.delim(here("data","splityield.csv"), sep = ",", stringsAsFactors = T)
+splityield <- read.delim("data/splityield.csv", sep = ",", stringsAsFactors = T)
 # Checken der eingelesenen Daten
 splityield
 

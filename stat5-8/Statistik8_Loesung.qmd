@@ -9,7 +9,11 @@ index: 3
 
 {{< include /../_before-article.qmd >}}
 
-```{r, echo = FALSE, message=FALSE, results = "hide", purl = FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+#| purl: false
 # knitr::purl("Statistik8_Loesung.qmd", "Statistik8_Loesung.R", documentation = 0)
 ```
 
@@ -35,7 +39,7 @@ erhaltenen Cluster bezüglich der Kriminalitätsformen und interpretiert die Clu
 ### Lösung
 
 ```{r}
-crime <- read.csv(here("data","crime2.csv"), sep = ";")
+crime <- read.csv("data/crime2.csv", sep = ";")
 ```
 ```{r}
 crime
@@ -52,7 +56,8 @@ crimez
 „scale“ führt eine Standardisierung (z-Transformation) durch, so dass alle Variablen anschiessen einen Mittelwert von 0 und eine SD von 1 haben, ausgenommen natürlich die 1. Spalte mit den Kürzeln der Bundesstaaten.
 Anschliessend wird das SSI-Kriterium getestet und zwar für Partitionierungen von 2 bis 6 Gruppen (wie viele Gruppen man maximal haben will, muss man pragmatisch nach der jeweiligen Fragestelltung entscheiden).
 
-```{r message=F}
+```{r}
+#| message: false
 library(vegan)
 crimez.KM.cascade <- cascadeKM(crimez[,c(2:8)],
                         inf.gr = 2, sup.gr = 6, iter = 100, criterion = "ssi")
@@ -85,7 +90,8 @@ str(crime.KM4)
 Vor der Berechnung von crime.norm und crime.ch muss man die Spalte mit den
 Bundesstaatenkürzeln entfern.
 
-```{r message=F}
+```{r}
+#| message: false
 # Agglomerative Clusteranalyse
 crime2 <- crime[,-1]
 crime.norm <- decostand(crime2, "normalize")
@@ -133,7 +139,8 @@ Damit die Boxplots und die ANOVA direkt interpretierbar sind, werden für diese,
 
 Anschliessend kann man die 7 ANOVAs rechnen, die Posthoc-Vergleiche durchführen und die zugehörigen Boxplots mit Buchstaben für die homogenen Gruppen erzeugen. Sinnvollerweise gruppiert man die Abbildungen gleich, z. B. je 2 x 2. Das Skript ist hier simple für jede Verbrechensart wiederholt. Erfahrenere R-Nutzer können das Ganze hier natürlich durch eine Schleife abkürzen.
 
-```{r message=F}
+```{r}
+#| message: false
 library(multcomp)
 if(!require(multcomp)){install.packages("multcomp")}
 library(multcomp)

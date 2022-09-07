@@ -5,7 +5,7 @@ head(chickwts)
 str(chickwts)
 
 # Load packages and data
-data_911 <- read_delim(here("data","911.csv"), delim = ",")
+data_911 <- read_delim("data/911.csv", delim = ",")
 str(data_911)
 
 # Beachtet dabei, dass ihr die URL zum originalen (raw) Datensatz habt 

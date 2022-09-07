@@ -37,7 +37,8 @@ Bereits beim Detektieren der Sichtungen muss einem klar sein, was man auswerten 
 
 ## Datenanalyse in R
 
-```{r include=FALSE}
+```{r}
+#| include: false
 #.################################################################################################
 # Besuchermonitoring Grüntal - Auswertung der Besucherzahlen ####
 # Modul Research Methods, HS20. Adrian Hochreutener ####
@@ -66,7 +67,7 @@ library(data.table)# schnelles Dateneinlesen
 # 1.1 Einlesen ####
 # lese die Daten mithilfe von data.table ein. Je nach Bedarf muss der Speicherort sowie der
 # Dateiname angepasst werden
-cam <- fread(here("data","DummyData.csv"))
+cam <- fread("data/DummyData.csv")
 
 #.################################################################################################
 # 2. VORBEREITUNG DER DATEN #####
@@ -216,7 +217,8 @@ ggplot(Wildtier, mapping=aes(x=Wildtier, y=freq*100))+ # kann auch prozentual da
 
 Fuer diese Aufgabe benoetigen wir folgende Bibliotheken:
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 # Benoetigte Bibliotheken ####
 library(tidyverse) # Data wrangling und piping
 library(lubridate) # Arbeiten mit Datumsformaten
@@ -235,7 +237,8 @@ Bei Faktoren funktioniert das aber nicht (sie sind ja eigentlich einfach Text un
 
 Auch das Datum muss vielfach manuell definiert werden (hier muessen wir R sagen, wie das Format dieses aussieht).
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 cam <- cam %>% 
   mutate(Datum = as.Date(Datum, format = "%d.%m.%Y"))%>%
   mutate(Kamerastandort = factor(Kamerastandort))%>%
@@ -249,7 +252,8 @@ Unser Datensatz enthaellt die Angeben zu __ost__ und __west__. Wir wollen die Au
 
 Trennt den Datensatz aufgrund des Standorts. Nutzt dazu __filter()__.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 ost <- filter(DATENSATZ, SPALTENNAME == "Attribut")
 west <- ...
 ```
@@ -262,7 +266,8 @@ Pruefe daher die Verteilung pro Datensatz mittels __Histogram__ und __Scatterplo
 Beim Histogram sollen nur die Menschen angezeigt und die 0er ausgeschlossen werden. 
 Das kann mit folgendem Code erreicht werden:
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 hist(west$Anzahl[west$Art=="Mensch" &
                   !west$Anzahl==0], # das "!" bedeutet "nicht gleich"
      breaks = 10)                   # wie viele Balken brauchen wir im Histogram?
@@ -288,7 +293,8 @@ Gruppieren und summieren:
 
 Untenstehender Code eigent sich dazu ganz gut:
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 Akt_ost <- ost %>%
   group_by(Aktivitaet)%>%      # Hier sagen wir nach was wir gruppieren 
   summarise (n = sum(Anzahl)) %>%      # und dann sagen wir, dass R zusammenfassen soll und zwar die Anzahl
@@ -306,13 +312,16 @@ __Verteilung der Aktivitäten als Pie Chart__
 
 Zuerst eine Palette mit 5 Farben definieren:
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 pal <- hcl.colors(5, palette = "heat")
 ```
 
 Dann als Kreisdiagramm plotten.
 
-```{r message = FALSE, warning = FALSE}
+```{r}
+#| message: false
+#| warning: false
 pie(Akt_west$n, labels = c("Anderes", "Biker", "Landwirtschaft", "Spaziergaenger", "unbestimmbar"),
     main = "Prozentuales Verhaeltnis West",
     col = pal) 
@@ -324,7 +333,9 @@ __Hinweis:__ Die labels im base R plot müssen manuell definiert werden. ggplot 
 
 __Begleittier als Bar Chart__
 
-```{r message = FALSE, warning = FALSE}
+```{r}
+#| message: false
+#| warning: false
 # Begleittier als Bar Chart ####
 ggplot(Begleit_ost,                      # hier den Datensatz spezifizieren
        mapping=aes(x=Begleittier, y = n))+ # Absolute Anzahl darstellen
@@ -337,7 +348,8 @@ ggplot(Begleit_ost,                      # hier den Datensatz spezifizieren
 Und schliesslich: __Wildtier als Bar Chart__
 Stellt hier auf der y-Achse die Anzahl nicht total sondern relativ (in Prozent) dar.
 
-```{r echo=FALSE}
+```{r}
+#| echo: false
 # Wildtier als Bar Chart ####
 ggplot(Wildtier, mapping=aes(x=Wildtier, y=freq*100))+ # kann auch prozentual dargestellt werden
   geom_col(width=0.9,position = "dodge")+

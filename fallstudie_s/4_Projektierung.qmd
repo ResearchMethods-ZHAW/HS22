@@ -75,7 +75,8 @@ Geplottet wird mit ggplot, daher wird __tidyverse__ geladen. Diese Bibliothek er
 - Ladet nun also die benoetigten Bibliotheken.
 - Allenfalls muessen diese zuerst mit _install.packages("NAME")_ installiert werden.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 # Benoetigte Bibliotheken ####
 library(tidyverse)            # Data wrangling und piping
 library(lubridate)            # Arbeiten mit Datumsformaten
@@ -97,7 +98,8 @@ library(lattice)              # einfaches plotten von Zusammenhängen zwischen V
 
 Dafür müsst ihr in die Rohdaten eures Zählers schauen. Am einfachsten direkt in der .csv Datei.
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 depo_start <- as.Date("YYYY-MM-DD")
 depo_end <- ...
 ```
@@ -105,7 +107,8 @@ depo_end <- ...
 Wichtiger Teil unserer Auswertungen ist der Einfluss des Lockdown auf das Besuchsverhalten. 
 -Wir müssen also Start und Ende der beiden Lockdowns in der Schweiz definieren:
 
-```{r eval=FALSE}
+```{r}
+#| eval: false
 lock_1_start_2020 <- as.Date("2020-03-16")
 lock_1_end_2020 <- as.Date("2020-05-11")
 
@@ -117,7 +120,9 @@ Ebenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist defi
 
 Ferienzeiten können einen grossen Einfluss auf das Besucheraufkommen haben. Die relevanten Ferienzeiträume (in meinem Beispiel ab 2019, je nach dem müsst ihr das anpassen) muüsen daher bekannt sein. Zur Definition der Ferien kann z.B. folgend vorgegangen werden:
 
-```{r warning=FALSE, results="hide"}
+```{r}
+#| warning: false
+#| results: hide
 # (https://www.schulferien.org/schweiz/ferien/2020/)
 Fruehlingsferien_2019_start <- as.Date("2019-04-13")
 Fruehlingsferien_2019_ende <- as.Date("2019-04-28")

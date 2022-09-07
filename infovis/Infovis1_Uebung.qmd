@@ -9,7 +9,9 @@ index: 3
 
 {{< include /../_before-article.qmd >}}
 
-```{r, include=FALSE, purl=FALSE}
+```{r}
+#| include: false
+#| purl: false
 library(knitr)
 
 knitr::opts_chunk$set(echo = FALSE,include = TRUE,message = FALSE, collapse=TRUE) 
@@ -19,12 +21,13 @@ In dieser Übung geht es darum, die Grafiken aus dem Blog-post @kovic2014 zu rek
 
 Importiere als erstes den Datensatz [initiative_masseneinwanderung_kanton.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/infovis/tagi_data_kantone.csv) (dieser ist auch auf der Blog-Seite verfügbar).
 
-```{r, message=F}
+```{r}
+#| message: false
 library(dplyr)
 library(ggplot2)
 library(readr)
 
-kanton <- read_csv(here("data","tagi_data_kantone.csv")) 
+kanton <- read_csv("data/tagi_data_kantone.csv") 
 ```
 
 ## Aufgabe 1
@@ -70,7 +73,7 @@ Importiere die Gemeindedaten [initiative_masseneinwanderung_gemeinde.csv](https:
 ```{r}
 # Lösung zu Aufgabe 3
 
-gemeinde <- read_csv(here("data","tagi_data_gemeinden.csv"))
+gemeinde <- read_csv("data/tagi_data_gemeinden.csv")
 
 plot2 <- ggplot(gemeinde, aes(anteil_ausl, anteil_ja)) +
   geom_point() +
@@ -110,7 +113,8 @@ Rekonstruiere [Grafik 6](https://blog.tagesanzeiger.ch/datenblog/wp-content/uplo
 
 Rekonstruktion:
 
-```{r, warning=F}
+```{r}
+#| warning: false
 # Lösung zu Aufgabe 6
 
 plot3 +
@@ -168,7 +172,9 @@ korr_tab <- gemeinde %>%
 
 ```
 
-```{r,echo=F, purl=F}
+```{r}
+#| echo: false
+#| purl: false
 knitr::kable(korr_tab,caption = "Legende: * = p<0.05, ** = p<0.01, ***=p<0.001.")
 ```
 

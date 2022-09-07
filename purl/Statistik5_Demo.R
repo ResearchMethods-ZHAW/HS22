@@ -1,4 +1,4 @@
-spf <- read.delim(here("data","spf.csv"), sep = ";") 
+spf <- read.delim("data/spf.csv", sep = ";") 
 spf.aov <- aov(Reaktion~Signal * Messung + Error(VP), data = spf)
 summary(spf.aov)
 
@@ -19,8 +19,7 @@ anova(spf.lme.2)
 summary(spf.lme.1)
 summary(spf.lme.2)
 
-DeerEcervi <- read.delim(here("data","DeerEcervi.txt"), sep = "", stringsAsFactors = T)
-
+DeerEcervi <- read.delim("data/DeerEcervi.txt", sep = "", stringsAsFactors = T)
 
 # Anzahl Larven hier in Presence/Absence übersetzt
 DeerEcervi$Ecervi.01 <- DeerEcervi$Ecervi
@@ -39,7 +38,6 @@ drop1(DE.glm, test = "Chi")
 summary(DE.glm)
 anova(DE.glm)
 
-
 # Response curves für die einzelnen Farmen (Weibliche Tiere: fSex = "1" )
 plot(DeerEcervi$CLength, DeerEcervi$Ecervi.01,
      xlab = "Length", ylab = "Probability of \
@@ -56,13 +54,11 @@ for (j in AllFarms){
     lines(mydata$CLength[I], P.DE2[I])
   }}
 
-
 if(!require(MASS)){install.packages("MASS")}
 library(MASS)
 DE.PQL <- glmmPQL(Ecervi.01 ~ CLength * fSex,
                 random = ~ 1 | Farm, family = binomial, data = DeerEcervi)
 summary(DE.PQL)
-
 
 g <- 0.8883697 + 0.0378608 * DeerEcervi$CLength
 p.averageFarm1 <- exp(g)/(1 + exp(g))
@@ -74,7 +70,6 @@ p.Upp <- exp(g + 1.96 * 1.462108)/(1 + exp(g + 1.96 * 1.462108))
 p.Low <- exp(g - 1.96 * 1.462108)/(1 + exp(g - 1.96 * 1.462108))
 lines(DeerEcervi$CLength[I], p.Upp[I])
 lines(DeerEcervi$CLength[I], p.Low[I])
-
 
 if(!require(lme4)){install.packages("lme4")}
 library(lme4)

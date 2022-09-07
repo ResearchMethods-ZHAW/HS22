@@ -9,7 +9,10 @@ index: 1
 
 {{< include /../_before-article.qmd >}}
 
-```{r echo = FALSE, message=FALSE, results='hide'}
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
 #export files
 # knitr::purl("StatKons3_Demo_LM.qmd", "Demo_LM.R", documentation = 0)
 ```
@@ -17,7 +20,10 @@ index: 1
 
 > Download [R-Skript](Demo_LM.R)
 
-```{r, message=FALSE, include=FALSE, purl=F}
+```{r}
+#| message: false
+#| include: false
+#| purl: false
 knitr::opts_chunk$set(echo = TRUE, collapse=FALSE, message = FALSE, results = "hide", warning = FALSE)
 
 library(tidyverse)
@@ -37,7 +43,10 @@ mytheme <-
 
 ## Einfaktorielle ANOVA
 
-```{r, message=FALSE, eval=FALSE, purl=T}
+```{r}
+#| message: false
+#| eval: false
+#| purl: !expr T
 # für mehr infos
 #https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html
 
@@ -110,7 +119,9 @@ rosetta::posthocTGH(cars$hp, cars$cyl, method = "games-howell")
 
 ## Mehrfaktorielle ANOVA
 
-```{r, message=FALSE, echo=FALSE}
+```{r}
+#| message: false
+#| echo: false
 library(tidyverse)
 #1. Wähle zusätzliche Variable aus (wenn nicht in der Aufgabe steht), 
 #was für eine Skala muss die Variable aufweisen?
@@ -142,7 +153,8 @@ summary.lm(aov.2)
 ```
 
 ## Einfache Regression
-```{r, message=FALSE}
+```{r}
+#| message: false
 # inspiriert von Simon Jackson: http s://drsimonj.svbtle.com/visualising-residuals
 cars <- mtcars %>% 
   #ändere die unabhängige Variable mpg in 100Km/L
@@ -224,7 +236,8 @@ ggplot(d, aes(x = kml, y = hp)) +
 
 ## Multiple regression
 
-```{r, message=FALSE}
+```{r}
+#| message: false
 # Select data
 cars <- mtcars %>% 
     slice(-31) %>%

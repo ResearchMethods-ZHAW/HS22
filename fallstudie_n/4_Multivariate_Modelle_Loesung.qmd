@@ -4,13 +4,18 @@
 
 ## Einstieg Habitatselektionsmodell / Multivariate Modelle
 
-```{r setup, include=FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
 ```
 
 ### Libraries laden
 
-```{r results='hide', warning=FALSE, message=FALSE}
+```{r}
+#| results: hide
+#| warning: false
+#| message: false
 ### Funktion um Packages direkt zu installieren und / oder zu laden
 
 ipak <- function(pkg){
@@ -32,8 +37,11 @@ Einlesen des Gesamtdatensatzes von Moodle
 - Sichtung des Datensatzes und der Datentypen
 - Kontrolle wieviele Rehe in diesem Datensatz enthalten sind
 
-```{r tidy=TRUE, warning=FALSE, message=FALSE}
-DF_mod <- read_delim(here("data","Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv"), 
+```{r}
+#| tidy: true
+#| warning: false
+#| message: false
+DF_mod <- read_delim("data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv", 
                      delim = ";")
 
 str(DF_mod)
@@ -51,7 +59,9 @@ length(unique(DF_mod$id))
 
 Unterteilung des Datensatzes in Teildatensätze entsprechend der Tageszeit
 
-```{r tidy=TRUE, eval=TRUE}
+```{r}
+#| tidy: true
+#| eval: true
 DF_mod_night <- DF_mod %>%
   filter(time_of_day == "night")
 
@@ -67,7 +77,9 @@ table(DF_mod_day$time_of_day)
 
 Erstellen von Density Plots der Präsenz / Absenz in Abhängigkeit der unabhängigen Variablen (für Tag und Nacht)
 
-```{r tidy=TRUE, results="hide"}
+```{r}
+#| tidy: true
+#| results: hide
 # Ein Satz Density Plots für den Tagesdatensatz und einer für den Nachtdatensatz 
 
 par(mfrow=c(3,3), mar=c(4, 4, 3, 3))
@@ -90,7 +102,10 @@ for (i in 6:12) {                           # innerhalb des for()-loops die Numm
 
 Testen erklärenden Variablen auf Normalverteilung (nur kontinuierlichen) 
 
-```{r tidy=TRUE, message=FALSE, warning = FALSE}
+```{r}
+#| tidy: true
+#| message: false
+#| warning: false
 # klassischer Weg mit shapiro-wilk (mehrere Spalten, verschiedenene statistische
 # Kenngrössen werden angezeigt. Normalverteilung: Wert ganz unten. p>0.05 = ja)
 
@@ -116,7 +131,10 @@ Explorative Analysen der Variablen mit Scatterplots, Scatterplotmatrizen
 1. Zu Scatterplots und Scatterplotmatrizen gibt es viele verschiedene Funktionen / Packages, schaut im Internet und sucht euch eines welches euch passt.
 2. Testen der Korrelation zwischen den Variablen (Parametrisch oder nicht-parametrische Methode? Ausserdem: gewisse Scatterplotmatrizen zeigen euch die Koeffizenten direkt an)
 
-```{r tidy=TRUE, message=FALSE,warning=FALSE}
+```{r}
+#| tidy: true
+#| message: false
+#| warning: false
 chart.Correlation(DF_mod_day[6:12], histogram=TRUE, pch=19, method = "kendall")
 
 #?chart.Correlation

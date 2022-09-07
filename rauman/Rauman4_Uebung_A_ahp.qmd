@@ -9,7 +9,9 @@ index: 1
 
 {{< include /../_before-article.qmd >}}
 
-```{r, include=FALSE, purl = FALSE}
+```{r}
+#| include: false
+#| purl: false
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -42,7 +44,10 @@ First think of an *actual decision* you are currently facing or have previously 
 
 In a first step each criterion needs to be compared with another criteria in pairs. Use the following scale for weighting the criteria (see table @tbl-ahprating). 
 
-```{r, echo = FALSE, purl = FALSE, message=F}
+```{r}
+#| echo: false
+#| purl: false
+#| message: false
 #| label: tbl-ahprating
 #| tbl-cap: AHP Ratings
 library(dplyr)
@@ -66,7 +71,9 @@ You can use the following code to create your weighting matrix. In the matrix, t
 
 Create this matrix comparison matching your criteria, replacing the `0` values with your weights according to table @tbl-ahprating. Note that all diagonal values should equal to `1`.
 
-```{r ahp_matrix2, echo = TRUE}
+```{r}
+#| label: ahp_matrix2
+#| echo: true
 pairwise_comparison <- c(
   1,   3, 0, 0,
   1/3, 1, 0, 0,
@@ -91,7 +98,8 @@ pairwise_comparison <- c(
 
 **Tip**: Add column and row names so your matrix is more readable. 
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
 criterias <- c("price", "distance","size", "beauty")
 
 rownames(pairwise_comparison) <- criterias
@@ -124,7 +132,8 @@ This is the final step to calculate the weight of each criteria (see \@ref(fig:w
 
 Note: The sum of `criteria_weight` should equal to 1
 
-```{r include=FALSE}
+```{r}
+#| include: false
 criteria_sums <- rowSums(pairwise_comparison_normalized)
 
 criteria_weight <- criteria_sums/sum(criteria_sums)
@@ -178,7 +187,8 @@ CR <- CI/RI
 
 6. If CR > 0.1, you will need to re-evaluate your pairwise comparisons. 
 
-```{r include=FALSE}
+```{r}
+#| include: false
 CR < 0.1
 ```
 

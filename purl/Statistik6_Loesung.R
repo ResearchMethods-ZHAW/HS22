@@ -1,4 +1,4 @@
-load(here("data","Doubs.RData"))
+load("data/Doubs.RData")
 summary(env)
 summary(spe)
 

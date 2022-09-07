@@ -7,7 +7,9 @@ index: 2
 
 {{< include ../_before-article.qmd >}}
 
-```{r, include=FALSE, purl = FALSE}
+```{r}
+#| include: false
+#| purl: false
 knitr::opts_chunk$set(echo = FALSE, include = TRUE, collapse=TRUE, warning = FALSE)
 ```
 
@@ -28,7 +30,8 @@ Das Verwenden von Projects bringt verschiedene Vorteile, wie zum Beispiel:
 
 R ist ohne Zusatzpackete nicht mehr denkbar. Die allermeisten Packages werden auf [CRAN](https://cran.r-project.org/) gehostet und können leicht mittels `install.packages()` installiert werden. Eine sehr wichtige Sammlung von Packages wird von RStudio entwickelt. Unter dem Namen [Tidyverse](https://www.tidyverse.org/) werden eine Reihe von Packages angeboten, den R-Alltag enorm erleichtert. Wir werden später näher auf das "Tidy"-Universum eingehen, an dieser Stelle können wir die Sammlung einfach mal die wichtigsten Packages aus `tidyverse` installieren (heute werden wir davon nur einen kleinen Teil benutzen).
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 install.packages("dplyr")
 install.packages("tidyr")
 install.packages("readr")
@@ -44,7 +47,9 @@ Letztere Notation ist vor allem dann sinnvoll, wenn sich zwei unterschiedliche F
 
 Zu Beginn laden wir die nötigen Pakete :
 
-```{r, message = FALSE, echo = TRUE}
+```{r}
+#| message: false
+#| echo: true
 library(readr)
 library(lubridate)
 
@@ -77,7 +82,9 @@ df <- data.frame(
   )
 ```
 
-```{r, echo = FALSE, purl=FALSE}
+```{r}
+#| echo: false
+#| purl: false
 knitr::kable(df)
 ```
 
@@ -117,17 +124,20 @@ Importiere den Datensatz [weather.csv](https://github.com/ResearchMethods-ZHAW/d
 
 Achtung! `read_csv` erwartet leicht andere inputs als `read.csv`, schaut euch die Hilfe dazu an (`?read_csv`).
 
-```{r, purl = FALSE}
+```{r}
+#| purl: false
 download.file("https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro/weather.csv", "weather.csv")
 ```
 
-```{r, message = F}
+```{r}
+#| message: false
 # Musterlösung
 
 wetter <- readr::read_csv("weather.csv")
 ```
 
-```{r, purl=F}
+```{r}
+#| purl: false
 knitr::kable(head(wetter,10))
 ```
 
@@ -154,7 +164,8 @@ Tipps:
 wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H",tz = "UTC")
 ```
 
-```{r, purl=F}
+```{r}
+#| purl: false
 knitr::kable(head(wetter,10),caption = "Die neue Tabelle sollte so aussehen")
 ```
 
@@ -169,7 +180,8 @@ wetter$wochentag <- wday(wetter$time,label = T)
 wetter$kw <- week(wetter$time)
 ```
 
-```{r, purl=F}
+```{r}
+#| purl: false
 knitr::kable(head(wetter,10))
 ```
 
@@ -184,11 +196,14 @@ wetter$temp_kat[wetter$tre200h0>0] <- "warm"
 wetter$temp_kat[wetter$tre200h0<=0] <- "kalt"
 ```
 
-```{r, purl=F}
+```{r}
+#| purl: false
 knitr::kable(head(wetter,10))
 ```
 
-```{r, purl = FALSE, include = FALSE}
+```{r}
+#| purl: false
+#| include: false
 library(ggplot2)
 
 p <- ggplot(wetter, aes(time, tre200h0)) +
