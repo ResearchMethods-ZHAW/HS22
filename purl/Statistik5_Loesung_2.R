@@ -1,13 +1,10 @@
-#export files
-# knitr::purl("Statistik5_Loesung_2.qmd", "Statistik5_Loesung_2.R", documentation = 0)
-
 library(dplyr)
 library(readr)
 library(stringr)
 library(ggfortify)
 library(lme4)
 
-nova <- read_delim(here("data","2017_ZHAW_individual_menu_sales_NOVANIMAL.csv"), delim = ";", locale = locale(encoding = "latin1"))
+nova <- read_delim(here("data","2017_ZHAW_individual_menu_sales_NOVANIMAL.csv"), delim = ";", locale = locale(encoding = "UTF-8"))
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 mytheme <- 

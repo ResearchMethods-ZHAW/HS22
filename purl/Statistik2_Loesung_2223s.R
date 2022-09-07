@@ -1,7 +1,3 @@
-# für export loesung aufgabe 2
-# knitr::purl("Statistik2_Loesung_2223s.qmd", "Statistik2_Loesung_2223s.R", documentation = 0)
-
-
 library(tidyverse)
 # library(ggfortify) # zur Testung der Voraussetzungen
 library(magrittr)
@@ -98,7 +94,6 @@ TukeyHSD(model_log) # (vgl. Statistik 2)
 
 # für Vegi
 10^(model_log$coefficients[1] + model_log$coefficients[3])
-
 
 # plottet die originalen Beobachtungen, die nicht tranformierten Daten werden 
 # hier aufgezeigt
@@ -255,7 +250,7 @@ ggplot(df, aes(x = interaction(article_description, member), y= tot_sold)) +
   annotate("text", x = 1:4, y = 1000, label = letters$mcletters$Letters, size = 6) +
   mytheme 
 
-ggsave("distill-preview.png",
+ggsave("stat1-4/distill-preview.png",
        height = 12,
        width = 20,
        device = png)

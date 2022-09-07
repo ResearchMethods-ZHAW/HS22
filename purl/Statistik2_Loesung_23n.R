@@ -38,9 +38,9 @@ anova(aov.1, aov.2)
 par(mfrow = c(2, 2)) #alle vier Abbildungen in einem 2 x 2 Raster
 plot(aov.2)
 
-influence.measures(aov.2) # 
-# kann man sich zusätzlich zum "plot" ansehen, um herauszufinden, 
-# ob es evtl. sehr einflussreiche Werte mit Cook's D von 1 oder grösser gibt
+## influence.measures(aov.2) #
+## # kann man sich zusätzlich zum "plot" ansehen, um herauszufinden,
+## # ob es evtl. sehr einflussreiche Werte mit Cook's D von 1 oder grösser gibt
 
 # Alternative mit log10
 aov.3 <-aov(log10(Tauchzeit)~Unterart + Jahreszeit, data=kormoran)
@@ -48,14 +48,11 @@ aov.3
 summary(aov.3)
 plot(aov.3)
 
-# Ergebnisdarstellung
-
 par(mfrow = c(1, 1)) #Zurückschalten auf Einzelplots
 if(!require(multcomp)){install.packages("multcomp")} 
 library(multcomp)
 
 boxplot(Tauchzeit~Unterart, data = kormoran)
-
 
 letters <- cld(glht(aov.2, linfct = mcp(Jahreszeit = "Tukey")))
 boxplot(Tauchzeit~Jahreszeit, data = kormoran)

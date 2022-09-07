@@ -25,9 +25,9 @@ summary(o.pca) # generiert auch automatische plots
 
 
 
-# plotte das ganze
-library(devtools)
-install_github("vqv/ggbiplot")
+## # plotte das ganze
+## library(devtools)
+## install_github("vqv/ggbiplot")
 
 library(ggbiplot)
 ggbiplot(o.pca,choices = c(1,2))
@@ -76,7 +76,6 @@ plot(o.mde.vegan$points)
 #plot manhattan distance
 plot(o.mdm.mass$points)
 plot(o.mdm.vegan$points)
-
 
 #Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
 vegan::stressplot(o.mde.vegan, mde)
@@ -166,7 +165,6 @@ o.pca <- pca(raw)
 x3 <- o.pca$scores[,1]
 y3 <- o.pca$scores[,2]
 
-
 #Visualisierung der Schritte im Ordinationsraum
 plot(c(y1,y2,y3)~c(x1,x2,x3), type="n", axes=T, bty="l", las=1, xlim=c(-4,4), 
      ylim=c(-4,4), xlab="Art 1", ylab="Art 2")
@@ -225,24 +223,24 @@ plot(x,y)
 #Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird
 o.ca$CA$eig[1:63]/sum(o.ca$CA$eig)
 
-#NMDS----------
-
-#Distanzmatrix als Start erzeugen
-library(MASS)
-library(vegan)
-
-mde <-vegdist(sveg,method="euclidean")
-mdm <-vegdist(sveg,method="manhattan")
-
-#Zwei verschiedene NMDS-Methoden
-set.seed(1) #macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will
-o.imds<-isoMDS(mde, k=2) # mit K = Dimensionen
-set.seed(1)
-o.mmds<-metaMDS(mde,k=3) # scheint nicht mit 2 Dimensionen zu konvergieren
-
-plot(o.imds$points)
-plot(o.mmds$points)
-
-#Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
-stressplot(o.imds,mde)
-stressplot(o.mmds,mde)
+## #NMDS----------
+## 
+## #Distanzmatrix als Start erzeugen
+## library(MASS)
+## library(vegan)
+## 
+## mde <-vegdist(sveg,method="euclidean")
+## mdm <-vegdist(sveg,method="manhattan")
+## 
+## #Zwei verschiedene NMDS-Methoden
+## set.seed(1) #macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will
+## o.imds<-isoMDS(mde, k=2) # mit K = Dimensionen
+## set.seed(1)
+## o.mmds<-metaMDS(mde,k=3) # scheint nicht mit 2 Dimensionen zu konvergieren
+## 
+## plot(o.imds$points)
+## plot(o.mmds$points)
+## 
+## #Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
+## stressplot(o.imds,mde)
+## stressplot(o.mmds,mde)

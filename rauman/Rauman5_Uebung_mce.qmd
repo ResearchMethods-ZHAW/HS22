@@ -46,11 +46,24 @@ library(dplyr)
 #| purl: false
 #| label: tbl-data
 #| tbl-cap: Data used in this study
+
+myurls <- c(
+    "- [dhm25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602285)",
+    "- [eis25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602288)", 
+    "- [wind25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297)", 
+    "- [Bewohnte_Flaeche.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602295)", 
+    "- [Nationale_Schutzgebiete.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602296)", 
+    "- [Seeflaechen.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602294)", 
+    "- [Strassen.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602290)", 
+    "- [Untersuchungsgebiet_Schwyz.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602293)", 
+    "- [Waldgebiete.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602291)")
+myurls <- stringr::str_match(myurls,"\\((.+)\\)")[,2]
+
 datasets %>%
   mutate(
-    datasets = kableExtra::cell_spec(datasets, "html")
+    datasets = kableExtra::cell_spec(datasets, "html", link = myurls)
   ) %>%
-  kableExtra::kable(caption = "Data used in this study (click on the link to download)",escape = FALSE) %>% 
+  kableExtra::kable(caption = "Data used in this study (click on the link to download)", escape = FALSE) %>% 
   kable_styling(latex_options=c("scale_down", "HOLD_position"))
 ```
 

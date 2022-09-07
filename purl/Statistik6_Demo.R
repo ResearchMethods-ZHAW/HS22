@@ -72,18 +72,18 @@ if(!require(dave)){install.packages("dave")}
 library(dave)
 data(sveg)
 
-str(sveg)
-summary(sveg)
-names(sveg)
+## str(sveg)
+## summary(sveg)
+## names(sveg)
 
 # PCA: Deckungen Wurzeltransformiert, cor=T erzwingt Nutzung der Korrelationsmatrix
 pca.5 <- pca(sveg^0.25, cor = T)
 
-# Koordinaten im Ordinationsraum
-pca.5$scores
-
-# Korrelationen der Variablen mit den Ordinationsachsen
-pca.5$loadings
+## # Koordinaten im Ordinationsraum
+## pca.5$scores
+## 
+## # Korrelationen der Variablen mit den Ordinationsachsen
+## pca.5$loadings
 
 # Erklärte Varianz der Achsen in Prozent (sdev ist die Wurzel daraus)
 E <- pca.5$sdev^2 / pca.5$totdev * 100

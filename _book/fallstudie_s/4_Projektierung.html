@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.36">
+<meta name="generator" content="quarto-1.0.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -1192,74 +1192,79 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ladet nun also die benoetigten Bibliotheken.</span>
 <span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Allenfalls muessen diese zuerst mit _install.packages("NAME")_ installiert werden.</span>
 <span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Benoetigte Bibliotheken ####</span></span>
-<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)            <span class="co"># Data wrangling und piping</span></span>
-<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)            <span class="co"># Arbeiten mit Datumsformaten</span></span>
-<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)           <span class="co"># schnelles Dateneinlesen</span></span>
-<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)               <span class="co"># to arrange multiple plots in one graph</span></span>
-<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PerformanceAnalytics) <span class="co"># Plotte Korrelationsmatrix</span></span>
-<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)                <span class="co"># Multi-Model Inference</span></span>
-<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AICcmodavg)           <span class="co"># Modellaverageing</span></span>
-<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)         <span class="co"># Prueft die Verteilung in Daten</span></span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)                 <span class="co"># Multivariate Modelle</span></span>
-<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(blmeco)               <span class="co"># Bayesian data analysis using linear models</span></span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)               <span class="co"># Plotten von Modellergebnissen (tab_model)</span></span>
-<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)              <span class="co"># einfaches plotten von Zusammenhängen zwischen Variablen</span></span>
-<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aufgabe 3: Zeitliche Definitionen</span></span>
-<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Definiert den zeitlichen Horizont, also Start sowie Ende der Untersuchungen. Bezieht in eure Auswertungen den gesamten verfügbaren Zeitraum ein.</span>
-<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>Dafür müsst ihr in die Rohdaten eures Zählers schauen. Am einfachsten direkt in der .csv Datei.</span>
-<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>depo_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"YYYY-MM-DD"</span>)</span>
-<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>depo_end <span class="ot">&lt;-</span> ...</span>
-<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>Wichtiger Teil unserer Auswertungen ist der Einfluss des Lockdown auf das Besuchsverhalten. </span>
-<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>-Wir müssen also Start und Ende der beiden Lockdowns in der Schweiz definieren:</span>
-<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>lock_1_start_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-03-16"</span>)</span>
-<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>lock_1_end_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-05-11"</span>)</span>
-<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>lock_2_start_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-12-22"</span>)</span>
-<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>lock_2_end_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-03-01"</span>)</span>
-<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>Ebenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden. Diese werden bei wochenweisen Analysen ausgeklammert da sie i.d.R. unvollstaendig sind (das ist ein späterer Arbeitsschritt). Geht wie oben vor. Tipp: der Befehl __week()__ liefert euch die Kalenderwoche.</span>
-<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>Ferienzeiten können einen grossen Einfluss auf das Besucheraufkommen haben. Die relevanten Ferienzeiträume (in meinem Beispiel ab 2019, je nach dem müsst ihr das anpassen) muüsen daher bekannt sein. Zur Definition der Ferien kann z.B. folgend vorgegangen werden:</span>
-<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r warning=FALSE, results="hide"}</span></span>
-<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a><span class="co"># (https://www.schulferien.org/schweiz/ferien/2020/)</span></span>
-<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-04-13"</span>)</span>
-<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-04-28"</span>)</span>
-<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>Sommerferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-07-6"</span>)</span>
-<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>Sommerferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-08-18"</span>)</span>
-<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>Herbstferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-10-05"</span>)</span>
-<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>Herbstferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-10-20"</span>)</span>
-<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a>Winterferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-12-21"</span>)</span>
-<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a>Winterferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-01-02"</span>)</span>
-<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-04-11"</span>)</span>
-<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-04-26"</span>)</span>
-<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>Sommerferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-07-11"</span>)</span>
-<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>Sommerferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-08-16"</span>)</span>
-<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a>Herbstferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-10-03"</span>)</span>
-<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>Herbstferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-10-18"</span>)</span>
-<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>Winterferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-12-19"</span>)</span>
-<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>Winterferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-01-03"</span>)</span>
-<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2021_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-04-24"</span>)</span>
-<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2021_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-05-09"</span>)</span>
-<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>Sommerferien_2021_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-07-17"</span>)</span>
-<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>__Nun sind alle Vorbereitungen gemacht, die Projektstruktur aufgebaut und die eigentliche Arbeit kann beginnen.__</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Benoetigte Bibliotheken ####</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)            <span class="co"># Data wrangling und piping</span></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)            <span class="co"># Arbeiten mit Datumsformaten</span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)           <span class="co"># schnelles Dateneinlesen</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)               <span class="co"># to arrange multiple plots in one graph</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PerformanceAnalytics) <span class="co"># Plotte Korrelationsmatrix</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)                <span class="co"># Multi-Model Inference</span></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AICcmodavg)           <span class="co"># Modellaverageing</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)         <span class="co"># Prueft die Verteilung in Daten</span></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)                 <span class="co"># Multivariate Modelle</span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(blmeco)               <span class="co"># Bayesian data analysis using linear models</span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)               <span class="co"># Plotten von Modellergebnissen (tab_model)</span></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)              <span class="co"># einfaches plotten von Zusammenhängen zwischen Variablen</span></span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aufgabe 3: Zeitliche Definitionen</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Definiert den zeitlichen Horizont, also Start sowie Ende der Untersuchungen. Bezieht in eure Auswertungen den gesamten verfügbaren Zeitraum ein.</span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>Dafür müsst ihr in die Rohdaten eures Zählers schauen. Am einfachsten direkt in der .csv Datei.</span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>depo_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"YYYY-MM-DD"</span>)</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>depo_end <span class="ot">&lt;-</span> ...</span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>Wichtiger Teil unserer Auswertungen ist der Einfluss des Lockdown auf das Besuchsverhalten. </span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>-Wir müssen also Start und Ende der beiden Lockdowns in der Schweiz definieren:</span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>lock_1_start_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-03-16"</span>)</span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>lock_1_end_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-05-11"</span>)</span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>lock_2_start_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-12-22"</span>)</span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>lock_2_end_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-03-01"</span>)</span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>Ebenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden. Diese werden bei wochenweisen Analysen ausgeklammert da sie i.d.R. unvollstaendig sind (das ist ein späterer Arbeitsschritt). Geht wie oben vor. Tipp: der Befehl __week()__ liefert euch die Kalenderwoche.</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>Ferienzeiten können einen grossen Einfluss auf das Besucheraufkommen haben. Die relevanten Ferienzeiträume (in meinem Beispiel ab 2019, je nach dem müsst ihr das anpassen) muüsen daher bekannt sein. Zur Definition der Ferien kann z.B. folgend vorgegangen werden:</span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: hide</span></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a><span class="co"># (https://www.schulferien.org/schweiz/ferien/2020/)</span></span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-04-13"</span>)</span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-04-28"</span>)</span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>Sommerferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-07-6"</span>)</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>Sommerferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-08-18"</span>)</span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a>Herbstferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-10-05"</span>)</span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>Herbstferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-10-20"</span>)</span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>Winterferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-12-21"</span>)</span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>Winterferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-01-02"</span>)</span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-04-11"</span>)</span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-04-26"</span>)</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>Sommerferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-07-11"</span>)</span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a>Sommerferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-08-16"</span>)</span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>Herbstferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-10-03"</span>)</span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>Herbstferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-10-18"</span>)</span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>Winterferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-12-19"</span>)</span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a>Winterferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-01-03"</span>)</span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2021_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-04-24"</span>)</span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2021_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-05-09"</span>)</span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>Sommerferien_2021_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-07-17"</span>)</span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>__Nun sind alle Vorbereitungen gemacht, die Projektstruktur aufgebaut und die eigentliche Arbeit kann beginnen.__</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -2,9 +2,9 @@ if(!require(dave)){install.packages("dave")}
 library(dave)
 data(sveg)
 data(ssit)
-summary(sveg)
-summary(ssit)
-str(ssit)
+## summary(sveg)
+## summary(ssit)
+## str(ssit)
 # x.axis and y.axis vom data frame data frame ssit entfernen
 env2 <- ssit[, -c(19, 20)]
 
@@ -23,7 +23,7 @@ spe.hel <- decostand(sveg, "hellinger")
 ## RDA der Hellinger-transformireten Moorarten-Daten, constrained
 ## mit allen Umweltvarialben die in env2 enthalten sind
 (spe.rda <- rda(spe.hel ~ ., env2)) # Observe the shortcut formula
-summary(spe.rda)	# Skalierung 2 (default)
+## summary(spe.rda)	# Skalierung 2 (default)
 # Canonical coefficients from the rda object
 coef(spe.rda)
 # Unadjusted R^2 retrieved from the rda object
@@ -52,7 +52,6 @@ arrows(0, 0, spe.sc2[, 1] * 0.92, spe.sc2[, 2] * 0.92,length = 0,
        lty = 1,col = "red")
 text(-0.82, 0.55, "b", cex = 1.5)
 
-
 ## Triplots of the rda results (wa scores)
 ## Site scores as weighted averages (vegan's default)
 # Scaling 1 :  distance triplot
@@ -62,51 +61,51 @@ dev.new(title = "RDA scaling 2 + wa",width = 7, height = 6, noRStudioGD = TRUE)
 plot(spe.rda, main = "Triplot RDA spe.hel ~ env3 - scaling 2 - wa scores")
 arrows(0, 0, spe.sc2[, 1] * 0.92, spe.sc2[, 2] * 0.92, length = 0, lty = 1, col = "red")
 
-# Select species with goodness-of-fit at least 0.6 in the 
-# ordination plane formed by axes 1 and 2
-spe.good <- goodness(spe.rda)
-sel.sp <- which(spe.good[, 2] >= 0.6)
-sel.sp
+## # Select species with goodness-of-fit at least 0.6 in the
+## # ordination plane formed by axes 1 and 2
+## spe.good <- goodness(spe.rda)
+## sel.sp <- which(spe.good[, 2] >= 0.6)
+## sel.sp
+## 
+## # Triplots with homemade function triplot.rda()
+## source("triplot.rda.R")
+## 
+## dev.new(title = "RDA plot with triplot.rda", width = 7, height = 6, noRStudioGD = TRUE)
+## 
+## triplot.rda(spe.rda, site.sc = "lc", cex.char2 = 0.7, pos.env = 3,
+##             pos.centr = 1, mult.arrow = 1.1, mar.percent = 0.05, select.spe = sel.sp)
+## 
+## 
+## # Global test of the RDA result
+## anova(spe.rda, permutations = how(nperm = 999))
+## # Tests of all canonical axes
+## anova(spe.rda, permutations = how(nperm = 999))
+## anova(spe.rda, by = "axis", permutations = how(nperm = 999))
 
-# Triplots with homemade function triplot.rda()
-source("triplot.rda.R")
-
-dev.new(title = "RDA plot with triplot.rda", width = 7, height = 6, noRStudioGD = TRUE)
-
-triplot.rda(spe.rda, site.sc = "lc", cex.char2 = 0.7, pos.env = 3, 
-            pos.centr = 1, mult.arrow = 1.1, mar.percent = 0.05, select.spe = sel.sp)
-
-
-# Global test of the RDA result
-anova(spe.rda, permutations = how(nperm = 999))
-# Tests of all canonical axes
-anova(spe.rda, permutations = how(nperm = 999))
-anova(spe.rda, by = "axis", permutations = how(nperm = 999))
-
-spechem.physio <- rda(spe.hel, envchem, envtopo)
-summary(spechem.physio)
-
-# Formula interface; X and W variables must be in the same 
-# data frame
-(spechem.physio2 <- 
-    rda(spe.hel ~ pH.peat + log.ash.perc + Ca_peat + Mg_peat + Na_peat
-       + K_peat + Acidity.peat + CEC.peat + Base.sat.perc + P.peat
-       + pH.water + log.cond.water + log.Ca.water
-       + Condition(Waterlev.max + Waterlev.av + Waterlev.min + log.peat.lev
-       + log.slope.deg), data = env2))
-
-# Test of the partial RDA, using the results with the formula 
-# interface to allow the tests of the axes to be run
-anova(spechem.physio2, permutations = how(nperm = 999))
-anova(spechem.physio2, permutations = how(nperm = 999), by = "axis")
-
-# Partial RDA triplots (with fitted site scores) 
-# with function triplot.rda
-dev.new(title = "Partial RDA", width = 7, height = 6, noRStudioGD = TRUE)
-
-triplot.rda(spechem.physio, site.sc = "lc", scaling = 2, 
-            cex.char2 = 0.8, pos.env = 3, mult.spe = 1.1, mar.percent = 0.04)
-text(-3.34, 3.64, "b", cex = 2)
+## spechem.physio <- rda(spe.hel, envchem, envtopo)
+## summary(spechem.physio)
+## 
+## # Formula interface; X and W variables must be in the same
+## # data frame
+## (spechem.physio2 <-
+##     rda(spe.hel ~ pH.peat + log.ash.perc + Ca_peat + Mg_peat + Na_peat
+##        + K_peat + Acidity.peat + CEC.peat + Base.sat.perc + P.peat
+##        + pH.water + log.cond.water + log.Ca.water
+##        + Condition(Waterlev.max + Waterlev.av + Waterlev.min + log.peat.lev
+##        + log.slope.deg), data = env2))
+## 
+## # Test of the partial RDA, using the results with the formula
+## # interface to allow the tests of the axes to be run
+## anova(spechem.physio2, permutations = how(nperm = 999))
+## anova(spechem.physio2, permutations = how(nperm = 999), by = "axis")
+## 
+## # Partial RDA triplots (with fitted site scores)
+## # with function triplot.rda
+## dev.new(title = "Partial RDA", width = 7, height = 6, noRStudioGD = TRUE)
+## 
+## triplot.rda(spechem.physio, site.sc = "lc", scaling = 2,
+##             cex.char2 = 0.8, pos.env = 3, mult.spe = 1.1, mar.percent = 0.04)
+## text(-3.34, 3.64, "b", cex = 2)
 
 ## 1. Variation partitioning with all explanatory variables
 (spe.part.all <- varpart(spe.hel, envchem, envtopo))
