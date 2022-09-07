@@ -1,32 +1,14 @@
----
-title: "Anleitungen für Admins"
-description: |
-  Im Kurs Research Methods verwenden wir seit einigen Jahren RMarkdown um die R Unterlagen für die Studenten bereit zu stellen. Diese Anleitung soll alle nötigen Informationen für "Admins" zur Verfügung stellen, damit dieser Prozess möglichst reibungslos abläuft. 
-  Die Anleitung besteht aus einer Kurzen Einführung in die Verwendeten Tools ("distill" und "renv") sowie drei Anleitungen (1. Software aufsetzen, 2. Projekt aufsetzen, 3. Inhalte editieren und veröffentlichen)
----
 
-## Allgemeines
 
-Der Workflow in Kürze:
+## Abstract
 
-```{mermaid}
-graph TD
-    subgraph You on YOUR computer 
-    A["pull the changes from your remote branch -- which has to be even to the master"]
-    B["edit your Rmd"]
-    C["knit your Rmd"]
-    D["add + commit you local changes"]
-    E["push your changes to it's remote counterpart"]
-    F["make a pull request -- comparing remote of yours to the remote master"]
-    G["merge to the master, if no conflicts arise"]
-    A-->B-->C-->D-->E-->F-->G
-    end
-    subgraph Github on the server
-    I["'builds' the page"]
-    J["pushes the changes to the 'gh-pages'-branch"]
-    G--> I -->J
-    end
-``` 
+Im Kurs Research Methods verwenden wir seit einigen Jahren RMarkdown um die R Unterlagen für die Studenten bereit zu stellen. 
+
+Seit HS2020 arbeiten wir mit Quarto, der Nachfolger von Rmarkdown. Am besten Nils und Dominik machen mit euch eine kleine Einführung dazu. Die Slides sind hier zu finden: <https://researchmethods-zhaw.github.io/Intro-for-Authors/>
+
+
+
+
 
 ## Anleitung 1: Software Aufsetzen
 
@@ -66,7 +48,7 @@ Nach der Installation muss git konfiguriert werden. Siehe dazu folgende Kapitel:
 
 ### Repo Klonen
 
-Um die ganzen \*.Rmd Files lokal bearbeiten zu können, muss das Repository geklont werden. Mit RStudio ist dies sehr einfach, siehe dazu nachstehende Anleitung. Als Repo-URL folgendes einfügen: `https://github.com/ResearchMethods-ZHAW/HS21.git`
+Um die ganzen \*.Rmd Files lokal bearbeiten zu können, muss das Repository geklont werden. Mit RStudio ist dies sehr einfach, siehe dazu nachstehende Anleitung. Als Repo-URL folgendes einfügen: `https://github.com/ResearchMethods-ZHAW/HS22.git`
 
 -   [happygitwithr: New RStudio Project via git clone](https://happygitwithr.com/new-github-first.html#new-rstudio-project-via-git)
 
@@ -76,45 +58,20 @@ Um das Github repo als standart "upstream" zu setzen muss man im Terminal nachst
 
     git branch -u origin/main
 
-### Notwendige Packages installieren
-
-Wie bereits erwähnt, verwenden wir im Projekt `renv`.
-
--   Installiere dieses Package mit `install.packages("renv")`
--   Installiere alle notwendigen Packages mit `renv::restore()`
-
-Wichtig: Es hat sich herausgestellt, das die Vereinigungsmenge aller Packages eine unhandlich grosse Liste von Packages ist: Damit nicht alle Personen alle Packages installieren müssen, verwenden wir `renv` mit der Einstellung `snapshot.type: explicit`. Damit werden in `renv.lock` nur Packages inkludiert, welche in `DESCRIPTION` festgehalten sind.
-
-Zudem haben wir die RVersion Manuell gesetzt, und zwar via `r.version: 4.1.0`
-
-Weitere infos zu `renv` für Kollaboration: [Collaborating with renv](https://rstudio.github.io/renv/articles/collaborating.html)
 
 ## Anleitung 3: Inhalte Editieren und veröffentlichen
 
-```{r}
-#| echo: false
-di <- list.dirs(recursive = FALSE,full.names = F)
-di <- di[startsWith(di, "_")]
-aufzaehlung <- function(vec, word = "und"){paste(paste(head(vec,-1), collapse = ", "),word,tail(vec,1))}
 
-```
+### Qmd erstellen
 
--   Eine `distill` Webseite besteht aus einzelnen .Rmd Files
--   **Pro Rmd-File exisitert ein eigener Ordner im Projekt**
--   Diese Rmd fiels werden beim Kompilieren (`knìt`) in .html-Files konvertiert
--   Um daraus eine zusammenhängende Website zu machen ist das File `_site.yml` verantwortlich.
+Die meisten Inhalte exisitieren bereits und ihr müsst sie nur noch anpassen. Falls ihr aber ein neues .Qmd File erstellen möchtet, müsst ihr einen Unterordner in einem der Ordner erstellen. 
 
-### Rmd erstellen
 
-Die meisten Inhalte exisitieren bereits und ihr müsst sie nur noch anpassen. Falls ihr aber ein neues .Rmd File erstellen möchtet, müsst ihr einen Unterordner in einem der Ordner `r aufzaehlung(di, "oder")` erstellen. Der Name des Unterordners bestimmt einerseits den URL des Beitrags und andererseits die Position der Erscheinung in der "Listing".
+### Qmd editieren
 
-Fügt dem Artikel danach einen YAML header hinzu. Nutzt dazu am besten die Vorlage eines ähnlichen Artikels.
+Um Inhalte zu editieren, öffnet ihr das entsprechende .Rmd file in einem der Ordner `prepro`, `infovis`, `rauman` usw.. Ihr könnt dieses File wie ein reguläres, eigenständiges .Qmd File handhaben. **Wichtig**: Alle Pfade im Dokument sind relativ zum Project zu verstehen: **Das Working directory ist der Project folder!!**.
 
-### Rmd editieren
-
-Um Inhalte zu editieren, öffnet ihr das entsprechende .Rmd file in einem der Ordner `r aufzaehlung(di, "oder")`. Ihr könnt dieses File wie ein reguläres, eigenständiges .Rmd File handhaben. Wichtig: Alle Pfade im Dokument sind *relativ* zum .Rmd File zu verstehen: **Das Working directory ist der Folder des entsprechenden Rmd Files!!**.
-
-### Rmd Kompilieren
+### Qmd Kompilieren
 
 Um das Rmd in Html zu konvertieren ("Kompilieren") klickt ihr auf "Knit" oder nutzt die Tastenkombination `Ctr + Shift + K`.
 
@@ -133,30 +90,3 @@ Um die Änderungen zu veröffentlichen (für die Studenten sichtbar zu machen) m
 -   Eure Beitrag werden in einem html file gespeichert, welches gleich heisst wie euer Rmd file (aber eben mit der html Erweiterung)
 -   Das "builden" der site passiert nach jedem Push via einer github action
 
-## Anleitung 4 (Fortgeschritten): Listings editieren und veröffentlichen
-
-*(dieser Teil ist eher "advanced" und nicht für alle Interessant)*
-
-`distill` verfügt über die Möglichkeit, sogenannte "Collections" zu machen. Eine *collection* ist eine Sammlung von .Rmd files zu einem bestimmten Thema, für welche automatisch eine Übersichtsseite (sog. "Listing") erstellt wird.
-
-Um eine *collection* zu erstellen:
-
-1.  neuer Ordner mit entsprechendem Namen und vorangestelltem Underscore (`_`) im Projektordner erstellen (z.b. `r di[1]`)
-2.  neues Rmd-File mit einem passenden Namen im Projektordner erstellen (z.B. `infoVis.Rmd`)
-3.  das neue Rmd File mit einem Rmd-YAML Header verstehen mit mindestens folgendem Inhalt: `title` und `listing` (siehe unten)
-
-<!-- -->
-
-    ---
-    title: "InfoVis"      # <- der title kann selbst gewählt werden
-    listing: infovis      # <- hier kommt der ordnername der "collection" ohne Underscore
-    ---
-
-4.  die Listing in `_site.yml` zugänglich machen:
-
-<!-- -->
-
-    navbar:
-      right:
-        - text: "InfoVis1"     # <- der Text kann frei gewählt werden
-          href: InfoVis.html   # <- hier kommt der Name des Rmd files mit der Endung .html

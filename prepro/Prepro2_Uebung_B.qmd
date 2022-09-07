@@ -31,9 +31,9 @@ Gegeben sind die Daten von drei Sensoren ([sensor1.csv](https://moodle.zhaw.ch/m
 #| message: false
 # Lösung Aufgabe 1
 
-sensor1 <- read_delim(here("data","sensor1.csv"),";")
-sensor2 <- read_delim(here("data","sensor2.csv"),";")
-sensor3 <- read_delim(here("data","sensor3.csv"),";")
+sensor1 <- read_delim("data/sensor1.csv",";")
+sensor2 <- read_delim("data/sensor2.csv",";")
+sensor3 <- read_delim("data/sensor3.csv",";")
 ```
 
 ## Aufgabe 2
@@ -62,7 +62,7 @@ Importiere die Datei [sensor_1_fail.csv](https://moodle.zhaw.ch/mod/resource/vie
 
 ```{r}
 #| message: false
-sensor_fail <- read_delim(here("data","sensor_fail.csv"), delim = ";")
+sensor_fail <- read_delim("data/sensor_fail.csv", delim = ";")
 ```
 
 `sensor_fail.csv` hat eine Variabel `SensorStatus`: `1` bedeutet der Sensor misst, `0` bedeutet der Sensor miss nicht. Fälschlicherweise wurde auch dann der Messwert `Temp = 0` erfasst, wenn `Sensorstatus = 0`. Richtig wäre hier `NA` (not available). Korrigiere den Datensatz entsprechend.

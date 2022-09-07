@@ -7,7 +7,6 @@ index: 1
 
 # Rauman 1: Übung A
 
-{{< include /../_before-article.qmd >}}
 
 Es gibt bereits eine Vielzahl von Packages um in R mit räumlichen Daten zu arbeiten, die ihrerseits wiederum auf weiteren Packages basieren (Stichwort `dependencies`). Für *Vektordaten* dominierte lange das Package [`sp`](https://cran.r-project.org/package=sp), welches nun durch [`sf`](https://r-spatial.github.io/sf/) abgelöst wurde. Wir werden wenn immer möglich mit `sf` arbeiten und nur in Ausnahmefällen auf andere Packages zurück greifen.
 
@@ -33,8 +32,8 @@ Es handelt sich um Geodatensätze im Format Geopackage ("\*.gpkg"), eine alterna
 
 ```{r}
 #| echo: true
-kantone <- read_sf(here("data","kantone.gpkg"))
-gemeinden <- read_sf(here("data","gemeinden.gpkg")) 
+kantone <- read_sf("data/kantone.gpkg")
+gemeinden <- read_sf("data/gemeinden.gpkg") 
 ```
 
 Schau Dir die importierten Datensätze an. Am meisten Informationen zu `sf` Objekten bekommst du, wenn du dir den Datensatz **in der Konsole** anschaust (in dem du den Variabel-Name in der Konsole eintippst). Mit dem RStudio Viewer werden `sf` Objekte nur sehr langsam geladen und die Metadaten werden nicht angezeigt.

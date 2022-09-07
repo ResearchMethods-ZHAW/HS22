@@ -1,5 +1,5 @@
 # Aus der Excel-Tabelle wurde das relevante Arbeitsblatt als csv gespeichert
-ukraine <- read.delim(here("data","Ukraine_bearbeitet.csv"), sep = ",")
+ukraine <- read.delim("data/Ukraine_bearbeitet.csv", sep = ",")
 
 ## ukraine
 

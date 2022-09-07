@@ -7,7 +7,6 @@ index: 2
 
 # Rauman 2: Übung B
 
-{{< include /../_before-article.qmd >}}
 
 ```{r}
 #| echo: false
@@ -31,8 +30,8 @@ Weiter benötigt ihr die nachstehenden Datensätze:
 ```{r}
 #| echo: true
 #| results: asis
-luftqualitaet <- read_sf(here("data","luftqualitaet.gpkg"))
-schweiz <- read_sf(here("data","schweiz.gpkg")) 
+luftqualitaet <- read_sf("data/luftqualitaet.gpkg")
+schweiz <- read_sf("data/schweiz.gpkg") 
 ```
 
 Die Library `gstat` bietet verschiedene Möglichkeiten, Datenpunkte zu interpolieren, unter anderem auch die *inverse distance weighted* Methode. Leider ist das Package noch nicht so benutzerfreundlich wie `sf`: Das Package wird aber aktuell überarbeitet und in mittlerer Zukunft sollte es ebenso einfach  zugänglich sein. Damit Ihr Euch nicht mit den Eigenheiten dieser Library umschlagen müsst, haben wir eine Function vorbereitet, die Euch die Verwendung der IDW-Interpolation erleichtern soll.
@@ -121,7 +120,7 @@ lapply(1:4, function(idp){
 }) %>%
   cowplot::plot_grid(plotlist = .)
 
-ggsave(here("rauman/images","idw.png"), height = 18, width = 20, units = "cm")
+ggsave("rauman/images/idw.png", height = 18, width = 20, units = "cm")
 
 ```
 :::

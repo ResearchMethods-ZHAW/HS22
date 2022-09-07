@@ -1,4 +1,4 @@
-polis <- read.csv(here("data","polis.csv"))
+polis <- read.csv("data/polis.csv")
 polis
 
 str(polis)

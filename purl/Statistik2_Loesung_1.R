@@ -1,4 +1,4 @@
-SAR <- read.delim(here("data","SAR.csv"), sep = ";")
+SAR <- read.delim("data/SAR.csv", sep = ";")
 
 ## SAR
 

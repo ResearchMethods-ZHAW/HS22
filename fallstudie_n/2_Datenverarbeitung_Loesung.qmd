@@ -1,6 +1,5 @@
 # 2. Lösung
 
-{{< include /../_before-article.qmd >}}
 
 ```{r}
 #| label: setup
@@ -76,34 +75,34 @@ Herunterladen der Daten der Feldaufnahme von Moodle, Einlesen, Sichtung der Date
 # Die Datensätze aller Teams müssen erst noch in CSVs umgewandelt werden, bevor sie 
 # eingelesen werden können 
 
-df_team1 <- read_delim(here("data","Felderhebung Waldstruktur_TEAM_1_türkis.csv"), 
+df_team1 <- read_delim("data/Felderhebung Waldstruktur_TEAM_1_türkis.csv", 
                        delim = ";")
 
-df_team2 <- read_delim(here("data","Felderhebung_Team_2.csv"), delim = ";")
+df_team2 <- read_delim("data/Felderhebung_Team_2.csv", delim = ";")
 # Achtung! Beim Datensatz des Teams 2 ist eine zusätzliche Zeile eingefügt, die
 # das Einlesen erschwert. --> löschen
 # Ausserdem gibt es bei den Zeilen DG Rubus, DG Strauchschicht und DG Baumschicht ein  
 # Problem mit dem Datentyp resp. den Zahlen. 
 # --> manuell in Excel , suchen und mit . ersetzen
 
-df_team3 <- read_delim(here("data","ReMe_Felderhebung_Gruppe3.csv"), delim = ",")
+df_team3 <- read_delim("data/ReMe_Felderhebung_Gruppe3.csv", delim = ",")
 # Achtung! Hier ist beim Einlesen etwas falsch gelaufen. --> "," statt ";"
 
-df_team4 <- read_delim(here("data","Felderhebung_Waldstruktur_Team_4.csv"), 
+df_team4 <- read_delim("data/Felderhebung_Waldstruktur_Team_4.csv", 
                        delim = ";")
 
-df_team5 <- read_delim(here("data","Felderhebung_Waldstruktur_Team5.csv"), 
+df_team5 <- read_delim("data/Felderhebung_Waldstruktur_Team5.csv", 
                        delim = ";")
 # Achtung! Beim Umwandeln in das CSV muss hier die Titelzeile entfernt werden damit
 # das Einlesen reibungslos funktioniert
 
-df_team6 <- read_delim(here("data","Aufnahmen_Landforst_HS21_Gruppe_6.csv"), 
+df_team6 <- read_delim("data/Aufnahmen_Landforst_HS21_Gruppe_6.csv", 
                        delim = ";")
 
 # hier können die Probekreise mit den Angaben zur Anzahl Rehlokalisationen und der 
 # LIDAR-basierten Ableitung der Waldstruktur eingelesen werden
 
-df_reh <- read_delim(here("data","Aufgabe3_Reh_Waldstruktur_211014.csv"), delim = ";")
+df_reh <- read_delim("data/Aufgabe3_Reh_Waldstruktur_211014.csv", delim = ";")
 str(df_reh)
 
 # Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz  
@@ -206,5 +205,5 @@ Scatterplot der korrespondondierenden Umweltvariablen aus den Felderhebungen geg
 ggplot(df_with_LIDAR, aes(DG_us, DG_Strauchschicht, color = team)) + geom_point() + 
   stat_smooth(method = "lm")
 
-write_delim(df_with_LIDAR, here("data","df_with_lidar.csv"), delim = ";")
+write_delim(df_with_LIDAR, "data/df_with_lidar.csv", delim = ";")
 ```

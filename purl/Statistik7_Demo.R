@@ -67,7 +67,7 @@ ordisurf(imds, ssit$Waterlev.av, add = T, col = "blue")
 
 ## Datensatz Doubs
 ## Doubs Datensatz in den workspace laden
-load(here("data","Doubs.RData"))  
+load("data/Doubs.RData")  
 
 ## summary(spe)
 ## summary(env)

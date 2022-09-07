@@ -1,4 +1,4 @@
-compensation <- read.delim(here("data","ipomopsis.csv"), sep = ",", stringsAsFactors = T)
+compensation <- read.delim("data/ipomopsis.csv", sep = ",", stringsAsFactors = T)
 
 summary(compensation)
 
@@ -84,7 +84,7 @@ plot(lm.quad)
 ## yv <- predict(lm.5, list(x = xv))
 ## lines(xv, yv, col = "black", lwd = 3)
 
-loyn <- read.delim(here("data","loyn.csv"), sep = ",")
+loyn <- read.delim("data/loyn.csv", sep = ",")
 summary(loyn)
 
 cor <- cor(loyn[, 2:7])
