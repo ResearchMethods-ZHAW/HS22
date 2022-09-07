@@ -85,7 +85,6 @@ weather <- read_csv("data/weather.csv", col_types = cols(col_factor(), col_datet
 Erstelle nun eine *convenience* Variabel für die Kalenderwoche pro Messung (`lubridate::isoweek`). Berechne im Anschluss den mittleren Temperaturwert pro Kalenderwoche.
 
 ```{r}
-#| message: false
 weather_summary <- weather %>%
   mutate(week = isoweek(time)) %>%
   group_by(week) %>%
@@ -106,6 +105,7 @@ plot(weather_summary$week, weather_summary$temp_mean, type = "l")
 In der vorherigen Aufgabe haben wir die mittlere Temperatur pro Kalenderwoche über *alle Jahre* (2000 und 2001) berechnet. Wenn wir die Jahre aber miteinander vergleichen wollen, müssen wir das Jahr als zusätzliche *convenience* Variabel erstellen und danach gruppieren. Versuche dies mit den Wetterdaten und visualisiere den Output anschliessend.
 
 ```{r}
+#| message: false
 weather_summary2 <- weather %>%
   mutate(
     week = week(time),
