@@ -7,14 +7,13 @@ index: 2
 
 # Infovis 2: Übung A
 
-
 ```{r}
 #| echo: false
 #| purl: false
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Für die heutige Übung brauchst du den Datensatz [temperature_2005.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/infovis/temperature_2005.csv). Dabei handelt es sich wieder um Teperaturwerte verschiedener Stationen, diesmal aus dem Jahr 2005. Das Datum ist so formatiert, dass `R` (isbesondere `read_csv`) es korrekt als `datetime` erkennen und als `POSIXct` einlesen sollte.
+Für die heutige Übung brauchst du den Datensatz [temperature_2005.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602268). Dabei handelt es sich wieder um Teperaturwerte verschiedener Stationen, diesmal aus dem Jahr 2005. Das Datum ist so formatiert, dass `R` (isbesondere `read_csv`) es korrekt als `datetime` erkennen und als `POSIXct` einlesen sollte.
 
 ```{r}
 #| message: false
@@ -41,7 +40,7 @@ temperature_long <- pivot_longer(temperature, -time, names_to = "station", value
 knitr::kable(head(temperature_long))
 ```
 
-Lade anschliessend [temperature_2005_metadata.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/infovis/temperature_2005_metadata.csv) herunter und verbinde die beiden Datensätze mit einem `left_join` via `station` (bzw. `stn`). 
+Lade anschliessend [temperature_2005_metadata.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602269) herunter und verbinde die beiden Datensätze mit einem `left_join` via `station` (bzw. `stn`). 
 
 ```{r}
 #| message: false

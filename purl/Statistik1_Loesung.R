@@ -1,8 +1,3 @@
-#export files
-# knitr::purl("Statistik1_Loesung.qmd", "Statistik1_Loesung.R", documentation = 0)
-
-
-
 nova <- read_delim(file = "data/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv", delim = ";")
 nova_survey <- read_delim(file = "data/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv", delim = ";")
 

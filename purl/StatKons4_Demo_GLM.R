@@ -1,8 +1,3 @@
-knitr::opts_chunk$set(echo = T, collapse=TRUE)
-
-#export files
-# knitr::purl("StatKons4_Demo_GLM.qmd", "Demo_GLM.R", documentation = 0)
-
 library(tidyverse)
 
 mytheme <- 

@@ -5,7 +5,7 @@ pca <- rda(sveg^0.25, scale = TRUE)
 ca <- cca(sveg^0.5)
 
 kmeans.1 <- kmeans(sveg, 4)
-kmeans.1
+## kmeans.1
 plot(ca, type = "n")
 points(ca, display = "sites", col = kmeans.1[[1]])
 
@@ -26,11 +26,11 @@ KM.cascade$partition
 plot(KM.cascade, sortg = TRUE)
 
 load("data/Doubs.RData")  
-# Remove empty site 8
-spe <- spe[-8, ]
-env <- env[-8, ]
-spa <- spa[-8, ]
-latlong <- latlong[-8, ]
+## # Remove empty site 8
+## spe <- spe[-8, ]
+## env <- env[-8, ]
+## spa <- spa[-8, ]
+## latlong <- latlong[-8, ]
 
 ## Hierarchical agglomerative clustering of the species abundance 
 
@@ -259,12 +259,12 @@ rect.hclust(spe.chwo, k = k)
 #   k = nb.clusters,
 #   title = paste("Reordered dendrogram from",deparse(tree$call),
 #   sep="\n"))
-source(here("stat5-8","hcoplot.R"))
+source("stat5-8/hcoplot.R")
 hcoplot(spe.ch.ward, spe.ch, lab = rownames(spe), k = 4)
 
 # Plot the Ward clusters on a map of the Doubs River
 # (see Chapter 2)
-source(here("stat5-8","drawmap.R"))
+source("stat5-8/drawmap.R")
 drawmap(xy = spa, clusters = spech.ward.g, main = "Four Ward clusters along the Doubs River")
 
 # konvertieren von "hclust" Objekt in ein Dendogram Objekt

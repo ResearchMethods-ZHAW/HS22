@@ -1,6 +1,3 @@
-#export files
-# knitr::purl("Statistik5_Loesung_2.qmd", "Statistik5_Loesung_2.R", documentation = 0)
-
 library(dplyr)
 library(readr)
 library(stringr)

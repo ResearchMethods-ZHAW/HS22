@@ -5,15 +5,13 @@ thema: Datentypen
 index: 2
 ---
 
-{{< include ../_before-article.qmd >}}
+# PrePro 1: Übung
 
 ```{r}
 #| include: false
 #| purl: false
 knitr::opts_chunk$set(echo = FALSE, include = TRUE, collapse=TRUE, warning = FALSE)
 ```
-
-# PrePro 1: Übung
 
 ## Arbeiten mit RStudio "Project"
 
@@ -120,20 +118,15 @@ df$Gewichtsklasse[df$Gewicht <= 5] <- "leicht"
 
 ## Aufgabe 4
 
-Importiere den Datensatz [weather.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro/weather.csv) (Rechtsklick -\> Speichern Unter, Quelle MeteoSchweiz). Es handelt sich dabei um die stündlich gemittelten Temperaturdaten an verschiedenen Standorten in der Schweiz. Wir empfehlen [`read_csv()`](http://r4ds.had.co.nz/data-import.html) anstelle von `read.csv()`.
+Importiere den Datensatz [weather.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602135) (Quelle MeteoSchweiz). Es handelt sich dabei um die stündlich gemittelten Temperaturdaten an verschiedenen Standorten in der Schweiz. Wir empfehlen [`read_csv()`](http://r4ds.had.co.nz/data-import.html) anstelle von `read.csv()`.
 
 Achtung! `read_csv` erwartet leicht andere inputs als `read.csv`, schaut euch die Hilfe dazu an (`?read_csv`).
-
-```{r}
-#| purl: false
-download.file("https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro/weather.csv", "weather.csv")
-```
 
 ```{r}
 #| message: false
 # Musterlösung
 
-wetter <- readr::read_csv("weather.csv")
+wetter <- readr::read_csv(here("data", "weather.csv"))
 ```
 
 ```{r}
@@ -153,11 +146,11 @@ Schau dir die Rückmeldung von `read_csv()`an. Sind die Daten korrekt interpreti
 
 ## Aufgabe 6
 
-Die Spalte `time` ist eine Datum/Zeitangabe im Format JJJJMMTTHH (siehe [meta.txt](meta.txt)). Damit R dies als Datum-/Zeitangabe erkennt, müssen wir die Spalte in einem R-Format (`POSIXct`) einlesen und dabei R mitteilen, wie sie aktuell formatiert ist. Lies die Spalte mit `as.POSIXct()` ein und spezifiziere sowohl `format` wie auch `tz`.
+Die Spalte `time` ist eine Datum/Zeitangabe im Format JJJJMMTTHH (siehe [meta.txt](https://moodle.zhaw.ch/mod/resource/view.php?id=602173)). Damit R dies als Datum-/Zeitangabe erkennt, müssen wir die Spalte in einem R-Format (`POSIXct`) einlesen und dabei R mitteilen, wie sie aktuell formatiert ist. Lies die Spalte mit `as.POSIXct()` ein und spezifiziere sowohl `format` wie auch `tz`.
 
 Tipps:
 
--   Wenn keine Zeitzone festgelegt wird, trifft `as.POSIXct()` eine Annahme (basierend auf `Sys.timezone()`). In unserem Fall handelt es sich aber um Werte in UTC (siehe [metadata.csv](https://github.com/ResearchMethods-ZHAW/datasets/raw/main/prepro/metadata.csv))
+-   Wenn keine Zeitzone festgelegt wird, trifft `as.POSIXct()` eine Annahme (basierend auf `Sys.timezone()`). In unserem Fall handelt es sich aber um Werte in UTC (siehe [metadata.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602139))
 -   `as.POSIXct`erwartet `character`: Wenn du eine Fehlermeldung hast die `'origin' must be supplied` (o.ä) heisst, hast du der Funktion vermutlich einen `Numeric` übergeben.
 
 ```{r}
@@ -210,6 +203,6 @@ p <- ggplot(wetter, aes(time, tre200h0)) +
   geom_smooth() +
   theme_minimal()
 
-ggsave("preview.png", p)
+ggsave("prepro/preview.png", p)
 ```
 

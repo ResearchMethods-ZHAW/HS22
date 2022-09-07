@@ -33,8 +33,8 @@ summary(micmen.3)
 asym.model <- nls(Species.richness~SSasympOrig(Area, Asym, lrc), data = curonian)
 summary(asym.model)
 
-logistic.model <- nls(Species.richness~SSlogis(Area, asym, xmid, scal), data = curonian)
-summary(logistic.model)
+## logistic.model <- nls(Species.richness~SSlogis(Area, asym, xmid, scal), data = curonian)
+## summary(logistic.model)
 
 logistic.model.2 <- nls(Species.richness~asym/(1 + exp((xmid-Area) / scal)), 
                       control = nls.control(maxiter = 100), 

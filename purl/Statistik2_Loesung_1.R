@@ -1,6 +1,6 @@
 SAR <- read.delim("data/SAR.csv", sep = ";")
 
-SAR
+## SAR
 
 summary(SAR)
 boxplot(SAR$area) # extrem rechtsschief
