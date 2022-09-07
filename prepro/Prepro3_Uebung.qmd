@@ -85,6 +85,7 @@ weather <- read_csv("data/weather.csv", col_types = cols(col_factor(), col_datet
 Erstelle nun eine *convenience* Variabel für die Kalenderwoche pro Messung (`lubridate::isoweek`). Berechne im Anschluss den mittleren Temperaturwert pro Kalenderwoche.
 
 ```{r}
+#| message: false
 weather_summary <- weather %>%
   mutate(week = isoweek(time)) %>%
   group_by(week) %>%
