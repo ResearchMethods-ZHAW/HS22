@@ -34,6 +34,7 @@ library(readr)
 library(stringr)
 library(ggfortify)
 library(lme4)
+library(ggplot2)
 
 nova <- read_delim("data/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv", delim = ";", locale = locale(encoding = "UTF-8"))
 
@@ -55,7 +56,7 @@ mytheme <-
 df <- nova # kopiert originaler Datensatz
 
 # Genereiert eine Dummyvariable: Fleisch 1, kein Fleisch 0
-df %>%
+df <- df %>%
   # entfernt Personen die sich ein Buffet Teller gekauft
   filter(label_content != "Hot and Cold") %>%
   # ihr könnt keine Angabe vernachlässigen, sind (nur) 54 Personen
@@ -66,7 +67,7 @@ df %>%
   # nützlich: neu Referenzkategorie Studierende (vorher Mitarbeitende)
   mutate(member = factor(.$member, levels = c("Studierende", "Mitarbeitende")))  
 
-# wie viele NA's hat es dirn (uns interessiert v.a. die responsevariable: meat)
+# wie viele NA's hat es drin (uns interessiert v.a. die responsevariable: meat)
 sum(is.na(df$meat)) #Amelia::missmap(df_)
 
 # sieht euch die Verteilung zwischen Fleisch und  kein Fleisch an, 

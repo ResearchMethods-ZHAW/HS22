@@ -13,7 +13,6 @@ Neue packages die wir für die Modelle und die Diagnostics brauchen
 #| results: hide
 #| warning: false
 #| message: false
-#| eval: false
 # neue Packages: DHARMa, car, MASS, ROCR, sjPlot, sjstats, rms, ggeffects, cowplot
 
 ipak <- function(pkg){
@@ -34,8 +33,7 @@ ipak(packages)
 #| warning: false
 #| message: false
 #| results: hide
-#| eval: false
-DF_mod_day <- read_delim("data/Datensatz_Habitatnutzung_Modelle_20191101.csv", delim = ";") %>%
+DF_mod_day <- read_delim("data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv", delim = ";") %>%
   filter(time_of_day == "day") %>%
   mutate(slope_scaled = scale(slope),
          us_scaled = scale(us),
@@ -51,7 +49,7 @@ DF_mod_day <- read_delim("data/Datensatz_Habitatnutzung_Modelle_20191101.csv", d
 
 ```{r}
 #| ridy: !expr T
-#| eval: false
+#| message: false
 # glmer(formula, data = , family = binomial)
 
 # 1) formula: 
@@ -67,7 +65,7 @@ DF_mod_day <- read_delim("data/Datensatz_Habitatnutzung_Modelle_20191101.csv", d
 
 # Verteilung der abhängigen Variable bei der Nutzungsintensität aus?
 
-ggplot(DF_mod_day, äs(nmb)) + geom_histogram()
+ggplot(DF_mod_day, aes(nmb)) + geom_histogram()
 ```
 
 - Hinsichtlich der Nutzungsintensität müssen wir die Formel erweitern:
@@ -78,7 +76,6 @@ ggplot(DF_mod_day, äs(nmb)) + geom_histogram()
 #| warning: false
 #| message: false
 #| results: hide
-#| eval: false
 # Erweiterung um einen sog. Offset-Term, der hier gebraucht wird, um für die Anzahl der GPS Lokalisationen (in der Spalte GPStot aufgeführt) zu korrigeren (eigentlich eine Skalierung der abhängigen Variable um die relative Nutzungsintensität zu modellieren) 
 
 f_count <- nmb ~
@@ -93,7 +90,7 @@ f_count <- nmb ~
 
 ### Für die Nutzungsintensität brauchen wir ein neues package (glmmTMB) um das GLMM fitten zu können. glmer kann leider mit der negativ binomial - Verteilung nicht in jedem Fall umgehen. 
 
-m <- glmmTMB(f_count, data=DF_mod_day, family = glmmTMB::nbinom2())
+m <- glmmTMB(f_count, data=DF_mod_day, family = glmmTMB::nbinom2(), na.action = "na.fail")
 
 # Das Modell in die dredge-Funktion einfügen (siehe auch unbedingt ?dredge)
 
@@ -110,7 +107,6 @@ summary(avgmodel)
 #| tidy: true
 #| warning: false
 #| message: false
-#| eval: false
 f_count <- nmb ~
   slope_scaled +
   dist_road_scaled +
@@ -166,7 +162,6 @@ check_collinearity(m_day_count)
 #| tidy: true
 #| warning: false
 #| message: false
-#| eval: false
 # Zitat B.Bokler 2013: "GLMMs are still part of the statistical frontier, and not all of the answers about how to use them are known (even by experts)"
 
 r2(m_day_count)
@@ -180,7 +175,6 @@ r2(m_day_count)
 #| fig.height: 3.0
 #| warning: false
 #| message: false
-#| eval: false
 # graphische Darstellung der gesamten Modellresultate
 
 plot_model(m_day_count,transform = NULL, show.values = TRUE, value.offset = .3)
