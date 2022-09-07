@@ -1,4 +1,4 @@
-spf <- read.delim(here("data","spf.csv"), sep = ";") 
+spf <- read.delim("data/spf.csv", sep = ";") 
 spf.aov <- aov(Reaktion~Signal * Messung + Error(VP), data = spf)
 summary(spf.aov)
 
@@ -19,7 +19,7 @@ anova(spf.lme.2)
 summary(spf.lme.1)
 summary(spf.lme.2)
 
-DeerEcervi <- read.delim(here("data","DeerEcervi.txt"), sep = "", stringsAsFactors = T)
+DeerEcervi <- read.delim("data/DeerEcervi.txt", sep = "", stringsAsFactors = T)
 
 # Anzahl Larven hier in Presence/Absence übersetzt
 DeerEcervi$Ecervi.01 <- DeerEcervi$Ecervi

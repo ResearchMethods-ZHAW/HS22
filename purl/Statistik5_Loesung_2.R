@@ -4,7 +4,7 @@ library(stringr)
 library(ggfortify)
 library(lme4)
 
-nova <- read_delim(here("data","2017_ZHAW_individual_menu_sales_NOVANIMAL.csv"), delim = ";", locale = locale(encoding = "UTF-8"))
+nova <- read_delim("data/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv", delim = ";", locale = locale(encoding = "UTF-8"))
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 mytheme <- 

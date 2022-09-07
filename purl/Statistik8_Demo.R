@@ -25,7 +25,7 @@ KM.cascade$partition
 # k-means visualisation
 plot(KM.cascade, sortg = TRUE)
 
-load(here("data","Doubs.RData"))  
+load("data/Doubs.RData")  
 ## # Remove empty site 8
 ## spe <- spe[-8, ]
 ## env <- env[-8, ]
@@ -259,12 +259,12 @@ rect.hclust(spe.chwo, k = k)
 #   k = nb.clusters,
 #   title = paste("Reordered dendrogram from",deparse(tree$call),
 #   sep="\n"))
-source(here("stat5-8","hcoplot.R"))
+source("stat5-8/hcoplot.R")
 hcoplot(spe.ch.ward, spe.ch, lab = rownames(spe), k = 4)
 
 # Plot the Ward clusters on a map of the Doubs River
 # (see Chapter 2)
-source(here("stat5-8","drawmap.R"))
+source("stat5-8/drawmap.R")
 drawmap(xy = spa, clusters = spech.ward.g, main = "Four Ward clusters along the Doubs River")
 
 # konvertieren von "hclust" Objekt in ein Dendogram Objekt

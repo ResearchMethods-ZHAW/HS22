@@ -130,7 +130,7 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
 # https://cran.r-project.org/web/packages/ggsignif/vignettes/intro.html
 
 ## ladet die nötigen Packete und die novanimal.csv Datei in R
-nova <- read_delim(here("data","2017_ZHAW_individual_menu_sales_NOVANIMAL.csv"), delim = ";")
+nova <- read_delim("data/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv", delim = ";")
 
 #if not loaded above, load it here
 # ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
