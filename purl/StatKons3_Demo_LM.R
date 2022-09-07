@@ -1,71 +1,71 @@
-## # für mehr infos
-## #https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html
-## 
-## cars <- mtcars %>%
-##     mutate(cyl = as.factor(cyl)) %>%
-##     slice(-31) # lösch die 31ste Zeile
-## 
-## #Alternativ ginge auch das
-## cars[-31,]
-## 
-## # schaue daten zuerst mal an
-## #1. Responsevariable
-## hist(cars$hp) # nur sinnvoll bei grossem n
-## boxplot(cars$hp)
-## 
-## 
-## #2. Responsevariable ~ Prediktorvariable
-## table(cars$cyl) # mögliches probel, da n's unterschiedlich gross
-## 
-## boxplot(cars$hp ~ cars$cyl) # varianzheterogentität weniger das problem,
-## # aber normalverteilung der residuen problematisch
-## 
-## # definiere das modell für eine ein-faktorielle anova
-## aov.1 <- aov(log10(hp) ~ cyl, data = cars)
-## 
-## #3. Schaue Modelgüte an
-## par(mfrow = c(2,2))
-## plot(aov.1)
-## 
-## #4. Schaue output an und ordne es ein
-## summary.lm(aov.1)
-## 
-## #5. bei meheren Kategorien wende einen post-hoc Vergleichstest an
-## TukeyHSD(aov.1)
-## 
-## #6. Ergebnisse passend darstellen
-## library(multcomp)
-## 
-## #erstens die signifikanten Unterschiede mit Buchstaben versehen
-## letters <- multcomp::cld(multcomp::glht(aov.1, linfct=multcomp::mcp(cyl="Tukey"))) # Achtung die kategoriale
-## #Variable (unsere unabhängige Variable "cyl") muss als Faktor
-## #definiert sein z.B. as.factor()
-## 
-## #einfachere Variante
-## boxplot(hp ~ cyl, data = cars)
-## mtext(letters$mcletters$Letters, at=1:3)
-## 
-## #schönere Variante :)
-## ggplot(cars, aes(x = cyl, y = hp)) +
-## 	stat_boxplot(geom = "errorbar", width = .5) +
-##   geom_boxplot(size = 1) +
-## 	annotate("text", x = 1, y = 350, label = "a", size = 7)+
-## annotate("text", x = 2, y = 350, label = "b", size = 7)+
-##   annotate("text", x = 3, y = 350, label = "c", size = 7)
-##   labs(x = "\nAnzahl Zylinder", y = "Pferdestärke")  +
-##   mytheme
-## 
-## #Plot exportieren
-## ggsave(filename = "statKons/distill-preview.png",
-##        device = "png") # hier kann man festlegen, was für ein Bildformat
-## #exportiert werden möchte
-## 
-## # Sind die Voraussetzungen für eine Anova verletzt, überprüfe alternative
-## # nicht-parametische Tests z.B. oneway-Test mit Welch-korrektur für ungleiche
-## # Varianzen (Achtung auch dieser Test hat Voraussetzungen -> siehe Skript XY)
-## library(rosetta)
-## welch1 <- oneway.test(hp ~ cyl, data = cars, var.equal = FALSE)
-## rosetta::posthocTGH(cars$hp, cars$cyl, method = "games-howell")
+# für mehr infos
+#https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html
+
+cars <- mtcars %>% 
+    mutate(cyl = as.factor(cyl)) %>% 
+    slice(-31) # lösch die 31ste Zeile
+
+#Alternativ ginge auch das
+cars[-31,]
+
+# schaue daten zuerst mal an
+#1. Responsevariable
+hist(cars$hp) # nur sinnvoll bei grossem n
+boxplot(cars$hp)
+
+
+#2. Responsevariable ~ Prediktorvariable
+table(cars$cyl) # mögliches probel, da n's unterschiedlich gross
+
+boxplot(cars$hp ~ cars$cyl) # varianzheterogentität weniger das problem, 
+# aber normalverteilung der residuen problematisch
+
+# definiere das modell für eine ein-faktorielle anova
+aov.1 <- aov(log10(hp) ~ cyl, data = cars)
+
+#3. Schaue Modelgüte an
+par(mfrow = c(2,2))
+plot(aov.1)
+
+#4. Schaue output an und ordne es ein
+summary.lm(aov.1)
+
+#5. bei meheren Kategorien wende einen post-hoc Vergleichstest an
+TukeyHSD(aov.1)
+
+#6. Ergebnisse passend darstellen
+library(multcomp)
+
+#erstens die signifikanten Unterschiede mit Buchstaben versehen
+letters <- multcomp::cld(multcomp::glht(aov.1, linfct=multcomp::mcp(cyl="Tukey"))) # Achtung die kategoriale
+#Variable (unsere unabhängige Variable "cyl") muss als Faktor
+#definiert sein z.B. as.factor()
+
+#einfachere Variante
+boxplot(hp ~ cyl, data = cars)
+mtext(letters$mcletters$Letters, at=1:3)
+
+#schönere Variante :)
+ggplot(cars, aes(x = cyl, y = hp)) +
+	stat_boxplot(geom = "errorbar", width = .5) +
+  geom_boxplot(size = 1) +
+	annotate("text", x = 1, y = 350, label = "a", size = 7)+
+annotate("text", x = 2, y = 350, label = "b", size = 7)+
+  annotate("text", x = 3, y = 350, label = "c", size = 7)
+  labs(x = "\nAnzahl Zylinder", y = "Pferdestärke")  +
+  mytheme
+
+#Plot exportieren
+ggsave(filename = "statKons/distill-preview.png",
+       device = "png") # hier kann man festlegen, was für ein Bildformat
+#exportiert werden möchte
+
+# Sind die Voraussetzungen für eine Anova verletzt, überprüfe alternative 
+# nicht-parametische Tests z.B. oneway-Test mit Welch-korrektur für ungleiche
+# Varianzen (Achtung auch dieser Test hat Voraussetzungen -> siehe Skript XY)
+library(rosetta)
+welch1 <- oneway.test(hp ~ cyl, data = cars, var.equal = FALSE)
+rosetta::posthocTGH(cars$hp, cars$cyl, method = "games-howell")
 
 library(tidyverse)
 #1. Wähle zusätzliche Variable aus (wenn nicht in der Aufgabe steht), 

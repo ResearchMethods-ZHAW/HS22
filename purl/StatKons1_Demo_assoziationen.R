@@ -88,36 +88,36 @@ summary.lm(aov.1)
 
 #wie würdet ihr nun die Ergebnisse darstellen?
 
-## # für mehr infos here: https://cran.r-project.org/web/packages/datasauRus/vignettes/Datasaurus.html
-## 
-## library(datasauRus)
-## if(requireNamespace("dplyr")){
-##   suppressPackageStartupMessages(library(dplyr))
-##   dt <- datasaurus_dozen %>%
-##     group_by(dataset) %>%
-##     summarize(
-##       mean_x    = mean(x),
-##       mean_y    = mean(y),
-##       std_dev_x = sd(x),
-##       std_dev_y = sd(y),
-##       corr_x_y  = cor(x, y)
-##     )
-## }
-## 
-## # check data structure
-## glimpse(dt)
-## 
-## # plot two examples
-## if(requireNamespace("ggplot2")){
-##   library(ggplot2)
-## 
-##   dt = filter(datasaurus_dozen, dataset == "dino" | dataset == "slant_up")
-## 
-##   ggplot(dt, aes(x=x, y=y, colour=dataset))+
-##     geom_point()+
-##     theme_bw() +
-##     theme(legend.position = "none") +
-##     facet_wrap(~dataset) +
-##     geom_smooth(method = "lm", se = FALSE)
-## 
-## }
+# für mehr infos here: https://cran.r-project.org/web/packages/datasauRus/vignettes/Datasaurus.html
+
+library(datasauRus)
+if(requireNamespace("dplyr")){
+  suppressPackageStartupMessages(library(dplyr))
+  dt <- datasaurus_dozen %>% 
+    group_by(dataset) %>% 
+    summarize(
+      mean_x    = mean(x),
+      mean_y    = mean(y),
+      std_dev_x = sd(x),
+      std_dev_y = sd(y),
+      corr_x_y  = cor(x, y)
+    )
+}
+
+# check data structure
+glimpse(dt)
+
+# plot two examples  
+if(requireNamespace("ggplot2")){
+  library(ggplot2)
+  
+  dt = filter(datasaurus_dozen, dataset == "dino" | dataset == "slant_up")
+  
+  ggplot(dt, aes(x=x, y=y, colour=dataset))+
+    geom_point()+
+    theme_bw() +
+    theme(legend.position = "none") +
+    facet_wrap(~dataset) +
+    geom_smooth(method = "lm", se = FALSE)
+  
+}
