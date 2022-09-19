@@ -45,6 +45,7 @@ knitr::kable(head(temperature))
 Um in "base-R" einen Scatterplot zu erstellen wo Datum der Temperatur gegenübersteht, gehen wir wie folgt vor:
 
 ```{r}
+#| label: baseplot
 plot(temperature$time, temperature$SHA, type = "l", col = "red")
 lines(temperature$time, temperature$ZER, col = "blue")
 ```
@@ -52,6 +53,8 @@ lines(temperature$time, temperature$ZER, col = "blue")
 In `ggplot` sieht das etwas anders und auf den ersten Blick etwas komplizierter aus: Ein plot wird durch den Befehl `ggplot()` initiiert. Hier wird einerseits der Datensatz festgelegt, auf dem der Plot beruht (`data = `), sowie die Variablen innerhalb des Datensatzes, die Einfluss auf den Plot ausüben (`mapping = aes()`). 
 
 ```{r}
+#| label: fig-ggplot1
+
 # Datensatz: "temperature" | Beeinflussende Variabeln: "time" und "temp"
 ggplot(data = temperature, mapping = aes(time,SHA))             
 ```
