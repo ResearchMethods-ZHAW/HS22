@@ -23,9 +23,9 @@ o.pca <- PCA(cars, scale.unit = TRUE) # entweder korrelations oder covarianzmatr
 # schaue output an
 summary(o.pca) # generiert auch automatische plots
 
-## # plotte das ganze
-## library(devtools)
-## install_github("vqv/ggbiplot")
+# plotte das ganze
+library(devtools)
+install_github("vqv/ggbiplot")
 
 library(ggbiplot)
 ggbiplot(o.pca,choices = c(1,2))
@@ -221,24 +221,24 @@ plot(x,y)
 #Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird
 o.ca$CA$eig[1:63]/sum(o.ca$CA$eig)
 
-## #NMDS----------
-## 
-## #Distanzmatrix als Start erzeugen
-## library(MASS)
-## library(vegan)
-## 
-## mde <-vegdist(sveg,method="euclidean")
-## mdm <-vegdist(sveg,method="manhattan")
-## 
-## #Zwei verschiedene NMDS-Methoden
-## set.seed(1) #macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will
-## o.imds<-isoMDS(mde, k=2) # mit K = Dimensionen
-## set.seed(1)
-## o.mmds<-metaMDS(mde,k=3) # scheint nicht mit 2 Dimensionen zu konvergieren
-## 
-## plot(o.imds$points)
-## plot(o.mmds$points)
-## 
-## #Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
-## stressplot(o.imds,mde)
-## stressplot(o.mmds,mde)
+#NMDS----------
+
+#Distanzmatrix als Start erzeugen
+library(MASS)
+library(vegan)
+
+mde <-vegdist(sveg,method="euclidean")
+mdm <-vegdist(sveg,method="manhattan")
+
+#Zwei verschiedene NMDS-Methoden
+set.seed(1) #macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will
+o.imds<-isoMDS(mde, k=2) # mit K = Dimensionen
+set.seed(1)
+o.mmds<-metaMDS(mde,k=3) # scheint nicht mit 2 Dimensionen zu konvergieren
+
+plot(o.imds$points)
+plot(o.mmds$points)
+
+#Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
+stressplot(o.imds,mde)
+stressplot(o.mmds,mde)

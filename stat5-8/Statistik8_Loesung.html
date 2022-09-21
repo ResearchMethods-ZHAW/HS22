@@ -654,20 +654,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in parse_block(g[-1], g[1], params.src, markdown_mode): Duplicate chunk label 'fig-baseplot-cluster', which has been used for the chunk:
-library(vegan)
-crimez.KM.cascade &lt;- cascadeKM(crimez[,c(2:8)],
-                        inf.gr = 2, sup.gr = 6, iter = 100, criterion = "ssi")
-summary(crimez.KM.cascade)
 
-crimez.KM.cascade$results
-crimez.KM.cascade$partition
-
-# k-means visualisation
-library(cclust)
-plot(crimez.KM.cascade, sortg = TRUE)</code></pre>
-</div>
 </div>
 <section id="musterlösung-aufgabe-8.1-clusteranalysen" class="level2">
 <h2 class="anchored" data-anchor-id="musterlösung-aufgabe-8.1-clusteranalysen">Musterlösung Aufgabe 8.1: Clusteranalysen</h2>
@@ -692,10 +679,10 @@ plot(crimez.KM.cascade, sortg = TRUE)</code></pre>
 <section id="lösung" class="level3">
 <h3 class="anchored" data-anchor-id="lösung">Lösung</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crime <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/crime2.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>crime <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/crime2.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>crime</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crime</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    X Murder Rape Robbery Assault Burglary Theft Vehicle
 1  ME    2.0 14.8      28     102      803  2347     164
@@ -752,9 +739,9 @@ plot(crimez.KM.cascade, sortg = TRUE)</code></pre>
 </div>
 <p>Im mitgelieferten R-Skript habe ich die folgenden Analysen zunächst mit untransformierten, dann mit standardisierten Kriminalitätsraten berechnet. Ihr könnt die Ergebnisse vergleichen und seht, dass sie sehr unterschiedlich ausfallen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>crimez <span class="ot">&lt;-</span> crime</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>crimez[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>)] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(crime[, <span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>)], scale)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>crimez</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>crimez <span class="ot">&lt;-</span> crime</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>crimez[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>)] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(crime[, <span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>)], scale)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>crimez</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    X      Murder        Rape       Robbery     Assault     Burglary
 1  ME -1.38246619 -1.31559240 -1.0464120463 -1.24765744 -0.938630226
@@ -862,10 +849,10 @@ plot(crimez.KM.cascade, sortg = TRUE)</code></pre>
 </div>
 <p>„scale“ führt eine Standardisierung (z-Transformation) durch, so dass alle Variablen anschiessen einen Mittelwert von 0 und eine SD von 1 haben, ausgenommen natürlich die 1. Spalte mit den Kürzeln der Bundesstaaten. Anschliessend wird das SSI-Kriterium getestet und zwar für Partitionierungen von 2 bis 6 Gruppen (wie viele Gruppen man maximal haben will, muss man pragmatisch nach der jeweiligen Fragestelltung entscheiden).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>crimez.KM.cascade <span class="ot">&lt;-</span> <span class="fu">cascadeKM</span>(crimez[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>)],</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">inf.gr =</span> <span class="dv">2</span>, <span class="at">sup.gr =</span> <span class="dv">6</span>, <span class="at">iter =</span> <span class="dv">100</span>, <span class="at">criterion =</span> <span class="st">"ssi"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(crimez.KM.cascade)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>crimez.KM.cascade <span class="ot">&lt;-</span> <span class="fu">cascadeKM</span>(crimez[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>)],</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">inf.gr =</span> <span class="dv">2</span>, <span class="at">sup.gr =</span> <span class="dv">6</span>, <span class="at">iter =</span> <span class="dv">100</span>, <span class="at">criterion =</span> <span class="st">"ssi"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(crimez.KM.cascade)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Length Class  Mode     
 partition 250    -none- numeric  
@@ -873,69 +860,69 @@ results    10    -none- numeric
 criterion   1    -none- character
 size       30    -none- numeric  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>crimez.KM.cascade<span class="sc">$</span>results</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>crimez.KM.cascade<span class="sc">$</span>results</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      2 groups   3 groups   4 groups   5 groups  6 groups
-SSE 174.959159 144.699605 124.437221 108.119280 95.316398
-ssi   1.226057   1.304674   1.555594   1.539051  1.351146</code></pre>
+SSE 174.959159 144.699605 124.437221 108.157158 95.316398
+ssi   1.226057   1.304674   1.555594   1.195084  1.351146</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>crimez.KM.cascade<span class="sc">$</span>partition</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>crimez.KM.cascade<span class="sc">$</span>partition</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   2 groups 3 groups 4 groups 5 groups 6 groups
-1         1        1        2        4        4
-2         1        1        2        4        4
-3         1        1        2        4        4
-4         2        3        4        5        5
-5         1        3        3        5        5
-6         1        3        3        5        1
-7         2        3        4        3        3
-8         2        3        4        5        5
-9         1        1        3        1        1
-10        1        3        3        1        1
-11        1        1        3        1        1
-12        2        3        4        3        3
-13        2        2        1        3        6
-14        1        1        2        4        4
-15        1        1        2        4        4
-16        1        1        2        4        4
-17        2        3        3        1        3
-18        1        1        2        4        4
-19        1        1        2        4        4
-20        1        1        2        4        4
-21        1        1        3        1        1
-22        1        3        3        1        1
-23        2        3        4        3        3
-24        1        1        3        1        1
-25        1        1        2        4        4
-26        1        3        3        1        1
-27        2        3        3        1        3
-28        2        3        1        3        3
-29        2        2        1        3        6
-30        1        1        3        1        1
-31        2        3        4        1        3
-32        1        3        3        1        1
-33        1        1        3        1        1
-34        1        1        3        1        1
-35        2        2        1        3        3
-36        2        3        1        2        2
-37        2        2        1        3        6
-38        1        1        2        4        4
-39        1        1        2        4        4
-40        1        1        2        4        4
-41        2        2        1        2        2
-42        2        2        1        2        2
-43        2        2        1        2        2
-44        1        1        2        4        4
-45        2        2        1        3        6
-46        2        2        1        2        2
-47        2        2        1        2        2
-48        2        2        1        3        6
-49        2        2        1        2        2
-50        1        1        3        4        1</code></pre>
+1         2        1        2        5        6
+2         2        1        2        5        6
+3         2        1        2        5        6
+4         1        2        1        3        5
+5         2        2        3        3        5
+6         2        2        3        3        1
+7         1        2        1        2        3
+8         1        2        1        3        5
+9         2        1        3        5        1
+10        2        2        3        4        1
+11        2        1        3        5        1
+12        1        2        1        2        3
+13        1        3        4        2        4
+14        2        1        2        5        6
+15        2        1        2        5        6
+16        2        1        2        5        6
+17        1        2        3        4        3
+18        2        1        2        5        6
+19        2        1        2        5        6
+20        2        1        2        5        6
+21        2        1        3        5        1
+22        2        2        3        4        1
+23        1        2        1        2        3
+24        2        1        3        5        1
+25        2        1        2        5        6
+26        2        2        3        4        1
+27        1        2        3        4        3
+28        1        2        4        4        3
+29        1        3        4        2        4
+30        2        1        3        5        1
+31        1        2        1        4        3
+32        2        2        3        4        1
+33        2        1        3        4        1
+34        2        1        3        4        1
+35        1        3        4        2        3
+36        1        2        4        1        2
+37        1        3        4        2        4
+38        2        1        2        5        6
+39        2        1        2        5        6
+40        2        1        2        5        6
+41        1        3        4        1        2
+42        1        3        4        1        2
+43        1        3        4        1        2
+44        2        1        2        5        6
+45        1        3        4        2        4
+46        1        3        4        1        2
+47        1        3        4        1        2
+48        1        3        4        2        4
+49        1        3        4        1        2
+50        2        1        3        5        1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k-means visualisation</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cclust)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(crimez.KM.cascade, <span class="at">sortg =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k-means visualisation</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cclust)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(crimez.KM.cascade, <span class="at">sortg =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-baseplot-cluster" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -947,90 +934,90 @@ ssi   1.226057   1.304674   1.555594   1.539051  1.351146</code></pre>
 </div>
 <p>Nach SSI ist die 4-Gruppenlösung die beste, mit dieser wird also weitergerechnet.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4 Kategorien sind nach SSI offensichtlich besonders gut</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>modelz <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(crimez[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>)], <span class="dv">4</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>modelz</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4 Kategorien sind nach SSI offensichtlich besonders gut</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>modelz <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(crimez[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>)], <span class="dv">4</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>modelz</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>K-means clustering with 4 clusters of sizes 17, 13, 15, 5
+<pre><code>K-means clustering with 4 clusters of sizes 17, 9, 11, 13
 
 Cluster means:
-      Murder       Rape     Robbery    Assault   Burglary      Theft    Vehicle
-1  0.9791958  0.9348838  0.88867070  1.0627880  1.0025257  0.8280717  0.7617441
-2 -1.0930051 -0.9857675 -0.97233852 -1.0260437 -0.9888854 -0.5198816 -0.9442717
-3  0.0609798 -0.3443528 -0.03821253 -0.1436418 -0.3366568 -0.8077600  0.1187732
-4 -0.6703919  0.4174489 -0.37876264 -0.5148401  0.1724852  0.9595281 -0.4911433
+      Murder        Rape    Robbery    Assault   Burglary      Theft    Vehicle
+1  0.9264117  1.00392927  0.9037759  1.0454607  1.0129047  0.9160901  0.6680776
+2  0.2481646 -0.58064172 -0.4706765 -0.3344297 -0.6347558 -1.1497023 -0.7188158
+3 -0.2719882  0.04836949  0.1224746 -0.1823944  0.0597696 -0.1891072  0.6481920
+4 -1.1531239 -0.95177588 -0.9596402 -0.9812789 -0.9356956 -0.2420024 -0.9244684
 
 Clustering vector:
- [1] 2 2 2 3 3 3 1 3 3 3 3 1 1 2 2 2 3 2 2 2 4 4 1 3 2 3 1 1 1 3 3 3 3 3 1 1 1 2
-[39] 2 2 1 1 1 4 1 4 1 1 1 4
+ [1] 4 4 4 3 3 3 1 3 2 3 2 1 1 4 4 4 3 4 4 4 3 3 1 2 2 2 1 1 1 2 3 2 2 2 1 3 1 4
+[39] 4 4 1 1 1 4 1 1 1 1 1 3
 
 Within cluster sum of squares by cluster:
-[1] 66.69074 15.02230 41.21238 10.74028
- (between_SS / total_SS =  61.0 %)
+[1] 69.59546 12.77365 31.91236 15.23990
+ (between_SS / total_SS =  62.2 %)
 
 Available components:
 
 [1] "cluster"      "centers"      "totss"        "withinss"     "tot.withinss"
 [6] "betweenss"    "size"         "iter"         "ifault"      </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#File für ANOVA (Originaldaten der Vorfälle, nicht die ztransformierten)</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>crime.KM4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(crime,modelz[<span class="dv">1</span>])</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>crime.KM4<span class="sc">$</span>cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(crime.KM4<span class="sc">$</span>cluster)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>crime.KM4</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#File für ANOVA (Originaldaten der Vorfälle, nicht die ztransformierten)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>crime.KM4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(crime,modelz[<span class="dv">1</span>])</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>crime.KM4<span class="sc">$</span>cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(crime.KM4<span class="sc">$</span>cluster)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>crime.KM4</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    X Murder Rape Robbery Assault Burglary Theft Vehicle cluster
-1  ME    2.0 14.8      28     102      803  2347     164       2
-2  NH    2.2 21.5      24      92      755  2208     228       2
-3  VT    2.0 21.8      22     103      949  2697     181       2
+1  ME    2.0 14.8      28     102      803  2347     164       4
+2  NH    2.2 21.5      24      92      755  2208     228       4
+3  VT    2.0 21.8      22     103      949  2697     181       4
 4  MA    3.6 29.7     193     331     1071  2189     906       3
 5  RI    3.5 21.4     119     192     1294  2568     705       3
 6  CT    4.6 23.8     192     205     1198  2758     447       3
 7  NY   10.7 30.5     514     431     1221  2924     637       1
 8  NJ    5.2 33.2     269     265     1071  2822     776       3
-9  PA    5.5 25.1     152     176      735  1654     354       3
+9  PA    5.5 25.1     152     176      735  1654     354       2
 10 OH    5.5 38.6     142     235      988  2574     376       3
-11 IN    6.0 25.9      90     186      887  2333     328       3
+11 IN    6.0 25.9      90     186      887  2333     328       2
 12 IL    8.9 32.4     325     434     1180  2938     628       1
 13 MI   11.3 67.4     301     424     1509  3378     800       1
-14 WI    3.1 20.1      73     162      783  2802     254       2
-15 MN    2.5 31.8     102     148     1004  2785     288       2
-16 IA    1.8 12.5      42     179      956  2801     158       2
+14 WI    3.1 20.1      73     162      783  2802     254       4
+15 MN    2.5 31.8     102     148     1004  2785     288       4
+16 IA    1.8 12.5      42     179      956  2801     158       4
 17 MO    9.2 29.2     170     370     1136  2500     439       3
-18 ND    1.0 11.6       7      32      385  2049     120       2
-19 SD    4.0 17.7      16      87      554  1939      99       2
-20 NE    3.1 24.6      51     184      748  2677     168       2
-21 KS    4.4 32.9      80     252     1188  3008     258       4
-22 DE    4.9 56.9     124     241     1042  3090     272       4
+18 ND    1.0 11.6       7      32      385  2049     120       4
+19 SD    4.0 17.7      16      87      554  1939      99       4
+20 NE    3.1 24.6      51     184      748  2677     168       4
+21 KS    4.4 32.9      80     252     1188  3008     258       3
+22 DE    4.9 56.9     124     241     1042  3090     272       3
 23 MD    9.0 43.6     304     476     1296  2978     545       1
-24 VA    7.1 26.5     106     167      813  2522     219       3
+24 VA    7.1 26.5     106     167      813  2522     219       2
 25 WV    5.9 18.9      41      99      625  1358     169       2
-26 NC    8.1 26.4      88     354     1225  2423     208       3
+26 NC    8.1 26.4      88     354     1225  2423     208       2
 27 SC    8.6 41.3      99     525     1340  2846     277       1
 28 GA   11.2 43.9     214     319     1453  2984     430       1
 29 FL   11.7 52.7     367     605     2221  4373     598       1
-30 KY    6.7 23.1      83     222      824  1740     193       3
+30 KY    6.7 23.1      83     222      824  1740     193       2
 31 TN   10.4 47.0     208     274     1325  2126     544       3
-32 AL   10.1 28.4     112     408     1159  2304     267       3
-33 MS   11.2 25.8      65     172     1076  1845     150       3
-34 AR    8.1 28.9      80     278     1030  2305     195       3
+32 AL   10.1 28.4     112     408     1159  2304     267       2
+33 MS   11.2 25.8      65     172     1076  1845     150       2
+34 AR    8.1 28.9      80     278     1030  2305     195       2
 35 LA   12.8 40.1     224     482     1461  3417     442       1
-36 OK    8.1 36.4     107     285     1787  3142     649       1
+36 OK    8.1 36.4     107     285     1787  3142     649       3
 37 TX   13.5 51.6     240     354     2049  3987     714       1
-38 MT    2.9 17.3      20     118      783  3314     215       2
-39 ID    3.2 20.0      21     178     1003  2800     181       2
-40 WY    5.3 21.9      22     243      817  3078     169       2
+38 MT    2.9 17.3      20     118      783  3314     215       4
+39 ID    3.2 20.0      21     178     1003  2800     181       4
+40 WY    5.3 21.9      22     243      817  3078     169       4
 41 CO    7.0 42.3     145     329     1792  4231     486       1
 42 NM   11.5 46.9     130     538     1845  3712     343       1
 43 AZ    9.3 43.0     169     437     1908  4337     419       1
 44 UT    3.2 25.3      59     180      915  4074     223       4
 45 NV   12.6 64.9     287     354     1604  3489     478       1
-46 WA    5.0 53.4     135     244     1861  4267     315       4
+46 WA    5.0 53.4     135     244     1861  4267     315       1
 47 OR    6.6 51.1     206     286     1967  4163     402       1
 48 CA   11.3 44.9     343     521     1696  3384     762       1
 49 AK    8.6 72.7      88     401     1162  3910     604       1
-50 HI    4.8 31.0     106     103     1339  3759     328       4</code></pre>
+50 HI    4.8 31.0     106     103     1339  3759     328       3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(crime.KM4)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(crime.KM4)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   50 obs. of  9 variables:
  $ X       : chr  "ME" "NH" "VT" "MA" ...
@@ -1041,53 +1028,53 @@ Available components:
  $ Burglary: int  803 755 949 1071 1294 1198 1221 1071 735 988 ...
  $ Theft   : int  2347 2208 2697 2189 2568 2758 2924 2822 1654 2574 ...
  $ Vehicle : int  164 228 181 906 705 447 637 776 354 376 ...
- $ cluster : Factor w/ 4 levels "1","2","3","4": 2 2 2 3 3 3 1 3 3 3 ...</code></pre>
+ $ cluster : Factor w/ 4 levels "1","2","3","4": 4 4 4 3 3 3 1 3 2 3 ...</code></pre>
 </div>
 </div>
 <p><strong>Von den agglomerativen Clusterverfahren habe ich mich für Ward’s minimum variance clustering entschieden, da dieses allgemein als besonders geeignet gilt.</strong></p>
 <p>Vor der Berechnung von crime.norm und crime.ch muss man die Spalte mit den Bundesstaatenkürzeln entfern.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Agglomerative Clusteranalyse</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>crime2 <span class="ot">&lt;-</span> crime[,<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>crime.norm <span class="ot">&lt;-</span> <span class="fu">decostand</span>(crime2, <span class="st">"normalize"</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>crime.ch <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(crime.norm, <span class="st">"euc"</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach site names to object of class 'dist'</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(crime.ch, <span class="st">"Labels"</span>) <span class="ot">&lt;-</span> crime[,<span class="dv">1</span>]</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ward's minimum variance clustering</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>crime.ch.ward <span class="ot">&lt;-</span> <span class="fu">hclust</span>(crime.ch, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(crime.ch.ward, <span class="at">labels =</span> crime[,<span class="dv">1</span>], <span class="at">main =</span> <span class="st">"Chord - Ward"</span>)</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose and rename the dendrogram ("hclust" object)</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> crime.ch.ward</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># hc &lt;- spe.ch.beta2</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co"># hc &lt;- spe.ch.complete</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">title =</span> <span class="st">"Optimal number of clusters"</span>, <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">8</span>, <span class="at">noRStudioGD =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Agglomerative Clusteranalyse</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>crime2 <span class="ot">&lt;-</span> crime[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>crime.norm <span class="ot">&lt;-</span> <span class="fu">decostand</span>(crime2, <span class="st">"normalize"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>crime.ch <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(crime.norm, <span class="st">"euc"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach site names to object of class 'dist'</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(crime.ch, <span class="st">"Labels"</span>) <span class="ot">&lt;-</span> crime[,<span class="dv">1</span>]</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ward's minimum variance clustering</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>crime.ch.ward <span class="ot">&lt;-</span> <span class="fu">hclust</span>(crime.ch, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(crime.ch.ward, <span class="at">labels =</span> crime[,<span class="dv">1</span>], <span class="at">main =</span> <span class="st">"Chord - Ward"</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose and rename the dendrogram ("hclust" object)</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> crime.ch.ward</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># hc &lt;- spe.ch.beta2</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># hc &lt;- spe.ch.complete</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">title =</span> <span class="st">"Optimal number of clusters"</span>, <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">8</span>, <span class="at">noRStudioGD =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>png 
   2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Average silhouette widths (Rousseeuw quality index)</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>Si <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(crime))</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(crime) <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a> sil <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(<span class="fu">cutree</span>(hc, <span class="at">k =</span> k), crime.ch)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a> Si[k] <span class="ot">&lt;-</span> <span class="fu">summary</span>(sil)<span class="sc">$</span>avg.width</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>k.best <span class="ot">&lt;-</span> <span class="fu">which.max</span>(Si)</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(crime), Si, <span class="at">type =</span> <span class="st">"h"</span>,</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a> <span class="at">main =</span> <span class="st">"Silhouette-optimal number of clusters"</span>,</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a> <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>, <span class="at">ylab =</span> <span class="st">"Average silhouette width"</span>)</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, k.best, <span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>), <span class="at">col =</span> <span class="st">"red"</span>,</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a> <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(k.best, <span class="fu">max</span>(Si), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Average silhouette widths (Rousseeuw quality index)</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>Si <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(crime))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(crime) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a> sil <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(<span class="fu">cutree</span>(hc, <span class="at">k =</span> k), crime.ch)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a> Si[k] <span class="ot">&lt;-</span> <span class="fu">summary</span>(sil)<span class="sc">$</span>avg.width</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>k.best <span class="ot">&lt;-</span> <span class="fu">which.max</span>(Si)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(crime), Si, <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a> <span class="at">main =</span> <span class="st">"Silhouette-optimal number of clusters"</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a> <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>, <span class="at">ylab =</span> <span class="st">"Average silhouette width"</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, k.best, <span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>), <span class="at">col =</span> <span class="st">"red"</span>,</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a> <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(k.best, <span class="fu">max</span>(Si), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-baseplot-agglomerative-clusteranalysis-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1110,101 +1097,101 @@ Available components:
 <p>Damit die Boxplots und die ANOVA direkt interpretierbar sind, werden für diese, anders als für die Clusterung, die untransformierten Incidenz-Werte verwendet (also crime statt crimez). Die Spalte mit der Clusterzugehörigkeit im Fall von k-means mit 4 Clustern hängt man als Spalte an (Achtung: muss als Faktor definiert werden!).</p>
 <p>Anschliessend kann man die 7 ANOVAs rechnen, die Posthoc-Vergleiche durchführen und die zugehörigen Boxplots mit Buchstaben für die homogenen Gruppen erzeugen. Sinnvollerweise gruppiert man die Abbildungen gleich, z. B. je 2 x 2. Das Skript ist hier simple für jede Verbrechensart wiederholt. Erfahrenere R-Nutzer können das Ganze hier natürlich durch eine Schleife abkürzen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(multcomp)){<span class="fu">install.packages</span>(<span class="st">"multcomp"</span>)}</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>))</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>ANOVA.Murder <span class="ot">&lt;-</span> <span class="fu">aov</span>(Murder<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Murder)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(multcomp)){<span class="fu">install.packages</span>(<span class="st">"multcomp"</span>)}</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>ANOVA.Murder <span class="ot">&lt;-</span> <span class="fu">aov</span>(Murder<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Murder)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-cluster      3  407.4  135.79    35.2 5.65e-12 ***
-Residuals   46  177.4    3.86                     
+cluster      3  396.8  132.26   32.35 2.12e-11 ***
+Residuals   46  188.0    4.09                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Murder, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Murder<span class="sc">~</span>cluster, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Murder"</span>, <span class="at">data =</span> crime.KM4)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Rape <span class="ot">&lt;-</span> <span class="fu">aov</span>(Rape<span class="sc">~</span>cluster,<span class="at">data =</span> crime.KM4)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Rape)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Murder, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Murder<span class="sc">~</span>cluster, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Murder"</span>, <span class="at">data =</span> crime.KM4)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Rape <span class="ot">&lt;-</span> <span class="fu">aov</span>(Rape<span class="sc">~</span>cluster,<span class="at">data =</span> crime.KM4)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Rape)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-cluster      3   6322    2108   24.51 1.27e-09 ***
-Residuals   46   3956      86                     
+cluster      3   6706  2235.4   28.79 1.25e-10 ***
+Residuals   46   3572    77.7                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Rape, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Rape<span class="sc">~</span>cluster, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Rape"</span>, <span class="at">data =</span> crime.KM4)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Robbery <span class="ot">&lt;-</span> <span class="fu">aov</span>(Robbery<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Robbery)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Rape, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Rape<span class="sc">~</span>cluster, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Rape"</span>, <span class="at">data =</span> crime.KM4)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Robbery <span class="ot">&lt;-</span> <span class="fu">aov</span>(Robbery<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Robbery)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-cluster      3 314544  104848   17.99 7.23e-08 ***
-Residuals   46 268045    5827                     
+cluster      3 333103  111034   20.47 1.43e-08 ***
+Residuals   46 249485    5424                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Robbery, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Robbery<span class="sc">~</span>cluster, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Robbery"</span>, <span class="at">data =</span> crime.KM4)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Assault <span class="ot">&lt;-</span> <span class="fu">aov</span>(Assault<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Assault)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Robbery, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Robbery<span class="sc">~</span>cluster, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Robbery"</span>, <span class="at">data =</span> crime.KM4)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Assault <span class="ot">&lt;-</span> <span class="fu">aov</span>(Assault<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Assault)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-cluster      3 668824  222941   36.56 3.09e-12 ***
-Residuals   46 280479    6097                     
+cluster      3 629081  209694   30.12 6.32e-11 ***
+Residuals   46 320222    6961                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Assault, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Assault<span class="sc">~</span>cluster, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Assault"</span>,  <span class="at">data =</span> crime.KM4)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Burglary <span class="ot">&lt;-</span> <span class="fu">aov</span>(Burglary<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Burglary)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Assault, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Assault<span class="sc">~</span>cluster, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Assault"</span>,  <span class="at">data =</span> crime.KM4)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Burglary <span class="ot">&lt;-</span> <span class="fu">aov</span>(Burglary<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Burglary)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df  Sum Sq Mean Sq F value   Pr(&gt;F)    
-cluster      3 5566625 1855542   27.96 1.91e-10 ***
-Residuals   46 3052230   66353                     
+cluster      3 5714646 1904882   30.17 6.16e-11 ***
+Residuals   46 2904209   63135                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Burglary, <span class="at">linfct=</span><span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Burglary<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Burglary"</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Theft <span class="ot">&lt;-</span> <span class="fu">aov</span>(Theft<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Theft)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Burglary, <span class="at">linfct=</span><span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Burglary<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Burglary"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Theft <span class="ot">&lt;-</span> <span class="fu">aov</span>(Theft<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Theft)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df   Sum Sq Mean Sq F value   Pr(&gt;F)    
-cluster      3 16710231 5570077   23.32 2.52e-09 ***
-Residuals   46 10988321  238877                     
+cluster      3 15442123 5147374   19.32 2.99e-08 ***
+Residuals   46 12256429  266444                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Theft, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Theft<span class="sc">~</span>cluster, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Theft"</span>, <span class="at">data =</span> crime.KM4)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Vehicle <span class="ot">&lt;-</span> <span class="fu">aov</span>(Vehicle<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Vehicle)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Theft, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Theft<span class="sc">~</span>cluster, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Theft"</span>, <span class="at">data =</span> crime.KM4)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>ANOVA.Vehicle <span class="ot">&lt;-</span> <span class="fu">aov</span>(Vehicle<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA.Vehicle)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            Df  Sum Sq Mean Sq F value   Pr(&gt;F)    
-cluster      3 1006372  335457   13.42 2.01e-06 ***
-Residuals   46 1149498   24989                     
+<pre><code>            Df  Sum Sq Mean Sq F value  Pr(&gt;F)    
+cluster      3 1230600  410200   20.39 1.5e-08 ***
+Residuals   46  925271   20115                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Vehicle, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Vehicle<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Vehicle"</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(ANOVA.Vehicle, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">cluster =</span> <span class="st">"Tukey"</span>)))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Vehicle<span class="sc">~</span>cluster, <span class="at">data =</span> crime.KM4, <span class="at">xlab =</span> <span class="st">"Cluster"</span>, <span class="at">ylab =</span> <span class="st">"Vehicle"</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-baseplot-agglomerative-clusteranalysis-compare" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">

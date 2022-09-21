@@ -655,29 +655,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in parse_block(g[-1], g[1], params.src, markdown_mode): Duplicate chunk label 'fig-interaction-plot-anova', which has been used for the chunk:
-spf &lt;- read.delim("data/spf.csv", sep = ";") 
-spf.aov &lt;- aov(Reaktion~Signal * Messung + Error(VP), data = spf)
-summary(spf.aov)
 
-interaction.plot(spf$Messung, spf$Signal, spf$Reaktion)
-
-# nun als LMM
-if(!require(nlme)){install.packages("nlme")}
-library(nlme)
-
-# mit random intercept (VP) und random slope (Messung)
-spf.lme.1 &lt;- lme(Reaktion~Signal * Messung, random = ~Messung | VP, data = spf)
-# nur random intercept
-spf.lme.2 &lt;- lme(Reaktion~Signal * Messung, random = ~1 | VP, data = spf)
-
-anova(spf.lme.1)
-anova(spf.lme.2)
-
-summary(spf.lme.1)
-summary(spf.lme.2)</code></pre>
-</div>
 </div>
 <section id="von-linearen-modellen-zu-glmms" class="level1">
 <h1>Von linearen Modellen zu GLMMs</h1>
@@ -690,9 +668,9 @@ summary(spf.lme.2)</code></pre>
 <h2 class="anchored" data-anchor-id="split-plot-anova">Split-plot ANOVA</h2>
 <p>Based on Logan (2010), Chapter 14</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>spf <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"data/spf.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>) </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>spf.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(Reaktion<span class="sc">~</span>Signal <span class="sc">*</span> Messung <span class="sc">+</span> <span class="fu">Error</span>(VP), <span class="at">data =</span> spf)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spf.aov)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>spf <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"data/spf.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>) </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>spf.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(Reaktion<span class="sc">~</span>Signal <span class="sc">*</span> Messung <span class="sc">+</span> <span class="fu">Error</span>(VP), <span class="at">data =</span> spf)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spf.aov)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Error: VP
@@ -708,18 +686,18 @@ Residuals      18   9.13    0.51
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(spf<span class="sc">$</span>Messung, spf<span class="sc">$</span>Signal, spf<span class="sc">$</span>Reaktion)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># nun als LMM</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(nlme)){<span class="fu">install.packages</span>(<span class="st">"nlme"</span>)}</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># mit random intercept (VP) und random slope (Messung)</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>spf.lme<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lme</span>(Reaktion<span class="sc">~</span>Signal <span class="sc">*</span> Messung, <span class="at">random =</span> <span class="sc">~</span>Messung <span class="sc">|</span> VP, <span class="at">data =</span> spf)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># nur random intercept</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>spf.lme<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lme</span>(Reaktion<span class="sc">~</span>Signal <span class="sc">*</span> Messung, <span class="at">random =</span> <span class="sc">~</span><span class="dv">1</span> <span class="sc">|</span> VP, <span class="at">data =</span> spf)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spf.lme<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(spf<span class="sc">$</span>Messung, spf<span class="sc">$</span>Signal, spf<span class="sc">$</span>Reaktion)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># nun als LMM</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(nlme)){<span class="fu">install.packages</span>(<span class="st">"nlme"</span>)}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># mit random intercept (VP) und random slope (Messung)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>spf.lme<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lme</span>(Reaktion<span class="sc">~</span>Signal <span class="sc">*</span> Messung, <span class="at">random =</span> <span class="sc">~</span>Messung <span class="sc">|</span> VP, <span class="at">data =</span> spf)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># nur random intercept</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>spf.lme<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lme</span>(Reaktion<span class="sc">~</span>Signal <span class="sc">*</span> Messung, <span class="at">random =</span> <span class="sc">~</span><span class="dv">1</span> <span class="sc">|</span> VP, <span class="at">data =</span> spf)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spf.lme<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               numDF denDF   F-value p-value
 (Intercept)        1    18 1488.1631  &lt;.0001
@@ -727,7 +705,7 @@ Signal             1     6    2.0808  0.1993
 Messung            3    18   70.7887  &lt;.0001
 Signal:Messung     3    18   11.8592  0.0002</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spf.lme<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spf.lme<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               numDF denDF  F-value p-value
 (Intercept)        1    18 591.6800  &lt;.0001
@@ -735,7 +713,7 @@ Signal             1     6   2.0000  0.2070
 Messung            3    18 127.8904  &lt;.0001
 Signal:Messung     3    18  12.7397  0.0001</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spf.lme<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spf.lme<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed-effects model fit by REML
   Data: spf 
@@ -779,7 +757,7 @@ Standardized Within-Group Residuals:
 Number of Observations: 32
 Number of Groups: 8 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spf.lme<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spf.lme<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed-effects model fit by REML
   Data: spf 
@@ -832,24 +810,24 @@ Number of Groups: 8 </code></pre>
 <h2 class="anchored" data-anchor-id="glmm">GLMM</h2>
 <p>Based on Zuur et al.&nbsp;(2009), chapter 13</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>DeerEcervi <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"data/DeerEcervi.txt"</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">stringsAsFactors =</span> T)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Anzahl Larven hier in Presence/Absence übersetzt</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span> <span class="ot">&lt;-</span> DeerEcervi<span class="sc">$</span>Ecervi</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span>[DeerEcervi<span class="sc">$</span>Ecervi<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Numerische Geschlechtscodierung als Factor</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>DeerEcervi<span class="sc">$</span>fSex <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(DeerEcervi<span class="sc">$</span>Sex)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>DeerEcervi <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"data/DeerEcervi.txt"</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">stringsAsFactors =</span> T)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Anzahl Larven hier in Presence/Absence übersetzt</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span> <span class="ot">&lt;-</span> DeerEcervi<span class="sc">$</span>Ecervi</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span>[DeerEcervi<span class="sc">$</span>Ecervi<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Numerische Geschlechtscodierung als Factor</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>DeerEcervi<span class="sc">$</span>fSex <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(DeerEcervi<span class="sc">$</span>Sex)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hirschlänge hier standardisiert, sonst würde der Achsenabschnitt im Modell für einen Hirsch der Länge 0 modelliert, was schlecht interpretierbar ist, jetzt ist der Achsenabschnitt für einen durschnittlich langen Hirsch</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>DeerEcervi<span class="sc">$</span>CLength <span class="ot">&lt;-</span> DeerEcervi<span class="sc">$</span>Length <span class="sc">-</span> <span class="fu">mean</span>(DeerEcervi<span class="sc">$</span>Length)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Zunächst als GLM</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Interaktionen mit fFarm nicht berücksichtigt, da zu viele Freiheitsgrade verbraucht würden</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>DE.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex <span class="sc">+</span> Farm, <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(DE.glm, <span class="at">test =</span> <span class="st">"Chi"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>DeerEcervi<span class="sc">$</span>CLength <span class="ot">&lt;-</span> DeerEcervi<span class="sc">$</span>Length <span class="sc">-</span> <span class="fu">mean</span>(DeerEcervi<span class="sc">$</span>Length)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Zunächst als GLM</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Interaktionen mit fFarm nicht berücksichtigt, da zu viele Freiheitsgrade verbraucht würden</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>DE.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex <span class="sc">+</span> Farm, <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(DE.glm, <span class="at">test =</span> <span class="st">"Chi"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Single term deletions
 
@@ -862,7 +840,7 @@ CLength:fSex  1   755.48  807.48   9.984  0.001579 **
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.glm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.glm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -913,7 +891,7 @@ AIC: 799.5
 
 Number of Fisher Scoring iterations: 15</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(DE.glm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(DE.glm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table
 
@@ -930,21 +908,21 @@ fSex          1    0.191       823    1008.12
 Farm         23  252.638       800     755.48
 CLength:fSex  1    9.984       799     745.50</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Response curves für die einzelnen Farmen (Weibliche Tiere: fSex = "1" )</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(DeerEcervi<span class="sc">$</span>CLength, DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span>,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Length"</span>, <span class="at">ylab =</span> <span class="st">"Probability of \</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="st">     presence of E. cervi L1"</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">order</span>(DeerEcervi<span class="sc">$</span>CLength)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>AllFarms <span class="ot">&lt;-</span> <span class="fu">unique</span>(DeerEcervi<span class="sc">$</span>Farm)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> AllFarms){</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  mydata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">CLength=</span>DeerEcervi<span class="sc">$</span>CLength, <span class="at">fSex =</span> <span class="st">"1"</span>,</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Farm =</span> j)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">dim</span>(mydata)[<span class="dv">1</span>]</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n<span class="sc">&gt;</span><span class="dv">10</span>){</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    P.DE2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(DE.glm, mydata, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(mydata<span class="sc">$</span>CLength[I], P.DE2[I])</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  }}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Response curves für die einzelnen Farmen (Weibliche Tiere: fSex = "1" )</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(DeerEcervi<span class="sc">$</span>CLength, DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Length"</span>, <span class="at">ylab =</span> <span class="st">"Probability of \</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="st">     presence of E. cervi L1"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">order</span>(DeerEcervi<span class="sc">$</span>CLength)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>AllFarms <span class="ot">&lt;-</span> <span class="fu">unique</span>(DeerEcervi<span class="sc">$</span>Farm)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> AllFarms){</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  mydata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">CLength=</span>DeerEcervi<span class="sc">$</span>CLength, <span class="at">fSex =</span> <span class="st">"1"</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Farm =</span> j)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">dim</span>(mydata)[<span class="dv">1</span>]</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n<span class="sc">&gt;</span><span class="dv">10</span>){</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    P.DE2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(DE.glm, mydata, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(mydata<span class="sc">$</span>CLength[I], P.DE2[I])</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  }}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-baseplot-glmm1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -958,11 +936,11 @@ CLength:fSex  1    9.984       799     745.50</code></pre>
 <section id="glmm-1" class="level2">
 <h2 class="anchored" data-anchor-id="glmm-1">GLMM</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MASS)){<span class="fu">install.packages</span>(<span class="st">"MASS"</span>)}</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>DE.PQL <span class="ot">&lt;-</span> <span class="fu">glmmPQL</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex,</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">random =</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> Farm, <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.PQL)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MASS)){<span class="fu">install.packages</span>(<span class="st">"MASS"</span>)}</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>DE.PQL <span class="ot">&lt;-</span> <span class="fu">glmmPQL</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">random =</span> <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> Farm, <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.PQL)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed-effects model fit by maximum likelihood
   Data: DeerEcervi 
@@ -996,22 +974,22 @@ Standardized Within-Group Residuals:
 Number of Observations: 826
 Number of Groups: 24 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fl">0.8883697</span> <span class="sc">+</span> <span class="fl">0.0378608</span> <span class="sc">*</span> DeerEcervi<span class="sc">$</span>CLength</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>p.averageFarm1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(g)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g))</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">order</span>(DeerEcervi<span class="sc">$</span>CLength)  <span class="co">#Avoid spaghetti plot</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(DeerEcervi<span class="sc">$</span>CLength, DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span>, <span class="at">xlab=</span><span class="st">"Length"</span>,</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Probability of presence of E. cervi L1"</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.averageFarm1[I],<span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>p.Upp <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>p.Low <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Upp[I])</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Low[I])</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(lme4)){<span class="fu">install.packages</span>(<span class="st">"lme4"</span>)}</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>DE.lme4 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Farm), </span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi)</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.lme4)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fl">0.8883697</span> <span class="sc">+</span> <span class="fl">0.0378608</span> <span class="sc">*</span> DeerEcervi<span class="sc">$</span>CLength</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>p.averageFarm1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(g)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">order</span>(DeerEcervi<span class="sc">$</span>CLength)  <span class="co">#Avoid spaghetti plot</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(DeerEcervi<span class="sc">$</span>CLength, DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span>, <span class="at">xlab=</span><span class="st">"Length"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Probability of presence of E. cervi L1"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.averageFarm1[I],<span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>p.Upp <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>p.Low <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Upp[I])</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Low[I])</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(lme4)){<span class="fu">install.packages</span>(<span class="st">"lme4"</span>)}</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>DE.lme4 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Farm), </span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.lme4)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace
   Approximation) [glmerMod]
@@ -1046,11 +1024,11 @@ CLength     -0.107
 fSex2       -0.189  0.238       
 CLngth:fSx2  0.091 -0.514  0.232</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(glmmML)){<span class="fu">install.packages</span>(<span class="st">"glmmML"</span>)}</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmmML)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>DE.glmmML <span class="ot">&lt;-</span> <span class="fu">glmmML</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex,</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cluster =</span> Farm, <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.glmmML)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(glmmML)){<span class="fu">install.packages</span>(<span class="st">"glmmML"</span>)}</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmmML)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>DE.glmmML <span class="ot">&lt;-</span> <span class="fu">glmmML</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">cluster =</span> Farm, <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.glmmML)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:  glmmML(formula = Ecervi.01 ~ CLength * fSex, family = binomial,      data = DeerEcervi, cluster = Farm) 

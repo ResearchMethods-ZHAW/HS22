@@ -1001,7 +1001,7 @@ Levels: null &lt; eins &lt; zwei &lt; drei &lt; vier</code></pre>
 <span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXct</span>(datum)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2017-10-01 13:45:10 UTC"</code></pre>
+<pre><code>[1] "2017-10-01 13:45:10 CEST"</code></pre>
 </div>
 </div>
 <p>Wenn das die Zeichenkette in dem obigen Format (Jahr-Monat-Tag Stunde:Minute:Sekunde) daher kommt, braucht <code>as.POSIXct</code>keine weiteren Informationen. Sollte das Format von dem aber Abweichen, muss man der Funktion das genaue Schema jedoch mitteilen. Der Syntax dafür kann via <code>?strptime</code> nachgeschlagen werden.</p>
@@ -1010,7 +1010,7 @@ Levels: null &lt; eins &lt; zwei &lt; drei &lt; vier</code></pre>
 <span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXct</span>(datum,<span class="at">format =</span> <span class="st">"%d.%m.%Y %H:%M"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2017-10-01 13:45:00 UTC"</code></pre>
+<pre><code>[1] "2017-10-01 13:45:00 CEST"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>datum <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(datum,<span class="at">format =</span> <span class="st">"%d.%m.%Y %H:%M"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1022,11 +1022,11 @@ Levels: null &lt; eins &lt; zwei &lt; drei &lt; vier</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">strftime</span>(datum, <span class="at">format =</span> <span class="st">"%b"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Oct"</code></pre>
+<pre><code>[1] "Okt"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">strftime</span>(datum, <span class="at">format =</span> <span class="st">"%B"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "October"</code></pre>
+<pre><code>[1] "Oktober"</code></pre>
 </div>
 </div>
 </section>
@@ -1062,9 +1062,9 @@ Levels: null &lt; eins &lt; zwei &lt; drei &lt; vier</code></pre>
 <span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Ankunft</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2017-01-01 10:00:00 UTC" "2017-01-01 14:00:00 UTC"
-[3] "2017-01-01 13:00:00 UTC" "2017-01-01 18:00:00 UTC"
-[5] "2017-01-01 21:00:00 UTC"</code></pre>
+<pre><code>[1] "2017-01-01 10:00:00 CET" "2017-01-01 14:00:00 CET"
+[3] "2017-01-01 13:00:00 CET" "2017-01-01 18:00:00 CET"
+[5] "2017-01-01 21:00:00 CET"</code></pre>
 </div>
 </div>
 <p>Diese Rohdaten können nun helfen, um Hilfsvariablen (<strong>convenience variables</strong>) zu erstellen. Z.B. können wir die Städte einteilen in gross, mittel und klein.</p>

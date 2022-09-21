@@ -654,14 +654,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in parse_block(g[-1], g[1], params.src, markdown_mode): Duplicate chunk label 'fig-baseplot-glmm-expl', which has been used for the chunk:
-# Explorative Datenanalyse (auf Normalverteilung, Varianzhomogenität)
-boxplot(yield~fertilizer, data = splityield)
-boxplot(yield~irrigation, data = splityield)
-boxplot(yield~density, data = splityield)
-boxplot(yield~irrigation * density * fertilizer, data = splityield)</code></pre>
-</div>
+
 </div>
 <section id="musterlösung-aufgabe-5.1-split-plot-anova" class="level2">
 <h2 class="anchored" data-anchor-id="musterlösung-aufgabe-5.1-split-plot-anova">Musterlösung Aufgabe 5.1: Split-plot ANOVA</h2>
@@ -692,11 +685,11 @@ boxplot(yield~irrigation * density * fertilizer, data = splityield)</code></pre>
 <section id="kommentierter-lösungsweg" class="level3">
 <h3 class="anchored" data-anchor-id="kommentierter-lösungsweg">Kommentierter Lösungsweg</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>splityield <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"data/splityield.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> T)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>splityield <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"data/splityield.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> T)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checken der eingelesenen Daten</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>splityield</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checken der eingelesenen Daten</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>splityield</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    X yield block irrigation density fertilizer
 1   1    90     A    control     low          N
@@ -775,7 +768,7 @@ boxplot(yield~irrigation * density * fertilizer, data = splityield)</code></pre>
 </div>
 <p>Man sieht, dass das Design vollkommen balanciert ist, d.h. jede Kombination irrigation <em> density </em> fertilizer kommt genau 4x vor (in jedem der vier Blöcke A-D einmal).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(splityield)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(splityield)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   72 obs. of  6 variables:
  $ X         : int  1 2 3 4 5 6 7 8 9 10 ...
@@ -785,7 +778,7 @@ boxplot(yield~irrigation * density * fertilizer, data = splityield)</code></pre>
  $ density   : Factor w/ 3 levels "high","low","medium": 2 2 2 3 3 3 1 1 1 2 ...
  $ fertilizer: Factor w/ 3 levels "N","NP","P": 1 3 2 1 3 2 1 3 2 1 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(splityield)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(splityield)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       X             yield        block      irrigation   density   fertilizer
  Min.   : 1.00   Min.   : 60.00   A:18   control  :36   high  :24   N :24     
@@ -795,8 +788,8 @@ boxplot(yield~irrigation * density * fertilizer, data = splityield)</code></pre>
  3rd Qu.:54.25   3rd Qu.:114.00                                               
  Max.   :72.00   Max.   :136.00                                               </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>splityield<span class="sc">$</span>density <span class="ot">&lt;-</span> <span class="fu">ordered</span>(splityield<span class="sc">$</span>density, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"medium"</span>, <span class="st">"high"</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>splityield<span class="sc">$</span>density</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>splityield<span class="sc">$</span>density <span class="ot">&lt;-</span> <span class="fu">ordered</span>(splityield<span class="sc">$</span>density, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"medium"</span>, <span class="st">"high"</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>splityield<span class="sc">$</span>density</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] low    low    low    medium medium medium high   high   high   low   
 [11] low    low    medium medium medium high   high   high   low    low   
@@ -811,11 +804,11 @@ Levels: low &lt; medium &lt; high</code></pre>
 </div>
 <p>Man sieht, dass die Variable yield metrisch ist, während die vier anderen Variablen schon korrekt als kategoriale Variablen (factors) kodiert sind</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explorative Datenanalyse (auf Normalverteilung, Varianzhomogenität)</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>fertilizer, <span class="at">data =</span> splityield)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>irrigation, <span class="at">data =</span> splityield)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>density, <span class="at">data =</span> splityield)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>irrigation <span class="sc">*</span> density <span class="sc">*</span> fertilizer, <span class="at">data =</span> splityield)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explorative Datenanalyse (auf Normalverteilung, Varianzhomogenität)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>fertilizer, <span class="at">data =</span> splityield)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>irrigation, <span class="at">data =</span> splityield)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>density, <span class="at">data =</span> splityield)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>irrigation <span class="sc">*</span> density <span class="sc">*</span> fertilizer, <span class="at">data =</span> splityield)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-baseplot-glmm-expl-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -851,8 +844,8 @@ Levels: low &lt; medium &lt; high</code></pre>
 </div>
 <p>Die Boxplots sind generell hinreichend symmetrisch, so dass man davon ausgehen kann, dass keine problematische Abweichung von der Normalverteilung vorliegt. Die Varianzhomogenität sieht für den Gesamtboxplot sowie für fertilizer und density bestens aus, für irrigation und für die 3-fach-Interaktion deuten sich aber gewisse Varianzheterogenitäten an, d.&nbsp;h. die Boxen (Interquartil-Spannen) sind deutlich unterschiedlich lang. Da das Design aber vollkommen „balanciert“ war, wie wir von oben wissen, sind selbst relativ stark divergierende Varianzen nicht besonders problematisch. Der Boxplot der Dreifachinteraktion zeigt zudem, dass grössere Varianzen (~Boxen) mal bei kleinen, mal bei grossen Mittelwerten vorkommen, womit wir bedenkenlos weitermachen können (Wenn die grossen Varianzen immer bei grossen Mittelwerten aufgetreten wären, hätten wir eine log- oder Wurzeltransformation von yield in Betracht ziehen müssen).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log10</span>(yield)<span class="sc">~</span>irrigation <span class="sc">*</span> density <span class="sc">*</span> fertilizer, <span class="at">data =</span> splityield)<span class="co"># bringt keine Verbesserung</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(yield<span class="sc">~</span>irrigation <span class="sc">*</span> density <span class="sc">*</span> fertilizer <span class="sc">+</span> <span class="fu">Error</span>(block<span class="sc">/</span>irrigation<span class="sc">/</span>density), <span class="at">data =</span> splityield)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log10</span>(yield)<span class="sc">~</span>irrigation <span class="sc">*</span> density <span class="sc">*</span> fertilizer, <span class="at">data =</span> splityield)<span class="co"># bringt keine Verbesserung</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(yield<span class="sc">~</span>irrigation <span class="sc">*</span> density <span class="sc">*</span> fertilizer <span class="sc">+</span> <span class="fu">Error</span>(block<span class="sc">/</span>irrigation<span class="sc">/</span>density), <span class="at">data =</span> splityield)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-baseplot-glmm-expl-log10" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -865,7 +858,7 @@ Levels: low &lt; medium &lt; high</code></pre>
 <p>Das schwierigste an der Analyse ist hier die Definition des Splitt-Plot ANOVA-Modells. Hier machen wir es mit der einfachsten Möglichkeit, dem aov-Befehl. Um diesen richtig zu spezifieren, muss man verstanden haben, welches der „random“-Faktor war und wie die „fixed“ factors ineinander geschachtelt waren. In diesem Fall ist block der random Faktor, in den zunächst irrigation und dann density geschachtelt sind (die unterste Ebene fertilizer muss man nicht mehr angeben, da diese in der nächsthöheren nicht repliziert ist).</p>
 <p>(Übrigens: das simple 3-faktorielle ANOVA-Modell aov(yield~irrigation<em>density</em>fertilizer,data=splityield) würde unterstellen, dass alle 72 subplot unabhängig von allen anderen angeordnet sind, also nicht in Blöcken. Man kann ausprobieren, wie sich das Ergebnis mit dieser Einstellung unterscheidet)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Error: block
@@ -900,10 +893,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>Wir bekommen p-Werte für die drei Einzeltreatments, die drei 2-fach-Interaktionen und die 3- fach Interaktion. Keinen p-Wert gibt es dagegen für block, da dieser als „random“ Faktor spezifiziert wurde. Signifikant sind für sich genommen irrigation und fertilizer sowie die Interaktionen irrigation:density und irrigation:fertilizer.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelvereinfachung</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(yield <span class="sc">~</span> irrigation <span class="sc">+</span> density <span class="sc">+</span> fertilizer <span class="sc">+</span> irrigation<span class="sc">:</span>density <span class="sc">+</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>               irrigation<span class="sc">:</span>fertilizer <span class="sc">+</span> density<span class="sc">:</span>fertilizer <span class="sc">+</span> <span class="fu">Error</span>(block<span class="sc">/</span>irrigation<span class="sc">/</span>density), <span class="at">data =</span> splityield)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelvereinfachung</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(yield <span class="sc">~</span> irrigation <span class="sc">+</span> density <span class="sc">+</span> fertilizer <span class="sc">+</span> irrigation<span class="sc">:</span>density <span class="sc">+</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>               irrigation<span class="sc">:</span>fertilizer <span class="sc">+</span> density<span class="sc">:</span>fertilizer <span class="sc">+</span> <span class="fu">Error</span>(block<span class="sc">/</span>irrigation<span class="sc">/</span>density), <span class="at">data =</span> splityield)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Error: block
@@ -934,9 +927,9 @@ Residuals             40   3344    83.6
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(yield <span class="sc">~</span> irrigation <span class="sc">+</span> density <span class="sc">+</span> fertilizer <span class="sc">+</span> irrigation<span class="sc">:</span>density <span class="sc">+</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>               irrigation<span class="sc">:</span>fertilizer<span class="sc">+</span> <span class="fu">Error</span>(block<span class="sc">/</span>irrigation<span class="sc">/</span>density), <span class="at">data =</span> splityield)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(yield <span class="sc">~</span> irrigation <span class="sc">+</span> density <span class="sc">+</span> fertilizer <span class="sc">+</span> irrigation<span class="sc">:</span>density <span class="sc">+</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>               irrigation<span class="sc">:</span>fertilizer<span class="sc">+</span> <span class="fu">Error</span>(block<span class="sc">/</span>irrigation<span class="sc">/</span>density), <span class="at">data =</span> splityield)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Error: block
@@ -969,14 +962,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>Jetzt muss man nur noch herausfinden, wie irrigation und fertilizer wirken und wie die Interaktionen aussehen. Bei multiplen ANOVAs macht man das am besten visuell:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung der Ergebnisse</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>fertilizer, <span class="at">data =</span> splityield)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>irrigation, <span class="at">data =</span> splityield)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(splityield<span class="sc">$</span>fertilizer, splityield<span class="sc">$</span>irrigation, splityield<span class="sc">$</span>yield, </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">xlab=</span> <span class="st">"fertilizer"</span>, <span class="at">ylab =</span> <span class="st">"mean of splityield"</span>, <span class="at">trace.label =</span> <span class="st">"irrigation"</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(splityield<span class="sc">$</span>density, splityield<span class="sc">$</span>irrigation, splityield<span class="sc">$</span>yield, </span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">xlab=</span> <span class="st">"fertilizer"</span>, <span class="at">ylab =</span> <span class="st">"mean of splityield"</span>, <span class="at">trace.label =</span> <span class="st">"irrigation"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung der Ergebnisse</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>fertilizer, <span class="at">data =</span> splityield)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(yield<span class="sc">~</span>irrigation, <span class="at">data =</span> splityield)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(splityield<span class="sc">$</span>fertilizer, splityield<span class="sc">$</span>irrigation, splityield<span class="sc">$</span>yield, </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">xlab=</span> <span class="st">"fertilizer"</span>, <span class="at">ylab =</span> <span class="st">"mean of splityield"</span>, <span class="at">trace.label =</span> <span class="st">"irrigation"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(splityield<span class="sc">$</span>density, splityield<span class="sc">$</span>irrigation, splityield<span class="sc">$</span>yield, </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">xlab=</span> <span class="st">"fertilizer"</span>, <span class="at">ylab =</span> <span class="st">"mean of splityield"</span>, <span class="at">trace.label =</span> <span class="st">"irrigation"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-baseplot-glmm-result-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">

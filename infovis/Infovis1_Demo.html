@@ -722,7 +722,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(temperature<span class="sc">$</span>time, temperature<span class="sc">$</span>SHA, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(temperature<span class="sc">$</span>time, temperature<span class="sc">$</span>ZER, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Infovis1_Demo_files/figure-html/baseplot-1.png" class="img-fluid" width="672"></p>
+<div id="fig-baseplot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-baseplot-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.1: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>In <code>ggplot</code> sieht das etwas anders und auf den ersten Blick etwas komplizierter aus: Ein plot wird durch den Befehl <code>ggplot()</code> initiiert. Hier wird einerseits der Datensatz festgelegt, auf dem der Plot beruht (<code>data =</code>), sowie die Variablen innerhalb des Datensatzes, die Einfluss auf den Plot ausüben (<code>mapping = aes()</code>).</p>
@@ -730,10 +735,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz: "temperature" | Beeinflussende Variabeln: "time" und "temp"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> temperature, <span class="at">mapping =</span> <span class="fu">aes</span>(time,SHA))             </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-ggplot1" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-ggplot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot1-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.1: <strong>?(caption)</strong></figcaption><p></p>
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.2: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -744,13 +749,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Layer: "geom_point" entspricht Punkten in einem Scatterplot </span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()                                    </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Infovis1_Demo_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ggplot-scatter" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-scatter-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.3: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Da ggplot die Eingaben in der Reihenfolge <code>data =</code> und dann <code>mapping =</code>erwartet, können wir diese Spezifizierungen auch weglassen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature, <span class="fu">aes</span>(time,SHA)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature, <span class="fu">aes</span>(time,SHA)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-scatter2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-scatter2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.4: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="long-vs.-wide" class="level2">
@@ -764,7 +783,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_long, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Infovis1_Demo_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ggplot-scatter-color" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-scatter-color-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.5: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Wir können noch einen Layer mit Linien hinzufügen:</p>
@@ -773,7 +797,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Infovis1_Demo_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ggplot-scatter-line" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-scatter-line-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.6: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -791,7 +820,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Station"</span></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Infovis1_Demo_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ggplot-line-labs" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-line-labs-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.7: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -859,7 +893,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span>    </span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>))    <span class="co"># y-Achsenabschnitt bestimmen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Infovis1_Demo_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ggplot-line-scale-y" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-line-scale-y-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.8: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Das gleiche Spiel kann man für die y-Achse betreiben. Bei unserer y-Achse handelt es sich ja um Datumsangaben. <code>ggplot</code> nennt diese: <code>scale_x_date()</code>.</p>
@@ -877,7 +916,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"3 months"</span>, </span>
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">date_labels =</span> <span class="st">"%b"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Infovis1_Demo_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ggplot-line-scale-x" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-line-scale-x-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.9: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -913,7 +957,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">date_labels =</span> <span class="st">"%b"</span>) <span class="sc">+</span></span>
 <span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(station<span class="sc">~</span>.)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Infovis1_Demo_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ggplot-line-facet" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-line-facet-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.10: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Auch <code>facet_wrap</code> kann man auf seine Bedürfnisse anpassen: Beispielweise kann man mit <code>ncol =</code> die Anzahl facets pro Zeile bestimmen.</p>
@@ -933,7 +982,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>station,<span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Infovis1_Demo_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ggplot-line-theme" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-line-theme-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.11: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -979,7 +1033,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Infovis1_Demo_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ggplot-smooth" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-smooth-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.12: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 
