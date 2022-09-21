@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.36">
+<meta name="generator" content="quarto-1.1.251">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2022-11-15">
 
 <title>Research Methods HS22 - 38&nbsp; Stat6: Lösung</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -54,7 +58,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -67,7 +71,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -110,15 +114,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "type": "textbox",
   "limit": 20,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken"
   }
 }</script>
 
@@ -131,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Stat6: Lösung</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-title">Stat6: Lösung</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -148,9 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Research Methods HS22</a> 
-        <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/ResearchMethods-ZHAW/HS22/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="../Research-Methods-HS22.pdf" title="Download PDF" class="sidebar-tool px-1"><i class="bi bi-file-pdf"></i></a>
+        <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -182,7 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../prepro/Prepro1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">| include: false</span></a>
+  <a href="../prepro/Prepro1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PrePro 1: Übung</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -551,13 +553,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../fallstudie_s/1_Einleitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW40: Einleitung</span></a>
   </div>
 </li>
-          <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../fallstudie_s/2_Felderhebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW40 - KW42: Felderhebung Grüntal</span></a>
+  <a href="../fallstudie_s/2_Felderhebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW40 - KW42: Übung Felderhebung</span></a>
   </div>
 </li>
-          <li class="px-0"><hr class="sidebar-divider hi "></li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -579,20 +579,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../fallstudie_n/2_Datenverarbeitung_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2. Übung</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../fallstudie_n/2_Datenverarbeitung_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2. Lösung</span></a>
-  </div>
-</li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../fallstudie_n/3_Berechnung_Homeranges_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Übung</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../fallstudie_n/3_Berechnung_Homeranges_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Lösung</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -601,31 +591,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../fallstudie_n/4_Multivariate_Modelle_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">4. Übung</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../fallstudie_n/4_Multivariate_Modelle_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">4. Lösung</span></a>
-  </div>
-</li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../fallstudie_n/5_Variablenselektion_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5. Übung</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../fallstudie_n/5_Variablenselektion_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5. Lösung</span></a>
-  </div>
-</li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../fallstudie_n/6_Guete_und_Diagnostics_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6. Übung</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../fallstudie_n/6_Guete_und_Diagnostics_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6. Lösung</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -648,7 +623,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-title">Stat6: Lösung</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title d-none d-lg-block"><span class="chapter-title">Stat6: Lösung</span></h1>
 </div>
 
 
@@ -657,9 +632,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
     
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 15, 2022</p>
+      <p class="date">15. November 2022</p>
     </div>
   </div>
     
@@ -669,18 +644,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell">
+<div class="cell-output cell-output-error">
+<pre><code>Error in parse_block(g[-1], g[1], params.src, markdown_mode): Duplicate chunk label 'fig-screeplot-pca', which has been used for the chunk:
+env.pca &lt;- rda(env, scale = TRUE)
+env.pca
+# In env.pca sieht man, dass es bei 11 Umweltvariablen logischerweise 11 orthogonale Principle Components gibt
 
+summary(env.pca, axes = 0)
+
+# Hier sieht man auch die Übersetzung der Eigenvalues in erklärte Varianzen der einzelnen Principle Components
+
+summary(env.pca)
+# Hier das ausführliche Summary mit den Art- und Umweltkorrelationen auf den ersten sechs Achsen
+
+screeplot(env.pca, bstick = TRUE, npcs = length(env.pca$CA$eig))
+# Visualisierung der Anteile erklärter Varianz, auch im Vergleich zu einem Broken-Stick-Modell</code></pre>
 </div>
-<div class="cell">
-
 </div>
 <ul>
-<li><a href="Statistik6_Loesung.R">R-Skript als Download</a></li>
+<li>Datensatz: <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=606667">Doubs.RData</a></li>
+<li><a href="../purl/Statistik6_Loesung.R">R-Skript als Download</a></li>
 <li><a href="Statistik_Loesungstext_6.1.pdf">Lösungstext</a></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"Doubs.RData"</span>))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/Doubs.RData"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      dfs              ele             slo              dis       
  Min.   :  0.30   Min.   :172.0   Min.   : 0.200   Min.   : 0.84  
@@ -704,7 +692,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  3rd Qu.:0.2000   3rd Qu.:10.900   3rd Qu.: 5.275  
  Max.   :1.8000   Max.   :12.400   Max.   :16.700  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spe)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Cogo           Satr           Phph            Babl            Thth     
  Min.   :0.00   Min.   :0.00   Min.   :0.000   Min.   :0.000   Min.   :0.00  
@@ -749,15 +737,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  3rd Qu.:1.750   3rd Qu.:5.0   3rd Qu.:1.75  
  Max.   :5.000   Max.   :5.0   Max.   :5.00  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Dataframes env und spe enthalten die Umwelt- respective die Artdaten</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(vegan)){<span class="fu">install.packages</span>(<span class="st">"vegan"</span>)}</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Dataframes env und spe enthalten die Umwelt- respective die Artdaten</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(vegan)){<span class="fu">install.packages</span>(<span class="st">"vegan"</span>)}</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die PCA wird im Package vegan mit dem Befehl rda ausgeführt, wobei in diesem scale = TRUE gesetzt werden muss, da die Umweltdaten mit ganz unterschiedlichen Einheiten und Wertebereichen daherkommen</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>env.pca <span class="ot">&lt;-</span> <span class="fu">rda</span>(env, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>env.pca</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>env.pca <span class="ot">&lt;-</span> <span class="fu">rda</span>(env, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>env.pca</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call: rda(X = env, scale = TRUE)
 
@@ -770,9 +758,9 @@ Eigenvalues for unconstrained axes:
   PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11 
 5.969 2.164 1.065 0.739 0.400 0.336 0.173 0.108 0.024 0.017 0.006 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In env.pca sieht man, dass es bei 11 Umweltvariablen logischerweise 11 orthogonale Principle Components gibt</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env.pca, <span class="at">axes =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In env.pca sieht man, dass es bei 11 Umweltvariablen logischerweise 11 orthogonale Principle Components gibt</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env.pca, <span class="at">axes =</span> <span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -800,9 +788,9 @@ Scaling 2 for species and site scores
 * Sites are unscaled: weighted dispersion equal on all dimensions
 * General scaling constant of scores:  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier sieht man auch die Übersetzung der Eigenvalues in erklärte Varianzen der einzelnen Principle Components</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env.pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier sieht man auch die Übersetzung der Eigenvalues in erklärte Varianzen der einzelnen Principle Components</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env.pca)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -881,13 +869,18 @@ Site scores (weighted sums of species scores)
 29  0.66413  1.11562 -1.58043  0.65099  0.650327 -0.020001
 30  0.74743  1.36955 -0.22810 -0.43281  1.431895 -0.686570</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier das ausführliche Summary mit den Art- und Umweltkorrelationen auf den ersten sechs Achsen</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(env.pca, <span class="at">bstick =</span> <span class="cn">TRUE</span>, <span class="at">npcs =</span> <span class="fu">length</span>(env.pca<span class="sc">$</span>CA<span class="sc">$</span>eig))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier das ausführliche Summary mit den Art- und Umweltkorrelationen auf den ersten sechs Achsen</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(env.pca, <span class="at">bstick =</span> <span class="cn">TRUE</span>, <span class="at">npcs =</span> <span class="fu">length</span>(env.pca<span class="sc">$</span>CA<span class="sc">$</span>eig))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung der Anteile erklärter Varianz, auch im Vergleich zu einem Broken-Stick-Modell</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik6_Loesung_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<div id="fig-screeplot-pca" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Statistik6_Loesung_files/figure-html/fig-screeplot-pca-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;38.1: Generierter Plot</figcaption><p></p>
+</figure>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung der Anteile erklärter Varianz, auch im Vergleich zu einem Broken-Stick-Modell</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <ul>
 <li>Die Anteile fallen steil ab. Nur die ersten vier Achsen erklären jeweils mehr als 5 % (und zusammen über 90 %)</li>
@@ -898,9 +891,14 @@ Site scores (weighted sums of species scores)
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(env.pca, <span class="at">scaling =</span> <span class="dv">1</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(env.pca, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">scaling =</span> <span class="dv">1</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(env.pca, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>), <span class="at">scaling =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(env.pca, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>), <span class="at">scaling =</span> <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik6_Loesung_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<div id="fig-biplot-pca" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Statistik6_Loesung_files/figure-html/fig-biplot-pca-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;38.2: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <ul>
@@ -913,7 +911,7 @@ Site scores (weighted sums of species scores)
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Wir extrahieren nun die ersten vier PC-Scores aller Aufnahmeflächen</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(env.pca, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), <span class="at">display =</span> <span class="fu">c</span>(<span class="st">"sites"</span>))</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>scores</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           PC1         PC2         PC3         PC4
 1  -1.41273883 -1.40097880 -2.03483870 -2.67758838
@@ -951,7 +949,7 @@ attr(,"const")
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Berechnung der Artenzahl mittels specnumber; Artenzahl und Scores werden zum Dataframe für die Regressionsanalyse hinzugefügt</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>doubs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(env, scores, <span class="at">species_richness =</span> <span class="fu">specnumber</span>(spe))</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>doubs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>doubs</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     dfs ele  slo   dis  pH har  pho  nit  amm  oxy  bod         PC1
 1    0.3 934 48.0  0.84 7.9  45 0.01 0.20 0.00 12.2  2.7 -1.41273883
@@ -1016,7 +1014,7 @@ attr(,"const")
 29  1.11561620 -1.58043410  0.65099411               26
 30  1.36955357 -0.22810459 -0.43281119               21</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(doubs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(doubs)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   30 obs. of  16 variables:
  $ dfs             : num  0.3 2.2 10.2 18.5 21.5 32.4 36.8 49.1 70.5 99 ...
@@ -1038,7 +1036,7 @@ attr(,"const")
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Lösung mit lm (alternativ ginge Poisson-glm) und frequentist approach (alternativ ginge Multimodelinference mit AICc)</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>lm.pc<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(species_richness <span class="sc">~</span> PC1 <span class="sc">+</span> PC2 <span class="sc">+</span> PC3 <span class="sc">+</span> PC4, <span class="at">data =</span> doubs)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.pc<span class="fl">.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.pc<span class="fl">.0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1064,7 +1062,7 @@ F-statistic: 11.12 on 4 and 25 DF,  p-value: 2.55e-05</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvereinfachung: PC4 ist nicht signifikant und wird entfernt</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>lm.pc<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(species_richness <span class="sc">~</span> PC1 <span class="sc">+</span> PC2 <span class="sc">+</span> PC3, <span class="at">data =</span> doubs)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.pc<span class="fl">.1</span>) <span class="co"># jetzt sind alle Achsen signifikant und werden in das minimal adäquate Modell aufgenommen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.pc<span class="fl">.1</span>) <span class="co"># jetzt sind alle Achsen signifikant und werden in das minimal adäquate Modell aufgenommen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1089,16 +1087,21 @@ F-statistic:  15.4 on 3 and 26 DF,  p-value: 5.853e-06</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelldiagnostik/Modellvalidierung</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.pc<span class="fl">.1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.pc<span class="fl">.1</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik6_Loesung_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<div id="fig-baseplot-lm-pc" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Statistik6_Loesung_files/figure-html/fig-baseplot-lm-pc-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;38.3: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Nicht besonders toll, ginge aber gerade noch. Da wir aber ohnehin Zähldaten haben, können wir es mit einem Poisson-GLM versuchen</p>
 <p><strong>Alternativ mit glm</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>glm.pc<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> PC1 <span class="sc">+</span> PC2 <span class="sc">+</span> PC3 <span class="sc">+</span> PC4, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.pc<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.pc<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1128,7 +1131,7 @@ AIC: 206.97
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>glm.pc<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> PC1 <span class="sc">+</span> PC2 <span class="sc">+</span> PC3, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.pc<span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.pc<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1157,9 +1160,14 @@ AIC: 205.38
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.pc<span class="fl">.2</span>) <span class="co"># sieht nicht besser aus als LM, die Normalverteilung ist sogar schlechter</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.pc<span class="fl">.2</span>) <span class="co"># sieht nicht besser aus als LM, die Normalverteilung ist sogar schlechter</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik6_Loesung_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<div id="fig-baseplot-glm-pc" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Statistik6_Loesung_files/figure-html/fig-baseplot-glm-pc-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;38.4: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>LM oder GLM sind für die Analyse möglich, Modellwahl nach Gusto. Man muss jetzt noch die Ergebnisse adäquat aus all den erzielten Outputs zusammenstellen (siehe Ergebnistext). In dieser Aufgabe haben wir ja die PC-Achsen als Alternative zur direkten Modellierung mit den originalen Umweltvariablen ausprobiert. Deshalb (war nicht Teil der Aufgabe), kommt hier noch eine Lösung, wie wir es bisher gemacht hätten.</p>
@@ -1168,13 +1176,16 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen zwischen Prädiktoren</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(doubs[, <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>])</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor)<span class="sc">&lt;</span>.<span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>cor </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>cor </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Korrelationsmatrix betrachtet man am besten in Excel. Es zeigt sich, dass es zwei grosse Gruppen von untereinander hochkorrelierten Variablen gibt: zum einen dfs-ele-dis-har-nit, zum anderen pho-nit-amm-oxy-bod, während slo und pH mit jeweils keiner anderen Variablen hochkorreliert sind. Insofern behalten wir eine aus der ersten Gruppe (ele), eine aus der zweiten Gruppe (pho) und die beiden «unabhängigen».</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Globalmodell (als hinreichend unabhängige Variablen werden ele, slo, pH und pho aufgenommen)</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>lm.orig<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> slo <span class="sc">+</span> pH <span class="sc">+</span> pho, <span class="at">data =</span> doubs)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.orig<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplot-lm-direct</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Globalmodell (als hinreichend unabhängige Variablen werden ele, slo, pH und pho aufgenommen)</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>lm.orig<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> slo <span class="sc">+</span> pH <span class="sc">+</span> pho, <span class="at">data =</span> doubs)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.orig<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1200,7 +1211,7 @@ F-statistic: 11.92 on 4 and 25 DF,  p-value: 1.485e-05</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvereinfachung: slo als am wenigsten signifikante Variable gestrichen</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>lm.orig<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pH <span class="sc">+</span> pho, <span class="at">data =</span> doubs)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.orig<span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.orig<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1225,7 +1236,7 @@ F-statistic: 15.98 on 3 and 26 DF,  p-value: 4.305e-06</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvereinfachung: pH ist immer noch nicht signifikant und wird gestrichen</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>lm.orig<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pho, <span class="at">data =</span> doubs)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.orig<span class="fl">.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.orig<span class="fl">.3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1249,9 +1260,9 @@ F-statistic: 23.88 on 2 and 27 DF,  p-value: 1.07e-06</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelldiagnostik</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.orig<span class="fl">.3</span>) <span class="co"># nicht so gut, besonders die Bananenform in der linken obereren Abbildung</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.orig<span class="fl">.3</span>) <span class="co"># nicht so gut, besonders die Bananenform in der linken obereren Abbildung</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik6_Loesung_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="Statistik6_Loesung_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nach Modellvereinfachung bleiben zwei signifikante Variablen, ele und pho.</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1259,7 +1270,7 @@ F-statistic: 23.88 on 2 and 27 DF,  p-value: 1.07e-06</code></pre>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Versuch mit glm</span></span>
 <span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>glm.orig<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pho <span class="sc">+</span> pH <span class="sc">+</span> slo, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.orig<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.orig<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1289,7 +1300,7 @@ AIC: 185.79
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>glm.orig<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pho <span class="sc">+</span> slo, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.orig<span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.orig<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1318,7 +1329,7 @@ AIC: 186.41
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>glm.orig<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pho, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.orig<span class="fl">.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.orig<span class="fl">.3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1345,15 +1356,15 @@ AIC: 190
 
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.orig<span class="fl">.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.orig<span class="fl">.3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik6_Loesung_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="672"></p>
+<p><img src="Statistik6_Loesung_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Das sieht deutlich besser aus als beim LM. Wir müssen aber noch prüfen, ob evtl. Overdispersion vorliegt.</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(AER)){<span class="fu">install.packages</span>(<span class="st">"AER"</span>)}</span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(glm.orig<span class="fl">.3</span>) <span class="co">#signifikante Überdispersion</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(glm.orig<span class="fl">.3</span>) <span class="co">#signifikante Überdispersion</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Overdispersion test
@@ -1368,7 +1379,7 @@ dispersion
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ja, es gibt signifikante Overdispersion (obwohl der Dispersionparameter sogar unter 2 ist, also nicht extrem). Wir können nun entweder quasipoisson oder negativebinomial nehmen.</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>glmq.orig<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pho, <span class="at">family =</span> <span class="st">"quasipoisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmq.orig<span class="fl">.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmq.orig<span class="fl">.3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1396,16 +1407,14 @@ AIC: NA
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameterschätzung bleiben gleich, aber Signifikanzen sind niedriger als beim GLM ohne Overdispersion.</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glmq.orig<span class="fl">.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glmq.orig<span class="fl">.3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik6_Loesung_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid" width="672"></p>
+<p><img src="Statistik6_Loesung_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Sieht gut aus, wir hätten hier also unser finales Modell.</p>
 <p>Im Vergleich der beiden Vorgehensweisen (PC-Achsen vs.&nbsp;Umweltdaten direkt) scheint in diesem Fall die direkte Modellierung der Umweltachsen informativer: Man kommt mit zwei Prädiktoren aus, die jeweils direkt für eine der Hauptvariablen stehen – Meereshöhe und Phosphor – zugleich aber jeweils eine grössere Gruppe von Variablen mit hohen Korrelationen inkludieren, im ersten Fall Variablen, die sich im Flusslauf von oben nach unten systematisch ändern, im zweiten Masse der Nährstoffbelastung des Gewässers. Bei der PCA-Lösung kamen drei signifikante Komponenten heraus, die allerdings nicht so leicht zu interpretieren sind. Dies insbesondere, weil in diesem Fall auf der Ebene PC2 vs.&nbsp;PC1 die Mehrzahl der Umweltparameter ungefähr in 45-Grad-Winkeln angeordnet sind. Im allgemeinen Fall kann aber die Nutzung von PC-Achsen durchaus eine gute Lösung sein.</p>
 
-
-<!-- -->
 
 
 </main> <!-- /main -->
@@ -1480,6 +1489,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       }
     }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
   }
   const isFileUrl = () => { 
     return window.location.protocol === 'file:';
@@ -1552,7 +1571,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Kopiert");
     setTimeout(function() {
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
@@ -1560,57 +1579,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -1632,7 +1600,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
@@ -1671,182 +1640,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-title">Stat7: Demo</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb51" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-15</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat6</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Einführung in "multivariate" Methoden</span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 3</span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat6: Lösung</span></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: hide</span></span>
-<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a><span class="co">#| purl: false</span></span>
-<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::purl("Statistik6_Loesung.qmd", "Statistik6_Loesung.R", documentation = 0)</span></span>
-<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">R-Skript als Download</span><span class="co">](Statistik6_Loesung.R)</span></span>
-<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Lösungstext</span><span class="co">](Statistik_Loesungstext_6.1.pdf)</span></span>
-<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true</span></span>
-<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb51-29"><a href="#cb51-29" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/Doubs.RData"</span>)</span>
-<span id="cb51-30"><a href="#cb51-30" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env)</span>
-<span id="cb51-31"><a href="#cb51-31" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spe)</span>
-<span id="cb51-32"><a href="#cb51-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-33"><a href="#cb51-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Dataframes env und spe enthalten die Umwelt- respective die Artdaten</span></span>
-<span id="cb51-34"><a href="#cb51-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-35"><a href="#cb51-35" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(vegan)){<span class="fu">install.packages</span>(<span class="st">"vegan"</span>)}</span>
-<span id="cb51-36"><a href="#cb51-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span>
-<span id="cb51-37"><a href="#cb51-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-38"><a href="#cb51-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-39"><a href="#cb51-39" aria-hidden="true" tabindex="-1"></a>Die PCA wird im Package vegan mit dem Befehl rda ausgeführt, wobei in diesem scale = TRUE gesetzt werden muss, da die Umweltdaten mit ganz unterschiedlichen Einheiten und Wertebereichen daherkommen</span>
-<span id="cb51-40"><a href="#cb51-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-43"><a href="#cb51-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-44"><a href="#cb51-44" aria-hidden="true" tabindex="-1"></a>env.pca <span class="ot">&lt;-</span> <span class="fu">rda</span>(env, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb51-45"><a href="#cb51-45" aria-hidden="true" tabindex="-1"></a>env.pca</span>
-<span id="cb51-46"><a href="#cb51-46" aria-hidden="true" tabindex="-1"></a><span class="co"># In env.pca sieht man, dass es bei 11 Umweltvariablen logischerweise 11 orthogonale Principle Components gibt</span></span>
-<span id="cb51-47"><a href="#cb51-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-48"><a href="#cb51-48" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env.pca, <span class="at">axes =</span> <span class="dv">0</span>)</span>
-<span id="cb51-49"><a href="#cb51-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-50"><a href="#cb51-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier sieht man auch die Übersetzung der Eigenvalues in erklärte Varianzen der einzelnen Principle Components</span></span>
-<span id="cb51-51"><a href="#cb51-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-52"><a href="#cb51-52" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env.pca)</span>
-<span id="cb51-53"><a href="#cb51-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier das ausführliche Summary mit den Art- und Umweltkorrelationen auf den ersten sechs Achsen</span></span>
-<span id="cb51-54"><a href="#cb51-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-55"><a href="#cb51-55" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(env.pca, <span class="at">bstick =</span> <span class="cn">TRUE</span>, <span class="at">npcs =</span> <span class="fu">length</span>(env.pca<span class="sc">$</span>CA<span class="sc">$</span>eig))</span>
-<span id="cb51-56"><a href="#cb51-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung der Anteile erklärter Varianz, auch im Vergleich zu einem Broken-Stick-Modell</span></span>
-<span id="cb51-57"><a href="#cb51-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-58"><a href="#cb51-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-59"><a href="#cb51-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Die Anteile fallen steil ab. Nur die ersten vier Achsen erklären jeweils mehr als 5 % (und zusammen über 90 %)</span>
-<span id="cb51-60"><a href="#cb51-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Das Broken-stick-Modell würde sogar nur die ersten beiden Achsen als relevant vorschlagen</span>
-<span id="cb51-61"><a href="#cb51-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Da die Relevanz für das Datenmuster in den Umweltdaten nicht notwendig die Relevanz für die Erklärung der Artenzahlen ist,    nehmen wir ins globale Modell grosszügig die ersten vier Achsen rein (PC1-PC4)</span>
-<span id="cb51-62"><a href="#cb51-62" aria-hidden="true" tabindex="-1"></a>Die Bedeutung der Achsen (benötigt man später für die Interpretation!) findet man in den “species scores” (da so, wie wir die PCA hier gerechnet haben, die Umweltdaten die Arten sind. Zusätzlich oder alternative kann man sich die ersten vier Achsen auch visualisieren, indem man PC2 vs. PC1 (ohne choices), PC3 vs. PC1 oder PC4 vs. PC1 plottet.</span>
-<span id="cb51-63"><a href="#cb51-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-66"><a href="#cb51-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-67"><a href="#cb51-67" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb51-68"><a href="#cb51-68" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(env.pca, <span class="at">scaling =</span> <span class="dv">1</span>)</span>
-<span id="cb51-69"><a href="#cb51-69" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(env.pca, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">scaling =</span> <span class="dv">1</span>)</span>
-<span id="cb51-70"><a href="#cb51-70" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(env.pca, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>), <span class="at">scaling =</span> <span class="dv">1</span>)</span>
-<span id="cb51-71"><a href="#cb51-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-72"><a href="#cb51-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-73"><a href="#cb51-73" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>PC1 steht v.a. für Nitrat (positiv), Sauerstoff (negativ)</span>
-<span id="cb51-74"><a href="#cb51-74" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>PC2 steht v.a. für pH (positiv)</span>
-<span id="cb51-75"><a href="#cb51-75" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>PC3 steht v.a. für pH (positiv) und slo (negativ)</span>
-<span id="cb51-76"><a href="#cb51-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>PC4 steht v.a. für pH (negativ) und slo (negativ)</span>
-<span id="cb51-77"><a href="#cb51-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-80"><a href="#cb51-80" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-81"><a href="#cb51-81" aria-hidden="true" tabindex="-1"></a><span class="co">#Wir extrahieren nun die ersten vier PC-Scores aller Aufnahmeflächen</span></span>
-<span id="cb51-82"><a href="#cb51-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-83"><a href="#cb51-83" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(env.pca, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), <span class="at">display =</span> <span class="fu">c</span>(<span class="st">"sites"</span>))</span>
-<span id="cb51-84"><a href="#cb51-84" aria-hidden="true" tabindex="-1"></a>scores</span>
-<span id="cb51-85"><a href="#cb51-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-86"><a href="#cb51-86" aria-hidden="true" tabindex="-1"></a><span class="co">#Berechnung der Artenzahl mittels specnumber; Artenzahl und Scores werden zum Dataframe für die Regressionsanalyse hinzugefügt</span></span>
-<span id="cb51-87"><a href="#cb51-87" aria-hidden="true" tabindex="-1"></a>doubs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(env, scores, <span class="at">species_richness =</span> <span class="fu">specnumber</span>(spe))</span>
-<span id="cb51-88"><a href="#cb51-88" aria-hidden="true" tabindex="-1"></a>doubs</span>
-<span id="cb51-89"><a href="#cb51-89" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(doubs)</span>
-<span id="cb51-90"><a href="#cb51-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-91"><a href="#cb51-91" aria-hidden="true" tabindex="-1"></a><span class="do">##Lösung mit lm (alternativ ginge Poisson-glm) und frequentist approach (alternativ ginge Multimodelinference mit AICc)</span></span>
-<span id="cb51-92"><a href="#cb51-92" aria-hidden="true" tabindex="-1"></a>lm.pc<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(species_richness <span class="sc">~</span> PC1 <span class="sc">+</span> PC2 <span class="sc">+</span> PC3 <span class="sc">+</span> PC4, <span class="at">data =</span> doubs)</span>
-<span id="cb51-93"><a href="#cb51-93" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.pc<span class="fl">.0</span>)</span>
-<span id="cb51-94"><a href="#cb51-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-95"><a href="#cb51-95" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvereinfachung: PC4 ist nicht signifikant und wird entfernt</span></span>
-<span id="cb51-96"><a href="#cb51-96" aria-hidden="true" tabindex="-1"></a>lm.pc<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(species_richness <span class="sc">~</span> PC1 <span class="sc">+</span> PC2 <span class="sc">+</span> PC3, <span class="at">data =</span> doubs)</span>
-<span id="cb51-97"><a href="#cb51-97" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.pc<span class="fl">.1</span>) <span class="co"># jetzt sind alle Achsen signifikant und werden in das minimal adäquate Modell aufgenommen</span></span>
-<span id="cb51-98"><a href="#cb51-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-99"><a href="#cb51-99" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelldiagnostik/Modellvalidierung</span></span>
-<span id="cb51-100"><a href="#cb51-100" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb51-101"><a href="#cb51-101" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.pc<span class="fl">.1</span>) </span>
-<span id="cb51-102"><a href="#cb51-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-103"><a href="#cb51-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-104"><a href="#cb51-104" aria-hidden="true" tabindex="-1"></a>Nicht besonders toll, ginge aber gerade noch. Da wir aber ohnehin Zähldaten haben, können wir es mit einem Poisson-GLM versuchen</span>
-<span id="cb51-105"><a href="#cb51-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-106"><a href="#cb51-106" aria-hidden="true" tabindex="-1"></a>**Alternativ mit glm**</span>
-<span id="cb51-107"><a href="#cb51-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-110"><a href="#cb51-110" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-111"><a href="#cb51-111" aria-hidden="true" tabindex="-1"></a>glm.pc<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> PC1 <span class="sc">+</span> PC2 <span class="sc">+</span> PC3 <span class="sc">+</span> PC4, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb51-112"><a href="#cb51-112" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.pc<span class="fl">.1</span>)</span>
-<span id="cb51-113"><a href="#cb51-113" aria-hidden="true" tabindex="-1"></a>glm.pc<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> PC1 <span class="sc">+</span> PC2 <span class="sc">+</span> PC3, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb51-114"><a href="#cb51-114" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.pc<span class="fl">.2</span>)</span>
-<span id="cb51-115"><a href="#cb51-115" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb51-116"><a href="#cb51-116" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.pc<span class="fl">.2</span>) <span class="co"># sieht nicht besser aus als LM, die Normalverteilung ist sogar schlechter</span></span>
-<span id="cb51-117"><a href="#cb51-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-118"><a href="#cb51-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-119"><a href="#cb51-119" aria-hidden="true" tabindex="-1"></a>LM oder GLM sind für die Analyse möglich, Modellwahl nach Gusto. Man muss jetzt noch die Ergebnisse adäquat aus all den erzielten Outputs zusammenstellen (siehe Ergebnistext). In dieser Aufgabe haben wir ja die PC-Achsen als Alternative zur direkten Modellierung mit den originalen Umweltvariablen ausprobiert. Deshalb (war nicht Teil der Aufgabe), kommt hier noch eine Lösung, wie wir es bisher gemacht hätten.</span>
-<span id="cb51-120"><a href="#cb51-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-121"><a href="#cb51-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-122"><a href="#cb51-122" aria-hidden="true" tabindex="-1"></a>**Zum Vergleich die Modellierung mit den Originaldaten**</span>
-<span id="cb51-123"><a href="#cb51-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-126"><a href="#cb51-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-127"><a href="#cb51-127" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb51-128"><a href="#cb51-128" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen zwischen Prädiktoren</span></span>
-<span id="cb51-129"><a href="#cb51-129" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(doubs[, <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>])</span>
-<span id="cb51-130"><a href="#cb51-130" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor)<span class="sc">&lt;</span>.<span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb51-131"><a href="#cb51-131" aria-hidden="true" tabindex="-1"></a>cor </span>
-<span id="cb51-132"><a href="#cb51-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-133"><a href="#cb51-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-134"><a href="#cb51-134" aria-hidden="true" tabindex="-1"></a>Die Korrelationsmatrix betrachtet man am besten in Excel.</span>
-<span id="cb51-135"><a href="#cb51-135" aria-hidden="true" tabindex="-1"></a>Es zeigt sich, dass es zwei grosse Gruppen von untereinander hochkorrelierten Variablen gibt: zum einen dfs-ele-dis-har-nit, zum anderen pho-nit-amm-oxy-bod, während slo und pH mit jeweils keiner anderen Variablen hochkorreliert sind. Insofern behalten wir eine aus der ersten Gruppe (ele), eine aus der zweiten Gruppe (pho) und die beiden «unabhängigen».</span>
-<span id="cb51-136"><a href="#cb51-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-139"><a href="#cb51-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-140"><a href="#cb51-140" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb51-141"><a href="#cb51-141" aria-hidden="true" tabindex="-1"></a><span class="co"># Globalmodell (als hinreichend unabhängige Variablen werden ele, slo, pH und pho aufgenommen)</span></span>
-<span id="cb51-142"><a href="#cb51-142" aria-hidden="true" tabindex="-1"></a>lm.orig<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> slo <span class="sc">+</span> pH <span class="sc">+</span> pho, <span class="at">data =</span> doubs)</span>
-<span id="cb51-143"><a href="#cb51-143" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.orig<span class="fl">.1</span>)</span>
-<span id="cb51-144"><a href="#cb51-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-145"><a href="#cb51-145" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvereinfachung: slo als am wenigsten signifikante Variable gestrichen</span></span>
-<span id="cb51-146"><a href="#cb51-146" aria-hidden="true" tabindex="-1"></a>lm.orig<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pH <span class="sc">+</span> pho, <span class="at">data =</span> doubs)</span>
-<span id="cb51-147"><a href="#cb51-147" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.orig<span class="fl">.2</span>)</span>
-<span id="cb51-148"><a href="#cb51-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-149"><a href="#cb51-149" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvereinfachung: pH ist immer noch nicht signifikant und wird gestrichen</span></span>
-<span id="cb51-150"><a href="#cb51-150" aria-hidden="true" tabindex="-1"></a>lm.orig<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pho, <span class="at">data =</span> doubs)</span>
-<span id="cb51-151"><a href="#cb51-151" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.orig<span class="fl">.3</span>)</span>
-<span id="cb51-152"><a href="#cb51-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-153"><a href="#cb51-153" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelldiagnostik</span></span>
-<span id="cb51-154"><a href="#cb51-154" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb51-155"><a href="#cb51-155" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.orig<span class="fl">.3</span>) <span class="co"># nicht so gut, besonders die Bananenform in der linken obereren Abbildung</span></span>
-<span id="cb51-156"><a href="#cb51-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-157"><a href="#cb51-157" aria-hidden="true" tabindex="-1"></a><span class="co"># Nach Modellvereinfachung bleiben zwei signifikante Variablen, ele und pho.</span></span>
-<span id="cb51-158"><a href="#cb51-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-159"><a href="#cb51-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Da das nicht so gut aussieht, versuchen wir es mit dem theoretisch angemesseneren Modell, einem Poisson-GLM.</span></span>
-<span id="cb51-160"><a href="#cb51-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-161"><a href="#cb51-161" aria-hidden="true" tabindex="-1"></a><span class="co">#Versuch mit glm</span></span>
-<span id="cb51-162"><a href="#cb51-162" aria-hidden="true" tabindex="-1"></a>glm.orig<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pho <span class="sc">+</span> pH <span class="sc">+</span> slo, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb51-163"><a href="#cb51-163" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.orig<span class="fl">.1</span>)</span>
-<span id="cb51-164"><a href="#cb51-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-165"><a href="#cb51-165" aria-hidden="true" tabindex="-1"></a>glm.orig<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pho <span class="sc">+</span> slo, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb51-166"><a href="#cb51-166" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.orig<span class="fl">.2</span>)</span>
-<span id="cb51-167"><a href="#cb51-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-168"><a href="#cb51-168" aria-hidden="true" tabindex="-1"></a>glm.orig<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pho, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb51-169"><a href="#cb51-169" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.orig<span class="fl">.3</span>)</span>
-<span id="cb51-170"><a href="#cb51-170" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.orig<span class="fl">.3</span>)</span>
-<span id="cb51-171"><a href="#cb51-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-172"><a href="#cb51-172" aria-hidden="true" tabindex="-1"></a><span class="co"># Das sieht deutlich besser aus als beim LM. Wir müssen aber noch prüfen, ob evtl. Overdispersion vorliegt.</span></span>
-<span id="cb51-173"><a href="#cb51-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-174"><a href="#cb51-174" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(AER)){<span class="fu">install.packages</span>(<span class="st">"AER"</span>)}</span>
-<span id="cb51-175"><a href="#cb51-175" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
-<span id="cb51-176"><a href="#cb51-176" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(glm.orig<span class="fl">.3</span>) <span class="co">#signifikante Überdispersion</span></span>
-<span id="cb51-177"><a href="#cb51-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-178"><a href="#cb51-178" aria-hidden="true" tabindex="-1"></a><span class="co"># Ja, es gibt signifikante Overdispersion (obwohl der Dispersionparameter sogar unter 2 ist, also nicht extrem). Wir können nun entweder quasipoisson oder negativebinomial nehmen.</span></span>
-<span id="cb51-179"><a href="#cb51-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-180"><a href="#cb51-180" aria-hidden="true" tabindex="-1"></a>glmq.orig<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(species_richness <span class="sc">~</span> ele <span class="sc">+</span> pho, <span class="at">family =</span> <span class="st">"quasipoisson"</span>, <span class="at">data =</span> doubs)</span>
-<span id="cb51-181"><a href="#cb51-181" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmq.orig<span class="fl">.3</span>)</span>
-<span id="cb51-182"><a href="#cb51-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-183"><a href="#cb51-183" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameterschätzung bleiben gleich, aber Signifikanzen sind niedriger als beim GLM ohne Overdispersion.</span></span>
-<span id="cb51-184"><a href="#cb51-184" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glmq.orig<span class="fl">.3</span>)</span>
-<span id="cb51-185"><a href="#cb51-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-186"><a href="#cb51-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-187"><a href="#cb51-187" aria-hidden="true" tabindex="-1"></a>Sieht gut aus, wir hätten hier also unser finales Modell.</span>
-<span id="cb51-188"><a href="#cb51-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-189"><a href="#cb51-189" aria-hidden="true" tabindex="-1"></a>Im Vergleich der beiden Vorgehensweisen (PC-Achsen vs. Umweltdaten direkt) scheint in diesem Fall die direkte Modellierung der Umweltachsen informativer: Man kommt mit zwei Prädiktoren aus, die jeweils direkt für eine der Hauptvariablen stehen – Meereshöhe und Phosphor – zugleich aber jeweils eine grössere Gruppe von Variablen mit hohen Korrelationen inkludieren, im ersten Fall Variablen, die sich im Flusslauf von oben nach unten systematisch ändern, im zweiten Masse der Nährstoffbelastung des Gewässers. Bei der PCA-Lösung kamen drei signifikante Komponenten heraus, die allerdings nicht so leicht zu interpretieren sind. Dies insbesondere, weil in diesem Fall auf der Ebene PC2 vs. PC1 die Mehrzahl der Umweltparameter ungefähr in 45-Grad-Winkeln angeordnet sind. Im allgemeinen Fall kann aber die Nutzung von PC-Achsen durchaus eine gute Lösung sein.</span>
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 
 

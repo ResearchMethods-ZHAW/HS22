@@ -5,7 +5,7 @@ pca <- rda(sveg^0.25, scale = TRUE)
 ca <- cca(sveg^0.5)
 
 kmeans.1 <- kmeans(sveg, 4)
-kmeans.1
+## kmeans.1
 plot(ca, type = "n")
 points(ca, display = "sites", col = kmeans.1[[1]])
 
@@ -26,11 +26,11 @@ KM.cascade$partition
 plot(KM.cascade, sortg = TRUE)
 
 load("data/Doubs.RData")  
-# Remove empty site 8
-spe <- spe[-8, ]
-env <- env[-8, ]
-spa <- spa[-8, ]
-latlong <- latlong[-8, ]
+## # Remove empty site 8
+## spe <- spe[-8, ]
+## env <- env[-8, ]
+## spa <- spa[-8, ]
+## latlong <- latlong[-8, ]
 
 ## Hierarchical agglomerative clustering of the species abundance 
 
