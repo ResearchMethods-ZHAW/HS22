@@ -55,10 +55,10 @@ summary(glm.pc.2)
 par(mfrow = c(2, 2))
 plot(glm.pc.2) # sieht nicht besser aus als LM, die Normalverteilung ist sogar schlechter
 
-## # Korrelationen zwischen Prädiktoren
-## cor <- cor(doubs[, 1:11])
-## cor[abs(cor)<.7] <- 0
-## cor
+# Korrelationen zwischen Prädiktoren
+cor <- cor(doubs[, 1:11])
+cor[abs(cor)<.7] <- 0
+cor 
 
 
 #| label: fig-baseplot-lm-direct

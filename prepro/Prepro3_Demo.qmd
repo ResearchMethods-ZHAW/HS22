@@ -9,7 +9,6 @@ index: 1
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: asis
 #| purl: false
 #distill::mypurl()
@@ -22,7 +21,6 @@ Wir können Euch nicht sämtliche Möglichkeiten von tidyverse zeigen. Wir fokus
 Wir benötigen dazu folgende Packages:
 
 ```{r}
-#| message: false
 library(dplyr)
 library(tidyr)
 library(lubridate)
@@ -61,7 +59,6 @@ sry <- df %>%
 ```
 
 ```{r}
-#| message: false
 mtcars <- mtcars                          # Einlesen des Beispielsdatensatzes mtcars
 by_cyl <- group_by(mtcars, cyl)           # Gruppieren nach Anzahl Zylinder (cyl)
 summarise(by_cyl,mean_mpg = mean(mpg))    # Berechnen des Mittelwerts pro 
@@ -237,7 +234,7 @@ Lange Tabellen sind in verschiedenen Situationen praktischer. Beispielsweise ist
 
 ```{r}
 #| label: fig-ggplot-long
-#| fig-cap: ""
+#| fig-cap: "Generiereter Plot"
 ggplot(weather_summary_long, aes(day,Messwert, colour = Messtyp)) +
   geom_line()
 ```
@@ -254,6 +251,8 @@ weather_summary_long %>%
 Zum Vergleich: mit einer *wide* table müssen wir in `ggplot2` jede Spalte einzeln plotten. Dies ist bei wenigen Variabeln wie hier noch nicht problematisch, aber bei einer hohen Anzahl wir dies schnell mühsam.
 
 ```{r}
+#| label: fig-ggplot-wide
+#| fig-cap: "Generiereter Plot"
 ggplot(weather_summary) +
   geom_line(aes(day, temp_max)) +
   geom_line(aes(day, temp_min))

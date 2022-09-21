@@ -16,7 +16,6 @@ knitr::opts_chunk$set(echo = FALSE)
 Für die heutige Übung brauchst du den Datensatz [temperature_2005.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602268). Dabei handelt es sich wieder um Teperaturwerte verschiedener Stationen, diesmal aus dem Jahr 2005. Das Datum ist so formatiert, dass `R` (isbesondere `read_csv`) es korrekt als `datetime` erkennen und als `POSIXct` einlesen sollte.
 
 ```{r}
-
 #| echo: true
 library(readr)
 library(dplyr)
@@ -26,7 +25,6 @@ library(ggplot2)
 ```
 
 ```{r}
-
 temperature <- read_csv("data/temperature_2005.csv")
 ```
 
@@ -43,7 +41,6 @@ knitr::kable(head(temperature_long))
 Lade anschliessend [temperature_2005_metadata.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602269) herunter und verbinde die beiden Datensätze mit einem `left_join` via `station` (bzw. `stn`). 
 
 ```{r}
-
 metadata <- read_csv("data/temperature_2005_metadata.csv")
 
 temperature_long <- left_join(temperature_long, metadata, by = c(station = "stn"))
@@ -54,7 +51,6 @@ temperature_long <- left_join(temperature_long, metadata, by = c(station = "stn"
 Erstelle ein Scatterplot (`time` vs. `temperature`) wobei die Punkte aufgrund ihrer Meereshöhe eingefärbt werden sollen. Tiefe Werte sollen dabei blau eingefärbt werden und hohe Werte rot (`scale_color_gradient`). Verkleinere die Punkte um übermässiges Überplotten der Punkten zu vermeiden (`size =`). Weiter sollen auf der x-Achse im Abstand von 3 Monaten der jeweilige Monat vermerkt sein (`date_breaks` bzw. `date_labels` von `scale_x_datetime()`).
 
 ```{r}
-
 #| label: fig-ggplot-ex2
 #| fig-cap: "Generierter Plot"
 
@@ -74,8 +70,6 @@ Erstelle eine Zusatzvariabel `Date` mit dem Datum der jeweiligen Messung ( mit `
 Um die Metadaten  (`Name`, `Meereshoehe`, `x`, `y`) nicht zu verlieren kannst du den Join aus der ersten Übung wieder ausführen. Alternativ (schneller aber auch schwerer zu verstehen) kannst du diese Variabeln innerhalb deines `group_by` verwenden.
 
 ```{r}
-
-
 temperature_long <- temperature_long %>%
   mutate(time = as.Date(time)) %>%
   group_by(time, station, Name, Meereshoehe, x, y) %>%
@@ -87,7 +81,6 @@ temperature_long <- temperature_long %>%
 Wiederhole nun den Plot aus der ersten Aufgabe mit den aggregierten Daten aus der vorherigen Aufgabe. Um die labels korrekt zu setzen musst du `scale_x_datetime` mit `scale_x_date` ersetzen. 
 
 ```{r}
-
 #| label: fig-ggplot-ex4
 #| fig-cap: "Generierter Plot"
 
