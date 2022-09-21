@@ -43,35 +43,35 @@ plot(imds$points)
 ordisurf(imds, ssit$pH.peat, add = T)
 ordisurf(imds, ssit$Waterlev.av, add = T, col = "blue")
 
-## 5 Umweltvariablen gewählt, durch die die Ordination constrained werden soll
-ssit
-summary(ssit)
-s5 <- c("pH.peat", "P.peat", "Waterlev.av", "CEC.peat", "Acidity.peat")
-ssit5 <- ssit[s5]
+## ## 5 Umweltvariablen gewählt, durch die die Ordination constrained werden soll
+## ssit
+## summary(ssit)
+## s5 <- c("pH.peat", "P.peat", "Waterlev.av", "CEC.peat", "Acidity.peat")
+## ssit5 <- ssit[s5]
+## 
+## data(sveg)
+## summary(sveg)
 
-data(sveg)
-summary(sveg)
-
-## RDA = constrained PCA
-rda <- rda(sveg~., ssit5)
-plot(rda)
-
-## CCA = constrained CA
-cca <- cca(sveg~., ssit5)
-plot(cca)
-
-## Unconstrained and constrained variance
-tot <- cca$tot.chi
-constr <- cca$CCA$tot.chi
-constr / tot
+## ## RDA = constrained PCA
+## rda <- rda(sveg~., ssit5)
+## plot(rda)
+## 
+## ## CCA = constrained CA
+## cca <- cca(sveg~., ssit5)
+## plot(cca)
+## 
+## ## Unconstrained and constrained variance
+## tot <- cca$tot.chi
+## constr <- cca$CCA$tot.chi
+## constr / tot
 
 ## Datensatz Doubs
 ## Doubs Datensatz in den workspace laden
 load("data/Doubs.RData")  
 
-summary(spe)
-summary(env)
-summary(spa)
+## summary(spe)
+## summary(env)
+## summary(spa)
 
 ## Entfernen der Untersuchungsfläche ohne Arten
 spe <- spe[-8, ]
@@ -120,17 +120,17 @@ names(envchem)
 library(vegan)
 spe.hel <- decostand(spe, "hellinger")
 
-spe.hel
+## spe.hel
 ## Redundancy analysis (RDA)
 ### RDA of the Hellinger-transformed fish species data, constrained
 ### by all the environmental variables contained in env3
 spe.rda <- rda(spe.hel ~ ., env3) # Observe the shortcut formula
 
-spe.rda
-summary(spe.rda)	# Scaling 2 (default)
+## spe.rda
+## summary(spe.rda)	# Scaling 2 (default)
 
-## Canonical coefficients from the rda object
-coef(spe.rda)
+## ## Canonical coefficients from the rda object
+## coef(spe.rda)
 
 ## Unadjusted R^2 und Adjusted R^2
 (R2 <- RsquareAdj(spe.rda))
@@ -190,7 +190,7 @@ anova(spe.rda, by = "axis", permutations = how(nperm = 999))
 ## variables
 (spechem.physio <- rda(spe.hel, envchem, envtopo))
 
-summary(spechem.physio)
+## summary(spechem.physio)
 
 ## Formula interface; X and W variables must be in the same 
 ## data frame

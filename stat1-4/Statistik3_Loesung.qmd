@@ -9,9 +9,9 @@ index: 3
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: hide
 #| purl: false
+options(knitr.duplicate.label = "allow")
 knitr::purl("stat1-4/Statistik3_Loesung.qmd", "purl/Statistik3_Loesung.R", documentation = 0)
 ```
 
@@ -42,6 +42,9 @@ dass die abhängige Variable in Spalte 2 sowie die Prediktorvariablen in den Spa
 stehen.
 
 ```{r}
+#| label: fig-baseplot-sol3-expl
+#| fig-cap: "Generierter Plot"
+
 #Explorative Datenanalyse der abhängigen Variablen
 boxplot(ukraine$Species_richness)
 ```
@@ -127,7 +130,6 @@ berechnet und verglichen werden (also alle möglichen Kombinationen von 13,12,�
 Parametern). Diese Lösung stelle ich im Folgenden vor:
 
 ```{r}
-#| message: false
 # Multimodel inference
 if(!require(MuMIn)){install.packages("MuMIn")}
 library(MuMIn)
@@ -174,6 +176,9 @@ ggf. die Effektgrössen (wie verändert sich die Artenzahl, wenn die Prädiktorv
 Einheit zunimmt?) ermitteln.
 
 ```{r}
+#| label: fig-baseplot-sol3-final
+#| fig-cap: "Generierter Plot"
+
 # Modelldiagnostik nicht vergessen
 par(mfrow = c(2, 2))
 plot(global.model)

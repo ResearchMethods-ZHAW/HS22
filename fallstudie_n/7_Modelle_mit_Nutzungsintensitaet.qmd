@@ -11,8 +11,8 @@ Neue packages die wir für die Modelle und die Diagnostics brauchen
 ```{r}
 #| tidy: true
 #| results: hide
-#| warning: false
-#| message: false
+
+
 # neue Packages: DHARMa, car, MASS, ROCR, sjPlot, sjstats, rms, ggeffects, cowplot
 
 ipak <- function(pkg){
@@ -30,8 +30,8 @@ ipak(packages)
 ```{r}
 #| tidy: true
 #| fig.keep: none
-#| warning: false
-#| message: false
+
+
 #| results: hide
 DF_mod_day <- read_delim("data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv", delim = ";") %>%
   filter(time_of_day == "day") %>%
@@ -49,7 +49,7 @@ DF_mod_day <- read_delim("data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_2021110
 
 ```{r}
 #| ridy: !expr T
-#| message: false
+
 # glmer(formula, data = , family = binomial)
 
 # 1) formula: 
@@ -73,8 +73,8 @@ ggplot(DF_mod_day, aes(nmb)) + geom_histogram()
 ```{r}
 #| tidy: true
 #| fig.keep: none
-#| warning: false
-#| message: false
+
+
 #| results: hide
 # Erweiterung um einen sog. Offset-Term, der hier gebraucht wird, um für die Anzahl der GPS Lokalisationen (in der Spalte GPStot aufgeführt) zu korrigeren (eigentlich eine Skalierung der abhängigen Variable um die relative Nutzungsintensität zu modellieren) 
 
@@ -105,8 +105,8 @@ summary(avgmodel)
 
 ```{r}
 #| tidy: true
-#| warning: false
-#| message: false
+
+
 f_count <- nmb ~
   slope_scaled +
   dist_road_scaled +
@@ -160,8 +160,8 @@ check_collinearity(m_day_count)
 
 ```{r}
 #| tidy: true
-#| warning: false
-#| message: false
+
+
 # Zitat B.Bokler 2013: "GLMMs are still part of the statistical frontier, and not all of the answers about how to use them are known (even by experts)"
 
 r2(m_day_count)
@@ -173,8 +173,8 @@ r2(m_day_count)
 #| tidy: true
 #| fig.width: 5.0
 #| fig.height: 3.0
-#| warning: false
-#| message: false
+
+
 # graphische Darstellung der gesamten Modellresultate
 
 plot_model(m_day_count,transform = NULL, show.values = TRUE, value.offset = .3)

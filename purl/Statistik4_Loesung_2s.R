@@ -145,4 +145,7 @@ spec
 sens = km_prop[4] / (km_prop[3] + km_prop[4])
 sens
 
+
+#| echo: false
+#| fig.cap: Konfusionsmatrix
 knitr::kable(km)

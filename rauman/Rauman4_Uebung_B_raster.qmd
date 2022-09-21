@@ -20,16 +20,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-#| message: false
-#| warning: false
 library(terra)
 ```
 
 Import your raster with the function `rast`
 
 ```{r}
-#| message: false
-#| warning: false
 dhm_schwyz <- rast("data/dhm25m.tif")
 ```
 
@@ -43,8 +39,9 @@ To get a quick look at the raster dataset, we can simply use either of the follo
 
 ```{r}
 #| echo: true
-#| message: false
-#| warning: false
+#| label: fig-shape-ex1
+#| fig-cap: "Generierter Plot"
+
 plot(dhm_schwyz)
 ```
 
@@ -60,7 +57,9 @@ Just as `ggplot`, `tmap` is based on the idea of "layers" that are joined using 
 - a geometry component which describes how the preceeding `tm_shape()` should be visualized. This can be `tm_dots()` for points, `tm_polygons()` for polygons, `tm_lines()` for lines etc. For single band raster (which is the case for `dhm_schwyz`), it is `tm_raster()`
 
 ```{r}
-#| message: false
+#| label: fig-shape-ex2
+#| fig-cap: "Generierter Plot"
+
 tm_shape(dhm_schwyz) + 
   tm_raster() 
 ```
@@ -70,7 +69,9 @@ Note that `tm_shape()` and `tm_raster()` (in this case) belong together, one can
 If you consult the help of `?tm_raster` you will see a multitude of options with which to change the visualisation of your data. For example, the default `style` of `tm_raster()` is to create "bins" of the data with a descrete colour scale. We can override this using `style = "cont"`
 
 ```{r}
-#| message: false
+#| label: fig-shape-ex3
+#| fig-cap: "Generierter Plot"
+
 tm_shape(dhm_schwyz) + 
   tm_raster(style = "cont") 
 ```
@@ -78,7 +79,9 @@ tm_shape(dhm_schwyz) +
 This already looks pretty awesome, but maby we want to change the default colour palette. Fortunately, this is *much* simpler in `tmap` than in `ggplot2`. To look at the available palettes, type `tmaptools::palette_explorer()` or `RColorBrewer::display.brewer.all()` in the console (the former might require you to install additional packages, e.g. `shinyjs`).
 
 ```{r}
-#| message: false
+#| label: fig-shape-ex4
+#| fig-cap: "Generierter Plot"
+
 tm_shape(dhm_schwyz) + 
   tm_raster(style = "cont", palette = "Spectral") 
 ```
@@ -87,7 +90,9 @@ You can make layout adjustments using `tm_layout()`, check `?tm_layout` to see a
 
 ::: {.column-body}
 ```{r}
-#| message: false
+#| label: fig-shape-ex5
+#| fig-cap: "Generierter Plot"
+
 tm_shape(dhm_schwyz) + 
   tm_raster(style = "cont", palette = "Spectral", legend.is.portrait = FALSE, title = "") +
   tm_layout(legend.outside = TRUE, legend.outside.position = "bottom",frame = FALSE)
@@ -98,7 +103,6 @@ tm_shape(dhm_schwyz) +
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: asis
 #| purl: false
 #distill::mypurl()

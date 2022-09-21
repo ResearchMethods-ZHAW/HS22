@@ -18,7 +18,7 @@ Zudem brauchen wir die folgenden libraries:
 
 ```{r}
 #| echo: true
-#| message: false
+
 library(dplyr)
 library(sf)
 library(ggplot2)
@@ -49,7 +49,9 @@ baeume <- read_sf("data/gruental.gpkg", "baeume")
 Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Visualisierungsmöglichkeiten von `ggplot` (insbesondere `geom_sf`).
 
 ```{r}
+#| label: fig-ggplot-ex2
 #| fig.cap: Beispielsweise kannst du die Daten in dieser Weise visualisieren.
+
 ggplot(wiesen) +
   geom_sf(fill = "chartreuse4") +
   geom_sf(data = baeume) +
@@ -85,7 +87,6 @@ Um die berechneten Werte in den Datensatz `baeume` zu überführen braucht es no
 3. Ersetze alle `NA` Werte in der Spalte `wiesen_anteil` mit 0.
 
 ```{r}
-#| warning: false
 baeume_20m <- st_buffer(baeume, 20)
 
 baeume_wiesen <- st_intersection(baeume_20m, wiesen) 
@@ -102,7 +103,9 @@ baeume_2 <- left_join(baeume, baeume_wiesen_df, by = "baum_id") %>%
 
 ::: {.column-body}
 ```{r}
+#| label: fig-ggplot-ex4
 #| fig.cap: Nach dieser Übung kannst du das Resultat optional in dieser Weise visualisieren.
+
 ggplot() +
   geom_sf(data = wiesen) +
   geom_sf(data = baeume_20m, fill = NA, color = "grey") +
@@ -116,7 +119,7 @@ ggplot() +
 
 ```{r}
 #| echo: false
-#| message: false
+
 #| results: asis
 #| purl: false
 #distill::mypurl()

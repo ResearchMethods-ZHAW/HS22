@@ -16,7 +16,6 @@ In dieser Übung geht es darum, zwei verschiedene Interpolationsverfahren in R u
 
 ```{r}
 #| echo: true
-#| message: false
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -94,9 +93,8 @@ Tips:
 ::: {.column-body}
 ```{r}
 #| echo: false
-#| message: false
-#| warning: false
 #| error: false
+#| label: fig-ggplot-ex1
 #| fig.cap: Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz mit
 #|   der Inverse Distance Weighted Methode. Die verschiedenen Plots zeigen die Veränderung
 #|   der Interpolation bei steigendem IDP-Wert
@@ -136,6 +134,9 @@ thiessenpolygone <- st_voronoi(luftqualitaet_union)
 ```
 
 ```{r}
+#| label: fig-ggplot-ex2
+#| fig-cap: "Generierter Plot"
+
 ggplot() + 
   geom_sf(data = schweiz) +
   geom_sf(data = thiessenpolygone, fill = NA)
@@ -154,6 +155,9 @@ thiessenpolygone_clip <- st_intersection(thiessenpolygone,schweiz)
 ```
 
 ```{r}
+#| label: fig-ggplot-ex2-clip
+#| fig-cap: "Generierter Plot"
+
 ggplot() + 
   geom_sf(data = schweiz) +
   geom_sf(data = thiessenpolygone_clip, fill = NA)
@@ -170,8 +174,9 @@ thiessenpolygone_clip <- st_join(thiessenpolygone_clip,luftqualitaet)
 
 ```{r}
 #| echo: true
-#| fig.cap: Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz nach
-#|   der Nearest Neighbour Methode.
+#| label: fig-ggplot-ex2-final
+#| fig.cap: Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz nach der Nearest Neighbour Methode.
+
 ggplot() + 
   geom_sf(data = schweiz) +
   geom_sf(data = thiessenpolygone_clip, aes(fill = value)) +
@@ -187,7 +192,6 @@ ggplot() +
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: asis
 #| purl: false
 #distill::mypurl()

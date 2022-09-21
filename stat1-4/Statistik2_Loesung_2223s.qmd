@@ -10,9 +10,8 @@ index: 5
 ```{r}
 #| echo: false
 #| results: hide
-#| message: false
 #| purl: false
-# für export loesung aufgabe 2
+options(knitr.duplicate.label = "allow")
 knitr::purl("stat1-4/Statistik2_Loesung_2223s.qmd", "purl/Statistik2_Loesung_2223s.R", documentation = 0)
 ```
 
@@ -22,10 +21,8 @@ knitr::purl("stat1-4/Statistik2_Loesung_2223s.qmd", "purl/Statistik2_Loesung_222
 
 ### Kommentierter Lösungsweg
 ```{r}
-#| message: false
 #| echo: false
 #| results: hide
-#| warning: false
 
 library(tidyverse)
 # library(ggfortify) # zur Testung der Voraussetzungen
@@ -48,7 +45,9 @@ mytheme <-
 ```
 
 ```{r}
-#| message: false
+#| label: fig-plots-sol2-modeldiagnostics
+#| fig-cap: "Generierter Plot"
+
 df <- nova # klone den originaler Datensatz
 
 # fasst die vier Inhalte der Gerichte zu drei Inhalten zusammen.
@@ -105,6 +104,9 @@ plot(model)
 <br>
 
 ```{r}
+#| label: fig-plots-sol2-modeldiagnostics-log10
+#| fig-cap: "Generierter Plot"
+
 # überprüft die Voraussetzungen des Welch-Tests:
 # Gibt es eine hohe Varianzheterogenität und ist die relative Verteilung der 
 # Residuen gegeben? (siehe Statistik 2)
@@ -150,6 +152,7 @@ Die Menüinhalte (Fleisch, Vegetarisch und Buffet) unterscheiden sich in den wö
 
 ```{r}
 #| echo: false
+#| label: fig-plots-sol2-final
 #| fig.cap: Die wöchentlichen Verkaufzahlen unterscheiden sich je nach Menüinhalt stark.
 #|   Das Modell wurde mit den log-tranformierten Daten gerechnet.
 #| tidy: true
@@ -198,10 +201,9 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
 Download [2017_ZHAW_individual_menu_sales_NOVANIMAL.csv](https://zenodo.org/record/3890949/files/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv?download=1)
 
 ```{r}
-#| message: false
 #| echo: false
 #| results: hide
-#| warning: false
+
 ## ladet die nötigen Packete und die novanimal.csv Datei in R
 nova <- read_delim("data/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv", delim = ";")
 
@@ -220,7 +222,10 @@ nova <- read_delim("data/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv", delim =
 ```
 
 ```{r}
-#| message: false
+#| echo: false
+#| label: fig-plots-sol3-modeldiagnostics1
+#| fig.cap: ""
+
 # klone den originaler Datensatz
 df <- nova 
 
@@ -270,6 +275,9 @@ ggplot(df, aes(x = interaction(article_description, member), y= tot_sold)) +
 
 
 ```{r}
+#| label: fig-plots-sol3-modeldiagnostics2
+#| fig.cap: ""
+
 # definiert das Modell (Skript Statistik 2)
 model <- aov(tot_sold ~ article_description * member, data = df)
 
@@ -283,6 +291,9 @@ plot(model)
 **Fazit**: Die Inspektion des Modells zeigt kleinere Verletzungen bei der Normalverteilung der Residuen (Q-Q Plot). Aufgrund keiner starken Verbesserung durch eine Transformation der Responsevariable, entscheide ich mich für eine ANOVA ohne log-tranformierten Responsevariablen (AV).
 
 ```{r }
+#| label: fig-plots-sol3-modeldiagnostics3
+#| fig.cap: ""
+
 # sieht aus, als ob die Voraussetzungen für eine Anova nur geringfügig verletzt sind
 # mögliche alternativen: 
 # 0. keine Tranformation der AV (machen wir hier)
@@ -328,8 +339,8 @@ Kleiner Exkurs: Verkaufsdaten sind Zähldaten und perse binomial-Verteilt, da es
 Die wöchentlichen Verkaufszahlen der Menülinien unterscheiden sich nach Hochschulzugehörigkeit signifikant (F(3,44) = `r round(summary.lm(model_log)[[10]]["value"][[1]], 2)`, p < .001). Inhaltich bedeutet dies, dass Studierende signifikant häufiger die preisgünstigere Menülinie "Favorite & World" als Mitarbeitende kaufen. Entgegen der Annahme gibt es aber keine signifikanten Unterschiede zwischen Studierende und Mitarbeitende bei dem Kauf der teureren Menülinie "Kitchen". Über die möglichen Gründe können nur spekuliert werden, hierfür bedarf es weiteren Analysen z.B. mit dem Prädiktor "Menüinhalt".
 
 ```{r}
-#| message: false
 #| echo: false
+#| label: fig-plots-sol3-final
 #| fig.cap: Box-Whisker-Plots der wöchentlichen Verkaufszahlen pro Menü-Inhalte. Kleinbuchstaben
 #|   bezeichnen homogene Gruppen auf *p* < .05 nach Tukeys post-hoc-Test.
 # zeigt die Ergebnisse anhand eines Boxplots

@@ -19,7 +19,7 @@ The goal of this exercise is to do the same MCE by just using R. We will mainly 
 #| results: asis
 #| echo: false
 #| purl: false
-#| message: false
+
 knitr::opts_chunk$set(echo = TRUE)
 
 datasets <- data.frame(
@@ -71,7 +71,6 @@ The raster data can be loaded by using the function `terra::rast` and the vector
 We will use the following packages in this exercise:
 
 ```{r}
-#| message: false
 library(sf)
 library(terra)
 library(dplyr)
@@ -81,9 +80,8 @@ library(tmap)
 ```{r}
 #| label: solutionEx1
 #| echo: false
-#| message: false
-#| warning: false
 #| include: false
+
 #Vector data
 kt_schwyz <- read_sf("data/Untersuchungsgebiet_Schwyz.gpkg")
 settlements <- read_sf("data/Bewohnte_Flaeche.gpkg")
@@ -99,9 +97,10 @@ wind25m <- rast("data/wind25m.tif")
 ```
 
 ```{r}
-#| message: false
-#| warning: false
 #| include: false
+#| label: fig-solutionEx2
+#| fig-cap: "Generierter Plot"
+
 #Plot vector data
 tm_shape(lakes) + tm_polygons(col = "dodgerblue3") +
   tm_shape(streets) + tm_lines(col = "gray18") +
@@ -110,9 +109,9 @@ tm_shape(lakes) + tm_polygons(col = "dodgerblue3") +
 ```
 
 ```{r}
-#| message: false
-#| warning: false
 #| include: false
+#| label: fig-solutionEx3
+#| fig-cap: "Generierter Plot"
 tm_shape(dhm25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
 tm_shape(eis25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
 tm_shape(wind25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
@@ -135,11 +134,11 @@ r <- terra::rast(ext(kt_schwyz),
 ![](images/exclusion_areas.png){width=50%}
 
 ```{r}
-#| label: solutionEx2
+#| label: fig-solutionEx4
+#| fig-cap: "Generierter Plot"
 #| echo: false
-#| message: false
-#| warning: false
 #| include: false
+
 #Merge exclusion area
 exclusion_areas <- dplyr::bind_rows(settlements, forests, protected_areas, lakes)
 
@@ -162,11 +161,11 @@ Next, calculate the slope in degrees based on the terrain model (dhm25m). The te
 ![](images/slope.png){width=50%}
 
 ```{r}
-#| label: solutionEx3
+#| label: fig-solutionEx5
+#| fig-cap: "Generierter Plot"
 #| echo: false
-#| message: false
-#| warning: false
 #| include: false
+
 slope <- terra::terrain(dhm25m, v="slope",unit="degrees", neighbors=8)
 slope_250 <- slope %>% aggregate(.,fact = 10)
 plot(slope_250, main="Slope", axes=FALSE)
@@ -182,11 +181,10 @@ Within the evaluation of suitable sites for wind turbines, the distance to roads
 ![](images/d_to_settlements.png){width=50%}
 
 ```{r}
-#| label: solutionEx4
+#| label: solutionEx6
 #| echo: false
-#| message: false
-#| warning: false
 #| include: false
+
 #create raster layers from vector 
 raster_settlements <- terra::rasterize(vect(settlements), r, field = 1)
 raster_protected_areas <- terra::rasterize(vect(protected_areas), r, field = 1) 
@@ -236,11 +234,11 @@ MCE Reclassify
 ![](images/d_to_settlements_reclassified.png){width=50%}
 
 ```{r}
-#| label: solutionEx5
+#| label: fig-solutionEx7
+#| fig-cap: "Generierter Plot"
 #| echo: false
-#| message: false
-#| warning: false
 #| include: false
+
 #### reclassify wind
 wind250m <- wind25m %>% aggregate(.,fact = 10)
 wind_max <- minmax(wind250m)[2]
@@ -375,11 +373,10 @@ ahp_matrix <- c(
 ```
 
 ```{r}
-#| label: solutionEx6
+#| label: solutionEx8
 #| echo: false
-#| message: false
-#| warning: false
 #| include: false
+
 #create AHP
 ahp_matrix <- c(
   1,   6,   7,   3,   7, 4,   5, #Wind
@@ -407,11 +404,11 @@ The linearly ranked criteria (Exercise 5) are now to be combined with each other
 ![Weighted Overlay](images/weighted_overlay.png){#fig-weighted-overlay width=50%}
 
 ```{r}
-#| label: solutionEx7
+#| label: fig-solutionEx9
+#| fig-cap: "Generierter Plot"
 #| echo: false
-#| message: false
-#| warning: false
 #| include: false
+
 # rasterOptions(tolerance = 0.5) #raster sets have different origins, increase tolerance
 
 wind_f <- (reclass_wind * weights[1])
@@ -448,11 +445,11 @@ By simply multiplying the exclusion layer (result from exercise 2) with the weig
 ![Potential Sites](images/potential_sites.png){#fig-potential-sites}
 
 ```{r}
-#| label: solutionEx8
+#| label: fig-solutionEx10
+#| fig-cap: "Generierter Plot"
 #| echo: false
-#| message: false
-#| warning: false
 #| include: false
+
 # Transforming  the layer depicting the exclusion areas from SpatRaster class to RasterLayer class, so we can perform the final raster multiplication operation
 raster_exclusion_areas <- raster_exclusion_areas %>% raster::raster()
 final_model <- weighted_overlay * raster_exclusion_areas
@@ -463,7 +460,6 @@ plot(final_model, main="Potential sites for wind power plants in Kt. Schwyz", ax
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: asis
 #| purl: false
 #distill::mypurl()

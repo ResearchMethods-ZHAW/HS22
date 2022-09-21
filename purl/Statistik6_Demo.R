@@ -13,7 +13,6 @@ x1 <- raw[,1]
 y1 <- raw[,2]
 z <- c(rep(1:6))
 
-
 # Plot Abhängigkeit der Arten vom Umweltgradienten
 plot(c(x1, y1)~c(z, z), type = "n", axes = T, bty = "l", 
      las = 1, xlim = c(1,6), ylim = c(0,5),
@@ -72,18 +71,18 @@ if(!require(dave)){install.packages("dave")}
 library(dave)
 data(sveg)
 
-str(sveg)
-summary(sveg)
-names(sveg)
+## str(sveg)
+## summary(sveg)
+## names(sveg)
 
 # PCA: Deckungen Wurzeltransformiert, cor=T erzwingt Nutzung der Korrelationsmatrix
 pca.5 <- pca(sveg^0.25, cor = T)
 
-# Koordinaten im Ordinationsraum
-pca.5$scores
-
-# Korrelationen der Variablen mit den Ordinationsachsen
-pca.5$loadings
+## # Koordinaten im Ordinationsraum
+## pca.5$scores
+## 
+## # Korrelationen der Variablen mit den Ordinationsachsen
+## pca.5$loadings
 
 # Erklärte Varianz der Achsen in Prozent (sdev ist die Wurzel daraus)
 E <- pca.5$sdev^2 / pca.5$totdev * 100
@@ -105,7 +104,6 @@ y <- pca.5$loadings[,2]
 plot(x, y, type = "n", asp = 1)
 arrows(0,0, x[sel.sp], y[sel.sp], length = 0.08)
 text(x[sel.sp], y[sel.sp], snames, pos = 1, cex = 0.6)
-
 
 # Mit vegan
 pca.6 <- rda(sveg^0.25, scale = TRUE)

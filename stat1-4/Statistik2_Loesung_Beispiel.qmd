@@ -9,9 +9,9 @@ index: 3
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: hide
 #| purl: false
+options(knitr.duplicate.label = "allow")
 knitr::purl("stat1-4/Statistik2_Loesung_Beispiel.qmd", "purl/Statistik2_Loesung_Beispiel.R", documentation = 0)
 ```
 
@@ -70,6 +70,9 @@ Man erkennt, dass es 31 Beobachtungen für die Zeit als Integer von Zerfällen g
 ### Explorative Datenanalyse
 
 ```{r}
+#| label: fig-boxplot-expl
+#| fig-cap: "Generierter Plot"
+
 boxplot(decay$time)
 boxplot(decay$amount)
 plot(amount~time, data=decay)
@@ -88,6 +91,9 @@ Das sieht erst einmal nach einem Supermodell aus, höchstsignifikant und mit ein
 ### Modelldiagnostik
 
 ```{r}
+#| label: fig-boxplot-modeldiagnostics
+#| fig-cap: "Generierter Plot"
+
 par(mfrow = c(2, 2))
 plot(lm.1)
 ```
@@ -98,6 +104,9 @@ Um eine Idee zu bekommen, was falsch ist, plotten wir noch, wie das Ergebnis die
 ### Ergebnisplot
 
 ```{r}
+#| label: fig-boxplot-result
+#| fig-cap: "Generierter Plot"
+
 par(mfrow = c(1, 1))
 plot(decay$time, decay$amount)
 abline(lm.1, col = "red")
@@ -114,6 +123,9 @@ Dass die Verteilung der abhängigen Variable nicht normal ist, haben wir ja scho
 ### Lösung 1: log-Transformation der abängigen Variablen
 
 ```{r} 
+#| label: fig-boxplot-var1-expl
+#| fig-cap: "Generierter Plot"
+
 par(mfrow = c(1, 2))
 boxplot(decay$amount)
 boxplot(log(decay$amount))
@@ -133,6 +145,9 @@ Jetzt ist der R²-Wert noch höher und der p-Wert noch niedriger als im ursprün
 ### Modelldiagnostik
 
 ```{r}
+#| label: fig-boxplot-var1-modeldiagnostics
+#| fig-cap: "Generierter Plot"
+
 par(mfrow = c(2, 2))
 plot(lm.2)
 ```
@@ -165,6 +180,9 @@ In der Tat ist das komplexere Modell (jenes mit dem quadratischen Term) höchsts
 ### Modelldiagnostik
 
 ```{r}
+#| label: fig-boxplot-var2-modeldiagnostics
+#| fig-cap: "Generierter Plot"
+
 par(mfrow = c(2, 2))
 plot(model.quad)
 ```
@@ -180,7 +198,9 @@ summary(model.nls)
 ### Modelldiagnostik
 
 ```{r}
-#| message: false
+#| label: fig-boxplot-var3-modeldiagnostics
+#| fig-cap: "Generierter Plot"
+
 if(!require(nlstools)){install.packages("nlstools")}
 library(nlstools)
 residuals.nls <- nlsResiduals(model.nls)
@@ -194,6 +214,9 @@ Da alle drei Lösungen zumindest statistisch OK waren, sollen jetzt noch die zug
 ### Ergebnisplots
 
 ```{r}
+#| label: fig-boxplot-var3-result
+#| fig-cap: "Generierter Plot"
+
 par(mfrow = c(1, 1))
 xv <- seq(0, 30, 0.1)
 ```
@@ -201,6 +224,9 @@ xv <- seq(0, 30, 0.1)
 1. lineares Modell mit log-transformierter Abhängiger
 
 ```{r}
+#| label: fig-boxplot-var3-result-log
+#| fig-cap: "Generierter Plot"
+
 plot(decay$time, decay$amount)
 yv1 <- exp(predict(lm.2, list(time = xv)))
 lines(xv, yv1, col = "red")
@@ -209,6 +235,9 @@ lines(xv, yv1, col = "red")
 2. quadratisches Modell
 
 ```{r}
+#| label: fig-boxplot-var3-result-quadm
+#| fig-cap: "Generierter Plot"
+
 plot(decay$time, decay$amount)
 yv2 <- predict(model.quad, list(time = xv))
 lines(xv, yv2, col=  "blue")
@@ -217,6 +246,9 @@ lines(xv, yv2, col=  "blue")
 3. nicht-lineares Modell
 
 ```{r}
+#| label: fig-boxplot-var3-result-nlm
+#| fig-cap: "Generierter Plot"
+
 plot(decay$time, decay$amount)
 yv3 <- predict(model.nls, list(time = xv))
 lines(xv, yv3, col = "green")

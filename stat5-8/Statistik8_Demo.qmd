@@ -9,9 +9,9 @@ index: 1
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: hide
 #| purl: false
+options(knitr.duplicate.label = "allow")
 knitr::purl("stat5-8/Statistik8_Demo.qmd", "purl/Statistik8_Demo.R", documentation = 0)
 ```
 
@@ -25,7 +25,6 @@ knitr::purl("stat5-8/Statistik8_Demo.qmd", "purl/Statistik8_Demo.R", documentati
 ## k-means clustering
 
 ```{r}
-#| message: false
 # das Moordatenset aus Wildi...
 if(!require(dave)){install.packages("dave")}
 library(dave)
@@ -39,6 +38,9 @@ kmeans.1 <- kmeans(sveg, 4)
 kmeans.1
 ```
 ```{r}
+#| label: fig-baseplot-k-means
+#| fig-cap: "Generierter Plot"
+
 plot(ca, type = "n")
 points(ca, display = "sites", col = kmeans.1[[1]])
 
@@ -76,6 +78,9 @@ latlong <- latlong[-8, ]
 
 ## Dendogramme berechnen und ploten
 ```{r}
+#| label: fig-baseplot-agglomerative-clustering
+#| fig-cap: "Generierter Plot"
+
 ## Hierarchical agglomerative clustering of the species abundance 
 
 # Compute matrix of chord distance among sites
@@ -135,6 +140,9 @@ plot(spe.ch.ward, labels = rownames(spe), main = "Chord - Ward")
 ## Cophenetic correlations
 
 ```{r}
+#| label: fig-baseplot-cophenetic-correlations
+#| fig-cap: "Generierter Plot"
+
 # Single linkage clustering
 spe.ch.single.coph <- cophenetic(spe.ch.single)
 cor(spe.ch, spe.ch.single.coph)
@@ -188,6 +196,9 @@ lines(lowess(spe.ch, spe.ch.ward.coph), col = "red")
 
 ## Optimale Anzahl Cluster
 ```{r}
+#| label: fig-baseplot-hclust
+#| fig-cap: "Generierter Plot"
+
 ## Select a dendrogram (Ward/chord) and apply three criteria
 ## to choose the optimal number of clusters
 
@@ -284,7 +295,9 @@ text(28, 0.98, "b", cex = 1.8)
 
 ## Final dendrogram with the selected clusters
 ```{r}
-#| message: false
+#| label: fig-baseplot-dendrogram-final
+#| fig-cap: "Generierter Plot"
+
 # Choose the number of clusters
 k <- 4
 # Silhouette plot of the final partition
@@ -325,6 +338,9 @@ drawmap(xy = spa, clusters = spech.ward.g, main = "Four Ward clusters along the 
 
 ## Miscellaneous graphical outputs
 ```{r}
+#| label: fig-baseplot-dendrogram-heatmap
+#| fig-cap: "Generierter Plot"
+
 # konvertieren von "hclust" Objekt in ein Dendogram Objekt
 dend <- as.dendrogram(spe.ch.ward)
 

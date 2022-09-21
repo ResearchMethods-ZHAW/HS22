@@ -25,7 +25,6 @@ Mehr Informationen dazu findet ihr [hier](https://www.bafu.admin.ch/bafu/de/home
 - Ebenfalls benötigt ihr den Datensatz [schweiz.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602281)
 
 ```{r}
-#| message: false
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -38,8 +37,9 @@ luftqualitaet <- read_sf("data/luftqualitaet.gpkg")
 ```
 
 ```{r}
-#| fig.cap: Eine solche Visualisierung zeigt dir beispielsweise die räumliche Ausdehnung
-#|   der Datenpunkte
+#| label: fig-ggplot-ex1
+#| fig.cap: Eine solche Visualisierung zeigt dir beispielsweise die räumliche Ausdehnung der Datenpunkte
+
 ggplot(rotmilan) +
   geom_sf(data = schweiz) +
   geom_sf(aes(colour = timestamp), alpha = 0.2) +
@@ -103,6 +103,9 @@ Nun wollen wir die kumulierte Häufigkeit der Werte in einer Verteilungsfunktion
 
 ```{r}
 #| echo: true
+#| label: fig-ggplot-ex2
+#| fig-cap: "Generierter Plot"
+
 rotmilan_mindist_df <- data.frame(distanzen = rotmilan_mindist,
                                   kumm_haeufgikeit = kumm_haeufgikeit)
 
@@ -116,6 +119,9 @@ p
 Lesehilfe:
 
 ```{r}
+#| label: fig-ggplot-ex2-help
+#| fig-cap: "Generierter Plot"
+
 prob <- 0.95
 res <- quantile(ecdf(rotmilan_mindist_df$distanzen), prob)
 res2 <- quantile(ecdf(rotmilan_mindist_df$distanzen), 0.99)
@@ -137,6 +143,9 @@ p +
 Führe nun die gleichen Schritte mit `luftqualitaet` durch und vergleiche die ECDF-Plots. 
 
 ```{r}
+#| label: fig-ggplot-ex3
+#| fig-cap: "Generierter Plot"
+
 luftqualitaet_distanzmatrix <- st_distance(luftqualitaet)
 
 diag(luftqualitaet_distanzmatrix) <- NA
@@ -165,7 +174,6 @@ ggplot(mindist_df,) +
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: asis
 #| purl: false
 #distill::mypurl()

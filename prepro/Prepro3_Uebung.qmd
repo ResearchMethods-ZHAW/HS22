@@ -14,7 +14,6 @@ Gegeben sei ein Datensatz "[sensors_combined.csv](https://moodle.zhaw.ch/mod/res
 Formatiere die `Datetime` Spalte in `POSIXct` um. Verwende dazu die Funktion `as.POSIXct` (lies mit `?strftime()` nochmal nach wie du das spezfische Format (die "Schablone") festlegen kannst.
 
 ```{r}
-#| message: false
 library(readr)
 
 sensors_combined <- read_csv("data/sensors_combined.csv")
@@ -33,7 +32,6 @@ Tipp:
 - In beiden Fällen musst du die Spalten weder mit Anführungs- und Schlusszeichen noch mit dem `$`-Zeichen versehen.
 
 ```{r}
-#| message: false
 library(tidyr)
 
 # Variante 1 (Spalten abwählen)
@@ -50,7 +48,7 @@ Gruppiere `sensors_long` nach der neuen Spalte wo die Sensor-Information enthalt
 Der Output sieht folgendermassen aus: 
 
 ```{r}
-#| message: false
+
 library(dplyr)
 
 sensors_long %>%
@@ -63,7 +61,6 @@ sensors_long %>%
 Erstelle für `sensors_long` eine neue *convenience* Variabel `month` welche den Monat beinhaltet (Tipp: verwende dazu die Funktion `month` aus `lubridate`). Gruppiere nun nach `month` *und* Sensor und berechne die mittlere Temperatur. 
 
 ```{r}
-#| message: false
 library(lubridate)
 
 sensors_long %>%
@@ -97,6 +94,9 @@ Visualisiere im Anschluss das Resultat:
 
 ```{r}
 #| echo: true
+#| label: fig-baseplot-ex6
+#| fig-cap: "Generierter Plot"
+
 plot(weather_summary$week, weather_summary$temp_mean, type = "l")
 ```
 
@@ -105,7 +105,6 @@ plot(weather_summary$week, weather_summary$temp_mean, type = "l")
 In der vorherigen Aufgabe haben wir die mittlere Temperatur pro Kalenderwoche über *alle Jahre* (2000 und 2001) berechnet. Wenn wir die Jahre aber miteinander vergleichen wollen, müssen wir das Jahr als zusätzliche *convenience* Variabel erstellen und danach gruppieren. Versuche dies mit den Wetterdaten und visualisiere den Output anschliessend.
 
 ```{r}
-#| message: false
 weather_summary2 <- weather %>%
   mutate(
     week = week(time),
@@ -118,8 +117,9 @@ weather_summary2 <- weather %>%
 ```
 
 ```{r}
-#| fig.cap: baseplot mag keine long tables und macht aus den beiden Jahren eine kontinuierliche
-#|   Linie
+#| label: fig-baseplot-ex7
+#| fig.cap: baseplot mag keine long tables und macht aus den beiden Jahren eine kontinuierliche Linie
+
 plot(weather_summary2$week, weather_summary2$temp_mean, type = "l")
 ```
 
@@ -134,6 +134,8 @@ weather_summary2 <- weather_summary2 %>%
 
 ```{r}
 #| echo: true
+#| label: fig-baseplot-ex8
+#| fig-cap: "Generierter Plot"
 plot(weather_summary2$week, weather_summary2$year2000, type = "l",col = "blue")
 lines(weather_summary2$week, weather_summary2$year2001, type = "l",col = "red")
 ```
@@ -142,7 +144,6 @@ lines(weather_summary2$week, weather_summary2$year2001, type = "l",col = "red")
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: asis
 #| purl: false
 #distill::mypurl()
