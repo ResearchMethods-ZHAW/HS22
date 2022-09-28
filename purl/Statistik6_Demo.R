@@ -13,7 +13,6 @@ x1 <- raw[,1]
 y1 <- raw[,2]
 z <- c(rep(1:6))
 
-
 # Plot Abhängigkeit der Arten vom Umweltgradienten
 plot(c(x1, y1)~c(z, z), type = "n", axes = T, bty = "l", 
      las = 1, xlim = c(1,6), ylim = c(0,5),
@@ -105,7 +104,6 @@ y <- pca.5$loadings[,2]
 plot(x, y, type = "n", asp = 1)
 arrows(0,0, x[sel.sp], y[sel.sp], length = 0.08)
 text(x[sel.sp], y[sel.sp], snames, pos = 1, cex = 0.6)
-
 
 # Mit vegan
 pca.6 <- rda(sveg^0.25, scale = TRUE)

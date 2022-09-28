@@ -12,9 +12,8 @@ Es gibt bereits eine Vielzahl von Packages um in R mit räumlichen Daten zu arbe
 Für die kommenden Übungen könnt ihr folgende Packages installieren bzw. laden:
 
 ```{r}
-#| warning: false
 #| echo: true
-#| message: false
+
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -43,6 +42,9 @@ Vektordaten (`sf` Objekte) lassen sich teilweise sehr schön in die bekannten Ti
 
 ```{r}
 #| echo: true
+#| label: fig-baseplot-ex2
+#| fig-cap: "Generierter Plot"
+
 plot(gemeinden, max.plot = 1)
 
 plot(kantone, max.plot = 1)
@@ -92,7 +94,7 @@ Wenn man diese Koordinaten mit den Koordinaten unserer Datensätze vergleicht, d
 
 ```{r}
 #| echo: true
-#| warning: false
+
 kantone <- st_set_crs(kantone, 4326)
 gemeinden <- st_set_crs(gemeinden, 2056)
 
@@ -103,6 +105,9 @@ st_crs(kantone)
 Auch wenn das CRS der Datensätze bekannt ist, nutzt ggplot immer noch `EPSG 4326` um die Achsen zu beschriften.  Wenn das stört, kann man `coord_sf(datum = 2056)` in einem weiteren Layer spezifizieren. Oder aber man blendet die Achsenbeschriftung mit `theme_void()` komplett aus. Versuche beide Varianten.
 
 ```{r}
+#| label: fig-ggplot-ex2
+#| fig-cap: "Generierter Plot"
+
 ggplot() + 
   geom_sf(data = kantone) +
   coord_sf(datum = 2056)
@@ -144,8 +149,9 @@ Tips:
 ```{r}
 #| fig.show: hold
 #| out.width: 49%
-#| fig.cap: Der Vergleich dieser beiden Darstellungen veranschaulicht die MAUP Problematik
-#|   sehr deutlich
+#| fig.cap: Der Vergleich dieser beiden Darstellungen veranschaulicht die MAUP Problematik sehr deutlich
+#| label: fig-ggplot-ex4
+
 ggplot(kantone, aes(fill = EINWOHNERZ/1e6)) +
   geom_sf(color= "white",size = .05) +
   labs(title = "Anzahl Einwohner pro Kanton",
@@ -170,3 +176,11 @@ ggplot(gemeinden,aes(fill = EINWOHNERZ/1e6)) +
         legend.text.align = 1)
 ```
 
+## Musterlösung
+
+```{r}
+#| echo: false
+#| results: asis
+#| purl: false
+#distill::mypurl()
+```

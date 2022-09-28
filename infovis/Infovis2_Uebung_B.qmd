@@ -13,7 +13,6 @@ Dazu verwenden wir nach wie vor `ggplot2`, aber mit einigen Tricks.
 
 ```{r}
 #| echo: true
-#| message: false
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -45,6 +44,9 @@ knitr::kable(head(mtcars))
 So sieht der fertige Plot aus:
 
 ```{r}
+#| label: fig-ggplot-ex1
+#| fig-cap: "Generierter Plot"
+
 mtcars2 <- mtcars2 %>%
   group_by(car) %>%
   mutate(gear = value[name == "gear"])
@@ -102,6 +104,9 @@ knitr::kable(head(beaver_new))
 So sieht der fertige Plot aus:
 
 ```{r}
+#| label: fig-ggplot-ex2
+#| fig-cap: "Generierter Plot"
+
 # Lösung Aufgabe 2
 
 beaver_new %>%
@@ -159,6 +164,9 @@ So sieht der fertige Plot aus:
 #| echo: false
 #| fig.height: 5.0
 #| preview: true
+#| label: fig-ggplot-ex3
+#| fig-cap: "Generierter Plot"
+
 ggplot(AirPassengers3, aes(month, year, fill = n)) +
   geom_raster() +
   scale_y_reverse() +
@@ -169,3 +177,11 @@ ggplot(AirPassengers3, aes(month, year, fill = n)) +
   theme(axis.title = element_blank(), legend.position = "bottom") 
 ```
 
+## Musterlösung
+
+```{r}
+#| echo: false
+#| results: asis
+#| purl: false
+#distill::mypurl()
+```

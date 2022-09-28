@@ -9,11 +9,12 @@ index: 4
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: hide
 #| purl: false
+options(knitr.duplicate.label = "allow")
 knitr::purl("stat1-4/Statistik2_Loesung_1.qmd", "purl/Statistik2_Loesung_1.R", documentation = 0)
 ```
+
 - Datensatz [SAR.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604474)
 - [RCode als Download](../purl/Statistik2_Loesung_1.R)
 - [Lösungstext als Download](Statistik_Loesung_2.1.pdf)
@@ -32,6 +33,9 @@ SAR
 ### Explorative Datenanalyse
 
 ```{r}
+#| label: fig-plots-data-analysis
+#| fig-cap: "Generierter Plot"
+
 summary(SAR)
 boxplot(SAR$area) # extrem rechtsschief
 boxplot(SAR$richness) # extrem rechtsschief
@@ -46,12 +50,18 @@ summary(lm.1)
 
 ### Modelldiagnostik
 ```{r}
+#| label: fig-plot-modeldiagnostics
+#| fig-cap: "Generierter Plot"
+
 par(mfrow = c(2, 2))
 plot(lm.1)
 ```
 
 ### Ergebnisplot
 ```{r}
+#| label: fig-plot-results
+#| fig-cap: "Generierter Plot"
+
 par(mfrow = c(1, 1))
 plot(SAR$area, SAR$richness, xlab = "Area [m²]", ylab = "Species richness")
 abline(lm(richness~area, data = SAR), col = "red") #Alternative 1
@@ -59,7 +69,10 @@ abline(lm.1, col = "red") #Alternative 2
 ```
 
 ## Lösung A: log-Transformation der abhängigen Variablen
-```{r} 
+```{r}
+#| label: fig-plot-solA
+#| fig-cap: "Generierter Plot"
+
 par(mfrow=c(1,2))
 boxplot(SAR$richness)
 boxplot(log10(SAR$richness))
@@ -73,6 +86,9 @@ summary(lm.2)
 
 ### Modelldiagnostik
 ```{r}
+#| label: fig-plot-solA-modeldiagnostics
+#| fig-cap: "Generierter Plot"
+
 par(mfrow = c(2, 2))
 plot(lm.2)
 ```
@@ -80,6 +96,9 @@ plot(lm.2)
 
 ## Lösung B: log-Transformation beider Variablen
 ```{r}
+#| label: fig-plot-solB
+#| fig-cap: "Generierter Plot"
+
 par(mfrow=c(1,2))
 boxplot(SAR$area)
 boxplot(log10(SAR$area))
@@ -93,6 +112,9 @@ summary(lm.3)
 
 ### Modelldiagnostik
 ```{r}
+#| label: fig-plot-solB-modeldiagnostics
+#| fig-cap: "Generierter Plot"
+
 par(mfrow = c(2, 2))
 plot(lm.3)
 ```
@@ -113,6 +135,9 @@ xv <- seq(0,100,0.1)
 
 ### A. lineares Modell mit log-transformierter Abhängiger
 ```{r}
+#| label: fig-plot-a-ln
+#| fig-cap: "Generierter Plot"
+
 plot(SAR$area, SAR$richness)
 yv1a <- 10^predict(lm.2, list(area = xv))
 lines(xv, yv1a, col = "blue")
@@ -120,6 +145,9 @@ lines(xv, yv1a, col = "blue")
 
 ### B. lineares Modell mit log-Transformation beider Variablen
 ```{r}
+#| label: fig-plot-b-ln
+#| fig-cap: "Generierter Plot"
+
 xvlog <- seq(-4,2,0.1)
 plot(SAR$log_area, SAR$log_richness, xlab = "log10 (Fläche [m²])", ylab = "log10 (Artenreichtum)")
 yv1b <- predict(lm.3, list(log_area = xvlog))
@@ -129,6 +157,9 @@ lines(xvlog, yv1b, col = "green")
 ### C. lineares Modell mit log-Transformation beider Variablen (zurücktransformiert)
 
 ```{r}
+#| label: fig-plot-c-ln
+#| fig-cap: "Generierter Plot"
+
 plot(SAR$area, SAR$richness, xlab = "Fläche [m²]", ylab = "Artenreichtum")
 yv1b <- predict(lm.3, list(log_area = xv))
 lines(10^xv, 10^yv1b, col = "green")
@@ -136,6 +167,9 @@ lines(10^xv, 10^yv1b, col = "green")
 
 ## Modelle im Vergleich
 ```{r}
+#| label: fig-plot-ln-comp
+#| fig-cap: "Generierter Plot"
+
 #Modelle im Vergleich
 plot(SAR$area, SAR$richness)
 abline(lm.1, col="red")

@@ -9,9 +9,9 @@ index: 3
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: hide
 #| purl: false
+options(knitr.duplicate.label = "allow")
 knitr::purl("stat5-8/Statistik7_Loesung.qmd", "purl/Statistik7_Loesung.R", documentation = 0)
 ```
 
@@ -30,7 +30,6 @@ knitr::purl("stat5-8/Statistik7_Loesung.qmd", "purl/Statistik7_Loesung.R", docum
 
 __Moordatensatz laden__ 
 ```{r}
-#| message: false
 if(!require(dave)){install.packages("dave")}
 library(dave)
 data(sveg)
@@ -92,6 +91,9 @@ Man erhält R²adj. = 0.376
 Jetzt kann man den Triplot erstellen
 
 ```{r}
+#| label: fig-baseplot-rda
+#| fig-cap: "Generierter Plot"
+
 ## Triplots of the rda results (lc scores)
 ## Site scores as linear combinations of the environmental variables
 dev.new(title = "RDA scaling 1 and 2 + lc", width = 15, height = 6, noRStudioGD = TRUE)
@@ -187,6 +189,9 @@ text(-3.34, 3.64, "b", cex = 2)
 __Varianzpartitionierung__
 
 ```{r}
+#| label: fig-baseplot-variation-partioning
+#| fig-cap: "Generierter Plot"
+
 ## 1. Variation partitioning with all explanatory variables
 (spe.part.all <- varpart(spe.hel, envchem, envtopo))
 

@@ -9,9 +9,9 @@ index: 1
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: hide
 #| purl: false
+options(knitr.duplicate.label = "allow")
 knitr::purl("stat5-8/Statistik6_Demo.qmd", "purl/Statistik6_Demo.R", documentation = 0)
 ```
 
@@ -22,7 +22,9 @@ knitr::purl("stat5-8/Statistik6_Demo.qmd", "purl/Statistik6_Demo.R", documentati
 ### PCA
 
 ```{r}
-#| message: false
+#| label: fig-baseplot-pca1
+#| fig-cap: "Generierter Plot"
+
 if(!require(labdsv)){install.packages("labdsv")}
 library(labdsv)
 
@@ -37,7 +39,6 @@ raw
 x1 <- raw[,1]
 y1 <- raw[,2]
 z <- c(rep(1:6))
-
 
 # Plot Abhängigkeit der Arten vom Umweltgradienten
 plot(c(x1, y1)~c(z, z), type = "n", axes = T, bty = "l", 
@@ -120,6 +121,9 @@ pca.5$loadings
 ```
 
 ```{r}
+#| label: fig-baseplot-pca2
+#| fig-cap: "Generierter Plot"
+
 # Erklärte Varianz der Achsen in Prozent (sdev ist die Wurzel daraus)
 E <- pca.5$sdev^2 / pca.5$totdev * 100
 E
@@ -140,7 +144,6 @@ y <- pca.5$loadings[,2]
 plot(x, y, type = "n", asp = 1)
 arrows(0,0, x[sel.sp], y[sel.sp], length = 0.08)
 text(x[sel.sp], y[sel.sp], snames, pos = 1, cex = 0.6)
-
 
 # Mit vegan
 pca.6 <- rda(sveg^0.25, scale = TRUE)
@@ -169,6 +172,9 @@ text(x[sel.sp], y[sel.sp], snames, pos = 1, cex = 0.6)
 ### CA
 
 ```{r}
+#| label: fig-baseplot-ca
+#| fig-cap: "Generierter Plot"
+
 ca.1 <- cca(sveg^0.5)
 # Arten (o) und Communities (+) plotten
 plot(ca.1)
@@ -185,6 +191,9 @@ summary(eigenvals(ca.1))
 ### DCA
  
 ```{r}
+#| label: fig-baseplot-dca
+#| fig-cap: "Generierter Plot"
+
 library(vegan)
 dca.1 <- decorana(sveg, mk = 10)
 plot(dca.1, display = "sites", type = "point")
@@ -196,7 +205,9 @@ plot(dca.2, display = "sites", type = "point")
 ### NMDS
  
 ```{r}
-#| message: false
+#| label: fig-baseplot-nmds
+#| fig-cap: "Generierter Plot"
+
 # Distanzmatrix als Start erzeugen
 mde <- vegdist(sveg, method = "euclidean")
 

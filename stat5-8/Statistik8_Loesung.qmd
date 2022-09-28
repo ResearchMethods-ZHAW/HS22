@@ -9,9 +9,9 @@ index: 3
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: hide
 #| purl: false
+options(knitr.duplicate.label = "allow")
 knitr::purl("stat5-8/Statistik8_Loesung.qmd", "purl/Statistik8_Loesung.R", documentation = 0)
 ```
 
@@ -55,7 +55,9 @@ crimez
 Anschliessend wird das SSI-Kriterium getestet und zwar für Partitionierungen von 2 bis 6 Gruppen (wie viele Gruppen man maximal haben will, muss man pragmatisch nach der jeweiligen Fragestelltung entscheiden).
 
 ```{r}
-#| message: false
+#| label: fig-baseplot-cluster
+#| fig-cap: "Generierter Plot"
+
 library(vegan)
 crimez.KM.cascade <- cascadeKM(crimez[,c(2:8)],
                         inf.gr = 2, sup.gr = 6, iter = 100, criterion = "ssi")
@@ -89,7 +91,9 @@ Vor der Berechnung von crime.norm und crime.ch muss man die Spalte mit den
 Bundesstaatenkürzeln entfern.
 
 ```{r}
-#| message: false
+#| label: fig-baseplot-agglomerative-clusteranalysis
+#| fig-cap: "Generierter Plot"
+
 # Agglomerative Clusteranalyse
 crime2 <- crime[,-1]
 crime.norm <- decostand(crime2, "normalize")
@@ -138,7 +142,9 @@ Damit die Boxplots und die ANOVA direkt interpretierbar sind, werden für diese,
 Anschliessend kann man die 7 ANOVAs rechnen, die Posthoc-Vergleiche durchführen und die zugehörigen Boxplots mit Buchstaben für die homogenen Gruppen erzeugen. Sinnvollerweise gruppiert man die Abbildungen gleich, z. B. je 2 x 2. Das Skript ist hier simple für jede Verbrechensart wiederholt. Erfahrenere R-Nutzer können das Ganze hier natürlich durch eine Schleife abkürzen.
 
 ```{r}
-#| message: false
+#| label: fig-baseplot-agglomerative-clusteranalysis-compare
+#| fig-cap: "Generierter Plot"
+
 library(multcomp)
 if(!require(multcomp)){install.packages("multcomp")}
 library(multcomp)

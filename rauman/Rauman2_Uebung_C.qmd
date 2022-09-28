@@ -11,7 +11,7 @@ Nun wollen wir für die bereits verwendeten Datensätze `luftqualitaet.gpkg` und
 
 ```{r}
 #| echo: true
-#| message: false
+
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -35,6 +35,9 @@ Die erste Frage, die bei solchen Bewegungsstudien typischerweise gestellt wird, 
 
 ```{r}
 #| echo: false
+#| label: fig-ggplot-ex1
+#| fig-cap: "Generierter Plot"
+
 ggplot(schweiz) + 
   geom_sf() + 
   geom_sf(data = rotmilan) +
@@ -96,6 +99,9 @@ rotmilan_kde
 
 ```{r}
 #| echo: false
+#| label: fig-ggplot-ex2
+#| fig-cap: "Generierter Plot"
+
 ggplot() + 
   geom_raster(data = rotmilan_kde, aes(X, Y, fill = value)) +
   geom_sf(data = schweiz, fill = NA) +
@@ -114,7 +120,9 @@ Wir können die tiefen Werte ausblenden, indem wir nur die höchsten 5% der Wert
 Zusätzlich hilft eine logarithmische Transformation der Werte, die Farbskala etwas sichtbarer zu machen.
 
 ```{r}
-#| warning: false
+#| label: fig-ggplot-ex2-log
+#| fig-cap: "Generierter Plot"
+
 q95 <- quantile(rotmilan_kde$value,probs = 0.95)
 
 rotmilan_kde <- rotmilan_kde %>%
@@ -146,6 +154,7 @@ thiessenpolygone_clip <- st_intersection(thiessenpolygone,schweiz)
 ```
 
 ```{r}
+#| label: fig-ggplot-ex2-thiessen
 #| fig.cap: 'Wenn wir jetzt die Thiessenpolygone (ohne Punkte) darstellen, wird deutlicher,
 #|   wie die Dichteverteilung im Innern des Clusters aussieht. '
 ggplot() + 
@@ -154,3 +163,11 @@ ggplot() +
   theme_void()
 ```
 
+## Musterlösung
+
+```{r}
+#| echo: false
+#| results: asis
+#| purl: false
+#distill::mypurl()
+```

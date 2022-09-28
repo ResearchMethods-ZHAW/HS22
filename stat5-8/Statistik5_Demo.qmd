@@ -9,9 +9,9 @@ index: 1
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: hide
 #| purl: false
+options(knitr.duplicate.label = "allow")
 knitr::purl("stat5-8/Statistik5_Demo.qmd", "purl/Statistik5_Demo.R", documentation = 0)
 ```
 
@@ -24,7 +24,9 @@ knitr::purl("stat5-8/Statistik5_Demo.qmd", "purl/Statistik5_Demo.R", documentati
 Based on Logan (2010), Chapter 14
 
 ```{r}
-#| message: false
+#| label: fig-interaction-plot-anova
+#| fig-cap: "Generierter Plot"
+
 spf <- read.delim("data/spf.csv", sep = ";") 
 spf.aov <- aov(Reaktion~Signal * Messung + Error(VP), data = spf)
 summary(spf.aov)
@@ -64,7 +66,9 @@ DeerEcervi$fSex <- as.factor(DeerEcervi$Sex)
 Hirschlänge hier standardisiert, sonst würde der Achsenabschnitt im Modell für einen Hirsch der Länge 0 modelliert, was schlecht interpretierbar ist, jetzt ist der Achsenabschnitt für einen durschnittlich langen Hirsch
 
 ```{r}
-#| message: false
+#| label: fig-baseplot-glmm1
+#| fig-cap: "Generierter Plot"
+
 DeerEcervi$CLength <- DeerEcervi$Length - mean(DeerEcervi$Length)
 
 # Zunächst als GLM
@@ -95,7 +99,9 @@ for (j in AllFarms){
 ## GLMM
 
 ```{r}
-#| message: false
+#| label: fig-baseplot-glmm2
+#| fig-cap: "Generierter Plot"
+
 if(!require(MASS)){install.packages("MASS")}
 library(MASS)
 DE.PQL <- glmmPQL(Ecervi.01 ~ CLength * fSex,
