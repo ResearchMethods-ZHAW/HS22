@@ -25,9 +25,7 @@ library(lattice)   # einfaches plotten von Zusammenhängen zwischen Variablen
 
 ## Aufgabe 1: Zähldaten
 
-Die Projektstruktur steht. Nun können die Daten eingelesen und die nötigen Datentypen definiert werden. Das tidyverse-Universum (u.a. pipes, ggplot usw.) ist in unseren Auswertungen zentral.
-
-![](/fallstudie_s/images/tidyverse.png){width=50%}
+Die Projektstruktur steht. Nun können die Daten eingelesen und die nötigen Datentypen definiert werden. 
 
 Die Zähldaten des Wildnispark Zürich wurden vorgängig bereinigt (z.B. wurden Stundenwerte entfernt, an denen am Zähler Wartungsarbeiten stattgefunden haben). Das macht es für uns einfach, denn wir können die Daten ohne vorgängige Bereinigung einlesen. Behaltet aber im Hinterkopf, dass die Datenaufbereitung, die Datenbereinigung mit viel Aufwand verbunden ist.
 
@@ -51,9 +49,7 @@ __Hinweis:__ Im Stundenformat zeigen die Werte bei 11:00 die Zähldaten zwischen
 str(depo)
 
 depo <- depo %>%
-  mutate(Datum_Uhrzeit = as.character(DatumUhrzeit)) %>%
-  separate(Datum_Uhrzeit, into = c("Datum", "Zeit"), sep = " ")%>% # mit seperate() trennt man
-                                                                   # 1 Spalte in 2.
+  mutate(Datum = as.character(Datum)) %>% 
   mutate(Datum = as.Date(Datum, format = "HIER DATUMSFORMAT")) # hier wird Text zum Datum
 ```
 
@@ -121,7 +117,7 @@ __Hinweis:__ __...__ steht im Code für folgende oder vorhergehende Zeilen im Co
 
 Jetzt fügen wir viele Convinience Variabeln hinzu. Wir brauchen:
 
-- Wochentag; der Befehl dazu ist __weekdays()__
+1. Wochentag; der Befehl dazu ist __weekdays()__
   
 Tipp: R sortiert die Levels alphabetisch. Da das in unserem Fall aber sehr unpraktisch ist, müssen die Levels manuell bestimmt werden
 
@@ -135,7 +131,7 @@ Tipp: R sortiert die Levels alphabetisch. Da das in unserem Fall aber sehr unpra
 
 Frage: Was bedeutet __base::__ vor den eigentlichen Befehl?
 
-- Ist es ein Werktag oder Wochenende?
+- Werktag oder Wochenende?
 
 ```{r eval=FALSE}
   ...
@@ -147,20 +143,22 @@ Frage: Was bedeutet __base::__ vor den eigentlichen Befehl?
 
 Frage: Was bedeuten die __|__ (zu erstellen mit AltGr + 7)? Welches ist das if Argument, welches das else?
 
-- Kalenderwoche: __isoweek()__
-- Monat: __month()__
-- Jahr: __year()__
+2. Kalenderwoche: __isoweek()__
+3. Monat: __month()__
+4. Jahr: __year()__
 
-- Phase Covid (Code untenstehend). Wir definieren fünf Phasen: 
+5. Phase Covid (Code untenstehend). Wir definieren fünf Phasen: 
 
-- von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1 (pre)
-- 1 Jahr vor Corona (normal)
-- Lockdown 1
-- Lockdown 2
-- Ende 2. Lockdown bis Ende Untersuchungsperiode
+  - von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1 (pre)
+  - 1 Jahr vor Corona (normal)
+  - Lockdown 1
+  - Lockdown 2
+  - Ende 2. Lockdown bis Ende Untersuchungsperiode
 
 __Hinweis:__ 
+
 - Ich mache den letzten Punkt nachgelagert, da zu viele Operationen in einem Schritt auch schon mal etwas durcheinander erzeugen können.
+
 - Wir packen alle Phasen (normal, die beiden Lockdowns und Covid aber ohne Lockdown) in eine Spalte --> long-format ist schöner (und praktischer für das plotten) als wide-format.
 
 ```{r eval=FALSE}
@@ -187,7 +185,7 @@ Frage: Welches ist das if Argument, welches das else?
 - Nun soll noch die volle Stunde als Integer im Datensatz stehen. Diese Angabe muss etwas mühsam aus den Daten gezogen werden (darum hier der fertige Code dazu):
 
 ```{r eval = FALSE}
-depo$Stunde <- as.numeric(format(as.POSIXct(depo$Zeit,format="%H:%M"),"%H"))
+depo$Stunde <- as.numeric(format(as.POSIXct(depo$Zeit,format="%H:%M:%S"),"%H"))
 
 # ersetze 0 Uhr mit 24 Uhr (damit wir besser rechnen können)
 depo$Stunde[depo$Stunde == 0] <- 24
@@ -303,7 +301,7 @@ depo <- left_join(depo,lumidata, by = c("Datum" ="date"))
 
 # aendere alle Zeit- und Datumsangaben so, dass sie gleich sind und miteinander verrechnet werden können.
 depo <- depo %>% 
-  mutate(DatumUhrzeit = as.POSIXct(DatumUhrzeit, format = "%d.%m.%Y %H:%M")) %>% 
+  mutate(DatumUhrzeit = as.POSIXct(DatumUhrzeit, format = "%m.%d.%Y. %H:%M")) %>% 
   mutate(nightEnd = as.POSIXct(nightEnd)) %>% 
   mutate(goldenHourEnd = as.POSIXct(goldenHourEnd)) %>% 
   mutate(goldenHourEnd = goldenHourEnd + hours(1)) %>% 
