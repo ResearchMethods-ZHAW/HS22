@@ -127,6 +127,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 }</script>
 
 
+<link rel="stylesheet" href="../custom.css">
+<link rel="stylesheet" href="../theme-custom.scss">
 </head>
 
 <body class="nav-sidebar docked">
@@ -744,7 +746,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>Weiter braucht es <em>mindestens</em> ein “Layer” der beschreibt, wie die Daten dargestellt werden sollen (z.B. <code>geom_point()</code>). Anders als bei “Piping” (<code>%&gt;%</code>) wird ein Layer mit <code>+</code> hinzugefügt.</p>
+<p>Weiter braucht es <em>mindestens</em> ein “Layer” der beschreibt, wie die Daten dargestellt werden sollen (z.B. <code>geom_point()</code>). Anders als bei “Piping” (<code>|&gt;</code>) wird ein Layer mit <code>+</code> hinzugefügt.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> temperature, <span class="at">mapping =</span> <span class="fu">aes</span>(time,SHA)) <span class="sc">+</span>         </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Layer: "geom_point" entspricht Punkten in einem Scatterplot </span></span>
@@ -834,7 +836,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="split-apply-combine">Split Apply Combine</h2>
 <p>Im obigen Plot fällt auf, dass stündliche Werte eine zu hohe Auflösung ist, wenn wir daten über 2 Jahre visualisieren. Mit <em>Split Apply Combine</em> (PrePro 3) können wir die Auflösung unserer Daten verändern:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>temperature_day <span class="ot">&lt;-</span> temperature_long <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>temperature_day <span class="ot">&lt;-</span> temperature_long <span class="sc">|&gt;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.Date</span>(time)) </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>temperature_day</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -854,8 +856,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 10 2000-01-01 ZER      -8.5
 # … with 35,078 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>temperature_day <span class="ot">&lt;-</span> temperature_day <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(station, time) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>temperature_day <span class="ot">&lt;-</span> temperature_day <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(station, time) <span class="sc">|&gt;</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">temp =</span> <span class="fu">mean</span>(temp))</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>temperature_day  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>

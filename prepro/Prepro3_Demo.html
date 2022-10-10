@@ -146,6 +146,8 @@ div.csl-indent {
 }</script>
 
 
+<link rel="stylesheet" href="../custom.css">
+<link rel="stylesheet" href="../theme-custom.scss">
 </head>
 
 <body class="nav-sidebar docked">
@@ -714,12 +716,12 @@ div.csl-indent {
 8   B   15
 9   C   20</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sry <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(key) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sry <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(key) <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Summe =</span> <span class="fu">sum</span>(data))</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sry <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(key) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sry <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(key) <span class="sc">|&gt;</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Summe =</span> <span class="fu">sum</span>(data),</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Minimum =</span> <span class="fu">min</span>(data),</span>
@@ -844,7 +846,7 @@ div.csl-indent {
 <li>Bilde Gruppen pro Jahr (<code>group_by(wetter,year)</code>)</li>
 <li>Berechne das Temperaturmittel (<code>mean(tre200h0)</code>)</li>
 </ol>
-<p>Diese Übersetzung <code>R</code>-&gt; Deutsch unterscheidet sich vor allem darin, dass die Operation auf Deutsch <em>verkettet</em> ausgesprochen wird (Operation 1-&gt;2-&gt;3) während der Computer <em>verschachtelt</em> liest 3(2(1)). Um <code>R</code> näher an die gesprochene Sprache zu bringen, kann man den <code>%&gt;%</code>-Operator verwenden (siehe <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>).</p>
+<p>Diese Übersetzung <code>R</code>-&gt; Deutsch unterscheidet sich vor allem darin, dass die Operation auf Deutsch <em>verkettet</em> ausgesprochen wird (Operation 1-&gt;2-&gt;3) während der Computer <em>verschachtelt</em> liest 3(2(1)). Um <code>R</code> näher an die gesprochene Sprache zu bringen, kann man den <code>|&gt;</code>-Operator verwenden (siehe <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 nimm den Datensatz "wetter"</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 Bilde Gruppen pro Monat</span></span>
@@ -857,11 +859,11 @@ div.csl-indent {
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># wird zu:</span></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>wetter <span class="sc">%&gt;%</span>                                 <span class="co"># 1</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span>                      <span class="co"># 2</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>wetter <span class="sc">|&gt;</span>                                 <span class="co"># 1</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">|&gt;</span>                      <span class="co"># 2</span></span>
 <span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">temp_mittel =</span> <span class="fu">mean</span>(tre200h0))  <span class="co"># 3</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Dieses Verketten mittels <code>%&gt;%</code> (genannt “pipe”) macht den Code einiges schreib- und leserfreundlicher, und wir werden ihn in den nachfolgenden Übungen verwenden. Die “pipe” wird mit dem package <code>magrittr</code> bereitgestellt und mit <code>dplyr</code> mitinstalliert.</p>
+<p>Dieses Verketten mittels <code>|&gt;</code> (genannt “pipe”) macht den Code einiges schreib- und leserfreundlicher, und wir werden ihn in den nachfolgenden Übungen verwenden. Die “pipe” wird mit dem package <code>magrittr</code> bereitgestellt und mit <code>dplyr</code> mitinstalliert.</p>
 <p>Zu <code>dplyr</code> gibt es etliche Tutorials online (siehe<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>), deshalb werden wir diese Tools nicht in allen Details erläutern. Nur noch folgenden wichtigen Unterschied zu zwei wichtigen Funktionen in <code>dpylr</code>: <code>mutate()</code> und <code>summarise()</code>.</p>
 <ul>
 <li><code>summarise()</code> fasst einen Datensatz zusammen. Dabei reduziert sich die Anzahl Beobachtungen (Zeilen) auf die Anzahl Gruppen (z.B. eine zusammengefasste Beobachtung (Zeile) pro Jahr). Zudem reduziert sich die Anzahl Variablen (Spalten) auf diejenigen, die in der “summarise” Funktion spezifiziert wurde (z.B. <code>temp_mittel</code>).</li>
@@ -869,10 +871,10 @@ div.csl-indent {
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Maximal und minimal Temperatur pro Kalenderwoche</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>weather_summary <span class="ot">&lt;-</span> wetter <span class="sc">%&gt;%</span>               <span class="co">#1) nimm den Datensatz "wetter"</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>                    <span class="co">#2) filter auf den Monat Januar</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">day</span>(time)) <span class="sc">%&gt;%</span>               <span class="co">#3) erstelle eine neue Spalte "day"</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(day) <span class="sc">%&gt;%</span>                         <span class="co">#4) Nutze die neue Spalte um Gruppen zu bilden</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>weather_summary <span class="ot">&lt;-</span> wetter <span class="sc">|&gt;</span>               <span class="co">#1) nimm den Datensatz "wetter"</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span>                    <span class="co">#2) filter auf den Monat Januar</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">day</span>(time)) <span class="sc">|&gt;</span>               <span class="co">#3) erstelle eine neue Spalte "day"</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(day) <span class="sc">|&gt;</span>                         <span class="co">#4) Nutze die neue Spalte um Gruppen zu bilden</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">temp_max =</span> <span class="fu">max</span>(tre200h0, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co">#5) Berechne das Maximum </span></span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">temp_min =</span> <span class="fu">min</span>(tre200h0, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)  <span class="co">#6) Berechne das Minimum</span></span>
@@ -902,9 +904,9 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="reshaping-data">Reshaping data</h2>
 <section id="breit---lang" class="level3">
 <h3 class="anchored" data-anchor-id="breit---lang">Breit -&gt; lang</h3>
-<p>Die Umformung von Tabellen <em>breit</em>-&gt;<em>lang</em> erfolgt mittels <code>tidyr</code>(siehe <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>). Auch dieses package funktioniert wunderbar mit piping (<code>%&gt;%</code>).</p>
+<p>Die Umformung von Tabellen <em>breit</em>-&gt;<em>lang</em> erfolgt mittels <code>tidyr</code>(siehe <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>). Auch dieses package funktioniert wunderbar mit piping (<code>|&gt;</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>weather_summary <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>weather_summary <span class="sc">|&gt;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(temp_max,temp_min))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 62 × 3
@@ -925,7 +927,7 @@ div.csl-indent {
 </div>
 <p>Im Befehl <code>pivot_longer()</code> müssen wir festlegen, welche Spalten zusammengefasst werden sollen (hier: <code>temp_max</code>,<code>temp_min</code>,<code>temp_mean</code>). Alternativ können wir angeben, welche Spalten wir <em>nicht</em> zusammenfassen wollen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>weather_summary <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>weather_summary <span class="sc">|&gt;</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 62 × 3
@@ -946,7 +948,7 @@ div.csl-indent {
 </div>
 <p>Wenn wir die Namen neuen Spalten festlegen wollen (anstelle von <code>name</code> und <code>value</code>) erreichen wir dies mit <code>names_to</code> bzw. <code>values_to</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>weather_summary_long <span class="ot">&lt;-</span> weather_summary <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>weather_summary_long <span class="ot">&lt;-</span> weather_summary <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>day, <span class="at">names_to =</span> <span class="st">"Messtyp"</span>, <span class="at">values_to =</span> <span class="st">"Messwert"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die ersten 6 Zeilen von <code>weather_summary_long</code>:</p>
@@ -1070,7 +1072,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="lang---breit">Lang -&gt; breit</h3>
 <p>Das Gegenstück zu <code>pivot_longer</code> ist <code>pivot_wider</code>. Mit dieser Funktion können wir eine <em>lange</em> Tabelle in eine <em>breite</em> überführen. Dazu müssen wir in <code>names_from</code> angeben, aus welcher Spalte die neuen Spaltennamen erstellt werden sollen (<code>names_from</code>) und aus welcher Spalte die Werte entstammen sollen (<code>values_from</code>):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>weather_summary_long <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>weather_summary_long <span class="sc">|&gt;</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Messtyp, <span class="at">values_from =</span> Messwert)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 31 × 3

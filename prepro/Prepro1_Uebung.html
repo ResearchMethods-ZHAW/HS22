@@ -127,6 +127,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 }</script>
 
 
+<link rel="stylesheet" href="../custom.css">
+<link rel="stylesheet" href="../theme-custom.scss">
 </head>
 
 <body class="nav-sidebar docked">
@@ -631,7 +633,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#aufgabe-6" id="toc-aufgabe-6" class="nav-link" data-scroll-target="#aufgabe-6">Aufgabe 6</a></li>
   <li><a href="#aufgabe-7" id="toc-aufgabe-7" class="nav-link" data-scroll-target="#aufgabe-7">Aufgabe 7</a></li>
   <li><a href="#aufgabe-8" id="toc-aufgabe-8" class="nav-link" data-scroll-target="#aufgabe-8">Aufgabe 8</a></li>
-  <li><a href="#musterlösung" id="toc-musterlösung" class="nav-link" data-scroll-target="#musterlösung">Musterlösung</a></li>
   </ul>
 </nav>
     </div>
@@ -668,14 +669,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Festlegen der Working Directory ohne die Verwendung des expliziten Pfades (<code>setwd()</code>). Das ist sinnvoll, da sich dieser Pfad ändern kann (Zusammenarbeit mit anderen Usern, Ausführung des Scripts zu einem späteren Zeitpunkt)</li>
 <li>Automatisches Zwischenspeichern geöffneter Scripts und Wiederherstellung der geöffneten Scripts bei der nächsten Session</li>
 <li>Festlegen verschiedener projektspezifischer Optionen</li>
-<li>Verwendung von Versionsverwaltungssystemen (git oder SVN)</li>
+<li>Verwendung von Versionsverwaltungssystemen (z.B. <em>git</em>)</li>
 </ul>
 </section>
 <section id="arbeiten-mit-libraries-packages" class="level2">
 <h2 class="anchored" data-anchor-id="arbeiten-mit-libraries-packages">Arbeiten mit Libraries / Packages</h2>
-<p>R ist ohne Zusatzpackete nicht mehr denkbar. Die allermeisten Packages werden auf <a href="https://cran.r-project.org/">CRAN</a> gehostet und können leicht mittels <code>install.packages()</code> installiert werden. Eine sehr wichtige Sammlung von Packages wird von RStudio entwickelt. Unter dem Namen <a href="https://www.tidyverse.org/">Tidyverse</a> werden eine Reihe von Packages angeboten, den R-Alltag enorm erleichtert. Wir werden später näher auf das “Tidy”-Universum eingehen, an dieser Stelle können wir die Sammlung einfach mal die wichtigsten Packages aus <code>tidyverse</code> installieren (heute werden wir davon nur einen kleinen Teil benutzen).</p>
+<p>R ist ohne Zusatzpackete nicht mehr denkbar. Die allermeisten Packages werden auf <a href="https://cran.r-project.org/">CRAN</a> gehostet und können leicht mittels <code>install.packages()</code> installiert werden. Eine sehr wichtige Sammlung von Packages wird von RStudio entwickelt. Unter dem Namen <a href="https://www.tidyverse.org/">Tidyverse</a> werden eine Reihe von Packages angeboten, den R-Alltag enorm erleichtert. Wir werden später näher auf das “Tidy”-Universum eingehen, an dieser Stelle können wir einfach mal die wichtigsten Packages aus <code>tidyverse</code> installieren (heute werden wir davon nur einen kleinen Teil benutzen).</p>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyr"</span>)      <span class="co"># ← MIT Anführungs-/Schlusszeichen</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"lubridate"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Um ein <code>package</code> in R verwenden zu können, gibt es zwei Möglichkeiten:</p>
 <ul>
@@ -685,23 +690,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Letztere Notation ist vor allem dann sinnvoll, wenn sich zwei unterschiedliche Funktionen mit dem gleichen namen in verschiedenen pacakges existieren. <code>filter()</code> existiert als Funktion einersits im package <code>dplyr</code> sowie in <code>stats</code>. Dieses Phänomen nennt man “masking”.</p>
 <p>Zu Beginn laden wir die nötigen Pakete :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Im Unterschied zu install.packages() werden bei library()</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># keine Anführungs- und Schlusszeichen gesetzt.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)                 <span class="co"># ← OHNE Anführungs-/Schlusszeichen</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code>dplyr</code> liefert viele Funktionen, für die es in der normalen R-Umgebung (“base R”) keine wirkliche Alternative gibt. Andere Funktionen sind alternativen zu Base-R Funktionen (<code>read_csv</code> statt <code>read.csv</code>, <code>read_delim</code> statt <code>read.delim</code>.</p>
-<p>Diese verhalten sich leicht anders als Base-R Funktionen: Sie treffen weniger Annahmen und sind etwas konservativer. Wir verwenden oft Tidyverse Funktionen, ihr könnt aber selber entscheiden welche Version ihr benutzt.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wir nutzen <code>readr</code> um csvs zu importieren und verwenden die Funktion <code>read_csv</code> (mit <em>underscore</em>) als alternative zu <code>read.csv</code> (mit <em>Punkt</em>). Das ist eine persönliche Präferenz<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, es ist euch überlassen welche Funktion ihr verwendet. Beachtet, dass die beiden Funktionen leicht andere Parameter erwarten.</p>
+</div>
+</div>
 </section>
 <section id="aufgabe-1" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
 <p>Erstelle eine <code>data.frame</code> mit nachstehenden Daten.</p>
-<p>Tipps:</p>
-<ul>
-<li>Eine leere <code>data.frame</code> zu erstellen ist schwieriger als wenn erstellen und befüllen der <code>data.frame</code> in einem Schritt erfolgt</li>
-<li>R ist dafür gedacht, Spalte für Spalte zu arbeiten (<a href="http://www.noamross.net/blog/2014/4/16/vectorization-in-r--why.html">warum?</a>), nicht Reihe für Reihe. Versuche dich an dieses Schema zu halten.</li>
-</ul>
 <div class="cell">
 
 </div>
@@ -753,15 +761,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="aufgabe-2" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h2>
-<p>Was für Datentypen wurden (in Aufgabe 1) von R automatisch angenommen? Sind diese sinnvoll?</p>
+<p>Was für Daten<em>typen</em> wurden in der letzten Aufgabe automatisch angenommen? Ermittle diese mit <code>str()</code> und prüfe, ob diese sinnvoll sind und wandle um wo nötig.</p>
 <div class="cell">
-<pre><code>## 'data.frame':    4 obs. of  5 variables:
-##  $ Tierart     : chr  "Fuchs" "Bär" "Hase" "Elch"
-##  $ Anzahl      : num  2 5 1 3
-##  $ Gewicht     : num  4.4 40.3 1.1 120
-##  $ Geschlecht  : chr  "m" "f" "m" "m"
-##  $ Beschreibung: chr  "Rötlich" "Braun, gross" "klein, mit langen Ohren" "Lange Beine, Schaufelgeweih"
-## [1] "double"</code></pre>
+
 </div>
 </section>
 <section id="aufgabe-3" class="level2">
@@ -775,78 +777,87 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 
 </div>
-</section>
-<section id="aufgabe-4" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
-<p>Importiere den Datensatz <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602135">weather.csv</a> (Quelle MeteoSchweiz). Es handelt sich dabei um die stündlich gemittelten Temperaturdaten an verschiedenen Standorten in der Schweiz. Wir empfehlen <a href="http://r4ds.had.co.nz/data-import.html"><code>read_csv()</code></a> anstelle von <code>read.csv()</code>.</p>
-<p>Achtung! <code>read_csv</code> erwartet leicht andere inputs als <code>read.csv</code>, schaut euch die Hilfe dazu an (<code>?read_csv</code>).</p>
-<div class="cell">
-
-</div>
+<p>Das Resultat:</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 14%">
+<col style="width: 36%">
+<col style="width: 19%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">stn</th>
-<th style="text-align: right;">time</th>
-<th style="text-align: right;">tre200h0</th>
+<th style="text-align: left;">Tierart</th>
+<th style="text-align: right;">Anzahl</th>
+<th style="text-align: right;">Gewicht</th>
+<th style="text-align: left;">Geschlecht</th>
+<th style="text-align: left;">Beschreibung</th>
+<th style="text-align: left;">Gewichtsklasse</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010100</td>
-<td style="text-align: right;">-2.6</td>
+<td style="text-align: left;">Fuchs</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4.4</td>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;">Rötlich</td>
+<td style="text-align: left;">leicht</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010101</td>
-<td style="text-align: right;">-2.5</td>
+<td style="text-align: left;">Bär</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">40.3</td>
+<td style="text-align: left;">f</td>
+<td style="text-align: left;">Braun, gross</td>
+<td style="text-align: left;">mittel</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010102</td>
-<td style="text-align: right;">-3.1</td>
+<td style="text-align: left;">Hase</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;">klein, mit langen Ohren</td>
+<td style="text-align: left;">leicht</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010103</td>
-<td style="text-align: right;">-2.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010104</td>
-<td style="text-align: right;">-2.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010105</td>
-<td style="text-align: right;">-3.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010106</td>
-<td style="text-align: right;">-3.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010107</td>
-<td style="text-align: right;">-4.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010108</td>
-<td style="text-align: right;">-4.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010109</td>
-<td style="text-align: right;">-4.1</td>
+<td style="text-align: left;">Elch</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">120.0</td>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;">Lange Beine, Schaufelgeweih</td>
+<td style="text-align: left;">schwer</td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
+</section>
+<section id="aufgabe-4" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
+<p>Importiere den Datensatz <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602135">weather.csv</a> (Quelle MeteoSchweiz). Es handelt sich dabei um die stündlich gemittelten Temperaturdaten an verschiedenen Standorten in der Schweiz.</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wenn du <code>read_csv</code> verwenden möchtest: Diese Funktion erwartet leicht andere inputs als <code>read.csv</code>, konsultiere dazu die Hilfe zu <code>read_csv</code> (mit <code>?read_csv</code>).</p>
+</div>
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
 </div>
 </section>
 <section id="aufgabe-5" class="level2">
@@ -859,173 +870,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="aufgabe-6" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-6">Aufgabe 6</h2>
 <p>Die Spalte <code>time</code> ist eine Datum/Zeitangabe im Format JJJJMMTTHH (siehe <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602173">meta.txt</a>). Damit R dies als Datum-/Zeitangabe erkennt, müssen wir die Spalte in einem R-Format (<code>POSIXct</code>) einlesen und dabei R mitteilen, wie sie aktuell formatiert ist. Lies die Spalte mit <code>as.POSIXct()</code> ein und spezifiziere sowohl <code>format</code> wie auch <code>tz</code>.</p>
-<p>Tipps:</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tipp
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li>Wenn keine Zeitzone festgelegt wird, trifft <code>as.POSIXct()</code> eine Annahme (basierend auf <code>Sys.timezone()</code>). In unserem Fall handelt es sich aber um Werte in UTC (siehe <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602139">metadata.csv</a>)</li>
 <li><code>as.POSIXct</code>erwartet <code>character</code>: Wenn du eine Fehlermeldung hast die <code>'origin' must be supplied</code> (o.ä) heisst, hast du der Funktion vermutlich einen <code>Numeric</code> übergeben.</li>
 </ul>
+</div>
+</div>
 <div class="cell">
 
 </div>
 <div class="cell">
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<caption>Die neue Tabelle sollte so aussehen</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">stn</th>
-<th style="text-align: left;">time</th>
-<th style="text-align: right;">tre200h0</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 00:00:00</td>
-<td style="text-align: right;">-2.6</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 01:00:00</td>
-<td style="text-align: right;">-2.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 02:00:00</td>
-<td style="text-align: right;">-3.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 03:00:00</td>
-<td style="text-align: right;">-2.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 04:00:00</td>
-<td style="text-align: right;">-2.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 05:00:00</td>
-<td style="text-align: right;">-3.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 06:00:00</td>
-<td style="text-align: right;">-3.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 07:00:00</td>
-<td style="text-align: right;">-4.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 08:00:00</td>
-<td style="text-align: right;">-4.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 09:00:00</td>
-<td style="text-align: right;">-4.1</td>
-</tr>
-</tbody>
-</table>
-</div>
+
 </div>
 </section>
 <section id="aufgabe-7" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-7">Aufgabe 7</h2>
-<p>Erstelle zwei neue Spalten mit Wochentag (Montag, Dienstag, etc) und Kalenderwoche. Verwende dazu die neu erstellte <code>POSIXct</code>-Spalte</p>
+<p>Erstelle zwei neue Spalten mit Wochentag (Montag, Dienstag, etc) und Kalenderwoche. Verwende dazu die neu erstellte <code>POSIXct</code>-Spalte sowie eine geeignete Funktion aus <code>lubridate</code>.</p>
 <div class="cell">
 
 </div>
 <div class="cell">
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<thead>
-<tr class="header">
-<th style="text-align: left;">stn</th>
-<th style="text-align: left;">time</th>
-<th style="text-align: right;">tre200h0</th>
-<th style="text-align: left;">wochentag</th>
-<th style="text-align: right;">kw</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 00:00:00</td>
-<td style="text-align: right;">-2.6</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 01:00:00</td>
-<td style="text-align: right;">-2.5</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 02:00:00</td>
-<td style="text-align: right;">-3.1</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 03:00:00</td>
-<td style="text-align: right;">-2.4</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 04:00:00</td>
-<td style="text-align: right;">-2.5</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 05:00:00</td>
-<td style="text-align: right;">-3.0</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 06:00:00</td>
-<td style="text-align: right;">-3.7</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 07:00:00</td>
-<td style="text-align: right;">-4.4</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 08:00:00</td>
-<td style="text-align: right;">-4.1</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 09:00:00</td>
-<td style="text-align: right;">-4.1</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-</tr>
-</tbody>
-</table>
-</div>
+
 </div>
 </section>
 <section id="aufgabe-8" class="level2">
@@ -1035,108 +910,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 <div class="cell">
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<thead>
-<tr class="header">
-<th style="text-align: left;">stn</th>
-<th style="text-align: left;">time</th>
-<th style="text-align: right;">tre200h0</th>
-<th style="text-align: left;">wochentag</th>
-<th style="text-align: right;">kw</th>
-<th style="text-align: left;">temp_kat</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 00:00:00</td>
-<td style="text-align: right;">-2.6</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 01:00:00</td>
-<td style="text-align: right;">-2.5</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 02:00:00</td>
-<td style="text-align: right;">-3.1</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 03:00:00</td>
-<td style="text-align: right;">-2.4</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 04:00:00</td>
-<td style="text-align: right;">-2.5</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 05:00:00</td>
-<td style="text-align: right;">-3.0</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 06:00:00</td>
-<td style="text-align: right;">-3.7</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 07:00:00</td>
-<td style="text-align: right;">-4.4</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 08:00:00</td>
-<td style="text-align: right;">-4.1</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 09:00:00</td>
-<td style="text-align: right;">-4.1</td>
-<td style="text-align: left;">Sa.</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-</tbody>
-</table>
+
 </div>
-</div>
+
+
 </section>
-<section id="musterlösung" class="level2">
-<h2 class="anchored" data-anchor-id="musterlösung">Musterlösung</h2>
-
-
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Vorteile von <code>read_csv</code> gegenüber <code>read.csv</code>: <a href="https://stackoverflow.com/a/60374974/4139249" class="uri">https://stackoverflow.com/a/60374974/4139249</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
