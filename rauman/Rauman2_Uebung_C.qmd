@@ -125,7 +125,7 @@ Zusätzlich hilft eine logarithmische Transformation der Werte, die Farbskala et
 
 q95 <- quantile(rotmilan_kde$value,probs = 0.95)
 
-rotmilan_kde <- rotmilan_kde %>%
+rotmilan_kde <- rotmilan_kde |>
   mutate(
     value_new = ifelse(value>q95,value,NA),
     value_new = log10(value_new)
@@ -143,8 +143,8 @@ Thiessen Polygone bieten eine spannende Alternative um Unterschiede in der Dicht
 Wir wollen dies nun ausprobieren und konstruieren zum Schluss die Thiessenpolygone für die Rotmilan-Daten für das Untersuchungsgebiet Schweiz. Nutze die Anleitung für das Erstellen von Thiessenpolygonen aus der Übung B um Thiessenpolygone für die Rotmilanpositionen zu erstellen. 
 
 ```{r}
-thiessenpolygone <- rotmilan %>%
-  st_union() %>%
+thiessenpolygone <- rotmilan |>
+  st_union() |>
   st_voronoi()
 schweiz <- st_union(schweiz)
 

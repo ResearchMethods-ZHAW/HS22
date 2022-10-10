@@ -26,12 +26,12 @@ Zudem müssen die Werte jeweiles auf eine gemeinsame Skala normalisiert werden. 
 
 ```{r}
 #| echo: true
-mtcars2 <- mtcars %>%
-  tibble::rownames_to_column("car") %>%
+mtcars2 <- mtcars |>
+  tibble::rownames_to_column("car") |>
   pivot_longer(-car)
 
-mtcars2 <- mtcars2 %>%
-  group_by(name) %>%
+mtcars2 <- mtcars2 |>
+  group_by(name) |>
   mutate(value_scaled = scales::rescale(value))
 ```
 
@@ -47,8 +47,8 @@ So sieht der fertige Plot aus:
 #| label: fig-ggplot-ex1
 #| fig-cap: "Generierter Plot"
 
-mtcars2 <- mtcars2 %>%
-  group_by(car) %>%
+mtcars2 <- mtcars2 |>
+  group_by(car) |>
   mutate(gear = value[name == "gear"])
 
 ggplot(mtcars2, aes(name, value_scaled, group = car, color = factor(gear))) +
@@ -71,10 +71,10 @@ Wenn wir die Daten von beiden Bibern verwenden wollen, müssen wir diese noch zu
 
 ```{r}
 #| echo: !expr T
-beaver1_new <- beaver1 %>%
+beaver1_new <- beaver1 |>
   mutate(beaver = "nr1")
 
-beaver2_new <- beaver2 %>%
+beaver2_new <- beaver2 |>
   mutate(beaver = "nr2")
 
 beaver_new <- rbind(beaver1_new,beaver2_new)
@@ -84,7 +84,7 @@ Zudem müssen wir die Zeitangabe noch anpassen: Gemäss der [Datenbeschreibung](
 
 ```{r}
 #| echo: !expr T
-beaver_new <- beaver_new %>%
+beaver_new <- beaver_new |>
   mutate(
     hour_dec = (time/100)%/%1,         # Ganze Stunden (mittels ganzzaliger Division)
     min_dec = (time/100)%%1/0.6,       # Dezimalminuten (15 min wird zu 0.25, via Modulo)
@@ -109,7 +109,7 @@ So sieht der fertige Plot aus:
 
 # Lösung Aufgabe 2
 
-beaver_new %>%
+beaver_new |>
   ggplot(aes(hour_min_dec, temp, color = beaver)) +
   geom_point() +
   scale_x_continuous(breaks = seq(0,23,2)) +
@@ -145,10 +145,10 @@ Aus der `matrix` muss noch ein Dataframe her, zudem müssen wir aus der breiten 
 
 ```{r}
 #| echo: !expr T
-AirPassengers3 <- AirPassengers2 %>%
-  as.data.frame() %>%
-  tibble::rownames_to_column("year") %>%
-  pivot_longer(-year, names_to = "month", values_to = "n") %>%
+AirPassengers3 <- AirPassengers2 |>
+  as.data.frame() |>
+  tibble::rownames_to_column("year") |>
+  pivot_longer(-year, names_to = "month", values_to = "n") |>
   mutate(
     # ich nutze einen billigen Trick um ausgeschriebene Monate in Nummern umzuwandeln
     month = factor(month, levels = month.abb,ordered = T),

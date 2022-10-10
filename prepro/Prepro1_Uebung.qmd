@@ -3,6 +3,12 @@ date: 2022-10-11
 lesson: PrePro1
 thema: Datentypen
 index: 2
+execute: 
+  echo: true
+  output: false
+  warning: false
+code-fold: true
+code-summary: "Musterlösung"
 ---
 
 # PrePro 1: Übung
@@ -10,7 +16,7 @@ index: 2
 ```{r}
 #| include: false
 #| purl: false
-knitr::opts_chunk$set(echo = FALSE, include = TRUE, collapse=TRUE, warning = FALSE)
+knitr::opts_chunk$set(collapse=TRUE)
 ```
 
 ## Arbeiten mit RStudio "Project"
@@ -22,18 +28,21 @@ Das Verwenden von Projects bringt verschiedene Vorteile, wie zum Beispiel:
 -   Festlegen der Working Directory ohne die Verwendung des expliziten Pfades (`setwd()`). Das ist sinnvoll, da sich dieser Pfad ändern kann (Zusammenarbeit mit anderen Usern, Ausführung des Scripts zu einem späteren Zeitpunkt)
 -   Automatisches Zwischenspeichern geöffneter Scripts und Wiederherstellung der geöffneten Scripts bei der nächsten Session
 -   Festlegen verschiedener projektspezifischer Optionen
--   Verwendung von Versionsverwaltungssystemen (git oder SVN)
+-   Verwendung von Versionsverwaltungssystemen (z.B. *git*)
 
 ## Arbeiten mit Libraries / Packages
 
-R ist ohne Zusatzpackete nicht mehr denkbar. Die allermeisten Packages werden auf [CRAN](https://cran.r-project.org/) gehostet und können leicht mittels `install.packages()` installiert werden. Eine sehr wichtige Sammlung von Packages wird von RStudio entwickelt. Unter dem Namen [Tidyverse](https://www.tidyverse.org/) werden eine Reihe von Packages angeboten, den R-Alltag enorm erleichtert. Wir werden später näher auf das "Tidy"-Universum eingehen, an dieser Stelle können wir die Sammlung einfach mal die wichtigsten Packages aus `tidyverse` installieren (heute werden wir davon nur einen kleinen Teil benutzen).
+R ist ohne Zusatzpackete nicht mehr denkbar. Die allermeisten Packages werden auf [CRAN](https://cran.r-project.org/) gehostet und können leicht mittels `install.packages()` installiert werden. Eine sehr wichtige Sammlung von Packages wird von RStudio entwickelt. Unter dem Namen [Tidyverse](https://www.tidyverse.org/) werden eine Reihe von Packages angeboten, den R-Alltag enorm erleichtert. Wir werden später näher auf das "Tidy"-Universum eingehen, an dieser Stelle können wir einfach mal die wichtigsten Packages aus `tidyverse` installieren (heute werden wir davon nur einen kleinen Teil benutzen).
 
 ```{r}
 #| eval: false
+#| echo: true
+#| code-fold: false
 install.packages("dplyr")
-install.packages("tidyr")
+install.packages("tidyr")      # ← MIT Anführungs-/Schlusszeichen
 install.packages("readr")
 install.packages("lubridate")
+install.packages("ggplot2")
 ```
 
 Um ein `package` in R verwenden zu können, gibt es zwei Möglichkeiten:
@@ -47,29 +56,25 @@ Zu Beginn laden wir die nötigen Pakete :
 
 ```{r}
 #| echo: true
-library(readr)
-library(lubridate)
+#| code-fold: false
 
-# Im Unterschied zu install.packages() werden bei library()
-# keine Anführungs- und Schlusszeichen gesetzt.
+library(readr)                 # ← OHNE Anführungs-/Schlusszeichen
+library(lubridate)
 ```
 
-`dplyr` liefert viele Funktionen, für die es in der normalen R-Umgebung ("base R") keine wirkliche Alternative gibt. Andere Funktionen sind alternativen zu Base-R Funktionen (`read_csv` statt `read.csv`, `read_delim` statt `read.delim`.
 
-Diese verhalten sich leicht anders als Base-R Funktionen: Sie treffen weniger Annahmen und sind etwas konservativer. Wir verwenden oft Tidyverse Funktionen, ihr könnt aber selber entscheiden welche Version ihr benutzt.
+:::{.callout-note}
+Wir nutzen `readr` um csvs zu importieren und verwenden die Funktion `read_csv` (mit *underscore*) als alternative zu `read.csv` (mit *Punkt*). Das ist eine persönliche Präferenz[^readr], es ist euch überlassen welche Funktion ihr verwendet. Beachtet, dass die beiden Funktionen leicht andere Parameter erwarten.
+:::
+
+[^readr]: Vorteile von `read_csv` gegenüber `read.csv`: <https://stackoverflow.com/a/60374974/4139249>
 
 ## Aufgabe 1
 
 Erstelle eine `data.frame` mit nachstehenden Daten.
 
-Tipps:
-
--   Eine leere `data.frame` zu erstellen ist schwieriger als wenn erstellen und befüllen der `data.frame` in einem Schritt erfolgt
--   R ist dafür gedacht, Spalte für Spalte zu arbeiten ([warum?](http://www.noamross.net/blog/2014/4/16/vectorization-in-r--why.html)), nicht Reihe für Reihe. Versuche dich an dieses Schema zu halten.
 
 ```{r}
-# Musterlösung
-
 df <- data.frame(
   Tierart = c("Fuchs","Bär","Hase","Elch"),
   Anzahl = c(2,5,1,3),
@@ -82,16 +87,16 @@ df <- data.frame(
 ```{r}
 #| echo: false
 #| purl: false
+#| output: true
 knitr::kable(df)
 ```
 
+
 ## Aufgabe 2
 
-Was für Datentypen wurden (in Aufgabe 1) von R automatisch angenommen? Sind diese sinnvoll?
+Was für Daten*typen* wurden in der letzten Aufgabe automatisch angenommen? Ermittle diese mit `str()` und prüfe, ob diese sinnvoll sind und wandle um wo nötig.
 
 ```{r}
-# Musterlösung
-
 str(df)
 typeof(df$Anzahl)
 # Anzahl wurde als `double` interpretiert, ist aber eigentlich ein `integer`. 
@@ -108,27 +113,38 @@ Nutze die Spalte `Gewicht` um die Tiere in 3 Gewichtskategorien einzuteilen:
 -   schwer: \> 100kg
 
 ```{r}
-# Musterlösung
-
 df$Gewichtsklasse[df$Gewicht > 100] <- "schwer"
 df$Gewichtsklasse[df$Gewicht <= 100 & df$Gewicht > 5] <- "mittel"
 df$Gewichtsklasse[df$Gewicht <= 5] <- "leicht"
 ```
 
-## Aufgabe 4
 
-Importiere den Datensatz [weather.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602135) (Quelle MeteoSchweiz). Es handelt sich dabei um die stündlich gemittelten Temperaturdaten an verschiedenen Standorten in der Schweiz. Wir empfehlen [`read_csv()`](http://r4ds.had.co.nz/data-import.html) anstelle von `read.csv()`.
-
-Achtung! `read_csv` erwartet leicht andere inputs als `read.csv`, schaut euch die Hilfe dazu an (`?read_csv`).
+Das Resultat:
 
 ```{r}
-# Musterlösung
+#| echo: false
+#| output: true
 
+
+knitr::kable(df)
+```
+
+
+## Aufgabe 4
+
+Importiere den Datensatz [weather.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602135) (Quelle MeteoSchweiz). Es handelt sich dabei um die stündlich gemittelten Temperaturdaten an verschiedenen Standorten in der Schweiz. 
+
+:::{.callout-warning}
+Wenn du `read_csv` verwenden möchtest: Diese Funktion erwartet leicht andere inputs als `read.csv`, konsultiere dazu die Hilfe zu `read_csv` (mit `?read_csv`).
+::::
+
+```{r}
 wetter <- read_csv("data/weather.csv")
 ```
 
 ```{r}
 #| purl: false
+#| echo: false
 knitr::kable(head(wetter,10))
 ```
 
@@ -137,7 +153,6 @@ knitr::kable(head(wetter,10))
 Schau dir die Rückmeldung von `read_csv()`an. Sind die Daten korrekt interpretiert worden?
 
 ```{r}
-# Musterlösung
 # Die Spalte 'time' wurde als 'integer' interpretiert. Dabei handelt es
 # sich offensichtlich um Zeitangaben.
 ```
@@ -146,10 +161,11 @@ Schau dir die Rückmeldung von `read_csv()`an. Sind die Daten korrekt interpreti
 
 Die Spalte `time` ist eine Datum/Zeitangabe im Format JJJJMMTTHH (siehe [meta.txt](https://moodle.zhaw.ch/mod/resource/view.php?id=602173)). Damit R dies als Datum-/Zeitangabe erkennt, müssen wir die Spalte in einem R-Format (`POSIXct`) einlesen und dabei R mitteilen, wie sie aktuell formatiert ist. Lies die Spalte mit `as.POSIXct()` ein und spezifiziere sowohl `format` wie auch `tz`.
 
-Tipps:
+:::{.callout-tip}
+- Wenn keine Zeitzone festgelegt wird, trifft `as.POSIXct()` eine Annahme (basierend auf `Sys.timezone()`). In unserem Fall handelt es sich aber um Werte in UTC (siehe [metadata.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602139))
+- `as.POSIXct`erwartet `character`: Wenn du eine Fehlermeldung hast die `'origin' must be supplied` (o.ä) heisst, hast du der Funktion vermutlich einen `Numeric` übergeben.
+:::
 
--   Wenn keine Zeitzone festgelegt wird, trifft `as.POSIXct()` eine Annahme (basierend auf `Sys.timezone()`). In unserem Fall handelt es sich aber um Werte in UTC (siehe [metadata.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602139))
--   `as.POSIXct`erwartet `character`: Wenn du eine Fehlermeldung hast die `'origin' must be supplied` (o.ä) heisst, hast du der Funktion vermutlich einen `Numeric` übergeben.
 
 ```{r}
 wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H",tz = "UTC")
@@ -157,22 +173,22 @@ wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H",tz = "U
 
 ```{r}
 #| purl: false
+#| echo: false
 knitr::kable(head(wetter,10),caption = "Die neue Tabelle sollte so aussehen")
 ```
 
 ## Aufgabe 7
 
-Erstelle zwei neue Spalten mit Wochentag (Montag, Dienstag, etc) und Kalenderwoche. Verwende dazu die neu erstellte `POSIXct`-Spalte
+Erstelle zwei neue Spalten mit Wochentag (Montag, Dienstag, etc) und Kalenderwoche. Verwende dazu die neu erstellte `POSIXct`-Spalte sowie eine geeignete Funktion aus `lubridate`.
 
 ```{r}
-# Musterlösung
-
 wetter$wochentag <- wday(wetter$time,label = T)
 wetter$kw <- week(wetter$time)
 ```
 
 ```{r}
 #| purl: false
+#| echo: false
 knitr::kable(head(wetter,10))
 ```
 
@@ -181,34 +197,12 @@ knitr::kable(head(wetter,10))
 Erstelle eine neue Spalte basierend auf die Temperaturwerte mit der Einteilung "kalt" (unter Null Grad) und "warm" (über Null Grad)
 
 ```{r}
-# Musterlösung
-
 wetter$temp_kat[wetter$tre200h0>0] <- "warm"
 wetter$temp_kat[wetter$tre200h0<=0] <- "kalt"
 ```
 
 ```{r}
 #| purl: false
-knitr::kable(head(wetter,10))
-```
-
-```{r}
-#| purl: false
-#| include: false
-library(ggplot2)
-
-p <- ggplot(wetter, aes(time, tre200h0)) +
-  geom_smooth() +
-  theme_minimal()
-
-ggsave("prepro/preview.png", p)
-```
-
-## Musterlösung
-
-```{r}
 #| echo: false
-#| results: asis
-#| purl: false
-#distill::mypurl()
+knitr::kable(head(wetter,10))
 ```

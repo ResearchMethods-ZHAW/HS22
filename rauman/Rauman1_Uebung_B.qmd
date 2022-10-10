@@ -97,7 +97,7 @@ baeume_wiesen$wiesen_anteil <- baeume_wiesen$wiesen_flaeche/(20^2*pi)
 
 baeume_wiesen_df <- st_drop_geometry(baeume_wiesen)
 
-baeume_2 <- left_join(baeume, baeume_wiesen_df, by = "baum_id") %>%
+baeume_2 <- left_join(baeume, baeume_wiesen_df, by = "baum_id") |>
   mutate(wiesen_anteil = ifelse(is.na(wiesen_anteil),0,wiesen_anteil))
 ```
 

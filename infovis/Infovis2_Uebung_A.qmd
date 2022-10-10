@@ -70,9 +70,9 @@ Erstelle eine Zusatzvariabel `Date` mit dem Datum der jeweiligen Messung ( mit `
 Um die Metadaten  (`Name`, `Meereshoehe`, `x`, `y`) nicht zu verlieren kannst du den Join aus der ersten Übung wieder ausführen. Alternativ (schneller aber auch schwerer zu verstehen) kannst du diese Variabeln innerhalb deines `group_by` verwenden.
 
 ```{r}
-temperature_long <- temperature_long %>%
-  mutate(time = as.Date(time)) %>%
-  group_by(time, station, Name, Meereshoehe, x, y) %>%
+temperature_long <- temperature_long |>
+  mutate(time = as.Date(time)) |>
+  group_by(time, station, Name, Meereshoehe, x, y) |>
   summarise(temperature = mean(temperature))
 ```
 
@@ -179,7 +179,7 @@ Tip: Nutze `cut` um die Stationen in die drei Gruppen aufzuteilen
 
 # Musterlösung
 
-temperature_long <- temperature_long %>%
+temperature_long <- temperature_long |>
   mutate(lage = cut(Meereshoehe, c(0, 400, 600,1000),labels = c("Tieflage", "Mittellage", "Hochlage")))
 
 ggplot(temperature_long, aes(temperature)) +

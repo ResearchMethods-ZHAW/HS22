@@ -35,18 +35,18 @@ spaceadd <- function(x){
 #| fig.width: 15.0
 allvals <- readr::read_csv("data/allvals.csv")
 
-allvals <- allvals %>%
-  fill(InfoVis) %>%
+allvals <- allvals |>
+  fill(InfoVis) |>
   rename_with(~paste("name", ., sep = "_"), c(Parameter, Antagonist))
 
-allvals_long <- allvals %>%
-  mutate(paragroup = paste(name_Parameter, name_Antagonist, sep = "-")) %>%
+allvals_long <- allvals |>
+  mutate(paragroup = paste(name_Parameter, name_Antagonist, sep = "-")) |>
   pivot_longer(cols = matches("^name|Wert"),names_to = c(".value", "type"), names_pattern =  "(.+)_(.+)")
 
 levs <- c("Abstraction","Functionality","Density","Multi_d","Originality","Novelty","Figuration","Decoration","Lightness","Uni_d","Familiarity","Redundancy")
 
-allvals_long <- allvals_long %>%
-  arrange(Gruppe, InfoVis, type, paragroup) %>%
+allvals_long <- allvals_long |>
+  arrange(Gruppe, InfoVis, type, paragroup) |>
   mutate(
     gruppe_nr = readr::parse_number(Gruppe),
     name = factor(name, levels = levs),
@@ -88,8 +88,8 @@ cairo_plot <- function(dataset){
 #| label: fig-cairo-wheel
 #| fig-cap: "Generierter Plot"
 
-allvals_long %>%
-  split(.$InfoVis) %>%
+allvals_long |>
+  split(.$InfoVis) |>
   imap(function(x,y){
 
     p <- cairo_plot(x) +
@@ -99,6 +99,6 @@ allvals_long %>%
     
     cat("<hr>")
 
-  }) %>%
+  }) |>
   invisible()
 ```

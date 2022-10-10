@@ -163,13 +163,13 @@ Hinweis: aus bisher unerklärlichen Gründen weiche gewisse meiner Werte leicht 
 ```{r}
 # Lösung zu Aufgabe 9
 
-korr_tab <- gemeinde %>%
-  group_by(kanton) %>%
+korr_tab <- gemeinde |>
+  group_by(kanton) |>
   summarise(
     Korr.Koeffizient = cor.test(anteil_ja,anteil_ausl,method = "pearson")$estimate,
     Signifikanz_val = cor.test(anteil_ja,anteil_ausl,method = "pearson")$p.value,
     Signifikanz = ifelse(Signifikanz_val < 0.001,"***",ifelse(Signifikanz_val<0.01,"**",ifelse(Signifikanz_val<0.05,"*","-")))
-  ) %>%
+  ) |>
   select(-Signifikanz_val)
 
 ```

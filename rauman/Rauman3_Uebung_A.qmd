@@ -178,8 +178,8 @@ my_connections <- function(sf_object,relationship_matrix){
   from <- centeroids[relationship_transpose[,1]]
   to <- centeroids[relationship_transpose[,2]]
   
-  connection <- purrr::map2(from,to, ~sf::st_linestring(c(.x,.y))) %>%
-    st_sfc() %>%
+  connection <- purrr::map2(from,to, ~sf::st_linestring(c(.x,.y))) |>
+    st_sfc() |>
     st_set_crs(mycrs)
 }
 

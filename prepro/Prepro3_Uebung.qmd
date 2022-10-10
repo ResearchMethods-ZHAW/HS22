@@ -50,8 +50,8 @@ Der Output sieht folgendermassen aus:
 ```{r}
 library(dplyr)
 
-sensors_long %>%
-  group_by(name) %>%
+sensors_long |>
+  group_by(name) |>
   summarise(temp_mean = mean(value, na.rm = TRUE))
 ```
 
@@ -62,9 +62,9 @@ Erstelle für `sensors_long` eine neue *convenience* Variabel `month` welche den
 ```{r}
 library(lubridate)
 
-sensors_long %>%
-  mutate(month = month(Datetime)) %>%
-  group_by(month, name) %>%
+sensors_long |>
+  mutate(month = month(Datetime)) |>
+  group_by(month, name) |>
   summarise(temp_mean = mean(value, na.rm = TRUE))
 ```
 
@@ -81,9 +81,9 @@ weather <- read_csv("data/weather.csv", col_types = cols(col_factor(), col_datet
 Erstelle nun eine *convenience* Variabel für die Kalenderwoche pro Messung (`lubridate::isoweek`). Berechne im Anschluss den mittleren Temperaturwert pro Kalenderwoche.
 
 ```{r}
-weather_summary <- weather %>%
-  mutate(week = isoweek(time)) %>%
-  group_by(week) %>%
+weather_summary <- weather |>
+  mutate(week = isoweek(time)) |>
+  group_by(week) |>
   summarise(
     temp_mean = mean(tre200h0, na.rm = TRUE)
   )
@@ -104,12 +104,12 @@ plot(weather_summary$week, weather_summary$temp_mean, type = "l")
 In der vorherigen Aufgabe haben wir die mittlere Temperatur pro Kalenderwoche über *alle Jahre* (2000 und 2001) berechnet. Wenn wir die Jahre aber miteinander vergleichen wollen, müssen wir das Jahr als zusätzliche *convenience* Variabel erstellen und danach gruppieren. Versuche dies mit den Wetterdaten und visualisiere den Output anschliessend.
 
 ```{r}
-weather_summary2 <- weather %>%
+weather_summary2 <- weather |>
   mutate(
     week = week(time),
     year = year(time)
-    ) %>%
-  group_by(year, week) %>%
+    ) |>
+  group_by(year, week) |>
   summarise(
     temp_mean = mean(tre200h0, na.rm = TRUE)
   )
@@ -127,7 +127,7 @@ plot(weather_summary2$week, weather_summary2$temp_mean, type = "l")
 Überführe den Output aus der letzten Übung in eine *wide table*. Nun lassen sich die beiden Jahre viel besser miteinander vergleichen.
 
 ```{r}
-weather_summary2 <- weather_summary2 %>%
+weather_summary2 <- weather_summary2 |>
   pivot_wider(names_from = year, values_from = temp_mean,names_prefix = "year")
 ```
 

@@ -60,7 +60,7 @@ ggplot(data = temperature, mapping = aes(time,SHA))
 ```
 
 Weiter braucht es *mindestens* ein "Layer" der beschreibt, wie die Daten dargestellt werden sollen (z.B. `geom_point()`).
-Anders als bei "Piping" (`%>%`) wird ein Layer mit `+` hinzugefügt.
+Anders als bei "Piping" (`|>`) wird ein Layer mit `+` hinzugefügt.
 
 ```{r}
 #| label: fig-ggplot-scatter
@@ -135,13 +135,13 @@ ggplot(temperature_long, aes(time,temp, colour = station)) +
 Im obigen Plot fällt auf, dass stündliche Werte eine zu hohe Auflösung ist, wenn wir daten über 2 Jahre visualisieren. Mit *Split Apply Combine* (PrePro 3) können wir die Auflösung unserer Daten verändern: 
 
 ```{r}
-temperature_day <- temperature_long %>%
+temperature_day <- temperature_long |>
   mutate(time = as.Date(time)) 
 
 temperature_day
 
-temperature_day <- temperature_day %>%
-  group_by(station, time) %>%
+temperature_day <- temperature_day |>
+  group_by(station, time) |>
   summarise(temp = mean(temp))
 
 temperature_day  
