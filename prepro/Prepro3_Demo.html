@@ -148,7 +148,6 @@ div.csl-indent {
 
 <link rel="stylesheet" href="../custom.css">
 <link rel="stylesheet" href="../theme-custom.scss">
-<link rel="stylesheet" href="presenter-mode.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -240,7 +239,7 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../InfoVis.html" class="sidebar-item-text sidebar-link">Informations Visualisierung</a>
+            <a href="../InfoVis.html" class="sidebar-item-text sidebar-link">InfoVis</a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -262,11 +261,6 @@ div.csl-indent {
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../infovis/Infovis2_cairo_wheel.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Cairo Wheel</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../infovis/Infovis2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung A</span></a>
@@ -655,8 +649,8 @@ div.csl-indent {
   </ul></li>
   <li><a href="#reshaping-data" id="toc-reshaping-data" class="nav-link" data-scroll-target="#reshaping-data">Reshaping data</a>
   <ul class="collapse">
-  <li><a href="#breit---lang" id="toc-breit---lang" class="nav-link" data-scroll-target="#breit---lang">Breit -&gt; lang</a></li>
-  <li><a href="#lang---breit" id="toc-lang---breit" class="nav-link" data-scroll-target="#lang---breit">Lang -&gt; breit</a></li>
+  <li><a href="#breit-lang" id="toc-breit-lang" class="nav-link" data-scroll-target="#breit-lang">Breit → lang</a></li>
+  <li><a href="#lang-breit" id="toc-lang-breit" class="nav-link" data-scroll-target="#lang-breit">Lang → breit</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -890,9 +884,9 @@ div.csl-indent {
 </section>
 <section id="reshaping-data" class="level2">
 <h2 class="anchored" data-anchor-id="reshaping-data">Reshaping data</h2>
-<section id="breit---lang" class="level3">
-<h3 class="anchored" data-anchor-id="breit---lang">Breit -&gt; lang</h3>
-<p>Die Umformung von Tabellen <em>breit</em>-&gt;<em>lang</em> erfolgt mittels <code>tidyr</code>(siehe <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>). Auch dieses Package funktioniert wunderbar mit piping (<code>|&gt;</code>).</p>
+<section id="breit-lang" class="level3">
+<h3 class="anchored" data-anchor-id="breit-lang">Breit → lang</h3>
+<p>Die Umformung von Tabellen <em>breit</em>→<em>lang</em> erfolgt mittels <code>tidyr</code>(siehe <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>). Auch dieses Package funktioniert wunderbar mit piping (<code>|&gt;</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>weather_summary <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(temp_max,temp_min))</span>
@@ -1048,8 +1042,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="lang---breit" class="level3">
-<h3 class="anchored" data-anchor-id="lang---breit">Lang -&gt; breit</h3>
+<section id="lang-breit" class="level3">
+<h3 class="anchored" data-anchor-id="lang-breit">Lang → breit</h3>
 <p>Das Gegenstück zu <code>pivot_longer</code> ist <code>pivot_wider</code>. Mit dieser Funktion können wir eine <em>lange</em> Tabelle in eine <em>breite</em> überführen. Dazu müssen wir in <code>names_from</code> angeben, aus welcher Spalte die neuen Spaltennamen erstellt werden sollen (<code>names_from</code>) und aus welcher Spalte die Werte entstammen sollen (<code>values_from</code>):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>weather_summary_long <span class="sc">|&gt;</span></span>

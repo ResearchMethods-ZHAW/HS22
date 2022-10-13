@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Research Methods HS22 - 59&nbsp; Rauman 5: Übung</title>
+<title>Research Methods HS22 - 58&nbsp; Rauman 5: Übung</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -132,7 +132,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <link rel="stylesheet" href="../custom.css">
 <link rel="stylesheet" href="../theme-custom.scss">
-<link rel="stylesheet" href="presenter-mode.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -224,7 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../InfoVis.html" class="sidebar-item-text sidebar-link">Informations Visualisierung</a>
+            <a href="../InfoVis.html" class="sidebar-item-text sidebar-link">InfoVis</a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -246,11 +245,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../infovis/Infovis2_cairo_wheel.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Cairo Wheel</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../infovis/Infovis2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung A</span></a>
@@ -664,14 +658,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>The following exercise may seem familiar to some of you, if you have attended the bachelor program. This MCE was already conducted in the bachelor module “GIS” by using ArcGIS Pro and its ModelBuilder (see <a href="#fig-mce-process">Abbildung&nbsp;<span>59.1</span></a>).</p>
+<p>The following exercise may seem familiar to some of you, if you have attended the bachelor program. This MCE was already conducted in the bachelor module “GIS” by using ArcGIS Pro and its ModelBuilder (see <a href="#fig-mce-process">Abbildung&nbsp;<span>58.1</span></a>).</p>
 <div id="fig-mce-process" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/mce_process.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;59.1: MCE Process</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.1: MCE Process</figcaption><p></p>
 </figure>
 </div>
-<p>The goal of this exercise is to do the same MCE by just using R. We will mainly use functions from the R packages <a href="https://cran.r-project.org/web/packages/sf/sf.pdf">sf</a> and <a href="https://cran.r-project.org/web/packages/raster/raster.pdf">raster</a>. Please have a look at the process model (see <a href="#fig-mce-process">Abbildung&nbsp;<span>59.1</span></a>) that was created in ArcGIS Pro and try to figure out which functions in the two R packages correspond to the ones in the model. You will see that there are some similar functions available, but for some calculations a different approach is needed.</p>
+<p>The goal of this exercise is to do the same MCE by just using R. We will mainly use functions from the R packages <a href="https://cran.r-project.org/web/packages/sf/sf.pdf">sf</a> and <a href="https://cran.r-project.org/web/packages/raster/raster.pdf">raster</a>. Please have a look at the process model (see <a href="#fig-mce-process">Abbildung&nbsp;<span>58.1</span></a>) that was created in ArcGIS Pro and try to figure out which functions in the two R packages correspond to the ones in the model. You will see that there are some similar functions available, but for some calculations a different approach is needed.</p>
 <section id="exercises-1-load-and-view-data" class="level2">
 <h2 class="anchored" data-anchor-id="exercises-1-load-and-view-data">Exercises 1: Load and view data</h2>
 <div class="cell">
@@ -679,7 +673,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="tbl-data" class="anchored">
 
 <table class="table" style="margin-left: auto; margin-right: auto;">
-<caption>Tabelle&nbsp;59.1:  Data used in this study </caption>
+<caption>Tabelle&nbsp;58.1:  Data used in this study </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> datasets </th>
@@ -779,7 +773,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>The raster data can be loaded by using the function <code>terra::rast</code> and the vector data with <code>sf::read_sf</code>. View the available data layers (see <a href="#tbl-data">Tabelle&nbsp;<span>59.1</span></a>) and plot them in an appealing way. For visualization you can use the functions <code>plot</code> for raster data and <code>ggplot</code> for vector data.</p>
+<p>The raster data can be loaded by using the function <code>terra::rast</code> and the vector data with <code>sf::read_sf</code>. View the available data layers (see <a href="#tbl-data">Tabelle&nbsp;<span>58.1</span></a>) and plot them in an appealing way. For visualization you can use the functions <code>plot</code> for raster data and <code>ggplot</code> for vector data.</p>
 <!-- Some data sets exceed the boundaries of the study area. Use the function `crop`  on raster data sets and `st_intersection` for sf/vector data to extract the relevant areas. -->
 <p>We will use the following packages in this exercise:</p>
 <div class="cell">
@@ -851,7 +845,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="images/mce_reclassify_2.png" class="img-fluid figure-img"></p>
 </div>
 </div>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;59.2: MCE Reclassify</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.2: MCE Reclassify</figcaption><p></p>
 </figure>
 </div>
 <p><img src="images/d_to_settlements_reclassified.png" class="img-fluid" style="width:50.0%"></p>
@@ -876,7 +870,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="exercise-7-weighted-overlay" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-7-weighted-overlay">Exercise 7: Weighted Overlay</h2>
-<p>The linearly ranked criteria (Exercise 5) are now to be combined with each other, taking into account the weighting determined using the AHP (Exercise 6). This weighted overlay can be performed by using raster calculations and simply multiplying each criteria with its weight and adding them together (see <a href="#fig-weighted-overlay">Abbildung&nbsp;<span>59.3</span></a>).</p>
+<p>The linearly ranked criteria (Exercise 5) are now to be combined with each other, taking into account the weighting determined using the AHP (Exercise 6). This weighted overlay can be performed by using raster calculations and simply multiplying each criteria with its weight and adding them together (see <a href="#fig-weighted-overlay">Abbildung&nbsp;<span>58.3</span></a>).</p>
 <ul>
 <li><em><strong>Tip</strong>: As the raster sets have slightly different origins, increase the tolerance by using rasterOptions(tolerance = 0.5).</em></li>
 <li><em><strong>Tip</strong>: Also keep in mind the order of the weights in your list when doing the multiplication.</em></li>
@@ -884,17 +878,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-weighted-overlay" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/weighted_overlay.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;59.3: Weighted Overlay</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.3: Weighted Overlay</figcaption><p></p>
 </figure>
 </div>
 </section>
 <section id="exercise-8-intersecting-potential-areas-with-exclusion-criteria" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-8-intersecting-potential-areas-with-exclusion-criteria">Exercise 8: Intersecting potential areas with exclusion criteria</h2>
-<p>By simply multiplying the exclusion layer (result from exercise 2) with the weighted overlay layer (result from exercise 7) we are excluding all areas with value 0 (exclusion areas) and keeping all other areas with value 1 (e.g.&nbsp;0x3=0, 1x3=3). As a conclusion of the study, create a final plot of the potential areas for wind power plants in the canton of Schwyz (like <a href="#fig-potential-sites">Abbildung&nbsp;<span>59.4</span></a>). Furthermore, discuss the results obtained and determine three possible locations within which concrete planning of wind power plants would be possible.</p>
+<p>By simply multiplying the exclusion layer (result from exercise 2) with the weighted overlay layer (result from exercise 7) we are excluding all areas with value 0 (exclusion areas) and keeping all other areas with value 1 (e.g.&nbsp;0x3=0, 1x3=3). As a conclusion of the study, create a final plot of the potential areas for wind power plants in the canton of Schwyz (like <a href="#fig-potential-sites">Abbildung&nbsp;<span>58.4</span></a>). Furthermore, discuss the results obtained and determine three possible locations within which concrete planning of wind power plants would be possible.</p>
 <div id="fig-potential-sites" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/potential_sites.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;59.4: Potential Sites</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.4: Potential Sites</figcaption><p></p>
 </figure>
 </div>
 </section>

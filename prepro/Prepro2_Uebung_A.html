@@ -129,7 +129,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <link rel="stylesheet" href="../custom.css">
 <link rel="stylesheet" href="../theme-custom.scss">
-<link rel="stylesheet" href="presenter-mode.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -221,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../InfoVis.html" class="sidebar-item-text sidebar-link">Informations Visualisierung</a>
+            <a href="../InfoVis.html" class="sidebar-item-text sidebar-link">InfoVis</a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -243,11 +242,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../infovis/Infovis2_cairo_wheel.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Cairo Wheel</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../infovis/Infovis2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung A</span></a>
@@ -630,7 +624,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#aufgabe-4" id="toc-aufgabe-4" class="nav-link" data-scroll-target="#aufgabe-4">Aufgabe 4</a></li>
   <li><a href="#aufgabe-5" id="toc-aufgabe-5" class="nav-link" data-scroll-target="#aufgabe-5">Aufgabe 5</a></li>
   <li><a href="#aufgabe-6" id="toc-aufgabe-6" class="nav-link" data-scroll-target="#aufgabe-6">Aufgabe 6</a></li>
-  <li><a href="#aufgabe-7" id="toc-aufgabe-7" class="nav-link" data-scroll-target="#aufgabe-7">Aufgabe 7</a></li>
   </ul>
 </nav>
     </div>
@@ -663,9 +656,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternativ kannst du alle tidyverse packages mit library(tidyverse) laden</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternativ kannst du alle tidyverse packages mit library(tidyverse) laden</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="aufgabe-1" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
@@ -680,17 +672,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="aufgabe-2" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h2>
 <p>Lade <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602139">metadata</a> herunter und lese es ebenfalls als csv ein.</p>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Wichtig
+Tipp
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Wenn Umlaute und Sonderzeichen nicht korrekt dargestellt werden (z.B. in Gen<em>è</em>ve), hat das vermutlich mit der <a href="https://de.wikipedia.org/wiki/Zeichenkodierung">Zeichencodierung</a> zu tun. Das File ist aktuell in ‘ANSI’ Codiert, welche für gewisse Betriebssysteme / R-Versionen ein Problem darstellt. Um das Problem zu umgehen muss man das File mit einem Editor öffnen (Windows <em>Editor</em> oder <em>Notepad++</em>, Mac: <em>TextEdit</em>) und mit einer neuen Codierung (z.B <code>UTF-8</code>) abspeichern. Danach kann die Codierung spezifitiert werden (bei <code>read_delim()</code>: mit <code>locale = locale(encoding = "UTF-8")</code>)</p>
+<p>Wenn Umlaute und Sonderzeichen nicht korrekt dargestellt werden (z.B. in Gen<em>è</em>ve), hat das vermutlich mit der <a href="https://de.wikipedia.org/wiki/Zeichenkodierung">Zeichencodierung</a> zu tun. Das File ist aktuell in ‘UTF-8’ codiert. Diese Codierung muss in R beim Importieren spezifitiert, was je nach verwendete import Funktion unterschiedlich gemacht wird. Die Funktionen aus <code>readr</code> verwenden <code>locale = locale(encoding = "UTF-8")</code>, base-R Funktionen <code>fileEncoding = "UTF-8"</code></p>
+<p>Wenn ihr die codierung eines Files <em>nicht</em> kennt, könnt ihr unter Windows vorgehen <a href="https://stackoverflow.com/a/13464816/4139249">wie hier beschrieben</a>. Die Anleitung für Mac ist <a href="https://stackoverflow.com/a/2461193/4139249">hier verfügbar</a>. Linux Nutzer können <a href="https://stackoverflow.com/a/805474/4139249">diese Anleitung</a> befolgen.</p>
+</div>
 </div>
 </div>
 <div class="cell">
@@ -699,40 +695,28 @@ Wichtig
 </section>
 <section id="aufgabe-3" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
-<p>Die x-/y-Koordinaten sind aktuell in einer Spalte erfasst. Um mit den Koordinaten sinnvoll arbeiten zu können, brauchen wir die Koordinaten getrennt. Trenne die <code>x</code> und <code>y</code> Koordinaten aus der Spalte <code>Koordinaten</code>.</p>
-<ol type="1">
-<li>Schritt: verwende <code>stringr::str_split_fixed</code> um die Spalte in eine <code>matrix</code> zu überführen</li>
-<li>Schritt: benenne die Spalten der <code>matrix</code> in <code>x</code> und <code>y</code> um</li>
-<li>Schritt: nutze <code>cbind</code> um die <code>matrix</code> mit der <code>data.frame</code> zu verbinden</li>
-</ol>
+<p>Nun wollen wir den Datensatz <code>wetter</code>mit den Informationen aus <code>metadata</code> anreichern. Uns interessiert aber nur das Stationskürzel, der Name, die x/y Koordinaten sowie die Meereshöhe. Lösche die nicht benötigten Spalten (oder selektiere die benötigten Spalten).</p>
 <div class="cell">
 
 </div>
 </section>
 <section id="aufgabe-4" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
-<p>Nun wollen wir den Datensatz <code>wetter</code>mit den Informationen aus <code>metadata</code> anreichern. Uns interessiert aber nur das Stationskürzel, der Name, die x/y Koordinaten sowie die Meereshöhe. Lösche die nicht benötigten Spalten (oder selektiere die benötigten Spalten).</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="aufgabe-5" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-5">Aufgabe 5</h2>
 <p>Nun ist der Datensatz <code>metadata</code> genügend vorbereitet. Jetzt kann er mit dem Datensatz <code>wetter</code> verbunden werden. Überlege dir, welcher Join dafür sinnvoll ist und mit welchem Attribut wir “joinen” können.</p>
 <p>Nutze die Join-Möglichkeiten von <code>dplyr</code> (Hilfe via <code>?dplyr::join</code>) um die Datensätze <code>wetter</code> und <code>metadata</code> zu verbinden.</p>
 <div class="cell">
 
 </div>
 </section>
-<section id="aufgabe-6" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-6">Aufgabe 6</h2>
+<section id="aufgabe-5" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-5">Aufgabe 5</h2>
 <p>Erstelle eine neue Spalte <code>month</code> welche den jeweiligen Monat (aus <code>time</code>) beinhaltet. Nutze dafür die Funktion <code>lubridate::month()</code>.</p>
 <div class="cell">
 
 </div>
 </section>
-<section id="aufgabe-7" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-7">Aufgabe 7</h2>
+<section id="aufgabe-6" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-6">Aufgabe 6</h2>
 <p>Berechne mit der Spalte <code>month</code> die Durchschnittstemperatur pro Monat.</p>
 <div class="cell">
 
