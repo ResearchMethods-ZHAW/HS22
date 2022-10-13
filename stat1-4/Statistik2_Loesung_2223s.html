@@ -671,55 +671,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="kommentierter-lösungsweg" class="level3">
 <h3 class="anchored" data-anchor-id="kommentierter-lösungsweg">Kommentierter Lösungsweg</h3>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in library(here): es gibt kein Paket namens 'here'</code></pre>
-</div>
+
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> nova <span class="co"># klone den originaler Datensatz</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fasst die vier Inhalte der Gerichte zu drei Inhalten zusammen.</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&lt;&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Geflügel &amp; Fisch zu fleischgerichte zählen</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label_content =</span> <span class="fu">str_replace</span>(label_content, <span class="st">"Geflügel|Fisch"</span>, <span class="st">"Fleisch"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># achtung reihenfolge spielt eine rolle, wegen des + (plus)</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label_content =</span> <span class="fu">str_replace</span>(label_content, <span class="st">"Pflanzlich[+]|Pflanzlich"</span>, <span class="st">"Vegetarisch"</span>))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># gruppiert Daten nach Menü-Inhalt und Woche</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&lt;&gt;%</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(label_content, week) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">tot_sold =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="co"># lasst die unbekannten Menü-Inhalte weg</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># überprüft die Voraussetzungen für eine ANOVA</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Schaut euch die Verteilungen der Mittelwerte an (plus Standardabweichungen)</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Sind Mittelwerte nahe bei Null? </span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Gäbe uns einen weiteren Hinweis auf eine spezielle Binomail-Verteilung </span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(.<span class="sc">$</span>label_content) <span class="sc">%&gt;%</span> <span class="co"># teilt den Datensatz in 3 verschiedene Datensätze auf</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map</span>(<span class="sc">~</span> psych<span class="sc">::</span><span class="fu">describe</span>(.<span class="sc">$</span>tot_sold)) <span class="co"># mit map können andere Funktionen </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in loadNamespace(x): es gibt kein Paket namens 'psych'</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> nova <span class="co"># klone den originaler Datensatz</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fasst die vier Inhalte der Gerichte zu drei Inhalten zusammen.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Geflügel &amp; Fisch zu fleischgerichte zählen</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label_content =</span> <span class="fu">str_replace</span>(label_content, <span class="st">"Geflügel|Fisch"</span>, <span class="st">"Fleisch"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># achtung reihenfolge spielt eine rolle, wegen des + (plus)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label_content =</span> <span class="fu">str_replace</span>(label_content, <span class="st">"Pflanzlich[+]|Pflanzlich"</span>, <span class="st">"Vegetarisch"</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># gruppiert Daten nach Menü-Inhalt und Woche</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(label_content, week) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">tot_sold =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="co"># lasst die unbekannten Menü-Inhalte weg</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># überprüft die Voraussetzungen für eine ANOVA</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Schaut euch die Verteilungen der Mittelwerte an (plus Standardabweichungen)</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Sind Mittelwerte nahe bei Null? </span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Gäbe uns einen weiteren Hinweis auf eine spezielle Binomail-Verteilung </span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(.<span class="sc">$</span>label_content) <span class="sc">%&gt;%</span> <span class="co"># teilt den Datensatz in 3 verschiedene Datensätze auf</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map</span>(<span class="sc">~</span> psych<span class="sc">::</span><span class="fu">describe</span>(.<span class="sc">$</span>tot_sold)) <span class="co"># mit map können andere Funktionen </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Fleisch
+   vars  n    mean     sd median trimmed    mad min  max range skew kurtosis
+X1    1 12 1135.58 200.03   1088  1129.2 223.13 917 1418   501 0.19    -1.89
+      se
+X1 57.74
+
+$`Hot and Cold`
+   vars  n   mean    sd median trimmed   mad min max range skew kurtosis   se
+X1    1 12 308.33 23.53    310   307.3 30.39 276 351    75 0.32    -1.25 6.79
+
+$Vegetarisch
+   vars  n   mean     sd median trimmed    mad min  max range  skew kurtosis
+X1    1 12 739.25 213.54    710   741.8 323.95 449 1004   555 -0.01    -1.85
+      se
+X1 61.64</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># auf den Datensatz angewendet werden (alternative Funktionen sind aggregate oder apply)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> label_content, <span class="at">y=</span> tot_sold)) <span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Achtung: Reihenfolge spielt hier eine Rolle!</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_boxplot</span>(<span class="at">geom =</span> <span class="st">"errorbar"</span>, <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">width =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">Menü-Inhalt"</span>, <span class="at">y =</span> <span class="st">"Anzahl verkaufte Gerichte pro Woche</span><span class="sc">\n</span><span class="st">"</span>) <span class="sc">+</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># achtung erster Hinweis einer Varianzheterogenität, wegen den Hot&amp;Cold Gerichten</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  mytheme</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#alternative mit base</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(df<span class="sc">$</span>tot_sold<span class="sc">~</span>df<span class="sc">$</span>label_content)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># definiert das Modell (vgl. Skript Statistik 2)</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">aov</span>(tot_sold <span class="sc">~</span> label_content, <span class="at">data =</span> df)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># auf den Datensatz angewendet werden (alternative Funktionen sind aggregate oder apply)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> label_content, <span class="at">y=</span> tot_sold)) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Achtung: Reihenfolge spielt hier eine Rolle!</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_boxplot</span>(<span class="at">geom =</span> <span class="st">"errorbar"</span>, <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">width =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">Menü-Inhalt"</span>, <span class="at">y =</span> <span class="st">"Anzahl verkaufte Gerichte pro Woche</span><span class="sc">\n</span><span class="st">"</span>) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># achtung erster Hinweis einer Varianzheterogenität, wegen den Hot&amp;Cold Gerichten</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  mytheme</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#alternative mit base</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(df<span class="sc">$</span>tot_sold<span class="sc">~</span>df<span class="sc">$</span>label_content)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># definiert das Modell (vgl. Skript Statistik 2)</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">aov</span>(tot_sold <span class="sc">~</span> label_content, <span class="at">data =</span> df)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -741,9 +753,9 @@ Residual standard error: 169.5 on 33 degrees of freedom
 Multiple R-squared:  0.8125,    Adjusted R-squared:  0.8012 
 F-statistic: 71.52 on 2 and 33 DF,  p-value: 1.007e-12</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># überprüft die Modelvoraussetzungen</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># überprüft die Modelvoraussetzungen</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-plots-sol2-modeldiagnostics-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -777,21 +789,21 @@ F-statistic: 71.52 on 2 and 33 DF,  p-value: 1.007e-12</code></pre>
 <li>ein glm Model (general linear model) mit einer poisson/quasipoisson link Funktion (vgl. Skript Statistik 4), weitere Infos dazu <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5869353/">Link</a> <br></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># überprüft die Voraussetzungen des Welch-Tests:</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Gibt es eine hohe Varianzheterogenität und ist die relative Verteilung der </span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuen gegeben? (siehe Statistik 2)</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ja Varianzheterogenität ist gegeben, aber die Verteilung der Residuen folgt </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># einem "Trichter", also keiner "normalen/symmetrischen" Verteilung um 0</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Daher ziehe ich eine Transformation der AV einem nicht-parametrischen Test vor</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># für weitere Infos: </span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model/</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># achtung hier log10, bei Rücktransformation achten</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>model_log <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="fu">log10</span>(tot_sold) <span class="sc">~</span> label_content, <span class="at">data =</span> df) </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_log) <span class="co"># scheint ok zu sein</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(model_log) <span class="co"># Referenzkategorie ist Fleisch</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># überprüft die Voraussetzungen des Welch-Tests:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Gibt es eine hohe Varianzheterogenität und ist die relative Verteilung der </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuen gegeben? (siehe Statistik 2)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ja Varianzheterogenität ist gegeben, aber die Verteilung der Residuen folgt </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># einem "Trichter", also keiner "normalen/symmetrischen" Verteilung um 0</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Daher ziehe ich eine Transformation der AV einem nicht-parametrischen Test vor</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># für weitere Infos: </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model/</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># achtung hier log10, bei Rücktransformation achten</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>model_log <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="fu">log10</span>(tot_sold) <span class="sc">~</span> label_content, <span class="at">data =</span> df) </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_log) <span class="co"># scheint ok zu sein</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(model_log) <span class="co"># Referenzkategorie ist Fleisch</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -813,7 +825,7 @@ Residual standard error: 0.08956 on 33 degrees of freedom
 Multiple R-squared:  0.8802,    Adjusted R-squared:  0.8729 
 F-statistic: 121.2 on 2 and 33 DF,  p-value: 6.238e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(model_log) <span class="co"># (vgl. Statistik 2)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(model_log) <span class="co"># (vgl. Statistik 2)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
@@ -826,28 +838,28 @@ Hot and Cold-Fleisch     -0.5612085 -0.6509215 -0.4714955 0.0e+00
 Vegetarisch-Fleisch      -0.1979175 -0.2876305 -0.1082044 1.6e-05
 Vegetarisch-Hot and Cold  0.3632910  0.2735780  0.4530041 0.0e+00</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Achtung Beta-Werte resp. Koeffinzienten sind nicht direkt interpretierbar</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sie müssten zuerst wieder zurück transformiert werden, hier ein Beispiel dafür:</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># für Fleisch</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span>model_log<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Achtung Beta-Werte resp. Koeffinzienten sind nicht direkt interpretierbar</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sie müssten zuerst wieder zurück transformiert werden, hier ein Beispiel dafür:</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># für Fleisch</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span>model_log<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
    1119.655 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># für Hot &amp; Cold,</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span>(model_log<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> model_log<span class="sc">$</span>coefficients[<span class="dv">2</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># für Hot &amp; Cold,</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span>(model_log<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> model_log<span class="sc">$</span>coefficients[<span class="dv">2</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
    307.5216 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ist equivalent zu</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span>(model_log<span class="sc">$</span>coefficients[<span class="dv">1</span>]) <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span>(model_log<span class="sc">$</span>coefficients[<span class="dv">2</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ist equivalent zu</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span>(model_log<span class="sc">$</span>coefficients[<span class="dv">1</span>]) <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span>(model_log<span class="sc">$</span>coefficients[<span class="dv">2</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
    307.5216 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># für Vegi</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span>(model_log<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> model_log<span class="sc">$</span>coefficients[<span class="dv">3</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># für Vegi</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span>(model_log<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> model_log<span class="sc">$</span>coefficients[<span class="dv">3</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
    709.8501 </code></pre>
@@ -890,149 +902,192 @@ Vegetarisch-Hot and Cold  0.3632910  0.2735780  0.4530041 0.0e+00</code></pre>
 <h3 class="anchored" data-anchor-id="kommentierter-lösungsweg-1">Kommentierter Lösungsweg</h3>
 <p>Download <a href="https://zenodo.org/record/3890949/files/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv?download=1">2017_ZHAW_individual_menu_sales_NOVANIMAL.csv</a></p>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error: 'data/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv' does not exist in current working directory ('C:/Users/hoce/OneDrive - ZHAW/Dokumente/02a_MSc/Research-Methods_Fallstudie/HS22').</code></pre>
+
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$Fav_World
+   vars  n   mean     sd median trimmed    mad min max range skew kurtosis   se
+X1    1 24 622.67 178.79  599.5   620.8 253.52 378 876   498 0.04    -1.88 36.5
+
+$Kitchen
+   vars  n  mean    sd median trimmed   mad min max range skew kurtosis   se
+X1    1 24 128.5 22.21  124.5   128.2 23.72  79 187   108 0.27     0.43 4.53</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-plots-sol3-modeldiagnostics1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Statistik2_Loesung_2223s_files/figure-html/fig-plots-sol3-modeldiagnostics1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;22.6: <strong>?(caption)</strong></figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in `filter()`:
-! Problem while computing `..1 = member != "Spezialkarten"`.
-Caused by error in `mask$eval_all_filter()`:
-! Objekt 'member' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in `group_by()`:
-! Must group by variables found in `.data`.
-✖ Column `member` is not found.</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in loadNamespace(x): es gibt kein Paket namens 'psych'</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in FUN(X[[i]], ...): Objekt 'tot_sold' nicht gefunden</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># definiert das Modell (Skript Statistik 2)</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">aov</span>(tot_sold <span class="sc">~</span> article_description <span class="sc">*</span> member, <span class="at">data =</span> df)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(predvars, data, env): Objekt 'tot_sold' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># definiert das Modell (Skript Statistik 2)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">aov</span>(tot_sold <span class="sc">~</span> article_description <span class="sc">*</span> member, <span class="at">data =</span> df)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-aov(formula = tot_sold ~ label_content, data = df)
+aov(formula = tot_sold ~ article_description * member, data = df)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--290.250 -135.083    1.667  125.500  282.417 
+   Min     1Q Median     3Q    Max 
+-91.00 -17.33   0.50  14.83  83.00 
 
 Coefficients:
-                          Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)                1135.58      48.92  23.211  &lt; 2e-16 ***
-label_contentHot and Cold  -827.25      69.19 -11.956 1.54e-13 ***
-label_contentVegetarisch   -396.33      69.19  -5.728 2.15e-06 ***
+                                             Estimate Std. Error t value
+(Intercept)                                   452.333      9.734   46.47
+article_descriptionKitchen                   -327.000     13.766  -23.75
+memberStudierende                             340.667     13.766   24.75
+article_descriptionKitchen:memberStudierende -334.333     19.469  -17.17
+                                             Pr(&gt;|t|)    
+(Intercept)                                    &lt;2e-16 ***
+article_descriptionKitchen                     &lt;2e-16 ***
+memberStudierende                              &lt;2e-16 ***
+article_descriptionKitchen:memberStudierende   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 169.5 on 33 degrees of freedom
-Multiple R-squared:  0.8125,    Adjusted R-squared:  0.8012 
-F-statistic: 71.52 on 2 and 33 DF,  p-value: 1.007e-12</code></pre>
+Residual standard error: 33.72 on 44 degrees of freedom
+Multiple R-squared:  0.9864,    Adjusted R-squared:  0.9855 
+F-statistic:  1063 on 3 and 44 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># überprüft die Modelvoraussetzungen (Statistik 2)</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># alternativ gäbe es die ggfortify::autoplot(model) funktion</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># überprüft die Modelvoraussetzungen (Statistik 2)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># alternativ gäbe es die ggfortify::autoplot(model) funktion</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-plots-sol3-modeldiagnostics2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik2_Loesung_2223s_files/figure-html/fig-plots-sol3-modeldiagnostics2-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;22.6: <strong>?(caption)</strong></figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;22.7: <strong>?(caption)</strong></figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <p><strong>Fazit</strong>: Die Inspektion des Modells zeigt kleinere Verletzungen bei der Normalverteilung der Residuen (Q-Q Plot). Aufgrund keiner starken Verbesserung durch eine Transformation der Responsevariable, entscheide ich mich für eine ANOVA ohne log-tranformierten Responsevariablen (AV).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sieht aus, als ob die Voraussetzungen für eine Anova nur geringfügig verletzt sind</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mögliche alternativen: </span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 0. keine Tranformation der AV (machen wir hier)</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. log-transformation um die grossen werte zu minimieren (nur möglich, wenn </span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># keine 0 enthalten sind und die Mittelwerte weit von 0 entfernt sind (bei uns wäre dieser Fall erfüllt)</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># =&gt; bei Zähldaten ist dies leider nicht immer gegeben)</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. nicht parametrische Test z.B. Welch-Test, wenn hohe Varianzheterogenität </span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># zwischen den Residuen</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#0) keine Tranformation</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co"># post-hov Vergleiche</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sieht aus, als ob die Voraussetzungen für eine Anova nur geringfügig verletzt sind</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mögliche alternativen: </span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 0. keine Tranformation der AV (machen wir hier)</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. log-transformation um die grossen werte zu minimieren (nur möglich, wenn </span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># keine 0 enthalten sind und die Mittelwerte weit von 0 entfernt sind (bei uns wäre dieser Fall erfüllt)</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># =&gt; bei Zähldaten ist dies leider nicht immer gegeben)</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. nicht parametrische Test z.B. Welch-Test, wenn hohe Varianzheterogenität </span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># zwischen den Residuen</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#0) keine Tranformation</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># post-hov Vergleiche</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
 
-Fit: aov(formula = tot_sold ~ label_content, data = df)
+Fit: aov(formula = tot_sold ~ article_description * member, data = df)
 
-$label_content
-                              diff       lwr       upr   p adj
-Hot and Cold-Fleisch     -827.2500 -997.0249 -657.4751 0.0e+00
-Vegetarisch-Fleisch      -396.3333 -566.1083 -226.5584 6.3e-06
-Vegetarisch-Hot and Cold  430.9167  261.1417  600.6916 1.5e-06</code></pre>
+$article_description
+                       diff      lwr       upr p adj
+Kitchen-Fav_World -494.1667 -513.785 -474.5484     0
+
+$member
+                           diff      lwr      upr p adj
+Studierende-Mitarbeitende 173.5 153.8817 193.1183     0
+
+$`article_description:member`
+                                                     diff        lwr        upr
+Kitchen:Mitarbeitende-Fav_World:Mitarbeitende -327.000000 -363.75650 -290.24350
+Fav_World:Studierende-Fav_World:Mitarbeitende  340.666667  303.91017  377.42317
+Kitchen:Studierende-Fav_World:Mitarbeitende   -320.666667 -357.42317 -283.91017
+Fav_World:Studierende-Kitchen:Mitarbeitende    667.666667  630.91017  704.42317
+Kitchen:Studierende-Kitchen:Mitarbeitende        6.333333  -30.42317   43.08983
+Kitchen:Studierende-Fav_World:Studierende     -661.333333 -698.08983 -624.57683
+                                                  p adj
+Kitchen:Mitarbeitende-Fav_World:Mitarbeitende 0.0000000
+Fav_World:Studierende-Fav_World:Mitarbeitende 0.0000000
+Kitchen:Studierende-Fav_World:Mitarbeitende   0.0000000
+Fav_World:Studierende-Kitchen:Mitarbeitende   0.0000000
+Kitchen:Studierende-Kitchen:Mitarbeitende     0.9672944
+Kitchen:Studierende-Fav_World:Studierende     0.0000000</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1) Alterativ: log-transformation</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>model_log <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="fu">log10</span>(tot_sold) <span class="sc">~</span> article_description <span class="sc">*</span> member, <span class="at">data =</span> df)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(predvars, data, env): Objekt 'tot_sold' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(model_log) <span class="co"># interaktion ist nun nicht mehr signifikant: vgl. </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1) Alterativ: log-transformation</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>model_log <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="fu">log10</span>(tot_sold) <span class="sc">~</span> article_description <span class="sc">*</span> member, <span class="at">data =</span> df)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(model_log) <span class="co"># interaktion ist nun nicht mehr signifikant: vgl. </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-aov(formula = log10(tot_sold) ~ label_content, data = df)
+aov(formula = log10(tot_sold) ~ article_description * member, 
+    data = df)
 
 Residuals:
       Min        1Q    Median        3Q       Max 
--0.198920 -0.059343  0.003477  0.062579  0.150567 
+-0.191372 -0.025043  0.003191  0.037604  0.182842 
 
 Coefficients:
-                          Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)                3.04908    0.02585 117.942  &lt; 2e-16 ***
-label_contentHot and Cold -0.56121    0.03656 -15.350  &lt; 2e-16 ***
-label_contentVegetarisch  -0.19792    0.03656  -5.413 5.45e-06 ***
+                                             Estimate Std. Error t value
+(Intercept)                                   2.65417    0.01696 156.533
+article_descriptionKitchen                   -0.56517    0.02398 -23.569
+memberStudierende                             0.24438    0.02398  10.191
+article_descriptionKitchen:memberStudierende -0.21726    0.03391  -6.407
+                                             Pr(&gt;|t|)    
+(Intercept)                                   &lt; 2e-16 ***
+article_descriptionKitchen                    &lt; 2e-16 ***
+memberStudierende                            3.71e-13 ***
+article_descriptionKitchen:memberStudierende 8.51e-08 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.08956 on 33 degrees of freedom
-Multiple R-squared:  0.8802,    Adjusted R-squared:  0.8729 
-F-statistic: 121.2 on 2 and 33 DF,  p-value: 6.238e-16</code></pre>
+Residual standard error: 0.05874 on 44 degrees of freedom
+Multiple R-squared:  0.9745,    Adjusted R-squared:  0.9728 
+F-statistic: 561.4 on 3 and 44 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nochmals euren Boxplot zu beginn, machen diese Koeffizienten sinn?</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># überprüft die Modelvoraussetzungen (vgl. Skript Statistik 2)</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># bringt aber keine wesentliche Verbesserung, daher bleibe ich bei den </span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># untranfromierten Daten</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_log)</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># post-hov Vergleiche</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(model_log) <span class="co"># gibt sehr ähnliche Resultate im Vergleich zum nicht-transformierten Model</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nochmals euren Boxplot zu beginn, machen diese Koeffizienten sinn?</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># überprüft die Modelvoraussetzungen (vgl. Skript Statistik 2)</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># bringt aber keine wesentliche Verbesserung, daher bleibe ich bei den </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># untranfromierten Daten</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_log)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># post-hov Vergleiche</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(model_log) <span class="co"># gibt sehr ähnliche Resultate im Vergleich zum nicht-transformierten Model</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
 
-Fit: aov(formula = log10(tot_sold) ~ label_content, data = df)
+Fit: aov(formula = log10(tot_sold) ~ article_description * member, data = df)
 
-$label_content
-                               diff        lwr        upr   p adj
-Hot and Cold-Fleisch     -0.5612085 -0.6509215 -0.4714955 0.0e+00
-Vegetarisch-Fleisch      -0.1979175 -0.2876305 -0.1082044 1.6e-05
-Vegetarisch-Hot and Cold  0.3632910  0.2735780  0.4530041 0.0e+00</code></pre>
+$article_description
+                        diff        lwr        upr p adj
+Kitchen-Fav_World -0.6738029 -0.7079755 -0.6396302     0
+
+$member
+                               diff       lwr       upr p adj
+Studierende-Mitarbeitende 0.1357518 0.1015791 0.1699244     0
+
+$`article_description:member`
+                                                     diff         lwr
+Kitchen:Mitarbeitende-Fav_World:Mitarbeitende -0.56517128 -0.62919652
+Fav_World:Studierende-Fav_World:Mitarbeitende  0.24438333  0.18035809
+Kitchen:Studierende-Fav_World:Mitarbeitende   -0.53805110 -0.60207634
+Fav_World:Studierende-Kitchen:Mitarbeitende    0.80955461  0.74552937
+Kitchen:Studierende-Kitchen:Mitarbeitende      0.02712017 -0.03690507
+Kitchen:Studierende-Fav_World:Studierende     -0.78243444 -0.84645968
+                                                      upr     p adj
+Kitchen:Mitarbeitende-Fav_World:Mitarbeitende -0.50114604 0.0000000
+Fav_World:Studierende-Fav_World:Mitarbeitende  0.30840857 0.0000000
+Kitchen:Studierende-Fav_World:Mitarbeitende   -0.47402586 0.0000000
+Fav_World:Studierende-Kitchen:Mitarbeitende    0.87357985 0.0000000
+Kitchen:Studierende-Kitchen:Mitarbeitende      0.09114541 0.6726112
+Kitchen:Studierende-Fav_World:Studierende     -0.71840920 0.0000000</code></pre>
 </div>
 <div class="cell-output-display">
 <div id="fig-plots-sol3-modeldiagnostics3" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik2_Loesung_2223s_files/figure-html/fig-plots-sol3-modeldiagnostics3-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;22.7: <strong>?(caption)</strong></figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;22.8: <strong>?(caption)</strong></figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1049,29 +1104,15 @@ Vegetarisch-Hot and Cold  0.3632910  0.2735780  0.4530041 0.0e+00</code></pre>
 </section>
 <section id="ergebnisse-1" class="level4">
 <h4 class="anchored" data-anchor-id="ergebnisse-1">Ergebnisse</h4>
-<p>Die wöchentlichen Verkaufszahlen der Menülinien unterscheiden sich nach Hochschulzugehörigkeit signifikant (F(3,44) = 121.22, p &lt; .001). Inhaltich bedeutet dies, dass Studierende signifikant häufiger die preisgünstigere Menülinie “Favorite &amp; World” als Mitarbeitende kaufen. Entgegen der Annahme gibt es aber keine signifikanten Unterschiede zwischen Studierende und Mitarbeitende bei dem Kauf der teureren Menülinie “Kitchen”. Über die möglichen Gründe können nur spekuliert werden, hierfür bedarf es weiteren Analysen z.B. mit dem Prädiktor “Menüinhalt”.</p>
+<p>Die wöchentlichen Verkaufszahlen der Menülinien unterscheiden sich nach Hochschulzugehörigkeit signifikant (F(3,44) = 561.42, p &lt; .001). Inhaltich bedeutet dies, dass Studierende signifikant häufiger die preisgünstigere Menülinie “Favorite &amp; World” als Mitarbeitende kaufen. Entgegen der Annahme gibt es aber keine signifikanten Unterschiede zwischen Studierende und Mitarbeitende bei dem Kauf der teureren Menülinie “Kitchen”. Über die möglichen Gründe können nur spekuliert werden, hierfür bedarf es weiteren Analysen z.B. mit dem Prädiktor “Menüinhalt”.</p>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in library(multcomp): es gibt kein Paket namens 'multcomp'</code></pre>
+<div class="cell-output-display">
+<div id="fig-plots-sol3-final" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Statistik2_Loesung_2223s_files/figure-html/fig-plots-sol3-final-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;22.9: Box-Whisker-Plots der wöchentlichen Verkaufszahlen pro Menü-Inhalte. Kleinbuchstaben bezeichnen homogene Gruppen auf <em>p</em> &lt; .05 nach Tukeys post-hoc-Test.</figcaption><p></p>
+</figure>
 </div>
-<div class="cell-output cell-output-error">
-<pre><code>Error:
-! Assigned data `interaction(df$article_description, df$member)` must be compatible with existing data.
-✖ Existing data has 26340 rows.
-✖ Assigned data has 0 rows.
-ℹ Only vectors of size 1 are recycled.</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(predvars, data, env): Objekt 'tot_sold' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in cld(glht(model1, linfct = mcp(cond_label = "Tukey"))): konnte Funktion "cld" nicht finden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in letters$mcletters: $ operator is invalid for atomic vectors</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in FUN(X[[i]], ...): Objekt 'tot_sold' nicht gefunden</code></pre>
 </div>
 </div>
 

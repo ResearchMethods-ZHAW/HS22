@@ -762,33 +762,33 @@ REML score: 161.1293     </code></pre>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>mmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(mde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Run 0 stress 0.1478603 
-Run 1 stress 0.1471495 
+Run 1 stress 0.1652625 
+Run 2 stress 0.1989437 
+Run 3 stress 0.1611976 
+Run 4 stress 0.1652625 
+Run 5 stress 0.1462813 
 ... New best solution
-... Procrustes: rmse 0.01081323  max resid 0.06880959 
-Run 2 stress 0.1761314 
-Run 3 stress 0.1477791 
-Run 4 stress 0.2070979 
-Run 5 stress 0.1854179 
-Run 6 stress 0.1766467 
-Run 7 stress 0.1478583 
-Run 8 stress 0.1611976 
-Run 9 stress 0.1681401 
-Run 10 stress 0.148944 
-Run 11 stress 0.1489369 
-Run 12 stress 0.1489369 
-Run 13 stress 0.1891694 
-Run 14 stress 0.160279 
-Run 15 stress 0.1602716 
-Run 16 stress 0.175907 
-Run 17 stress 0.1823322 
-Run 18 stress 0.1936737 
-Run 19 stress 0.1462959 
-... New best solution
-... Procrustes: rmse 0.03088292  max resid 0.1477017 
-Run 20 stress 0.1646404 
+... Procrustes: rmse 0.02537661  max resid 0.1451257 
+Run 6 stress 0.1471495 
+Run 7 stress 0.1675598 
+Run 8 stress 0.1602715 
+Run 9 stress 0.1792628 
+Run 10 stress 0.1471495 
+Run 11 stress 0.4064439 
+Run 12 stress 0.1659453 
+Run 13 stress 0.1741626 
+Run 14 stress 0.1471495 
+Run 15 stress 0.1925595 
+Run 16 stress 0.1462959 
+... Procrustes: rmse 0.002078915  max resid 0.01276148 
+Run 17 stress 0.1471847 
+Run 18 stress 0.1476293 
+Run 19 stress 0.1864317 
+Run 20 stress 0.1766467 
 *** No convergence -- monoMDS stopping criteria:
-    16: stress ratio &gt; sratmax
-     4: scale factor of the gradient &lt; sfgrmin</code></pre>
+     1: no. of iterations &gt;= maxit
+    13: stress ratio &gt; sratmax
+     6: scale factor of the gradient &lt; sfgrmin</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MASS)){<span class="fu">install.packages</span>(<span class="st">"MASS"</span>)}</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
@@ -811,9 +811,9 @@ Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 
 Estimated degrees of freedom:
-5.97  total = 6.97 
+5.99  total = 6.99 
 
-REML score: 41.99665     </code></pre>
+REML score: 41.84463     </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(mmds, ssit<span class="sc">$</span>Waterlev.av,<span class="at">add =</span> T, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -825,9 +825,9 @@ Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 
 Estimated degrees of freedom:
-6.39  total = 7.39 
+6.32  total = 7.32 
 
-REML score: 168.0505     </code></pre>
+REML score: 168.9827     </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imds<span class="sc">$</span>points)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(imds, ssit<span class="sc">$</span>pH.peat, <span class="at">add =</span> T)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1133,9 +1133,9 @@ Number of permutations: 999
 Model: rda(formula = spe.hel ~ ele + slo + dis + pH + har + pho + nit + amm + oxy + bod, data = env3)
          Df Variance       F Pr(&gt;F)    
 RDA1      1 0.228083 26.6105  0.001 ***
-RDA2      1 0.053698  6.2649  0.007 ** 
-RDA3      1 0.032119  3.7473  0.362    
-RDA4      1 0.023206  2.7074  0.774    
+RDA2      1 0.053698  6.2649  0.003 ** 
+RDA3      1 0.032119  3.7473  0.309    
+RDA4      1 0.023206  2.7074  0.762    
 RDA5      1 0.008699  1.0149  1.000    
 RDA6      1 0.007218  0.8421  1.000    
 RDA7      1 0.004869  0.5681  1.000    
@@ -1241,15 +1241,15 @@ Permutation: free
 Number of permutations: 999
 
 Model: rda(formula = spe.hel ~ pH + har + pho + nit + amm + oxy + bod + Condition(ele + slo + dis), data = env2)
-         Df Variance       F Pr(&gt;F)   
-RDA1      1 0.091363 12.3078  0.002 **
-RDA2      1 0.045904  6.1839  0.010 **
-RDA3      1 0.009277  1.2497  0.961   
-RDA4      1 0.006250  0.8420  0.992   
-RDA5      1 0.003868  0.5210  0.999   
-RDA6      1 0.002145  0.2890  1.000   
-RDA7      1 0.001424  0.1919  1.000   
-Residual 18 0.133617                  
+         Df Variance       F Pr(&gt;F)    
+RDA1      1 0.091363 12.3078  0.001 ***
+RDA2      1 0.045904  6.1839  0.016 *  
+RDA3      1 0.009277  1.2497  0.962    
+RDA4      1 0.006250  0.8420  0.991    
+RDA5      1 0.003868  0.5210  0.999    
+RDA6      1 0.002145  0.2890  1.000    
+RDA7      1 0.001424  0.1919  0.995    
+Residual 18 0.133617                   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>

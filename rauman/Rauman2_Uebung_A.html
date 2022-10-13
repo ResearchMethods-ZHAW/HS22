@@ -678,19 +678,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Ebenfalls benötigt ihr den Datensatz <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602281">schweiz.gpkg</a></li>
 </ul>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error: Cannot open "data/rotmilan.gpkg"; The file doesn't seem to exist.</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: Cannot open "data/schweiz.gpkg"; The file doesn't seem to exist.</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: Cannot open "data/luftqualitaet.gpkg"; The file doesn't seem to exist.</code></pre>
-</div>
+
 </div>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(rotmilan): Objekt 'rotmilan' nicht gefunden</code></pre>
+<div class="cell-output-display">
+<div id="fig-ggplot-ex1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Rauman2_Uebung_A_files/figure-html/fig-ggplot-ex1-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;53.1: Eine solche Visualisierung zeigt dir beispielsweise die räumliche Ausdehnung der Datenpunkte</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -701,24 +698,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="schritt-1">Schritt 1</h3>
 <p>Mit <code>st_distance()</code> können Distanzen zwischen zwei <code>sf</code> Datensätze berechnet werden. Wird nur ein Datensatz angegeben, wird eine Kreuzmatrix erstellt wo die Distanzen zwischen allen Features zu allen anderen Features dargestellt werden. Wir nützen diese Funktion zur Berechnung der nächsten Nachbarn.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rotmilan_distanzmatrix <span class="ot">&lt;-</span> <span class="fu">st_distance</span>(rotmilan)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in st_distance(rotmilan): Objekt 'rotmilan' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rotmilan_distanzmatrix <span class="ot">&lt;-</span> <span class="fu">st_distance</span>(rotmilan)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(rotmilan_distanzmatrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2305</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(rotmilan_distanzmatrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in nrow(rotmilan_distanzmatrix): Objekt 'rotmilan_distanzmatrix' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(rotmilan_distanzmatrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2305</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(rotmilan_distanzmatrix)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ncol(rotmilan_distanzmatrix): Objekt 'rotmilan_distanzmatrix' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zeige die ersten 6 Zeilen und Spalten der Matrix</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># jeder Wert ist 2x vorhanden (vergleiche Wert [2,1] mit [1,2])</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># die Diagonale ist die Distanz zu sich selber (gleich 0)</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>rotmilan_distanzmatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>] </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'rotmilan_distanzmatrix' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zeige die ersten 6 Zeilen und Spalten der Matrix</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># jeder Wert ist 2x vorhanden (vergleiche Wert [2,1] mit [1,2])</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># die Diagonale ist die Distanz zu sich selber (gleich 0)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>rotmilan_distanzmatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>] </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Units: [m]
+         1         2         3        4        5        6
+1     0.00 14362.044 20272.492 35596.07 52519.10 64156.67
+2 14362.04     0.000  8149.486 29752.74 44809.10 53775.25
+3 20272.49  8149.486     0.000 22580.04 36848.93 45662.55
+4 35596.07 29752.737 22580.037     0.00 17223.26 31439.57
+5 52519.10 44809.096 36848.926 17223.26     0.00 16499.19
+6 64156.67 53775.250 45662.554 31439.57 16499.19     0.00</code></pre>
 </div>
 </div>
 </section>
@@ -726,70 +728,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="schritt-2">Schritt 2</h3>
 <p>Nun wollen wir wissen, wie gross die <em>kürzeste</em> Distanz von jedem Punkt zu seinem nächsten Nachbarn beträgt, also die <em>kürzeste Distanz pro Zeile</em>. Bevor wir diese ermitteln müssen wir die diagonalen Werte noch entfernen, denn diese stellen ja jeweils die Distanz zu sich selber dar und sind immer <code>0</code>. Danach kann mit <code>apply()</code> eine Funktion (<code>FUN = min</code>) über die Zeilen (<code>MARGIN = 1</code>) einer Matrix (<code>X = rotmilan_distanzmatrix</code>) gerechnet werden. Zusätzlich müssen wir noch <code>na.rm = TRUE</code> setzen, damit <code>NA</code> Werte von der Berechnung ausgeschlossen werden. Das Resultat ist ein Vektor mit gleich vielen Werten wie Zeilen in der Matrix.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(rotmilan_distanzmatrix) <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># entfernt alle diagonalen Werte</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in diag(rotmilan_distanzmatrix) &lt;- NA: Objekt 'rotmilan_distanzmatrix' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(rotmilan_distanzmatrix) <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># entfernt alle diagonalen Werte</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>rotmilan_distanzmatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>] </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Units: [m]
+         1         2         3        4        5        6
+1       NA 14362.044 20272.492 35596.07 52519.10 64156.67
+2 14362.04        NA  8149.486 29752.74 44809.10 53775.25
+3 20272.49  8149.486        NA 22580.04 36848.93 45662.55
+4 35596.07 29752.737 22580.037       NA 17223.26 31439.57
+5 52519.10 44809.096 36848.926 17223.26       NA 16499.19
+6 64156.67 53775.250 45662.554 31439.57 16499.19       NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rotmilan_distanzmatrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>] </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'rotmilan_distanzmatrix' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rotmilan_mindist <span class="ot">&lt;-</span> <span class="fu">apply</span>(rotmilan_distanzmatrix,<span class="dv">1</span>,min, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in apply(rotmilan_distanzmatrix, 1, min, na.rm = TRUE): Objekt 'rotmilan_distanzmatrix' nicht gefunden</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rotmilan_mindist <span class="ot">&lt;-</span> <span class="fu">apply</span>(rotmilan_distanzmatrix,<span class="dv">1</span>,min, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="schritt-3" class="level3">
 <h3 class="anchored" data-anchor-id="schritt-3">Schritt 3</h3>
 <p>Nun müssen wir die Distanzen nach ihrer Grösse sortieren</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rotmilan_mindist <span class="ot">&lt;-</span> <span class="fu">sort</span>(rotmilan_mindist) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in sort(rotmilan_mindist): Objekt 'rotmilan_mindist' nicht gefunden</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>rotmilan_mindist <span class="ot">&lt;-</span> <span class="fu">sort</span>(rotmilan_mindist) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="schritt-4" class="level3">
 <h3 class="anchored" data-anchor-id="schritt-4">Schritt 4</h3>
 <p>Jetzt berechnen wir die kummulierte Häufigkeit von jeder Distanz berechnen. Die kummulierte Häufikgeit vom ersten Wert ist 1 (der Index des ersten Wertes) dividiert durch die Anzahl Werte insgesamt. Mit <code>seq_along</code> erhalten wir die Indizes aller Werte, mit <code>lenth</code> die Anzahl Werte insgesamt.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>kumm_haeufgikeit <span class="ot">&lt;-</span> <span class="fu">seq_along</span>(rotmilan_mindist) <span class="sc">/</span> <span class="fu">length</span>(rotmilan_mindist)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'rotmilan_mindist' nicht gefunden</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>kumm_haeufgikeit <span class="ot">&lt;-</span> <span class="fu">seq_along</span>(rotmilan_mindist) <span class="sc">/</span> <span class="fu">length</span>(rotmilan_mindist)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="schritt-5" class="level3">
 <h3 class="anchored" data-anchor-id="schritt-5">Schritt 5</h3>
 <p>Nun wollen wir die kumulierte Häufigkeit der Werte in einer Verteilungsfunktion (engl: <a href="https://en.wikipedia.org/wiki/Empirical_distribution_function">Empirical Cumulative Distribution Function, ECDF</a>) darstellen. Dafür müssen wir die beiden Vektoren zuerst noch in einen Dataframe packen, damit <code>ggplot</code> damit klar kommt.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>rotmilan_mindist_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">distanzen =</span> rotmilan_mindist,</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">kumm_haeufgikeit =</span> kumm_haeufgikeit)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in data.frame(distanzen = rotmilan_mindist, kumm_haeufgikeit = kumm_haeufgikeit): Objekt 'rotmilan_mindist' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rotmilan_mindist_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">distanzen =</span> rotmilan_mindist,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">kumm_haeufgikeit =</span> kumm_haeufgikeit)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> rotmilan_mindist_df, <span class="fu">aes</span>(distanzen, kumm_haeufgikeit)) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distanz (Meter)"</span>, <span class="at">y =</span> <span class="st">"Häufigkeit (kummuliert)"</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-ex2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Rauman2_Uebung_A_files/figure-html/fig-ggplot-ex2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;53.2: Generierter Plot</figcaption><p></p>
+</figure>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> rotmilan_mindist_df, <span class="fu">aes</span>(distanzen, kumm_haeufgikeit)) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distanz (Meter)"</span>, <span class="at">y =</span> <span class="st">"Häufigkeit (kummuliert)"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in fortify(data): Objekt 'rotmilan_mindist_df' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'p' nicht gefunden</code></pre>
 </div>
 </div>
 <p>Lesehilfe:</p>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in sort(x): Objekt 'rotmilan_mindist_df' nicht gefunden</code></pre>
+<div class="cell-output-display">
+<div id="fig-ggplot-ex2-help" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Rauman2_Uebung_A_files/figure-html/fig-ggplot-ex2-help-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;53.3: Generierter Plot</figcaption><p></p>
+</figure>
 </div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in sort(x): Objekt 'rotmilan_mindist_df' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'p' nicht gefunden</code></pre>
 </div>
 </div>
 </section>
@@ -798,35 +796,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
 <p>Führe nun die gleichen Schritte mit <code>luftqualitaet</code> durch und vergleiche die ECDF-Plots.</p>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in st_distance(luftqualitaet): Objekt 'luftqualitaet' nicht gefunden</code></pre>
+<div class="cell-output-display">
+<div id="fig-ggplot-ex3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Rauman2_Uebung_A_files/figure-html/fig-ggplot-ex3-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;53.4: Generierter Plot</figcaption><p></p>
+</figure>
 </div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in diag(luftqualitaet_distanzmatrix) &lt;- NA: Objekt 'luftqualitaet_distanzmatrix' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in apply(luftqualitaet_distanzmatrix, 1, min, na.rm = TRUE): Objekt 'luftqualitaet_distanzmatrix' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in sort(luftqualitaet_mindist): Objekt 'luftqualitaet_mindist' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'luftqualitaet_mindist' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in data.frame(distanzen = luftqualitaet_mindist, kumm_haeufgikeit = kumm_haeufgikeit_luftquali): Objekt 'luftqualitaet_mindist' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in luftqualitaet_mindist_df$data &lt;- "Luftqualitaet": Objekt 'luftqualitaet_mindist_df' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in rotmilan_mindist_df$data &lt;- "Rotmilan": Objekt 'rotmilan_mindist_df' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in rbind(luftqualitaet_mindist_df, rotmilan_mindist_df): Objekt 'luftqualitaet_mindist_df' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(mindist_df, ): Objekt 'mindist_df' nicht gefunden</code></pre>
 </div>
 </div>
 </section>
