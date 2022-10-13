@@ -5,6 +5,7 @@ thema: Multi-Criteria Evaluation (MCE)
 index: 1
 ---
 
+
 # Rauman 5: Übung
 
 The following exercise may seem familiar to some of you, if you have attended the bachelor program. This MCE was already conducted in the bachelor module "GIS" by using ArcGIS Pro and its ModelBuilder (see @fig-mce-process).
@@ -14,6 +15,7 @@ The following exercise may seem familiar to some of you, if you have attended th
 The goal of this exercise is to do the same MCE by just using R. We will mainly use functions from the R packages [sf](https://cran.r-project.org/web/packages/sf/sf.pdf) and [raster](https://cran.r-project.org/web/packages/raster/raster.pdf). Please have a look at the process model (see @fig-mce-process) that was created in ArcGIS Pro and try to figure out which functions in the two R packages correspond to the ones in the model. You will see that there are some similar functions available, but for some calculations a different approach is needed.
 
 ## Exercises 1: Load and view data
+
 
 ```{r}
 #| results: asis
@@ -64,11 +66,13 @@ datasets |>
   kable_styling(latex_options=c("scale_down", "HOLD_position"))
 ```
 
+
 The raster data can be loaded by using the function `terra::rast` and the vector data with `sf::read_sf`. View the available data layers (see @tbl-data) and plot them in an appealing way. For visualization you can use the functions `plot` for raster data and `ggplot` for vector data.
 
 <!-- Some data sets exceed the boundaries of the study area. Use the function `crop`  on raster data sets and `st_intersection` for sf/vector data to extract the relevant areas. -->
 
 We will use the following packages in this exercise:
+
 
 ```{r}
 library(sf)
@@ -117,6 +121,7 @@ tm_shape(eis25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders(
 tm_shape(wind25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
 ```
 
+
 ## Exercise 2: Merge exclusion criteria
 
 Merge the exclusion criteria settlement areas, national protected areas, lake areas and forest areas. These vector data sets are structured as data frames and therefore can be merged by simply combining them. Keep in mind that the data frames have different sizes. Additionally, we need to create a raster out of the newly created vector data set (exclusion area). For that you can use the function `rasterize`. The output should be a raster with 0 and 1, where the fields of the exclusion area have values of 0 and the remaining fields have values of 1 (see Figure \ref(fig:figrasterizeexclusioncriteria)).
@@ -124,14 +129,17 @@ Merge the exclusion criteria settlement areas, national protected areas, lake ar
 * ***Tip**: To achieve a raster with only 0 and 1 use the `rasterize` options field = 0 and background = 1.*
 * ***Tip**: In order to rasterize vector data, you need to create an empty raster beforehand. This raster should have the same boundaries (extent), resolution and coordinate system (crs) as the other raster sets. Use the following code to do so.*
   
+
 ```{r}
 #| label: create_empty_raster
 r <- terra::rast(ext(kt_schwyz), 
           resolution = c(250, 250), 
           crs = "EPSG:21781")
 ```
+
   
 ![](images/exclusion_areas.png){width=50%}
+
 
 ```{r}
 #| label: fig-solutionEx4
@@ -152,6 +160,7 @@ raster_exclusion_areas <- rasterize(vect(exclusion_areas), r,
 plot(raster_exclusion_areas, main="Exclusion area", axes=FALSE, legend=FALSE, col=terrain.colors(2))
 ```
 
+
 ## Exercise 3: Calculate slope
 
 Next, calculate the slope in degrees based on the terrain model (dhm25m). The terra package gives you a very helpful function called `terrain`. 
@@ -159,6 +168,7 @@ Next, calculate the slope in degrees based on the terrain model (dhm25m). The te
 ***Tip**: When using the terrain function use the following options: v="slope", unit="degrees", neighbors=8.*
 
 ![](images/slope.png){width=50%}
+
 
 ```{r}
 #| label: fig-solutionEx5
@@ -171,6 +181,7 @@ slope_250 <- slope %>% aggregate(., fact = 10)
 plot(slope_250, main="Slope", axes=FALSE)
 ```
 
+
 ## Exercise 4: Calculate distances to criteria
 
 Within the evaluation of suitable sites for wind turbines, the distance to roads, forest areas, national protected areas and inhabited areas are relevant. Depending on the criteria, a short or long distance has a positive influence on the evaluation of potential sites. For this purpose, perform a distance analysis with the selected criteria raster layers. Use the raster function `distance` for this calculation. 
@@ -179,6 +190,7 @@ Within the evaluation of suitable sites for wind turbines, the distance to roads
 * ***Tip**: Use the `crop` function again to get only relevant data in the study area.*
 
 ![](images/d_to_settlements.png){width=50%}
+
 
 ```{r}
 #| label: solutionEx6
@@ -198,12 +210,14 @@ forests_ed <- distance(raster_forests) |> raster::raster() |> raster::mask(kt_sc
 streets_ed <- distance(raster_streets) |> raster::raster() |> raster::mask(kt_schwyz) |> terra::rast()
 ```
 
+
 ## Exercise 5: Standardize and grade criteria (grading)
 
 The data layers slope, wind speed, icing frequency and the in exercise 4 calculated distance layers have different units (dm/s, degrees, d/yr and m). These units can't be directly calculated with each other. Therefore, the different layers need to be operationalized by performing a linear grading. The linear grading is done by using the function `reclassify`. Use the  standards for the reclassification in Figure \ref(fig:figreclassify).
 
 * ***Tip**: Keep in mind the min and max values of each raster layer.*
 * ***Tip**: Here is an example code to reclassify the distances to settlements.*
+
 
 ```{r}
 #| label: examplereclassifysettlements
@@ -223,6 +237,7 @@ reclass_settlements <- c(0,80,0,
 reclass_settlements_ed <- terra::classify(settlements_ed, reclass_settlements)
 ```
 
+
 ::: {#fig-mce-reclassify layout-ncol=2}
 ![](images/mce_reclassify_1.png)
 
@@ -232,6 +247,7 @@ MCE Reclassify
 :::
 
 ![](images/d_to_settlements_reclassified.png){width=50%}
+
 
 ```{r}
 #| label: fig-solutionEx7
@@ -350,6 +366,7 @@ reclass_streets_ed <- classify(streets_ed, reclass_streets)
 plot(reclass_streets_ed, main="Distance to streets (reclassified)", axes=FALSE)
 ```
 
+
 ## Exercise 6: Weighting criteria with AHP
 
 Perform an AHP to weight the criteria underlying the MCE. First compare the criteria in pairs, and then calculate the weights - as you have learned in last week's lesson. In the end you should have a list of 7 weights as shown below.
@@ -359,6 +376,7 @@ Perform an AHP to weight the criteria underlying the MCE. First compare the crit
           Wind       Streets          Ice    Settlements       Forest         Slope  Protected areas 
     0.33862692    0.09816760    0.06166626    0.24969460    0.03515759    0.18043000      0.03625702 
   
+
 ```{r}
 #| label: ahp_mce
 ahp_matrix <- c(
@@ -394,6 +412,7 @@ rownames(ahp_matrix) <- c("Wind", "Streets", "Ice", "Settlements", "Forest", "Sl
 weights <- rowSums(ahp_matrix) #add row sum
 ```
 
+
 ## Exercise 7: Weighted Overlay
 
 The linearly ranked criteria (Exercise 5) are now to be combined with each other, taking into account the weighting determined using the AHP (Exercise 6). This weighted overlay can be performed by using raster calculations and simply multiplying each criteria with its weight and adding them together (see @fig-weighted-overlay).
@@ -402,6 +421,7 @@ The linearly ranked criteria (Exercise 5) are now to be combined with each other
 * ***Tip**: Also keep in mind the order of the weights in your list when doing the multiplication.*
 
 ![Weighted Overlay](images/weighted_overlay.png){#fig-weighted-overlay width=50%}
+
 
 ```{r}
 #| label: fig-solutionEx9
@@ -438,11 +458,13 @@ weighted_overlay <- streets_R*eis_R*settlements_R*forests_R*slope_R*protected_ar
 plot(weighted_overlay, main="Weighted overlay with all criteria", axes=FALSE, legend=F)
 ```
 
+
 ## Exercise 8: Intersecting potential areas with exclusion criteria
 
 By simply multiplying the exclusion layer (result from exercise 2) with the weighted overlay layer (result from exercise 7) we are excluding all areas with value 0 (exclusion areas) and keeping all other areas with value 1 (e.g. 0x3=0, 1x3=3). As a conclusion of the study, create a final plot of the potential areas for wind power plants in the canton of Schwyz (like @fig-potential-sites). Furthermore, discuss the results obtained and determine three possible locations within which concrete planning of wind power plants would be possible.
 
 ![Potential Sites](images/potential_sites.png){#fig-potential-sites}
+
 
 ```{r}
 #| label: fig-solutionEx10
@@ -456,5 +478,10 @@ final_model <- weighted_overlay * raster_exclusion_areas
 plot(final_model, main="Potential sites for wind power plants in Kt. Schwyz", axes=FALSE, legend=F)
 ```
 
-
+```{r}
+#| echo: false
+#| results: asis
+#| purl: false
+#distill::mypurl()
+```
 

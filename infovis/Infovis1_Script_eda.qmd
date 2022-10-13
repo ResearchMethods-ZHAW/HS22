@@ -3,21 +3,16 @@ date: 2022-10-24
 lesson: InfoVis1
 thema: Plots & Facets
 index: 2
+knitr:
+  opts_chunk: 
+    collapse: true
 ---
 
 # Infovis 1: Demo B
 
-```{r}
-#| echo: false
-#| results: asis
-#| purl: false
-#distill::mypurl()
-```
+
 
 ```{r}
-#| label: fig-ggplot-eda
-#| fig-cap: "Generierter Plot"
-
 library(ggplot2)
 library(dplyr)
 library(scales)
@@ -43,34 +38,49 @@ people <- data.frame(
 ggplot(people, aes(x=age, y=height)) + 
   geom_point() 
 
+``` 
+
+```{r}
 ggplot(people, aes(x=age, y=height)) + 
   geom_point() +
   scale_y_continuous(limits = c(0.75, 2))
 
 # Go to help page: http://docs.ggplot2.org/current/ -> Search for icon of fit-line
 # http://docs.ggplot2.org/current/geom_smooth.html
+``` 
 
+```{r}
 # build a scatterplot for a first inspection, with regression line
 ggplot(people, aes(x=age, y=height)) + 
   geom_point() + 
   scale_y_continuous(limits=c(0, 2.0)) +
   geom_smooth()
+``` 
 
+```{r}
 # stem and leaf plot
 stem(people$height)
 stem(people$height, scale=2)
+``` 
 
+```{r}
 # explore the two variables with box-whiskerplots
 summary(people$age)
 boxplot(people$age)
+``` 
 
+```{r}
 summary(people$height)
 boxplot(people$height)
+``` 
 
+```{r}
 # explore data with a histgram
 ggplot(people, aes(x=age)) + 
   geom_histogram(binwidth=20)  
+``` 
 
+```{r}
 density(x = people$height)
 
 # re-expression: use log or sqrt axes
@@ -78,46 +88,62 @@ density(x = people$height)
 # Find here guideline about scaling axes 
 # http://www.cookbook-r.com/Graphs/Axes_(ggplot2)/
 # http://docs.ggplot2.org/0.9.3.1/scale_continuous.html
+``` 
 
+```{r}
 # logarithmic axis: respond to skewness in the data, e.g. log10 
 ggplot(people, aes(x=age, y=height)) + 
   geom_point() + 
   scale_y_continuous(limits=c(0, 2.0)) +
   geom_smooth() +
   scale_x_log10()
+``` 
 
+```{r}
 # outliers: Remove very small and very old people
 
 peopleClean <- people |>
   filter(ID != 27) |>    # Diese Person war zu klein.
   filter(age < 100)       # Fehler in der Erhebung des Alters
+``` 
 
+```{r}
 ggplot(peopleClean, aes(x=age)) + 
   geom_histogram(binwidth=10)
+``` 
 
+```{r}
 ggplot(peopleClean, aes(x=age, y=height)) + 
   geom_point() + 
   scale_y_continuous(limits=c(0, 2.0)) +
   geom_smooth()
+``` 
 
+```{r}
 # with custom binwidth
 ggplot(peopleClean, aes(x=age)) + 
   geom_histogram(binwidth=10) + 
   theme_bw() # specifying the theme
+``` 
 
+```{r}
 # quadratic axis
 ggplot(peopleClean, aes(x=age, y=height)) + 
   geom_point() + scale_y_continuous(limits=c(0, 2.0)) +
   geom_smooth(method="lm", fill='lightblue', size=0.5, alpha=0.5) + 
   scale_x_sqrt()
+``` 
 
+```{r}
 # filter "teenies": No trend
 filter(peopleClean, age < 15) |>
   ggplot(aes(x=age, y=height)) + 
   geom_point() + 
   scale_y_continuous(limits=c(0, 2.0)) +
   geom_smooth(method="lm", fill='lightblue', size=0.5, alpha=0.5)
+``` 
 
+```{r}
 # filter "teenies": No trend
 peopleClean |>
   filter(age > 55) |>
@@ -125,11 +151,15 @@ peopleClean |>
   geom_point() + 
   scale_y_continuous(limits=c(0, 2.0)) +
   geom_smooth(method="lm", fill='lightblue', size=0.5, alpha=0.5)
+``` 
 
+```{r}
 # Onwards towards multidimensional data
 
 # Finally, make a scatterplot matrix
 pairs(peopleClean[,2:4], panel=panel.smooth)
+``` 
 
+```{r}
 pairs(peopleClean[,2:4], panel=panel.smooth)
 ```
