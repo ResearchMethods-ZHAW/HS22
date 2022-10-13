@@ -3,6 +3,11 @@ date: 2022-10-18
 lesson: PrePro3
 thema: Split-Apply-Combine
 index: 2
+execute: 
+  echo: false   # set to true to show musterlösung
+  output: false
+code-fold: true
+code-summary: "Musterlösung"
 ---
 
 # Prepro 3: Übung
@@ -48,6 +53,9 @@ Gruppiere `sensors_long` nach der neuen Spalte wo die Sensor-Information enthalt
 Der Output sieht folgendermassen aus: 
 
 ```{r}
+#| code-fold: false
+#| results: true
+
 library(dplyr)
 
 sensors_long |>
@@ -70,7 +78,7 @@ sensors_long |>
 
 ## Aufgabe 5
 
-Lade jetzt nochmal den Datensatz [weather.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602135) (Quelle MeteoSchweiz) herunter und importiere ihn als CSV mit den Korrekten Spaltentypen (`stn` als `factor`, `time` als `POSIXct`, `tre200h0` als `double`).
+Lade jetzt nochmal den Datensatz [weather.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602135) (Quelle MeteoSchweiz) herunter und importiere ihn als CSV mit den korrekten Spaltentypen (`stn` als `factor`, `time` als `POSIXct`, `tre200h0` als `double`).
 
 ```{r}
 weather <- read_csv("data/weather.csv", col_types = cols(col_factor(), col_datetime("%Y%m%d%H"), col_double()))
@@ -78,7 +86,7 @@ weather <- read_csv("data/weather.csv", col_types = cols(col_factor(), col_datet
 
 ## Aufgabe 6
 
-Erstelle nun eine *convenience* Variabel für die Kalenderwoche pro Messung (`lubridate::isoweek`). Berechne im Anschluss den mittleren Temperaturwert pro Kalenderwoche.
+Erstelle nun eine *convenience Variable* für die Kalenderwoche pro Messung (`lubridate::isoweek`). Berechne im Anschluss den mittleren Temperaturwert pro Kalenderwoche.
 
 ```{r}
 weather_summary <- weather |>
@@ -92,7 +100,8 @@ weather_summary <- weather |>
 Visualisiere im Anschluss das Resultat:
 
 ```{r}
-#| echo: true
+#| results: true
+#| fig.show: 'asis'
 #| label: fig-baseplot-ex6
 #| fig-cap: "Generierter Plot"
 
@@ -101,7 +110,7 @@ plot(weather_summary$week, weather_summary$temp_mean, type = "l")
 
 ## Aufgabe 7
 
-In der vorherigen Aufgabe haben wir die mittlere Temperatur pro Kalenderwoche über *alle Jahre* (2000 und 2001) berechnet. Wenn wir die Jahre aber miteinander vergleichen wollen, müssen wir das Jahr als zusätzliche *convenience* Variabel erstellen und danach gruppieren. Versuche dies mit den Wetterdaten und visualisiere den Output anschliessend.
+In der vorherigen Aufgabe haben wir die mittlere Temperatur pro Kalenderwoche über *alle Jahre* (2000 und 2001) berechnet. Wenn wir die Jahre aber miteinander vergleichen wollen, müssen wir das Jahr als zusätzliche *convenience Variable* erstellen und danach gruppieren. Versuche dies mit den Wetterdaten und visualisiere den Output anschliessend.
 
 ```{r}
 weather_summary2 <- weather |>
@@ -132,18 +141,8 @@ weather_summary2 <- weather_summary2 |>
 ```
 
 ```{r}
-#| echo: true
 #| label: fig-baseplot-ex8
 #| fig-cap: "Generierter Plot"
 plot(weather_summary2$week, weather_summary2$year2000, type = "l",col = "blue")
 lines(weather_summary2$week, weather_summary2$year2001, type = "l",col = "red")
-```
-
-## Musterlösung
-
-```{r}
-#| echo: false
-#| results: asis
-#| purl: false
-#distill::mypurl()
 ```

@@ -1,24 +1,3 @@
----
-date: 2022-10-17
-lesson: PrePro2
-thema: Piping / Joins
-index: 1
-knitr:
-  opts_chunk: 
-    collapse: true
----
-
-# Prepro 2: Demo
-
-Diese Demo kann auch als [R Script heruntergeladen werden](Prepro2_Demo.R) (Rechtsklick → *Save Target As..*)
-
-## Piping
-
-Gegeben ist ein character string (`diary`). Wir wollen aus diesem Text die Temperaturangabe aus dem String extrahieren und danach den Wert von Kelvin in Celsius nach der folgenden Formel umwandeln und zum Schluss den Mittelwert über all diese Werte berechnen.
-
-$$°C = K - 273.15$$
-
-```{r}
 diary <- c(
   "The temperature is 310° Kelvin",
   "The temperature is 322° Kelvin",
@@ -26,19 +5,11 @@ diary <- c(
 )
 
 diary
-```
 
-Dafür haben wir eine Hilfsfunktion `subtrahieren`, welche zwei Werte annimmt, den `minuend` und den `subtrahend`:
-
-```{r}
 subtrahieren <- function(minuend, subtrahend){
   minuend - subtrahend
 }
-```
 
-Zudem brauchen wir die Funktion `substr()`, welche aus einem `character` einen Teil "raus schnipseln" kann.
-
-```{r}
 # Wenn die Buchstaben einzelne _Elemente_ eines Vektors wären, würden wir diese
 # folgendermassen subsetten:
 
@@ -48,11 +19,7 @@ charvec1[4:6]
 # Aber wenn diese in einem einzigen character gespeichert sind, brauchen wir substr:
 charvec2 <- "abcdefgh"
 substr(charvec2, 4, 6)
-```
 
-Übersetzt in `R`-Code entsteht folgende Operation:
-
-```{r}
 output <- mean(subtrahieren(as.numeric(substr(diary, 20, 22)),273.15))
 #                                             \_1_/
 #                                      \________2__________/
@@ -65,20 +32,12 @@ output <- mean(subtrahieren(as.numeric(substr(diary, 20, 22)),273.15))
 # 3. Konvertiere "character" zu "numeric"
 # 4. Subtrahiere 273.15
 # 5. Berechne den Mittlwert
-```
 
-Die ganze Operation liest sich etwas leichter, wenn diese sequentiell notiert wird:
-
-```{r}
 temp <- substr(diary, 20, 22)       # 2
 temp <- as.numeric(temp)            # 3
 temp <- subtrahieren(temp, 273.15)  # 4
 output <- mean(temp)                # 5
-```
 
-Umständlich ist dabei einfach, dass die Zwischenresultate immer abgespeichert und in der darauf folgenden Operation wieder abgerufen werden müssen. Hier kommt "piping" ins Spiel: *Mit "piping" wird der Output der einen Funktion der erste Parameter der darauf folgenden Funktion.*
-
-```{r}
 library(magrittr)
 
 diary |>                            # 1
@@ -86,24 +45,7 @@ diary |>                            # 1
   as.numeric() |>                   # 3 
   subtrahieren(273.15) |>           # 4
   mean()                            # 5
-```
 
-:::{.callout-important}
-- der `|>` Pipe Operator wurde erst in R `4.1` eingeführt
-- Neben dem *base R* Pipe Operator existiert im Package `magrittr` ein sehr ähnlicher[^pipe] Pipe Operator: `%>%`
-- Die Tastenkombination <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio fügt einen Pipe Operator ein. 
-- Welcher Pipe Operator `|>` oder `%>%` mit der obigen Tastenkombination eingeführt wird, kann über die RStudio Settings `Tools` → `Global Options` → `Code` → Häckchen setzen bei `Use nativ pipe operator`
-
-
-:::
-
-
-[^pipe]: siehe <https://stackoverflow.com/q/67633022/4139249>
-
-
-## Joins
-
-```{r}
 studierende <- data.frame(
   Matrikel_Nr = c(100002, 100003, 200003),
   Studi = c("Patrick", "Manuela", "Eva"),
@@ -118,9 +60,7 @@ ortschaften <- data.frame(
 )
 
 ortschaften
-```
 
-```{r}
 #Load library
 library(dplyr)
 
@@ -131,9 +71,7 @@ left_join(studierende, ortschaften, by = "PLZ")
 right_join(studierende, ortschaften, by = "PLZ")
 
 full_join(studierende, ortschaften, by = "PLZ")
-```
 
-```{r}
 studierende <- data.frame(
   Matrikel_Nr = c(100002, 100003, 200003),
   Studi = c("Patrick", "Manuela", "Pascal"),
@@ -141,12 +79,3 @@ studierende <- data.frame(
 )
 
 left_join(studierende, ortschaften, by = c("Wohnort" = "PLZ"))
-```
-
-```{r}
-#| purl: false
-#| echo: false
-#| output: false
-
-knitr::purl("prepro/Prepro2_Demo.qmd", "prepro/Prepro2_Demo.R",documentation = 0)
-```

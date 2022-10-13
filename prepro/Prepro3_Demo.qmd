@@ -3,20 +3,18 @@ date: 2022-10-18
 lesson: PrePro3
 thema: Split-Apply-Combine
 index: 1
+knitr:
+  opts_chunk: 
+    collapse: true
 ---
 
 # Prepro 3: Demo
 
-```{r}
-#| echo: false
-#| results: asis
-#| purl: false
-#distill::mypurl()
-```
+Diese Demo kann auch als [R Script heruntergeladen werden](Prepro3_Demo.R) (Rechtsklick → *Save Target As..*)
 
 In dieser DEMO möchten wir weitere Werkzeuge aus dem Tidyverse vorstellen und mit Beispielen illustrieren. Die tidyverse-Tools erleichtern den Umgang mit Daten ungeheuer und haben sich mittlerweile zu einem “must have” im Umgang mit Daten in R entwickelt.
 
-Wir können Euch nicht sämtliche Möglichkeiten von tidyverse zeigen. Wir fokussieren uns deshalb auf weitere wichtige Komponenten 1 und zeigen zusätzliche Funktionalitäten, die wir oft verwenden und Euch ggf. noch nicht bekannt sind. Wer sich vertieft mit dem Thema auseinandersetzen möchte, der sollte sich unbedingt das Buch  @wickham2017 beschaffen. Eine umfangreiche, aber nicht ganz vollständige Version gibt es online^[http://r4ds.had.co.nz/] , das vollständige eBook kann über die Bibliothek bezogen werden^[https://ebookcentral.proquest.com/lib/zhaw/detail.action?docID=4770093].
+Wir können Euch nicht sämtliche Möglichkeiten von tidyverse zeigen. Wir fokussieren uns deshalb auf weitere wichtige Komponenten und zeigen zusätzliche Funktionalitäten, die wir oft verwenden und Euch ggf. noch nicht bekannt sind. Wer sich vertieft mit dem Thema auseinandersetzen möchte, der sollte sich unbedingt das Buch  @wickham2017 beschaffen. Eine umfangreiche, aber nicht ganz vollständige Version gibt es online^[http://r4ds.had.co.nz/] , das vollständige eBook kann über die Bibliothek bezogen werden^[https://ebookcentral.proquest.com/lib/zhaw/detail.action?docID=4770093].
 
 Wir benötigen dazu folgende Packages:
 
@@ -61,9 +59,8 @@ sry <- df |>
 ```{r}
 mtcars <- mtcars                          # Einlesen des Beispielsdatensatzes mtcars
 by_cyl <- group_by(mtcars, cyl)           # Gruppieren nach Anzahl Zylinder (cyl)
-summarise(by_cyl,mean_mpg = mean(mpg))    # Berechnen des Mittelwerts pro 
-                                          # Zylinder-Gruppe, resp. Kategorie
-
+summarise(by_cyl,mean_mpg = mean(mpg))    # Berechnen des Mittelwerts pro Zylinder-Gruppe, resp. Kategorie
+                                          
 by_cyl_2 <- group_by(mtcars,cyl,am)       # Gruppieren nach Anzahl Zylinder (cyl) 
                                           # UND Schaltung automatisch oder manuell (am)
 
@@ -102,7 +99,7 @@ Diese Herangehensweise funktioniert nur dann gut, wenn wir die Kennwerte über *
 
 ### Convenience Variablen
 
-Um diese Aufgabe zu lösen, muss zuerst den Monat extrahiert werden (der Monat ist die *convenience variabel*).   Hierfür brauchen wir die Funktion `lubridate::month()`.
+Um diese Aufgabe zu lösen, muss zuerst der Monat extrahiert werden (der Monat ist die *convenience variable*). Hierfür brauchen wir die Funktion `lubridate::month()`.
 
 Nun kann kann die **convenience Variable** "Month" erstellt werden. Ohne `dpylr` wird eine neue Spalte folgendermassen hinzugefügt. 
 
@@ -120,7 +117,7 @@ Der grosse Vorteil von `dplyr` ist an dieser Stelle noch nicht ersichtlich. Dies
 
 ### Kennwerte nach Gruppen berechnen
 
-Um mit base R den Mittelwert pro Monat zu berechnen, kann man zuerst ein Subset mit `[]` erstellen und davon den Mittelwerb berechnen, z.B. folgendermassen:
+Um mit base R den Mittelwert pro Monat zu berechnen, kann man zuerst ein Subset mit `[]` erstellen und davon den Mittelwert berechnen, z.B. folgendermassen:
 
 ```{r}
 mean(wetter$tre200h0[wetter$month == 1], na.rm = TRUE)
@@ -186,7 +183,7 @@ weather_summary
 
 ### Breit -> lang
 
-Die Umformung von Tabellen *breit*->*lang* erfolgt mittels `tidyr`(siehe ^[https://r4ds.had.co.nz/tidy-data.html#pivoting]). Auch dieses package funktioniert wunderbar mit piping (`|>`). 
+Die Umformung von Tabellen *breit*->*lang* erfolgt mittels `tidyr`(siehe ^[https://r4ds.had.co.nz/tidy-data.html#pivoting]). Auch dieses Package funktioniert wunderbar mit piping (`|>`). 
 
 ```{r}
 weather_summary |>
@@ -248,7 +245,7 @@ weather_summary_long |>
   pivot_wider(names_from = Messtyp, values_from = Messwert)
 ```
 
-Zum Vergleich: mit einer *wide* table müssen wir in `ggplot2` jede Spalte einzeln plotten. Dies ist bei wenigen Variabeln wie hier noch nicht problematisch, aber bei einer hohen Anzahl wir dies schnell mühsam.
+Zum Vergleich: mit einer *wide* table müssen wir in `ggplot2` jede Spalte einzeln plotten. Dies ist bei wenigen Variabeln wie hier noch nicht problematisch, aber bei einer hohen Anzahl wird dies schnell mühsam.
 
 ```{r}
 #| label: fig-ggplot-wide
@@ -256,4 +253,13 @@ Zum Vergleich: mit einer *wide* table müssen wir in `ggplot2` jede Spalte einze
 ggplot(weather_summary) +
   geom_line(aes(day, temp_max)) +
   geom_line(aes(day, temp_min))
+```
+
+
+```{r}
+#| purl: false
+#| echo: false
+#| output: false
+
+knitr::purl("prepro/Prepro3_Demo.qmd", "prepro/Prepro3_Demo.R",documentation = 0)
 ```
