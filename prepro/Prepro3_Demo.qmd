@@ -6,6 +6,8 @@ index: 1
 knitr:
   opts_chunk: 
     collapse: true
+execute: 
+  echo: true
 ---
 
 # Prepro 3: Demo
@@ -181,9 +183,9 @@ weather_summary
 
 ## Reshaping data
 
-### Breit -> lang
+### Breit → lang
 
-Die Umformung von Tabellen *breit*->*lang* erfolgt mittels `tidyr`(siehe ^[https://r4ds.had.co.nz/tidy-data.html#pivoting]). Auch dieses Package funktioniert wunderbar mit piping (`|>`). 
+Die Umformung von Tabellen *breit*→*lang* erfolgt mittels `tidyr`(siehe ^[https://r4ds.had.co.nz/tidy-data.html#pivoting]). Auch dieses Package funktioniert wunderbar mit piping (`|>`). 
 
 ```{r}
 weather_summary |>
@@ -236,7 +238,7 @@ ggplot(weather_summary_long, aes(day,Messwert, colour = Messtyp)) +
   geom_line()
 ```
 
-### Lang -> breit
+### Lang → breit
 
 Das Gegenstück zu `pivot_longer` ist `pivot_wider`. Mit dieser Funktion können wir eine *lange* Tabelle in eine *breite* überführen. Dazu müssen wir in `names_from` angeben, aus welcher Spalte die neuen Spaltennamen erstellt werden sollen (`names_from`) und aus welcher Spalte die Werte entstammen sollen (`values_from`):
 
@@ -260,6 +262,7 @@ ggplot(weather_summary) +
 #| purl: false
 #| echo: false
 #| output: false
+#| 
 
-knitr::purl("prepro/Prepro3_Demo.qmd", "prepro/Prepro3_Demo.R",documentation = 0)
+#knitr::purl("prepro/Prepro3_Demo.qmd", "prepro/Prepro3_Demo.R",documentation = 0)
 ```

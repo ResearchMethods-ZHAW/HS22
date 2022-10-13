@@ -172,73 +172,18 @@ wochentage
 wochentage_fac
 ```
 
-Wie man oben sieht, unterscheiden sich `character vectors` und `factors` v.a. dadurch, dass letztere über sogenannte `levels` verfügt. Diese `levels` entsprechen den Eindeutigen (`unique`) Werten.
+Wie man oben sieht, unterscheiden sich `character vectors` und `factors` v.a. dadurch, dass letztere über sogenannte `levels` verfügt. Diese `levels` entsprechen den eindeutigen Werten.
+
+Zudem ist fällt auf, dass die Reihenfolge der Wohentag alphabetisch sortiert ist. Eine Ordnung kann man mit dem Befehl `ordered = T` festlegen, dabei muss die Reihenfolge der Werte im Argument `levels =` explizit festgehalten werden[^ordered].
+
+[^ordered]: `ordered = T` kann nur bei der Funktion `factor()` spezifiziert werden, nicht bei `as.factor()`. Ansonsten sind `factor()` und `as.factor()` sehr ähnlich.
 
 ```{r}
-levels(wochentage_fac)
-
-unique(wochentage)
+factor(wochentage, levels = c("Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"), ordered = TRUE)
 ```
 
-Zudem ist fällt auf, dass die Reihenfolge der Wohentag alphabetisch sortiert ist. Wie diese sortiert werden zeigen wir an einem anderen Beispiel:
+Beachtet das `<`-Zeichen zwischen den Levels!
 
-```{r}
-zahlen <- factor(c("null","eins","zwei","drei"))
-
-zahlen
-```
-
-Offensichtlich sollten diese `factors` geordnet sein, R weiss davon aber nichts. Eine Ordnung kann man mit dem Befehl `ordered = T` festlegen.
-
-Beachtet: `ordered = T` kann nur bei der Funktion `factor()` spezifiziert werden, nicht bei `as.factor()`. Ansonsten sind `factor()` und `as.factor()` sehr ähnlich.
-
-```{r}
-zahlen <- factor(zahlen,ordered = TRUE)
-
-zahlen
-```
-
-Beachtet das `<`-Zeichen zwischen den Levels. Die Zahlen werden nicht in der korrekten Reihenfolge, sondern Alphabetisch geordnet. Die richtige Reihenfolge kann man mit `levels =` festlegen.
-
-```{r}
-zahlen <- factor(zahlen,ordered = T,levels = c("null","eins","zwei","drei","vier"))
-
-zahlen
-```
-
-Wie auch schon erwähnt werden `factors` als `character` Vektor dargestellt, aber als Integers gespeichert. Das führt zu einem scheinbaren Wiederspruch wenn man den Datentyp auf unterschiedliche Weise abfragt.
-
-```{r}
-typeof(zahlen)
-
-is.integer(zahlen)
-```
-
-Mit `typeof()` wird eben diese Form der Speicherung abgefragt und deshalb mit `integer` beantwortet. Da es sich aber nicht um einen eigentlichen Integer Vektor handelt, wird die Frage `is.integer()` mit `FALSE` beantwortet. Das ist etwas verwirrend, beruht aber darauf, dass die beiden Funktionen die Frage von unterschiedlichen Perspektiven beantworten. In diesem Fall schafft `class()` Klarheit:
-
-```{r}
-class(zahlen)
-```
-
-Wirklich verwirrend wird es, wenn `factors` in numeric umgewandelt werden sollen.
-
-```{r}
-zahlen
-as.integer(zahlen)
-```
-
-Das die Übersetzung der auf Deutsch ausgeschriebenen Nummern in nummerische Zahlen nicht funktionieren würde, war ja klar. Weniger klar ist es jedoch, wenn die `factors` bereits aus nummerischen Zahlen bestehen.
-
-```{r}
-zahlen2 <- factor(c("10","20"))
-as.integer(zahlen2)
-```
-
-In diesem Fall müssen die `factors` erstmals in `character` umgewandelt werden.
-
-```{r}
-as.integer(as.character(zahlen2))
-```
 
 #### Zeit/Datum
 
