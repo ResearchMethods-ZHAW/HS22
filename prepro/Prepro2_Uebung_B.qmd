@@ -20,8 +20,6 @@ code-summary: "Musterlösung"
 # Benötigte Packages
 library(dplyr)
 library(readr)
-library(lubridate)
-library(stringr)
 ```
 
 ## Aufgabe 1
@@ -29,8 +27,6 @@ library(stringr)
 Gegeben sind die Daten von drei Sensoren ([sensor1.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602226), [sensor2.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602229), [sensor3.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602228)). Lade die Datensätze runter und lese sie ein.
 
 ```{r}
-# Lösung Aufgabe 1
-
 sensor1 <- read_delim("data/sensor1.csv",";")
 sensor2 <- read_delim("data/sensor2.csv",";")
 sensor3 <- read_delim("data/sensor3.csv",";")
@@ -41,8 +37,6 @@ sensor3 <- read_delim("data/sensor3.csv",";")
 Erstelle aus den 3 Dataframes eine einzige Dataframe, die aussieht wie unten dargestellt. Nutze dafür zwei joins aus `dplyr` um 3 `data.frames` miteinander zu verbinden. Bereinige im Anschluss die Spaltennamen ([wie geht das?](https://www.statology.org/how-to-rename-data-frame-columns-in-r/)).
 
 ```{r}
-# Lösung Aufgabe 2
-
 sensor1_2 <- full_join(sensor1, sensor2, "Datetime")
 
 sensor_all <- full_join(sensor1_2, sensor3, by = "Datetime")
@@ -51,8 +45,10 @@ names(sensor_all) <- c("Datetime","sensor1","sensor2","sensor3")
 ```
 
 ```{r}
-#| results: true
-#| purl: false
+#| echo: false
+#| output: true
+
+
 knitr::kable(head(sensor_all))
 ```
 
@@ -69,7 +65,6 @@ sensor_fail <- read_delim("data/sensor_fail.csv", delim = ";")
 ```{r}
 #| echo: false
 #| eval: !expr T
-#| purl: false
 knitr::kable(sensor_fail)
 ```
 

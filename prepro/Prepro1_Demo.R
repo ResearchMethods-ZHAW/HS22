@@ -85,35 +85,7 @@ wochentage_fac <- as.factor(wochentage)
 wochentage
 wochentage_fac
 
-levels(wochentage_fac)
-
-unique(wochentage)
-
-zahlen <- factor(c("null","eins","zwei","drei"))
-
-zahlen
-
-zahlen <- factor(zahlen,ordered = TRUE)
-
-zahlen
-
-zahlen <- factor(zahlen,ordered = T,levels = c("null","eins","zwei","drei","vier"))
-
-zahlen
-
-typeof(zahlen)
-
-is.integer(zahlen)
-
-class(zahlen)
-
-zahlen
-as.integer(zahlen)
-
-zahlen2 <- factor(c("10","20"))
-as.integer(zahlen2)
-
-as.integer(as.character(zahlen2))
+factor(wochentage, levels = c("Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"), ordered = TRUE)
 
 datum <- "2017-10-01 13:45:10"
 
