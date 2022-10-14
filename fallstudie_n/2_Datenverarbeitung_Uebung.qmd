@@ -68,7 +68,7 @@ library(tidyverse)
 ```
 
 ## Daten laden
-Herunterladen der Daten der Feldaufnahmen von Moodle (Aufgabe3_Feldaufnahmen_alle_Gruppen.zip), Einlesen, Sichtung der Datensätze und der Datentypen.
+Herunterladen der Daten der [Feldaufnahmen](https://moodle.zhaw.ch/mod/folder/view.php?id=578940) von Moodle (Aufgabe3_Feldaufnahmen_alle_Gruppen.zip), Einlesen, Sichtung der Datensätze und der Datentypen.
 
 ```{r}
 #| tidy: true
@@ -104,7 +104,7 @@ str(df_gesamt)
 
 - 1.1 Einfügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-6) 
 - 1.2 Spaltenumbenennung damit die Bezeichungen in allen Datensätzen gleich sind und der Gesamtdatensatz zusammengefügt werden kann
- --> Befehle mutate und rename, mit pipes (%>%) in einem Schritt möglich
+ --> Befehle mutate und rename, mit pipes (alt: %>%, neu: |>) in einem Schritt möglich
 
 ```{r}
 #| echo: false
@@ -115,22 +115,22 @@ str(df_gesamt)
 # 2. DATENVORVERARBEITUNG #####
 #.#################################################################################
 
-df_team1 <- df_team1 %>%
-  mutate(team = "team1") %>%
+df_team1 <- df_team1 |>
+  mutate(team = "team1") |>
   rename(KreisID = "Kreis (r 12.5m)",
          DG_Rubus = "Deckungsgrad Rubus sp. [%]",
          DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
          DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 
-df_team2 <- df_team2 %>%
-  mutate(team = "team2") %>%
+df_team2 <- df_team2 |>
+  mutate(team = "team2") |>
   rename(KreisID = "Kreis",
          DG_Rubus = "Deckungsgrad Rubus sp. [%]",
          DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
          DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 
-df_team3 <- df_team3 %>%
-  mutate(team = "team3") %>%
+df_team3 <- df_team3 |>
+  mutate(team = "team3") |>
   rename(KreisID = "Kreis (r 12.5m)",
          X = "x",
          Y = "y",
@@ -138,15 +138,15 @@ df_team3 <- df_team3 %>%
          DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
          DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 
-df_team4 <- df_team4 %>%
-  mutate(team = "team4") %>%
+df_team4 <- df_team4 |>
+  mutate(team = "team4") |>
   rename(KreisID = "Kreis (r 12.5m)",
          DG_Rubus = "Deckungsgrad Rubus sp. [%]",
          DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
          DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 
-df_team5 <- df_team5 %>%
-  mutate(team = "team5") %>%
+df_team5 <- df_team5 |>
+  mutate(team = "team5") |>
   rename(KreisID = "Kreis",
          X = "x",
          Y = "y",
@@ -154,8 +154,8 @@ df_team5 <- df_team5 %>%
          DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
          DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 
-df_team6 <- df_team6 %>%
-  mutate(team = "team6") %>%
+df_team6 <- df_team6 |>
+  mutate(team = "team6") |>
   rename(KreisID = "Kreis",
          X = "x",
          Y = "y",
