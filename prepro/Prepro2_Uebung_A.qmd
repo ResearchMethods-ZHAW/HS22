@@ -3,21 +3,19 @@ date: 2022-10-17
 lesson: PrePro2
 thema: Piping / Joins
 index: 2
+execute: 
+  echo: false   # set to true to show musterlösung
+  output: false
+code-fold: true
+code-summary: "Musterlösung"
 ---
 
 # Prepro 2: Übung A
 
 ```{r}
-#| include: false
-#| purl: false
-knitr::opts_chunk$set(echo = TRUE, include = F, collapse=TRUE)
-```
+#| echo: true
+#| code-fold: false
 
-Für die Musterlösungen werden wir die nachstehenden Libraries verwenden:
-
-```{r}
-#| message: false
-#| echo: false
 library(dplyr)
 library(readr)
 library(lubridate)
@@ -50,9 +48,11 @@ wetter <- read_csv("data/weather.csv",
 
 ## Aufgabe 2
 
-Lade [metadata](https://moodle.zhaw.ch/mod/resource/view.php?id=602139) herunter und lade es ebenfalls als csv ein.
+Lade [metadata](https://moodle.zhaw.ch/mod/resource/view.php?id=602139) herunter und lese es ebenfalls als csv ein.
 
-Hinweis: Wenn Umlaute und Sonderzeichen nicht korrekt dargestellt werden (z.B. in Gen*è*ve), hat das vermutlich mit der [Zeichencodierung](https://de.wikipedia.org/wiki/Zeichenkodierung) zu tun. Das File ist aktuell in 'ANSI' Codiert, welche für gewisse Betriebssysteme / R-Versionen ein Problem darstellt. Um das Problem zu umgehen muss man das File mit einem Editor öffnen (Windows 'Editor' oder 'Notepad++', Mac: 'TextEdit') und mit einer neuen Codierung (z.B 'UTF-8') abspeichern. Danach kann die Codierung spezifitiert werden (bei `read_delim(): mit `locale = locale(encoding = "UTF-8")`)
+:::{.callout-important}
+Wenn Umlaute und Sonderzeichen nicht korrekt dargestellt werden (z.B. in Gen*è*ve), hat das vermutlich mit der [Zeichencodierung](https://de.wikipedia.org/wiki/Zeichenkodierung) zu tun. Das File ist aktuell in 'ANSI' Codiert, welche für gewisse Betriebssysteme / R-Versionen ein Problem darstellt. Um das Problem zu umgehen muss man das File mit einem Editor öffnen (Windows *Editor* oder *Notepad++*, Mac: *TextEdit*) und mit einer neuen Codierung (z.B `UTF-8`) abspeichern. Danach kann die Codierung spezifitiert werden (bei `read_delim()`: mit `locale = locale(encoding = "UTF-8")`)
+:::
 
 ```{r}
 metadata <- read_delim("data/metadata.csv", delim = ";", locale = locale(encoding = "UTF-8"))
@@ -80,7 +80,6 @@ metadata <- cbind(metadata,koordinaten)
 Nun wollen wir den Datensatz `wetter`mit den Informationen aus `metadata` anreichern. Uns interessiert aber nur das Stationskürzel, der Name, die x/y Koordinaten sowie die Meereshöhe. Lösche die nicht benötigten Spalten (oder selektiere die benötigten Spalten).
 
 ```{r}
-#| message: false
 metadata <- metadata[,c("stn", "Name", "x","y","Meereshoehe")]
 ```
 
@@ -111,7 +110,6 @@ Berechne mit der Spalte `month` die Durchschnittstemperatur pro Monat.
 
 
 ```{r}
-#| warning: false
 mean(wetter$tre200h0[wetter$month == 1])
 mean(wetter$tre200h0[wetter$month == 2])
 mean(wetter$tre200h0[wetter$month == 3])
@@ -119,12 +117,3 @@ mean(wetter$tre200h0[wetter$month == 3])
 # usw. für alle 12 Monate
 ```
 
-## Musterlösung
-
-```{r}
-#| echo: false
-#| message: false
-#| results: asis
-#| purl: false
-#distill::mypurl()
-```

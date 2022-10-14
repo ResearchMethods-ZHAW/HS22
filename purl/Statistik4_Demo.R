@@ -22,6 +22,10 @@ glm.poisson <- glm(Besucher~Temperatur, family = poisson, data = strand)
 summary(glm.gaussian)
 summary(glm.poisson)
 
+
+#| label: fig-baseplots-glm
+#| fig-cap: "Generierter Plot"
+
 exp(3.500301) # Anzahl besucher bei 0°C
 exp(glm.poisson$coefficients[1]) # Werte aus Modell
 exp(3.500301 + 30*0.112817) # Anzahl besucher bei 30°C

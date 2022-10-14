@@ -10,15 +10,14 @@ index: 1
 ```{r}
 #| echo: false
 #| purl: false
-#| message: false
 #| results: hide
+options(knitr.duplicate.label = "allow")
 knitr::purl("statKons/StatKons3_Demo_LM.qmd", "purl/StatKons3_Demo_LM.R", documentation = 0)
 ```
 
 > Download [R-Skript](../purl/StatKons3_Demo_LM.R)
 
 ```{r}
-#| message: false
 #| include: false
 #| purl: false
 knitr::opts_chunk$set(echo = TRUE, collapse=FALSE, message = FALSE, results = "hide", warning = FALSE)
@@ -41,9 +40,11 @@ mytheme <-
 ## Einfaktorielle ANOVA
 
 ```{r}
-#| message: false
 #| eval: false
 #| purl: !expr T
+#| label: fig-plots-anova-example
+#| fig-cap: "Generierter Plot"
+
 # für mehr infos
 #https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html
 
@@ -117,8 +118,10 @@ rosetta::posthocTGH(cars$hp, cars$cyl, method = "games-howell")
 ## Mehrfaktorielle ANOVA
 
 ```{r}
-#| message: false
 #| echo: false
+#| label: fig-plots-multi-anova-example
+#| fig-cap: "Generierter Plot"
+
 library(tidyverse)
 #1. Wähle zusätzliche Variable aus (wenn nicht in der Aufgabe steht), 
 #was für eine Skala muss die Variable aufweisen?
@@ -151,7 +154,9 @@ summary.lm(aov.2)
 
 ## Einfache Regression
 ```{r}
-#| message: false
+#| label: fig-plots-regression-example
+#| fig-cap: "Generierter Plot"
+
 # inspiriert von Simon Jackson: http s://drsimonj.svbtle.com/visualising-residuals
 cars <- mtcars %>% 
   #ändere die unabhängige Variable mpg in 100Km/L
@@ -234,7 +239,9 @@ ggplot(d, aes(x = kml, y = hp)) +
 ## Multiple regression
 
 ```{r}
-#| message: false
+#| label: fig-plots-multi-regression-example
+#| fig-cap: "Generierter Plot"
+
 # Select data
 cars <- mtcars %>% 
     slice(-31) %>%

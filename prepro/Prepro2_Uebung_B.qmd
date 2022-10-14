@@ -3,18 +3,21 @@ date: 2022-10-17
 lesson: PrePro2
 thema: Piping / Joins
 index: 3
+execute: 
+  echo: false   # set to true to show musterlösung
+  output: false
+code-fold: true
+code-summary: "Musterlösung"
 ---
 
 # Prepro 2: Übung B
 
-```{r}
-#| include: false
-#| purl: false
-knitr::opts_chunk$set(echo = FALSE, collapse=TRUE)
-```
 
 ```{r}
-#| message: false
+#| echo: true
+#| code-fold: false
+
+# Benötigte Packages
 library(dplyr)
 library(readr)
 library(lubridate)
@@ -26,7 +29,6 @@ library(stringr)
 Gegeben sind die Daten von drei Sensoren ([sensor1.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602226), [sensor2.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602229), [sensor3.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602228)). Lade die Datensätze runter und lese sie ein.
 
 ```{r}
-#| message: false
 # Lösung Aufgabe 1
 
 sensor1 <- read_delim("data/sensor1.csv",";")
@@ -49,7 +51,7 @@ names(sensor_all) <- c("Datetime","sensor1","sensor2","sensor3")
 ```
 
 ```{r}
-#| echo: false
+#| results: true
 #| purl: false
 knitr::kable(head(sensor_all))
 ```
@@ -59,11 +61,10 @@ knitr::kable(head(sensor_all))
 Importiere die Datei [sensor_fail.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602230) in `R`.
 
 ```{r}
-#| message: false
 sensor_fail <- read_delim("data/sensor_fail.csv", delim = ";")
 ```
 
-`sensor_fail.csv` hat eine Variabel `SensorStatus`: `1` bedeutet der Sensor misst, `0` bedeutet der Sensor miss nicht. Fälschlicherweise wurde auch dann der Messwert `Temp = 0` erfasst, wenn `Sensorstatus = 0`. Richtig wäre hier `NA` (not available). Korrigiere den Datensatz entsprechend.
+`sensor_fail.csv` hat eine Variabel `SensorStatus`: `1` bedeutet der Sensor misst, `0` bedeutet der Sensor misst nicht. Fälschlicherweise wurde auch dann der Messwert `Temp = 0` erfasst, wenn `Sensorstatus = 0`. Richtig wäre hier `NA` (not available). Korrigiere den Datensatz entsprechend.
 
 ```{r}
 #| echo: false
@@ -91,12 +92,3 @@ Warum spielt das es eine Rolle, ob `0` oder `NA` erfasst wird? Berechne die Mitt
 mean(sensor_fail$Temp, na.rm = TRUE)
 ```
 
-## Musterlösung
-
-```{r}
-#| echo: false
-#| message: false
-#| results: asis
-#| purl: false
-#distill::mypurl()
-```

@@ -3,9 +3,14 @@ date: 2022-10-11
 lesson: PrePro1
 thema: Datentypen
 index: 1
+knitr:
+  opts_chunk: 
+    collapse: true
 ---
 
 # Prepro 1: Demo
+
+Diese Demo kann auch als [R Script heruntergeladen werden](Prepro1_Demo.R) (Rechtsklick → *Save Target As..*)
 
 ### Datentypen
 
@@ -193,7 +198,7 @@ zahlen <- factor(zahlen,ordered = TRUE)
 zahlen
 ```
 
-Beachtet das "\<"-Zeichen zwischen den Levels. Die Zahlen werden nicht in der korrekten Reihenfolge, sondern Alphabetisch geordnet. Die richtige Reihenfolge kann man mit `levels =` festlegen.
+Beachtet das `<`-Zeichen zwischen den Levels. Die Zahlen werden nicht in der korrekten Reihenfolge, sondern Alphabetisch geordnet. Die richtige Reihenfolge kann man mit `levels =` festlegen.
 
 ```{r}
 zahlen <- factor(zahlen,ordered = T,levels = c("null","eins","zwei","drei","vier"))
@@ -237,19 +242,23 @@ as.integer(as.character(zahlen2))
 
 #### Zeit/Datum
 
-Um in R mit Datum/Zeit Datentypen umzugehen, müssen sie als `POSIXct` eingelesen werden (es gibt alternativ noch `POSIXlt`, aber diese ignorieren wir mal). Anders als Beispielsweise bei Excel, sollten in R Datum und Uhrzeit immer in **einer Spalte** gespeichert werden.
+Um in R mit Datum/Zeit Datentypen umzugehen, müssen sie als `POSIXct` eingelesen werden. Anders als Beispielsweise bei Excel, sollten in R Datum und Uhrzeit immer **zusammen** gespeichert werden (in *einem* Objekt oder *einem* Vektor).
 
 ```{r}
 datum <- "2017-10-01 13:45:10"
 
-as.POSIXct(datum)
+# konvertiert character in POSIXct:
+as.POSIXct(datum) 
 ```
 
-Wenn das die Zeichenkette in dem obigen Format (Jahr-Monat-Tag Stunde:Minute:Sekunde) daher kommt, braucht `as.POSIXct`keine weiteren Informationen. Sollte das Format von dem aber Abweichen, muss man der Funktion das genaue Schema jedoch mitteilen. Der Syntax dafür kann via `?strptime` nachgeschlagen werden.
+Wenn das die Zeichenkette in dem obigen Format (`Jahr-Monat-Tag Stunde:Minute:Sekunde`) daher kommt, braucht `as.POSIXct`keine weiteren Informationen. 
+
+Sollte das Format von dem aber Abweichen, muss man der Funktion das genaue Schema jedoch mitteilen. Der Syntax dafür kann via `?strptime` nachgeschlagen werden.
 
 ```{r}
 datum <- "01.10.2017 13:45"
 
+# konvertiert character in POSIXct:
 as.POSIXct(datum,format = "%d.%m.%Y %H:%M")
 
 datum <- as.POSIXct(datum,format = "%d.%m.%Y %H:%M")
@@ -257,11 +266,24 @@ datum <- as.POSIXct(datum,format = "%d.%m.%Y %H:%M")
 
 Beachtet, dass in den den obigen Beispiel R automatisch eine Zeitzone angenommen hat (`CEST`). R geht davon aus, dass die Zeitzone der **System Timezone** (`Sys.timezone()`) entspricht.
 
+Um nun aus dem Datum wieder Spezifische bestandteile zu extrahieren, kann man theoretisch die gleichen Codes nochmal verwenden.
+
 ```{r}
-strftime(datum, format = "%m")
-strftime(datum, format = "%b")
-strftime(datum, format = "%B")
+strftime(datum, format = "%m") # extrahiert den Monat als Zahl
+strftime(datum, format = "%b") # extrahiert den Monat mit Namen (abgekürzt)
+strftime(datum, format = "%B") # extrahiert den Monat mit Namen (ausgeschrieben)
 ```
+
+Einfacher sind an dieser Stelle aber die Functions aus lubridate:
+
+```{r}
+library(lubridate)
+
+month(datum)                             # extrahiert den Monat als Zahl
+month(datum, label = TRUE, abbr = TRUE)  # extrahiert den Monat mit Namen (abgekürzt)
+month(datum, label = TRUE, abbr = FALSE) # extrahiert den Monat mit Namen (ausgeschrieben)
+```
+
 
 ### Data Frames und Conveniance Variabeln
 
@@ -300,15 +322,20 @@ df$Groesse[df$Einwohner <= 150000] <- "klein"
 df$Groesse
 ```
 
-Oder aber, die Ankunftszeit kann von der Spalte `Ankunft`abgeleitet werden. Dazu brauchen wir aber das Package `lubridate`
-
-```{r}
-#| message: false
-library(lubridate)
-```
+Oder aber, die Ankunftszeit kann von der Spalte `Ankunft`abgeleitet werden. 
 
 ```{r}
 df$Ankunft_stunde <- hour(df$Ankunft)
 
 df$Ankunft_stunde
+```
+
+
+
+```{r}
+#| purl: false
+#| echo: false
+#| output: false
+
+knitr::purl("prepro/Prepro1_Demo.qmd", "prepro/Prepro1_Demo.R",documentation = 0)
 ```

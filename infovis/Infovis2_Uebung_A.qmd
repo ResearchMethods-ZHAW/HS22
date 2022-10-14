@@ -16,7 +16,6 @@ knitr::opts_chunk$set(echo = FALSE)
 Für die heutige Übung brauchst du den Datensatz [temperature_2005.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602268). Dabei handelt es sich wieder um Teperaturwerte verschiedener Stationen, diesmal aus dem Jahr 2005. Das Datum ist so formatiert, dass `R` (isbesondere `read_csv`) es korrekt als `datetime` erkennen und als `POSIXct` einlesen sollte.
 
 ```{r}
-#| message: false
 #| echo: true
 library(readr)
 library(dplyr)
@@ -26,7 +25,6 @@ library(ggplot2)
 ```
 
 ```{r}
-#| message: false
 temperature <- read_csv("data/temperature_2005.csv")
 ```
 
@@ -43,7 +41,6 @@ knitr::kable(head(temperature_long))
 Lade anschliessend [temperature_2005_metadata.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602269) herunter und verbinde die beiden Datensätze mit einem `left_join` via `station` (bzw. `stn`). 
 
 ```{r}
-#| message: false
 metadata <- read_csv("data/temperature_2005_metadata.csv")
 
 temperature_long <- left_join(temperature_long, metadata, by = c(station = "stn"))
@@ -54,7 +51,9 @@ temperature_long <- left_join(temperature_long, metadata, by = c(station = "stn"
 Erstelle ein Scatterplot (`time` vs. `temperature`) wobei die Punkte aufgrund ihrer Meereshöhe eingefärbt werden sollen. Tiefe Werte sollen dabei blau eingefärbt werden und hohe Werte rot (`scale_color_gradient`). Verkleinere die Punkte um übermässiges Überplotten der Punkten zu vermeiden (`size =`). Weiter sollen auf der x-Achse im Abstand von 3 Monaten der jeweilige Monat vermerkt sein (`date_breaks` bzw. `date_labels` von `scale_x_datetime()`).
 
 ```{r}
-#| warning: false
+#| label: fig-ggplot-ex2
+#| fig-cap: "Generierter Plot"
+
 # Musterlösung
 
 ggplot(temperature_long, aes(time,temperature, color = Meereshoehe)) +
@@ -71,10 +70,9 @@ Erstelle eine Zusatzvariabel `Date` mit dem Datum der jeweiligen Messung ( mit `
 Um die Metadaten  (`Name`, `Meereshoehe`, `x`, `y`) nicht zu verlieren kannst du den Join aus der ersten Übung wieder ausführen. Alternativ (schneller aber auch schwerer zu verstehen) kannst du diese Variabeln innerhalb deines `group_by` verwenden.
 
 ```{r}
-#| message: false
-temperature_long <- temperature_long %>%
-  mutate(time = as.Date(time)) %>%
-  group_by(time, station, Name, Meereshoehe, x, y) %>%
+temperature_long <- temperature_long |>
+  mutate(time = as.Date(time)) |>
+  group_by(time, station, Name, Meereshoehe, x, y) |>
   summarise(temperature = mean(temperature))
 ```
 
@@ -83,7 +81,9 @@ temperature_long <- temperature_long %>%
 Wiederhole nun den Plot aus der ersten Aufgabe mit den aggregierten Daten aus der vorherigen Aufgabe. Um die labels korrekt zu setzen musst du `scale_x_datetime` mit `scale_x_date` ersetzen. 
 
 ```{r}
-#| warning: false
+#| label: fig-ggplot-ex4
+#| fig-cap: "Generierter Plot"
+
 p <- ggplot(temperature_long, aes(time,temperature, color = Meereshoehe)) +
   geom_point(size = 0.5) +
   labs(x = "", y = "Temperatur in ° Celsius") +
@@ -98,8 +98,9 @@ p
 Füge am obigen Plot eine schwarze, gestrichelte Trendlinie hinzu.
 
 ```{r}
-#| message: false
-#| warning: false
+#| label: fig-ggplot-ex5
+#| fig-cap: "Generierter Plot"
+
 # Musterlösung
 
 p <- p +
@@ -113,8 +114,9 @@ p
 Positioniere die Legende oberhalb des Plots (nutze dazu `theme()` mit `legend.position`). 
 
 ```{r}
-#| message: false
-#| warning: false
+#| label: fig-ggplot-ex6
+#| fig-cap: "Generierter Plot"
+
 # Musterlösung
 
 p <- p + 
@@ -128,13 +130,16 @@ p
 Füge den Temperaturwerten auf der y-Ache ein `°C` hinzu (siehe unten und studiere [diesen Tipp](https://stackoverflow.com/a/35967126/4139249) zur Hilfe). 
 
 ```{r}
-#| message: false
-#| warning: false
+#| label: fig-ggplot-ex7
+#| fig-cap: "Generierter Plot"
+
 # Musterlösung
 
-p +
+p <- p +
   scale_y_continuous(labels = function(x)paste0(x,"°C")) +
   labs(x = "Kalenderwoche", y = "Temperatur")
+
+p
 ```
 
 ## Aufgabe 8
@@ -148,7 +153,9 @@ Jetzt verlassen wir den Scatterplot und machen einen Boxplot mit den Temperaturd
 - verschiebe nach Bedarf die Legende
 
 ```{r}
-#| warning: false
+#| label: fig-ggplot-ex8
+#| fig-cap: "Generierter Plot"
+
 # Musterlösung
 
 temperature_long <- mutate(temperature_long, monat = month(time,label = T,abbr = F))
@@ -167,11 +174,12 @@ Als letzter wichtiger Plottyp noch zwei Übungen zum Histogramm. Erstelle ein Hi
 Tip: Nutze `cut` um die Stationen in die drei Gruppen aufzuteilen
 
 ```{r}
-#| warning: false
-#| message: false
+#| label: fig-ggplot-ex9
+#| fig-cap: "Generierter Plot"
+
 # Musterlösung
 
-temperature_long <- temperature_long %>%
+temperature_long <- temperature_long |>
   mutate(lage = cut(Meereshoehe, c(0, 400, 600,1000),labels = c("Tieflage", "Mittellage", "Hochlage")))
 
 ggplot(temperature_long, aes(temperature)) +
@@ -185,7 +193,6 @@ ggplot(temperature_long, aes(temperature)) +
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: asis
 #| purl: false
 #distill::mypurl()

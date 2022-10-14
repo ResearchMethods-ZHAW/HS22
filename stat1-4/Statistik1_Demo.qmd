@@ -9,10 +9,9 @@ index: 1
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: hide
 #| purl: false
-
+options(knitr.duplicate.label = "allow")
 knitr::purl("stat1-4/Statistik1_Demo.qmd", "purl/Statistik1_Demo.R", documentation = 0)
 ```
 
@@ -47,6 +46,9 @@ fisher.test(count)
 ## t-Test
 
 ```{r}
+#| label: fig-baseplot-boxplot-histo
+#| fig-cap: "Generierter Plot"
+
 a <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14)
 b <- c(12, 15, 16, 7, 8, 10, 12, 11, 13, 10)
 blume <- data.frame(a,b)
@@ -103,6 +105,9 @@ rm(cultivar)
 Das gleiche in einer Zeile
 
 ```{r}
+#| label: fig-boxplot-ttest1
+#| fig-cap: "Generierter Plot"
+
 blume.long <- data.frame(cultivar = c(rep("a", 10), rep("b", 10)), size = c(a, b))
 summary(blume.long)             
 head(blume.long)
@@ -119,7 +124,9 @@ t.test(size~cultivar, blume.long, paired = T)
 ## Base R vs. ggplot2
 
 ```{r}
-#| message: false
+#| label: fig-ggplot-boxplots
+#| fig-cap: "Generierter Plot"
+
 library(tidyverse)
 ggplot(blume.long, aes(cultivar, size)) + geom_boxplot()
 ggplot(blume.long, aes(cultivar, size)) + geom_boxplot() + theme_classic()
@@ -143,6 +150,9 @@ mytheme <- theme_classic() +
 ```
 
 ```{r}
+#| label: fig-ggplot-boxplot-themes
+#| fig-cap: "Generierter Plot"
+
 ggplot(blume.long, aes(cultivar, size)) + 
   geom_boxplot(size = 1) +
   mytheme

@@ -3,17 +3,14 @@ date: 2022-10-17
 lesson: PrePro2
 thema: Piping / Joins
 index: 1
+knitr:
+  opts_chunk: 
+    collapse: true
 ---
 
 # Prepro 2: Demo
 
-```{r}
-#| echo: false
-#| message: false
-#| results: asis
-#| purl: false
-#distill::mypurl()
-```
+Diese Demo kann auch als [R Script heruntergeladen werden](Prepro2_Demo.R) (Rechtsklick → *Save Target As..*)
 
 ## Piping
 
@@ -39,7 +36,7 @@ subtrahieren <- function(minuend, subtrahend){
 }
 ```
 
-Zudem brauchen wir die Funktion `substr()`, welche aus einem `character` einen teil "raus schnipseln" kann.
+Zudem brauchen wir die Funktion `substr()`, welche aus einem `character` einen Teil "raus schnipseln" kann.
 
 ```{r}
 # Wenn die Buchstaben einzelne _Elemente_ eines Vektors wären, würden wir diese
@@ -56,24 +53,24 @@ substr(charvec2, 4, 6)
 Übersetzt in `R`-Code entsteht folgende Operation:
 
 ```{r}
-# 1. Nimm diary
-# 2. Extrahiere auf jeder Zeile die Werte 20 bis 22
-# 3. Konvertiere "character" zu "numeric"
-# 4. Subtrahiere 273.15
-# 5. Berechne den Mittlwert
-
 output <- mean(subtrahieren(as.numeric(substr(diary, 20, 22)),273.15))
 #                                             \_1_/
 #                                      \________2__________/
 #                           \___________________3___________/
 #              \________________________________4__________________/
 #         \_____________________________________5____________________/
+
+# 1. Nimm diary
+# 2. Extrahiere auf jeder Zeile die Werte 20 bis 22
+# 3. Konvertiere "character" zu "numeric"
+# 4. Subtrahiere 273.15
+# 5. Berechne den Mittlwert
 ```
 
 Die ganze Operation liest sich etwas leichter, wenn diese sequentiell notiert wird:
 
 ```{r}
-temp <- substr(diary, 20, 22)       # 1, 2
+temp <- substr(diary, 20, 22)       # 2
 temp <- as.numeric(temp)            # 3
 temp <- subtrahieren(temp, 273.15)  # 4
 output <- mean(temp)                # 5
@@ -84,22 +81,25 @@ Umständlich ist dabei einfach, dass die Zwischenresultate immer abgespeichert u
 ```{r}
 library(magrittr)
 
-diary %>%                            # 1
-  substr(20, 22) %>%                 # 2
-  as.numeric() %>%                   # 3 
-  subtrahieren(273.15) %>%           # 4
-  mean()                             # 5
+diary |>                            # 1
+  substr(20, 22) |>                 # 2
+  as.numeric() |>                   # 3 
+  subtrahieren(273.15) |>           # 4
+  mean()                            # 5
 ```
 
-Noch ein Hinweis: die `%>%` Pipe Operation aus `magrittr` wurde in R so beliebt, dass in R 4.1 ein "base R pipe" eingeführt. Diese sieht folgendermassen aus:
+:::{.callout-important}
+- der `|>` Pipe Operator wurde erst in R `4.1` eingeführt
+- Neben dem *base R* Pipe Operator existiert im Package `magrittr` ein sehr ähnlicher[^pipe] Pipe Operator: `%>%`
+- Die Tastenkombination <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio fügt einen Pipe Operator ein. 
+- Welcher Pipe Operator `|>` oder `%>%` mit der obigen Tastenkombination eingeführt wird, kann über die RStudio Settings `Tools` → `Global Options` → `Code` → Häckchen setzen bei `Use nativ pipe operator`
 
-```{r}
-diary |>                             # 1
-  substr(20, 22) |>                  # 2
-  as.numeric() |>                    # 3 
-  subtrahieren(273.15) |>            # 4
-  mean()                             # 5
-```
+
+:::
+
+
+[^pipe]: siehe <https://stackoverflow.com/q/67633022/4139249>
+
 
 ## Joins
 
@@ -121,7 +121,6 @@ ortschaften
 ```
 
 ```{r}
-#| message: false
 #Load library
 library(dplyr)
 
@@ -142,4 +141,12 @@ studierende <- data.frame(
 )
 
 left_join(studierende, ortschaften, by = c("Wohnort" = "PLZ"))
+```
+
+```{r}
+#| purl: false
+#| echo: false
+#| output: false
+
+knitr::purl("prepro/Prepro2_Demo.qmd", "prepro/Prepro2_Demo.R",documentation = 0)
 ```

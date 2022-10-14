@@ -14,8 +14,8 @@ Neue packages die wir für die Modelle und die Diagnostics brauchen
 
 ```{r}
 #| results: hide
-#| warning: false
-#| message: false
+
+
 # neue Packages: DHARMa, car, MASS, ROCR, sjPlot, sjstats, ggeffects, cowplot, gstat
 
 ipak <- function(pkg){
@@ -38,8 +38,8 @@ ipak(packages)
 ```{r}
 #| tidy: true
 #| fig.keep: none
-#| warning: false
-#| message: false
+
+
 #| results: hide
 DF_mod_day <- read_delim("data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv", 
                          delim = ";") %>%
@@ -76,8 +76,8 @@ summary(avgmodel)
 ```{r}
 #| tidy: true
 #| fig.keep: none
-#| warning: false
-#| message: false
+
+
 #| results: hide
 f_pres_abs <- pres_abs ~
   dist_build_scaled +
@@ -106,8 +106,8 @@ Für die Berechnung des AUC findet ihr weiterführende Informationen unter: [Lin
 #| tidy: true
 #| eval: false
 #| fig.keep: none
-#| warning: false
-#| message: false
+
+
 prob <- predict(m_day,type=c("response"))   
 pred <- prediction(prob, DF_mod_day$pres_abs)    
 
@@ -129,8 +129,8 @@ Interpretieren der Modell-Residuen mittels Tests auf verschiedene Aspekte
 ```{r}
 #| tidy: true
 #| eval: false
-#| warning: false
-#| message: false
+
+
 # Residuals werden über eine Simulation auf eine Standard-Skala transformiert und 
 # können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt 
 # werden (dauert je nach dem sehr lange)
@@ -184,8 +184,8 @@ Graphische Darstellung der Modellresultate
 #| eval: false
 #| fig.width: 5.0
 #| fig.height: 3.0
-#| warning: false
-#| message: false
+
+
 # graphische Darstellung der gesamten Modellresultate
 
 plot_model(m_day,transform = NULL, show.values = TRUE, value.offset = .3)

@@ -18,7 +18,7 @@ Arbeitet mit Projekten, da diese sehr einfach ausgetauscht und somit auch reprod
 Im Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen des Skripts nennen. Hier soll auch die Herkunft der Daten ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer die Datenherrschaft hat (Rehdaten: Forschungsgruppe WILMA).
 
 ```{r}
-#| warning: false
+
 #| results: hide
 #.##################################################################################
 # Daten(vor)verarbeitung Fallstudie WPZ  ####
@@ -45,7 +45,7 @@ Im Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen de
 Bereitet euer Skript also nach dieser Struktur vor. Nutzt für den Text, welcher nicht Code ist, vor dem Text das Symbol #. Wenn ihr den Text als Titel definieren wollt, der die grobe Struktur des Skripts absteckt, baut in wie in folgendem Beispiel auf:
 
 ```{r}
-#| warning: false
+
 #| results: hide
 #.###################################################################################
 # METADATA ####
@@ -62,8 +62,8 @@ Bereitet euer Skript also nach dieser Struktur vor. Nutzt für den Text, welcher
 
 ```{r}
 #| tidy: true
-#| message: false
-#| warning: false
+
+
 library(tidyverse)
 ```
 
@@ -72,40 +72,25 @@ Herunterladen der Daten der Feldaufnahmen von Moodle (Aufgabe3_Feldaufnahmen_all
 
 ```{r}
 #| tidy: true
-#| message: false
-#| warning: false
 #| results: hide
 #| eval: false
-# Die Datensätze aller Teams müssen erst noch in CSVs umgewandelt werden, bevor sie 
-# eingelesen werden können 
 
-df_team1 <- read_delim("fallstudie_n/data/Felderhebung_Waldstruktur.csv", 
-                       delim = ";")
+df_team1 <- read_delim("fallstudie_n/data/Felderhebungen_Waldstruktur.csv", delim = ";")
 
-df_team2 <- read_delim("fallstudie_n/data/Felderhebung_Team_2.csv", delim = ";")
-# Achtung! Beim Datensatz des Teams 2 ist eine zusätzliche Zeile eingefügt, die
-# das Einlesen erschwert.
-# Ausserdem gibt es bei den Zeilen DG Rubus, DG Strauchschicht und DG Baumschicht ein  
-# Problem mit dem Datentyp resp. den Zahlen.
+df_team2 <- read_delim("fallstudie_n/data/Felderhebung_11102022_gr3.csv", delim = ";")
 
 df_team3 <- read_delim("fallstudie_n/data/Felderhebung_Waldstruktur_TEAM3_pink_Gruppe 7.csv", delim = ";")
-# Achtung! Hier ist beim Einlesen etwas falsch gelaufen. 
 
-df_team4 <- read_delim("fallstudie_n/data/Felderhebungen_Team4_Blau_221011.csv", 
-                       delim = ";")
+df_team4 <- read_delim("fallstudie_n/data/Felderhebungen_Team4_Blau_221011.csv",delim = ";")
 
-df_team5 <- read_delim("fallstudie_n/data/Felderhebung_Waldstruktur_Team5.csv", 
-                       delim = ";")
-# Achtung! Beim Umwandeln in das CSV muss hier die Titelzeile entfernt werden damit
-# das Einlesen reibungslos funktioniert
+df_team5 <- read_delim("fallstudie_n/data/Felderhebung TEAM 5.csv", delim = ";")
 
-df_team6 <- read_delim("fallstudie_n/data/Team6_Felderhebung.csv", 
-                       delim = ";")
+df_team6 <- read_delim("fallstudie_n/data/Team6_Felderhebung.csv", delim = ";")
 
 # hier können die Probekreise mit den Angaben zur Anzahl Rehlokalisationen und der 
 # LIDAR-basierten Ableitung der Waldstruktur eingelesen werden
 
-df_reh <- read_delim("data/Aufgabe3_Reh_Waldstruktur_211014.csv", delim = ";")
+df_reh <- read_delim("fallstudie_n/data/Aufgabe3_Reh_Waldstruktur_221013.csv", delim = ";")
 str(df_reh)
 
 # Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz  
@@ -132,45 +117,49 @@ str(df_gesamt)
 
 df_team1 <- df_team1 %>%
   mutate(team = "team1") %>%
-  rename(KreisID = "Kreis (r=12.5)",
-         X = "x",
-         Y = "y",
+  rename(KreisID = "Kreis (r 12.5m)",
          DG_Rubus = "Deckungsgrad Rubus sp. [%]",
          DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
          DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 
 df_team2 <- df_team2 %>%
   mutate(team = "team2") %>%
-  rename(KreisID = "Kreis (r 12.5m)",
-         DG_Rubus = "DG Rubus sp. [%]",
+  rename(KreisID = "Kreis",
+         DG_Rubus = "Deckungsgrad Rubus sp. [%]",
          DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
          DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 
 df_team3 <- df_team3 %>%
   mutate(team = "team3") %>%
   rename(KreisID = "Kreis (r 12.5m)",
+         X = "x",
+         Y = "y",
          DG_Rubus = "Deckungsgrad Rubus sp. [%]",
          DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
          DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 
 df_team4 <- df_team4 %>%
   mutate(team = "team4") %>%
-  rename(KreisID = "Kreis",
-         DG_Rubus = "Deckungsgrad Rubus sp.",
-         DG_Strauchschicht = "DG Strauchschicht",
-         DG_Baumschicht = "DG Baumschicht")
+  rename(KreisID = "Kreis (r 12.5m)",
+         DG_Rubus = "Deckungsgrad Rubus sp. [%]",
+         DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
+         DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 
 df_team5 <- df_team5 %>%
   mutate(team = "team5") %>%
-  rename(KreisID = "Kreis (r12.5)",
-         DG_Rubus = "Deckungsgrad Rubus sp.[%]",
+  rename(KreisID = "Kreis",
+         X = "x",
+         Y = "y",
+         DG_Rubus = "Deckungsgrad Rubus sp [%]",
          DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
          DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 
 df_team6 <- df_team6 %>%
   mutate(team = "team6") %>%
-  rename(KreisID = "Kreis (r 12.5m)",
-         DG_Rubus = "Deckungsgrad Rubus sp. [%]",
+  rename(KreisID = "Kreis",
+         X = "x",
+         Y = "y",
+         DG_Rubus = "DG Rubus sp. [%]",
          DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
          DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 ```

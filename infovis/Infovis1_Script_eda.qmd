@@ -9,15 +9,15 @@ index: 2
 
 ```{r}
 #| echo: false
-#| message: false
 #| results: asis
 #| purl: false
 #distill::mypurl()
 ```
 
 ```{r}
-#| message: false
-#| warning: false
+#| label: fig-ggplot-eda
+#| fig-cap: "Generierter Plot"
+
 library(ggplot2)
 library(dplyr)
 library(scales)
@@ -88,8 +88,8 @@ ggplot(people, aes(x=age, y=height)) +
 
 # outliers: Remove very small and very old people
 
-peopleClean <- people %>%
-  filter(ID != 27) %>%    # Diese Person war zu klein.
+peopleClean <- people |>
+  filter(ID != 27) |>    # Diese Person war zu klein.
   filter(age < 100)       # Fehler in der Erhebung des Alters
 
 ggplot(peopleClean, aes(x=age)) + 
@@ -112,15 +112,15 @@ ggplot(peopleClean, aes(x=age, y=height)) +
   scale_x_sqrt()
 
 # filter "teenies": No trend
-filter(peopleClean, age < 15) %>%
+filter(peopleClean, age < 15) |>
   ggplot(aes(x=age, y=height)) + 
   geom_point() + 
   scale_y_continuous(limits=c(0, 2.0)) +
   geom_smooth(method="lm", fill='lightblue', size=0.5, alpha=0.5)
 
 # filter "teenies": No trend
-peopleClean %>%
-  filter(age > 55) %>%
+peopleClean |>
+  filter(age > 55) |>
   ggplot(aes(x=age, y=height)) + 
   geom_point() + 
   scale_y_continuous(limits=c(0, 2.0)) +

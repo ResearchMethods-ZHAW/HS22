@@ -60,6 +60,10 @@ cor <- cor(doubs[, 1:11])
 cor[abs(cor)<.7] <- 0
 cor 
 
+
+#| label: fig-baseplot-lm-direct
+#| fig-cap: "Generierter Plot"
+
 # Globalmodell (als hinreichend unabhängige Variablen werden ele, slo, pH und pho aufgenommen)
 lm.orig.1 <- lm(species_richness ~ ele + slo + pH + pho, data = doubs)
 summary(lm.orig.1)
