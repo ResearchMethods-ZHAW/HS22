@@ -660,16 +660,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: hide</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#.##################################################################################</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten(vor)verarbeitung Fallstudie WPZ  ####</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Modul Research Methods, HS21. Autor/in ####</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Modul Research Methods, HS22. Autor/in ####</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#.##################################################################################</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Beschreibt zudem folgendes:</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># • Ordnerstruktur (ich verwende hier den Projektordner mit den Unterordnern Skripts, </span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Feldaufnahmen, Data, Results, Plots)</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># • Verwendete Daten</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Ein Skript soll in R eigentlich immer nach dem selbem Schema aufgebaut sein. </span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Dieses Schema beinhaltet (nach dem bereits erwähnten Kopf des Skripts) 4 Kapitel: </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># • Ordnerstruktur; ich verwende hier den Projektordner mit den Unterordnern: </span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   • Skripts</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   • Data</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   • Results</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   • Plots</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># • Verwendete Daten</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Ein Skript soll in R eigentlich immer nach dem selbem Schema aufgebaut sein. </span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Dieses Schema beinhaltet (nach dem bereits erwähnten Kopf des Skripts) 4 Kapitel: </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="1">
 <li>Datenimport</li>
@@ -701,71 +704,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="daten-laden">Daten laden</h2>
 <p>Herunterladen der Daten der Feldaufnahmen von Moodle (Aufgabe3_Feldaufnahmen_alle_Gruppen.zip), Einlesen, Sichtung der Datensätze und der Datentypen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: hide</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Datensätze aller Teams müssen erst noch in CSVs umgewandelt werden, bevor sie </span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># eingelesen werden können </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>df_team1 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/Felderhebung Waldstruktur_TEAM_1_türkis.csv"</span>, </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">delim =</span> <span class="st">";"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: 'data/Felderhebung Waldstruktur_TEAM_1_türkis.csv' does not exist in current working directory ('C:/Users/hoce/OneDrive - ZHAW/Dokumente/02a_MSc/Research-Methods_Fallstudie/HS22').</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_team2 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/Felderhebung_Team_2.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: 'data/Felderhebung_Team_2.csv' does not exist in current working directory ('C:/Users/hoce/OneDrive - ZHAW/Dokumente/02a_MSc/Research-Methods_Fallstudie/HS22').</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Achtung! Beim Datensatz des Teams 2 ist eine zusätzliche Zeile eingefügt, die</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># das Einlesen erschwert.</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausserdem gibt es bei den Zeilen DG Rubus, DG Strauchschicht und DG Baumschicht ein  </span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Problem mit dem Datentyp resp. den Zahlen.</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>df_team3 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/ReMe_Felderhebung_Gruppe3.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: 'data/ReMe_Felderhebung_Gruppe3.csv' does not exist in current working directory ('C:/Users/hoce/OneDrive - ZHAW/Dokumente/02a_MSc/Research-Methods_Fallstudie/HS22').</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Achtung! Hier ist beim Einlesen etwas falsch gelaufen. </span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df_team4 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/Felderhebung_Waldstruktur_Team_4.csv"</span>, </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">delim =</span> <span class="st">";"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: 'data/Felderhebung_Waldstruktur_Team_4.csv' does not exist in current working directory ('C:/Users/hoce/OneDrive - ZHAW/Dokumente/02a_MSc/Research-Methods_Fallstudie/HS22').</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_team5 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/Felderhebung_Waldstruktur_Team5.csv"</span>, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">delim =</span> <span class="st">";"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: 'data/Felderhebung_Waldstruktur_Team5.csv' does not exist in current working directory ('C:/Users/hoce/OneDrive - ZHAW/Dokumente/02a_MSc/Research-Methods_Fallstudie/HS22').</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Achtung! Beim Umwandeln in das CSV muss hier die Titelzeile entfernt werden damit</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># das Einlesen reibungslos funktioniert</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>df_team6 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/Aufnahmen_Landforst_HS21_Gruppe_6.csv"</span>, </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">delim =</span> <span class="st">";"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: 'data/Aufnahmen_Landforst_HS21_Gruppe_6.csv' does not exist in current working directory ('C:/Users/hoce/OneDrive - ZHAW/Dokumente/02a_MSc/Research-Methods_Fallstudie/HS22').</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hier können die Probekreise mit den Angaben zur Anzahl Rehlokalisationen und der </span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># LIDAR-basierten Ableitung der Waldstruktur eingelesen werden</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>df_reh <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/Aufgabe3_Reh_Waldstruktur_211014.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: 'data/Aufgabe3_Reh_Waldstruktur_211014.csv' does not exist in current working directory ('C:/Users/hoce/OneDrive - ZHAW/Dokumente/02a_MSc/Research-Methods_Fallstudie/HS22').</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_reh)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in str(df_reh): Objekt 'df_reh' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz  </span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># verbinden. Ist der Output zufriedenstellend?</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>df_gesamt <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df_team1, df_team2, df_team3, df_team4, df_team5, df_team6)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in list2(...): Objekt 'df_team1' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_gesamt)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in str(df_gesamt): Objekt 'df_gesamt' nicht gefunden</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_team1 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Felderhebungen_Waldstruktur.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df_team2 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Felderhebung_11102022_gr3.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df_team3 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Felderhebung_Waldstruktur_TEAM3_pink_Gruppe 7.csv"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>df_team4 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Felderhebungen_Team4_Blau_221011.csv"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>df_team5 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Felderhebung TEAM 5.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>df_team6 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Team6_Felderhebung.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># hier können die Probekreise mit den Angaben zur Anzahl Rehlokalisationen und</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># der LIDAR-basierten Ableitung der Waldstruktur eingelesen werden</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>df_reh <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Aufgabe3_Reh_Waldstruktur_221013.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_reh)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co"># verbinden. Ist der Output zufriedenstellend?</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>df_gesamt <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df_team1, df_team2, df_team3, df_team4, df_team5, df_team6)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_gesamt)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="aufgabe-1" class="level2">
