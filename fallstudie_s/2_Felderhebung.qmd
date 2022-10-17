@@ -108,8 +108,8 @@ Die Anzahl Passagen pro Zählstelle können nicht nur als statische Diagramme da
 
 ```{r results="hide"}
 # zuerst berechnen wir mit der Bibliothek tidyverse das Total pro Standort
-total_Standort <- depo %>% 
-  group_by(Standort, lon, lat) %>% 
+total_Standort <- depo |> 
+  group_by(Standort, lon, lat) |> 
   summarise(Total = sum(Total))
 
 # dann überführen wir den Datensatz in ein räumliches Format 
