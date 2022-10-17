@@ -555,7 +555,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../fallstudie_s/2_Felderhebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW 40 - KW 42: Felderhebung</span></a>
   </div>
 </li>
-          <li class="px-0"><hr class="sidebar-divider hi "></li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -577,11 +576,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../fallstudie_n/2_Datenverarbeitung_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2. Daten(vor)verarbeitung - Übung</span></a>
   </div>
 </li>
-          <li class="px-0"><hr class="sidebar-divider hi "></li>
-          <li class="px-0"><hr class="sidebar-divider hi "></li>
-          <li class="px-0"><hr class="sidebar-divider hi "></li>
-          <li class="px-0"><hr class="sidebar-divider hi "></li>
-          <li class="px-0"><hr class="sidebar-divider hi "></li>
       </ul>
   </li>
     </ul>
@@ -648,20 +642,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h2>
 <p>Lade <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602139">metadata</a> herunter und lese es ebenfalls als csv ein.</p>
 <div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
 Tipp
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Wenn Umlaute und Sonderzeichen nicht korrekt dargestellt werden (z.B. in Gen<em>è</em>ve), hat das vermutlich mit der <a href="https://de.wikipedia.org/wiki/Zeichenkodierung">Zeichencodierung</a> zu tun. Das File ist aktuell in ‘UTF-8’ codiert. Diese Codierung muss in R beim Importieren spezifitiert, was je nach verwendete import Funktion unterschiedlich gemacht wird. Die Funktionen aus <code>readr</code> verwenden <code>locale = locale(encoding = "UTF-8")</code>, base-R Funktionen <code>fileEncoding = "UTF-8"</code></p>
-<p>Wenn ihr die codierung eines Files <em>nicht</em> kennt, könnt ihr unter Windows vorgehen <a href="https://stackoverflow.com/a/13464816/4139249">wie hier beschrieben</a>. Die Anleitung für Mac ist <a href="https://stackoverflow.com/a/2461193/4139249">hier verfügbar</a>. Linux Nutzer können <a href="https://stackoverflow.com/a/805474/4139249">diese Anleitung</a> befolgen.</p>
-</div>
+<p>Wenn Umlaute und Sonderzeichen nicht korrekt dargestellt werden (z.B. das è in Gen<em>è</em>ve), hat das vermutlich mit der <a href="https://de.wikipedia.org/wiki/Zeichenkodierung">Zeichencodierung</a> zu tun. Das File ist aktuell in <em>UTF-8</em> codiert. Wenn Umlaute nicht korrekt dargestellt werden, hat R diese Codierung nicht erkannt und sie muss in der Import-Funktion spezifitiert werden. Dies wird je nach verwendete import Funktion unterschiedlich gemacht:</p>
+<ul>
+<li>Funktionen aus dem Package <code>readr</code>: <code>locale = locale(encoding = "UTF-8")</code></li>
+<li>Base-R Funktionen: <code>fileEncoding = "UTF-8"</code></li>
+</ul>
+<p>Wenn ihr die codierung eines Files <em>nicht</em> kennt, könnt wie folgt vorgehen: Anleitung <a href="https://stackoverflow.com/a/13464816/4139249">für Windows</a>, <a href="https://stackoverflow.com/a/2461193/4139249">für Mac</a> und <a href="https://stackoverflow.com/a/805474/4139249">für Linux</a>.</p>
 </div>
 </div>
 <div class="cell">
@@ -670,14 +665,14 @@ Tipp
 </section>
 <section id="aufgabe-3" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
-<p>Nun wollen wir den Datensatz <code>wetter</code>mit den Informationen aus <code>metadata</code> anreichern. Uns interessiert aber nur das Stationskürzel, der Name, die x/y Koordinaten sowie die Meereshöhe. Lösche die nicht benötigten Spalten (oder selektiere die benötigten Spalten).</p>
+<p>Nun wollen wir den Datensatz <code>wetter</code>mit den Informationen aus <code>metadata</code> anreichern. Uns interessiert aber nur das Stationskürzel, der Name, die x/y Koordinaten sowie die Meereshöhe, selektiere diese Spalten.</p>
 <div class="cell">
 
 </div>
 </section>
 <section id="aufgabe-4" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
-<p>Nun ist der Datensatz <code>metadata</code> genügend vorbereitet. Jetzt kann er mit dem Datensatz <code>wetter</code> verbunden werden. Überlege dir, welcher Join dafür sinnvoll ist und mit welchem Attribut wir “joinen” können.</p>
+<p>Jetzt kann <code>metadata</code> mit dem Datensatz <code>wetter</code> verbunden werden. Überlege dir, welcher Join dafür sinnvoll ist und mit welchem Attribut wir “joinen” können.</p>
 <p>Nutze die Join-Möglichkeiten von <code>dplyr</code> (Hilfe via <code>?dplyr::join</code>) um die Datensätze <code>wetter</code> und <code>metadata</code> zu verbinden.</p>
 <div class="cell">
 
