@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Research Methods HS22 - 63&nbsp; KW 42+43: Übung Datenvorverarbeitung</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fallstudie_n/1_Vorbemerkung.html" rel="next">
+<link href="../fallstudie_s/4_Projektierung.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../custom.css">
+<link rel="stylesheet" href="../theme-custom.scss">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-title">KW 42+43: Übung Datenvorverarbeitung</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../" class="sidebar-logo-link">
+      <img src="../images/zhaw_sw_neg.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Research Methods HS22</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Willkommen</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../PrePro.html" class="sidebar-item-text sidebar-link">Pre-Processing</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 1: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PrePro 1: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro3_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 3: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 3: Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../InfoVis.html" class="sidebar-item-text sidebar-link">InfoVis</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Demo A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Script_eda.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Demo B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung B</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Stat1-4.html" class="sidebar-item-text sidebar-link">Statistik 1 - 4</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Novanimal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: NOVANIMAL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_Beispiel.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung Beispiel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung 2.1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_2223s.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung 2.2 &amp; 2.3S</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_23n.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung 2.3N</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2n.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2N</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2s.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2S</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Stat5-8.html" class="sidebar-item-text sidebar-link">Statistik 5 - 8</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Lösung 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Loesung_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Lösung 2</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Lösung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../StatKons.html" class="sidebar-item-text sidebar-link">Statistik Konsolidierung</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons1_Demo_assoziationen.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Demo 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons1_Demo_open_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Open Datasets</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons1_Demo_suggest_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Suggested Datasets</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons2_Demo_PCA.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons2: Demo</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons3_Demo_LM.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons3: Demo</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons4_Demo_GLM.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons4: Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../RaumAn.html" class="sidebar-item-text sidebar-link">Räumliche Analysen</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman1_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 1: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman1_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 1: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman2_Uebung_C.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung C</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman3_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 3: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman4_Uebung_A_ahp.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 4: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman4_Uebung_B_raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 4: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman5_Uebung_mce.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 5: Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Fallstudie S</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/1_Einleitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW40: Einleitung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/2_Felderhebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW 40 - KW 42: Felderhebung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/3_Aufgabenstellung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW 42: Aufgabenstellung WPZ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/4_Projektierung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW 42: Projektierung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/5_Vorverarbeitung_Uebung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">KW 42+43: Übung Datenvorverarbeitung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">Fallstudie N</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/1_Vorbemerkung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1. Vorbemerkung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/2_Datenverarbeitung_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2. Daten(vor)verarbeitung - Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#aufgabe-1-zähldaten" id="toc-aufgabe-1-zähldaten" class="nav-link active" data-scroll-target="#aufgabe-1-zähldaten">Aufgabe 1: Zähldaten</a></li>
+  <li><a href="#a" id="toc-a" class="nav-link" data-scroll-target="#a">1a)</a></li>
+  <li><a href="#b" id="toc-b" class="nav-link" data-scroll-target="#b">1b)</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">1c)</a></li>
+  <li><a href="#aufgabe-2-meteodaten" id="toc-aufgabe-2-meteodaten" class="nav-link" data-scroll-target="#aufgabe-2-meteodaten">Aufgabe 2: Meteodaten</a>
+  <ul class="collapse">
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">2a)</a></li>
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">2b)</a></li>
+  <li><a href="#c-1" id="toc-c-1" class="nav-link" data-scroll-target="#c-1">2c)</a></li>
+  </ul></li>
+  <li><a href="#aufgabe-3-datenvorverarbeitung-mutationen" id="toc-aufgabe-3-datenvorverarbeitung-mutationen" class="nav-link" data-scroll-target="#aufgabe-3-datenvorverarbeitung-mutationen">Aufgabe 3: Datenvorverarbeitung (Mutationen)</a>
+  <ul class="collapse">
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">3a)</a></li>
+  <li><a href="#b-2" id="toc-b-2" class="nav-link" data-scroll-target="#b-2">3b)</a></li>
+  <li><a href="#c-2" id="toc-c-2" class="nav-link" data-scroll-target="#c-2">3c)</a></li>
+  <li><a href="#d-tageszeit" id="toc-d-tageszeit" class="nav-link" data-scroll-target="#d-tageszeit">3d) Tageszeit</a></li>
+  </ul></li>
+  <li><a href="#aufgabe-4-aggregierung-der-stundendaten" id="toc-aufgabe-4-aggregierung-der-stundendaten" class="nav-link" data-scroll-target="#aufgabe-4-aggregierung-der-stundendaten">Aufgabe 4: Aggregierung der Stundendaten</a>
+  <ul class="collapse">
+  <li><a href="#a-3" id="toc-a-3" class="nav-link" data-scroll-target="#a-3">4a)</a></li>
+  <li><a href="#b-3" id="toc-b-3" class="nav-link" data-scroll-target="#b-3">4b)</a></li>
+  <li><a href="#c-3" id="toc-c-3" class="nav-link" data-scroll-target="#c-3">4c)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-title">KW 42+43: Übung Datenvorverarbeitung</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="aufgabe-1-zähldaten" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-zähldaten">Aufgabe 1: Zähldaten</h2>
+<p>Die Projektstruktur steht. Nun können die Daten eingelesen und die nötigen Datentypen definiert werden.</p>
+<p>Lädt die Daten zuerst von Moodle herunter.</p>
+<p>Hinweise:</p>
+<ul>
+<li><p>Siehe [Einleitung] für den Standort der <strong>Zähler 211 und 502</strong>.</p></li>
+<li><p>Die Daten sind auf Moodle unter <em>ReMe HS22 MSc ENR / Fallstudie Biodiversity &amp; Ecosystems / S_Daten</em> abgelegt.</p></li>
+</ul>
+<ol type="1">
+<li>Zähldaten zu eurem Standort (211_sihlwaldstrasse_2017_2022.csv, 502_sihluferweg_2016_2022.csv)</li>
+<li>Meteodaten (order_105742_data.txt)</li>
+</ol>
+<p>Die Zähldaten des Wildnispark Zürich wurden vorgängig bereinigt (z.B. wurden Stundenwerte entfernt, an denen am Zähler Wartungsarbeiten stattgefunden haben). Das macht es für uns einfach, denn wir können die Daten ohne vorgängige Bereinigung einlesen. Behaltet aber im Hinterkopf, dass die Datenaufbereitung, die Datenbereinigung mit viel Aufwand verbunden ist.</p>
+<ul>
+<li>Lest die Zählaten ein, speichert ihn unter der Variable <strong>depo</strong> und sichtet den Datensatz (z.B. str(), head(), view() usw.).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./HIER RELATIVEN DATEIPFAD EINGEBEN"</span>, <span class="at">sep =</span> <span class="st">"HIER SEPERATOR EINGEBEN"</span>) </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Speicherort sowie Dateiname anpassen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Hinweis:</strong> Im Stundenformat zeigen die Werte bei 11:00 die Zähldaten zwischen 11:00 bis 12:00 Uhr.</p>
+</section>
+<section id="a" class="level2">
+<h2 class="anchored" data-anchor-id="a">1a)</h2>
+<ul>
+<li><p>Im Datensatz des Wildnisparks sind Datum und Uhrzeit in einer Spalte. Diese müssen <strong>getrennt</strong> werden (Ich schlage hier den Ansatz des piping ( |&gt; ) vor. Damit können in einem “Rutsch” mehrere Operationen ausgeführt werden).</p></li>
+<li><p>Ebenfalls muss das Datum als solches definiert werden. Welches Format hat es (im Code: format = “HIER DATUMSFORMAT”)?</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(depo)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Datum =</span> <span class="fu">as.character</span>(Datum)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Datum =</span> <span class="fu">as.Date</span>(Datum, <span class="at">format =</span> <span class="st">"HIER DATUMSFORMAT"</span>)) <span class="co"># hier wird Text zum Datum</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b" class="level2">
+<h2 class="anchored" data-anchor-id="b">1b)</h2>
+<p>Ihr könnt selbst wählen, ob ihr Fussgänger:innen oder Velos untersuchen wollt (je nachdem ob sie in eurem Datensatz vorhanden sind).</p>
+<ul>
+<li>Entfernt die überflüssigen Spalten aus dem Datensatz.Ich schlage vor, dass ihr dafuer den Befehl dplyr::select() verwendet.</li>
+</ul>
+</section>
+<section id="c" class="level2">
+<h2 class="anchored" data-anchor-id="c">1c)</h2>
+<ul>
+<li>Berechnen des Totals (IN + OUT), da dieses in den Daten nicht vorhanden ist (wiederum mit piping).</li>
+</ul>
+<p>Tipp: Wenn man R sagt: “addiere mir Spalte x mit Spalte y”, dann macht R das für alle Zeilen in diesen zwei Spalten. Wenn man nun noch sagt: “speichere mir das Ergebnis dieser Addition in einer neuen Spalte namens <strong>Total</strong>”, dann hat man die Aufgabe bereits gelöst. Arbeitet mit <strong>mutate()</strong>).</p>
+<p><strong>Hinweis:</strong> Ihr habt das auch schon in Kapitel [Einführung und Installation] gemacht.</p>
+<ul>
+<li>Entfernt nun alle NA-Werte mit <strong>na.omit()</strong>.</li>
+</ul>
+</section>
+<section id="aufgabe-2-meteodaten" class="level1">
+<h1>Aufgabe 2: Meteodaten</h1>
+<section id="a-1" class="level2">
+<h2 class="anchored" data-anchor-id="a-1">2a)</h2>
+<ul>
+<li>Lest die Meteodaten ein und speichert sie unter <strong>meteo</strong>.</li>
+</ul>
+</section>
+<section id="b-1" class="level2">
+<h2 class="anchored" data-anchor-id="b-1">2b)</h2>
+<ul>
+<li>Auch hier müssen die Datentypen manuell gesetzt werden.</li>
+</ul>
+<p>Tipp: Das Datum wird als Integer erkannt. Zuerst muss es in Text umgewandelt werden aus dem dann das eigentliche Datum herausgelesen werden kann. Das ist mühsam - darum hier der Code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>meteo <span class="ot">&lt;-</span> <span class="fu">transform</span>(meteo, <span class="at">time =</span> <span class="fu">as.Date</span>(<span class="fu">as.character</span>(time), <span class="st">"%Y%m%d"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Hinweis</strong> Was ist eigentlich Niederschlag:</p>
+<p>https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html</p>
+<ul>
+<li><p>Werden den anderen Spalten die richtigen Typen zugewiesen? Falls nicht, ändert die Datentypen.</p></li>
+<li><p>Nun schneiden wir den Datensatz auf die Untersuchungsdauer zu.</p></li>
+</ul>
+</section>
+<section id="c-1" class="level2">
+<h2 class="anchored" data-anchor-id="c-1">2c)</h2>
+<ul>
+<li>Jetzt müssen auch hier alle nicht verfügbare Werte (NA’s) herausgefiltert werden.</li>
+</ul>
+<p>Tipp: Entweder geht das mit <strong>na.omit()</strong> für alle Spalten oder, etwas konservativer, können mit <strong>filter()</strong> die zu filternden Spalten definiert werden. Mit folgendem Codeblock können z.B. alle Werte gefiltert werden, die in der Spalte stn nicht gleich NA sind (es werden also die Werte behalten, die vorhanden sind). Der Code muss für die anderen relevanten Spalten noch ergänzt werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>meteo <span class="ot">&lt;-</span> meteo <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stn))<span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  ...<span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Hinweis:</strong> <strong>…</strong> steht im Code für folgende oder vorhergehende Zeilen im Code (in einer Pipe)</p>
+<ul>
+<li>Prüft nun, wie die Struktur des data.frame (df) aussieht und ob alle NA Werte entfernt wurden (sum(is.na(df$Variable))). Stimmen alle Datentypen?</li>
+</ul>
+</section>
+</section>
+<section id="aufgabe-3-datenvorverarbeitung-mutationen" class="level1">
+<h1>Aufgabe 3: Datenvorverarbeitung (Mutationen)</h1>
+<section id="a-2" class="level2">
+<h2 class="anchored" data-anchor-id="a-2">3a)</h2>
+<p>Jetzt fügen wir viele Convinience Variabeln hinzu. Wir brauchen:</p>
+<ol type="1">
+<li>Wochentag; der Befehl dazu ist <strong>weekdays()</strong></li>
+</ol>
+<p>Tipp: R sortiert die Levels alphabetisch. Da das in unserem Fall aber sehr unpraktisch ist, müssen die Levels manuell bestimmt werden</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wochentag =</span> base<span class="sc">::</span><span class="fu">factor</span>(Wochentag, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Montag"</span>, <span class="st">"Dienstag"</span>, <span class="st">"Mittwoch"</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"Donnerstag"</span>, <span class="st">"Freitag"</span>, <span class="st">"Samstag"</span>, <span class="st">"Sonntag"</span>)))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Frage: Was bedeutet <strong>base::</strong> vor den eigentlichen Befehl?</p>
+<ul>
+<li>Werktag oder Wochenende?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wochenende =</span> <span class="fu">if_else</span>(Wochentag <span class="sc">==</span> <span class="st">"Montag"</span> <span class="sc">|</span> Wochentag <span class="sc">==</span> <span class="st">"Dienstag"</span> <span class="sc">|</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                           Wochentag <span class="sc">==</span> <span class="st">"Mittwoch"</span> <span class="sc">|</span> Wochentag <span class="sc">==</span> <span class="st">"Donnerstag"</span> <span class="sc">|</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                           Wochentag <span class="sc">==</span> <span class="st">"Freitag"</span>, <span class="st">"Werktag"</span>, <span class="st">"Wochenende"</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Frage: Was bedeuten die <strong>|</strong> (zu erstellen mit AltGr + 7)? Welches ist das if Argument, welches das else?</p>
+<ol start="2" type="1">
+<li><p>Kalenderwoche: <strong>isoweek()</strong></p></li>
+<li><p>Monat: <strong>month()</strong></p></li>
+<li><p>Jahr: <strong>year()</strong></p></li>
+<li><p>Phase Covid (Code untenstehend). Wir definieren fünf Phasen:</p></li>
+</ol>
+<ul>
+<li>von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1 (pre)</li>
+<li>1 Jahr vor Corona (normal)</li>
+<li>Lockdown 1</li>
+<li>Lockdown 2</li>
+<li>Ende 2. Lockdown bis Ende Untersuchungsperiode</li>
+</ul>
+<p><strong>Hinweis:</strong></p>
+<ul>
+<li><p>Ich mache den letzten Punkt nachgelagert, da zu viele Operationen in einem Schritt auch schon mal etwas durcheinander erzeugen können.</p></li>
+<li><p>Wir packen alle Phasen (normal, die beiden Lockdowns und Covid aber ohne Lockdown) in eine Spalte –&gt; long-format ist schöner (und praktischer für das plotten) als wide-format.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Phase =</span> <span class="fu">if_else</span>(Datum <span class="sc">&gt;=</span> lock_1_start_2020 <span class="sc">&amp;</span> Datum <span class="sc">&lt;=</span> lock_1_end_2020,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"Lockdown_1"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">if_else</span>(Datum <span class="sc">&gt;=</span> lock_2_start_2021 <span class="sc">&amp;</span> Datum <span class="sc">&lt;=</span> lock_2_end_2021,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Lockdown_2"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">if_else</span>(Datum<span class="sc">&gt;=</span> (lock_1_start_2020 <span class="sc">-</span> <span class="fu">years</span>(<span class="dv">1</span>)) <span class="sc">&amp;</span> Datum <span class="sc">&lt;</span> lock_1_start_2020,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"Normal"</span>, </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">if_else</span>(Datum <span class="sc">&gt;</span> lock_2_end_2021,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">"Post"</span>, <span class="st">"Pre"</span>)))))</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># hat das gepklappt?!</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(depo<span class="sc">$</span>Phase)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Frage: Welches ist das if Argument, welches das else?</p>
+<ul>
+<li>Ändert die Datentypen der Spalten Wochenende, KW, Phase zu factor und sortiert die Levels, so dass diese Sinn machen (z.B. in Phase = Pre, Normal, Lockdown 1, Lockdown 2, Post).</li>
+</ul>
+</section>
+<section id="b-2" class="level2">
+<h2 class="anchored" data-anchor-id="b-2">3b)</h2>
+<ul>
+<li>Nun soll noch die volle Stunde als Integer im Datensatz stehen. Diese Angabe muss etwas mühsam aus den Daten gezogen werden (darum hier der fertige Code dazu):</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>depo<span class="sc">$</span>Stunde <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">format</span>(<span class="fu">as.POSIXct</span>(depo<span class="sc">$</span>Zeit,<span class="at">format=</span><span class="st">"%H:%M:%S"</span>),<span class="st">"%H"</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ersetze 0 Uhr mit 24 Uhr (damit wir besser rechnen können)</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>depo<span class="sc">$</span>Stunde[depo<span class="sc">$</span>Stunde <span class="sc">==</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">24</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(depo<span class="sc">$</span>Stunde)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(depo<span class="sc">$</span>Stunde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="c-2" class="level2">
+<h2 class="anchored" data-anchor-id="c-2">3c)</h2>
+<p>Die Daten wurden durch den WPZ kalibriert (Kommastellen).</p>
+<ul>
+<li><p>Rundet sie auf 0 Nachkommastellen (Ganzzahl; unser Modell kann nicht mit Kommazahlen in der ahbängigen Variable umgehen).</p></li>
+<li><p>Definiert sie sicherheitshalber als Integer</p></li>
+<li><p>Macht das für IN, OUT und Total.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>depo<span class="sc">$</span>... <span class="ot">&lt;-</span> <span class="fu">round</span>(..., <span class="at">digits =</span> <span class="dv">0</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>depo<span class="sc">$</span>... <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(...)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="d-tageszeit" class="level2">
+<h2 class="anchored" data-anchor-id="d-tageszeit">3d) Tageszeit</h2>
+<p>Wir setzen den Fokus unserer Untersuchung auf die Veränderung der Besuchszahlen in der Abend- und Morgendämmerung sowie der Nacht. Dafür müssen wir diese tageszeitliche Einteilung der Daten erst machen. Da dies über den Umfang dieser Fallstudie geht, liefere ich euch hier den Code dazu.</p>
+<p>Die wichtigsten Punkte:</p>
+<ul>
+<li>Die Tageslänge wurde für den Standort Zürich (Zeitzone CET) mit dem Package “suncalc” berechnet. Dabei wurden Sommer- und Winterzeit berücksichtigt.</li>
+<li>Die Einteilung der Tageszeit beruht auf dem Start und dem Ende der astronomischen Dämmerung sowie der Golden Hour. Der Morgen und der Abend wurden nach dieser Definition berechnet und um je eine Stunde Richtung Tag verlängert.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Einteilung Standort Zuerich</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Latitude <span class="ot">&lt;-</span> <span class="fl">47.38598</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Longitude <span class="ot">&lt;-</span> <span class="fl">8.50806</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Zur Berechnung der Tageslaege muessen wir zuerst den Start und das Ende der Sommer-</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># zeit definieren</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.schulferien.org/schweiz/zeit/zeitumstellung/</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>So_start_2017 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-03-26"</span>) </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>So_end_2017 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-10-29"</span>) </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>So_start_2018 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-03-25"</span>) </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>So_end_2018 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-10-28"</span>) </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>So_start_2019 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-03-31"</span>) </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>So_end_2019 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-10-27"</span>) </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>So_start_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-03-29"</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>So_end_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-10-25"</span>)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>So_start_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-03-28"</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>So_end_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-10-31"</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>So_start_2022 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-03-27"</span>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>So_end_2022 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-10-30"</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Welche Zeitzone haben wir eigentlich?</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Switzerland uses Central European Time (CET) during the winter as standard time, </span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co"># which is one hour ahead of Coordinated Universal Time (UTC+01:00), and </span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Central European Summer Time (CEST) during the summer as daylight saving time, </span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># which is two hours ahead of Coordinated Universal Time (UTC+02:00).</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co"># https://en.wikipedia.org/wiki/Time_in_Switzerland</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Was sind Astronomische Dämmerung und Golden Hour ueberhaupt?</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="co"># https://sunrisesunset.de/sonne/schweiz/zurich-kreis-1-city/</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.rdocumentation.org/packages/suncalc/versions/0.5.0/topics/getSunlightTimes</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir arbeiten mit folgenden Variablen:</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="co"># "nightEnd" : night ends (morning astronomical twilight starts)</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co"># "goldenHourEnd" : morning golden hour (soft light, best time for photography) ends</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="co"># "goldenHour" : evening golden hour starts</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="co"># "night" : night starts (dark enough for astronomical observations)</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>lumidata <span class="ot">&lt;-</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getSunlightTimes</span>(</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">seq.Date</span>(depo_start, depo_end, <span class="at">by =</span> <span class="dv">1</span>),</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">keep =</span> <span class="fu">c</span>(<span class="st">"nightEnd"</span>, <span class="st">"goldenHourEnd"</span>, <span class="st">"goldenHour"</span>, <span class="st">"night"</span>),</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">lat =</span> Latitude,</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">lon =</span> Longitude,</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">tz =</span> <span class="st">"CET"</span>)</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>lumidata <span class="ot">&lt;-</span> lumidata <span class="sc">|&gt;</span> </span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Jahreszeit =</span> <span class="fu">ifelse</span>(date <span class="sc">&gt;=</span> So_start_2017 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span>  So_end_2017 <span class="sc">|</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>                               date <span class="sc">&gt;=</span> So_start_2018 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span>  So_end_2018 <span class="sc">|</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>                               date <span class="sc">&gt;=</span> So_start_2019 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span>  So_end_2019 <span class="sc">|</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>                               date <span class="sc">&gt;=</span> So_start_2020 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span> So_end_2020 <span class="sc">|</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>                               date <span class="sc">&gt;=</span> So_start_2021 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span> So_end_2021 <span class="sc">|</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>                               date <span class="sc">&gt;=</span> So_start_2022 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span> So_end_2022, </span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Sommerzeit"</span>, <span class="st">"Winterzeit"</span>))</span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="co"># CH ist im Im Sommer CET + 1. </span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Darum auf alle relevanten Spalten eine Stunde addieren</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="co"># hinweis: ich verzichte hier auf ifelse, da es einfacher und nachvollziehbarer scheint,</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a><span class="co"># hier mit einem filter die betreffenden Spalten zu waehlen</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>lumidata_So <span class="ot">&lt;-</span> lumidata <span class="sc">|&gt;</span> </span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Jahreszeit<span class="sc">==</span><span class="st">"Sommerzeit"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nightEnd =</span> nightEnd <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">1</span>),</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>         <span class="at">goldenHourEnd =</span>  goldenHourEnd <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">1</span>),</span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>         <span class="at">goldenHour =</span> goldenHour <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">1</span>),</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>         <span class="at">night =</span> night <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">1</span>))</span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>lumidata_Wi <span class="ot">&lt;-</span> lumidata <span class="sc">|&gt;</span> </span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Jahreszeit<span class="sc">==</span><span class="st">"Winterzeit"</span>) </span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a><span class="co"># verbinde sommer- und winterzeit wieder</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>lumidata <span class="ot">&lt;-</span> <span class="fu">rbind</span>(lumidata_So, lumidata_Wi) <span class="sc">|&gt;</span> </span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a><span class="co"># change data type</span></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>lumidata<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(lumidata<span class="sc">$</span>date, <span class="at">format=</span> <span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="co"># drop unnecessary cols</span></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a>lumidata <span class="ot">&lt;-</span> lumidata <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>lat, <span class="sc">-</span>lon)</span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a><span class="co"># jetzt haben wir alle noetigen Angaben zu Sonnenaufgang, Tageslaenge usw. </span></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a><span class="co"># diese Angaben koennen wir nun mit unseren Zaehldaten verbinden:</span></span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> <span class="fu">left_join</span>(depo,lumidata, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Datum"</span> <span class="ot">=</span><span class="st">"date"</span>))</span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a><span class="co"># aendere alle Zeit- und Datumsangaben so, dass sie gleich sind und miteinander verrechnet werden können.</span></span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> </span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datetime =</span> <span class="fu">paste</span>(Datum, Zeit)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datetime =</span> <span class="fu">as.POSIXct</span>(datetime, <span class="at">format =</span> <span class="st">"%Y-%m-%d  %H:%M:%S"</span>))<span class="sc">|&gt;</span> </span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nightEnd =</span> <span class="fu">as.POSIXct</span>(nightEnd)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">goldenHourEnd =</span> <span class="fu">as.POSIXct</span>(goldenHourEnd)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">goldenHourEnd =</span> goldenHourEnd <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">goldenHour =</span> <span class="fu">as.POSIXct</span>(goldenHour)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">goldenHour =</span> goldenHour <span class="sc">-</span> <span class="fu">hours</span>(<span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">night =</span> <span class="fu">as.POSIXct</span>(night))</span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a><span class="co"># im naechsten Schritt weise ich den Stunden die Tageszeiten Morgen, Tag, Abend und Nacht zu.</span></span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a><span class="co"># diese Zuweisung basiert auf der Einteilung gem. suncalc und eigener Definition.</span></span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo<span class="sc">|&gt;</span></span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Tageszeit =</span> <span class="fu">if_else</span>(datetime <span class="sc">&gt;=</span> nightEnd <span class="sc">&amp;</span> datetime <span class="sc">&lt;=</span> goldenHourEnd, <span class="st">"Morgen"</span>,</span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">ifelse</span>(datetime <span class="sc">&gt;</span> goldenHourEnd <span class="sc">&amp;</span> datetime <span class="sc">&lt;</span> goldenHour, <span class="st">"Tag"</span>,</span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">ifelse</span>(datetime <span class="sc">&gt;=</span> goldenHour <span class="sc">&amp;</span> datetime <span class="sc">&lt;=</span> night,</span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Abend"</span>,</span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Nacht"</span>)))) <span class="sc">|&gt;</span></span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Tageszeit =</span> <span class="fu">factor</span>(Tageszeit, <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Morgen"</span>, <span class="st">"Tag"</span>, <span class="st">"Abend"</span>, <span class="st">"Nacht"</span>)))</span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a><span class="co"># # behalte die relevanten Var</span></span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>nightEnd, <span class="sc">-</span>goldenHourEnd, <span class="sc">-</span>goldenHour, <span class="sc">-</span>night)</span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotte zum pruefn ob das funktioniert hat</span></span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(depo, <span class="fu">aes</span>(<span class="at">y =</span> Datum, <span class="at">color =</span> Tageszeit, <span class="at">x =</span> Stunde))<span class="sc">+</span></span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>()<span class="sc">+</span></span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>mycolors)</span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a>plotly<span class="sc">::</span><span class="fu">ggplotly</span>(p)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Bei mir hat der Zusatz der Tageszeit noch zu einigen NA-Wertren geführt. Diese lösche ich einfach:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(depo)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># hat das funktioniert?</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(depo))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="aufgabe-4-aggregierung-der-stundendaten" class="level1">
+<h1>Aufgabe 4: Aggregierung der Stundendaten</h1>
+<section id="a-3" class="level2">
+<h2 class="anchored" data-anchor-id="a-3">4a)</h2>
+<p>Unsere Daten liegen im Stundenformat vor. Für einige Auswertungen müssen wir aber auf ganze Tage zurückgreifen können.</p>
+<ul>
+<li>Die Stundendaten müssen zu ganzen Tagen aggregiert werden. Macht das wiederum einer Pipe. Bezieht folgende Gruppierungen (<strong>group_by()</strong>) mit ein: <strong>Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase</strong>. Summiert die Zählmengen separat (Total, IN, OUT) auf und speichert das Resultat unter <strong>depo_d</strong>.</li>
+</ul>
+<p>Tipp: Wenn man die Convinience Variablen als grouping variable einspeisst, dann werden sie in das neue df übernommen und müssen nicht nochmals hinzugefügt werden</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>depo_d <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(VARIABLE1, VARIABLE2, ...) <span class="sc">|&gt;</span>   <span class="co"># Gruppieren nach den Variablen</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Fuss_IN <span class="sc">+</span> Fuss_OUT),<span class="co"># Berechnen der gewünschten Werte</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">Fuss_IN =</span> <span class="fu">sum</span>(Fuss_IN),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>            ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Erstellt nun einen Datensatz depo_daytime, in welchem ihr obrigen Schritt wiederholt aber zusätzlich noch die Gruppierung “Tageszeit” nutzt.</li>
+</ul>
+</section>
+<section id="b-3" class="level2">
+<h2 class="anchored" data-anchor-id="b-3">4b)</h2>
+<ul>
+<li>Aggregiere die Stundenwerte nach dem Monat (Gruppierungen <strong>Monat, Jahr</strong>) und speichert das neue df unter depo_m.</li>
+</ul>
+<p>Tipp: Braucht wiederum <strong>group_by()</strong> und <strong>summarise()</strong>. Nun brauchen wir nur noch das Total, keine Richtungstrennung mehr.</p>
+<ul>
+<li>Fügt den neu erstellten df eine Spalte mit Jahr + Monat hinzu. Das ist etwas mühsam, darum hier der fertige Code dazu:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vergewissere, dass sicher df</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>depo_m <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(depo_m)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sortiere das df anhand zwei Spalten aufsteigend (damit die Reihenfolge sicher stimmt)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>depo_m[</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(depo_m, <span class="fu">order</span>(Jahr, Monat)),]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Speichere dann Jahr und Monat in einer Spalte und formatiere diese als Datum </span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>depo_m <span class="ot">&lt;-</span> depo_m <span class="sc">|&gt;</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ym =</span> <span class="fu">paste</span>(Jahr, Monat)) <span class="sc">|&gt;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ym=</span> lubridate<span class="sc">::</span><span class="fu">ym</span>(Ym)) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Wiederholt diesen Schritt, diesmal aber mit der Gruppierung “Tageszeit” neben “Jahr” und “Monat” und speichert das Resultat unter “depo_m_daytime”.</li>
+</ul>
+</section>
+<section id="c-3" class="level2">
+<h2 class="anchored" data-anchor-id="c-3">4c)</h2>
+<p>Macht euch mit den Daten vertraut. Plottet sie, seht euch die df’s an, versteht, was sie repräsentieren.</p>
+<p>Z.B. sind folgende Befehle und Plots wichtig:</p>
+<ul>
+<li><p>str()</p></li>
+<li><p>summarize()</p></li>
+<li><p>head()</p></li>
+<li><p>Scatterplot, x = Datum, y = Anzahl pro Zeiteinheit</p></li>
+<li><p>Histrogram</p></li>
+<li><p>usw.</p></li>
+</ul>
+<p><strong>Hinweis:</strong> Geht noch nicht zu weit mit euren Plots. Die Idee ist, dass man sich einen Überblick über die Daten verschafft und noch keine “analysierenden” Plots erstellt.</p>
+<p><strong>–&gt; Erklärt dem Plenum am 25.10.2021 was ihr gemacht habt, was eure Daten zeigen und präsentiert diese einfachen Plots. </strong></p>
+<p>Nachdem nun alle Daten vorbereitet sind folgt im nächsten Schritt die deskriptive Analyse.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'alternate';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fallstudie_s/4_Projektierung.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">KW 42: Projektierung</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fallstudie_n/1_Vorbemerkung.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-title">1. Vorbemerkung</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
