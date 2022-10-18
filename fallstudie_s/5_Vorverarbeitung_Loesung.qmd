@@ -1,4 +1,4 @@
-# KW 43: Lösung Datenvorverarbeitung
+# KW 42+43: Lösung Datenvorverarbeitung
 
 
 ```{r}
@@ -118,18 +118,18 @@ depo <- read.csv("./data/211_sihlwaldstrasse_2017_2022.csv", sep = ";")
 # Anpassen der Datentypen und erstes Sichten
 str(depo)
 
-depo <- depo %>%
-  mutate(Datum = as.character(Datum)) %>% 
-  mutate(Datum = as.Date(Datum, format = "%Y%m%d")) #%>% 
+depo <- depo |>
+  mutate(Datum = as.character(Datum)) |> 
+  mutate(Datum = as.Date(Datum, format = "%Y%m%d")) #|> 
   # Schneide das df auf den gewuenschten Zeitraum zu
   # filter(Datum >= depo_start, Datum <=  depo_end) # das Komma hat die gleiche Funktion wie ein &
 
 # In dieser Auswertung werden nur Personen zu Fuss betrachtet!
 # it select werden spalten ausgewaehlt oder eben fallengelassen
-depo <- depo %>% dplyr::select(-c(Velo_IN, Velo_OUT))
+depo <- depo |> dplyr::select(-c(Velo_IN, Velo_OUT))
 
 # Berechnen des Totals, da dieses in den Daten nicht vorhanden ist
-depo <- depo%>%
+depo <- depo|>
   mutate(Total = Fuss_IN + Fuss_OUT)
 
 # Entferne die NA's in dem df.
@@ -148,21 +148,21 @@ meteo <- read.csv("./data/order_105742_data.txt", sep = ";")
 meteo <- transform(meteo, time = as.Date(as.character(time), "%Y%m%d"))
 
 # Die eigentlichen Messwerte sind alle nummerisch
-meteo <- meteo%>%
-  mutate(tre200jx = as.numeric(tre200jx))%>%
-  mutate(rre150j0 = as.numeric(rre150j0))%>%
-  mutate(sremaxdv = as.numeric(sremaxdv)) %>% 
+meteo <- meteo|>
+  mutate(tre200jx = as.numeric(tre200jx))|>
+  mutate(rre150j0 = as.numeric(rre150j0))|>
+  mutate(sremaxdv = as.numeric(sremaxdv)) |> 
   filter(time >= depo_start, time <=  depo_end) # schneide dann auf Untersuchungsdauer
 
 # Was ist eigentlich Niederschlag:
 # https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html
 
 # Filtere Werte mit NA
-meteo <- meteo %>%
-  filter(!is.na(stn)) %>%
-  filter(!is.na(time))%>%
-  filter(!is.na(tre200jx))%>%
-  filter(!is.na(rre150j0))%>%
+meteo <- meteo |>
+  filter(!is.na(stn)) |>
+  filter(!is.na(time))|>
+  filter(!is.na(tre200jx))|>
+  filter(!is.na(rre150j0))|>
   filter(!is.na(sremaxdv))
 # Pruefe ob alles funktioniert hat
 str(meteo)
@@ -178,21 +178,21 @@ sum(is.na(meteo)) # zeigt die Anzahl NA's im data.frame an
 
 # 2.1 Convinience Variablen ####
 # fuege dem Dataframe (df) die Wochentage hinzu
-depo <- depo %>% 
-  mutate(Wochentag = weekdays(Datum)) %>% 
+depo <- depo |> 
+  mutate(Wochentag = weekdays(Datum)) |> 
   # R sortiert die Levels aplhabetisch. Da das in unserem Fall aber sehr unpraktisch ist,
   # muessen die Levels manuell manuell bestimmt werden
   mutate(Wochentag = base::factor(Wochentag, 
                             levels = c("Montag", "Dienstag", "Mittwoch", 
-                                       "Donnerstag", "Freitag", "Samstag", "Sonntag"))) %>% 
+                                       "Donnerstag", "Freitag", "Samstag", "Sonntag"))) |> 
   # Werktag oder Wochenende hinzufuegen
   mutate(Wochenende = if_else(Wochentag == "Montag" | Wochentag == "Dienstag" | 
                            Wochentag == "Mittwoch" | Wochentag == "Donnerstag" | 
-                           Wochentag == "Freitag", "Werktag", "Wochenende"))%>%
+                           Wochentag == "Freitag", "Werktag", "Wochenende"))|>
   #Kalenderwoche hinzufuegen
-  mutate(KW= isoweek(Datum))%>%
+  mutate(KW= isoweek(Datum))|>
   # monat und Jahr
-  mutate(Monat = month(Datum)) %>% 
+  mutate(Monat = month(Datum)) |> 
   mutate(Jahr = year(Datum))
 
 #Lockdown 
@@ -200,7 +200,7 @@ depo <- depo %>%
 # Operationen in einem Schritt auch schon mal durcheinander erzeugen koennen.
 # Hinweis II: Wir packen alle Phasen (normal, die beiden Lockdowns und Covid aber ohne Lockdown)
 # in eine Spalte --> long ist schoener als wide
-depo <- depo %>%
+depo <- depo |>
   mutate(Phase = if_else(Datum >= lock_1_start_2020 & Datum <= lock_1_end_2020,
                          "Lockdown_1",
                          if_else(Datum >= lock_2_start_2021 & Datum <= lock_2_end_2021,
@@ -214,9 +214,9 @@ depo <- depo %>%
 unique(depo$Phase)
 
 # aendere die Datentypen
-depo <- depo %>% 
-  mutate(Wochenende = as.factor(Wochenende)) %>% 
-  mutate(KW = factor(KW)) %>% 
+depo <- depo |> 
+  mutate(Wochenende = as.factor(Wochenende)) |> 
+  mutate(KW = factor(KW)) |> 
   # mit factor() koennen die levels direkt einfach selbst definiert werden.
   # wichtig: speizfizieren, dass aus R base, ansonsten kommt es zu einem 
   # mix-up mit anderen packages
@@ -285,7 +285,7 @@ lumidata <-
     lon = Longitude,
     tz = "CET")
 
-lumidata <- lumidata %>% 
+lumidata <- lumidata |> 
   mutate(Jahreszeit = ifelse(date >= So_start_2017 & date <=  So_end_2017 |
                                date >= So_start_2018 & date <=  So_end_2018 |
                                date >= So_start_2019 & date <=  So_end_2019 |
@@ -298,53 +298,53 @@ lumidata <- lumidata %>%
 # Darum auf alle relevanten Spalten eine Stunde addieren
 # hinweis: ich verzichte hier auf ifelse, da es einfacher und nachvollziehbarer scheint,
 # hier mit einem filter die betreffenden Spalten zu waehlen
-lumidata_So <- lumidata %>% 
-  filter(Jahreszeit=="Sommerzeit") %>% 
+lumidata_So <- lumidata |> 
+  filter(Jahreszeit=="Sommerzeit") |> 
   mutate(nightEnd = nightEnd + hours(1),
          goldenHourEnd =  goldenHourEnd + hours(1),
          goldenHour = goldenHour + hours(1),
          night = night + hours(1))
 
-lumidata_Wi <- lumidata %>% 
+lumidata_Wi <- lumidata |> 
   filter(Jahreszeit=="Winterzeit") 
 # verbinde sommer- und winterzeit wieder
-lumidata <- rbind(lumidata_So, lumidata_Wi) %>% 
+lumidata <- rbind(lumidata_So, lumidata_Wi) |> 
   arrange(date)
 
 # change data type
 lumidata$date <- as.Date(lumidata$date, format= "%Y-%m-%d")
 
 # drop unnecessary cols
-lumidata <- lumidata %>% dplyr::select(-lat, -lon)
+lumidata <- lumidata |> dplyr::select(-lat, -lon)
 
 # jetzt haben wir alle noetigen Angaben zu Sonnenaufgang, Tageslaenge usw. 
 # diese Angaben koennen wir nun mit unseren Zaehldaten verbinden:
 depo <- left_join(depo,lumidata, by = c("Datum" ="date"))
 
 # aendere alle Zeit- und Datumsangaben so, dass sie gleich sind und miteinander verrechnet werden können.
-depo <- depo %>% 
-  mutate(datetime = paste(Datum, Zeit)) %>% 
-  mutate(datetime = as.POSIXct(datetime, format = "%Y-%m-%d  %H:%M:%S"))%>% 
-  mutate(nightEnd = as.POSIXct(nightEnd)) %>% 
-  mutate(goldenHourEnd = as.POSIXct(goldenHourEnd)) %>% 
-  mutate(goldenHourEnd = goldenHourEnd + hours(1)) %>% 
-  mutate(goldenHour = as.POSIXct(goldenHour)) %>% 
-  mutate(goldenHour = goldenHour - hours(1)) %>% 
+depo <- depo |> 
+  mutate(datetime = paste(Datum, Zeit)) |> 
+  mutate(datetime = as.POSIXct(datetime, format = "%Y-%m-%d  %H:%M:%S"))|> 
+  mutate(nightEnd = as.POSIXct(nightEnd)) |> 
+  mutate(goldenHourEnd = as.POSIXct(goldenHourEnd)) |> 
+  mutate(goldenHourEnd = goldenHourEnd + hours(1)) |> 
+  mutate(goldenHour = as.POSIXct(goldenHour)) |> 
+  mutate(goldenHour = goldenHour - hours(1)) |> 
   mutate(night = as.POSIXct(night))
 
 # im naechsten Schritt weise ich den Stunden die Tageszeiten Morgen, Tag, Abend und Nacht zu.
 # diese Zuweisung basiert auf der Einteilung gem. suncalc und eigener Definition.
-depo <- depo%>%
+depo <- depo|>
   mutate(Tageszeit = if_else(datetime >= nightEnd & datetime <= goldenHourEnd, "Morgen",
                              ifelse(datetime > goldenHourEnd & datetime < goldenHour, "Tag",
                                     ifelse(datetime >= goldenHour & datetime <= night,
                                            "Abend",
-                                           "Nacht")))) %>%
+                                           "Nacht")))) |>
   mutate(Tageszeit = factor(Tageszeit, levels = c(
     "Morgen", "Tag", "Abend", "Nacht")))
 
 # # behalte die relevanten Var
-depo <- depo %>% dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night)
+depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night)
 
 #Plotte zum pruefn ob das funktioniert hat
 p <- ggplot(depo, aes(y = Datum, color = Tageszeit, x = Stunde))+
@@ -354,6 +354,14 @@ p <- ggplot(depo, aes(y = Datum, color = Tageszeit, x = Stunde))+
 plotly::ggplotly(p)
 ```
 
+```{r}
+# bei mir hat der Zusatz der Tageszeit noch zu einigen NA-Wertren gefueht. 
+# Diese loesche ich einfach:
+depo <- na.omit(depo)
+# hat das funktioniert?
+sum(is.na(depo))
+```
+
 # Aufgabe 4: Aggregierung der Stundendaten
 
 ```{r}
@@ -361,8 +369,8 @@ plotly::ggplotly(p)
 # Zur Berechnung von Kennwerten ist es hilfreich, wenn neben den Stundendaten auch auf Ganztagesdaten
 # zurueckgegriffen werden kann
 # hier werden also pro Nutzergruppe und Richtung die Stundenwerte pro Tag aufsummiert
-depo_d <- depo %>% 
-  group_by(Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase) %>% 
+depo_d <- depo |> 
+  group_by(Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase) |> 
   summarise(Total = sum(Fuss_IN + Fuss_OUT), 
             Fuss_IN = sum(Fuss_IN),
             Fuss_OUT = sum(Fuss_OUT)) 
@@ -372,35 +380,35 @@ depo_d <- depo %>%
 head(depo_d)
 
 # nun gruppieren wir nicht nur nach Tag sondern auch noch nach Tageszeit
-depo_daytime <- depo %>% 
-  group_by(Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase, Tageszeit) %>% 
+depo_daytime <- depo |> 
+  group_by(Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase, Tageszeit) |> 
   summarise(Total = sum(Fuss_IN + Fuss_OUT), 
             Fuss_IN = sum(Fuss_IN),
             Fuss_OUT = sum(Fuss_OUT)) 
 
 
 # Gruppiere die Werte nach Monat
-depo_m <- depo %>% 
-  group_by(Jahr, Monat) %>% 
+depo_m <- depo |> 
+  group_by(Jahr, Monat) |> 
   summarise(Total = sum(Total)) 
 # sortiere das df aufsteigend (nur das es sicher stimmt)
 depo_m <- as.data.frame(depo_m)
 depo_m[
   with(depo_m, order(Jahr, Monat)),]
-depo_m <- depo_m %>% 
-  mutate(Ym = paste(Jahr, Monat)) %>% # und mache eine neue Spalte, in der Jahr und
+depo_m <- depo_m |> 
+  mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
   mutate(Ym= lubridate::ym(Ym)) # formatiere als Datum
 
 # Gruppiere die Werte nach Monat und TAGESZEIT
-depo_m_daytime <- depo %>% 
-  group_by(Jahr, Monat, Tageszeit) %>% 
+depo_m_daytime <- depo |> 
+  group_by(Jahr, Monat, Tageszeit) |> 
   summarise(Total = sum(Total)) 
 # sortiere das df aufsteigend (nur das es sicher stimmt)
 depo_m_daytime <- as.data.frame(depo_m_daytime)
 depo_m_daytime[
   with(depo_m_daytime, order(Jahr, Monat)),]
-depo_m_daytime <- depo_m_daytime %>% 
-  mutate(Ym = paste(Jahr, Monat)) %>% # und mache eine neue Spalte, in der Jahr und
+depo_m_daytime <- depo_m_daytime |> 
+  mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
   mutate(Ym= lubridate::ym(Ym)) # formatiere als Datum
 ```
 
