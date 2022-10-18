@@ -4,10 +4,13 @@ lesson: PrePro2
 thema: Piping / Joins
 index: 3
 execute: 
-  echo: false   # set to true to show musterlösung
-  output: false
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
 ---
 
 # Prepro 2: Übung B
@@ -39,15 +42,18 @@ Erstelle aus den 3 Dataframes eine einzige Dataframe, die aussieht wie unten dar
 ```{r}
 sensor1_2 <- full_join(sensor1, sensor2, "Datetime")
 
+sensor1_2 <- rename(sensor1_2, sensor1 = Temp.x, sensor2 = Temp.y)
+
 sensor_all <- full_join(sensor1_2, sensor3, by = "Datetime")
 
-names(sensor_all) <- c("Datetime","sensor1","sensor2","sensor3")
+sensor_all <- rename(sensor_all, sensor3 = Temp)
+
+
 ```
 
 ```{r}
 #| echo: false
 #| output: true
-
 
 knitr::kable(head(sensor_all))
 ```
@@ -64,14 +70,17 @@ sensor_fail <- read_delim("data/sensor_fail.csv", delim = ";")
 
 ```{r}
 #| echo: false
-#| eval: !expr T
 knitr::kable(sensor_fail)
 ```
 
 ```{r}
-# Lösung Aufgabe 3
+# mit base-R: 
+sensor_fail$Temp_correct[sensor_fail$SensorStatus == 0] <- NA
 
-sensor_fail$Temp[sensor_fail$SensorStatus == 0] <- NA
+# das gleiche mit dplyr:
+sensor_fail <- sensor_fail |>
+  mutate(Temp_correct = ifelse(SensorStatus == 0, NA, Temp))
+
 ```
 
 ## Aufgabe 4
@@ -79,11 +88,13 @@ sensor_fail$Temp[sensor_fail$SensorStatus == 0] <- NA
 Warum spielt das es eine Rolle, ob `0` oder `NA` erfasst wird? Berechne die Mittlere der Temperatur / Feuchtigkeit nach der Korrektur. 
 
 ```{r}
-#| eval: false
-# Lösung Aufgabe 4
 
-# Mittelwerte der korrigierten Sensordaten: mit na.rm = TRUE werden NA-Werte aus der Berechnung entfernt. 
-# Ansonsten würden sie als 0 in die Berechnung einfliessen und diese verfälschen.
-mean(sensor_fail$Temp, na.rm = TRUE)
+# Mittelwerte der falschen Sensordaten: 0 fliesst in die Berechnung 
+# ein und verfälscht den Mittelwert
+mean(sensor_fail$Temp)
+
+# Mittelwerte der korrigierten Sensordaten: mit na.rm = TRUE werden 
+# NA-Werte aus der Berechnung entfernt. 
+mean(sensor_fail$Temp_correct, na.rm = TRUE)
 ```
 

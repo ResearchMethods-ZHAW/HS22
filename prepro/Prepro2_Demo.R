@@ -40,6 +40,8 @@ temp <- as.numeric(temp)            # 3
 temp <- subtrahieren(temp, 273.15)  # 4
 output <- mean(temp)                # 5
 
+library(magrittr)
+
 diary |>                            # 1
   substr(20, 22) |>                 # 2
   as.numeric() |>                   # 3 
