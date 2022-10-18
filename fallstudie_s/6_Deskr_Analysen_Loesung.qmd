@@ -113,9 +113,42 @@ ggsave("Tagesgang.png", width=25, height=25, units="cm", dpi=1000,
        path = "fallstudie_s/results/")
 ```
 
+# Aufgabe 4: Kennzahlen
 
+```{r}
+total_phase <- depo_daytime |> 
+  # gruppiere nach Phasen inkl. Normal. Diese Levels haben wir bereits definiert
+  group_by(Phase, Tageszeit) |> 
+  summarise(Total = sum(Total),
+            IN = sum(Fuss_IN),
+            OUT = sum(Fuss_OUT))
 
+write.csv(total_phase, "fallstudie_s/results/total_phase.csv")
 
+# mean besser Vergleichbar, da Zeitreihen unterschiedlich lange
+mean_phase_d <- depo_daytime |> 
+  group_by(Phase, Tageszeit) |> 
+  summarise(Total = mean(Total),
+            IN = mean(Fuss_IN),
+            OUT = mean(Fuss_OUT))
+# berechne prozentuale Richtungsverteilung
+mean_phase_d <- mean_phase_d |> 
+  mutate(Proz_IN = round(100/Total*IN, 1)) |> # berechnen und auf eine Nachkommastelle runden
+  mutate(Proz_OUT = round(100/Total*OUT,1))
+
+write.csv(mean_phase_d, "fallstudie_s/results/mean_phase_d.csv")
+
+# plotte die Verteilung der Fussgänger nach Tageszeit abhängig von der Phase
+ggplot(mean_phase_d, mapping = aes(Phase, Total, fill=Tageszeit)) + 
+  geom_col(position = "fill")+
+  scale_fill_manual(values = mycolors)+
+  theme_classic(base_size = 15)+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title= "", y="Verteilung Fussgänger:innen nach Tageszeit [%]", x = "Phase")
+
+ggsave("Proz_Entwicklung_Zaehlstelle_Phase.png", width=20, height=15, units="cm", dpi=1000, 
+       path = "fallstudie_s/results/")  
+```
 
 
 

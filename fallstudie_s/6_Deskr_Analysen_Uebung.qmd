@@ -560,84 +560,41 @@ ggplot(Mean_h, aes(x = Stunde, y = Total, colour = Wochentag, linetype = Wochent
   ...
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Aufgabe 4: Kennzahlen
 
 Schliesslich berechnen wir noch einige Kennzahlen (Anzahl Passagen, Richtungsverteilung, ...).
 
 ### 4a)
 
-- Gruppiert nach Phase und berechnet dieses mal die Summe (nicht den Durchschnitt) Total, IN und OUT (ähnlich wie in 2a und 3a).
+- Gruppiert nach Phase und Tageszeit und berechnet dieses mal die Summe (nicht den Durchschnitt) Total, IN und OUT (ähnlich wie in 2a und 3a).
+- Nehmt dafür das vorbereitete df "depo_daytime"
 - Speichert das Ergebnis als .csv
 
 ### 4b) 
 
-Die Zeitreihen der 4 Phasen unterscheiden sich deutlich voneinander. Totale Summen sind da kaum miteinander vergleichbar, besser eignet sich der Durchschnitt oder der Median.
+Die Zeitreihen der 5 Phasen unterscheiden sich deutlich voneinander. Totale Summen sind da kaum miteinander vergleichbar, besser eignet sich der Durchschnitt oder der Median.
 
-- Gruppiert nach Phase und berechnet den Durchschnitt Total, IN und OUT und speichert das df unter __mean_phase_d__.
+- Gruppiert nach Phase und Tageszeit und berechnet den Durchschnitt Total, IN und OUT und speichert das df unter __mean_phase_d__.
 - Ergänzt das mit der prozentualen Richtungsverteilung
 
-```{r}
-#| eval: false
+```{r eval=FALSE}
 mean_phase_d <- mean_phase_d %>% 
   mutate(Proz_IN = round(100/Total*IN, 1)) %>% # berechnen und auf eine Nachkommastelle runden
   ...
 ```
 
-- Speichert das Ergebnis als .csv
-- Selektiert nun die absoluten Zahlen im df __mean_phase_d__ sowie die relativen und speichert das jeweils in einem df __mean_phase_d_abs__ und __mean_phase_d_proz__.
-
-```{r}
-#| eval: false
-mean_phase_d_abs <- mean_phase_d %>% dplyr::select(-c(Total, Proz_IN, Proz_OUT))
-```
-
-- transformiert beide df mittels __pivot_longer()__ von wide zu long:
-
-```{r}
-#| eval: false
-mean_phase_d_abs <- pivot_longer(mean_phase_d_abs, cols = c("IN","OUT"), 
-             names_to = "Gruppe", values_to = "Durchschnitt")
-```
-
 ### 4c)
 
-Nun visualisieren wie die Verteilung der absoluten und der relativen Zahlen nach Phasen in einem Barplot.
+Schliesslich soll das Ergebnis noch visualisiert werden. 
 
-- Erstellt je einen Plot zu den absoluten und den relativen Zahlen nach den unterstehenden Vorgaben und speichert beide Plots im Environment:
+- Erstellt einen Plot nach untenstehendem Beispiel und speichert ihn:
 
-```{r}
-#| echo: false
-ggplot(data = mean_phase_d_abs, mapping = aes(x = Gruppe, y = Durchschnitt, fill = Phase))+
-  geom_col(position = "dodge", width = 0.8)+
-  scale_fill_manual(values = c("royalblue", "red4", "orangered", "gold2"), name = "Phase")+
-  scale_x_discrete(labels = c("IN", "OUT"))+
-  labs(y = "Durchschnitt [mean]", x= "Bewegungsrichtung")+
+```{r echo=FALSE}
+ggplot(mean_phase_d, mapping = aes(Phase, Total, fill=Tageszeit)) + 
+  geom_col(position = "fill")+
+  scale_fill_manual(values = mycolors)+
   theme_classic(base_size = 15)+
-  theme(legend.position = "bottom")
-
-ggplot(data = mean_phase_d_proz, mapping = aes(x = Gruppe, y = Durchschnitt, fill = Phase))+
-  geom_col(position = "dodge", width = 0.8)+
-  scale_fill_manual(values = c("royalblue", "red4", "orangered", "gold2"), name = "Phase")+
-  scale_x_discrete(labels = c("IN", "OUT"))+
-  labs(y = "Durchschnitt [%]", x= "Bewegungsrichtung")+
-  theme_classic(base_size = 15)+
-  theme(legend.position = "bottom")
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  labs(title= "", y="Verteilung Fussgänger:innen nach Tageszeit [%]", x = "Phase")
 ```
 
-- Arrangiert beide Plots nebeneinander und exportiert das Ergebnis (Arrangieren siehe 3c). 
