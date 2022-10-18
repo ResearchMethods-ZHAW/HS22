@@ -1,4 +1,4 @@
-# KW 43: Übung Datenvorverarbeitung
+# KW 42+43: Übung Datenvorverarbeitung
 
 
 ```{r}
@@ -343,6 +343,14 @@ p <- ggplot(depo, aes(y = Datum, color = Tageszeit, x = Stunde))+
   scale_color_manual(values=mycolors)
 
 plotly::ggplotly(p)
+```
+
+Bei mir hat der Zusatz der Tageszeit noch zu einigen NA-Wertren geführt. Diese lösche ich einfach:
+
+```{r eval=FALSE}
+depo <- na.omit(depo)
+# hat das funktioniert?
+sum(is.na(depo))
 ```
 
 # Aufgabe 4: Aggregierung der Stundendaten
