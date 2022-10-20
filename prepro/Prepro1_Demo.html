@@ -816,60 +816,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [13] Dienstag   Mittwoch  </span></span>
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Levels: Dienstag Donnerstag Freitag Mittwoch Montag Samstag Sonntag</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Wie man oben sieht, unterscheiden sich <code>character vectors</code> und <code>factors</code> v.a. dadurch, dass letztere über sogenannte <code>levels</code> verfügt. Diese <code>levels</code> entsprechen den eindeutigen Werten.</p>
-<p>Zudem ist fällt auf, dass die Reihenfolge der Wohentag alphabetisch sortiert ist. Eine Ordnung kann man mit dem Befehl <code>ordered = T</code> festlegen, dabei muss die Reihenfolge der Werte im Argument <code>levels =</code> explizit festgehalten werden<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Wie man oben sieht, unterscheiden sich <code>character vectors</code> und <code>factors</code> v.a. dadurch, dass letztere über sogenannte <code>levels</code> verfügt. Diese <code>levels</code> entsprechen den Eindeutigen (<code>unique</code>) Werten.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(wochentage, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Montag"</span>, <span class="st">"Dienstag"</span>, <span class="st">"Mittwoch"</span>, <span class="st">"Donnerstag"</span>, <span class="st">"Freitag"</span>, <span class="st">"Samstag"</span>, <span class="st">"Sonntag"</span>), <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] Donnerstag Freitag    Samstag    Sonntag    Montag     Dienstag  </span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] Mittwoch   Donnerstag Freitag    Samstag    Sonntag    Montag    </span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [13] Dienstag   Mittwoch  </span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 7 Levels: Montag &lt; Dienstag &lt; Mittwoch &lt; Donnerstag &lt; Freitag &lt; ... &lt; Sonntag</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wochentage_fac)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Dienstag"   "Donnerstag" "Freitag"    "Mittwoch"   "Montag"    </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [6] "Samstag"    "Sonntag"</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(wochentage)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Donnerstag" "Freitag"    "Samstag"    "Sonntag"    "Montag"    </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [6] "Dienstag"   "Mittwoch"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Beachtet das <code>&lt;</code>-Zeichen zwischen den Levels!</p>
+<p>Zudem ist fällt auf, dass die Reihenfolge der Wohentag alphabetisch sortiert ist. Wie diese sortiert werden zeigen wir an einem anderen Beispiel:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>zahlen <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"null"</span>,<span class="st">"eins"</span>,<span class="st">"zwei"</span>,<span class="st">"drei"</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>zahlen</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] null eins zwei drei</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Levels: drei eins null zwei</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Offensichtlich sollten diese <code>factors</code> geordnet sein, R weiss davon aber nichts. Eine Ordnung kann man mit dem Befehl <code>ordered = T</code> festlegen.</p>
+<p>Beachtet: <code>ordered = T</code> kann nur bei der Funktion <code>factor()</code> spezifiziert werden, nicht bei <code>as.factor()</code>. Ansonsten sind <code>factor()</code> und <code>as.factor()</code> sehr ähnlich.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>zahlen <span class="ot">&lt;-</span> <span class="fu">factor</span>(zahlen,<span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>zahlen</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] null eins zwei drei</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Levels: drei &lt; eins &lt; null &lt; zwei</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Beachtet das <code>&lt;</code>-Zeichen zwischen den Levels. Die Zahlen werden nicht in der korrekten Reihenfolge, sondern Alphabetisch geordnet. Die richtige Reihenfolge kann man mit <code>levels =</code> festlegen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>zahlen <span class="ot">&lt;-</span> <span class="fu">factor</span>(zahlen,<span class="at">ordered =</span> T,<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"null"</span>,<span class="st">"eins"</span>,<span class="st">"zwei"</span>,<span class="st">"drei"</span>,<span class="st">"vier"</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>zahlen</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] null eins zwei drei</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Levels: null &lt; eins &lt; zwei &lt; drei &lt; vier</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wie auch schon erwähnt werden <code>factors</code> als <code>character</code> Vektor dargestellt, aber als Integers gespeichert. Das führt zu einem scheinbaren Wiederspruch wenn man den Datentyp auf unterschiedliche Weise abfragt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(zahlen)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "integer"</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">is.integer</span>(zahlen)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] FALSE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Mit <code>typeof()</code> wird eben diese Form der Speicherung abgefragt und deshalb mit <code>integer</code> beantwortet. Da es sich aber nicht um einen eigentlichen Integer Vektor handelt, wird die Frage <code>is.integer()</code> mit <code>FALSE</code> beantwortet. Das ist etwas verwirrend, beruht aber darauf, dass die beiden Funktionen die Frage von unterschiedlichen Perspektiven beantworten. In diesem Fall schafft <code>class()</code> Klarheit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(zahlen)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "ordered" "factor"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wirklich verwirrend wird es, wenn <code>factors</code> in numeric umgewandelt werden sollen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>zahlen</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] null eins zwei drei</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Levels: null &lt; eins &lt; zwei &lt; drei &lt; vier</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>(zahlen)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1 2 3 4</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Das die Übersetzung der auf Deutsch ausgeschriebenen Nummern in nummerische Zahlen nicht funktionieren würde, war ja klar. Weniger klar ist es jedoch, wenn die <code>factors</code> bereits aus nummerischen Zahlen bestehen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>zahlen2 <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"10"</span>,<span class="st">"20"</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>(zahlen2)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1 2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In diesem Fall müssen die <code>factors</code> erstmals in <code>character</code> umgewandelt werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>(<span class="fu">as.character</span>(zahlen2))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 10 20</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="zeitdatum" class="level4">
 <h4 class="anchored" data-anchor-id="zeitdatum">Zeit/Datum</h4>
 <p>Um in R mit Datum/Zeit Datentypen umzugehen, müssen sie als <code>POSIXct</code> eingelesen werden. Anders als Beispielsweise bei Excel, sollten in R Datum und Uhrzeit immer <strong>zusammen</strong> gespeichert werden (in <em>einem</em> Objekt oder <em>einem</em> Vektor).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>datum <span class="ot">&lt;-</span> <span class="st">"2017-10-01 13:45:10"</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># konvertiert character in POSIXct:</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXct</span>(datum) </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "2017-10-01 13:45:10 UTC"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>datum <span class="ot">&lt;-</span> <span class="st">"2017-10-01 13:45:10"</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># konvertiert character in POSIXct:</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXct</span>(datum) </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "2017-10-01 13:45:10 CEST"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wenn das die Zeichenkette in dem obigen Format (<code>Jahr-Monat-Tag Stunde:Minute:Sekunde</code>) daher kommt, braucht <code>as.POSIXct</code>keine weiteren Informationen.</p>
 <p>Sollte das Format von dem aber Abweichen, muss man der Funktion das genaue Schema jedoch mitteilen. Der Syntax dafür kann via <code>?strptime</code> nachgeschlagen werden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>datum <span class="ot">&lt;-</span> <span class="st">"01.10.2017 13:45"</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># konvertiert character in POSIXct:</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXct</span>(datum,<span class="at">format =</span> <span class="st">"%d.%m.%Y %H:%M"</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "2017-10-01 13:45:00 UTC"</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>datum <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(datum,<span class="at">format =</span> <span class="st">"%d.%m.%Y %H:%M"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>datum <span class="ot">&lt;-</span> <span class="st">"01.10.2017 13:45"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># konvertiert character in POSIXct:</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXct</span>(datum,<span class="at">format =</span> <span class="st">"%d.%m.%Y %H:%M"</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "2017-10-01 13:45:00 CEST"</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>datum <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(datum,<span class="at">format =</span> <span class="st">"%d.%m.%Y %H:%M"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Beachtet, dass in den den obigen Beispiel R automatisch eine Zeitzone angenommen hat (<code>CEST</code>). R geht davon aus, dass die Zeitzone der <strong>System Timezone</strong> (<code>Sys.timezone()</code>) entspricht.</p>
 <p>Um nun aus dem Datum wieder Spezifische bestandteile zu extrahieren, kann man theoretisch die gleichen Codes nochmal verwenden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">strftime</span>(datum, <span class="at">format =</span> <span class="st">"%m"</span>) <span class="co"># extrahiert den Monat als Zahl</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "10"</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">strftime</span>(datum, <span class="at">format =</span> <span class="st">"%b"</span>) <span class="co"># extrahiert den Monat mit Namen (abgekürzt)</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Oct"</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">strftime</span>(datum, <span class="at">format =</span> <span class="st">"%B"</span>) <span class="co"># extrahiert den Monat mit Namen (ausgeschrieben)</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "October"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">strftime</span>(datum, <span class="at">format =</span> <span class="st">"%m"</span>) <span class="co"># extrahiert den Monat als Zahl</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "10"</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">strftime</span>(datum, <span class="at">format =</span> <span class="st">"%b"</span>) <span class="co"># extrahiert den Monat mit Namen (abgekürzt)</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Okt"</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">strftime</span>(datum, <span class="at">format =</span> <span class="st">"%B"</span>) <span class="co"># extrahiert den Monat mit Namen (ausgeschrieben)</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Oktober"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Einfacher sind an dieser Stelle aber die Functions aus lubridate:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(datum)                             <span class="co"># extrahiert den Monat als Zahl</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 10</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(datum, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>)  <span class="co"># extrahiert den Monat mit Namen (abgekürzt)</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] Oct</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(datum, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">FALSE</span>) <span class="co"># extrahiert den Monat mit Namen (ausgeschrieben)</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] October</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 Levels: January &lt; February &lt; March &lt; April &lt; May &lt; June &lt; ... &lt; December</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(datum)                             <span class="co"># extrahiert den Monat als Zahl</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 10</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(datum, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">TRUE</span>)  <span class="co"># extrahiert den Monat mit Namen (abgekürzt)</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] Okt</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 Levels: Jan &lt; Feb &lt; Mär &lt; Apr &lt; Mai &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dez</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(datum, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">FALSE</span>) <span class="co"># extrahiert den Monat mit Namen (ausgeschrieben)</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] Oktober</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 Levels: Januar &lt; Februar &lt; März &lt; April &lt; Mai &lt; Juni &lt; Juli &lt; ... &lt; Dezember</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -877,60 +934,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="data-frames-und-conveniance-variabeln">Data Frames und Conveniance Variabeln</h3>
 <p>Eine <code>data.frame</code> ist die gängigste Art, Tabellarische Daten zu speichern.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Stadt =</span> <span class="fu">c</span>(<span class="st">"Zürich"</span>,<span class="st">"Genf"</span>,<span class="st">"Basel"</span>,<span class="st">"Bern"</span>,<span class="st">"Lausanne"</span>),</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Einwohner =</span> <span class="fu">c</span>(<span class="dv">396027</span>,<span class="dv">194565</span>,<span class="dv">175131</span>,<span class="dv">140634</span>,<span class="dv">135629</span>),</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ankunft =</span> <span class="fu">c</span>(<span class="st">"1.1.2017 10:00"</span>,<span class="st">"1.1.2017 14:00"</span>,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">"1.1.2017 13:00"</span>,<span class="st">"1.1.2017 18:00"</span>,<span class="st">"1.1.2017 21:00"</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 'data.frame':    5 obs. of  3 variables:</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Stadt    : chr  "Zürich" "Genf" "Basel" "Bern" ...</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Einwohner: num  396027 194565 175131 140634 135629</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Ankunft  : chr  "1.1.2017 10:00" "1.1.2017 14:00" "1.1.2017 13:00" "1.1.2017 18:00" ...</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Stadt =</span> <span class="fu">c</span>(<span class="st">"Zürich"</span>,<span class="st">"Genf"</span>,<span class="st">"Basel"</span>,<span class="st">"Bern"</span>,<span class="st">"Lausanne"</span>),</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Einwohner =</span> <span class="fu">c</span>(<span class="dv">396027</span>,<span class="dv">194565</span>,<span class="dv">175131</span>,<span class="dv">140634</span>,<span class="dv">135629</span>),</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ankunft =</span> <span class="fu">c</span>(<span class="st">"1.1.2017 10:00"</span>,<span class="st">"1.1.2017 14:00"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">"1.1.2017 13:00"</span>,<span class="st">"1.1.2017 18:00"</span>,<span class="st">"1.1.2017 21:00"</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 'data.frame':    5 obs. of  3 variables:</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Stadt    : chr  "Zürich" "Genf" "Basel" "Bern" ...</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Einwohner: num  396027 194565 175131 140634 135629</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Ankunft  : chr  "1.1.2017 10:00" "1.1.2017 14:00" "1.1.2017 13:00" "1.1.2017 18:00" ...</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In der obigen <code>data.frame</code> wurde die Spalte <code>Einwohner</code> als Fliesskommazahl abgespeichert. Dies ist zwar nicht tragisch, aber da wir wissen das es sich hier sicher um Ganzzahlen handelt, können wir das korrigieren. Wichtiger ist aber, dass wir die Ankunftszeit (Spalte<code>Ankunft</code>) von einem <code>Factor</code> in ein Zeitformat (<code>POSIXct</code>) umwandeln.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Einwohner <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(df<span class="sc">$</span>Einwohner)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Einwohner</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 396027 194565 175131 140634 135629</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Ankunft <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(df<span class="sc">$</span>Ankunft, <span class="at">format =</span> <span class="st">"%d.%m.%Y %H:%M"</span>)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Ankunft</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "2017-01-01 10:00:00 UTC" "2017-01-01 14:00:00 UTC"</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [3] "2017-01-01 13:00:00 UTC" "2017-01-01 18:00:00 UTC"</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [5] "2017-01-01 21:00:00 UTC"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Einwohner <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(df<span class="sc">$</span>Einwohner)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Einwohner</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 396027 194565 175131 140634 135629</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Ankunft <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(df<span class="sc">$</span>Ankunft, <span class="at">format =</span> <span class="st">"%d.%m.%Y %H:%M"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Ankunft</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "2017-01-01 10:00:00 CET" "2017-01-01 14:00:00 CET"</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [3] "2017-01-01 13:00:00 CET" "2017-01-01 18:00:00 CET"</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [5] "2017-01-01 21:00:00 CET"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Diese Rohdaten können nun helfen, um Hilfsvariablen (<strong>convenience variables</strong>) zu erstellen. Z.B. können wir die Städte einteilen in gross, mittel und klein.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Groesse[df<span class="sc">$</span>Einwohner <span class="sc">&gt;</span> <span class="dv">300000</span>] <span class="ot">&lt;-</span> <span class="st">"gross"</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Groesse[df<span class="sc">$</span>Einwohner <span class="sc">&lt;=</span> <span class="dv">300000</span> <span class="sc">&amp;</span> df<span class="sc">$</span>Einwohner <span class="sc">&gt;</span> <span class="dv">150000</span>] <span class="ot">&lt;-</span> <span class="st">"mittel"</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Groesse[df<span class="sc">$</span>Einwohner <span class="sc">&lt;=</span> <span class="dv">150000</span>] <span class="ot">&lt;-</span> <span class="st">"klein"</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Groesse</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "gross"  "mittel" "mittel" "klein"  "klein"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Groesse[df<span class="sc">$</span>Einwohner <span class="sc">&gt;</span> <span class="dv">300000</span>] <span class="ot">&lt;-</span> <span class="st">"gross"</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Groesse[df<span class="sc">$</span>Einwohner <span class="sc">&lt;=</span> <span class="dv">300000</span> <span class="sc">&amp;</span> df<span class="sc">$</span>Einwohner <span class="sc">&gt;</span> <span class="dv">150000</span>] <span class="ot">&lt;-</span> <span class="st">"mittel"</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Groesse[df<span class="sc">$</span>Einwohner <span class="sc">&lt;=</span> <span class="dv">150000</span>] <span class="ot">&lt;-</span> <span class="st">"klein"</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Groesse</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "gross"  "mittel" "mittel" "klein"  "klein"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Oder aber, die Ankunftszeit kann von der Spalte <code>Ankunft</code>abgeleitet werden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Ankunft_stunde <span class="ot">&lt;-</span> <span class="fu">hour</span>(df<span class="sc">$</span>Ankunft)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Ankunft_stunde</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 10 14 13 18 21</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Ankunft_stunde <span class="ot">&lt;-</span> <span class="fu">hour</span>(df<span class="sc">$</span>Ankunft)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Ankunft_stunde</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 10 14 13 18 21</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 
 </div>
 
 
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p><code>ordered = T</code> kann nur bei der Funktion <code>factor()</code> spezifiziert werden, nicht bei <code>as.factor()</code>. Ansonsten sind <code>factor()</code> und <code>as.factor()</code> sehr ähnlich.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 
 </main> <!-- /main -->
