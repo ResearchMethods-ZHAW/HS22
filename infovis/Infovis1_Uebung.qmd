@@ -30,13 +30,16 @@ kanton <- read_csv("data/tagi_data_kantone.csv")
 
 ## Aufgabe 1
 
-- nutze `ggplot(kanton, aes(auslanderanteil, ja_anteil))` um den ggplot zu initiieren. Füge danach ein einen Punkte Layer hinzu (`geom_point()`)
-- nutze `coord_fixed()` um die beiden Achsen in ein fixes Verhältnis zu setzen (1:1).
-- Optional: 
-  - setze die Achsen Start- und Endwerte mittels `scale_y_continuous` bzw. `scale_x_continuous`.
-  - Setze analog @kovic2014 die `breaks` (0.0, 0.1...0.7) manuell (innerhalb `scale_*_continuous`)
+Rekonstrukturiere folgenden Plot aus @kovic2014 mithilfe von ggplot und dem tagi_data_kanton.csv Datensatz:
 
-Rekonstruktion:
+Tipp:
+
+- Nutze `ggplot(kanton, aes(auslanderanteil, ja_anteil))` um den ggplot zu initiieren. Füge danach ein einen Punkte Layer hinzu (`geom_point()`)
+- Nutze `coord_fixed()` um die beiden Achsen in ein fixes Verhältnis zu setzen (1:1).
+- Optional: 
+  - Setze die Achsen Start- und Endwerte mittels `scale_y_continuous` bzw. `scale_x_continuous`.
+  - Setze analog @kovic2014 die `breaks` (0.0, 0.1...0.7) manuell (innerhalb `scale_*_continuous`)
+  - Nutze `labs()` für die Beschriftung der Achsen
 
 ```{r}
 #| label: fig-ggplot-ex1
@@ -56,6 +59,12 @@ plot1
 
 ## Aufgabe 2
 
+Rekonstrukturiere folgenden Plot aus @kovic2014 mithilfe von ggplot:
+
+Tipp:
+
+- Nutze `geom_smooth`
+
 ```{r}
 #| label: fig-ggplot-ex2
 #| fig-cap: "Generierter Plot"
@@ -69,6 +78,15 @@ plot1 +
 ## Aufgabe 3
 
 Importiere die Gemeindedaten [tagi_data_gemeinden.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602260).
+
+Rekonstrukturiere folgenden Plot aus @kovic2014 mithilfe von ggplot und dem tagi_data_gemeinden.csv Datensatz:
+
+Tipp:
+
+- Nutze `geom_point()` 
+- Nutze `labs()`
+- Nutze `coord_fixed()` 
+
 ```{r}
 #| label: fig-ggplot-ex3
 #| fig-cap: "Generierter Plot"
@@ -88,6 +106,12 @@ plot2
 
 ## Aufgabe 4
 
+Rekonstrukturiere folgenden Plot aus @kovic2014 mithilfe von ggplot und dem tagi_data_gemeinden.csv Datensatz:
+
+Tipp:
+
+- Nutze `geom_smooth`
+
 ```{r}
 #| label: fig-ggplot-ex4
 #| fig-cap: "Generierter Plot"
@@ -99,6 +123,12 @@ plot2 +
 ```
 
 ## Aufgabe 5
+
+Rekonstrukturiere folgenden Plot aus @kovic2014 mithilfe von ggplot und dem tagi_data_gemeinden.csv Datensatz:
+
+Tipp:
+
+- Nutze `facet_wrap` um einen Plot pro Kanton darzustellen.
 
 ```{r}
 #| label: fig-ggplot-ex5
@@ -113,6 +143,12 @@ plot3
 
 ## Aufgabe 6
 
+Rekonstrukturiere folgenden Plot aus @kovic2014 mithilfe von ggplot und dem tagi_data_gemeinden.csv Datensatz:
+
+Tipp:
+
+- Nutze `geom_smooth`
+
 ```{r}
 #| label: fig-ggplot-ex6
 #| fig-cap: "Generierter Plot"
@@ -126,7 +162,11 @@ plot3 +
 
 ## Aufgabe 7
 
-Rekonstruktion:
+Rekonstrukturieren folgenden Plot aus @kovic2014 mithilfe von ggplot und dem tagi_data_gemeinden.csv Datensatz:
+
+Tipp:
+
+- Nutze `facet_wrap`
 
 ```{r}
 #| label: fig-ggplot-ex7
@@ -141,6 +181,12 @@ plot4
 
 ## Aufgabe 8
 
+Rekonstrukturiere folgenden Plot aus @kovic2014 mithilfe von ggplot und dem tagi_data_gemeinden.csv Datensatz:
+
+Tipp:
+
+- Nutze `geom_smooth`
+
 ```{r}
 #| label: fig-ggplot-ex8
 #| fig-cap: "Generierter Plot"
@@ -153,12 +199,16 @@ plot4 +
 
 ## Aufgabe 9 (Optional, fortgeschritten)
 
+
+Rekonstrukturiere folgende Tabelle aus @kovic2014 mithilfe des tagi_data_gemeinden.csv Datensatz:
+
 Tipp: 
+
 - Nutze `group_by()` und `summarise()`
 - Nutze `cor.test()` um den Korrelationskoeffizienten sowie den p-Wert zu erhalten. 
 - Mit `$estimate` und `$p.value` können die entsprechenden Werte direkt angesprochen werden
 
-Hinweis: aus bisher unerklärlichen Gründen weiche gewisse meiner Werte leicht von den Berechnungen aus @kovic2014 ab.
+Hinweis: aus bisher unerklärlichen Gründen weichen gewisse meiner Werte leicht von den Berechnungen aus @kovic2014 ab.
 
 ```{r}
 # Lösung zu Aufgabe 9
