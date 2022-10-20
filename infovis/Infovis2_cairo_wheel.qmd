@@ -3,15 +3,12 @@ date: 2022-10-25
 lesson: InfoVis2
 thema: Cairo Wheel
 index: 1
+execute: 
+  echo: false
 ---
 
 # Infovis 2: Cairo Wheel
 
-```{r}
-#| label: setup
-#| include: false
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
-```
 
 ```{r}
 #| fig.width: 15.0
@@ -86,10 +83,10 @@ cairo_plot <- function(dataset){
 #| fig.width: 18.0
 #| fig.height: 12.0
 #| label: fig-cairo-wheel
-#| fig-cap: "Generierter Plot"
+#| fig-cap: "Cairo Wheel"
 
 allvals_long |>
-  split(.$InfoVis) |>
+  (\(x)split(x, x$InfoVis))() |>
   imap(function(x,y){
 
     p <- cairo_plot(x) +
