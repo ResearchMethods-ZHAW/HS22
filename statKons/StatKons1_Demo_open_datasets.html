@@ -131,7 +131,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link rel="stylesheet" href="../theme-custom.scss">
 </head>
 
-<body class="nav-sidebar docked">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -147,7 +147,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../" class="sidebar-logo-link">
       <img src="../images/zhaw_sw_neg.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -156,6 +156,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <a href="../">Research Methods HS22</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
     </div>
       </div>
@@ -646,7 +651,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>sleep</li>
 <li>USAccDeaths</li>
 <li>USArrests</li>
-<li>…</li>
+<li>Titanic</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>() <span class="co"># erzeugt eine Liste mit den Datensätzen, welche in R verfügbaren sind</span></span>
@@ -675,36 +680,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="https://www.kaggle.com/mchirico/montcoalert">911</a></li>
 <li><a href="https://www.kaggle.com/borapajo/food-choices#food_coded.csv">foodPreferences</a></li>
 <li><a href="https://www.kaggle.com/kaggle/sf-salaries">S.F. salaries</a></li>
+<li><a href="https://www.kaggle.com/c/titanic/data">Titanic</a></li>
 <li>…</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages and data</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data_911 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/911.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_911)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>spec_tbl_df [99,492 × 9] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
- $ lat      : num [1:99492] 40.3 40.3 40.1 40.1 40.3 ...
- $ lng      : num [1:99492] -75.6 -75.3 -75.4 -75.3 -75.6 ...
- $ desc     : chr [1:99492] "REINDEER CT &amp; DEAD END;  NEW HANOVER; Station 332; 2015-12-10 @ 17:10:52;" "BRIAR PATH &amp; WHITEMARSH LN;  HATFIELD TOWNSHIP; Station 345; 2015-12-10 @ 17:29:21;" "HAWS AVE; NORRISTOWN; 2015-12-10 @ 14:39:21-Station:STA27;" "AIRY ST &amp; SWEDE ST;  NORRISTOWN; Station 308A; 2015-12-10 @ 16:47:36;" ...
- $ zip      : num [1:99492] 19525 19446 19401 19401 NA ...
- $ title    : chr [1:99492] "EMS: BACK PAINS/INJURY" "EMS: DIABETIC EMERGENCY" "Fire: GAS-ODOR/LEAK" "EMS: CARDIAC EMERGENCY" ...
- $ timeStamp: POSIXct[1:99492], format: "2015-12-10 17:40:00" "2015-12-10 17:40:00" ...
- $ twp      : chr [1:99492] "NEW HANOVER" "HATFIELD TOWNSHIP" "NORRISTOWN" "NORRISTOWN" ...
- $ addr     : chr [1:99492] "REINDEER CT &amp; DEAD END" "BRIAR PATH &amp; WHITEMARSH LN" "HAWS AVE" "AIRY ST &amp; SWEDE ST" ...
- $ e        : num [1:99492] 1 1 1 1 1 1 1 1 1 1 ...
- - attr(*, "spec")=
-  .. cols(
-  ..   lat = col_double(),
-  ..   lng = col_double(),
-  ..   desc = col_character(),
-  ..   zip = col_double(),
-  ..   title = col_character(),
-  ..   timeStamp = col_datetime(format = ""),
-  ..   twp = col_character(),
-  ..   addr = col_character(),
-  ..   e = col_double()
-  .. )
- - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data_911 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"911.csv"</span>), <span class="at">delim =</span> <span class="st">","</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in here("data", "911.csv"): could not find function "here"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_911)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in str(data_911): object 'data_911' not found</code></pre>
 </div>
 </div>
 </section>
@@ -734,16 +721,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p><strong>Download via Github - 2. Möglichkeit</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beachtet dabei, dass ihr die URL zum originalen (raw) Datensatz habt </span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>star_wars <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-05-14/week7_starwars.csv"</span>, <span class="at">locale =</span> readr<span class="sc">::</span><span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"latin1"</span>)) <span class="co">#not working yet </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beachtet dabei, dass ihr die URL zum originalen (raw) Datensatz habt </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>star_wars <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-05-14/week7_starwars.csv"</span>, <span class="at">locale =</span> readr<span class="sc">::</span><span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"latin1"</span>)) <span class="co">#not working yet </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in open.connection(structure(4L, class = c("curl", "connection"), conn_id = &lt;pointer: 0x249&gt;), : Timeout was reached: [raw.githubusercontent.com] Connection timed out after 10001 milliseconds</code></pre>
+</div>
 </div>
 </section>
 <section id="opendata.swiss" class="level2">
 <h2 class="anchored" data-anchor-id="opendata.swiss">opendata.swiss</h2>
 <p>Auf <a href="https://opendata.swiss/en/">opendata.swiss</a> sind offene, frei verfügbare Daten der Schweizerischen Behörden zu finden. opendata.swiss ist ein gemeinsames Projekt von Bund, Kantonen, Gemeinden und weiteren Organisationen mit einem staatlichen Auftrag. Beispiele sind:</p>
 <ul>
-<li><a href="https://opendata.swiss/en/dataset/statistik-der-schweizer-stadte-wohnbevolkerung-1930-2011">Statistik der Schweizer Städte</a></li>
-<li><a href="https://opendata.swiss/de/dataset/verpflegungsbetriebe-nach-jahr-und-stadtquartier">Verpflegungsbetriebe nach Jahr und Stadtquartier</a></li>
+<li><a href="https://opendata.swiss/de/dataset/statistik-der-schweizer-staedte-2021">Statistik der Schweizer Städte</a></li>
+<li><a href="https://opendata.swiss/de/dataset/bevolkerung-nach-stadtquartier-herkunft-geschlecht-und-alter-seit-19932">Bevölkerung nach Stadtquartier, Herkunft, Geschlecht und Alter</a></li>
 <li><a href="https://opendata.swiss/de/dataset/altpapiermengen-tonnen">Altpapiermengen</a></li>
 <li>…</li>
 </ul>
@@ -758,21 +748,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>…</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lade die Datei "Häufigste Sprachen"</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>urlfile <span class="ot">=</span> <span class="st">"https://data.stadt-zuerich.ch/dataset/bfs_ste_bev_hauptsprachen_top50_od3011/download/BEV301OD3011.csv"</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>dat_lang <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="fu">url</span>(urlfile), <span class="at">delim =</span> <span class="st">","</span>, <span class="at">col_names =</span> T)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_lang)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-  Sprache        AntBev AnzBev untAntBevKI obAntBevKI untAnzBevKI obAnzBevKI
-  &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
-1 Deutsch          74.9 259670        74.4       75.3      257970     261380
-2 Englisch         13.5  46970        13.2       13.9       45630      48320
-3 Italienisch       6.2  21390         5.9        6.4       20470      22310
-4 Französisch       4.9  17060         4.7        5.2       16230      17890
-5 Spanisch          4.3  14940         4.1        4.5       14140      15740
-6 Serbokroatisch    3.1  10900         2.9        3.3       10220      11590</code></pre>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lade die Datei "Häufigste Sprachen"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>urlfile <span class="ot">=</span> <span class="st">"https://data.stadt-zuerich.ch/dataset/bfs_ste_bev_hauptsprachen_top50_od3011/download/BEV301OD3011.csv"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>dat_lang <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="fu">url</span>(urlfile), <span class="at">delim =</span> <span class="st">","</span>, <span class="at">col_names =</span> T)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in open.connection(structure(5L, class = c("url", "connection"), conn_id = &lt;pointer: 0x24d&gt;), : cannot open the connection to 'https://data.stadt-zuerich.ch/dataset/bfs_ste_bev_hauptsprachen_top50_od3011/download/BEV301OD3011.csv'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_lang)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in head(dat_lang): object 'dat_lang' not found</code></pre>
 </div>
 </div>
 
