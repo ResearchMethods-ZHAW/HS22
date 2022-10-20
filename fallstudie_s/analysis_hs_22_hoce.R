@@ -772,56 +772,59 @@ ggsave("Proz_Entwicklung_Zaehlstelle_Phase.png", width=20, height=15, units="cm"
 # 4.1 Einflussfaktoren Besucherzahl ####
 # Erstelle ein df indem die taeglichen Zaehldaten und Meteodaten vereint sind
 umwelt <- inner_join(depo_d, meteo, by = c("Datum" = "time"))
-# Das zusammenfuehren folgt evtl. in NA-Werten bei gewissen Tagen
-sum(is.na(umwelt))
 
-# nochmals einige Convinience Variablen
-umwelt <- umwelt|>
-  mutate(Ferien = if_else(  
-    Datum >= Fruehlingsferien_2019_start & Datum <= Fruehlingsferien_2019_ende |
-      Datum >= Sommerferien_2019_start & Datum <= Sommerferien_2019_ende |
-      Datum >= Herbstferien_2019_start & Datum <= Herbstferien_2019_ende |
-      Datum >= Winterferien_2019_start & Datum <= Winterferien_2019_ende |
-      Datum >= Fruehlingsferien_2020_start & Datum <= Fruehlingsferien_2020_ende |
-      Datum >= Sommerferien_2020_start & Datum <= Sommerferien_2020_ende |
-      Datum >= Herbstferien_2020_start & Datum <= Herbstferien_2020_ende |
-      Datum >= Winterferien_2020_start & Datum <= Winterferien_2020_ende |
-      Datum >= Fruehlingsferien_2021_start & Datum <= Fruehlingsferien_2021_ende |
-      Datum >= Sommerferien_2021_start & Datum <= max(depo$Datum),
-        "1", "0"))|>
-  mutate(Ferien = factor(Ferien))
+# Wir muessen unserem Daten noch zuweisen, ob Ferienzeit oder nicht. Das machen wir mit einer Funktion
+# erstelle zuerst ein dataframe zur Zuweisung der Ferien # credits Melina Grether
 
+Start <- c(Winterferien_2016_start, Fruehlingsferien_2017_start, Sommerferien_2017_start, Herbstferien_2017_start, 
+           Winterferien_2017_start, Fruehlingsferien_2018_start, Sommerferien_2018_start, Herbstferien_2018_start,
+           Winterferien_2019_start, Fruehlingsferien_2019_start, Sommerferien_2019_start, Herbstferien_2019_start,
+           Winterferien_2020_start, Fruehlingsferien_2020_start, Sommerferien_2020_start, Herbstferien_2020_start,
+           Winterferien_2021_start, Fruehlingsferien_2021_start, Sommerferien_2021_start, Herbstferien_2021_start,
+           Winterferien_2022_start, Fruehlingsferien_2022_start, Sommerferien_2022_start, Herbstferien_2022_start)
+End <- c(Winterferien_2016_ende, Fruehlingsferien_2017_ende, Sommerferien_2017_ende, Herbstferien_2017_ende, 
+         Winterferien_2017_ende, Fruehlingsferien_2018_ende, Sommerferien_2018_ende, Herbstferien_2018_ende,
+         Winterferien_2019_ende, Fruehlingsferien_2019_ende, Sommerferien_2019_ende, Herbstferien_2019_ende,
+         Winterferien_2020_ende, Fruehlingsferien_2020_ende, Sommerferien_2020_ende, Herbstferien_2020_ende,
+         Winterferien_2021_ende, Fruehlingsferien_2021_ende, Sommerferien_2021_ende, Herbstferien_2021_ende,
+         Winterferien_2022_ende, Fruehlingsferien_2022_ende, Sommerferien_2022_ende, Herbstferien_2022_ende)
 
+# verbinde das zu einem df
+ferien <- data.frame(Start, End)
 
-
-################ anpassen für HS22
-# credits Melina Grether
-
+# schreibe nun eine Funktion zur zuweisung Ferien. WENN groesser als start UND kleiner als
+# ende, DANN schreibe ein 1
 for (i in 1:nrow(ferien)){
   umwelt$Ferien[umwelt$Datum >= ferien[i,"Start"] & umwelt$Datum <= ferien[i,"End"]] <- 1
 }
 umwelt$Ferien[is.na(umwelt$Ferien)] <- 0
-###################################
 
-
-
-
+# hat das funktioniert? zaehle die anzahl Ferientage
+sum(umwelt$Ferien)
 
 # Faktor und integer
 # Im GLMM wird die Kalenderwoche und das Jahr als random factor definiert. Dazu muss sie als
 # Faktor vorliegen.
 umwelt <- umwelt |> 
   mutate(Jahr = as.factor(Jahr)) |> 
-  mutate(KW = as.factor(KW))
+  mutate(KW = as.factor(KW)) |>
+  # zudem muessen die die nummerischen Wetterdaten auch als solche abgespeichert sein
+  mutate(tre200nx = as.numeric(tre200nx))|>
+  mutate(tre200jx = as.numeric(tre200jx))|>
+  mutate(rre150j0 = as.numeric(rre150j0))|>
+  mutate(rre150n0 = as.numeric(rre150n0))|>
+  mutate(sremaxdv = as.numeric(sremaxdv))
 
+# falls das noch zu NA's gefuehrt hat, muessen diese entfernt werden
+sum(is.na(umwelt))
+umwelt <- na.omit(umwelt)
+  
 # Unser Modell kann nur mit ganzen Zahlen umgehen. Zum Glueck habe wir die Zaehldaten
 # bereits gerundet.
 
 # pruefe str des df
 summary(umwelt)
 str(umwelt)
-sum(is.na(umwelt))
-
 
 # unser Datensatz muss ein df sein, damit scale funktioniert
 umwelt <- as.data.frame(umwelt)
@@ -830,10 +833,11 @@ umwelt <- as.data.frame(umwelt)
 # Skalieren der Variablen, damit ihr Einfluss vergleichbar wird 
 # (Problem verschiedene Skalen der Variablen (bspw. Temperatur in Grad Celsius, 
 # Niederschlag in Millimeter und Sonnenscheindauer in Minuten)
-
 umwelt <- umwelt |> 
   mutate(tre200jx_scaled = scale(tre200jx), 
+         tre200nx_scaled = scale(tre200nx),
          rre150j0_scaled = scale(rre150j0), 
+         rre150n0_scaled = scale(rre150n0), 
          sremaxdv_scaled = scale(sremaxdv))
 
 # 4.2 Variablenselektion ####
@@ -842,7 +846,7 @@ umwelt <- umwelt |>
 
 # Erklaerende Variablen definieren
 # Hier wird die Korrelation zwischen den (nummerischen) erklaerenden Variablen berechnet
-cor <-  cor(umwelt[,16:(ncol(umwelt))]) # in den [] waehle ich die skalierten Spalten.
+cor <-  cor(umwelt[,12:16]) # in den [] waehle ich die skalierten Spalten.
 # Mit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden
 # hier kann auch die Schwelle für die Korrelation gesetzt werden, 
 # 0.7 ist liberal / 0.5 konservativ
@@ -852,7 +856,22 @@ cor
 
 # Korrelationsmatrix erstellen
 # Zur Visualisierung kann ein einfacher Plot erstellt werden:
-chart.Correlation(umwelt[,16:(ncol(umwelt))], histogram=TRUE, pch=19)
+chart.Correlation(umwelt[,12:16], histogram=TRUE, pch=19)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # # Automatisierte Variablenselektion 
 # # fuehre die dredge-Funktion und ein Modelaveraging durch
