@@ -196,38 +196,3 @@ Tipp:
 plot4 +
   geom_smooth()
 ```
-
-## Aufgabe 9 (Optional, fortgeschritten)
-
-
-Rekonstrukturiere folgende Tabelle aus @kovic2014 mithilfe des tagi_data_gemeinden.csv Datensatz:
-
-Tipp: 
-
-- Nutze `group_by()` und `summarise()`
-- Nutze `cor.test()` um den Korrelationskoeffizienten sowie den p-Wert zu erhalten. 
-- Mit `$estimate` und `$p.value` können die entsprechenden Werte direkt angesprochen werden
-
-Hinweis: aus bisher unerklärlichen Gründen weichen gewisse meiner Werte leicht von den Berechnungen aus @kovic2014 ab.
-
-```{r}
-# Lösung zu Aufgabe 9
-
-korr_tab <- gemeinde |>
-  group_by(kanton) |>
-  summarise(
-    Korr.Koeffizient = cor.test(anteil_ja,anteil_ausl,method = "pearson")$estimate,
-    Signifikanz_val = cor.test(anteil_ja,anteil_ausl,method = "pearson")$p.value,
-    Signifikanz = ifelse(Signifikanz_val < 0.001,"***",ifelse(Signifikanz_val<0.01,"**",ifelse(Signifikanz_val<0.05,"*","-")))
-  ) |>
-  select(-Signifikanz_val)
-
-```
-
-```{r}
-#| echo: false
-#| purl: false
-knitr::kable(korr_tab,caption = "Legende: * = p<0.05, ** = p<0.01, ***=p<0.001.")
-```
-
-
