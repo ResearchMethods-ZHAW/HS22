@@ -36,12 +36,15 @@ library(lubridate)
 
 Lade Daten von der Gästebefragung 2017 herunter (für Informationen zu den einzelnen Variablen, siehe [diesen Link](https://zenodo.org/record/3554884/files/2020_ZHAW_vonRickenbach_Variablen_cleaned_recoded_survey_dataset_anonym_NOVANIMAL.pdf?download=1)):
 
+Zu den originalen Datensätze gehts hier lang:
+
 - [2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv](https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1)
 - [2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv](https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1)
 
 ```{r}
-nova <- read_delim(file = "data/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv", delim = ";")
-nova_survey <- read_delim(file = "data/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv", delim = ";")
+# so kannst du die Daten direkt von der Webpage laden
+nova <- read_delim(file = "https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1", delim = ";")
+nova_survey <- read_delim(file = "https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1", delim = ";")
 ```
 
 ```{r}
@@ -123,22 +126,27 @@ knitr::kable(table, caption = "Wahrgenommener Milchkonsum nach Geschlecht")
 
 > Leseempfehlung Kapitel 2 von [Manny Gimond](https://mgimond.github.io/Stats-in-R/z_t_tests.html) 
 
+
+### Lade Daten
+Lese Daten aus Moodle [aus](LINK follows)
+
+
 ### Null- und Alternativhypothese
 
 $H_0$: Es gibt keine Unterschiede in den Verkaufszahlen zwischen Basis- und Interventionswochen. 
 
 $H_1$: Es gibt Unterschiede in den Verkaufszahlen zwischen Basis- und Interventionswochen.
 
+
+
+
 ```{r}
 #| label: fig-ggplot-ex2
 #| fig-cap: "Generierter Plot"
 
-# Gemäss Aufgabenstellung müsset die Daten zuerst nach Kalenderwochen "week" 
-# und Bedingungen "condition" zusammengefasst werden
+#lade Daten
+df <- readr::read_csv2("Statistik1.2_Uebung_novanimal.csv")
 
-df <- nova %>%
-    group_by(week, condit) %>%  
-    summarise(tot_sold = n()) 
 
 # überprüft die Voraussetzungen für einen t-Test
 ggplot2::ggplot(df, aes(x = condit, y= tot_sold)) + # achtung 0 Punkt fehlt
@@ -190,5 +198,4 @@ p <- ggplot2::ggplot(df, aes(x = condit, y= tot_sold)) +
 
 print(p)
 
-# ggplot2::ggsave(filename = here::here("_statistik/Statistik1_solution/distill-preview.png"), device = "png")
 ```
