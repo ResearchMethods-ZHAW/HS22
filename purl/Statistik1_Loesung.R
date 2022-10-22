@@ -1,8 +1,11 @@
-nova <- read_delim(file = "data/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv", delim = ";")
-nova_survey <- read_delim(file = "data/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv", delim = ";")
+# so kannst du die Daten direkt von der Webpage laden
+nova <- read_delim(file = "https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1", delim = ";")
+nova_survey <- read_delim(file = "https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1", delim = ";", )
 
 #überprüfe die Datenstruktur
+head(nova_survey, 5)
 glimpse(nova_survey)
+#str(nova_survey) #alternativ dazu
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 
@@ -61,12 +64,9 @@ table <- nova2 %>%
 
 knitr::kable(table, caption = "Wahrgenommener Milchkonsum nach Geschlecht")
 
-# Gemäss Aufgabenstellung müsset die Daten zuerst nach Kalenderwochen "week" 
-# und Bedingungen "condition" zusammengefasst werden
+#lade Daten
+df <- readr::read_csv2("data/Datensatz_novanimal_Uebung_Statistik1.2.csv")
 
-df <- nova %>%
-    group_by(week, condit) %>%  
-    summarise(tot_sold = n()) 
 
 # überprüft die Voraussetzungen für einen t-Test
 ggplot2::ggplot(df, aes(x = condit, y= tot_sold)) + # achtung 0 Punkt fehlt
@@ -83,6 +83,7 @@ ggplot2::ggplot(df, aes(x = condit, y= tot_sold)) + # achtung 0 Punkt fehlt
 # unabhängig sind
 
 t_test <- t.test(tot_sold ~ condit, data=df, var.equl = T)
+t_test
 
 #alternative Formulierung
 t.test(df[df$condit == "Basis", ]$tot_sold, 
