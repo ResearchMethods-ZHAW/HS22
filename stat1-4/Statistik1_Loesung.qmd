@@ -3,6 +3,8 @@ date: 2022-10-31
 lesson: Stat1
 thema: Grundlagen der Statistik
 index: 4
+execute: 
+  echo: false   # set to true to show musterlösung
 ---
 
 # Stat1: Lösung
@@ -17,7 +19,7 @@ knitr::purl("stat1-4/Statistik1_Loesung.qmd", "purl/Statistik1_Loesung.R", docum
 
 ##  Musterlösung Übung 1.1
 
-> Download [R-Skript](../purl/Statistik1_Loesung.R)
+- Download [R-Skript](../purl/Statistik1_Loesung.R)
 
 ### Kommentierter Weg
 ```{r}
@@ -27,8 +29,6 @@ knitr::purl("stat1-4/Statistik1_Loesung.qmd", "purl/Statistik1_Loesung.R", docum
 ## ladet die nötigen Packete und die novanimal.csv Datei in R
 
 library(tidyverse)
-library(here)
-library(lubridate)
 
 # lade Daten vom Feldexperiment: Kassendaten
 # für Informationen zu den einzelnen Variablen, siehe 
@@ -44,15 +44,16 @@ Zu den originalen Datensätze gehts hier lang:
 ```{r}
 # so kannst du die Daten direkt von der Webpage laden
 nova <- read_delim(file = "https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1", delim = ";")
-nova_survey <- read_delim(file = "https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1", delim = ";")
+nova_survey <- read_delim(file = "https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1", delim = ";", )
 ```
 
 ```{r}
 #überprüfe die Datenstruktur
+head(nova_survey, 5)
 glimpse(nova_survey)
+#str(nova_survey) #alternativ dazu
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
-
 mytheme <- 
   theme_classic() + 
   theme(
