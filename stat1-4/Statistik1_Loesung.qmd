@@ -127,10 +127,6 @@ knitr::kable(table, caption = "Wahrgenommener Milchkonsum nach Geschlecht")
 > Leseempfehlung Kapitel 2 von [Manny Gimond](https://mgimond.github.io/Stats-in-R/z_t_tests.html) 
 
 
-### Lade Daten
-Lese Daten aus Moodle [aus](LINK follows)
-
-
 ### Null- und Alternativhypothese
 
 $H_0$: Es gibt keine Unterschiede in den Verkaufszahlen zwischen Basis- und Interventionswochen. 
@@ -145,7 +141,7 @@ $H_1$: Es gibt Unterschiede in den Verkaufszahlen zwischen Basis- und Interventi
 #| fig-cap: "Generierter Plot"
 
 #lade Daten
-df <- readr::read_csv2("Statistik1.2_Uebung_novanimal.csv")
+df <- readr::read_csv2("data/Datensatz_novanimal_Uebung_Statistik1.2.csv")
 
 
 # überprüft die Voraussetzungen für einen t-Test
@@ -165,19 +161,24 @@ ggplot2::ggplot(df, aes(x = condit, y= tot_sold)) + # achtung 0 Punkt fehlt
 # unabhängig sind
 
 t_test <- t.test(tot_sold ~ condit, data=df, var.equl = T)
+t_test
 
 #alternative Formulierung
 t.test(df[df$condit == "Basis", ]$tot_sold, 
                  df[df$condit == "Intervention", ]$tot_sold) 
 ```
 
-### Methoden
+### Methoden 
 
-Ziel war es die aggregierten Verkaufszahlen zwischen den Interventions- und Basiswochen zu vergleichen. Die Annahme ist, dass die wöchentlichen Verkaufszahlen unabhängig sind.  Daher können die Unterschiede zwischen den Verkaufszahlen pro Woche zwischen den beiden Bedingungen mittels t-Test geprüft werden. Obwohl die visuelle Inspektion keine schwerwiegenden Verletzungen der Modelvoraussetzung zeigte, wurde einen Welch t-Test gerechnet. Zudem muss gesagt werden, dass die Gruppengrösse hier jeweils mit n = 6 (Anzahl Wochen) eher klein ist. T-test liefern dennoch relativ reliable Resultate. Für mehr Infos dazu hier eine [Studie](https://scholarworks.umass.edu/cgi/viewcontent.cgi?article=1307&context=pare).
 
-### Ergebnisse
+Ziel war es die aggregierten Verkaufszahlen zwischen den Interventions- und Basiswochen zu vergleichen. Die Annahme ist, dass die wöchentlichen Verkaufszahlen unabhängig sind.  Daher können die Unterschiede zwischen den Verkaufszahlen pro Woche zwischen den beiden Bedingungen mittels t-Test geprüft werden. Obwohl die visuelle Inspektion keine schwerwiegenden Verletzungen der Modelvoraussetzung zeigte (mit Ausnahme eines Ausreissers), wurde einen Welch t-Test gerechnet. Zudem muss gesagt werden, dass die Gruppengrösse hier jeweils mit n = 6 (Anzahl Wochen) eher klein ist. T-test liefern dennoch relativ reliable Resultate. Für mehr Infos dazu hier eine [Studie](https://scholarworks.umass.edu/cgi/viewcontent.cgi?article=1307&context=pare). 
 
-In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventionsowochen (siehe Abbildung 1). Die wöchentlichen Verkaufszahlen zwischen den Bedigungen (Basis oder Intervention) unterscheiden sich gemäss Welch t-Test jedoch nicht signifikant (*t*(`r round(t_test$parameter[[1]],digits = 0)`) = `r round(t_test$statistic, digits = 3)` , *p* = `r round(t_test$p.value, digits=3)`). Die Ergebnisse könnten mit einem $\chi^2$-Test nochmals validiert werden, da die Gruppengrösse mit n = 6 doch eher klein ist.
+  
+
+### Ergebnisse 
+
+  
+In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventionswochen (siehe Abbildung 1). Die wöchentlichen Verkaufszahlen zwischen den Bedingungen (Basis oder Intervention) unterscheiden sich gemäss Welch t-Test jedoch nicht signifikant (*t*(`r round(t_test$parameter[[1]],digits = 0)`) = `r round(t_test$statistic, digits = 3)` , *p* = `r round(t_test$p.value, digits=3)`). Die Ergebnisse könnten mit einem $\chi^2$-Test nochmals validiert werden, da die Gruppengrösse mit n = 6 doch eher klein ist. 
 
 ```{r}
 #| purl: false
