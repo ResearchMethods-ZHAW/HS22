@@ -6,10 +6,6 @@ diary <- c(
 
 diary
 
-subtrahieren <- function(minuend, subtrahend){
-  minuend - subtrahend
-}
-
 # Wenn die Buchstaben einzelne _Elemente_ eines Vektors wären, würden wir diese
 # folgendermassen subsetten:
 
@@ -19,6 +15,12 @@ charvec1[4:6]
 # Aber wenn diese in einem einzigen character gespeichert sind, brauchen wir substr:
 charvec2 <- "abcdefgh"
 substr(charvec2, 4, 6)
+
+subtrahieren <- function(minuend, subtrahend){
+  minuend - subtrahend
+}
+
+subtrahieren(10, 4)
 
 output <- mean(subtrahieren(as.numeric(substr(diary, 20, 22)),273.15))
 #                                             \_1_/
