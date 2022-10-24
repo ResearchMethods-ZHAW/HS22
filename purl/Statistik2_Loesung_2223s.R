@@ -3,9 +3,6 @@ library(tidyverse)
 library(magrittr)
 library(here)
 
-## ladet die nötigen Packete und die novanimal.csv Datei in R
-nova <- read_delim("https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1", delim = ";")
-
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 mytheme <- 
   theme_classic() + 
@@ -17,30 +14,14 @@ mytheme <-
     axis.ticks.length = unit(.5, "cm")
     )
 
-df <- nova # klone den originaler Datensatz
-
-# fasst die vier Inhalte der Gerichte zu drei Inhalten zusammen.
-df %<>%
-  # Geflügel & Fisch zu fleischgerichte zählen
-  mutate(label_content = str_replace(label_content, "Geflügel|Fisch", "Fleisch")) %>% 
-  # achtung reihenfolge spielt eine rolle, wegen des + (plus)
-  mutate(label_content = str_replace(label_content, "Pflanzlich[+]|Pflanzlich", "Vegetarisch"))
-
-# gruppiert Daten nach Menü-Inhalt und Woche
-df %<>%
-    group_by(label_content, week) %>% 
-    summarise(tot_sold = n()) %>%
-    drop_na() %>% 
-    ungroup() # lasst die unbekannten Menü-Inhalte weg
+#lade die Daten
+df <- read_csv2("data/Datensatz_novanimal_Uebung_Statistik2.1.csv")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte an (plus Standardabweichungen)
 # Sind Mittelwerte nahe bei Null? 
 # Gäbe uns einen weiteren Hinweis auf eine spezielle Binomail-Verteilung 
-df %>% 
-  split(.$label_content) %>% # teilt den Datensatz in 3 verschiedene Datensätze auf
-  purrr::map(~ psych::describe(.$tot_sold)) # mit map können andere Funktionen 
-# auf den Datensatz angewendet werden (alternative Funktionen sind aggregate oder apply)
+aggregate(tot_sold ~ label_content, data = df, FUN = function(x) c(mn = mean(x), n = sd(x) ))
 
 # Boxplot
 ggplot(df, aes(x = label_content, y= tot_sold)) +
@@ -129,40 +110,8 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
 # https://www.r-bloggers.com/add-p-values-and-significance-levels-to-ggplots/
 # https://cran.r-project.org/web/packages/ggsignif/vignettes/intro.html
 
-## ladet die nötigen Packete und die novanimal.csv Datei in R
-nova <- read_delim("data/2017_ZHAW_individual_menu_sales_NOVANIMAL.csv", delim = ";")
-
-#if not loaded above, load it here
-# ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
-# mytheme <- 
-#   theme_classic() + 
-#   theme(
-#     axis.line = element_line(color = "black"), 
-#     axis.text = element_text(size = 12, color = "black"), 
-#     axis.title = element_text(size = 12, color = "black"), 
-#     axis.ticks = element_line(size = .75, color = "black"), 
-#     axis.ticks.length = unit(.5, "cm")
-#     )
-
-
-# klone den originaler Datensatz
-df <- nova 
-
-# Daten vorbereiten
-df %<>% # schaut euch das Package "magrittr" an
-  # ersetze Local mit einem leeren String
-  mutate(article_description = str_replace(article_description, "Local ", "")) %>% 
-  filter(article_description != "Hot and Cold") %>% # lasse Buffet Gerichte weg
-  filter(member != "Spezialkarten") %>% # Spezialkarten können vernachlässigt werden
-  #  fasse die zwei Menülinien "World & Favorite" zusammen
-  mutate(article_description = str_replace_all(article_description, "Favorite|World",
-                                               "Fav_World"))  
-# gruppiere Daten nach Menülinie, Geschlecht und Hochschulzugehörigkeit
-df %<>%
-    group_by(article_description, member, week) %>% 
-    summarise(tot_sold = n()) %>%
-    ungroup() %>% 
-    drop_na()  # lasst die unbekannten Menü-Inhalte weg
+#lade Daten
+df <- read_csv2("data/Datensatz_novanimal_Uebung_Statistik2.3s.csv")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte der Responsevariable an
