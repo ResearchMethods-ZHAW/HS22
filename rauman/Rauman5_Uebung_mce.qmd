@@ -7,39 +7,38 @@ index: 1
 
 # Rauman 5: Übung
 
-The following exercise may seem familiar to some of you, if you have attended the bachelor program. This MCE was already conducted in the bachelor module "GIS" by using ArcGIS Pro and its ModelBuilder (see @fig-mce-process).
+Die folgende Übung mag einigen von Ihnen bekannt vorkommen, wenn Sie unseren Bachelorstudiengang besucht haben. Dieses MCE wurde bereits im Bachelormodul "GIS" unter Verwendung von ArcGIS Pro und dessen ModelBuilder durchgeführt (siehe @fig-mce-process).
 
-![MCE Process](images/mce_process.png){#fig-mce-process}
+![MCE Prozess](images/mce_process.png){#fig-mce-process}
 
-The goal of this exercise is to do the same MCE by just using R. We will mainly use functions from the R packages [sf](https://cran.r-project.org/web/packages/sf/sf.pdf) and [raster](https://cran.r-project.org/web/packages/raster/raster.pdf). Please have a look at the process model (see @fig-mce-process) that was created in ArcGIS Pro and try to figure out which functions in the two R packages correspond to the ones in the model. You will see that there are some similar functions available, but for some calculations a different approach is needed.
+Das Ziel dieser Übung ist es, das gleiche MCE nur mit R durchzuführen. Wir werden hauptsächlich Funktionen aus den R-Paketen [sf](https://cran.r-project.org/web/packages/sf/sf.pdf) und [raster](https://cran.r-project.org/web/packages/raster/raster.pdf) verwenden. Bitte schauen Sie sich das Prozessmodell (siehe @fig-mce-process) an, das in ArcGIS Pro erstellt wurde, und versuchen Sie herauszufinden, welche Funktionen in den beiden R-Paketen denen im Modell entsprechen. Sie werden sehen, dass es einige ähnliche Funktionen gibt, aber für einige Berechnungen ist ein anderer Ansatz erforderlich.
 
-## Exercises 1: Load and view data
+## Übungen 1: Daten laden und anzeigen
 
-The raster datasets look like the following:
+Laden Sie die nachfolgenden Rasterdatensätze herunter:
 
-| Layer | Coord. System | Description | Type | Exclusion Area | 
+| Layer | Koord. System | Beschreibung | Typ | Ausschlussgebiet | 
 |:---|:---|:---|:---|:---|
-| [dhm25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602285) | CH1903/LV03 | Terrain model (m) | Raster (25m) | No |
-| [eis25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602288) | CH1903/LV03 | "Icing frequency (days/year) | Raster (25m) | No |
-| [wind25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297) | CH1903/LV03 | Average wind speed (dm/s) | Raster (25m) | No |
+| [dhm25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602285) | CH1903/LV03 | Geländemodell (m) | Raster (25m) | Nein |
+| [eis25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602288) | CH1903/LV03 | Häufigkeit der Vereisung (Tage/Jahr) | Raster (25m) | Nein |
+| [wind25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297) | CH1903/LV03 | Durchschnittliche Windgeschwindigkeit (dm/s) | Raster (25m) | Nein |
 
-Laden Sie das File [windkraft_geodata.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=663498) von Moodle herunter. 
-Hier befinden sich alle Datensätze, die im Laufe des Blocks "Netzwerkanalyse" benötigt werden:
+Laden Sie das File [windkraft_geodata.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=663498) von Moodle herunter. Dieses beinhaltet die folgenden Layers:
 
-| Layer | Coord. System | Description | Type | Exclusion Area |
+| Layer | Koord. System | Beschreibung | Typ | Ausschlussgebiet |
 |:---|:---|:---|:---|:---|
-| Bewohnte_Flaeche| CH1903/LV03 | Settlements (incl. buffer 200m) | Polygon | (Yes)/Distance |
-| Nationale_Schutzgebiete | CH1903/LV03 | National protection areas"| Polygon | (Yes)/Distance |
-| Seeflaechen | CH1903/LV03 | Lake areas| Polygon | Yes |
-| Strassen | CH1903/LV03 | Streets| Line | No/Distance |
-| Untersuchungsgebiet_Schwyz | CH1903/LV03 | Study area, canton of Schwyz | Polygon | No |
-| Waldgebiete | CH1903/LV03 | Forest areas | Polygon | (Yes)/Distance |
+| Bewohnte_Flaeche| CH1903/LV03 | Siedlungen (inkl. Puffer 200m) | Polygon | (Ja)/Distanz |
+| Nationale_Schutzgebiete | CH1903/LV03 | Nationale Schutzgebiete| Polygon | (Ja)/Distanz |
+| Seeflaechen | CH1903/LV03 | Seegebiete | Polygon | Ja |
+| Strassen | CH1903/LV03 | Strassen | Linie | Nein/Distanz |
+| Untersuchungsgebiet_Schwyz | CH1903/LV03 | Untersuchungsgebiet, Kanton Schwyz | Polygon | Nein |
+| Waldgebiete | CH1903/LV03 | Waldgebiete | Polygon | (Ja)/Distanz |
 
-The raster data can be loaded by using the function `terra::rast` and the vector layers with `sf::read_sf`. View the available data layers and plot them in an appealing way. For visualization you can use the functions `plot` for raster data and `ggplot` for vector data.
+Die Rasterdaten können mit der Funktion `terra::rast` und die Vektorebenen mit `sf::read_sf` geladen werden. Zeigen Sie die verfügbaren Layers an und plotten Sie sie auf ansprechende Weise. Zur Visualisierung können Sie die Funktionen `plot` für Rasterdaten und `ggplot` für Vektordaten verwenden.
 
-<!-- Some data sets exceed the boundaries of the study area. Use the function `crop`  on raster data sets and `st_intersection` for sf/vector data to extract the relevant areas. -->
+<!-- Einige Datensätze überschreiten die Grenzen des Untersuchungsgebiets. Verwenden Sie die Funktion `crop` für Rasterdatensätze und `st_intersection` für sf/Vektor-Daten, um die relevanten Bereiche zu extrahieren. -->
 
-We will use the following packages in this exercise:
+Wir werden die folgenden Pakete in dieser Übung verwenden:
 
 ```{r}
 library(sf)
@@ -90,12 +89,12 @@ tm_shape(eis25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders(
 tm_shape(wind25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
 ```
 
-## Exercise 2: Merge exclusion criteria
+## Übung 2: Ausschlusskriterien zusammenführen
 
-Merge the exclusion criteria settlement areas, national protected areas, lake areas and forest areas. These vector data sets are structured as data frames and therefore can be merged by simply combining them. Keep in mind that the data frames have different sizes. Additionally, we need to create a raster out of the newly created vector data set (exclusion area). For that you can use the function `rasterize`. The output should be a raster with 0 and 1, where the fields of the exclusion area have values of 0 and the remaining fields have values of 1 (see Figure \ref(fig:figrasterizeexclusioncriteria)).
+Führen Sie die Ausschlusskriterien Siedlungsgebiete, nationale Schutzgebiete, Seeflächen und Waldgebiete zusammen. Diese Vektordatensätze sind als Data Frames strukturiert und können daher durch einfaches Kombinieren zusammengeführt werden. Beachten Sie dabei, dass die Data Frames unterschiedliche Grössen haben. Zusätzlich müssen wir aus dem neu erstellten Vektordatensatz (Ausschlussgebiet) ein Raster erstellen. Dazu können Sie die Funktion `rasterize` verwenden. Die Ausgabe soll ein Raster mit 0 und 1 sein, wobei die Felder des Ausschlussbereichs den Wert 0 und die restlichen Felder den Wert 1 haben (siehe @fig-exclusion-areas).
   
-* ***Tip**: To achieve a raster with only 0 and 1 use the `rasterize` options field = 0 and background = 1.*
-* ***Tip**: In order to rasterize vector data, you need to create an empty raster beforehand. This raster should have the same boundaries (extent), resolution and coordinate system (crs) as the other raster sets. Use the following code to do so.*
+* **Tipp**: Um ein Raster mit nur 0 und 1 zu erhalten, verwenden Sie die Optionen "rasterize" field = 0 und background = 1.
+* **Tipp**: Um Vektordaten zu rastern, müssen Sie vorher ein leeres Raster erstellen. Dieses Raster sollte die gleichen Grenzen (extent), die gleiche Auflösung und das gleiche Koordinatensystem (crs) haben wie die anderen Rastersätze. Verwenden Sie dazu den folgenden Code.*
   
 ```{r}
 #| label: create_empty_raster
@@ -104,7 +103,7 @@ r <- terra::rast(ext(kt_schwyz),
           crs = "EPSG:21781")
 ```
   
-![](images/exclusion_areas.png){width=50%}
+![Ausschlussgebiete](images/exclusion_areas.png){#fig-exclusion-areas width=50%}
 
 ```{r}
 #| label: fig-solutionEx4
@@ -125,11 +124,11 @@ raster_exclusion_areas <- rasterize(vect(exclusion_areas), r,
 plot(raster_exclusion_areas, main="Exclusion area", axes=FALSE, legend=FALSE, col=terrain.colors(2))
 ```
 
-## Exercise 3: Calculate slope
+## Übung 3: Neigung berechnen
 
-Next, calculate the slope in degrees based on the terrain model (dhm25m). The terra package gives you a very helpful function called `terrain`. 
+Als nächstes berechnen Sie die Neigung in Grad auf der Grundlage des Geländemodells (dhm25m). Das terra-Paket bietet Ihnen eine sehr hilfreiche Funktion namens `terrain`. 
 
-***Tip**: When using the terrain function use the following options: v="slope", unit="degrees", neighbors=8.*
+* **Tipp**: Wenn Sie die Terrain-Funktion verwenden, benutzen Sie die folgenden Optionen: v="slope", unit="degrees", neighbors=8.*
 
 ![](images/slope.png){width=50%}
 
@@ -144,12 +143,12 @@ slope_250 <- slope |> aggregate(fact = 10)
 plot(slope_250, main="Slope", axes=FALSE)
 ```
 
-## Exercise 4: Calculate distances to criteria
+## Übung 4: Entfernungen zu Kriterien berechnen
 
-Within the evaluation of suitable sites for wind turbines, the distance to roads, forest areas, national protected areas and inhabited areas are relevant. Depending on the criteria, a short or long distance has a positive influence on the evaluation of potential sites. For this purpose, perform a distance analysis with the selected criteria raster layers. Use the raster function `distance` for this calculation. 
+Bei der Bewertung geeigneter Standorte für Windkraftanlagen ist die Entfernung zu Strassen, Waldgebieten, nationalen Schutzgebieten und bewohnten Gebieten relevant. Je nach Kriterium hat eine geringe oder grosse Entfernung einen positiven Einfluss auf die Bewertung der potenziellen Standorte. Führen Sie zu diesem Zweck eine Abstandsanalyse mit den ausgewählten Kriterien-Rasterlayern durch. Verwenden Sie für diese Berechnung die Rasterfunktion `distance`. 
 
-* ***Tip**: In order to perform the `distance` function, you need to `rasterize` the criteria as well. You can use the same command as in exercise 2 but use only option field = 1.*
-* ***Tip**: Use the `crop` function again to get only relevant data in the study area.*
+* **Tipp**: Um die Funktion `distance` durchführen zu können, müssen Sie die Kriterien ebenfalls "rastern". Sie können den gleichen Befehl wie in Übung 2 verwenden, aber nur mit der Option field = 1.
+* **Tipp**: Verwenden Sie erneut die Funktion "Zuschneiden", um nur relevante Daten aus dem Untersuchungsgebiet zu erhalten.
 
 ![](images/d_to_settlements.png){width=50%}
 
@@ -171,12 +170,12 @@ forests_ed <- distance(raster_forests) |> raster::raster() |> raster::mask(kt_sc
 streets_ed <- distance(raster_streets) |> raster::raster() |> raster::mask(kt_schwyz) |> terra::rast()
 ```
 
-## Exercise 5: Standardize and grade criteria (grading)
+## Übung 5: Kriterien standardisieren und bewerten (grading)
 
-The data layers slope, wind speed, icing frequency and the in exercise 4 calculated distance layers have different units (dm/s, degrees, d/yr and m). These units can't be directly calculated with each other. Therefore, the different layers need to be operationalized by performing a linear grading. The linear grading is done by using the function `reclassify`. Use the  standards for the reclassification in Figure \ref(fig:figreclassify).
+Die Datenebenen Neigung, Windgeschwindigkeit, Vereisungshäufigkeit und die in Übung 4 berechneten Entfernungsebenen haben unterschiedliche Einheiten (dm/s, Grad, d/yr und m). Diese Einheiten können nicht direkt miteinander verrechnet werden. Daher müssen die verschiedenen Ebenen durch eine lineare Abstufung operationalisiert werden. Die lineare Abstufung wird mit der Funktion `reclassify` durchgeführt. Verwenden Sie die Standards für die Neuklassifizierung aus @fig-mce-reclassify-1 und @fig-mce-reclassify-2).
 
-* ***Tip**: Keep in mind the min and max values of each raster layer.*
-* ***Tip**: Here is an example code to reclassify the distances to settlements.*
+* **Tipp**: Beachten Sie die Minimal- und Maximalwerte der einzelnen Rasterebenen.
+* **Tipp**: Hier ist ein Beispielcode zur Neuklassifizierung der Entfernungen zu Siedlungen.
 
 ```{r}
 #| label: examplereclassifysettlements
@@ -197,9 +196,9 @@ reclass_settlements_ed <- terra::classify(settlements_ed, reclass_settlements)
 ```
 
 ::: {#fig-mce-reclassify layout-ncol=2}
-![](images/mce_reclassify_1.png)
+![](images/mce_reclassify_1.png){#fig-mce-reclassify-1}
 
-![](images/mce_reclassify_2.png)
+![](images/mce_reclassify_2.png){#fig-mce-reclassify-2}
 
 MCE Reclassify
 :::
@@ -323,14 +322,15 @@ reclass_streets_ed <- classify(streets_ed, reclass_streets)
 plot(reclass_streets_ed, main="Distance to streets (reclassified)", axes=FALSE)
 ```
 
-## Exercise 6: Weighting criteria with AHP
+## Übung 6: Gewichtung der Kriterien mit AHP
 
-Perform an AHP to weight the criteria underlying the MCE. First compare the criteria in pairs, and then calculate the weights - as you have learned in last week's lesson. In the end you should have a list of 7 weights as shown below.
+Führen Sie einen AHP durch, um die Kriterien zu gewichten, die dem MCE zugrunde liegen. Vergleichen Sie zunächst die Kriterien paarweise und berechnen Sie dann die Gewichte - wie Sie es in der letzten Woche gelernt haben. Am Ende sollten Sie eine Liste mit 7 Gewichten erhalten, wie unten dargestellt.
 
-***Tip**: Check exercise 2 and 3 from last week's session. Use the prepared R code to create your ahp matrix.*
+* **Tipp**: Sehen Sie sich die Übungen 2 und 3 aus der letzten Woche an. Verwenden Sie den vorbereiteten R-Code, um Ihre ahp-Matrix zu erstellen.
 
-          Wind       Streets          Ice    Settlements       Forest         Slope  Protected areas 
-    0.33862692    0.09816760    0.06166626    0.24969460    0.03515759    0.18043000      0.03625702 
+| Wind | Streets | Ice | Settlements | Forest | Slope | Protected areas |
+|:---|:---|:---|:---|:---|:---|:---|
+| 0.33862692 | 0.09816760 | 0.06166626 | 0.24969460 | 0.03515759 | 0.18043000 | 0.03625702 |
   
 ```{r}
 #| label: ahp_mce
@@ -367,14 +367,14 @@ rownames(ahp_matrix) <- c("Wind", "Streets", "Ice", "Settlements", "Forest", "Sl
 weights <- rowSums(ahp_matrix) #add row sum
 ```
 
-## Exercise 7: Weighted Overlay
+## Übung 7: Gewichtetes Overlay
 
-The linearly ranked criteria (Exercise 5) are now to be combined with each other, taking into account the weighting determined using the AHP (Exercise 6). This weighted overlay can be performed by using raster calculations and simply multiplying each criteria with its weight and adding them together (see @fig-weighted-overlay).
+Die linear gewichteten Kriterien (Übung 5) sollen nun unter Berücksichtigung der mit dem AHP ermittelten Gewichtung (Übung 6) miteinander kombiniert werden. Diese gewichtete Überlagerung kann mit Hilfe von Rasterberechnungen durchgeführt werden, indem einfach jedes Kriterium mit seinem Gewicht multipliziert und addiert wird (siehe @fig-weighted-overlay).
 
-* ***Tip**: As the raster sets have slightly different origins, increase the tolerance by using rasterOptions(tolerance = 0.5).*
-* ***Tip**: Also keep in mind the order of the weights in your list when doing the multiplication.*
+* **Tipp**: Da die Rastersätze leicht unterschiedliche Ursprünge haben, erhöhen Sie die Toleranz, indem Sie rasterOptions(tolerance = 0.5) verwenden.
+* **Tipp**: Achten Sie bei der Multiplikation auch auf die Reihenfolge der Gewichte in Ihrer Liste.
 
-![Weighted Overlay](images/weighted_overlay.png){#fig-weighted-overlay width=50%}
+![Gewichteter Overlay](images/weighted_overlay.png){#fig-weighted-overlay width=50%}
 
 ```{r}
 #| label: fig-solutionEx9
@@ -411,11 +411,11 @@ weighted_overlay <- streets_R*eis_R*settlements_R*forests_R*slope_R*protected_ar
 plot(weighted_overlay, main="Weighted overlay with all criteria", axes=FALSE, legend=F)
 ```
 
-## Exercise 8: Intersecting potential areas with exclusion criteria
+## Übung 8: Potenzielle Gebiete mit Ausschlusskriterien überschneiden
 
-By simply multiplying the exclusion layer (result from exercise 2) with the weighted overlay layer (result from exercise 7) we are excluding all areas with value 0 (exclusion areas) and keeping all other areas with value 1 (e.g. 0x3=0, 1x3=3). As a conclusion of the study, create a final plot of the potential areas for wind power plants in the canton of Schwyz (like @fig-potential-sites). Furthermore, discuss the results obtained and determine three possible locations within which concrete planning of wind power plants would be possible.
+Durch einfache Multiplikation des Ausschluss-Layers (Ergebnis aus Übung 2) mit dem gewichteten Overlay-Layer (Ergebnis aus Übung 7) schliessen wir alle Flächen mit dem Wert 0 (Ausschlussflächen) aus und behalten alle anderen Flächen mit dem Wert 1 (z.B. 0x3=0, 1x3=3). Erstellen Sie als Abschluss der Studie eine endgültige Darstellung der Potenzialflächen für Windkraftanlagen im Kanton Schwyz (wie @fig-potential-sites). Diskutieren Sie die Ergebnisse und bestimmen Sie drei mögliche Standorte, an denen eine konkrete Planung von Windkraftanlagen möglich wäre.
 
-![Potential Sites](images/potential_sites.png){#fig-potential-sites}
+![Potenzielle Standorte](images/potential_sites.png){#fig-potential-sites}
 
 ```{r}
 #| label: fig-solutionEx10
@@ -428,6 +428,3 @@ raster_exclusion_areas <- raster_exclusion_areas |> raster::raster()
 final_model <- weighted_overlay * raster_exclusion_areas
 plot(final_model, main="Potential sites for wind power plants in Kt. Schwyz", axes=FALSE, legend=F)
 ```
-
-
-
