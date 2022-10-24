@@ -442,9 +442,9 @@ __Hinweis:__
 ```{r eval=FALSE}
 ggplot(data = depo_m, mapping = aes(Ym, Total, group = 1))+ # group 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird
   # zeichne Lockdown 1; ein einfaches Rechteck. bestimme mit min und max die Dimensionen
-  geom_rect(mapping = aes(xmin="2020 3", xmax="2020 5",
-                          ymin =0, ymax=max(Total+(Total/100*10))), # das Rechteck soll 10 % grösser als die maximale Besuchszahl sein 
-            fill = "lightskyblue", alpha = 0.4, colour = NA)+
+  geom_rect(mapping = aes(xmin = ym("2020-3"), xmax = ym("2020-5"),
+                          ymin = 0, ymax = max(Total+(Total/100*10))),# das Rechteck soll 10 % grösser als die maximale Besuchszahl sein 
+            fill = "lightskyblue", alpha = 0.2, colour = NA)+ 
   # zeichne Lockdown 2
     ...+
   # zeichne die Linie
