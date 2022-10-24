@@ -1,9 +1,4 @@
----
-execute:
-  echo: true
----
-
-# 2. Daten(vor)verarbeitung - Lösung
+# 2. Daten(vor)verarbeitung - Übung
 
 ## Projektaufbau RStudio-Projekte
 
@@ -11,12 +6,15 @@ Vor den eigentlichen Auswertungen müssen einige vorbereitende Arbeiten unternom
 
 Arbeitet mit Projekten, da diese sehr einfach ausgetauscht und somit auch reproduziert werden önnen; es gibt keine absoluten Arbeitspfade sondern nur relative. Der Datenimport (und auch der Export) kann mithilfe dieser relativen Pfaden stark vereinfacht werden. Projekte helfen alles am richtigen Ort zu behalten. (mehr zur Arbeit mit Projekten: [Link](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects))
 
+
 ## Aufbau von R-Skripten
 
 Im Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen des Skripts nennen. Hier soll auch die Herkunft der Daten ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer die Datenherrschaft hat (Rehdaten: Forschungsgruppe WILMA).
 
-```{r}
 
+::: {.cell}
+
+```{.r .cell-code}
 #.##################################################################################
 # Daten(vor)verarbeitung Fallstudie WPZ  ####
 # Modul Research Methods, HS22. Autor/in ####
@@ -33,6 +31,8 @@ Im Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen de
 # Ein Skript soll in R eigentlich immer nach dem selbem Schema aufgebaut sein. 
 # Dieses Schema beinhaltet (nach dem bereits erwähnten Kopf des Skripts) 4 Kapitel: 
 ```
+:::
+
 
 1. Datenimport
 2. Datenvorverarbeitung
@@ -41,7 +41,10 @@ Im Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen de
 
 Bereitet euer Skript also nach dieser Struktur vor. Nutzt für den Text, welcher nicht Code ist, vor dem Text das Symbol #. Wenn ihr den Text als Titel definieren wollt, der die grobe Struktur des Skripts absteckt, baut in wie in folgendem Beispiel auf:
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 #.###################################################################################
 # METADATA ####
 #.###################################################################################
@@ -52,139 +55,89 @@ Bereitet euer Skript also nach dieser Struktur vor. Nutzt für den Text, welcher
 # 1. DATENIMPORT ####
 #.###################################################################################
 ```
+:::
 
-### Libraries laden
 
-```{r}
-#| tidy: true
+## Libraries laden
 
+
+::: {.cell}
+
+```{.r .cell-code}
 library(tidyverse)
 ```
+:::
+
 
 ## Daten laden
-Herunterladen der Daten der Feldaufnahme von Moodle, Einlesen, Sichtung der Datensätze und der Datentypen.
+Herunterladen der Daten der [Feldaufnahmen](https://moodle.zhaw.ch/mod/folder/view.php?id=578940) von Moodle (Aufgabe3_Feldaufnahmen_alle_Gruppen.zip), Einlesen, Sichtung der Datensätze und der Datentypen.
 
-```{r}
 
+::: {.cell}
+
+```{.r .cell-code}
 df_team1 <- read_delim("fallstudie_n/data/Felderhebungen_Waldstruktur.csv", delim = ";")
 
 df_team2 <- read_delim("fallstudie_n/data/Felderhebung_11102022_gr3.csv", delim = ";")
 
-df_team3 <- read_delim("fallstudie_n/data/Felderhebung_Waldstruktur_TEAM3_pink_Gruppe 7.csv", delim = ";")
+df_team3 <- read_delim("fallstudie_n/data/Felderhebung_Waldstruktur_TEAM3_pink_Gruppe 7.csv",
+    delim = ";")
 
-df_team4 <- read_delim("fallstudie_n/data/Felderhebungen_Team4_Blau_221011.csv",delim = ";")
+df_team4 <- read_delim("fallstudie_n/data/Felderhebungen_Team4_Blau_221011.csv",
+    delim = ";")
 
 df_team5 <- read_delim("fallstudie_n/data/Felderhebung TEAM 5.csv", delim = ";")
 
 df_team6 <- read_delim("fallstudie_n/data/Team6_Felderhebung.csv", delim = ";")
 
-# hier können die Probekreise mit den Angaben zur Anzahl Rehlokalisationen und der 
-# LIDAR-basierten Ableitung der Waldstruktur eingelesen werden
+# hier können die Probekreise mit den Angaben zur Anzahl Rehlokalisationen und
+# der LIDAR-basierten Ableitung der Waldstruktur eingelesen werden
 
 df_reh <- read_delim("fallstudie_n/data/Aufgabe3_Reh_Waldstruktur_221013.csv", delim = ";")
 str(df_reh)
 
-# Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz  
+# Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz
 # verbinden. Ist der Output zufriedenstellend?
 
 df_gesamt <- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5, df_team6)
 str(df_gesamt)
 ```
+:::
+
 
 ## Aufgabe 1
 
-1.1 Einügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-6).
-1.2 Spaltenumbenennung damit die Bezeichungen in allen Datensätzen gleich sind und der Gesamtdatensatz zusammengefügt werden kann.
---> Befehle mutate und rename, mit pipes (alt: %>%, neu: |>) in einem Schritt möglich
+- 1.1 Einfügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-6) 
+- 1.2 Spaltenumbenennung damit die Bezeichungen in allen Datensätzen gleich sind und der Gesamtdatensatz zusammengefügt werden kann
+ --> Befehle mutate und rename, mit pipes (alt: %>%, neu: |>) in einem Schritt möglich
 
-```{r}
 
-#.#################################################################################
-# 2. DATENVORVERARBEITUNG #####
-#.#################################################################################
 
-df_team1 <- df_team1 |>
-  mutate(team = "team1") |>
-  rename(KreisID = "Kreis (r 12.5m)",
-         DG_Rubus = "Deckungsgrad Rubus sp. [%]",
-         DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
-         DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
 
-df_team2 <- df_team2 |>
-  mutate(team = "team2") |>
-  rename(KreisID = "Kreis",
-         DG_Rubus = "Deckungsgrad Rubus sp. [%]",
-         DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
-         DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
-
-df_team3 <- df_team3 |>
-  mutate(team = "team3") |>
-  rename(KreisID = "Kreis (r 12.5m)",
-         X = "x",
-         Y = "y",
-         DG_Rubus = "Deckungsgrad Rubus sp. [%]",
-         DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
-         DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
-
-df_team4 <- df_team4 |>
-  mutate(team = "team4") |>
-  rename(KreisID = "Kreis (r 12.5m)",
-         DG_Rubus = "Deckungsgrad Rubus sp. [%]",
-         DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
-         DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
-
-df_team5 <- df_team5 |>
-  mutate(team = "team5") |>
-  rename(KreisID = "Kreis",
-         X = "x",
-         Y = "y",
-         DG_Rubus = "Deckungsgrad Rubus sp [%]",
-         DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
-         DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
-
-df_team6 <- df_team6 |>
-  mutate(team = "team6") |>
-  rename(KreisID = "Kreis",
-         X = "x",
-         Y = "y",
-         DG_Rubus = "DG Rubus sp. [%]",
-         DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
-         DG_Baumschicht = "DG Baumschicht [%] (ab 3m)")
-```
 
 ## Aufgabe 2
 
 Zusammenführen der Teildatensätze zu einem Datensatz
 
-```{r}
 
-df_gesamt <- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5, df_team6)
-```
+
+
 
 ## Aufgabe 3
 
 Verbinden (join) des Datensatzes der Felderhebungen mit dem Datensatz der Rehe. 
 
-**Ziel: ein Datensatz mit allen Kreisen der Felderhebung, angereichert mit den Umweltvariablen Understory und Overstory aus den LIDAR-Daten (DG_us, DG_os) aus dem Rehdatensatz.**
+**Ziel: ein Datensatz mit allen Kreisen der Felderhebung, angereichert mit den Umweltvariablen Understory und Overstory aus den LIDAR-Daten (DG_us, DG_os) aus dem Rehdatensatz.** 
 --> Welche Art von join? Welche Spalten zum Verbinden (by = ?) der Datensätze
 
-```{r}
 
-df_with_LIDAR <- left_join(df_gesamt,df_reh, by = c("X" = "x", "Y" = "y"))
-```
 
-### Aufgabe 4
+
+
+## Aufgabe 4
 
 Scatterplot der korrespondondierenden Umweltvariablen aus den Felderhebungen gegen die Umweltvariablen aus den LIDAR-Daten erstellen (zusätzlich Einfärben der Gruppen und Regressionslinie darüberlegen). 
 
-```{r}
 
-#.#####################################################################################
-# 4. VISUALISERUNG #####
-#.#####################################################################################
 
-ggplot(df_with_LIDAR, aes(DG_Strauchschicht, DG_us, color = team)) + geom_point() + 
-  stat_smooth(method = "lm")
 
-write_delim(df_with_LIDAR, "data/df_with_lidar.csv", delim = ";")
-```
