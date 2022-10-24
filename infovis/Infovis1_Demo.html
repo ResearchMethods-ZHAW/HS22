@@ -666,52 +666,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir können den Datensatz direkt über die URL einladen oder aber ihr nutzt die </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># URL um den Datensatz lokal bei euch abzuspeichern und wie gewohnt einzulesen</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>temperature <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/temperature_SHA_ZER.csv"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: 'data/temperature_SHA_ZER.csv' does not exist in current working directory ('C:/Users/hoce/OneDrive - ZHAW/Dokumente/02a_MSc/Research-Methods_Fallstudie/HS22').</code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in head(temperature): Objekt 'temperature' nicht gefunden</code></pre>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">time</th>
+<th style="text-align: right;">SHA</th>
+<th style="text-align: right;">ZER</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2000-01-01 00:00:00</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">-8.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-01-01 01:00:00</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">-8.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-01-01 02:00:00</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">-9.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-01-01 03:00:00</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">-8.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-01-01 04:00:00</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">-8.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-01-01 05:00:00</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">-8.4</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <section id="base-plot-vs.-ggplot" class="level2">
 <h2 class="anchored" data-anchor-id="base-plot-vs.-ggplot">Base-plot vs.&nbsp;ggplot</h2>
 <p>Um in “base-R” einen Scatterplot zu erstellen wo Datum der Temperatur gegenübersteht, gehen wir wie folgt vor:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(temperature<span class="sc">$</span>time, temperature<span class="sc">$</span>SHA, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in plot(temperature$time, temperature$SHA, type = "l", col = "red"): Objekt 'temperature' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(temperature<span class="sc">$</span>time, temperature<span class="sc">$</span>SHA, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(temperature<span class="sc">$</span>time, temperature<span class="sc">$</span>ZER, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-baseplot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-baseplot-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.1: Generierter Plot</figcaption><p></p>
+</figure>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(temperature<span class="sc">$</span>time, temperature<span class="sc">$</span>ZER, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in lines(temperature$time, temperature$ZER, col = "blue"): Objekt 'temperature' nicht gefunden</code></pre>
 </div>
 </div>
 <p>In <code>ggplot</code> sieht das etwas anders und auf den ersten Blick etwas komplizierter aus: Ein plot wird durch den Befehl <code>ggplot()</code> initiiert. Hier wird einerseits der Datensatz festgelegt, auf dem der Plot beruht (<code>data =</code>), sowie die Variablen innerhalb des Datensatzes, die Einfluss auf den Plot ausüben (<code>mapping = aes()</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz: "temperature" | Beeinflussende Variabeln: "time" und "temp"</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> temperature, <span class="at">mapping =</span> <span class="fu">aes</span>(time,SHA))             </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(data = temperature, mapping = aes(time, SHA)): Objekt 'temperature' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz: "temperature" | Beeinflussende Variabeln: "time" und "temp"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> temperature, <span class="at">mapping =</span> <span class="fu">aes</span>(time,SHA))             </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.2: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Weiter braucht es <em>mindestens</em> ein “Layer” der beschreibt, wie die Daten dargestellt werden sollen (z.B. <code>geom_point()</code>). Anders als bei “Piping” (<code>|&gt;</code>) wird ein Layer mit <code>+</code> hinzugefügt.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> temperature, <span class="at">mapping =</span> <span class="fu">aes</span>(time,SHA)) <span class="sc">+</span>         </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Layer: "geom_point" entspricht Punkten in einem Scatterplot </span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()                                    </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(data = temperature, mapping = aes(time, SHA)): Objekt 'temperature' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> temperature, <span class="at">mapping =</span> <span class="fu">aes</span>(time,SHA)) <span class="sc">+</span>         </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Layer: "geom_point" entspricht Punkten in einem Scatterplot </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()                                    </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-scatter" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-scatter-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.3: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Da ggplot die Eingaben in der Reihenfolge <code>data =</code> und dann <code>mapping =</code>erwartet, können wir diese Spezifizierungen auch weglassen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature, <span class="fu">aes</span>(time,SHA)) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(temperature, aes(time, SHA)): Objekt 'temperature' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature, <span class="fu">aes</span>(time,SHA)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-scatter2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-scatter2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.4: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -719,26 +773,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="long-vs.-wide">Long vs.&nbsp;wide</h2>
 <p>Wie wir in PrePro 2 bereits erwähnt haben, ist <code>ggplot2</code> auf <em>long tables</em> ausgelegt. Wir überführen deshalb an dieser Stelle die breite in eine lange Tabelle:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>temperature_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(temperature, <span class="sc">-</span>time, <span class="at">names_to =</span> <span class="st">"station"</span>, <span class="at">values_to =</span> <span class="st">"temp"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in pivot_longer(temperature, -time, names_to = "station", values_to = "temp"): Objekt 'temperature' nicht gefunden</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>temperature_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(temperature, <span class="sc">-</span>time, <span class="at">names_to =</span> <span class="st">"station"</span>, <span class="at">values_to =</span> <span class="st">"temp"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nun wollen wir die unterschiedlichen Stationen unterschiedlich einfärben. Da wir Variablen definieren wollen, welche Einfluss auf die Grafik haben sollen, gehört diese Information in <code>aes()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_long, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(temperature_long, aes(time, temp, colour = station)): Objekt 'temperature_long' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_long, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-scatter-color" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-scatter-color-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.5: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Wir können noch einen Layer mit Linien hinzufügen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_long, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(temperature_long, aes(time, temp, colour = station)): Objekt 'temperature_long' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_long, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-scatter-line" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-scatter-line-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.6: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -746,17 +807,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="beschriftungen-labels">Beschriftungen (labels)</h2>
 <p>Weiter können wir die Achsen beschriften und einen Titel hinzufügen. Zudem lasse ich die Punkte (<code>geom_point()</code>) nun weg, da mir diese nicht gefallen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_long, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span>,</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Station"</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(temperature_long, aes(time, temp, colour = station)): Objekt 'temperature_long' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_long, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Station"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-line-labs" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-line-labs-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.7: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -764,24 +830,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="split-apply-combine">Split Apply Combine</h2>
 <p>Im obigen Plot fällt auf, dass stündliche Werte eine zu hohe Auflösung ist, wenn wir daten über 2 Jahre visualisieren. Mit <em>Split Apply Combine</em> (PrePro 3) können wir die Auflösung unserer Daten verändern:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>temperature_day <span class="ot">&lt;-</span> temperature_long <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.Date</span>(time)) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in mutate(temperature_long, time = as.Date(time)): Objekt 'temperature_long' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>temperature_day <span class="ot">&lt;-</span> temperature_long <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.Date</span>(time)) </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>temperature_day</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 35,088 × 3
+   time       station  temp
+   &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;
+ 1 2000-01-01 SHA       0.2
+ 2 2000-01-01 ZER      -8.8
+ 3 2000-01-01 SHA       0.3
+ 4 2000-01-01 ZER      -8.7
+ 5 2000-01-01 SHA       0.3
+ 6 2000-01-01 ZER      -9  
+ 7 2000-01-01 SHA       0.3
+ 8 2000-01-01 ZER      -8.7
+ 9 2000-01-01 SHA       0.4
+10 2000-01-01 ZER      -8.5
+# … with 35,078 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>temperature_day</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'temperature_day' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>temperature_day <span class="ot">&lt;-</span> temperature_day <span class="sc">|&gt;</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(station, time) <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">temp =</span> <span class="fu">mean</span>(temp))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in group_by(temperature_day, station, time): Objekt 'temperature_day' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>temperature_day  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'temperature_day' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>temperature_day <span class="ot">&lt;-</span> temperature_day <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(station, time) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">temp =</span> <span class="fu">mean</span>(temp))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>temperature_day  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,462 × 3
+# Groups:   station [2]
+   station time        temp
+   &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt;
+ 1 SHA     2000-01-01  1.25
+ 2 SHA     2000-01-02  1.73
+ 3 SHA     2000-01-03  1.59
+ 4 SHA     2000-01-04  1.78
+ 5 SHA     2000-01-05  4.66
+ 6 SHA     2000-01-06  3.49
+ 7 SHA     2000-01-07  3.87
+ 8 SHA     2000-01-08  3.28
+ 9 SHA     2000-01-09  3.24
+10 SHA     2000-01-10  3.24
+# … with 1,452 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -790,36 +879,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Man kann auch Einfluss auf die x-/y-Achsen nehmen. Dabei muss man zuerst festlegen, was für ein Achsentyp der Plot hat (vorher hat <code>ggplot</code> eine Annahme auf der Basis der Daten getroffen).</p>
 <p>Bei unserer y-Achse handelt es sich um numerische Daten, <code>ggplot</code> nennt diese: <code>scale_y_continuous()</code>. Unter <a href="http://ggplot2.tidyverse.org/reference/#section-scales">ggplot2.tidyverse.org</a> findet man noch andere x/y-Achsentypen (<code>scale_x_irgenwas</code> bzw. <code>scale_y_irgendwas</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span>,</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Station"</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span>    </span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>))    <span class="co"># y-Achsenabschnitt bestimmen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(temperature_day, aes(time, temp, colour = station)): Objekt 'temperature_day' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Station"</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span>    </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>))    <span class="co"># y-Achsenabschnitt bestimmen</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-line-scale-y" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-line-scale-y-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.8: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Das gleiche Spiel kann man für die y-Achse betreiben. Bei unserer y-Achse handelt es sich ja um Datumsangaben. <code>ggplot</code> nennt diese: <code>scale_x_date()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span>,</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Station"</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span>    </span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>)) <span class="sc">+</span></span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"3 months"</span>, </span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">date_labels =</span> <span class="st">"%b"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(temperature_day, aes(time, temp, colour = station)): Objekt 'temperature_day' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Station"</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span>    </span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"3 months"</span>, </span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">date_labels =</span> <span class="st">"%b"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-line-scale-x" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-line-scale-x-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.9: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -828,54 +927,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Mit <code>theme</code> verändert man das allgmeine Layout der Plots. Beispielsweise kann man mit <code>theme_classic()</code> <code>ggplot</code>-Grafiken etwas weniger “Poppig” erscheinen lassen: so sind sie besser für Bachelor- / Masterarbeiten sowie Publikationen geeignet. <code>theme_classic()</code> kann man indiviudell pro Plot anwenden, oder für die aktuelle Session global setzen (s.u.)</p>
 <p>Individuell pro Plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Global (für alle nachfolgenden Plots der aktuellen Session):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="facets-small-multiples" class="level2">
 <h2 class="anchored" data-anchor-id="facets-small-multiples">Facets / Small Multiples</h2>
 <p>Sehr praktisch sind auch die Funktionen für “Small multiples”. Dies erreicht man mit <code>facet_wrap()</code> (oder <code>facet_grid()</code>, mehr dazu später). Man muss mit einem Tilde-Symbol “<code>~</code>” nur festlegen, welche <em>Variable</em> für das Aufteilen des Plots in kleinere Subplots verantwortlich sein soll.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span>,</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Station"</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span>    </span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>)) <span class="sc">+</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"3 months"</span>, </span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">date_labels =</span> <span class="st">"%b"</span>) <span class="sc">+</span></span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(station<span class="sc">~</span>.)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(temperature_day, aes(time, temp, colour = station)): Objekt 'temperature_day' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Station"</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span>    </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"3 months"</span>, </span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">date_labels =</span> <span class="st">"%b"</span>) <span class="sc">+</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(station<span class="sc">~</span>.)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-line-facet" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-line-facet-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.10: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Auch <code>facet_wrap</code> kann man auf seine Bedürfnisse anpassen: Beispielweise kann man mit <code>ncol =</code> die Anzahl facets pro Zeile bestimmen.</p>
 <p>Zudem brauchen wir die Legende nicht mehr, da der Stationsnamen über jedem Facet steht. Ich setze deshalb <code>theme(legend.position="none")</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span>  </span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>)) <span class="sc">+</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"3 months"</span>, </span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">date_labels =</span> <span class="st">"%b"</span>) <span class="sc">+</span></span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>station,<span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(temperature_day, aes(time, temp, colour = station)): Objekt 'temperature_day' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span>  </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"3 months"</span>, </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">date_labels =</span> <span class="st">"%b"</span>) <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>station,<span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-line-theme" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-line-theme-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.11: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -883,53 +992,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="in-variabel-abspeichern-und-exportieren">In Variabel abspeichern und Exportieren</h2>
 <p>Genau wie <code>data.frames</code> und andere Objekte, kann man einen ganzen Plot auch in einer Variabel speichern. Dies kann nützlich sein um einen Plot zu exportieren (als png, jpg usw.) oder sukzessive erweitern wie in diesem Beispiel.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>)) <span class="sc">+</span></span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"3 months"</span>, </span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">date_labels =</span> <span class="st">"%b"</span>) <span class="sc">+</span></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>station,<span class="at">ncol =</span> <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in ggplot(temperature_day, aes(time, temp, colour = station)): Objekt 'temperature_day' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ich habe an dieser Stelle theme(legend.position="none") entfernt</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(temperature_day, <span class="fu">aes</span>(time,temp, <span class="at">colour =</span> station)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Zeit"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Temperatur in Grad C°"</span>, </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Temperaturdaten Schweiz"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"2001 bis 2002"</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"3 months"</span>, </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">date_labels =</span> <span class="st">"%b"</span>) <span class="sc">+</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>station,<span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ich habe an dieser Stelle theme(legend.position="none") entfernt</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Folgendermassen kann ich den Plot als png-File abspeichern (ohne Angabe von “plot =” wird einfach der letzte Plot gespeichert)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"plot.png"</span>,<span class="at">plot =</span> p)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"plot.png"</span>,<span class="at">plot =</span> p)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>.. und so kann ich einen bestehenden Plot (in einer Variabel) mit einem Layer / einer Option erweitern</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Wie üblich wurde diese Änderung nicht gespeichert, sondern nur das Resultat davon ausgeben. Wenn die Änderung in meinem Plot (in der Variabel) abspeichern will, muss ich die Variabel überschreiben:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'p' nicht gefunden</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="smoothing" class="level2">
 <h2 class="anchored" data-anchor-id="smoothing">Smoothing</h2>
 <p>Mit <code>geom_smooth()</code> kann <code>ggplot</code> eine Trendlinie auf der Baiss von Punktdaten berechnen. Die zugrunde liegende statistische Methode kann selbst gewählt werden (ohne Angabe verwendet <code>ggplot</code> bei &lt; 1’000 Messungen <code>stats::loess</code>, ansonsten <code>mgcv::gam</code>)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">colour =</span> <span class="st">"black"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'p' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">colour =</span> <span class="st">"black"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggplot-smooth" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Infovis1_Demo_files/figure-html/fig-ggplot-smooth-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;8.12: Generierter Plot</figcaption><p></p>
+</figure>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'p' nicht gefunden</code></pre>
 </div>
 </div>
 
