@@ -15,56 +15,27 @@ The goal of this exercise is to do the same MCE by just using R. We will mainly 
 
 ## Exercises 1: Load and view data
 
-```{r}
-#| results: asis
-#| echo: false
-#| purl: false
+The raster datasets look like the following:
 
-knitr::opts_chunk$set(echo = TRUE)
+| Layer | Coord. System | Description | Type | Exclusion Area | 
+|:---|:---|:---|:---|:---|
+| [dhm25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602285) | CH1903/LV03 | Terrain model (m) | Raster (25m) | No |
+| [eis25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602288) | CH1903/LV03 | "Icing frequency (days/year) | Raster (25m) | No |
+| [wind25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297) | CH1903/LV03 | Average wind speed (dm/s) | Raster (25m) | No |
 
-datasets <- data.frame(
-  datasets = c("dhm25m.tif", "eis25m.tif", "wind25m.tif", "Bewohnte_Flaeche.gpkg", "Nationale_Schutzgebiete.gpkg", "Seeflaechen.gpkg", "Strassen.gpkg", "Untersuchungsgebiet_Schwyz.gpkg", "Waldgebiete.gpkg"),
-  description = c("Terrain model (m)", "Icing frequency (days/year)", "Average wind speed (dm/s) ", "Settlements (incl. buffer 200m)", "National protection areas", "Lake areas", "Streets", "Study area, canton of Schwyz", "Forest areas"),
-  type = c("Raster", "Raster", "Raster", "Geopackage", "Geopackage", "Geopackage", "Geopackage", "Geopackage", "Geopackage"),
-  res = c("25m", "25m", "25m", "", "", "", "", "", ""),
-  geometry = c("", "", "", "Polygon", "Polygon", "Polygon", "Line", "Polygon", "Polygon"),
-  crs = c("CH1903/LV03", "CH1903/LV03", "CH1903/LV03", "CH1903/LV03", "CH1903/LV03", "CH1903/LV03", "CH1903/LV03", "CH1903/LV03", "CH1903/LV03"),
-  exclusion_area = c("No", "No", "No", "(Yes)/Distance", "(Yes)/Distance", "Yes", " No/Distance   ", "No", "(Yes)/Distance")
-)
+Laden Sie das File [windkraft_geodata.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=663498) von Moodle herunter. 
+Hier befinden sich alle Datensätze, die im Laufe des Blocks "Netzwerkanalyse" benötigt werden:
 
-library(stringr)
-library(kableExtra)
-library(dplyr)
-```
+| Layer | Coord. System | Description | Type | Exclusion Area |
+|:---|:---|:---|:---|:---|
+| Bewohnte_Flaeche| CH1903/LV03 | Settlements (incl. buffer 200m) | Polygon | (Yes)/Distance |
+| Nationale_Schutzgebiete | CH1903/LV03 | National protection areas"| Polygon | (Yes)/Distance |
+| Seeflaechen | CH1903/LV03 | Lake areas| Polygon | Yes |
+| Strassen | CH1903/LV03 | Streets| Line | No/Distance |
+| Untersuchungsgebiet_Schwyz | CH1903/LV03 | Study area, canton of Schwyz | Polygon | No |
+| Waldgebiete | CH1903/LV03 | Forest areas | Polygon | (Yes)/Distance |
 
-```{r}
-#| results: asis
-#| echo: false
-#| purl: false
-#| label: tbl-data
-#| tbl-cap: Data used in this study
-
-myurls <- c(
-    "- [dhm25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602285)",
-    "- [eis25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602288)", 
-    "- [wind25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297)", 
-    "- [Bewohnte_Flaeche.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602295)", 
-    "- [Nationale_Schutzgebiete.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602296)", 
-    "- [Seeflaechen.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602294)", 
-    "- [Strassen.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602290)", 
-    "- [Untersuchungsgebiet_Schwyz.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602293)", 
-    "- [Waldgebiete.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602291)")
-myurls <- stringr::str_match(myurls,"\\((.+)\\)")[,2]
-
-datasets |>
-  mutate(
-    datasets = kableExtra::cell_spec(datasets, "html", link = myurls)
-  ) |>
-  kableExtra::kable(caption = "Data used in this study (click on the link to download)", escape = FALSE) |> 
-  kable_styling(latex_options=c("scale_down", "HOLD_position"))
-```
-
-The raster data can be loaded by using the function `terra::rast` and the vector data with `sf::read_sf`. View the available data layers (see @tbl-data) and plot them in an appealing way. For visualization you can use the functions `plot` for raster data and `ggplot` for vector data.
+The raster data can be loaded by using the function `terra::rast` and the vector layers with `sf::read_sf`. View the available data layers and plot them in an appealing way. For visualization you can use the functions `plot` for raster data and `ggplot` for vector data.
 
 <!-- Some data sets exceed the boundaries of the study area. Use the function `crop`  on raster data sets and `st_intersection` for sf/vector data to extract the relevant areas. -->
 
@@ -83,17 +54,19 @@ library(tmap)
 #| include: false
 
 #Vector data
-kt_schwyz <- read_sf("data/Untersuchungsgebiet_Schwyz.gpkg")
-settlements <- read_sf("data/Bewohnte_Flaeche.gpkg")
-forests <- read_sf("data/Waldgebiete.gpkg")
-protected_areas <- read_sf("data/Nationale_Schutzgebiete.gpkg")
-lakes <- read_sf("data/Seeflaechen.gpkg")
-streets <- read_sf("data/Strassen.gpkg") |> st_intersection(kt_schwyz) #intersect with study area
+st_layers("datasets/rauman/windkraft_geodata.gpkg")
+
+kt_schwyz <- read_sf("datasets/rauman/windkraft_geodata.gpkg", "Untersuchungsgebiet_Schwyz")
+settlements <- read_sf("datasets/rauman/windkraft_geodata.gpkg", "Bewohnte_Flaeche")
+forests <- read_sf("datasets/rauman/windkraft_geodata.gpkg", "Waldgebiete")
+protected_areas <- read_sf("datasets/rauman/windkraft_geodata.gpkg", "Nationale_Schutzgebiete")
+lakes <- read_sf("datasets/rauman/windkraft_geodata.gpkg", "Seeflaechen")
+streets <- read_sf("datasets/rauman/windkraft_geodata.gpkg", "Strassen") |> st_intersection(kt_schwyz) #intersect with study area
 
 #Raster data
-eis25m <- rast("data/eis25m.tif")
-dhm25m <- rast("data/dhm25m.tif")
-wind25m <- rast("data/wind25m.tif")
+eis25m <- rast("datasets/rauman/eis25m.tif")
+dhm25m <- rast("datasets/rauman/dhm25m.tif")
+wind25m <- rast("datasets/rauman/wind25m.tif")
 ```
 
 ```{r}
@@ -167,7 +140,7 @@ Next, calculate the slope in degrees based on the terrain model (dhm25m). The te
 #| include: false
 
 slope <- terra::terrain(dhm25m, v="slope",unit="degrees", neighbors=8)
-slope_250 <- slope %>% aggregate(., fact = 10)
+slope_250 <- slope |> aggregate(fact = 10)
 plot(slope_250, main="Slope", axes=FALSE)
 ```
 
@@ -240,7 +213,7 @@ MCE Reclassify
 #| include: false
 
 #### reclassify wind
-wind250m <- wind25m %>% aggregate(.,fact = 10)
+wind250m <- wind25m |> aggregate(fact = 10)
 wind_max <- minmax(wind250m)[2]
 reclass_wind_m <- c(0,35,0,
                       35,40,0.1,
@@ -256,7 +229,7 @@ reclass_wind <- classify(wind250m, reclass_wind_m)
 plot(reclass_wind, main="Average wind speed (reclassified)", axes=FALSE)
 
 #### reclassify ice    
-eis250m <- eis25m %>% aggregate(.,fact = 10) ## lowering the resolution
+eis250m <- eis25m |> aggregate(fact = 10) ## lowering the resolution
 eis_max <- minmax(eis250m)[2]
 reclass_ice_m <- c(0,6,1,
                      6,12,0.9,
@@ -269,7 +242,7 @@ reclass_ice <- classify(eis250m, reclass_ice_m)
 plot(reclass_ice, main="Icing frequency (reclassified)", axes=FALSE)
 
 #### reclassify slope
-slope250m <- slope %>% aggregate(.,fact = 10) ## lowering the resolution
+slope250m <- slope |> aggregate(fact = 10) ## lowering the resolution
 slope_max <- minmax(slope250m)[2]
 reclass_slope_m <- c(0,2,1,
                        2,4,0.9,

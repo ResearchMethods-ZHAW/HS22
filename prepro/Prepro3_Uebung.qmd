@@ -21,7 +21,7 @@ Formatiere die `Datetime` Spalte in `POSIXct` um. Verwende dazu die Funktion `as
 ```{r}
 library(readr)
 
-sensors_combined <- read_csv("data/sensors_combined.csv")
+sensors_combined <- read_csv("datasets/prepro/sensors_combined.csv")
 
 sensors_combined$Datetime <- as.POSIXct(sensors_combined$Datetime, format = "%d%m%Y_%H%M")
 ```
@@ -80,7 +80,7 @@ sensors_long |>
 Lade jetzt nochmal den Datensatz [weather.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602135) (Quelle MeteoSchweiz) herunter und importiere ihn als CSV mit den korrekten Spaltentypen (`stn` als `factor`, `time` als `POSIXct`, `tre200h0` als `double`).
 
 ```{r}
-weather <- read_csv("data/weather.csv", col_types = cols(col_factor(), col_datetime("%Y%m%d%H"), col_double()))
+weather <- read_csv("datasets/prepro/weather.csv", col_types = cols(col_factor(), col_datetime("%Y%m%d%H"), col_double()))
 ```
 
 ## Aufgabe 6
