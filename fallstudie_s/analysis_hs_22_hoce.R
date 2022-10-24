@@ -756,7 +756,7 @@ ggsave("Proz_Entwicklung_Zaehlstelle_Phase.png", width=20, height=15, units="cm"
 
 
 
-# DESKRIPTIV ABGESHCLOSSEN; Multivariat to do
+# DESKRIPTIV ABGESHCLOSSEN; Multivariat to do in AUFGABENSTELLUNG
 
 
 
@@ -803,12 +803,14 @@ umwelt$Ferien[is.na(umwelt$Ferien)] <- 0
 sum(umwelt$Ferien)
 
 # Faktor und integer
-# Im GLMM wird die Kalenderwoche und das Jahr als random factor definiert. Dazu muss sie als
-# Faktor vorliegen.
+# Im GLMM wird das Jahr als random factor definiert. Dazu muss es als
+# Faktor vorliegen. Monat und KW koennen die Besuchszahlen auch erklaeren.
+# auch sie muessen faktoren sein
 umwelt <- umwelt |> 
   mutate(Jahr = as.factor(Jahr)) |> 
   mutate(KW = as.factor(KW)) |>
-  # zudem muessen die die nummerischen Wetterdaten auch als solche abgespeichert sein
+  mutate(Monat = as.factor(Monat)) |>
+    # zudem muessen die die nummerischen Wetterdaten auch als solche abgespeichert sein
   mutate(tre200nx = as.numeric(tre200nx))|>
   mutate(tre200jx = as.numeric(tre200jx))|>
   mutate(rre150j0 = as.numeric(rre150j0))|>
@@ -901,7 +903,7 @@ chart.Correlation(umwelt[,12:16], histogram=TRUE, pch=19)
 sum(is.na(umwelt$Total))
 
 f1<-fitdist(umwelt$Total,"norm")  # Normalverteilung
-# f1_1<-fitdist((umwelt$Total + 1),"lnorm")  # log-Normalvert (beachte, dass ich +1 rechne. 
+f1_1<-fitdist((umwelt$Total + 1),"lnorm")  # log-Normalvert (beachte, dass ich +1 rechne. 
 # log muss positiv sein; allerdings kann man die
 # Verteilungen dann nicht mehr miteinander vergleichen). 
 f2<-fitdist(umwelt$Total,"pois")  # Poisson
@@ -938,9 +940,13 @@ cdfcomp(list(f1, f4, f3), legendtext = plot.legend)
 # Einfacher Start
 # Auch wenn wir gerade herausgefunden haben, dass die Verteilung negativ binomial ist,
 # berechne ich für den Vergleich zuerst ein einfaches Modell der Familie poisson.
-Tages_Model <- glmer(Total ~ Wochentag + Ferien + Phase +
-                       tre200jx_scaled + rre150j0_scaled + sremaxdv_scaled +
-                       (1|KW) + (1|Jahr), family = poisson, data = umwelt)
+Tages_Model <- glmer(Total ~ Wochentag + Ferien + Phase + Monat + 
+                       tre200jx_scaled + tre200nx_scaled + rre150j0_scaled + rre150n0_scaled + 
+                       sremaxdv_scaled +
+                       (1|Jahr), family = poisson, data = umwelt)
+
+
+
 
 summary(Tages_Model)
 # Inspektionsplots
@@ -950,51 +956,36 @@ qqmath(Tages_Model)
 dispersion_glmer(Tages_Model) #it shouldn't be over 1.4
 # wir gut erklaert das Modell?
 r.squaredGLMM(Tages_Model) 
-
-
-
-
-
-#################################################################
-
-# Anpassen fuers HS22
-
+# check for multicollinearity
 # https://rforpoliticalscience.com/2020/08/03/check-for-multicollinearity-with-the-car-package-in-r/
-
 car::vif(Tages_Model) # VIF für beide predictors = 1, d.h. voneinander unabhängig (kritisch wird es ab einem Wert von >4-5)
-
-#################################################################
-
-
-
-
-
 
 # Berechne ein negativ binomiales Modell
 # gemäss AICc die beste Verteilung
-Tages_Model_nb <- glmer.nb(Total ~ Wochentag + Ferien + Phase +
-                             tre200jx_scaled + rre150j0_scaled + sremaxdv_scaled +
-                             (1|KW) + (1|Jahr), data = umwelt)
+Tages_Model_nb <- glmer.nb(Total ~ Wochentag + Ferien + Phase + Monat + 
+                             tre200jx_scaled + rre150j0_scaled + rre150n0_scaled + 
+                             sremaxdv_scaled +
+                             (1|Jahr), data = umwelt)
 
 summary(Tages_Model_nb)
 plot(Tages_Model_nb, type = c("p", "smooth"))
 qqmath(Tages_Model_nb)
 dispersion_glmer(Tages_Model_nb)
 r.squaredGLMM(Tages_Model_nb) 
-
+car::vif(Tages_Model_nb)
 
 # auf quadratischen Term testen ("es gehen weniger Leute in den Wald, wenn es zu heiss ist")
-Tages_Model_nb_quad <- glmer.nb(Total ~ Wochentag + Ferien + Phase +
-                                  tre200jx_scaled + I(tre200jx_scaled^2) + 
-                                  rre150j0_scaled + sremaxdv_scaled +
-                                  (1|KW) + (1|Jahr), data = umwelt)
+Tages_Model_nb_quad <- glmer.nb(Total ~ Wochentag + Ferien + Phase + Monat + 
+                                  tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled + rre150n0_scaled + 
+                                  sremaxdv_scaled +
+                                  (1|Jahr), data = umwelt)
 
 summary(Tages_Model_nb_quad)
 plot(Tages_Model_nb_quad, type = c("p", "smooth"))
 qqmath(Tages_Model_nb_quad)
 dispersion_glmer(Tages_Model_nb_quad)
 r.squaredGLMM(Tages_Model_nb_quad) 
-
+car::vif(Tages_Model_nb_quad)
 
 # Interaktion testen, da Ferien und / oder Wochentage einen Einfluss auf
 # die Besuchszahlen waehrend des Lockown haben koennen!
@@ -1031,18 +1022,16 @@ aictab(cand.set=cand.models,modnames=Modnames)
 # Berechne ein Modell mit exponentieller Verteilung:
 # gemäss AICc der Verteilung die zweitbeste
 # https://stats.stackexchange.com/questions/240455/fitting-exponential-regression-model-by-mle
-Tages_Model_exp <- glmer((Total+1) ~ Wochentag + Ferien + Phase +
-                           tre200jx_scaled + rre150j0_scaled + sremaxdv_scaled +
-                           (1|KW) + (1|Jahr), family = Gamma(link="log"), data = umwelt)
+Tages_Model_exp <- glmer((Total+1) ~ Wochentag + Ferien + Phase + Monat + 
+                           tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled + rre150n0_scaled + 
+                           sremaxdv_scaled + (1|Jahr), family = Gamma(link="log"), data = umwelt)
 
 summary(Tages_Model_exp, dispersion=1)
-# Inspektionsplots
 plot(Tages_Model_exp, type = c("p", "smooth"))
 qqmath(Tages_Model_exp)
-# pruefe auf Overdispersion
 dispersion_glmer(Tages_Model_exp) #it shouldn't be over 1.4
-# wir gut erklaert das Modell?
 r.squaredGLMM(Tages_Model_exp) 
+car::vif(Tages_Model_nb_quad)
 
 # --> Die zweitbeste Verteilung (exp) führt auch nicht dazu, dass die Modellvoraussetzungen besser
 # erfüllt werden
@@ -1067,15 +1056,15 @@ skewness(umwelt$Total)
 # The most frequent values are low; tail is toward the high values (on the right-hand side)
 
 # log 10, da stark rechtsschief
-Tages_Model_quad_Jahr_log10 <- lmer(log10(Total+1) ~ Wochentag + Ferien + Phase +
-                                             tre200jx_scaled + I(tre200jx_scaled^2) + 
-                                             rre150j0_scaled + sremaxdv_scaled +
-                                             (1|KW) + (1|Jahr), data = umwelt)
+Tages_Model_quad_Jahr_log10 <- lmer(log10(Total+1) ~ Wochentag + Ferien + Phase + Monat + 
+                                      tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled + rre150n0_scaled + 
+                                      sremaxdv_scaled + (1|Jahr), data = umwelt)
 summary(Tages_Model_quad_Jahr_log10)
 plot(Tages_Model_quad_Jahr_log10, type = c("p", "smooth"))
 qqmath(Tages_Model_quad_Jahr_log10)
 dispersion_glmer(Tages_Model_quad_Jahr_log10)
 r.squaredGLMM(Tages_Model_quad_Jahr_log10) 
+car::vif(Tages_Model_nb_quad)
 # lmer zeigt keine p-Werte, da diese schwer zu berechnen sind. Alternative Packages berechnen diese
 # anhand der Teststatistik. Achtung: die Werte sind wahrscheinlich nicht präzise!
 # https://stat.ethz.ch/pipermail/r-sig-mixed-models/2008q2/000904.html
@@ -1083,15 +1072,15 @@ tab_model(Tages_Model_quad_Jahr_log10, transform = NULL, show.se = TRUE)
 
 
 # natural log, da stark rechtsschief
-Tages_Model_quad_Jahr_ln <- lmer(log(Total+1) ~ Wochentag + Ferien + Phase +
-                                          tre200jx_scaled + I(tre200jx_scaled^2) + 
-                                          rre150j0_scaled + sremaxdv_scaled +
-                                          (1|KW) + (1|Jahr), data = umwelt)
+Tages_Model_quad_Jahr_ln <- lmer(log(Total+1) ~ Wochentag + Ferien + Phase + Monat + 
+                                   tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled + rre150n0_scaled + 
+                                   sremaxdv_scaled + (1|Jahr), data = umwelt)
 summary(Tages_Model_quad_Jahr_ln)
 plot(Tages_Model_quad_Jahr_ln, type = c("p", "smooth"))
 qqmath(Tages_Model_quad_Jahr_ln)
 dispersion_glmer(Tages_Model_quad_Jahr_ln)
 r.squaredGLMM(Tages_Model_quad_Jahr_ln) 
+car::vif(Tages_Model_nb_quad)
 
 
 # --> Die Modellvoraussetzungen sind deutlich besser erfüllt jetzt wo wir Transformationen 
@@ -1114,18 +1103,31 @@ tab_model(Tages_Model_quad_Jahr_log10, transform = NULL, show.se = TRUE)
 
 # 4.7 Visualisiere Modellresultate ####
 
+# Hintergrundinfo interaction plot:
+# https://cran.r-project.org/web/packages/sjPlot/vignettes/plot_interactions.html
+
+# definiere eine Funktion zum Plotten der Modellergebnisse
+# Credits function to Sabrina Harsch
+
+# original
+# rescale_plot <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, x_scaling, x_nk) {
+#   
+#   plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title="")
+#   labels <- round(seq(floor(min(unscaled_var)), ceiling(max(unscaled_var)), length.out = num_breaks+1)*x_scaling, x_nk)
+#   
+#   custom_breaks <- seq(min(scaled_var), max(scaled_var), by = ((max(scaled_var)-min(scaled_var))/num_breaks))
+#   custom_limits <- c(min(scaled_var), max(scaled_var))
+#   
+#   plot_id <- plot_id +
+#     scale_x_continuous(breaks = custom_breaks, limits = custom_limits, labels = c(labels), labs(x=x_lab)) +
+#     scale_y_continuous(name=NULL, labels = scales::percent_format(accuracy = 5L), limits = c(0,1),position = "left") +
+#     theme_classic()
+#   
+#   return(plot_id)
+# }
 
 
-
-
-
-##################
-# Credits sabrina harsch
-
-#. function Definiton ----
-############################
-
-rescale_plot <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, x_scaling, x_nk) {
+rescale_plot_num <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {
   
   plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title="")
   labels <- round(seq(floor(min(unscaled_var)), ceiling(max(unscaled_var)), length.out = num_breaks+1)*x_scaling, x_nk)
@@ -1135,32 +1137,76 @@ rescale_plot <- function(input_df, input_term, unscaled_var, scaled_var, num_bre
   
   plot_id <- plot_id +
     scale_x_continuous(breaks = custom_breaks, limits = custom_limits, labels = c(labels), labs(x=x_lab)) +
-    scale_y_continuous(name=NULL, labels = scales::percent_format(accuracy = 5L), limits = c(0,1),position = "left") +
-    theme_classic()
+    scale_y_continuous(labs(y=y_lab), limits = c(0,50)) +
+    theme_classic(base_size = 20)
   
   return(plot_id)
 }
 
-#.-  plot data Day  ----
-##################################################################################################
-
-input_df     <- m_day
-input_term   <- "us_scaled [all]"
-unscaled_var <- DF_mod_day$us
-scaled_var   <- DF_mod_day$us_scaled
+## Tagesmaximaltemperatur
+input_df     <-  Tages_Model_nb_quad
+input_term   <- "tre200jx_scaled [all]"
+unscaled_var <- umwelt$tre200jx
+scaled_var   <- umwelt$tre200jx_scaled
 num_breaks   <- 10
-x_lab        <- "Strauchschicht [%]"
-x_scaling    <- 100 # in prozent
+x_lab        <- "Temperatur [°C]"
+y_lab        <- "Fussgänger:innen pro Tag"
+x_scaling    <- 1 # in prozent
 x_nk         <- 0   # x round nachkommastellen    
 
 
-p_us_day <- rescale_plot(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, x_scaling, x_nk)
-p_us_day
-############################
+p_temp <- rescale_plot_num(input_df, input_term, unscaled_var, scaled_var, num_breaks, 
+                         x_lab, y_lab, x_scaling, x_nk)
+p_temp
+
+ggsave("temp.png", width=15, height=15, units="cm", dpi=1000, 
+       path = "fallstudie_s/results/") 
 
 
-# interaction plot:
-# https://cran.r-project.org/web/packages/sjPlot/vignettes/plot_interactions.html
+## Wochentag
+
+rescale_plot_fac <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {
+  
+  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title="")
+
+  plot_id <- plot_id +
+    scale_y_continuous(labs(y=y_lab), limits = c(0,50)) +
+    theme_classic(base_size = 20)+
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  
+  return(plot_id)
+}
+
+
+
+
+input_df     <-  Tages_Model_nb_quad
+input_term   <- "Wochentag [all]"
+unscaled_var <- umwelt$Wochentag
+scaled_var   <- umwelt$Wochentag
+num_breaks   <- 10
+x_lab        <- "Wochentag"
+y_lab        <- "Fussgänger:innen pro Tag"
+x_scaling    <- 1 # in prozent
+x_nk         <- 0   # x round nachkommastellen    
+
+
+p_wd <- rescale_plot_fac(input_df, input_term, unscaled_var, scaled_var, num_breaks, 
+                              x_lab, y_lab, x_scaling, x_nk)
+p_wd
+
+ggsave("wd.png", width=15, height=15, units="cm", dpi=1000, 
+       path = "fallstudie_s/results/") 
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1204,75 +1250,3 @@ labels <- round(seq(floor(min(umwelt$tre200jx)), ceiling(max(umwelt$tre200jx)),
                        limits = c(0, 2))+ 
     theme_classic(base_size = 20))
 
-ggsave("temp.png", width=15, height=15, units="cm", dpi=1000, 
-       path = "fallstudie_s/results/") 
-
-
-# Regen
-t <- plot_model(Tages_Model_quad_Jahr_log10, type = "pred", terms = "rre150j0_scaled", 
-                title = "", axis.title = c("Halbtagessumme Niederschlag [mm]", 
-                                           "Fussgaenger:innen pro Tag [log]"))
-labels <- round(seq(floor(min(umwelt$rre150j0)), ceiling(max(umwelt$rre150j0)),
-                    length.out = 4), 0)
-(t + scale_x_continuous(breaks = c(0,4,8,12), labels = c(labels))+
-    scale_y_continuous(breaks = c(0,0.5,1,1.5,2),
-                       labels = round(c(10^0, 10^0.5, 10^1, 10^1.5, 10^2),0),
-                       limits = c(0, 2))+ 
-    theme_classic(base_size = 20))
-
-ggsave("rain.png", width=15, height=15, units="cm", dpi=1000, 
-       path = "fallstudie_s/results/") 
-
-# Sonne
-t <- plot_model(Tages_Model_quad_Jahr_log10, type = "pred", terms = "sremaxdv_scaled", 
-                title = "", axis.title = c("Sonnenscheindauer [min]", 
-                                           "Fussgaenger:innen pro Tag [log]"))
-labels <- round(seq(floor(min(umwelt$sremaxdv)), ceiling(max(umwelt$sremaxdv)),
-                    length.out = 3), 0)
-(t + scale_x_continuous(breaks = c(-1,0,1), labels = c(labels))+
-    scale_y_continuous(breaks = c(0,0.5,1,1.5,2),
-                       labels = round(c(10^0, 10^0.5, 10^1, 10^1.5, 10^2),0),
-                       limits = c(0, 2))+ 
-    theme_classic(base_size = 20))
-
-ggsave("sun.png", width=15, height=15, units="cm", dpi=1000, 
-       path = "fallstudie_s/results/") 
-
-
-# Phase
-t <- plot_model(Tages_Model_quad_Jahr_log10, type = "pred", terms = "Phase", 
-                title = "", axis.title = c("Phase", 
-                                           "Fussgaenger:innen pro Tag [log]"))
-(lockplot <- t + 
-    scale_y_continuous(breaks = c(0,0.5,1,1.5,2),
-                       labels = round(c(10^0, 10^0.5, 10^1, 10^1.5, 10^2),0),
-                       limits = c(0, 2))+ 
-    theme_classic(base_size = 20))
-
-ggsave("phase.png", width=15, height=15, units="cm", dpi=1000, 
-       path = "fallstudie_s/results/") 
-
-# Ferien
-t <- plot_model(Tages_Model_quad_Jahr_log10, type = "pred", terms = "Ferien", 
-                title = "", axis.title = c("Ferien", 
-                                           "Fussgaenger:innen pro Tag [log]"))
-(ferienplot <- t + scale_x_continuous(breaks = c(0,1), labels = c("Nein", "Ja"))+
-    scale_y_continuous(breaks = c(0,0.5,1,1.5,2),
-                       labels = round(c(10^0, 10^0.5, 10^1, 10^1.5, 10^2),0),
-                       limits = c(0, 2))+ 
-    theme_classic(base_size = 20))
-
-ggsave("ferien.png", width=15, height=15, units="cm", dpi=1000, 
-       path = "fallstudie_s/results/") 
-
-# Wochentag
-t <- plot_model(Tages_Model_quad_Jahr_log10, type = "pred", terms = "Wochentag", 
-                title = "", axis.title = c("Wochentag", "Fussgaenger:innen pro Tag [log]"))
-(wdplot <- t + scale_y_continuous(breaks = c(0,0.5,1,1.5,2),
-                                  labels = round(c(10^0, 10^0.5, 10^1, 10^1.5, 10^2),0),
-                                  limits = c(0, 2))+ 
-    theme_classic(base_size = 20))+
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
-
-ggsave("wd.png", width=15, height=15, units="cm", dpi=1000, 
-       path = "fallstudie_s/results/") 
