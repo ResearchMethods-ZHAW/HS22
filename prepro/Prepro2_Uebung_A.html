@@ -676,7 +676,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <details>
 <summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variante 1</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/weather.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"datasets/prepro/weather.csv"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>stn <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(wetter<span class="sc">$</span>stn)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="fu">as.character</span>(wetter<span class="sc">$</span>time), <span class="at">format =</span> <span class="st">"%Y%m%d%H"</span>, <span class="at">tz =</span> <span class="st">"UTC"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -691,7 +691,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">col_datetime</span>(<span class="at">format =</span> <span class="st">"%Y%m%d%H"</span>),</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">col_double</span>()</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                    )</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Error: 'data/weather.csv' does not exist in current working directory ('C:/Users/luoe/Documents/Coding/Research Methods/HS22').</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -719,7 +720,8 @@ Tipp
 <div class="cell">
 <details>
 <summary>Musterlösung</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/metadata.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data/metadata.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Error: 'data/metadata.csv' does not exist in current working directory ('C:/Users/luoe/Documents/Coding/Research Methods/HS22').</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -729,7 +731,8 @@ Tipp
 <div class="cell">
 <details>
 <summary>Musterlösung</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata[,<span class="fu">c</span>(<span class="st">"stn"</span>, <span class="st">"Name"</span>, <span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"Meereshoehe"</span>)]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata[,<span class="fu">c</span>(<span class="st">"stn"</span>, <span class="st">"Name"</span>, <span class="st">"x"</span>,<span class="st">"y"</span>,<span class="st">"Meereshoehe"</span>)]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in eval(expr, envir, enclos): Objekt 'metadata' nicht gefunden</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -741,9 +744,10 @@ Tipp
 <details>
 <summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> <span class="fu">left_join</span>(wetter,metadata,<span class="at">by =</span> <span class="st">"stn"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Jointyp: Left-Join auf 'wetter', da uns nur die Stationen im Datensatz 'wetter' interessieren.</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Attribut: "stn"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in is.data.frame(y): Objekt 'metadata' nicht gefunden</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Jointyp: Left-Join auf 'wetter', da uns nur die Stationen im Datensatz 'wetter' interessieren.</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Attribut: "stn"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>

@@ -126,9 +126,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
-<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-
 
 <link rel="stylesheet" href="../custom.css">
 <link rel="stylesheet" href="../theme-custom.scss">
@@ -677,112 +674,105 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The goal of this exercise is to do the same MCE by just using R. We will mainly use functions from the R packages <a href="https://cran.r-project.org/web/packages/sf/sf.pdf">sf</a> and <a href="https://cran.r-project.org/web/packages/raster/raster.pdf">raster</a>. Please have a look at the process model (see <a href="#fig-mce-process">Abbildung&nbsp;<span>58.1</span></a>) that was created in ArcGIS Pro and try to figure out which functions in the two R packages correspond to the ones in the model. You will see that there are some similar functions available, but for some calculations a different approach is needed.</p>
 <section id="exercises-1-load-and-view-data" class="level2">
 <h2 class="anchored" data-anchor-id="exercises-1-load-and-view-data">Exercises 1: Load and view data</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div id="tbl-data" class="anchored">
-
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<caption>Tabelle&nbsp;58.1:  Data used in this study </caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> datasets </th>
-   <th style="text-align:left;"> description </th>
-   <th style="text-align:left;"> type </th>
-   <th style="text-align:left;"> res </th>
-   <th style="text-align:left;"> geometry </th>
-   <th style="text-align:left;"> crs </th>
-   <th style="text-align:left;"> exclusion_area </th>
-  </tr>
- </thead>
+<p>The raster datasets look like the following:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Layer</th>
+<th style="text-align: left;">Coord. System</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Exclusion Area</th>
+</tr>
+</thead>
 <tbody>
-  <tr>
-   <td style="text-align:left;"> <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602285" style="     ">dhm25m.tif</a> </td>
-   <td style="text-align:left;"> Terrain model (m) </td>
-   <td style="text-align:left;"> Raster </td>
-   <td style="text-align:left;"> 25m </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> CH1903/LV03 </td>
-   <td style="text-align:left;"> No </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602288" style="     ">eis25m.tif</a> </td>
-   <td style="text-align:left;"> Icing frequency (days/year) </td>
-   <td style="text-align:left;"> Raster </td>
-   <td style="text-align:left;"> 25m </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> CH1903/LV03 </td>
-   <td style="text-align:left;"> No </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602297" style="     ">wind25m.tif</a> </td>
-   <td style="text-align:left;"> Average wind speed (dm/s) </td>
-   <td style="text-align:left;"> Raster </td>
-   <td style="text-align:left;"> 25m </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> CH1903/LV03 </td>
-   <td style="text-align:left;"> No </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602295" style="     ">Bewohnte_Flaeche.gpkg</a> </td>
-   <td style="text-align:left;"> Settlements (incl. buffer 200m) </td>
-   <td style="text-align:left;"> Geopackage </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Polygon </td>
-   <td style="text-align:left;"> CH1903/LV03 </td>
-   <td style="text-align:left;"> (Yes)/Distance </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602296" style="     ">Nationale_Schutzgebiete.gpkg</a> </td>
-   <td style="text-align:left;"> National protection areas </td>
-   <td style="text-align:left;"> Geopackage </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Polygon </td>
-   <td style="text-align:left;"> CH1903/LV03 </td>
-   <td style="text-align:left;"> (Yes)/Distance </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602294" style="     ">Seeflaechen.gpkg</a> </td>
-   <td style="text-align:left;"> Lake areas </td>
-   <td style="text-align:left;"> Geopackage </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Polygon </td>
-   <td style="text-align:left;"> CH1903/LV03 </td>
-   <td style="text-align:left;"> Yes </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602290" style="     ">Strassen.gpkg</a> </td>
-   <td style="text-align:left;"> Streets </td>
-   <td style="text-align:left;"> Geopackage </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Line </td>
-   <td style="text-align:left;"> CH1903/LV03 </td>
-   <td style="text-align:left;"> No/Distance </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602293" style="     ">Untersuchungsgebiet_Schwyz.gpkg</a> </td>
-   <td style="text-align:left;"> Study area, canton of Schwyz </td>
-   <td style="text-align:left;"> Geopackage </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Polygon </td>
-   <td style="text-align:left;"> CH1903/LV03 </td>
-   <td style="text-align:left;"> No </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602291" style="     ">Waldgebiete.gpkg</a> </td>
-   <td style="text-align:left;"> Forest areas </td>
-   <td style="text-align:left;"> Geopackage </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Polygon </td>
-   <td style="text-align:left;"> CH1903/LV03 </td>
-   <td style="text-align:left;"> (Yes)/Distance </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602285">dhm25m.tif</a></td>
+<td style="text-align: left;">CH1903/LV03</td>
+<td style="text-align: left;">Terrain model (m)</td>
+<td style="text-align: left;">Raster (25m)</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602288">eis25m.tif</a></td>
+<td style="text-align: left;">CH1903/LV03</td>
+<td style="text-align: left;">“Icing frequency (days/year)</td>
+<td style="text-align: left;">Raster (25m)</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602297">wind25m.tif</a></td>
+<td style="text-align: left;">CH1903/LV03</td>
+<td style="text-align: left;">Average wind speed (dm/s)</td>
+<td style="text-align: left;">Raster (25m)</td>
+<td style="text-align: left;">No</td>
+</tr>
 </tbody>
 </table>
-
-</div>
-</div>
-</div>
-<p>The raster data can be loaded by using the function <code>terra::rast</code> and the vector data with <code>sf::read_sf</code>. View the available data layers (see <a href="#tbl-data">Tabelle&nbsp;<span>58.1</span></a>) and plot them in an appealing way. For visualization you can use the functions <code>plot</code> for raster data and <code>ggplot</code> for vector data.</p>
+<p>Laden Sie das File <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=663498">windkraft_geodata.gpkg</a> von Moodle herunter. Hier befinden sich alle Datensätze, die im Laufe des Blocks “Netzwerkanalyse” benötigt werden:</p>
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Layer</th>
+<th style="text-align: left;">Coord. System</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Exclusion Area</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bewohnte_Flaeche</td>
+<td style="text-align: left;">CH1903/LV03</td>
+<td style="text-align: left;">Settlements (incl.&nbsp;buffer 200m)</td>
+<td style="text-align: left;">Polygon</td>
+<td style="text-align: left;">(Yes)/Distance</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nationale_Schutzgebiete</td>
+<td style="text-align: left;">CH1903/LV03</td>
+<td style="text-align: left;">National protection areas”</td>
+<td style="text-align: left;">Polygon</td>
+<td style="text-align: left;">(Yes)/Distance</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Seeflaechen</td>
+<td style="text-align: left;">CH1903/LV03</td>
+<td style="text-align: left;">Lake areas</td>
+<td style="text-align: left;">Polygon</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Strassen</td>
+<td style="text-align: left;">CH1903/LV03</td>
+<td style="text-align: left;">Streets</td>
+<td style="text-align: left;">Line</td>
+<td style="text-align: left;">No/Distance</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Untersuchungsgebiet_Schwyz</td>
+<td style="text-align: left;">CH1903/LV03</td>
+<td style="text-align: left;">Study area, canton of Schwyz</td>
+<td style="text-align: left;">Polygon</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Waldgebiete</td>
+<td style="text-align: left;">CH1903/LV03</td>
+<td style="text-align: left;">Forest areas</td>
+<td style="text-align: left;">Polygon</td>
+<td style="text-align: left;">(Yes)/Distance</td>
+</tr>
+</tbody>
+</table>
+<p>The raster data can be loaded by using the function <code>terra::rast</code> and the vector layers with <code>sf::read_sf</code>. View the available data layers and plot them in an appealing way. For visualization you can use the functions <code>plot</code> for raster data and <code>ggplot</code> for vector data.</p>
 <!-- Some data sets exceed the boundaries of the study area. Use the function `crop`  on raster data sets and `st_intersection` for sf/vector data to extract the relevant areas. -->
 <p>We will use the following packages in this exercise:</p>
 <div class="cell">

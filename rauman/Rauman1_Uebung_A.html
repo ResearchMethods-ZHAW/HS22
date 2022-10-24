@@ -677,8 +677,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Es handelt sich um Geodatensätze im Format Geopackage (“*.gpkg”), eine alternatives Datenformat zum bekannteren Format “Shapefiles”. Importiere die Datensätze wie folgt:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kantone <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"data/kantone.gpkg"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>gemeinden <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"data/gemeinden.gpkg"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kantone <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/kantone.gpkg"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>gemeinden <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/gemeinden.gpkg"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Schau Dir die importierten Datensätze an. Am meisten Informationen zu <code>sf</code> Objekten bekommst du, wenn du dir den Datensatz <strong>in der Konsole</strong> anschaust (in dem du den Variabel-Name in der Konsole eintippst). Mit dem RStudio Viewer werden <code>sf</code> Objekte nur sehr langsam geladen und die Metadaten werden nicht angezeigt.</p>
 </section>
@@ -718,11 +718,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(kantone)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Coordinate Reference System: NA</code></pre>
+<pre><code>Coordinate Reference System:
+  User input: Undefined Cartesian SRS 
+  wkt:
+ENGCRS["Undefined Cartesian SRS",
+    EDATUM[""],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["Meter",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["Meter",1]]]</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(gemeinden)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Coordinate Reference System: NA</code></pre>
+<pre><code>Coordinate Reference System:
+  User input: Undefined Cartesian SRS 
+  wkt:
+ENGCRS["Undefined Cartesian SRS",
+    EDATUM[""],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["Meter",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["Meter",1]]]</code></pre>
 </div>
 </div>
 <p>Leider sind in unserem Fall keine Koordinatensysteme zugewiesen. Mit etwas Erfahrung kann man das Koordinatensystem aber erraten, so viele kommen nämlich gar nicht in Frage. Am häufigsten trifft man hierzulande eines der drei folgenden Koordinatensysteme an:</p>
@@ -773,8 +795,8 @@ GEOGCRS["WGS 84",
             ORDER[2],
             ANGLEUNIT["degree",0.0174532925199433]],
     USAGE[
-        SCOPE["unknown"],
-        AREA["World"],
+        SCOPE["Horizontal component of 3D system."],
+        AREA["World."],
         BBOX[-90,-180,90,180]],
     ID["EPSG",4326]]</code></pre>
 </div>

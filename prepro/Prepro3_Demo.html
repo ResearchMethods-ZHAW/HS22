@@ -704,7 +704,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="daten-laden">Daten Laden</h3>
 <p>Wir laden die Wetterdaten (Quelle MeteoSchweiz) von der letzten Übung.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/weather.csv"</span>)</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"datasets/prepro/weather.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> wetter  <span class="sc">|&gt;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -747,7 +747,7 @@ div.csl-indent {
 <p>Dies müssen wir pro Monat wiederholen, was natürlich sehr umständlich ist. Deshalb nutzen wir das package <code>dplyr</code>. Damit geht die Aufgabe (Temperaturmittel pro Monat berechnen) folgendermassen:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="fu">group_by</span>(wetter,month),<span class="at">temp_mittel =</span> <span class="fu">mean</span>(tre200h0, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 12 × 2</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 13 × 2</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    month temp_mittel</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt;       &lt;dbl&gt;</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  1     1      -1.96 </span></span>
@@ -761,7 +761,8 @@ div.csl-indent {
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  9     9       9.49 </span></span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10    10       8.79 </span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 11    11       1.21 </span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 12    12      -0.898</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 12    12      -0.898</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 13    NA       2.95</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="verketten-vs.-verschachteln" class="level3">
@@ -978,7 +979,7 @@ div.csl-indent {
 <div id="fig-ggplot-long" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Prepro3_Demo_files/figure-html/fig-ggplot-long-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;6.1: Generiereter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;6.1: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1014,7 +1015,7 @@ div.csl-indent {
 <div id="fig-ggplot-wide" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Prepro3_Demo_files/figure-html/fig-ggplot-wide-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;6.2: Generiereter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;6.2: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
