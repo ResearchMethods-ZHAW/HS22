@@ -57,7 +57,7 @@ Um die ganzen \*.Rmd Files lokal bearbeiten zu können, muss das Repository gekl
 Um das Github repo als standart "upstream" zu setzen muss man im Terminal nachstehenden Befehl eingeben. Danach RStudio neu starten und das entsprechende Projekt laden. Nun sollte im "Git" fenster der "Push" button nicht mehr inaktiv sein.
 
     git branch -u origin/main
-
+    
 
 ## Anleitung 3: Inhalte Editieren und veröffentlichen
 
@@ -89,4 +89,9 @@ Um die Änderungen zu veröffentlichen (für die Studenten sichtbar zu machen) m
 -   Um Änderungen, die ihr am .Rmd gemacht habt, sichtbar zu machen müsst ihr das .Rmd File zuerst kompilieren (mit `Ctrl+Shift+K` oder dem button "Knit")
 -   Eure Beitrag werden in einem html file gespeichert, welches gleich heisst wie euer Rmd file (aber eben mit der html Erweiterung)
 -   Das "builden" der site passiert nach jedem Push via einer github action
+
+
+## Anleitung 4: Umgang mit Daten
+
+**TODO: Hier Anleitung schreiben**
 
