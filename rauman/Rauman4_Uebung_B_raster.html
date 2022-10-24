@@ -651,19 +651,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>One of the important aspects of the upcoming exercise (Multi-Criteria Evaluation (MCE)) is the use and manipulation of <strong>raster datasets</strong>. In <code>R</code>, two are the main packages used to handle raster data: <code>terra</code> and <code>raster</code> package. The latter is still heavily used, but inevitably is going to be replaced by the first one.</p>
-<p>Below we will use <code>terra</code> to demonstrate how we can import a raster dataset. In the link below you can download a tif file, representing the <code>Digital Elevation Model</code> <em>(Digitales Höhenmodell, DHM)</em> of Canton Schwyz in Switzerland. Download the dataset and repeat the code provided.</p>
+<p>Einer der wichtigsten Aspekte der bevorstehenden Übung (Multi-Criteria Evaluation (MCE)) ist die Verwendung und Bearbeitung von <strong>Rasterdatensätzen</strong>. In “R” werden hauptsächlich zwei Pakete zur Bearbeitung von Rasterdaten verwendet: <code>terra</code> und das Paket <code>raster</code>. Das letztere wird immer noch stark genutzt, wird aber unweigerlich durch das erstere ersetzt.</p>
+<p>Im dieser Übung werden wir <code>terra</code> verwenden, um zu zeigen, wie wir einen Rasterdatensatz importieren können. Unter dem untenstehenden Link können Sie eine tif-Datei herunterladen, die das “Digitale Höhenmodell” (DHM)* des Kantons Schwyz in der Schweiz darstellt. Laden Sie den Datensatz herunter und führen Sie den angegebenen Code aus.</p>
 <ul>
-<li>Dataset: <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602285">dhm25m.tif</a></li>
+<li>Datensatz: <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602285">dhm25m.tif</a></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Import your raster with the function <code>rast</code></p>
+<p>Importieren Sie Ihr Raster mit der Funktion <code>rast</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dhm_schwyz <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"datasets/rauman/dhm25m.tif"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You get some important metadata on the raster dataset when you type the variable name in the console.</p>
+<p>Sie erhalten einige wichtige Metadaten über den Rasterdatensatz, wenn Sie den Variablennamen in die Konsole eingeben.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dhm_schwyz </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -676,7 +676,7 @@ source      : dhm25m.tif
 name        : dhm25m </code></pre>
 </div>
 </div>
-<p>To get a quick look at the raster dataset, we can simply use either of the following <code>plot()</code> function:</p>
+<p>Um einen schnellen Überblick eines Rasterdatensatz zu erhalten, können wir einfach die <code>plot()</code> Funktion verwenden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dhm_schwyz)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -688,14 +688,14 @@ name        : dhm25m </code></pre>
 </div>
 </div>
 </div>
-<p>Unfortunately, adding <code>raster</code> to ggplot is not very straightforward. Since <code>ggplot</code> is a universal plotting framework we quickly reach the limits of what is possible when creating something as specialized as maps. For this reason, we will introduce a new plotting framework which is specialized on maps and was built in a very similar design as ggplot: <code>tmap</code>. Install and load this package now.</p>
+<p>Leider ist das Verwenden von <code>Rastern</code> in ggplot nicht sehr einfach. Da <code>ggplot</code> ein universelles Plot-Framework ist, stossen wir schnell an die Grenzen des Möglichen, wenn wir etwas so Spezielles wie Karten erstellen. Aus diesem Grund werden wir ein neues Plot-Framework einführen, das auf Karten spezialisiert ist und in einem sehr ähnlichen Design wie ggplot gebaut wurde: <code>tmap</code>. Installieren und laden Sie dieses Paket jetzt.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Just as <code>ggplot</code>, <code>tmap</code> is based on the idea of “layers” that are joined using a <code>+</code>. Each layer has two components:</p>
+<p>Genau wie <code>ggplot</code> basiert <code>tmap</code> auf der Idee von “Ebenen”, die durch ein <code>+</code> verbunden sind. Jede Ebene hat zwei Komponenten:</p>
 <ul>
-<li>a dataset component which is always <code>tm_shape(dataset)</code> (replace <code>dataset</code> with your variable)</li>
-<li>a geometry component which describes how the preceeding <code>tm_shape()</code> should be visualized. This can be <code>tm_dots()</code> for points, <code>tm_polygons()</code> for polygons, <code>tm_lines()</code> for lines etc. For single band raster (which is the case for <code>dhm_schwyz</code>), it is <code>tm_raster()</code></li>
+<li>eine Datensatzkomponente, die immer <code>tm_shape(dataset)</code> ist (ersetzen Sie <code>dataset</code> durch Ihre Variable)</li>
+<li>eine Geometriekomponente, die beschreibt, wie das vorangegangene <code>tm_shape()</code> visualisiert werden soll. Dies kann <code>tm_dots()</code> für Punkte, <code>tm_polygons()</code> für Polygone, <code>tm_lines()</code> für Linien usw. sein. Für Einzelbandraster (was bei <code>dhm_schwyz</code> der Fall ist) ist es <code>tm_raster()</code></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>
@@ -709,8 +709,8 @@ name        : dhm25m </code></pre>
 </div>
 </div>
 </div>
-<p>Note that <code>tm_shape()</code> and <code>tm_raster()</code> (in this case) belong together, one cannot live without the other.</p>
-<p>If you consult the help of <code>?tm_raster</code> you will see a multitude of options with which to change the visualisation of your data. For example, the default <code>style</code> of <code>tm_raster()</code> is to create “bins” of the data with a descrete colour scale. We can override this using <code>style = "cont"</code></p>
+<p>Beachten Sie, dass <code>tm_shape()</code> und <code>tm_raster()</code> (in diesem Fall) zusammengehören. Das eine kann nicht ohne das andere leben.</p>
+<p>Wenn Sie die Hilfe von <code>?tm_raster</code> konsultieren, werden Sie eine Vielzahl von Optionen sehen, mit denen Sie die Visualisierung Ihrer Daten verändern können. Zum Beispiel ist der Standardstil von <code>tm_raster()</code> die Erstellung von “Bins” mit einer diskreten Farbskala. Wir können dies mit <code>style = "cont"</code> ausser Kraft setzen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -723,7 +723,7 @@ name        : dhm25m </code></pre>
 </div>
 </div>
 </div>
-<p>This already looks pretty awesome, but maby we want to change the default colour palette. Fortunately, this is <em>much</em> simpler in <code>tmap</code> than in <code>ggplot2</code>. To look at the available palettes, type <code>tmaptools::palette_explorer()</code> or <code>RColorBrewer::display.brewer.all()</code> in the console (the former might require you to install additional packages, e.g.&nbsp;<code>shinyjs</code>).</p>
+<p>Das sieht schon ziemlich toll aus, aber vielleicht wollen wir die Standard-Farbpalette ändern. Glücklicherweise ist das in <code>tmap</code> viel einfacher als in <code>ggplot2</code>. Um sich die verfügbaren Paletten anzusehen, geben Sie <code>tmaptools::palette_explorer()</code> oder <code>RColorBrewer::display.brewer.all()</code> in der Konsole ein (für Ersteres müssen Sie möglicherweise zusätzliche Pakete installieren, z.B. <code>shinyjs</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>, <span class="at">palette =</span> <span class="st">"Spectral"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -736,7 +736,7 @@ name        : dhm25m </code></pre>
 </div>
 </div>
 </div>
-<p>You can make layout adjustments using <code>tm_layout()</code>, check <code>?tm_layout</code> to see all of the options available!</p>
+<p>Sie können Layout-Anpassungen mit <code>tm_layout()</code> vornehmen, prüfen Sie <code>?tm_layout</code>, um alle verfügbaren Optionen zu sehen!</p>
 <div class="column-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>

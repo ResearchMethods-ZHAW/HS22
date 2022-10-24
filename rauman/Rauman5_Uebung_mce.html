@@ -628,14 +628,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#exercises-1-load-and-view-data" id="toc-exercises-1-load-and-view-data" class="nav-link active" data-scroll-target="#exercises-1-load-and-view-data">Exercises 1: Load and view data</a></li>
-  <li><a href="#exercise-2-merge-exclusion-criteria" id="toc-exercise-2-merge-exclusion-criteria" class="nav-link" data-scroll-target="#exercise-2-merge-exclusion-criteria">Exercise 2: Merge exclusion criteria</a></li>
-  <li><a href="#exercise-3-calculate-slope" id="toc-exercise-3-calculate-slope" class="nav-link" data-scroll-target="#exercise-3-calculate-slope">Exercise 3: Calculate slope</a></li>
-  <li><a href="#exercise-4-calculate-distances-to-criteria" id="toc-exercise-4-calculate-distances-to-criteria" class="nav-link" data-scroll-target="#exercise-4-calculate-distances-to-criteria">Exercise 4: Calculate distances to criteria</a></li>
-  <li><a href="#exercise-5-standardize-and-grade-criteria-grading" id="toc-exercise-5-standardize-and-grade-criteria-grading" class="nav-link" data-scroll-target="#exercise-5-standardize-and-grade-criteria-grading">Exercise 5: Standardize and grade criteria (grading)</a></li>
-  <li><a href="#exercise-6-weighting-criteria-with-ahp" id="toc-exercise-6-weighting-criteria-with-ahp" class="nav-link" data-scroll-target="#exercise-6-weighting-criteria-with-ahp">Exercise 6: Weighting criteria with AHP</a></li>
-  <li><a href="#exercise-7-weighted-overlay" id="toc-exercise-7-weighted-overlay" class="nav-link" data-scroll-target="#exercise-7-weighted-overlay">Exercise 7: Weighted Overlay</a></li>
-  <li><a href="#exercise-8-intersecting-potential-areas-with-exclusion-criteria" id="toc-exercise-8-intersecting-potential-areas-with-exclusion-criteria" class="nav-link" data-scroll-target="#exercise-8-intersecting-potential-areas-with-exclusion-criteria">Exercise 8: Intersecting potential areas with exclusion criteria</a></li>
+  <li><a href="#übungen-1-daten-laden-und-anzeigen" id="toc-übungen-1-daten-laden-und-anzeigen" class="nav-link active" data-scroll-target="#übungen-1-daten-laden-und-anzeigen">Übungen 1: Daten laden und anzeigen</a></li>
+  <li><a href="#übung-2-ausschlusskriterien-zusammenführen" id="toc-übung-2-ausschlusskriterien-zusammenführen" class="nav-link" data-scroll-target="#übung-2-ausschlusskriterien-zusammenführen">Übung 2: Ausschlusskriterien zusammenführen</a></li>
+  <li><a href="#übung-3-neigung-berechnen" id="toc-übung-3-neigung-berechnen" class="nav-link" data-scroll-target="#übung-3-neigung-berechnen">Übung 3: Neigung berechnen</a></li>
+  <li><a href="#übung-4-entfernungen-zu-kriterien-berechnen" id="toc-übung-4-entfernungen-zu-kriterien-berechnen" class="nav-link" data-scroll-target="#übung-4-entfernungen-zu-kriterien-berechnen">Übung 4: Entfernungen zu Kriterien berechnen</a></li>
+  <li><a href="#übung-5-kriterien-standardisieren-und-bewerten-grading" id="toc-übung-5-kriterien-standardisieren-und-bewerten-grading" class="nav-link" data-scroll-target="#übung-5-kriterien-standardisieren-und-bewerten-grading">Übung 5: Kriterien standardisieren und bewerten (grading)</a></li>
+  <li><a href="#übung-6-gewichtung-der-kriterien-mit-ahp" id="toc-übung-6-gewichtung-der-kriterien-mit-ahp" class="nav-link" data-scroll-target="#übung-6-gewichtung-der-kriterien-mit-ahp">Übung 6: Gewichtung der Kriterien mit AHP</a></li>
+  <li><a href="#übung-7-gewichtetes-overlay" id="toc-übung-7-gewichtetes-overlay" class="nav-link" data-scroll-target="#übung-7-gewichtetes-overlay">Übung 7: Gewichtetes Overlay</a></li>
+  <li><a href="#übung-8-potenzielle-gebiete-mit-ausschlusskriterien-überschneiden" id="toc-übung-8-potenzielle-gebiete-mit-ausschlusskriterien-überschneiden" class="nav-link" data-scroll-target="#übung-8-potenzielle-gebiete-mit-ausschlusskriterien-überschneiden">Übung 8: Potenzielle Gebiete mit Ausschlusskriterien überschneiden</a></li>
   </ul>
 </nav>
     </div>
@@ -664,52 +664,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>The following exercise may seem familiar to some of you, if you have attended the bachelor program. This MCE was already conducted in the bachelor module “GIS” by using ArcGIS Pro and its ModelBuilder (see <a href="#fig-mce-process">Abbildung&nbsp;<span>58.1</span></a>).</p>
+<p>Die folgende Übung mag einigen von Ihnen bekannt vorkommen, wenn Sie unseren Bachelorstudiengang besucht haben. Dieses MCE wurde bereits im Bachelormodul “GIS” unter Verwendung von ArcGIS Pro und dessen ModelBuilder durchgeführt (siehe <a href="#fig-mce-process">Abbildung&nbsp;<span>58.1</span></a>).</p>
 <div id="fig-mce-process" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/mce_process.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.1: MCE Process</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.1: MCE Prozess</figcaption><p></p>
 </figure>
 </div>
-<p>The goal of this exercise is to do the same MCE by just using R. We will mainly use functions from the R packages <a href="https://cran.r-project.org/web/packages/sf/sf.pdf">sf</a> and <a href="https://cran.r-project.org/web/packages/raster/raster.pdf">raster</a>. Please have a look at the process model (see <a href="#fig-mce-process">Abbildung&nbsp;<span>58.1</span></a>) that was created in ArcGIS Pro and try to figure out which functions in the two R packages correspond to the ones in the model. You will see that there are some similar functions available, but for some calculations a different approach is needed.</p>
-<section id="exercises-1-load-and-view-data" class="level2">
-<h2 class="anchored" data-anchor-id="exercises-1-load-and-view-data">Exercises 1: Load and view data</h2>
-<p>The raster datasets look like the following:</p>
+<p>Das Ziel dieser Übung ist es, das gleiche MCE nur mit R durchzuführen. Wir werden hauptsächlich Funktionen aus den R-Paketen <a href="https://cran.r-project.org/web/packages/sf/sf.pdf">sf</a> und <a href="https://cran.r-project.org/web/packages/raster/raster.pdf">raster</a> verwenden. Bitte schauen Sie sich das Prozessmodell (siehe <a href="#fig-mce-process">Abbildung&nbsp;<span>58.1</span></a>) an, das in ArcGIS Pro erstellt wurde, und versuchen Sie herauszufinden, welche Funktionen in den beiden R-Paketen denen im Modell entsprechen. Sie werden sehen, dass es einige ähnliche Funktionen gibt, aber für einige Berechnungen ist ein anderer Ansatz erforderlich.</p>
+<section id="übungen-1-daten-laden-und-anzeigen" class="level2">
+<h2 class="anchored" data-anchor-id="übungen-1-daten-laden-und-anzeigen">Übungen 1: Daten laden und anzeigen</h2>
+<p>Laden Sie die nachfolgenden Rasterdatensätze herunter:</p>
 <table class="table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Layer</th>
-<th style="text-align: left;">Coord. System</th>
-<th style="text-align: left;">Description</th>
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Exclusion Area</th>
+<th style="text-align: left;">Koord. System</th>
+<th style="text-align: left;">Beschreibung</th>
+<th style="text-align: left;">Typ</th>
+<th style="text-align: left;">Ausschlussgebiet</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602285">dhm25m.tif</a></td>
 <td style="text-align: left;">CH1903/LV03</td>
-<td style="text-align: left;">Terrain model (m)</td>
+<td style="text-align: left;">Geländemodell (m)</td>
 <td style="text-align: left;">Raster (25m)</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Nein</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602288">eis25m.tif</a></td>
 <td style="text-align: left;">CH1903/LV03</td>
-<td style="text-align: left;">“Icing frequency (days/year)</td>
+<td style="text-align: left;">Häufigkeit der Vereisung (Tage/Jahr)</td>
 <td style="text-align: left;">Raster (25m)</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Nein</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602297">wind25m.tif</a></td>
 <td style="text-align: left;">CH1903/LV03</td>
-<td style="text-align: left;">Average wind speed (dm/s)</td>
+<td style="text-align: left;">Durchschnittliche Windgeschwindigkeit (dm/s)</td>
 <td style="text-align: left;">Raster (25m)</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Nein</td>
 </tr>
 </tbody>
 </table>
-<p>Laden Sie das File <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=663498">windkraft_geodata.gpkg</a> von Moodle herunter. Hier befinden sich alle Datensätze, die im Laufe des Blocks “Netzwerkanalyse” benötigt werden:</p>
+<p>Laden Sie das File <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=663498">windkraft_geodata.gpkg</a> von Moodle herunter. Dieses beinhaltet die folgenden Layers:</p>
 <table class="table">
 <colgroup>
 <col style="width: 20%">
@@ -721,60 +721,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <thead>
 <tr class="header">
 <th style="text-align: left;">Layer</th>
-<th style="text-align: left;">Coord. System</th>
-<th style="text-align: left;">Description</th>
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Exclusion Area</th>
+<th style="text-align: left;">Koord. System</th>
+<th style="text-align: left;">Beschreibung</th>
+<th style="text-align: left;">Typ</th>
+<th style="text-align: left;">Ausschlussgebiet</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Bewohnte_Flaeche</td>
 <td style="text-align: left;">CH1903/LV03</td>
-<td style="text-align: left;">Settlements (incl.&nbsp;buffer 200m)</td>
+<td style="text-align: left;">Siedlungen (inkl. Puffer 200m)</td>
 <td style="text-align: left;">Polygon</td>
-<td style="text-align: left;">(Yes)/Distance</td>
+<td style="text-align: left;">(Ja)/Distanz</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Nationale_Schutzgebiete</td>
 <td style="text-align: left;">CH1903/LV03</td>
-<td style="text-align: left;">National protection areas”</td>
+<td style="text-align: left;">Nationale Schutzgebiete</td>
 <td style="text-align: left;">Polygon</td>
-<td style="text-align: left;">(Yes)/Distance</td>
+<td style="text-align: left;">(Ja)/Distanz</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Seeflaechen</td>
 <td style="text-align: left;">CH1903/LV03</td>
-<td style="text-align: left;">Lake areas</td>
+<td style="text-align: left;">Seegebiete</td>
 <td style="text-align: left;">Polygon</td>
-<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Ja</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Strassen</td>
 <td style="text-align: left;">CH1903/LV03</td>
-<td style="text-align: left;">Streets</td>
-<td style="text-align: left;">Line</td>
-<td style="text-align: left;">No/Distance</td>
+<td style="text-align: left;">Strassen</td>
+<td style="text-align: left;">Linie</td>
+<td style="text-align: left;">Nein/Distanz</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Untersuchungsgebiet_Schwyz</td>
 <td style="text-align: left;">CH1903/LV03</td>
-<td style="text-align: left;">Study area, canton of Schwyz</td>
+<td style="text-align: left;">Untersuchungsgebiet, Kanton Schwyz</td>
 <td style="text-align: left;">Polygon</td>
-<td style="text-align: left;">No</td>
+<td style="text-align: left;">Nein</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Waldgebiete</td>
 <td style="text-align: left;">CH1903/LV03</td>
-<td style="text-align: left;">Forest areas</td>
+<td style="text-align: left;">Waldgebiete</td>
 <td style="text-align: left;">Polygon</td>
-<td style="text-align: left;">(Yes)/Distance</td>
+<td style="text-align: left;">(Ja)/Distanz</td>
 </tr>
 </tbody>
 </table>
-<p>The raster data can be loaded by using the function <code>terra::rast</code> and the vector layers with <code>sf::read_sf</code>. View the available data layers and plot them in an appealing way. For visualization you can use the functions <code>plot</code> for raster data and <code>ggplot</code> for vector data.</p>
-<!-- Some data sets exceed the boundaries of the study area. Use the function `crop`  on raster data sets and `st_intersection` for sf/vector data to extract the relevant areas. -->
-<p>We will use the following packages in this exercise:</p>
+<p>Die Rasterdaten können mit der Funktion <code>terra::rast</code> und die Vektorebenen mit <code>sf::read_sf</code> geladen werden. Zeigen Sie die verfügbaren Layers an und plotten Sie sie auf ansprechende Weise. Zur Visualisierung können Sie die Funktionen <code>plot</code> für Rasterdaten und <code>ggplot</code> für Vektordaten verwenden.</p>
+<!-- Einige Datensätze überschreiten die Grenzen des Untersuchungsgebiets. Verwenden Sie die Funktion `crop` für Rasterdatensätze und `st_intersection` für sf/Vektor-Daten, um die relevanten Bereiche zu extrahieren. -->
+<p>Wir werden die folgenden Pakete in dieser Übung verwenden:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
@@ -782,41 +782,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="exercise-2-merge-exclusion-criteria" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-2-merge-exclusion-criteria">Exercise 2: Merge exclusion criteria</h2>
-<p>Merge the exclusion criteria settlement areas, national protected areas, lake areas and forest areas. These vector data sets are structured as data frames and therefore can be merged by simply combining them. Keep in mind that the data frames have different sizes. Additionally, we need to create a raster out of the newly created vector data set (exclusion area). For that you can use the function <code>rasterize</code>. The output should be a raster with 0 and 1, where the fields of the exclusion area have values of 0 and the remaining fields have values of 1 (see Figure (fig:figrasterizeexclusioncriteria)).</p>
+<section id="übung-2-ausschlusskriterien-zusammenführen" class="level2">
+<h2 class="anchored" data-anchor-id="übung-2-ausschlusskriterien-zusammenführen">Übung 2: Ausschlusskriterien zusammenführen</h2>
+<p>Führen Sie die Ausschlusskriterien Siedlungsgebiete, nationale Schutzgebiete, Seeflächen und Waldgebiete zusammen. Diese Vektordatensätze sind als Data Frames strukturiert und können daher durch einfaches Kombinieren zusammengeführt werden. Beachten Sie dabei, dass die Data Frames unterschiedliche Grössen haben. Zusätzlich müssen wir aus dem neu erstellten Vektordatensatz (Ausschlussgebiet) ein Raster erstellen. Dazu können Sie die Funktion <code>rasterize</code> verwenden. Die Ausgabe soll ein Raster mit 0 und 1 sein, wobei die Felder des Ausschlussbereichs den Wert 0 und die restlichen Felder den Wert 1 haben (siehe <a href="#fig-exclusion-areas">Abbildung&nbsp;<span>58.2</span></a>).</p>
 <ul>
-<li><em><strong>Tip</strong>: To achieve a raster with only 0 and 1 use the <code>rasterize</code> options field = 0 and background = 1.</em></li>
-<li><em><strong>Tip</strong>: In order to rasterize vector data, you need to create an empty raster beforehand. This raster should have the same boundaries (extent), resolution and coordinate system (crs) as the other raster sets. Use the following code to do so.</em></li>
+<li><strong>Tipp</strong>: Um ein Raster mit nur 0 und 1 zu erhalten, verwenden Sie die Optionen “rasterize” field = 0 und background = 1.</li>
+<li><strong>Tipp</strong>: Um Vektordaten zu rastern, müssen Sie vorher ein leeres Raster erstellen. Dieses Raster sollte die gleichen Grenzen (extent), die gleiche Auflösung und das gleiche Koordinatensystem (crs) haben wie die anderen Rastersätze. Verwenden Sie dazu den folgenden Code.*</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">ext</span>(kt_schwyz), </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">resolution =</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">250</span>), </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">crs =</span> <span class="st">"EPSG:21781"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><img src="images/exclusion_areas.png" class="img-fluid" style="width:50.0%"></p>
+<div id="fig-exclusion-areas" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="images/exclusion_areas.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.2: Ausschlussgebiete</figcaption><p></p>
+</figure>
+</div>
 </section>
-<section id="exercise-3-calculate-slope" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-3-calculate-slope">Exercise 3: Calculate slope</h2>
-<p>Next, calculate the slope in degrees based on the terrain model (dhm25m). The terra package gives you a very helpful function called <code>terrain</code>.</p>
-<p><em><strong>Tip</strong>: When using the terrain function use the following options: v=“slope”, unit=“degrees”, neighbors=8.</em></p>
+<section id="übung-3-neigung-berechnen" class="level2">
+<h2 class="anchored" data-anchor-id="übung-3-neigung-berechnen">Übung 3: Neigung berechnen</h2>
+<p>Als nächstes berechnen Sie die Neigung in Grad auf der Grundlage des Geländemodells (dhm25m). Das terra-Paket bietet Ihnen eine sehr hilfreiche Funktion namens <code>terrain</code>.</p>
+<ul>
+<li><strong>Tipp</strong>: Wenn Sie die Terrain-Funktion verwenden, benutzen Sie die folgenden Optionen: v=“slope”, unit=“degrees”, neighbors=8.*</li>
+</ul>
 <p><img src="images/slope.png" class="img-fluid" style="width:50.0%"></p>
 </section>
-<section id="exercise-4-calculate-distances-to-criteria" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-4-calculate-distances-to-criteria">Exercise 4: Calculate distances to criteria</h2>
-<p>Within the evaluation of suitable sites for wind turbines, the distance to roads, forest areas, national protected areas and inhabited areas are relevant. Depending on the criteria, a short or long distance has a positive influence on the evaluation of potential sites. For this purpose, perform a distance analysis with the selected criteria raster layers. Use the raster function <code>distance</code> for this calculation.</p>
+<section id="übung-4-entfernungen-zu-kriterien-berechnen" class="level2">
+<h2 class="anchored" data-anchor-id="übung-4-entfernungen-zu-kriterien-berechnen">Übung 4: Entfernungen zu Kriterien berechnen</h2>
+<p>Bei der Bewertung geeigneter Standorte für Windkraftanlagen ist die Entfernung zu Strassen, Waldgebieten, nationalen Schutzgebieten und bewohnten Gebieten relevant. Je nach Kriterium hat eine geringe oder grosse Entfernung einen positiven Einfluss auf die Bewertung der potenziellen Standorte. Führen Sie zu diesem Zweck eine Abstandsanalyse mit den ausgewählten Kriterien-Rasterlayern durch. Verwenden Sie für diese Berechnung die Rasterfunktion <code>distance</code>.</p>
 <ul>
-<li><em><strong>Tip</strong>: In order to perform the <code>distance</code> function, you need to <code>rasterize</code> the criteria as well. You can use the same command as in exercise 2 but use only option field = 1.</em></li>
-<li><em><strong>Tip</strong>: Use the <code>crop</code> function again to get only relevant data in the study area.</em></li>
+<li><strong>Tipp</strong>: Um die Funktion <code>distance</code> durchführen zu können, müssen Sie die Kriterien ebenfalls “rastern”. Sie können den gleichen Befehl wie in Übung 2 verwenden, aber nur mit der Option field = 1.</li>
+<li><strong>Tipp</strong>: Verwenden Sie erneut die Funktion “Zuschneiden”, um nur relevante Daten aus dem Untersuchungsgebiet zu erhalten.</li>
 </ul>
 <p><img src="images/d_to_settlements.png" class="img-fluid" style="width:50.0%"></p>
 </section>
-<section id="exercise-5-standardize-and-grade-criteria-grading" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-5-standardize-and-grade-criteria-grading">Exercise 5: Standardize and grade criteria (grading)</h2>
-<p>The data layers slope, wind speed, icing frequency and the in exercise 4 calculated distance layers have different units (dm/s, degrees, d/yr and m). These units can’t be directly calculated with each other. Therefore, the different layers need to be operationalized by performing a linear grading. The linear grading is done by using the function <code>reclassify</code>. Use the standards for the reclassification in Figure (fig:figreclassify).</p>
+<section id="übung-5-kriterien-standardisieren-und-bewerten-grading" class="level2">
+<h2 class="anchored" data-anchor-id="übung-5-kriterien-standardisieren-und-bewerten-grading">Übung 5: Kriterien standardisieren und bewerten (grading)</h2>
+<p>Die Datenebenen Neigung, Windgeschwindigkeit, Vereisungshäufigkeit und die in Übung 4 berechneten Entfernungsebenen haben unterschiedliche Einheiten (dm/s, Grad, d/yr und m). Diese Einheiten können nicht direkt miteinander verrechnet werden. Daher müssen die verschiedenen Ebenen durch eine lineare Abstufung operationalisiert werden. Die lineare Abstufung wird mit der Funktion <code>reclassify</code> durchgeführt. Verwenden Sie die Standards für die Neuklassifizierung aus <a href="#fig-mce-reclassify-1">Abbildung&nbsp;<span>58.3 (a)</span></a> und <a href="#fig-mce-reclassify-2">Abbildung&nbsp;<span>58.3 (b)</span></a>).</p>
 <ul>
-<li><em><strong>Tip</strong>: Keep in mind the min and max values of each raster layer.</em></li>
-<li><em><strong>Tip</strong>: Here is an example code to reclassify the distances to settlements.</em></li>
+<li><strong>Tipp</strong>: Beachten Sie die Minimal- und Maximalwerte der einzelnen Rasterebenen.</li>
+<li><strong>Tipp</strong>: Hier ist ein Beispielcode zur Neuklassifizierung der Entfernungen zu Siedlungen.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>settlements_max <span class="ot">&lt;-</span> <span class="fu">minmax</span>(settlements_ed)[<span class="dv">2</span>]</span>
@@ -837,57 +844,100 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-mce-reclassify" class="quarto-layout-panel">
 <figure class="figure">
 <div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="images/mce_reclassify_1.png" class="img-fluid figure-img"></p>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-mce-reclassify-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="images/mce_reclassify_1.png" class="img-fluid figure-img" data-ref-parent="fig-mce-reclassify"></p>
+<p></p><figcaption class="figure-caption">(a)</figcaption><p></p>
+</figure>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="images/mce_reclassify_2.png" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-mce-reclassify-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="images/mce_reclassify_2.png" class="img-fluid figure-img" data-ref-parent="fig-mce-reclassify"></p>
+<p></p><figcaption class="figure-caption">(b)</figcaption><p></p>
+</figure>
 </div>
 </div>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.2: MCE Reclassify</figcaption><p></p>
+</div>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.3: MCE Reclassify</figcaption><p></p>
 </figure>
 </div>
 <p><img src="images/d_to_settlements_reclassified.png" class="img-fluid" style="width:50.0%"></p>
 </section>
-<section id="exercise-6-weighting-criteria-with-ahp" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-6-weighting-criteria-with-ahp">Exercise 6: Weighting criteria with AHP</h2>
-<p>Perform an AHP to weight the criteria underlying the MCE. First compare the criteria in pairs, and then calculate the weights - as you have learned in last week’s lesson. In the end you should have a list of 7 weights as shown below.</p>
-<p><em><strong>Tip</strong>: Check exercise 2 and 3 from last week’s session. Use the prepared R code to create your ahp matrix.</em></p>
-<pre><code>      Wind       Streets          Ice    Settlements       Forest         Slope  Protected areas 
-0.33862692    0.09816760    0.06166626    0.24969460    0.03515759    0.18043000      0.03625702 </code></pre>
+<section id="übung-6-gewichtung-der-kriterien-mit-ahp" class="level2">
+<h2 class="anchored" data-anchor-id="übung-6-gewichtung-der-kriterien-mit-ahp">Übung 6: Gewichtung der Kriterien mit AHP</h2>
+<p>Führen Sie einen AHP durch, um die Kriterien zu gewichten, die dem MCE zugrunde liegen. Vergleichen Sie zunächst die Kriterien paarweise und berechnen Sie dann die Gewichte - wie Sie es in der letzten Woche gelernt haben. Am Ende sollten Sie eine Liste mit 7 Gewichten erhalten, wie unten dargestellt.</p>
+<ul>
+<li><strong>Tipp</strong>: Sehen Sie sich die Übungen 2 und 3 aus der letzten Woche an. Verwenden Sie den vorbereiteten R-Code, um Ihre ahp-Matrix zu erstellen.</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Wind</th>
+<th style="text-align: left;">Streets</th>
+<th style="text-align: left;">Ice</th>
+<th style="text-align: left;">Settlements</th>
+<th style="text-align: left;">Forest</th>
+<th style="text-align: left;">Slope</th>
+<th style="text-align: left;">Protected areas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0.33862692</td>
+<td style="text-align: left;">0.09816760</td>
+<td style="text-align: left;">0.06166626</td>
+<td style="text-align: left;">0.24969460</td>
+<td style="text-align: left;">0.03515759</td>
+<td style="text-align: left;">0.18043000</td>
+<td style="text-align: left;">0.03625702</td>
+</tr>
+</tbody>
+</table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ahp_matrix <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Wind</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Distance to streets</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Ice</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Distance to settlements</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Distance to forests</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="co">#Slope</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>  <span class="co">#Distance to protected areas</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">7</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ahp_matrix <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Wind</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Distance to streets</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Ice</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Distance to settlements</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Distance to forests</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="co">#Slope</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>  <span class="co">#Distance to protected areas</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">7</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="exercise-7-weighted-overlay" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-7-weighted-overlay">Exercise 7: Weighted Overlay</h2>
-<p>The linearly ranked criteria (Exercise 5) are now to be combined with each other, taking into account the weighting determined using the AHP (Exercise 6). This weighted overlay can be performed by using raster calculations and simply multiplying each criteria with its weight and adding them together (see <a href="#fig-weighted-overlay">Abbildung&nbsp;<span>58.3</span></a>).</p>
+<section id="übung-7-gewichtetes-overlay" class="level2">
+<h2 class="anchored" data-anchor-id="übung-7-gewichtetes-overlay">Übung 7: Gewichtetes Overlay</h2>
+<p>Die linear gewichteten Kriterien (Übung 5) sollen nun unter Berücksichtigung der mit dem AHP ermittelten Gewichtung (Übung 6) miteinander kombiniert werden. Diese gewichtete Überlagerung kann mit Hilfe von Rasterberechnungen durchgeführt werden, indem einfach jedes Kriterium mit seinem Gewicht multipliziert und addiert wird (siehe <a href="#fig-weighted-overlay">Abbildung&nbsp;<span>58.4</span></a>).</p>
 <ul>
-<li><em><strong>Tip</strong>: As the raster sets have slightly different origins, increase the tolerance by using rasterOptions(tolerance = 0.5).</em></li>
-<li><em><strong>Tip</strong>: Also keep in mind the order of the weights in your list when doing the multiplication.</em></li>
+<li><strong>Tipp</strong>: Da die Rastersätze leicht unterschiedliche Ursprünge haben, erhöhen Sie die Toleranz, indem Sie rasterOptions(tolerance = 0.5) verwenden.</li>
+<li><strong>Tipp</strong>: Achten Sie bei der Multiplikation auch auf die Reihenfolge der Gewichte in Ihrer Liste.</li>
 </ul>
 <div id="fig-weighted-overlay" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/weighted_overlay.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.3: Weighted Overlay</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.4: Gewichteter Overlay</figcaption><p></p>
 </figure>
 </div>
 </section>
-<section id="exercise-8-intersecting-potential-areas-with-exclusion-criteria" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-8-intersecting-potential-areas-with-exclusion-criteria">Exercise 8: Intersecting potential areas with exclusion criteria</h2>
-<p>By simply multiplying the exclusion layer (result from exercise 2) with the weighted overlay layer (result from exercise 7) we are excluding all areas with value 0 (exclusion areas) and keeping all other areas with value 1 (e.g.&nbsp;0x3=0, 1x3=3). As a conclusion of the study, create a final plot of the potential areas for wind power plants in the canton of Schwyz (like <a href="#fig-potential-sites">Abbildung&nbsp;<span>58.4</span></a>). Furthermore, discuss the results obtained and determine three possible locations within which concrete planning of wind power plants would be possible.</p>
+<section id="übung-8-potenzielle-gebiete-mit-ausschlusskriterien-überschneiden" class="level2">
+<h2 class="anchored" data-anchor-id="übung-8-potenzielle-gebiete-mit-ausschlusskriterien-überschneiden">Übung 8: Potenzielle Gebiete mit Ausschlusskriterien überschneiden</h2>
+<p>Durch einfache Multiplikation des Ausschluss-Layers (Ergebnis aus Übung 2) mit dem gewichteten Overlay-Layer (Ergebnis aus Übung 7) schliessen wir alle Flächen mit dem Wert 0 (Ausschlussflächen) aus und behalten alle anderen Flächen mit dem Wert 1 (z.B. 0x3=0, 1x3=3). Erstellen Sie als Abschluss der Studie eine endgültige Darstellung der Potenzialflächen für Windkraftanlagen im Kanton Schwyz (wie <a href="#fig-potential-sites">Abbildung&nbsp;<span>58.5</span></a>). Diskutieren Sie die Ergebnisse und bestimmen Sie drei mögliche Standorte, an denen eine konkrete Planung von Windkraftanlagen möglich wäre.</p>
 <div id="fig-potential-sites" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/potential_sites.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.4: Potential Sites</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.5: Potenzielle Standorte</figcaption><p></p>
 </figure>
 </div>
 
