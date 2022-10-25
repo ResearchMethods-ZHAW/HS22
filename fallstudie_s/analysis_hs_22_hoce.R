@@ -859,19 +859,6 @@ MuMIn::sw(all_m)
 avgmodel <- model.avg(all_m, rank = "AICc", subset = delta < 2)
 summary(avgmodel)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 4.3 Pruefe Verteilung ####
 # pruefe zuerst nochmals, ob wir NA im df haben:
 sum(is.na(umwelt$Total))
