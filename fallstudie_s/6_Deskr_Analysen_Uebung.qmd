@@ -403,17 +403,17 @@ depo_m_daytime <- depo_m_daytime |>
 
 ## Aufgabe 1: Verlauf der Besuchszahlen / m
 
-##1a)
+## 1a)
 
 Nachdem wir die Projektstruktur aufgebaut haben und die Daten vorbereitet (inkl. aggregiert) sind, machen wir uns an die deskriptive Analyse. Dies macht eigentlich immer Sinn. Bevor mach sich an die schliessende Statistik macht, muss man ein "Gefühl" für die Daten bekommen. Dies funktioniert am einfachsten mit explorativen Analysen.
 
 Wir interessieren uns in den Analysen für 5 Zeitabschnitte:
 
-  - von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1 (pre)
-  - 1 Jahr vor Corona (normal)
-  - Lockdown 1
-  - Lockdown 2
-  - Ende 2. Lockdown bis Ende Untersuchungsperiode
+1. von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1 (pre)
+2. 1 Jahr vor Corona (normal)
+3. Lockdown 1
+4. Lockdown 2
+5. Ende 2. Lockdown bis Ende Untersuchungsperiode
 
 - Plottet den Verlauf der monatlichen Besuchszahlen an eurer Zählstelle. Auf der x-Achse steht dabei dabei Jahr und Monat (gespeichert im df _depo_m_), auf der y-Achse die monatlichen Besuchszahlen. Zeichnet auch die beiden Lockdown ein (Hinweis: rundet das Start- und Enddatum der Lockdowns auf den Monat, da im Plot die monatlichen Zahlen gezeigt werden).
 
@@ -455,7 +455,7 @@ ggplot(data = depo_m, mapping = aes(Ym, Total, group = 1))+ # group 1 braucht R,
 
 - Exportiert euren Plot mit __ggsave()__ nach __results__. Breite = 20, Höhe = 10, Einheiten = cm, dpi = 1000
 
-##1b)
+## 1b)
 
 Nachdem wir wissen, wie sich die Besuchszahlen allgemein entwickelt haben, untersuchen wir wie sich diese während den unterschiedlichen Tageszeiten entwickelten.
 
@@ -536,6 +536,10 @@ ggplots haben Daten lieber im Format long als wide.
 - Plottet den Tagesgang, unterteilt nach den 7 Wochentagen nun für unsere 5 Phasen.
 
 ```{r echo=FALSE} 
+Mean_h <- depo |> 
+  group_by(Wochentag, Stunde, Phase) |> 
+  summarise(Total = mean(Total)) 
+
 ggplot(Mean_h, aes(x = Stunde, y = Total, colour = Wochentag, linetype = Wochentag))+
   geom_line(size = 2)+
   scale_colour_viridis_d()+
@@ -588,6 +592,17 @@ Schliesslich soll das Ergebnis noch visualisiert werden.
 - Erstellt einen Plot nach untenstehendem Beispiel und speichert ihn:
 
 ```{r echo=FALSE}
+# mean besser Vergleichbar, da Zeitreihen unterschiedlich lange
+mean_phase_d <- depo_daytime |> 
+  group_by(Phase, Tageszeit) |> 
+  summarise(Total = mean(Total),
+            IN = mean(Fuss_IN),
+            OUT = mean(Fuss_OUT))
+# berechne prozentuale Richtungsverteilung
+mean_phase_d <- mean_phase_d |> 
+  mutate(Proz_IN = round(100/Total*IN, 1)) |> # berechnen und auf eine Nachkommastelle runden
+  mutate(Proz_OUT = round(100/Total*OUT,1))
+
 ggplot(mean_phase_d, mapping = aes(Phase, Total, fill=Tageszeit)) + 
   geom_col(position = "fill")+
   scale_fill_manual(values = mycolors)+

@@ -1,8 +1,7 @@
 # 6. Lösung
 
-
 ```{r include=FALSE}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, results = "hide", fig.align="left")
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE, results = "hide", fig.align="left")
 ```
 
 ```{r include=FALSE}
@@ -807,95 +806,3 @@ ggplot(mean_phase_d, mapping = aes(Phase, Total, fill=Tageszeit)) +
 ggsave("Proz_Entwicklung_Zaehlstelle_Phase.png", width=20, height=15, units="cm", dpi=1000, 
        path = "fallstudie_s/results/")  
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Aufgabe 4: Kennzahlen
-
-```{r}
-# 3.4 Kennzahlen ####
-total_phase <- depo_d %>% 
-  # gruppiere nach Phasen inkl. Normal. Diese Levels haben wir bereits definiert
-  group_by(Phase) %>% 
-  summarise(Total = sum(Total),
-            IN = sum(Fuss_IN),
-            OUT = sum(Fuss_OUT))
-
-# write.csv(total_phase, "_fallstudien/_R_analysis/results/total_phase.csv")
-
-# mean besser Vergleichbar, da Zeitreihen unterschiedlich lange
-mean_phase_d <- depo_d %>% 
-  group_by(Phase) %>% 
-  summarise(Total = mean(Total),
-            IN = mean(Fuss_IN),
-            OUT = mean(Fuss_OUT))
-# berechne prozentuale Richtungsverteilung
-mean_phase_d <- mean_phase_d %>% 
-  mutate(Proz_IN = round(100/Total*IN, 1)) %>% # berechnen und auf eine Nachkommastelle runden
-  mutate(Proz_OUT = round(100/Total*OUT,1))
-
-# write.csv(mean_phase_d, "_fallstudien/_R_analysis/results/mean_phase_d.csv")
-
-# selektiere absolute Zahlen
-# behalte rel. Spalten (nur die relativen Prozentangaben)
-mean_phase_d_abs <- mean_phase_d %>% dplyr::select(-c(Total, Proz_IN, Proz_OUT))
-
-# transformiere fuer Plotting
-mean_phase_d_abs <- pivot_longer(mean_phase_d_abs, cols = c("IN","OUT"), 
-             names_to = "Gruppe", values_to = "Durchschnitt")
-
-# selektiere relative Zahlen
-# behalte rel. Spalten (nur die relativen Prozentangaben)
-mean_phase_d_proz <- mean_phase_d %>% dplyr::select(-c(Total:OUT))
-
-# transformiere fuer Plotting
-mean_phase_d_proz <- pivot_longer(mean_phase_d_proz, cols = c("Proz_IN","Proz_OUT"), 
-                                  names_to = "Gruppe", values_to = "Durchschnitt")
-
-# Visualisierung abs
-abs <- ggplot(data = mean_phase_d_abs, mapping = aes(x = Gruppe, y = Durchschnitt, fill = Phase))+
-  geom_col(position = "dodge", width = 0.8)+
-  scale_fill_manual(values = c("royalblue", "red4", "orangered", "gold2"), name = "Phase")+
-  scale_x_discrete(labels = c("IN", "OUT"))+
-  labs(y = "Durchschnitt [mean]", x= "Bewegungsrichtung")+
-  theme_classic(base_size = 15)+
-  theme(legend.position = "bottom")
-
-# Visualisierung %
-proz <- ggplot(data = mean_phase_d_proz, mapping = aes(x = Gruppe, y = Durchschnitt, fill = Phase))+
-  geom_col(position = "dodge", width = 0.8)+
-  scale_fill_manual(values = c("royalblue", "red4", "orangered", "gold2"), name = "Phase")+
-  scale_x_discrete(labels = c("IN", "OUT"))+
-  labs(y = "Durchschnitt [%]", x= "Bewegungsrichtung")+
-  theme_classic(base_size = 15)+
-  theme(legend.position = "bottom")
-
-# Arrange und Export Verteilung
-ggarrange(abs,            # plot 1 aufrufen
-          proz,            # plot 2 aufrufen
-          ncol = 2, nrow = 1,    # definieren, wie die plots angeordnet werden
-          heights = c(1),        # beide sind bleich hoch
-          widths = c(1,0.95),    # plot 2 ist aufgrund der fehlenden y-achsenbesch. etwas schmaler
-          labels = c("a) Absolute Verteilung", "b) Relative Verteilung"),
-          label.x = 0,        # wo stehen die labels
-          label.y = 1.0,
-          common.legend = TRUE, legend = "bottom") # wir brauchen nur eine Legende, unten
-
-# ggsave("Verteilung.png", width=20, height=15, units="cm", dpi=1000,
-#        path = "_fallstudien/_R_analysis/results/")
-```
-

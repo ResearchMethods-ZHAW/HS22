@@ -3,7 +3,9 @@ nova <- read_delim(file = "https://zenodo.org/record/3890931/files/2017_ZHAW_agg
 nova_survey <- read_delim(file = "https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1", delim = ";")
 
 #überprüfe die Datenstruktur
+head(nova_survey, 5)
 glimpse(nova_survey)
+#str(nova_survey) #alternativ dazu
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 

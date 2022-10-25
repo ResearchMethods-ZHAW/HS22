@@ -71,9 +71,18 @@ Die meisten Inhalte exisitieren bereits und ihr müsst sie nur noch anpassen. Fa
 
 Um Inhalte zu editieren, öffnet ihr das entsprechende .Rmd file in einem der Ordner `prepro`, `infovis`, `rauman` usw.. Ihr könnt dieses File wie ein reguläres, eigenständiges .Qmd File handhaben. **Wichtig**: Alle Pfade im Dokument sind relativ zum Project zu verstehen: **Das Working directory ist der Project folder!!**.
 
-### Qmd Kompilieren
+### Qmd Kompilieren / Vorschau
 
-Um das Rmd in Html zu konvertieren ("Kompilieren") klickt ihr auf "Knit" oder nutzt die Tastenkombination `Ctr + Shift + K`.
+```
+quarto preview
+```
+
+oder 
+
+```
+quarto.com preview
+```
+
 
 ### Änderungen veröffentlichen
 
@@ -84,9 +93,13 @@ Um die Änderungen zu veröffentlichen (für die Studenten sichtbar zu machen) m
 -   `pull`: Klick auf den Button "Pull" (im Terminal mit `git pull`)
 -   `push`: Click auf den button "Push" (im Terminal mit `git push`)
 
-*Achtung*:
 
--   Um Änderungen, die ihr am .Rmd gemacht habt, sichtbar zu machen müsst ihr das .Rmd File zuerst kompilieren (mit `Ctrl+Shift+K` oder dem button "Knit")
--   Eure Beitrag werden in einem html file gespeichert, welches gleich heisst wie euer Rmd file (aber eben mit der html Erweiterung)
--   Das "builden" der site passiert nach jedem Push via einer github action
+## Todo's
 
+- library(tidyverse) vermeiden
+- Funktion dpkg vermeinden, wenn das geht
+- case_when statt verschachtelte ifelse
+- schulferien ersetzen mit: https://data.stadt-zuerich.ch/dataset/ssd_schulferien/download/schulferien.csv (https://opendata.swiss/de/dataset/ferien-und-schulfreie-tage-der-volksschule-der-stadt-zurich-schuljahre-2020-2021-bis-2024-2025/resource/9a085e52-0d7b-4565-b839-5155c2e6a50c)
+- multiple mutate in einem befehl
+- sf, raster, tmap möglichst einheitlich und wenn möglich nach rauman1-5
+- implement submodule datasets
