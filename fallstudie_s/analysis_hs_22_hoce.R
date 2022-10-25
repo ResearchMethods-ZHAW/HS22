@@ -8,8 +8,8 @@
 #.################################################################################################
 
 # save and load workspace
-# save.image(file = "fallstudie_s/results/my_work_space.RData")
-# load(file = "fallstudie_s/results/my_work_space.RData")
+save.image(file = "fallstudie_s/results/my_work_space.RData")
+load(file = "fallstudie_s/results/my_work_space.RData")
 
 # Datenherkunft ####
 # Saemtliche verwendeten Zaehdaten sind Eigentum des Wildnispark Zuerich und duerfen nur im Rahmen 
@@ -739,32 +739,6 @@ ggsave("Proz_Entwicklung_Zaehlstelle_Phase.png", width=20, height=15, units="cm"
 #        path = "fallstudie_s/results/")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# DESKRIPTIV ABGESHCLOSSEN; Multivariat to do in AUFGABENSTELLUNG
-
-
-
-
-
-
-
-
 #.################################################################################################
 # 4. MULTIFAKTORIELLE ANALYSE UND VISUALISIERUNG #####
 #.################################################################################################
@@ -810,7 +784,7 @@ umwelt <- umwelt |>
   mutate(Jahr = as.factor(Jahr)) |> 
   mutate(KW = as.factor(KW)) |>
   mutate(Monat = as.factor(Monat)) |>
-    # zudem muessen die die nummerischen Wetterdaten auch als solche abgespeichert sein
+  # zudem muessen die die nummerischen Wetterdaten auch als solche abgespeichert sein
   mutate(tre200nx = as.numeric(tre200nx))|>
   mutate(tre200jx = as.numeric(tre200jx))|>
   mutate(rre150j0 = as.numeric(rre150j0))|>
@@ -820,13 +794,11 @@ umwelt <- umwelt |>
 # falls das noch zu NA's gefuehrt hat, muessen diese entfernt werden
 sum(is.na(umwelt))
 umwelt <- na.omit(umwelt)
-  
-# Unser Modell kann nur mit ganzen Zahlen umgehen. Zum Glueck habe wir die Zaehldaten
-# bereits gerundet.
-
-# pruefe str des df
 summary(umwelt)
 str(umwelt)
+
+# Unser Modell kann nur mit ganzen Zahlen umgehen. Zum Glueck habe wir die Zaehldaten
+# bereits gerundet.
 
 # unser Datensatz muss ein df sein, damit scale funktioniert
 umwelt <- as.data.frame(umwelt)
@@ -860,6 +832,32 @@ cor
 # Zur Visualisierung kann ein einfacher Plot erstellt werden:
 chart.Correlation(umwelt[,12:16], histogram=TRUE, pch=19)
 
+# ich schliesse die Temperatur bei Nacht in den Modellen aufgrund der Korelation aus, 
+# da ich davon ausgehe, dass die Temperatur bei Tag das Besuchsaufkommen besser erklaert
+
+# Automatisierte Variablenselektion (achtung, RECHENINTENSIV)
+# fuehre die dredge-Funktion und ein Modelaveraging durch
+# Hier wird die Formel für die dredge-Funktion vorbereitet
+f <- Total ~ Wochentag + Ferien + Phase + Monat + 
+  tre200jx_scaled + rre150j0_scaled + rre150n0_scaled + 
+  sremaxdv_scaled
+# Jetzt kommt der Random-Factor hinzu und es wird eine Formel daraus gemacht
+f_dredge <- paste(c(f, "+ (1|Jahr)"), collapse = " ") |>
+  as.formula()
+# Das Modell mit dieser Formel ausführen
+m <- glmer.nb(f_dredge, data = umwelt, na.action = "na.fail")
+# Das Modell in die dredge-Funktion einfügen (siehe auch ?dredge)
+all_m <- dredge(m)
+# suche das beste Modell
+print(all_m)
+# Importance values der Variablen
+# hier wird die wichtigkeit der Variablen in den verschiedenen Modellen abgelesen
+MuMIn::sw(all_m)
+
+# Schliesslich wird ein Modelaverage durchgeführt
+# Schwellenwert für das delta-AIC = 2
+avgmodel <- model.avg(all_m, rank = "AICc", subset = delta < 2)
+summary(avgmodel)
 
 
 
@@ -873,30 +871,6 @@ chart.Correlation(umwelt[,12:16], histogram=TRUE, pch=19)
 
 
 
-
-
-# # Automatisierte Variablenselektion 
-# # fuehre die dredge-Funktion und ein Modelaveraging durch
-# # Hier wird die Formel für die dredge-Funktion vorbereitet
-# f <- Total ~ Wochentag + Ferien + Phase +
-#   tre200jx_scaled + rre150j0_scaled + sremaxdv_scaled
-# # Jetzt kommt der Random-Factor hinzu und es wird eine Formel daraus gemacht
-# f_dredge <- paste(c(f, "+ (1|KW)", "+ (1|Jahr)"), collapse = " ") |> 
-#   as.formula()
-# # Das Modell mit dieser Formel ausführen
-# m <- glmer(f_dredge, data = umwelt, family = poisson, na.action = "na.fail")
-# # Das Modell in die dredge-Funktion einfügen (siehe auch ?dredge)
-# all_m <- dredge(m)
-# # suche das beste Modell
-# print(all_m)
-# # Importance values der Variablen 
-# # hier wird die wichtigkeit der Variablen in den verschiedenen Modellen abgelesen
-# MuMIn::importance(all_m) 
-# 
-# # Schliesslich wird ein Modelaverage durchgeführt 
-# # Schwellenwert für das delta-AIC = 2
-# avgmodel <- model.avg(all_m, rank = "AICc", subset = delta < 500) 
-# summary(avgmodel)
 
 # 4.3 Pruefe Verteilung ####
 # pruefe zuerst nochmals, ob wir NA im df haben:
@@ -924,29 +898,26 @@ plot.legend <- c("Normalverteilung", "exponentiell", "negativ binomial")
 # vergleicht mehrere theoretische Verteilungen mit den empirischen Daten
 cdfcomp(list(f1, f4, f3), legendtext = plot.legend)
 
-# --> Verteilung ist gemäss AICc negativ binomial. --> ich entscheide 
-# mich für letztere.
+# --> Verteilung ist gemäss AICc exponentiell. negativ binomial ist auch nicht schlecht.
+# --> ich entscheide mich für diese beide und probiere mit beiden Modelle aus.
 
 # 4.4 Berechne verschiedene Modelle ####
 
 # Hinweise zu GLMM: https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html
 
-# Ich verwende hier die Funktion glmer aus der Bibliothek lme4. glmer sei neuer, 
-# schneller und zuverlaessiger als vergleichbare Funktionen.
+# Ich verwende hier die Funktion glmer aus der Bibliothek lme4. 
 # Die Totale Besucheranzahl soll durch verschiedene Parameter erklaert werden. 
-# Die saisonalitaet (KW, Jahr) soll hierbei nicht beachtet werden, 
-# sie wird als random Faktor bestimmt --> Saisonbereinigung.
+# Die verschiedenen Jahre sollen hierbei nicht beachtet werden, 
+# sie wird als random Faktor bestimmt --> Wir betrachten jedes Jahr für sich und nicht
+# den allgemeinen Trend
 
 # Einfacher Start
 # Auch wenn wir gerade herausgefunden haben, dass die Verteilung negativ binomial ist,
 # berechne ich für den Vergleich zuerst ein einfaches Modell der Familie poisson.
 Tages_Model <- glmer(Total ~ Wochentag + Ferien + Phase + Monat + 
-                       tre200jx_scaled + tre200nx_scaled + rre150j0_scaled + rre150n0_scaled + 
+                       tre200jx_scaled + rre150j0_scaled + rre150n0_scaled + 
                        sremaxdv_scaled +
                        (1|Jahr), family = poisson, data = umwelt)
-
-
-
 
 summary(Tages_Model)
 # Inspektionsplots
@@ -961,7 +932,7 @@ r.squaredGLMM(Tages_Model)
 car::vif(Tages_Model) # VIF für beide predictors = 1, d.h. voneinander unabhängig (kritisch wird es ab einem Wert von >4-5)
 
 # Berechne ein negativ binomiales Modell
-# gemäss AICc die beste Verteilung
+# gemäss AICc die zweitbeste Verteilung
 Tages_Model_nb <- glmer.nb(Total ~ Wochentag + Ferien + Phase + Monat + 
                              tre200jx_scaled + rre150j0_scaled + rre150n0_scaled + 
                              sremaxdv_scaled +
@@ -1016,8 +987,10 @@ aictab(cand.set=cand.models,modnames=Modnames)
 #AICcWt =  Akaike weight in %
 
 # --> Ich entscheide mich bei diesen drei Modellen für das Tages_Model_nb_quad
-# Warum: statistisch gleichwertig und ich denke die Quadratur macht Sinn!
-
+# Warum: statistisch das beste und ich denke die Quadratur macht Sinn!
+# zudem wissen wir gem. Test der Verteilungen, dass negativ binomial Sinn macht.
+# PROBLEM: alle drei Modelle erfüllen gem. der Modelldiagnostik die VOrausetzungen 
+# nicht komplett.
 
 # Berechne ein Modell mit exponentieller Verteilung:
 # gemäss AICc der Verteilung die zweitbeste
@@ -1082,10 +1055,8 @@ dispersion_glmer(Tages_Model_quad_Jahr_ln)
 r.squaredGLMM(Tages_Model_quad_Jahr_ln) 
 car::vif(Tages_Model_nb_quad)
 
-
-# --> Die Modellvoraussetzungen sind deutlich besser erfüllt jetzt wo wir Transformationen 
-# benutzt haben. log10 und ln performen beide gleich gut. Da log10 in meinem Bsp
-# aber deutlich mehr der Varianz erklärt, entscheide ich mich schliesslich für dieses Modell.
+# --> Die Modellvoraussetzungen sind nicht deutlich besser erfüllt jetzt wo wir Transformationen 
+# benutzt haben. log10 und ln performen beide etwa gleich.
 
 # Zusatz: ACHTUNG - Ruecktransformierte Regressionskoeffizienten zu erlangen (fuer die Interpretation, das Plotten), 
 # ist zudem nicht moeglich (Regressionskoeffizienten sind nur im transformierten Raum linear). 
@@ -1095,7 +1066,7 @@ car::vif(Tages_Model_nb_quad)
 
 # 4.6 Exportiere die Modellresultate ####
 # (des besten Modells)
-tab_model(Tages_Model_quad_Jahr_log10, transform = NULL, show.se = TRUE)
+tab_model(Tages_Model_nb_quad, transform = NULL, show.se = TRUE)
 # The marginal R squared values are those associated with your fixed effects, 
 # the conditional ones are those of your fixed effects plus the random effects. 
 # Usually we will be interested in the marginal effects.
@@ -1228,25 +1199,26 @@ ggsave("wd.png", width=15, height=15, units="cm", dpi=1000,
 # plot_model / type = "pred" sagt die Werte "voraus"
 # achte auf gleiche Skalierung der y-Achse (Vergleichbarkeit)
 
+# 
+# # Temperatur
+# t <- plot_model(Tages_Model_quad_Jahr_log10, type = "pred", terms = 
+#                   "tre200jx_scaled [all]", # [all] = Model contains polynomial or cubic / 
+#                 #quadratic terms. Consider using `terms="tre200jx_scaled [all]"` 
+#                 # to get smooth plots. See also package-vignette 
+#                 # 'Marginal Effects at Specific Values'.
+#                 title = "", axis.title = c("Tagesmaximaltemperatur [°C]", 
+#                                            "Fussgaenger:innen pro Tag [log]"))
+# # fuege die Achsenbeschriftung hinzu. Hier wird auf die unskalierten Werte zugegriffen.
+# labels <- round(seq(floor(min(umwelt$tre200jx)), ceiling(max(umwelt$tre200jx)),
+#                     # length.out = ___ --> Anpassen gemaess breaks auf dem Plot
+#                     length.out = 5), 0) 
+# (Tempplot <- t + 
+#     scale_x_continuous(breaks = c(-2,-1,0,1,2), 
+#                        labels = c(labels))+
+#     # fuege die y- Achsenbeschriftung hinzu. Hier transformieren wir die Werte zurueck
+#     scale_y_continuous(breaks = c(0,0.5,1,1.5,2),
+#                        labels = round(c(10^0, 10^0.5, 10^1, 10^1.5, 10^2),0),
+#                        limits = c(0, 2))+ 
+#     theme_classic(base_size = 20))
 
-# Temperatur
-t <- plot_model(Tages_Model_quad_Jahr_log10, type = "pred", terms = 
-                  "tre200jx_scaled [all]", # [all] = Model contains polynomial or cubic / 
-                #quadratic terms. Consider using `terms="tre200jx_scaled [all]"` 
-                # to get smooth plots. See also package-vignette 
-                # 'Marginal Effects at Specific Values'.
-                title = "", axis.title = c("Tagesmaximaltemperatur [°C]", 
-                                           "Fussgaenger:innen pro Tag [log]"))
-# fuege die Achsenbeschriftung hinzu. Hier wird auf die unskalierten Werte zugegriffen.
-labels <- round(seq(floor(min(umwelt$tre200jx)), ceiling(max(umwelt$tre200jx)),
-                    # length.out = ___ --> Anpassen gemaess breaks auf dem Plot
-                    length.out = 5), 0) 
-(Tempplot <- t + 
-    scale_x_continuous(breaks = c(-2,-1,0,1,2), 
-                       labels = c(labels))+
-    # fuege die y- Achsenbeschriftung hinzu. Hier transformieren wir die Werte zurueck
-    scale_y_continuous(breaks = c(0,0.5,1,1.5,2),
-                       labels = round(c(10^0, 10^0.5, 10^1, 10^1.5, 10^2),0),
-                       limits = c(0, 2))+ 
-    theme_classic(base_size = 20))
 
