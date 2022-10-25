@@ -536,14 +536,56 @@
     "href": "stat1-4/Statistik1_Demo.html",
     "title": "Stat1: Demo",
     "section": "",
-    "text": "Demoskript als Download"
+    "text": "Dieses Demoskript als Download"
+  },
+  {
+    "objectID": "stat1-4/Statistik1_Demo.html#daten-genereieren-und-anschauen",
+    "href": "stat1-4/Statistik1_Demo.html#daten-genereieren-und-anschauen",
+    "title": "Stat1: Demo",
+    "section": "Daten genereieren und anschauen",
+    "text": "Daten genereieren und anschauen\n\na <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14)\nb <- c(12, 15, 16, 7, 8, 10, 12, 11, 13, 10)\nblume <- data.frame(a,b)\nblume\n\n    a  b\n1  20 12\n2  19 15\n3  25 16\n4  10  7\n5   8  8\n6  15 10\n7  13 12\n8  18 11\n9  11 13\n10 14 10\n\nsummary(blume)\n\n       a               b        \n Min.   : 8.00   Min.   : 7.00  \n 1st Qu.:11.50   1st Qu.:10.00  \n Median :14.50   Median :11.50  \n Mean   :15.30   Mean   :11.40  \n 3rd Qu.:18.75   3rd Qu.:12.75  \n Max.   :25.00   Max.   :16.00  \n\nboxplot(blume$a, blume$b)\nboxplot(blume)\nhist(blume$a)\nhist(blume$b)\n\n\n\n\nAbbildung 13.1: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.2: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.3: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.4: Generierter Plot"
+  },
+  {
+    "objectID": "stat1-4/Statistik1_Demo.html#zweiseitiger-t-test",
+    "href": "stat1-4/Statistik1_Demo.html#zweiseitiger-t-test",
+    "title": "Stat1: Demo",
+    "section": "Zweiseitiger t-Test",
+    "text": "Zweiseitiger t-Test\n\nt.test(blume$a, blume$b) # Zweiseitig \"Test auf a ≠ b\" (default)\n\n\n    Welch Two Sample t-test\n\ndata:  blume$a and blume$b\nt = 2.0797, df = 13.907, p-value = 0.05654\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -0.1245926  7.9245926\nsample estimates:\nmean of x mean of y \n     15.3      11.4"
+  },
+  {
+    "objectID": "stat1-4/Statistik1_Demo.html#einseitiger-t-test",
+    "href": "stat1-4/Statistik1_Demo.html#einseitiger-t-test",
+    "title": "Stat1: Demo",
+    "section": "Einseitiger t-Test",
+    "text": "Einseitiger t-Test\n\nt.test(blume$a, blume$b, alternative = \"greater\") # Einseitig \"Test auf a > b\"\n\n\n    Welch Two Sample t-test\n\ndata:  blume$a and blume$b\nt = 2.0797, df = 13.907, p-value = 0.02827\nalternative hypothesis: true difference in means is greater than 0\n95 percent confidence interval:\n 0.5954947       Inf\nsample estimates:\nmean of x mean of y \n     15.3      11.4 \n\nt.test(blume$a, blume$b, alternative = \"less\") # Einseitig \"Test auf a < b\"\n\n\n    Welch Two Sample t-test\n\ndata:  blume$a and blume$b\nt = 2.0797, df = 13.907, p-value = 0.9717\nalternative hypothesis: true difference in means is less than 0\n95 percent confidence interval:\n     -Inf 7.204505\nsample estimates:\nmean of x mean of y \n     15.3      11.4"
+  },
+  {
+    "objectID": "stat1-4/Statistik1_Demo.html#klassischer-t-test-vs.-welch-test",
+    "href": "stat1-4/Statistik1_Demo.html#klassischer-t-test-vs.-welch-test",
+    "title": "Stat1: Demo",
+    "section": "Klassischer t-Test vs. Welch Test",
+    "text": "Klassischer t-Test vs. Welch Test\n\n# Varianzen gleich, klassischer t-Test\nt.test(blume$a, blume$b, var.equal = TRUE) \n\n\n    Two Sample t-test\n\ndata:  blume$a and blume$b\nt = 2.0797, df = 18, p-value = 0.05212\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -0.03981237  7.83981237\nsample estimates:\nmean of x mean of y \n     15.3      11.4 \n\n# Varianzen ungleich, Welch's t-Test, der auch default Einstellung ist (siehe Titelzeile im Test output)\nt.test(blume$a, blume$b) # dasselbe wie var.equal = FALSE\n\n\n    Welch Two Sample t-test\n\ndata:  blume$a and blume$b\nt = 2.0797, df = 13.907, p-value = 0.05654\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -0.1245926  7.9245926\nsample estimates:\nmean of x mean of y \n     15.3      11.4"
+  },
+  {
+    "objectID": "stat1-4/Statistik1_Demo.html#gepaarter-t-test",
+    "href": "stat1-4/Statistik1_Demo.html#gepaarter-t-test",
+    "title": "Stat1: Demo",
+    "section": "Gepaarter t-Test",
+    "text": "Gepaarter t-Test\n\n# Gepaarter t-Test: erster Wert von  a wird mit erstem Wert von\n# b gepaart, zweiter Wert von a mit zweitem von b ect.\nt.test(blume$a, blume$b, paired = T)\n\n\n    Paired t-test\n\ndata:  blume$a and blume$b\nt = 3.4821, df = 9, p-value = 0.006916\nalternative hypothesis: true mean difference is not equal to 0\n95 percent confidence interval:\n 1.366339 6.433661\nsample estimates:\nmean difference \n            3.9 \n\nt.test(blume$a, blume$b, paired = T, alternative = \"greater\")\n\n\n    Paired t-test\n\ndata:  blume$a and blume$b\nt = 3.4821, df = 9, p-value = 0.003458\nalternative hypothesis: true mean difference is greater than 0\n95 percent confidence interval:\n 1.846877      Inf\nsample estimates:\nmean difference \n            3.9 \n\n\nDas gleiche mit einem “long table”\n\ncultivar <- c(rep(\"a\", 10), rep(\"b\", 10))\nsize <- c(a, b)\nblume.long <- data.frame(cultivar, size)\n\nrm(size) #Befehl rm entfernt die nicht mehr benötitgten Objekte aus dem Workspace\nrm(cultivar)\n\nDas Gleiche in einer Zeile\n\nblume.long <- data.frame(cultivar = c(rep(\"a\", 10), rep(\"b\", 10)), size = c(a, b))\nsummary(blume.long)             \n\n   cultivar              size      \n Length:20          Min.   : 7.00  \n Class :character   1st Qu.:10.00  \n Mode  :character   Median :12.50  \n                    Mean   :13.35  \n                    3rd Qu.:15.25  \n                    Max.   :25.00  \n\nhead(blume.long)\n\n  cultivar size\n1        a   20\n2        a   19\n3        a   25\n4        a   10\n5        a    8\n6        a   15\n\nboxplot(size~cultivar, data = blume.long)\n\nt.test(size~cultivar, blume.long, var.equal = T)\n\n\n    Two Sample t-test\n\ndata:  size by cultivar\nt = 2.0797, df = 18, p-value = 0.05212\nalternative hypothesis: true difference in means between group a and group b is not equal to 0\n95 percent confidence interval:\n -0.03981237  7.83981237\nsample estimates:\nmean in group a mean in group b \n           15.3            11.4 \n\nt.test(size~cultivar, blume.long, paired = T)\n\n\n    Paired t-test\n\ndata:  size by cultivar\nt = 3.4821, df = 9, p-value = 0.006916\nalternative hypothesis: true mean difference is not equal to 0\n95 percent confidence interval:\n 1.366339 6.433661\nsample estimates:\nmean difference \n            3.9 \n\n\n\n\n\nAbbildung 13.5: Generierter Plot"
+  },
+  {
+    "objectID": "stat1-4/Statistik1_Demo.html#base-r-vs.-ggplot2",
+    "href": "stat1-4/Statistik1_Demo.html#base-r-vs.-ggplot2",
+    "title": "Stat1: Demo",
+    "section": "Base R vs. ggplot2",
+    "text": "Base R vs. ggplot2\n\nlibrary(tidyverse)\nggplot(blume.long, aes(cultivar, size)) + geom_boxplot()\nggplot(blume.long, aes(cultivar, size)) + geom_boxplot() + theme_classic()\nggplot(blume.long, aes(cultivar, size)) + geom_boxplot(size = 1) + theme_classic()+\ntheme(axis.line = element_line(size = 1)) + theme(axis.title = element_text(size = 14))+\ntheme(axis.text = element_text(size = 14))\nggplot(blume.long, aes(cultivar, size)) + geom_boxplot(size=1) + theme_classic()+\n  theme(axis.line = element_line(size = 1), axis.ticks = element_line(size = 1), \n       axis.text = element_text(size = 20), axis.title = element_text(size = 20))\n\n\n\n\nAbbildung 13.6: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.7: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.8: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.9: Generierter Plot\n\n\n\n\nDefinieren von mytheme mit allen gewünschten Settings, das man zu Beginn einer Sitzung einmal laden und dann immer wieder ausführen kann (statt des langen Codes)\n\nmytheme <- theme_classic() + \n  theme(axis.line = element_line(color = \"black\", size=1), \n        axis.text = element_text(size = 20, color = \"black\"), \n        axis.title = element_text(size = 20, color = \"black\"), \n        axis.ticks = element_line(size = 1, color = \"black\"), \n        axis.ticks.length = unit(.5, \"cm\"))\n\n\nggplot(blume.long, aes(cultivar, size)) + \n  geom_boxplot(size = 1) +\n  mytheme\n\nt_test <- t.test(size~cultivar, blume.long)\n\nggplot(blume.long, aes(cultivar, size)) + \n  geom_boxplot(size = 1) + \n  mytheme +\n  annotate(\"text\", x = \"b\", y = 24, \n  label = paste0(\"italic(p) == \", round(t_test$p.value, 3)), parse = TRUE, size = 8)\n\nggplot (blume.long, aes(cultivar,size)) + \n  geom_boxplot(size = 1) + \n  mytheme +\n  labs(x=\"Cultivar\",y=\"Size (cm)\")\n\n\n\n\nAbbildung 13.10: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.11: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.12: Generierter Plot"
   },
   {
     "objectID": "stat1-4/Statistik1_Demo.html#binomialtest",
     "href": "stat1-4/Statistik1_Demo.html#binomialtest",
     "title": "Stat1: Demo",
     "section": "Binomialtest",
-    "text": "Binomialtest\nIn Klammern übergibt man die Anzahl der Erfolge und die Stichprobengrösse\n\nbinom.test(43, 100)\n\n\n    Exact binomial test\n\ndata:  43 and 100\nnumber of successes = 43, number of trials = 100, p-value = 0.1933\nalternative hypothesis: true probability of success is not equal to 0.5\n95 percent confidence interval:\n 0.3313910 0.5328663\nsample estimates:\nprobability of success \n                  0.43 \n\nbinom.test(57, 100)\n\n\n    Exact binomial test\n\ndata:  57 and 100\nnumber of successes = 57, number of trials = 100, p-value = 0.1933\nalternative hypothesis: true probability of success is not equal to 0.5\n95 percent confidence interval:\n 0.4671337 0.6686090\nsample estimates:\nprobability of success \n                  0.57"
+    "text": "Binomialtest\nIn Klammern übergibt man die Anzahl der Erfolge und die Stichprobengrösse\n\nbinom.test(84, 200) # Anzahl Frauen im Nationalrat (≙ 42.0 %; Stand 2019) \n\n\n    Exact binomial test\n\ndata:  84 and 200\nnumber of successes = 84, number of trials = 200, p-value = 0.02813\nalternative hypothesis: true probability of success is not equal to 0.5\n95 percent confidence interval:\n 0.3507439 0.4916638\nsample estimates:\nprobability of success \n                  0.42 \n\nbinom.test(116, 200) # Anzahl Männer im Nationalrat (≙ 58.0 %; Stand 2019) \n\n\n    Exact binomial test\n\ndata:  116 and 200\nnumber of successes = 116, number of trials = 200, p-value = 0.02813\nalternative hypothesis: true probability of success is not equal to 0.5\n95 percent confidence interval:\n 0.5083362 0.6492561\nsample estimates:\nprobability of success \n                  0.58 \n\nbinom.test(3, 7) # Anzahl Frauen im Bundesrat (≙ 42.9 %; Stand 2019)\n\n\n    Exact binomial test\n\ndata:  3 and 7\nnumber of successes = 3, number of trials = 7, p-value = 1\nalternative hypothesis: true probability of success is not equal to 0.5\n95 percent confidence interval:\n 0.09898828 0.81594843\nsample estimates:\nprobability of success \n             0.4285714"
   },
   {
     "objectID": "stat1-4/Statistik1_Demo.html#chi-quadrat-test-fishers-test",
@@ -558,48 +600,6 @@
     "title": "Stat1: Demo",
     "section": "Direkter Test in R (dazu Werte als Matrix nötig)",
     "text": "Direkter Test in R (dazu Werte als Matrix nötig)\n\ncount <- matrix(c(38, 14, 11, 51), nrow = 2)\ncount\n\n     [,1] [,2]\n[1,]   38   11\n[2,]   14   51\n\nchisq.test(count)\n\n\n    Pearson's Chi-squared test with Yates' continuity correction\n\ndata:  count\nX-squared = 33.112, df = 1, p-value = 8.7e-09\n\nfisher.test(count)\n\n\n    Fisher's Exact Test for Count Data\n\ndata:  count\np-value = 2.099e-09\nalternative hypothesis: true odds ratio is not equal to 1\n95 percent confidence interval:\n  4.746351 34.118920\nsample estimates:\nodds ratio \n  12.22697"
-  },
-  {
-    "objectID": "stat1-4/Statistik1_Demo.html#t-test",
-    "href": "stat1-4/Statistik1_Demo.html#t-test",
-    "title": "Stat1: Demo",
-    "section": "t-Test",
-    "text": "t-Test\n\na <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14)\nb <- c(12, 15, 16, 7, 8, 10, 12, 11, 13, 10)\nblume <- data.frame(a,b)\nblume\n\n    a  b\n1  20 12\n2  19 15\n3  25 16\n4  10  7\n5   8  8\n6  15 10\n7  13 12\n8  18 11\n9  11 13\n10 14 10\n\nsummary(blume)\n\n       a               b        \n Min.   : 8.00   Min.   : 7.00  \n 1st Qu.:11.50   1st Qu.:10.00  \n Median :14.50   Median :11.50  \n Mean   :15.30   Mean   :11.40  \n 3rd Qu.:18.75   3rd Qu.:12.75  \n Max.   :25.00   Max.   :16.00  \n\nboxplot(blume$a, blume$b)\nboxplot(blume)\nhist(blume$a)\nhist(blume$b)\n\n\n\n\nAbbildung 13.1: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.2: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.3: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.4: Generierter Plot"
-  },
-  {
-    "objectID": "stat1-4/Statistik1_Demo.html#zweiseitiger-t-test",
-    "href": "stat1-4/Statistik1_Demo.html#zweiseitiger-t-test",
-    "title": "Stat1: Demo",
-    "section": "Zweiseitiger t-Test",
-    "text": "Zweiseitiger t-Test\n\nt.test(blume$a, blume$b)\n\n\n    Welch Two Sample t-test\n\ndata:  blume$a and blume$b\nt = 2.0797, df = 13.907, p-value = 0.05654\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -0.1245926  7.9245926\nsample estimates:\nmean of x mean of y \n     15.3      11.4"
-  },
-  {
-    "objectID": "stat1-4/Statistik1_Demo.html#einseitiger-t-test",
-    "href": "stat1-4/Statistik1_Demo.html#einseitiger-t-test",
-    "title": "Stat1: Demo",
-    "section": "Einseitiger t-Test",
-    "text": "Einseitiger t-Test\n\nt.test(blume$a, blume$b, alternative = \"greater\") #einseitig\n\n\n    Welch Two Sample t-test\n\ndata:  blume$a and blume$b\nt = 2.0797, df = 13.907, p-value = 0.02827\nalternative hypothesis: true difference in means is greater than 0\n95 percent confidence interval:\n 0.5954947       Inf\nsample estimates:\nmean of x mean of y \n     15.3      11.4 \n\nt.test(blume$a, blume$b, alternative = \"less\") #einseitig\n\n\n    Welch Two Sample t-test\n\ndata:  blume$a and blume$b\nt = 2.0797, df = 13.907, p-value = 0.9717\nalternative hypothesis: true difference in means is less than 0\n95 percent confidence interval:\n     -Inf 7.204505\nsample estimates:\nmean of x mean of y \n     15.3      11.4"
-  },
-  {
-    "objectID": "stat1-4/Statistik1_Demo.html#klassischer-t-test-vs.-welch-test",
-    "href": "stat1-4/Statistik1_Demo.html#klassischer-t-test-vs.-welch-test",
-    "title": "Stat1: Demo",
-    "section": "Klassischer t-Test vs. Welch Test",
-    "text": "Klassischer t-Test vs. Welch Test\n\n# Varianzen gleich, klassischer t-Test\nt.test(blume$a, blume$b, var.equal = T) \n\n\n    Two Sample t-test\n\ndata:  blume$a and blume$b\nt = 2.0797, df = 18, p-value = 0.05212\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -0.03981237  7.83981237\nsample estimates:\nmean of x mean of y \n     15.3      11.4 \n\n# Varianzen ungleich, Welch's t-Test, ist auch default, d.h. wenn var.equal \n# nicht  definiert wird, wird ein Welch's t-Test ausgeführt. \nt.test(blume$a, blume$b, var.equal = F) \n\n\n    Welch Two Sample t-test\n\ndata:  blume$a and blume$b\nt = 2.0797, df = 13.907, p-value = 0.05654\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -0.1245926  7.9245926\nsample estimates:\nmean of x mean of y \n     15.3      11.4"
-  },
-  {
-    "objectID": "stat1-4/Statistik1_Demo.html#gepaarter-t-test",
-    "href": "stat1-4/Statistik1_Demo.html#gepaarter-t-test",
-    "title": "Stat1: Demo",
-    "section": "Gepaarter t-Test",
-    "text": "Gepaarter t-Test\n\nt.test(blume$a, blume$b, paired = T)\n\n\n    Paired t-test\n\ndata:  blume$a and blume$b\nt = 3.4821, df = 9, p-value = 0.006916\nalternative hypothesis: true mean difference is not equal to 0\n95 percent confidence interval:\n 1.366339 6.433661\nsample estimates:\nmean difference \n            3.9 \n\nt.test(blume$a, blume$b, paired = T, alternative = \"greater\")\n\n\n    Paired t-test\n\ndata:  blume$a and blume$b\nt = 3.4821, df = 9, p-value = 0.003458\nalternative hypothesis: true mean difference is greater than 0\n95 percent confidence interval:\n 1.846877      Inf\nsample estimates:\nmean difference \n            3.9 \n\n\nDas gleiche mit einem “long table”\n\ncultivar <- c(rep(\"a\", 10), rep(\"b\", 10))\nsize <- c(a, b)\nblume.long <- data.frame(cultivar, size)\n\nrm(size) #Befehl rm entfernt die nicht mehr benötitgten Objekte aus dem Workspace\nrm(cultivar)\n\nDas gleiche in einer Zeile\n\nblume.long <- data.frame(cultivar = c(rep(\"a\", 10), rep(\"b\", 10)), size = c(a, b))\nsummary(blume.long)             \n\n   cultivar              size      \n Length:20          Min.   : 7.00  \n Class :character   1st Qu.:10.00  \n Mode  :character   Median :12.50  \n                    Mean   :13.35  \n                    3rd Qu.:15.25  \n                    Max.   :25.00  \n\nhead(blume.long)\n\n  cultivar size\n1        a   20\n2        a   19\n3        a   25\n4        a   10\n5        a    8\n6        a   15\n\nboxplot(size~cultivar, data = blume.long)\n\nt.test(size~cultivar, blume.long, var.equal = T)\n\n\n    Two Sample t-test\n\ndata:  size by cultivar\nt = 2.0797, df = 18, p-value = 0.05212\nalternative hypothesis: true difference in means between group a and group b is not equal to 0\n95 percent confidence interval:\n -0.03981237  7.83981237\nsample estimates:\nmean in group a mean in group b \n           15.3            11.4 \n\n# gepaarter t-Test erster Wert von Cultivar a wird mit erstem Wert von Cultivar\n# b gepaart, zweiter Wert von a mit zweitem von b ect.\nt.test(size~cultivar, blume.long, paired = T)\n\n\n    Paired t-test\n\ndata:  size by cultivar\nt = 3.4821, df = 9, p-value = 0.006916\nalternative hypothesis: true mean difference is not equal to 0\n95 percent confidence interval:\n 1.366339 6.433661\nsample estimates:\nmean difference \n            3.9 \n\n\n\n\n\nAbbildung 13.5: Generierter Plot"
-  },
-  {
-    "objectID": "stat1-4/Statistik1_Demo.html#base-r-vs.-ggplot2",
-    "href": "stat1-4/Statistik1_Demo.html#base-r-vs.-ggplot2",
-    "title": "Stat1: Demo",
-    "section": "Base R vs. ggplot2",
-    "text": "Base R vs. ggplot2\n\nlibrary(tidyverse)\nggplot(blume.long, aes(cultivar, size)) + geom_boxplot()\nggplot(blume.long, aes(cultivar, size)) + geom_boxplot() + theme_classic()\nggplot(blume.long, aes(cultivar, size)) + geom_boxplot(size = 1) + theme_classic()+\ntheme(axis.line = element_line(size = 1)) + theme(axis.title = element_text(size = 14))+\ntheme(axis.text = element_text(size = 14))\nggplot(blume.long, aes(cultivar, size)) + geom_boxplot(size=1) + theme_classic()+\n  theme(axis.line = element_line(size = 1), axis.ticks = element_line(size = 1), \n       axis.text = element_text(size = 20), axis.title = element_text(size = 20))\n\n\n\n\nAbbildung 13.6: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.7: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.8: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.9: Generierter Plot\n\n\n\n\nDefinieren von mytheme mit allen gewünschten Settings, das man zu Beginn einer Sitzung einmal laden und dann immer wieder ausführen kann (statt des langen Codes)\n\nmytheme <- theme_classic() + \n  theme(axis.line = element_line(color = \"black\", size=1), \n        axis.text = element_text(size = 20, color = \"black\"), \n        axis.title = element_text(size = 20, color = \"black\"), \n        axis.ticks = element_line(size = 1, color = \"black\"), \n        axis.ticks.length = unit(.5, \"cm\"))\n\n\nggplot(blume.long, aes(cultivar, size)) + \n  geom_boxplot(size = 1) +\n  mytheme\n\nt_test <- t.test(size~cultivar, blume.long)\n\nggplot(blume.long, aes(cultivar, size)) + \n  geom_boxplot(size = 1) + \n  mytheme +\n  annotate(\"text\", x = \"b\", y = 24, \n  label = paste0(\"italic(p) == \", round(t_test$p.value, 3)), parse = TRUE, size = 8)\n\nggplot (blume.long, aes(cultivar,size)) + \n  geom_boxplot(size = 1) + \n  mytheme +\n  labs(x=\"Cultivar\",y=\"Size (cm)\")\n\n\n\n\nAbbildung 13.10: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.11: Generierter Plot\n\n\n\n\n\n\n\nAbbildung 13.12: Generierter Plot"
   },
   {
     "objectID": "stat1-4/Statistik1_Novanimal.html",
