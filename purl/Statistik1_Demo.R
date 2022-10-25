@@ -16,7 +16,7 @@ t.test(blume$a, blume$b, alternative = "less") # Einseitig "Test auf a < b"
 # Varianzen gleich, klassischer t-Test
 t.test(blume$a, blume$b, var.equal = TRUE) 
 
-# Varianzen ungleich, Welch's t-Test, der auch default Einstellung ist (siehe Titelzeile im Test output)
+# Varianzen ungleich, Welch's t-Test, der auch default Einstellung ist (siehe Titelzeile des R outputs)
 t.test(blume$a, blume$b) # dasselbe wie var.equal = FALSE
 
 # Gepaarter t-Test: erster Wert von  a wird mit erstem Wert von
