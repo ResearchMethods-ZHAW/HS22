@@ -3,6 +3,10 @@ date: 2022-10-31
 lesson: Stat1
 thema: Grundlagen der Statistik
 index: 1
+format:
+  html:
+    code-tools:
+      source: true
 ---
 
 # Stat1: Demo
@@ -15,35 +19,9 @@ options(knitr.duplicate.label = "allow")
 knitr::purl("stat1-4/Statistik1_Demo.qmd", "purl/Statistik1_Demo.R", documentation = 0)
 ```
 
-[Demoskript als Download](../purl/Statistik1_Demo.R)
+[Dieses Demoskript als Download](Statistik1_Demo.qmd)
 
-## Binomialtest
-
-In Klammern übergibt man die Anzahl der Erfolge und die Stichprobengrösse
-
-```{r}
-binom.test(43, 100)
-binom.test(57, 100)
-```
-
-## Chi-Quadrat-Test & Fishers Test
-
-Ermitteln des kritischen Wertes
-
-```{r}
-qchisq(0.95, 1)
-```
-
-## Direkter Test in R (dazu Werte als Matrix nötig)
-
-```{r}
-count <- matrix(c(38, 14, 11, 51), nrow = 2)
-count
-chisq.test(count)
-fisher.test(count)
-```
-
-## t-Test
+## Daten genereieren und anschauen
 
 ```{r}
 #| label: fig-baseplot-boxplot-histo
@@ -63,30 +41,31 @@ hist(blume$b)
 ## Zweiseitiger t-Test
 
 ```{r}
-t.test(blume$a, blume$b)
+t.test(blume$a, blume$b) # Zweiseitig "Test auf a ≠ b" (default)
 ```
 
 ## Einseitiger t-Test
 
 ```{r}
-t.test(blume$a, blume$b, alternative = "greater") #einseitig
-t.test(blume$a, blume$b, alternative = "less") #einseitig
+t.test(blume$a, blume$b, alternative = "greater") # Einseitig "Test auf a > b"
+t.test(blume$a, blume$b, alternative = "less") # Einseitig "Test auf a < b"
 ```
 
 ## Klassischer t-Test vs. Welch Test
 
 ```{r}
 # Varianzen gleich, klassischer t-Test
-t.test(blume$a, blume$b, var.equal = T) 
+t.test(blume$a, blume$b, var.equal = TRUE) 
 
-# Varianzen ungleich, Welch's t-Test, ist auch default, d.h. wenn var.equal 
-# nicht  definiert wird, wird ein Welch's t-Test ausgeführt. 
-t.test(blume$a, blume$b, var.equal = F) 
+# Varianzen ungleich, Welch's t-Test, der auch default Einstellung ist (siehe Titelzeile im Test output)
+t.test(blume$a, blume$b) # dasselbe wie var.equal = FALSE
 ```
 
 ## Gepaarter t-Test
 
 ```{r}
+# Gepaarter t-Test: erster Wert von  a wird mit erstem Wert von
+# b gepaart, zweiter Wert von a mit zweitem von b ect.
 t.test(blume$a, blume$b, paired = T)
 t.test(blume$a, blume$b, paired = T, alternative = "greater")
 ```
@@ -102,7 +81,7 @@ rm(size) #Befehl rm entfernt die nicht mehr benötitgten Objekte aus dem Workspa
 rm(cultivar)
 ```
 
-Das gleiche in einer Zeile
+Das Gleiche in einer Zeile
 
 ```{r}
 #| label: fig-boxplot-ttest1
@@ -116,8 +95,6 @@ boxplot(size~cultivar, data = blume.long)
 
 t.test(size~cultivar, blume.long, var.equal = T)
 
-# gepaarter t-Test erster Wert von Cultivar a wird mit erstem Wert von Cultivar
-# b gepaart, zweiter Wert von a mit zweitem von b ect.
 t.test(size~cultivar, blume.long, paired = T)
 ```
 
@@ -170,3 +147,32 @@ ggplot (blume.long, aes(cultivar,size)) +
   mytheme +
   labs(x="Cultivar",y="Size (cm)")
 ```
+
+## Binomialtest
+
+In Klammern übergibt man die Anzahl der Erfolge und die Stichprobengrösse
+
+```{r}
+binom.test(84, 200) # Anzahl Frauen im Nationalrat (≙ 42.0 %; Stand 2019) 
+binom.test(116, 200) # Anzahl Männer im Nationalrat (≙ 58.0 %; Stand 2019) 
+binom.test(3, 7) # Anzahl Frauen im Bundesrat (≙ 42.9 %; Stand 2019)
+
+```
+
+## Chi-Quadrat-Test & Fishers Test
+
+Ermitteln des kritischen Wertes
+
+```{r}
+qchisq(0.95, 1)
+```
+
+## Direkter Test in R (dazu Werte als Matrix nötig)
+
+```{r}
+count <- matrix(c(38, 14, 11, 51), nrow = 2)
+count
+chisq.test(count)
+fisher.test(count)
+```
+
