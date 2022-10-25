@@ -34,7 +34,7 @@ by_cyl_2 <- group_by(mtcars,cyl,am)       # Gruppieren nach Anzahl Zylinder (cyl
 
 summarise(by_cyl_2,mean_mpg = mean(mpg))
 
-wetter <- read_csv("data/weather.csv",
+wetter <- read_csv("datasets/prepro/weather.csv",
                   col_types = cols(
                     col_factor(levels = NULL),    
                     col_datetime(format = "%Y%m%d%H"),
