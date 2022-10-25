@@ -8,7 +8,6 @@ glimpse(nova_survey)
 #str(nova_survey) #alternativ dazu
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
-
 mytheme <- 
   theme_classic() + 
   theme(
