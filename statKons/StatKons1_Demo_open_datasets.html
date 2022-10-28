@@ -93,7 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../statKons/StatKons1_Demo_suggest_datasets.html" rel="next">
+<link href="../statKons/StatKons2_Demo_PCA.html" rel="next">
 <link href="../statKons/StatKons1_Demo_assoziationen.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -385,17 +385,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../statKons/StatKons1_Demo_assoziationen.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Demo 1</span></a>
+  <a href="../statKons/StatKons1_Demo_assoziationen.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Demo</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../statKons/StatKons1_Demo_open_datasets.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">StatKons1: Open Datasets</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../statKons/StatKons1_Demo_suggest_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Suggested Datasets</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -597,7 +592,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell">
-
+<div class="cell-output cell-output-error">
+<pre><code>Error: package or namespace load failed for 'readr' in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+ namespace 'rlang' 1.0.5 is already loaded, but &gt;= 1.0.6 is required</code></pre>
+</div>
 </div>
 <p>In diesem Dokument findet ihr verschiedene Wege und Quellen, um an Datensätze zu gelangen.</p>
 <section id="in-r" class="level2">
@@ -610,8 +608,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Titanic</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>() <span class="co"># erzeugt eine Liste mit den Datensätzen, welche in R verfügbaren sind</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(chickwts)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>() <span class="co"># erzeugt eine Liste mit den Datensätzen, welche in R verfügbaren sind</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(chickwts)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  weight      feed
 1    179 horsebean
@@ -621,7 +619,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 5    217 horsebean
 6    168 horsebean</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(chickwts)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(chickwts)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   71 obs. of  2 variables:
  $ weight: num  179 160 136 227 217 168 108 124 143 140 ...
@@ -640,12 +638,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>…</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages and data</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data_911 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"911.csv"</span>), <span class="at">delim =</span> <span class="st">","</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages and data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data_911 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"911.csv"</span>), <span class="at">delim =</span> <span class="st">","</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in here("data", "911.csv"): could not find function "here"</code></pre>
+<pre><code>Error in read_delim(here("data", "911.csv"), delim = ","): could not find function "read_delim"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_911)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_911)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in str(data_911): object 'data_911' not found</code></pre>
 </div>
@@ -677,10 +675,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p><strong>Download via Github - 2. Möglichkeit</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beachtet dabei, dass ihr die URL zum originalen (raw) Datensatz habt </span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>star_wars <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-05-14/week7_starwars.csv"</span>, <span class="at">locale =</span> readr<span class="sc">::</span><span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"latin1"</span>)) <span class="co">#not working yet </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beachtet dabei, dass ihr die URL zum originalen (raw) Datensatz habt </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>star_wars <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-05-14/week7_starwars.csv"</span>, <span class="at">locale =</span> readr<span class="sc">::</span><span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"latin1"</span>)) <span class="co">#not working yet </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in open.connection(structure(4L, class = c("curl", "connection"), conn_id = &lt;pointer: 0x249&gt;), : Timeout was reached: [raw.githubusercontent.com] Connection timed out after 10001 milliseconds</code></pre>
+<pre><code>Error in read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-05-14/week7_starwars.csv", : could not find function "read_csv"</code></pre>
 </div>
 </div>
 </section>
@@ -704,14 +702,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>…</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lade die Datei "Häufigste Sprachen"</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>urlfile <span class="ot">=</span> <span class="st">"https://data.stadt-zuerich.ch/dataset/bfs_ste_bev_hauptsprachen_top50_od3011/download/BEV301OD3011.csv"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>dat_lang <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="fu">url</span>(urlfile), <span class="at">delim =</span> <span class="st">","</span>, <span class="at">col_names =</span> T)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lade die Datei "Häufigste Sprachen"</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>urlfile <span class="ot">=</span> <span class="st">"https://data.stadt-zuerich.ch/dataset/bfs_ste_bev_hauptsprachen_top50_od3011/download/BEV301OD3011.csv"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>dat_lang <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="fu">url</span>(urlfile), <span class="at">delim =</span> <span class="st">","</span>, <span class="at">col_names =</span> T)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in open.connection(structure(5L, class = c("url", "connection"), conn_id = &lt;pointer: 0x24d&gt;), : cannot open the connection to 'https://data.stadt-zuerich.ch/dataset/bfs_ste_bev_hauptsprachen_top50_od3011/download/BEV301OD3011.csv'</code></pre>
+<pre><code>Error in read_delim(url(urlfile), delim = ",", col_names = T): could not find function "read_delim"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_lang)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_lang)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in head(dat_lang): object 'dat_lang' not found</code></pre>
 </div>
@@ -935,12 +933,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../statKons/StatKons1_Demo_assoziationen.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">StatKons1: Demo 1</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">StatKons1: Demo</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../statKons/StatKons1_Demo_suggest_datasets.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-title">StatKons1: Suggested Datasets</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../statKons/StatKons2_Demo_PCA.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-title">StatKons2: Demo</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

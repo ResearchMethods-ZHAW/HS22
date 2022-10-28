@@ -1,3 +1,9 @@
+knitr::opts_chunk$set(echo = T, collapse=TRUE)
+
+#export files
+options(knitr.duplicate.label = "allow")
+knitr::purl("statKons/StatKons4_Demo_GLM.qmd", "purl/StatKons4_Demo_GLM.R", documentation = 0)
+
 library(tidyverse)
 
 mytheme <- 

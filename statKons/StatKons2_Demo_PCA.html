@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Research Methods HS22 - 34&nbsp; StatKons2: Demo</title>
+<title>Research Methods HS22 - 33&nbsp; StatKons2: Demo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../statKons/StatKons3_Demo_LM.html" rel="next">
-<link href="../statKons/StatKons1_Demo_suggest_datasets.html" rel="prev">
+<link href="../statKons/StatKons1_Demo_open_datasets.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -385,17 +385,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../statKons/StatKons1_Demo_assoziationen.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Demo 1</span></a>
+  <a href="../statKons/StatKons1_Demo_assoziationen.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Demo</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../statKons/StatKons1_Demo_open_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Open Datasets</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../statKons/StatKons1_Demo_suggest_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Suggested Datasets</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -563,13 +558,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#pca-mit-mtcars" id="toc-pca-mit-mtcars" class="nav-link active" data-scroll-target="#pca-mit-mtcars">PCA mit mtcars</a></li>
-  <li><a href="#ca-mit-mtcars" id="toc-ca-mit-mtcars" class="nav-link" data-scroll-target="#ca-mit-mtcars">CA mit mtcars</a></li>
-  <li><a href="#nmds-mit-mtcars" id="toc-nmds-mit-mtcars" class="nav-link" data-scroll-target="#nmds-mit-mtcars">NMDS mit mtcars</a></li>
-  <li><a href="#pca-mit-sveg" id="toc-pca-mit-sveg" class="nav-link" data-scroll-target="#pca-mit-sveg">PCA mit sveg</a></li>
-  <li><a href="#pca-mit-beispiel-aus-vorlesung" id="toc-pca-mit-beispiel-aus-vorlesung" class="nav-link" data-scroll-target="#pca-mit-beispiel-aus-vorlesung">PCA mit Beispiel aus Vorlesung</a></li>
+  <li><a href="#pca-mit-sveg" id="toc-pca-mit-sveg" class="nav-link active" data-scroll-target="#pca-mit-sveg">PCA mit sveg</a></li>
+  <li><a href="#pca-mit-beispiel-aus-skript" id="toc-pca-mit-beispiel-aus-skript" class="nav-link" data-scroll-target="#pca-mit-beispiel-aus-skript">PCA mit Beispiel aus Skript</a></li>
   <li><a href="#ca-mit-sveg" id="toc-ca-mit-sveg" class="nav-link" data-scroll-target="#ca-mit-sveg">CA mit sveg</a></li>
   <li><a href="#nmds-mit-sveg" id="toc-nmds-mit-sveg" class="nav-link" data-scroll-target="#nmds-mit-sveg">NMDS mit sveg</a></li>
+  <li><a href="#pca-mit-mtcars" id="toc-pca-mit-mtcars" class="nav-link" data-scroll-target="#pca-mit-mtcars">PCA mit mtcars</a></li>
+  <li><a href="#ca-mit-mtcars" id="toc-ca-mit-mtcars" class="nav-link" data-scroll-target="#ca-mit-mtcars">CA mit mtcars</a></li>
+  <li><a href="#nmds-mit-mtcars" id="toc-nmds-mit-mtcars" class="nav-link" data-scroll-target="#nmds-mit-mtcars">NMDS mit mtcars</a></li>
   </ul>
 </nav>
     </div>
@@ -601,253 +596,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 
 </div>
-<blockquote class="blockquote">
-<p>Download <a href="../purl/StatKons2_Demo_PCA.R">R-Skript</a></p>
-</blockquote>
-<section id="pca-mit-mtcars" class="level2">
-<h2 class="anchored" data-anchor-id="pca-mit-mtcars">PCA mit mtcars</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Beispiel inspiriert von Luke Hayden: https://www.datacamp.com/community/tutorials/pca-analysis-r</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Ausgangslage: viel zusammenhängende Variablen</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Ziel: Reduktion der Variablenkomplexität</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#WICHTIG hier: Datenformat muss Wide sein! Damit die Matrixmultiplikation gemacht werden kann</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># lade Datei</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>cars <span class="ot">&lt;-</span> mtcars</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>cor<span class="ot">&lt;-</span> <span class="fu">cor</span>(cars[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,<span class="dv">10</span>,<span class="dv">11</span>)])</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor)<span class="sc">&lt;</span>.<span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>cor</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#definiere Datei für PCA</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>cars <span class="ot">&lt;-</span> mtcars[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,<span class="dv">10</span>,<span class="dv">11</span>)]</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># pca</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># achtung unterschiedliche messeinheiten, wichtig es muss noch einheitlich transfomiert werden</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR) <span class="co"># siehe Beispiel hier: https://www.youtube.com/watch?v=vP4korRby0Q</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> <span class="fu">PCA</span>(cars, <span class="at">scale.unit =</span> <span class="cn">TRUE</span>) <span class="co"># entweder korrelations oder covarianzmatrix</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># schaue output an</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(o.pca) <span class="co"># generiert auch automatische plots</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plotte das ganze</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"vqv/ggbiplot"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbiplot)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbiplot</span>(o.pca,<span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># nehme noch die autonamen hinzu</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbiplot</span>(o.pca, <span class="at">labels=</span><span class="fu">rownames</span>(mtcars), <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># (+ mytheme) # choice gibt die axen an</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-ggbiplot-pca-1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-ggbiplot-pca-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.1: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-ggbiplot-pca-2" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-ggbiplot-pca-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.2: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="ca-mit-mtcars" class="level2">
-<h2 class="anchored" data-anchor-id="ca-mit-mtcars">CA mit mtcars</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ebenfalls mit transformierten daten</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>o.ca<span class="ot">&lt;-</span>vegan<span class="sc">::</span><span class="fu">cca</span>(cars)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>o.ca1 <span class="ot">&lt;-</span> FactoMineR<span class="sc">::</span><span class="fu">CA</span>(cars) <span class="co">#blau: auots, rot: variablen</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plotten (schwarz: autos, rot: variablen)</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.ca)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(o.ca)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(o.ca1)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Nur autos plotten; wieso?</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span>o.ca<span class="sc">$</span>CA<span class="sc">$</span>u[,<span class="dv">1</span>]</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>y<span class="ot">&lt;-</span>o.ca<span class="sc">$</span>CA<span class="sc">$</span>u[,<span class="dv">2</span>]</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>o.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]<span class="sc">/</span><span class="fu">sum</span>(o.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-baseplot-ca-1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-ca-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.3: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-baseplot-ca-2" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-ca-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.4: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-baseplot-ca-3" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-ca-3.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.5: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="nmds-mit-mtcars" class="level2">
-<h2 class="anchored" data-anchor-id="nmds-mit-mtcars">NMDS mit mtcars</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Distanzmatrix als Start erzeugen</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span>vegan<span class="sc">::</span><span class="fu">vegdist</span>(cars,<span class="at">method=</span><span class="st">"euclidean"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>mdm <span class="ot">&lt;-</span>vegan<span class="sc">::</span><span class="fu">vegdist</span>(cars,<span class="at">method=</span><span class="st">"manhattan"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Zwei verschiedene NMDS-Methoden</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co">#macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>o.mde.mass <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(mde, <span class="at">k=</span><span class="dv">2</span>) <span class="co"># mit K = Dimensionen</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>o.mdm.mass <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(mdm)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>o.mde.vegan <span class="ot">&lt;-</span> vegan<span class="sc">::</span><span class="fu">metaMDS</span>(mde,<span class="at">k=</span><span class="dv">1</span>) <span class="co"># scheint nicht mit 2 Dimensionen zu konvergieren</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>o.mdm.vegan <span class="ot">&lt;-</span> vegan<span class="sc">::</span><span class="fu">metaMDS</span>(mdm, <span class="at">k =</span> <span class="dv">2</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#plot euclidean distance</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.mde.mass<span class="sc">$</span>points)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.mde.vegan<span class="sc">$</span>points)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#plot manhattan distance</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.mdm.mass<span class="sc">$</span>points)</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.mdm.vegan<span class="sc">$</span>points)</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>vegan<span class="sc">::</span><span class="fu">stressplot</span>(o.mde.vegan, mde)</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>vegan<span class="sc">::</span><span class="fu">stressplot</span>(o.mde.mass, mde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-baseplot-nmds-mtcars-example-1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.6: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-baseplot-nmds-mtcars-example-2" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.7: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-baseplot-nmds-mtcars-example-3" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-3.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.8: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-baseplot-nmds-mtcars-example-4" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-4.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.9: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-baseplot-nmds-mtcars-example-5" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-5.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.10: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-baseplot-nmds-mtcars-example-6" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-6.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.11: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
+<ul>
+<li>Download <a href="../purl/StatKons2_Demo_PCA.R">R-Skript</a></li>
+</ul>
 <section id="pca-mit-sveg" class="level2">
 <h2 class="anchored" data-anchor-id="pca-mit-sveg">PCA mit sveg</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mit Beispieldaten aus Wildi (2013, 2017)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labdsv)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave) <span class="co"># lade package für Daten sveg</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sveg)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sveg)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#View(sveg)</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#PCA-----------</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Deckungen Wurzeltransformiert, cor=T erzwingt Nutzung der Korrelationsmatrix</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> labdsv<span class="sc">::</span><span class="fu">pca</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>,<span class="at">cor=</span>T)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>o.pca2 <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">prcomp</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Koordinaten im Ordinationsraum =&gt; Y</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(o.pca<span class="sc">$</span>scores)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(o.pca2<span class="sc">$</span>x)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Korrelationen der Variablen mit den Ordinationsachsen</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(o.pca<span class="sc">$</span>loadings)</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(o.pca2<span class="sc">$</span>rotation)</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#Erklaerte Varianz der Achsen (sdev ist die Wurzel daraus)</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co"># früher gabs den Befehl summary()</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># jetzt von hand: standardabweichung im quadrat/totale varianz * 100 (um prozentwerte zu bekommen)</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>E<span class="ot">&lt;-</span>o.pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>o.pca<span class="sc">$</span>totdev<span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="co"># erste fünf PCA</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#package stats funktioniert summary()</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(o.pca2)</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#PCA-Plot der Lage der Beobachtungen im Ordinationsraum</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>],o.pca<span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">type=</span><span class="st">"n"</span>, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">xlab=</span><span class="st">"PC1"</span>, <span class="at">ylab=</span><span class="st">"PC2"</span>)</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>],o.pca<span class="sc">$</span>scores[,<span class="dv">2</span>],<span class="at">pch=</span><span class="dv">18</span>)</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>],o.pca<span class="sc">$</span>scores[,<span class="dv">3</span>],<span class="at">type=</span><span class="st">"n"</span>, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">xlab=</span><span class="st">"PC1"</span>, <span class="at">ylab=</span><span class="st">"PC3"</span>)</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>],o.pca<span class="sc">$</span>scores[,<span class="dv">3</span>],<span class="at">pch=</span><span class="dv">18</span>)</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co">#Subjektive Auswahl von Arten zur Darstellung</span></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">11</span>,<span class="dv">23</span>,<span class="dv">39</span>,<span class="dv">46</span>,<span class="dv">72</span>,<span class="dv">77</span>,<span class="dv">96</span>, <span class="dv">101</span>, <span class="dv">119</span>)</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">names</span>(sveg[ , sel.sp])</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>snames</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="co">#PCA-Plot der Korrelationen der Variablen (hier Arten) mit den Achsen</span></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="co">#(hier reduction der observationen)</span></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>loadings[,<span class="dv">2</span>]</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y,<span class="at">type=</span><span class="st">"n"</span>,<span class="at">asp=</span><span class="dv">1</span>)</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>,x[sel.sp],y[sel.sp],<span class="at">length=</span><span class="fl">0.08</span>)</span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp],y[sel.sp],snames,<span class="at">pos=</span><span class="dv">1</span>,<span class="at">cex=</span><span class="fl">0.6</span>)</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co"># hier gehts noch zu weiteren Beispielen zu PCA's:</span></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stats.stackexchange.com/questions/102882/steps-done-in-factor-analysis-compared-to-steps-done-in-pca/102999#102999</span></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stats.stackexchange.com/questions/222/what-are-principal-component-scores</span></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stats.stackexchange.com/questions/102882/steps-done-in-factor-analysis-compared-to-steps-done-in-pca/102999#102999</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mit Beispieldaten aus Wildi (2013, 2017)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labdsv)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave) <span class="co"># lade package für Daten sveg</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sveg)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sveg)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#View(sveg)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#PCA-----------</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Deckungen Wurzeltransformiert, cor=T erzwingt Nutzung der Korrelationsmatrix</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> labdsv<span class="sc">::</span><span class="fu">pca</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>,<span class="at">cor=</span>T)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>o.pca2 <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">prcomp</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Koordinaten im Ordinationsraum =&gt; Y</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(o.pca<span class="sc">$</span>scores)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(o.pca2<span class="sc">$</span>x)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Korrelationen der Variablen mit den Ordinationsachsen</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(o.pca<span class="sc">$</span>loadings)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(o.pca2<span class="sc">$</span>rotation)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#Erklaerte Varianz der Achsen (sdev ist die Wurzel daraus)</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># früher gabs den Befehl summary()</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># jetzt von hand: standardabweichung im quadrat/totale varianz * 100 (um prozentwerte zu bekommen)</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>E<span class="ot">&lt;-</span>o.pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>o.pca<span class="sc">$</span>totdev<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="co"># erste fünf PCA</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#package stats funktioniert summary()</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(o.pca2)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#PCA-Plot der Lage der Beobachtungen im Ordinationsraum</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>],o.pca<span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">type=</span><span class="st">"n"</span>, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">xlab=</span><span class="st">"PC1"</span>, <span class="at">ylab=</span><span class="st">"PC2"</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>],o.pca<span class="sc">$</span>scores[,<span class="dv">2</span>],<span class="at">pch=</span><span class="dv">18</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>],o.pca<span class="sc">$</span>scores[,<span class="dv">3</span>],<span class="at">type=</span><span class="st">"n"</span>, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">xlab=</span><span class="st">"PC1"</span>, <span class="at">ylab=</span><span class="st">"PC3"</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>],o.pca<span class="sc">$</span>scores[,<span class="dv">3</span>],<span class="at">pch=</span><span class="dv">18</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#Subjektive Auswahl von Arten zur Darstellung</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">11</span>,<span class="dv">23</span>,<span class="dv">39</span>,<span class="dv">46</span>,<span class="dv">72</span>,<span class="dv">77</span>,<span class="dv">96</span>, <span class="dv">101</span>, <span class="dv">119</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">names</span>(sveg[ , sel.sp])</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>snames</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">#PCA-Plot der Korrelationen der Variablen (hier Arten) mit den Achsen</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">#(hier reduction der observationen)</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>loadings[,<span class="dv">2</span>]</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y,<span class="at">type=</span><span class="st">"n"</span>,<span class="at">asp=</span><span class="dv">1</span>)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>,x[sel.sp],y[sel.sp],<span class="at">length=</span><span class="fl">0.08</span>)</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp],y[sel.sp],snames,<span class="at">pos=</span><span class="dv">1</span>,<span class="at">cex=</span><span class="fl">0.6</span>)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co"># hier gehts noch zu weiteren Beispielen zu PCA's:</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stats.stackexchange.com/questions/102882/steps-done-in-factor-analysis-compared-to-steps-done-in-pca/102999#102999</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stats.stackexchange.com/questions/222/what-are-principal-component-scores</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co"># https://stats.stackexchange.com/questions/102882/steps-done-in-factor-analysis-compared-to-steps-done-in-pca/102999#102999</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-baseplot-pca-sveg-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-pca-sveg-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.12: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.1: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -855,7 +667,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-baseplot-pca-sveg-2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-pca-sveg-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.13: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.2: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -863,87 +675,87 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-baseplot-pca-sveg-3" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-pca-sveg-3.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.14: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.3: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="pca-mit-beispiel-aus-vorlesung" class="level2">
-<h2 class="anchored" data-anchor-id="pca-mit-beispiel-aus-vorlesung">PCA mit Beispiel aus Vorlesung</h2>
+<section id="pca-mit-beispiel-aus-skript" class="level2">
+<h2 class="anchored" data-anchor-id="pca-mit-beispiel-aus-skript">PCA mit Beispiel aus Skript</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Idee von Ordinationen aus Wildi p. 73-74</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Für Ordinationen benötigen wir Matrizen, nicht Data.frames</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Generieren von Daten</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="fl">2.5</span>,<span class="fl">2.5</span>,<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>), <span class="at">nrow=</span><span class="dv">6</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"spec.1"</span>, <span class="st">"spec.2"</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"r1"</span>,<span class="st">"r2"</span>,<span class="st">"r3"</span>,<span class="st">"r4"</span>,<span class="st">"r5"</span>,<span class="st">"r6"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>raw</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#originale Daten im zweidimensionalen Raum</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> raw[,<span class="dv">1</span>]</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> raw[,<span class="dv">2</span>]</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>))</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot Abhängigkeit der Arten vom Umweltgradienten</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(x1, y1)<span class="sc">~</span><span class="fu">c</span>(z,z), <span class="at">type=</span><span class="st">"n"</span>, <span class="at">axes=</span>T, <span class="at">bty=</span><span class="st">"l"</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>),</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Umweltgradient"</span>,<span class="at">ylab=</span><span class="st">"Deckung der Arten"</span>)</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x1<span class="sc">~</span>z, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">type=</span><span class="st">"b"</span>)</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>z, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">type=</span><span class="st">"b"</span>)</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#zentrierte Daten</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>cent <span class="ot">&lt;-</span> <span class="fu">scale</span>(raw, <span class="at">scale=</span>F)</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> cent[,<span class="dv">1</span>]</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> cent[,<span class="dv">2</span>]</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#rotierte Daten</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(raw)</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>]</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">2</span>]</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualisierung der Schritte im Ordinationsraum</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(y1,y2,y3)<span class="sc">~</span><span class="fu">c</span>(x1,x2,x3), <span class="at">type=</span><span class="st">"n"</span>, <span class="at">axes=</span>T, <span class="at">bty=</span><span class="st">"l"</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>), </span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>), <span class="at">xlab=</span><span class="st">"Art 1"</span>, <span class="at">ylab=</span><span class="st">"Art 2"</span>)</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>x1, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">type=</span><span class="st">"b"</span>, <span class="at">col=</span><span class="st">"green"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y2<span class="sc">~</span>x2, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">type=</span><span class="st">"b"</span>,<span class="at">col=</span><span class="st">"red"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y3<span class="sc">~</span>x3, <span class="at">pch=</span><span class="dv">17</span>, <span class="at">type=</span><span class="st">"b"</span>, <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#zusammengefasst:-------</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#Durchführung der PCA</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(raw)</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co">#Koordinaten im Ordinationsraum</span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>scores</span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co">#Korrelationen der Variablen mit den Ordinationsachsen</span></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>loadings</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="co">#Erklärte Varianz der Achsen in Prozent</span></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>pca<span class="sc">$</span>totdev<span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>E</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="do">### excurs für weitere r-packages####</span></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="co">#mit prcomp, ein weiteres Package für Ordinationen</span></span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.2</span> <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">prcomp</span>(raw, <span class="at">scale=</span>F)</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.2</span>)</span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.2</span>)</span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.2</span>)</span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="co">#mit vegan, ein anderes Package für Ordinationen</span></span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.3</span> <span class="ot">&lt;-</span> vegan<span class="sc">::</span><span class="fu">rda</span>(raw, <span class="at">scale=</span><span class="cn">FALSE</span>) <span class="co">#Die Funktion rda führt ein PCA aus an wenn nicht Umwelt- und Artdaten definiert werden</span></span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3,display=c("sites"))</span></span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3,display=c("species"))</span></span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.3</span>, <span class="at">axes=</span><span class="dv">0</span>)</span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.3</span>, <span class="at">scaling=</span><span class="dv">2</span>)</span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.3</span>, <span class="at">scaling=</span><span class="st">"species"</span>)<span class="co">#scaling=species macht das selbe wie scaling=2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Idee von Ordinationen aus Wildi p. 73-74</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Für Ordinationen benötigen wir Matrizen, nicht Data.frames</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Generieren von Daten</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="fl">2.5</span>,<span class="fl">2.5</span>,<span class="dv">1</span>,<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>), <span class="at">nrow=</span><span class="dv">6</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"spec.1"</span>, <span class="st">"spec.2"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"r1"</span>,<span class="st">"r2"</span>,<span class="st">"r3"</span>,<span class="st">"r4"</span>,<span class="st">"r5"</span>,<span class="st">"r6"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>raw</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#originale Daten im zweidimensionalen Raum</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> raw[,<span class="dv">1</span>]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> raw[,<span class="dv">2</span>]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot Abhängigkeit der Arten vom Umweltgradienten</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(x1, y1)<span class="sc">~</span><span class="fu">c</span>(z,z), <span class="at">type=</span><span class="st">"n"</span>, <span class="at">axes=</span>T, <span class="at">bty=</span><span class="st">"l"</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Umweltgradient"</span>,<span class="at">ylab=</span><span class="st">"Deckung der Arten"</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x1<span class="sc">~</span>z, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">type=</span><span class="st">"b"</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>z, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">type=</span><span class="st">"b"</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#zentrierte Daten</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>cent <span class="ot">&lt;-</span> <span class="fu">scale</span>(raw, <span class="at">scale=</span>F)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> cent[,<span class="dv">1</span>]</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> cent[,<span class="dv">2</span>]</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#rotierte Daten</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(raw)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>]</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">2</span>]</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualisierung der Schritte im Ordinationsraum</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(y1,y2,y3)<span class="sc">~</span><span class="fu">c</span>(x1,x2,x3), <span class="at">type=</span><span class="st">"n"</span>, <span class="at">axes=</span>T, <span class="at">bty=</span><span class="st">"l"</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>), </span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>), <span class="at">xlab=</span><span class="st">"Art 1"</span>, <span class="at">ylab=</span><span class="st">"Art 2"</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>x1, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">type=</span><span class="st">"b"</span>, <span class="at">col=</span><span class="st">"green"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y2<span class="sc">~</span>x2, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">type=</span><span class="st">"b"</span>,<span class="at">col=</span><span class="st">"red"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y3<span class="sc">~</span>x3, <span class="at">pch=</span><span class="dv">17</span>, <span class="at">type=</span><span class="st">"b"</span>, <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">#zusammengefasst:-------</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">#Durchführung der PCA</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(raw)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">#Koordinaten im Ordinationsraum</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>scores</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co">#Korrelationen der Variablen mit den Ordinationsachsen</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>loadings</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co">#Erklärte Varianz der Achsen in Prozent</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>pca<span class="sc">$</span>totdev<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>E</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="do">### excurs für weitere r-packages####</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co">#mit prcomp, ein weiteres Package für Ordinationen</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.2</span> <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">prcomp</span>(raw, <span class="at">scale=</span>F)</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.2</span>)</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.2</span>)</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.2</span>)</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="co">#mit vegan, ein anderes Package für Ordinationen</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.3</span> <span class="ot">&lt;-</span> vegan<span class="sc">::</span><span class="fu">rda</span>(raw, <span class="at">scale=</span><span class="cn">FALSE</span>) <span class="co">#Die Funktion rda führt ein PCA aus an wenn nicht Umwelt- und Artdaten definiert werden</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3,display=c("sites"))</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3,display=c("species"))</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.3</span>, <span class="at">axes=</span><span class="dv">0</span>)</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.3</span>, <span class="at">scaling=</span><span class="dv">2</span>)</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.3</span>, <span class="at">scaling=</span><span class="st">"species"</span>)<span class="co">#scaling=species macht das selbe wie scaling=2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-baseplot-pca-example-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-pca-example-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.15: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.4: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -951,7 +763,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-baseplot-pca-example-2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-pca-example-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.16: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.5: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -959,7 +771,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-baseplot-pca-example-3" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-pca-example-3.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.17: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.6: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -967,7 +779,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-baseplot-pca-example-4" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-pca-example-4.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.18: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.7: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -975,7 +787,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-baseplot-pca-example-5" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-pca-example-5.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.19: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.8: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -984,30 +796,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="ca-mit-sveg" class="level2">
 <h2 class="anchored" data-anchor-id="ca-mit-sveg">CA mit sveg</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave) <span class="co">#for the dataset sveg</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)<span class="co"># siehe Beispiel hier: https://www.youtube.com/watch?v=vP4korRby0Q</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ebenfalls mit transformierten daten</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>o.ca<span class="ot">&lt;-</span><span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>) <span class="co">#package vegan</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>o.ca1 <span class="ot">&lt;-</span> <span class="fu">CA</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>) <span class="co">#package FactoMineR</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Arten (o) und Communities (+) plotten</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.ca)</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(o.ca1)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Nur Arten plotten</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span>o.ca<span class="sc">$</span>CA<span class="sc">$</span>u[,<span class="dv">1</span>]</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>y<span class="ot">&lt;-</span>o.ca<span class="sc">$</span>CA<span class="sc">$</span>u[,<span class="dv">2</span>]</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>o.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span><span class="sc">:</span><span class="dv">63</span>]<span class="sc">/</span><span class="fu">sum</span>(o.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave) <span class="co">#for the dataset sveg</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)<span class="co"># siehe Beispiel hier: https://www.youtube.com/watch?v=vP4korRby0Q</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Error: package or namespace load failed for 'FactoMineR' in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  namespace 'rlang' 1.0.5 is already loaded, but &gt;= 1.0.6 is required</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ebenfalls mit transformierten daten</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>o.ca<span class="ot">&lt;-</span><span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>) <span class="co">#package vegan</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>o.ca1 <span class="ot">&lt;-</span> <span class="fu">CA</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>) <span class="co">#package FactoMineR</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in CA(sveg^0.5): could not find function "CA"</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Arten (o) und Communities (+) plotten</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.ca)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(o.ca1)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in summary(o.ca1): object 'o.ca1' not found</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Nur Arten plotten</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span>o.ca<span class="sc">$</span>CA<span class="sc">$</span>u[,<span class="dv">1</span>]</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>y<span class="ot">&lt;-</span>o.ca<span class="sc">$</span>CA<span class="sc">$</span>u[,<span class="dv">2</span>]</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>o.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span><span class="sc">:</span><span class="dv">63</span>]<span class="sc">/</span><span class="fu">sum</span>(o.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-baseplot-ca-sveg-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-ca-sveg-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.20: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.9: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1015,15 +831,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-baseplot-ca-sveg-2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-ca-sveg-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.21: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-baseplot-ca-sveg-3" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-ca-sveg-3.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;34.22: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.10: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1032,27 +840,179 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="nmds-mit-sveg" class="level2">
 <h2 class="anchored" data-anchor-id="nmds-mit-sveg">NMDS mit sveg</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#NMDS----------</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Distanzmatrix als Start erzeugen</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span><span class="fu">vegdist</span>(sveg,<span class="at">method=</span><span class="st">"euclidean"</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>mdm <span class="ot">&lt;-</span><span class="fu">vegdist</span>(sveg,<span class="at">method=</span><span class="st">"manhattan"</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Zwei verschiedene NMDS-Methoden</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co">#macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>o.imds<span class="ot">&lt;-</span><span class="fu">isoMDS</span>(mde, <span class="at">k=</span><span class="dv">2</span>) <span class="co"># mit K = Dimensionen</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>o.mmds<span class="ot">&lt;-</span><span class="fu">metaMDS</span>(mde,<span class="at">k=</span><span class="dv">3</span>) <span class="co"># scheint nicht mit 2 Dimensionen zu konvergieren</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.imds<span class="sc">$</span>points)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.mmds<span class="sc">$</span>points)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(o.imds,mde)</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(o.mmds,mde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#NMDS----------</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Distanzmatrix als Start erzeugen</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span><span class="fu">vegdist</span>(sveg,<span class="at">method=</span><span class="st">"euclidean"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>mdm <span class="ot">&lt;-</span><span class="fu">vegdist</span>(sveg,<span class="at">method=</span><span class="st">"manhattan"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Zwei verschiedene NMDS-Methoden</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co">#macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>o.imds<span class="ot">&lt;-</span><span class="fu">isoMDS</span>(mde, <span class="at">k=</span><span class="dv">2</span>) <span class="co"># mit K = Dimensionen</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>o.mmds<span class="ot">&lt;-</span><span class="fu">metaMDS</span>(mde,<span class="at">k=</span><span class="dv">3</span>) <span class="co"># scheint nicht mit 2 Dimensionen zu konvergieren</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.imds<span class="sc">$</span>points)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.mmds<span class="sc">$</span>points)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(o.imds,mde)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(o.mmds,mde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="pca-mit-mtcars" class="level2">
+<h2 class="anchored" data-anchor-id="pca-mit-mtcars">PCA mit mtcars</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Beispiel inspiriert von Luke Hayden: https://www.datacamp.com/community/tutorials/pca-analysis-r</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Ausgangslage: viel zusammenhängende Variablen</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Ziel: Reduktion der Variablenkomplexität</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#WICHTIG hier: Datenformat muss Wide sein! Damit die Matrixmultiplikation gemacht werden kann</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># lade Datei</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>cars <span class="ot">&lt;-</span> mtcars</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>cor<span class="ot">&lt;-</span> <span class="fu">cor</span>(cars[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,<span class="dv">10</span>,<span class="dv">11</span>)])</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor)<span class="sc">&lt;</span>.<span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>cor</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#definiere Datei für PCA</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>cars <span class="ot">&lt;-</span> mtcars[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,<span class="dv">10</span>,<span class="dv">11</span>)]</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># pca</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># achtung unterschiedliche messeinheiten, wichtig es muss noch einheitlich transfomiert werden</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR) <span class="co"># siehe Beispiel hier: https://www.youtube.com/watch?v=vP4korRby0Q</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Error: package or namespace load failed for 'FactoMineR' in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  namespace 'rlang' 1.0.5 is already loaded, but &gt;= 1.0.6 is required</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> <span class="fu">PCA</span>(cars, <span class="at">scale.unit =</span> <span class="cn">TRUE</span>) <span class="co"># entweder korrelations oder covarianzmatrix</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in PCA(cars, scale.unit = TRUE): could not find function "PCA"</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># schaue output an</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(o.pca) <span class="co"># generiert auch automatische plots</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ca-mit-mtcars" class="level2">
+<h2 class="anchored" data-anchor-id="ca-mit-mtcars">CA mit mtcars</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ebenfalls mit transformierten daten</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>o.ca<span class="ot">&lt;-</span>vegan<span class="sc">::</span><span class="fu">cca</span>(cars)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>o.ca1 <span class="ot">&lt;-</span> FactoMineR<span class="sc">::</span><span class="fu">CA</span>(cars) <span class="co">#blau: auots, rot: variablen</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]): namespace 'rlang' 1.0.5 is already loaded, but &gt;= 1.0.6 is required</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plotten (schwarz: autos, rot: variablen)</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.ca)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(o.ca)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(o.ca1)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in summary(o.ca1): object 'o.ca1' not found</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Nur autos plotten; wieso?</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span>o.ca<span class="sc">$</span>CA<span class="sc">$</span>u[,<span class="dv">1</span>]</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>y<span class="ot">&lt;-</span>o.ca<span class="sc">$</span>CA<span class="sc">$</span>u[,<span class="dv">2</span>]</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>o.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]<span class="sc">/</span><span class="fu">sum</span>(o.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-baseplot-ca-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-ca-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.11: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-baseplot-ca-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-ca-2.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.12: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="nmds-mit-mtcars" class="level2">
+<h2 class="anchored" data-anchor-id="nmds-mit-mtcars">NMDS mit mtcars</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Distanzmatrix als Start erzeugen</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span>vegan<span class="sc">::</span><span class="fu">vegdist</span>(cars,<span class="at">method=</span><span class="st">"euclidean"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>mdm <span class="ot">&lt;-</span>vegan<span class="sc">::</span><span class="fu">vegdist</span>(cars,<span class="at">method=</span><span class="st">"manhattan"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Zwei verschiedene NMDS-Methoden</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co">#macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>o.mde.mass <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(mde, <span class="at">k=</span><span class="dv">2</span>) <span class="co"># mit K = Dimensionen</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>o.mdm.mass <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">isoMDS</span>(mdm)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>o.mde.vegan <span class="ot">&lt;-</span> vegan<span class="sc">::</span><span class="fu">metaMDS</span>(mde,<span class="at">k=</span><span class="dv">1</span>) <span class="co"># scheint nicht mit 2 Dimensionen zu konvergieren</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>o.mdm.vegan <span class="ot">&lt;-</span> vegan<span class="sc">::</span><span class="fu">metaMDS</span>(mdm, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#plot euclidean distance</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.mde.mass<span class="sc">$</span>points)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.mde.vegan<span class="sc">$</span>points)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#plot manhattan distance</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.mdm.mass<span class="sc">$</span>points)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.mdm.vegan<span class="sc">$</span>points)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>vegan<span class="sc">::</span><span class="fu">stressplot</span>(o.mde.vegan, mde)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>vegan<span class="sc">::</span><span class="fu">stressplot</span>(o.mde.mass, mde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-baseplot-nmds-mtcars-example-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.13: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-baseplot-nmds-mtcars-example-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-2.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.14: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-baseplot-nmds-mtcars-example-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-3.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.15: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-baseplot-nmds-mtcars-example-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-4.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.16: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-baseplot-nmds-mtcars-example-5" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-5.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.17: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-baseplot-nmds-mtcars-example-6" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="StatKons2_Demo_PCA_files/figure-html/fig-baseplot-nmds-mtcars-example-6.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;33.18: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
+</div>
 </div>
 
 
@@ -1272,8 +1232,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../statKons/StatKons1_Demo_suggest_datasets.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">StatKons1: Suggested Datasets</span></span>
+      <a href="../statKons/StatKons1_Demo_open_datasets.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">StatKons1: Open Datasets</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
