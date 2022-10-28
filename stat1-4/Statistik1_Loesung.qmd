@@ -14,7 +14,7 @@ index: 4
 #| results: hide
 
 options(knitr.duplicate.label = "allow")
-knitr::purl("stat1-4/Statistik1_Loesung.qmd", "purl/Statistik1_Loesung.R", documentation = 0)
+knitr::purl("/stat1-4/Statistik1_Loesung.qmd", "/purl/Statistik1_Loesung.R", documentation = 0)
 
 
 ```
@@ -22,107 +22,6 @@ knitr::purl("stat1-4/Statistik1_Loesung.qmd", "purl/Statistik1_Loesung.R", docum
 ##  Musterlösung Übung 1.1
 
 - Download [R-Skript](../purl/Statistik1_Loesung.R)
-
-### Kommentierter Wegg Fall A
-
-```{r}
-
-## ladet die nötigen Packete und die novanimal.csv Datei in R
-
-library(readr)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-
-
-## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
-mytheme <- 
-  theme_classic() + 
-  theme(
-    axis.line = element_line(color = "black"), 
-    axis.text = element_text(size = 12, color = "black"), 
-    axis.title = element_text(size = 12, color = "black"), 
-    axis.ticks = element_line(size = .75, color = "black"), 
-    axis.ticks.length = unit(.5, "cm")
-    )
-
-
-```
-
-Lade Daten von der Gästebefragung 2017 herunter (für Informationen zu den einzelnen Variablen, siehe [diesen Link](https://zenodo.org/record/3554884/files/2020_ZHAW_vonRickenbach_Variablen_cleaned_recoded_survey_dataset_anonym_NOVANIMAL.pdf?download=1)):
-
-Zu den originalen Datensätze gehts hier lang:
-
-- [2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv](https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1)
-- [2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv](https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1)
-
-
-```{r}
-#| label: fig-mosaicplots
-#| fig-cap: "Generierter Plot"
-
-# Als eine Möglichkeit, die Aufgabe 1.1 zu bearbeiten, nehmen wir hier den 
-# Datensatz  der Gästebefragung NOVANIMAL und gehen der folgenden Frage nach: 
-# Gibt es einen Zusammenhang zwischen Geschlecht und dem wahrgenommenen 
-# Milchkonsum (viel vs. wenig Milch/-produkte)
-
-# die Variable wahrgenommener Milchkonsum muss 
-# noch in 2 Kategorien zusammengefasst werden: geringer vs. hoher Milchkonsum
-
-# Variable  milk == wahrgenommener Milchkonsum 
-# alles kleiner als 4 (3 inklusive) == geringer wahrgenommener Milchkonsum, 
-#alles grösser als 3 (4 inklusive) == hoher wahrgenommener Milchkonsum
-nova_survey <- read_delim("datasets/statistik/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv") |> 
-  dplyr::select(gender, milk)
-
-#check die Daten zB.
-head(nova_survey, 5)
-str(nova_survey)
-
-nova2 <- nova_survey |>
-  filter(gender != "x") |> # x aus der Variable Geschlecht entfernen 
-  mutate(milkcon = if_else(milk <= 3, "wenig", "viel")) |> 
-  select(gender, milkcon) |> 
-  drop_na() # alle Missings können gestrichen werden
- 
-# mal anschauen
-table(nova2)
-
-#achtung chi_squre erwartet matrix
-nova_mtx <- xtabs(~ gender + milkcon ,data = nova2) 
-# da es in diesem fall keine kriteriumsvariable gibt, fehlt das y sozusagen
-
-#Chi-squared Test
-chi_sq <- chisq.test(nova_mtx)
-
-
-#visualisierung
-OP <- par(mfrow=c(1,2), "mar"=c(1,1,3,1))
-mosaicplot(chi_sq$observed, cex.axis =1 , main = "Observed counts")
-mosaicplot(chi_sq$expected, cex.axis =1 , main = "Expected counts\n(wenn geschlecht keinen einfluss hat)")
-par(OP)
-
-#Fisher's Test nur mit 2X2 Kontingenztabelle möglich
-fisher.test(nova_mtx)
-
-```
-
-## Ergebnisse
-
-
-Der $\chi^2$-Test sagt uns, dass das Geschlecht und der wahrgenommene Milchkonsum nicht zusammenhängen. Es gibt keine signifikante Unterscheide zwischen dem Geschlecht und dem wahrgenommenen Milchkonsum (*p* = .222). Es sieht so aus, dass Männer leicht mehr angeben weniger Milch zu konsumieren (Tabelle 1). Die Ergebnisse müssen jedoch mit Vorsicht interpretiert werden, denn der $\chi^2$-Test gibt uns nur an, dass ein signifikanter Unterschied zwischen Geschlecht und wahrgenommener Milchkonsum vorliegt. Um die Unterschiede innerhalb einer Gruppen (z.B. Geschlecht nach Alter) festzustellen bedarf es weiterer Analysen z. B. mit einer mehrfaktorieller ANOVA mit anschliessenden Post-hoc Tests (siehe Statistik 3).
-
-```{r}
-#| echo: false
-
-table <- nova2 %>%
-  group_by(gender, milkcon) |>
-  summarise(tot = n()) |>
-  mutate(`wahr. Milchkonsum (%)` = round(tot / sum(tot) * 100, 1)) |>
-  rename(Geschlecht = gender, `wahr. Milchkonsum` = milkcon, `absolute Werte`= tot)
-
-knitr::kable(table, caption = "Wahrgenommener Milchkonsum nach Geschlecht")
-```
 
 
 ### Kommentierter Weg Fall B
@@ -231,8 +130,6 @@ In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventi
 
 
 ```{r}
-#| purl: false
-#| message: !expr T
 #| echo: false
 #| label: fig-ggplot-boxplot-final
 #| fig.cap: Die wöchentlichen Verkaufszahlen für die Interventions- und Basiswochen unterscheiden
