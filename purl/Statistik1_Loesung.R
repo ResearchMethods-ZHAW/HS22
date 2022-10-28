@@ -1,14 +1,17 @@
-# so kannst du die Daten direkt von der Webpage laden
-nova <- read_delim(file = "https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1", delim = ";")
-nova_survey <- read_delim(file = "https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1", delim = ";", )
+options(knitr.duplicate.label = "allow")
+knitr::purl("stat1-4/Statistik1_Loesung.qmd", "purl/Statistik1_Loesung.R", documentation = 0)
 
-#überprüfe die Datenstruktur
-head(nova_survey, 5)
-glimpse(nova_survey)
-#str(nova_survey) #alternativ dazu
+
+
+## ladet die nötigen Packete und die novanimal.csv Datei in R
+
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
-
 mytheme <- 
   theme_classic() + 
   theme(
@@ -18,6 +21,8 @@ mytheme <-
     axis.ticks = element_line(size = .75, color = "black"), 
     axis.ticks.length = unit(.5, "cm")
     )
+
+
 
 # Als eine Möglichkeit, die Aufgabe 1.1 zu bearbeiten, nehmen wir hier den 
 # Datensatz  der Gästebefragung NOVANIMAL und gehen der folgenden Frage nach: 
@@ -30,10 +35,17 @@ mytheme <-
 # Variable  milk == wahrgenommener Milchkonsum 
 # alles kleiner als 4 (3 inklusive) == geringer wahrgenommener Milchkonsum, 
 #alles grösser als 3 (4 inklusive) == hoher wahrgenommener Milchkonsum
-nova2 <- nova_survey %>% 
-  filter(gender != "x") %>% # x aus der Variable Geschlecht entfernen 
-  mutate(milkcon = if_else(milk <= 3, "wenig", "viel")) %>% 
-  select(gender, milkcon) %>% 
+nova_survey <- read_delim("datasets/statistik/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv") |> 
+  dplyr::select(gender, milk)
+
+#check die Daten zB.
+head(nova_survey, 5)
+str(nova_survey)
+
+nova2 <- nova_survey |>
+  filter(gender != "x") |> # x aus der Variable Geschlecht entfernen 
+  mutate(milkcon = if_else(milk <= 3, "wenig", "viel")) |> 
+  select(gender, milkcon) |> 
   drop_na() # alle Missings können gestrichen werden
  
 # mal anschauen
@@ -45,7 +57,7 @@ nova_mtx <- xtabs(~ gender + milkcon ,data = nova2)
 
 #Chi-squared Test
 chi_sq <- chisq.test(nova_mtx)
-chi_sq
+
 
 #visualisierung
 OP <- par(mfrow=c(1,2), "mar"=c(1,1,3,1))
@@ -57,15 +69,15 @@ par(OP)
 fisher.test(nova_mtx)
 
 table <- nova2 %>%
-  group_by(gender, milkcon) %>% 
-  summarise(tot = n()) %>% 
-  mutate(`wahr. Milchkonsum (%)` = round(tot / sum(tot) * 100, 1)) %>% 
+  group_by(gender, milkcon) |>
+  summarise(tot = n()) |>
+  mutate(`wahr. Milchkonsum (%)` = round(tot / sum(tot) * 100, 1)) |>
   rename(Geschlecht = gender, `wahr. Milchkonsum` = milkcon, `absolute Werte`= tot)
 
 knitr::kable(table, caption = "Wahrgenommener Milchkonsum nach Geschlecht")
 
 #lade Daten
-df <- readr::read_csv2("data/Datensatz_novanimal_Uebung_Statistik1.2.csv")
+df <- readr::read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik1.2.csv")
 
 
 # überprüft die Voraussetzungen für einen t-Test

@@ -4,7 +4,7 @@ lesson: Stat1
 thema: Grundlagen der Statistik
 index: 4
 execute: 
-  echo: false   # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
 ---
 
 # Stat1: Lösung
@@ -12,9 +12,11 @@ execute:
 ```{r}
 #| echo: false
 #| results: hide
-#| purl: false
+
 options(knitr.duplicate.label = "allow")
 knitr::purl("stat1-4/Statistik1_Loesung.qmd", "purl/Statistik1_Loesung.R", documentation = 0)
+
+
 ```
 
 ##  Musterlösung Übung 1.1
@@ -23,35 +25,13 @@ knitr::purl("stat1-4/Statistik1_Loesung.qmd", "purl/Statistik1_Loesung.R", docum
 
 ### Kommentierter Weg
 ```{r}
-#| message: !expr T
-#| purl: false
-#| include: false
 ## ladet die nötigen Packete und die novanimal.csv Datei in R
 
-library(tidyverse)
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
 
-# lade Daten vom Feldexperiment: Kassendaten
-# für Informationen zu den einzelnen Variablen, siehe 
-```
-
-Lade Daten von der Gästebefragung 2017 herunter (für Informationen zu den einzelnen Variablen, siehe [diesen Link](https://zenodo.org/record/3554884/files/2020_ZHAW_vonRickenbach_Variablen_cleaned_recoded_survey_dataset_anonym_NOVANIMAL.pdf?download=1)):
-
-Zu den originalen Datensätze gehts hier lang:
-
-- [2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv](https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1)
-- [2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv](https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1)
-
-```{r}
-# so kannst du die Daten direkt von der Webpage laden
-nova <- read_delim(file = "https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1", delim = ";")
-nova_survey <- read_delim(file = "https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1", delim = ";", )
-```
-
-```{r}
-#überprüfe die Datenstruktur
-head(nova_survey, 5)
-glimpse(nova_survey)
-#str(nova_survey) #alternativ dazu
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 mytheme <- 
@@ -63,7 +43,17 @@ mytheme <-
     axis.ticks = element_line(size = .75, color = "black"), 
     axis.ticks.length = unit(.5, "cm")
     )
+
+
 ```
+
+Lade Daten von der Gästebefragung 2017 herunter (für Informationen zu den einzelnen Variablen, siehe [diesen Link](https://zenodo.org/record/3554884/files/2020_ZHAW_vonRickenbach_Variablen_cleaned_recoded_survey_dataset_anonym_NOVANIMAL.pdf?download=1)):
+
+Zu den originalen Datensätze gehts hier lang:
+
+- [2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv](https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1)
+- [2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv](https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1)
+
 
 ```{r}
 #| label: fig-mosaicplots
@@ -80,10 +70,17 @@ mytheme <-
 # Variable  milk == wahrgenommener Milchkonsum 
 # alles kleiner als 4 (3 inklusive) == geringer wahrgenommener Milchkonsum, 
 #alles grösser als 3 (4 inklusive) == hoher wahrgenommener Milchkonsum
-nova2 <- nova_survey %>% 
-  filter(gender != "x") %>% # x aus der Variable Geschlecht entfernen 
-  mutate(milkcon = if_else(milk <= 3, "wenig", "viel")) %>% 
-  select(gender, milkcon) %>% 
+nova_survey <- read_delim("datasets/statistik/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv") |> 
+  dplyr::select(gender, milk)
+
+#check die Daten zB.
+head(nova_survey, 5)
+str(nova_survey)
+
+nova2 <- nova_survey |>
+  filter(gender != "x") |> # x aus der Variable Geschlecht entfernen 
+  mutate(milkcon = if_else(milk <= 3, "wenig", "viel")) |> 
+  select(gender, milkcon) |> 
   drop_na() # alle Missings können gestrichen werden
  
 # mal anschauen
@@ -95,7 +92,7 @@ nova_mtx <- xtabs(~ gender + milkcon ,data = nova2)
 
 #Chi-squared Test
 chi_sq <- chisq.test(nova_mtx)
-chi_sq
+
 
 #visualisierung
 OP <- par(mfrow=c(1,2), "mar"=c(1,1,3,1))
@@ -109,15 +106,15 @@ fisher.test(nova_mtx)
 
 ### Ergebnisse
 
-Der $\chi^2$-Test sagt uns, dass das Geschlecht und der wahrgenommene Milchkonsum nicht zusammenhängen. Es gibt keine signifikante Unterscheide zwischen dem Geschlecht und dem wahrgenommenen Milchkonsum ($\chi^2$(`r chi_sq$parameter`) = `r round(chi_sq$statistic[[1]], digits = 3)`, *p* = `r round(chi_sq$p.value[[1]], digits = 3)`. Es sieht so aus, dass Männer leicht mehr angeben weniger Milch zu konsumieren (Tabelle 1). Die Ergebnisse müssen jedoch mit Vorsicht interpretiert werden, denn der $\chi^2$-Test gibt uns nur an, dass ein signifikanter Unterschied zwischen Geschlecht und wahrgenommener Milchkonsum vorliegt. Um die Unterschiede innerhalb einer Gruppen (z.B. Geschlecht nach Alter) festzustellen bedarf es weiterer Analysen z. B. mit einer mehrfaktorieller ANOVA mit anschliessenden Post-hoc Tests (siehe Statistik 3).
+Der $\chi^2$-Test sagt uns, dass das Geschlecht und der wahrgenommene Milchkonsum nicht zusammenhängen. Es gibt keine signifikante Unterscheide zwischen dem Geschlecht und dem wahrgenommenen Milchkonsum (*p* = .222). Es sieht so aus, dass Männer leicht mehr angeben weniger Milch zu konsumieren (Tabelle 1). Die Ergebnisse müssen jedoch mit Vorsicht interpretiert werden, denn der $\chi^2$-Test gibt uns nur an, dass ein signifikanter Unterschied zwischen Geschlecht und wahrgenommener Milchkonsum vorliegt. Um die Unterschiede innerhalb einer Gruppen (z.B. Geschlecht nach Alter) festzustellen bedarf es weiterer Analysen z. B. mit einer mehrfaktorieller ANOVA mit anschliessenden Post-hoc Tests (siehe Statistik 3).
 
 ```{r}
 #| echo: false
 
 table <- nova2 %>%
-  group_by(gender, milkcon) %>% 
-  summarise(tot = n()) %>% 
-  mutate(`wahr. Milchkonsum (%)` = round(tot / sum(tot) * 100, 1)) %>% 
+  group_by(gender, milkcon) |>
+  summarise(tot = n()) |>
+  mutate(`wahr. Milchkonsum (%)` = round(tot / sum(tot) * 100, 1)) |>
   rename(Geschlecht = gender, `wahr. Milchkonsum` = milkcon, `absolute Werte`= tot)
 
 knitr::kable(table, caption = "Wahrgenommener Milchkonsum nach Geschlecht")
@@ -142,7 +139,7 @@ $H_1$: Es gibt Unterschiede in den Verkaufszahlen zwischen Basis- und Interventi
 #| fig-cap: "Generierter Plot"
 
 #lade Daten
-df <- readr::read_csv2("data/Datensatz_novanimal_Uebung_Statistik1.2.csv")
+df <- readr::read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik1.2.csv")
 
 
 # überprüft die Voraussetzungen für einen t-Test
@@ -179,7 +176,7 @@ Ziel war es die aggregierten Verkaufszahlen zwischen den Interventions- und Basi
 ### Ergebnisse 
 
   
-In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventionswochen (siehe Abbildung 1). Die wöchentlichen Verkaufszahlen zwischen den Bedingungen (Basis oder Intervention) unterscheiden sich gemäss Welch t-Test jedoch nicht signifikant (*t*(`r round(t_test$parameter[[1]],digits = 0)`) = `r round(t_test$statistic, digits = 3)` , *p* = `r round(t_test$p.value, digits=3)`). Die Ergebnisse könnten mit einem $\chi^2$-Test nochmals validiert werden, da die Gruppengrösse mit n = 6 doch eher klein ist. 
+In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventionswochen (siehe Abbildung 1). Die wöchentlichen Verkaufszahlen zwischen den Bedingungen (Basis oder Intervention) unterscheiden sich gemäss Welch t-Test jedoch nicht signifikant (*p* = .791). Die Ergebnisse könnten mit einem $\chi^2$-Test nochmals validiert werden, da die Gruppengrösse mit n = 6 doch eher klein ist. 
 
 ```{r}
 #| purl: false

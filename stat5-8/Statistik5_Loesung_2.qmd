@@ -4,7 +4,7 @@ lesson: Stat5
 thema: Von linearen Modellen zu GLMMs
 index: 4
 execute: 
-  echo: false   # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
 ---
 
 # Stat5: Lösung 2
@@ -12,8 +12,7 @@ execute:
 ```{r}
 #| echo: false
 #| results: hide
-#| purl: false
-#export files
+
 options(knitr.duplicate.label = "allow")
 knitr::purl("stat5-8/Statistik5_Loesung_2.qmd", "purl/Statistik5_Loesung_2.R", documentation = 0)
 ```
@@ -51,7 +50,7 @@ mytheme <-
 
 ```{r}
 #lade datei
-df <- read_csv2("data/Datensatz_novanimal_Uebung_Statistik5.2.csv")
+df <- read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik5.2.csv")
 
 # sieht euch die Verteilung zwischen Fleisch und  kein Fleisch an, 
 # beide Kategorien kommen nicht gleich häufig vor, aber nicht super tragisch
@@ -84,7 +83,7 @@ library(MuMIn)
 r.squaredGLMM(mod0) 
 # das marginale R^2 (r2m) gibt uns die erklärte Varianz der fixen Effekte: hier 4% (das ist sehr wenig)
 # das conditionale R^2 (r2c) gibt uns die erklärte Varianz für das ganze Modell 
-# (mit fixen und variablen Effekten): hier 27% (ganz ok, aber auch nicht sehr hoch)
+# (mit fixen und variablen Effekten): hier 29% (ganz ok, aber auch nicht sehr hoch)
 # für weitere Informationen: https://rdrr.io/cran/MuMIn/man/r.squaredGLMM.html 
 
 # zusätzliche Informationen, welche für die Interpretation gut sein kann

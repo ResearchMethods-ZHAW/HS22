@@ -1,29 +1,8 @@
----
-date: 2022-11-14
-lesson: StatKons1
-thema: Statistik Grundlagen
-index: 1
----
-
-# StatKons1: Demo
-
-```{r}
-#| echo: false
-#| results: hide
-
 knitr::opts_chunk$set(echo = T, collapse=TRUE)
 
 #export R file
 knitr::purl("statKons/StatKons1_Demo_assoziationen.qmd", "Demo_assoziationen.R", documentation = 0)
-```
 
-- Download [R-Skript](Demo_assoziationen.R)
-
-## Grundlagen
-
-```{r}
-#| echo: false
-#| results: hide
 #lade Packages
 
 
@@ -40,9 +19,7 @@ mytheme <-
     axis.ticks = element_line(size = 1, color = "black"), 
     axis.ticks.length = unit(.5, "cm")
   )
-```
 
-```{r, message=FALSE, eval=TRUE}
 #lade Daten
 # mehr Info darüber: https://cran.r-project.org/web/packages/explore/vignettes/explore_mtcars.html
 cars <- mtcars
@@ -83,14 +60,7 @@ OP <- par(mfrow=c(1,2), "mar"=c(1,1,3,1))
 mosaicplot(chi_sq$observed, cex.axis =1 , main = "Observed counts")
 mosaicplot(chi_sq$expected, cex.axis =1 , main = "Expected counts\n(if class had no influence)")
 par(OP)
-```
 
-## Möglicher Text für Ergebnisse
-
-Der $\chi^2$-Test sagt uns, dass das Art des Motors und Art des Fahrwerks statistisch nicht zusammenhängen. Es gibt keine signifikante Unterscheide zwischen den Variablen "VS" und "AM - Transmission" (*p* = .555). Der Fisher exacter Test bestätigt diesen Befund.
-Die Odds Ratio (OR) sagt uns hingegen - unter der Prämisse, dass "normale" Motoren eher mit automatischen und V-Motoren eher mit handgeschalteten Fahrwerken ausgestattet sind - dass die Chance doppelt so hoch ist, dass ein Auto mit "normalem" Motor automatisch geschaltet ist, als dies bei einem Auto mit V-Motor der Fall wäre
-
-```{r, eval=TRUE}
 #define dataset
 cars <- mtcars
 
@@ -124,9 +94,7 @@ ttest
 summary.lm(aov.1)
 
 #wie würdet ihr nun die Ergebnisse darstellen?
-```
 
-```{r}
 # für mehr infos here: https://cran.r-project.org/web/packages/datasauRus/vignettes/Datasaurus.html
 
 library(datasauRus)
@@ -160,4 +128,3 @@ if(requireNamespace("ggplot2")){
     geom_smooth(method = "lm", se = FALSE)
   
 }
-```

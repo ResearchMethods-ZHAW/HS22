@@ -4,7 +4,7 @@ lesson: Stat2
 thema: Einführung in lineare Modelle
 index: 5
 execute: 
-  echo: false   # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
 ---
 
 # Stat2: Lösung 2.2 & 2.3S
@@ -12,9 +12,11 @@ execute:
 ```{r}
 #| echo: false
 #| results: hide
-#| purl: false
+
 options(knitr.duplicate.label = "allow")
-knitr::purl("stat1-4/Statistik2_Loesung_2223s.qmd", "purl/Statistik2_Loesung_2223s.R", documentation = 0)
+knitr::purl("stat1-4/Statistik2_Loesung_2223s.qmd", 
+            "purl/Statistik2_Loesung_2223s.R", 
+            documentation = 0)
 ```
 
 - Download [R-Skript](../purl/Statistik2_Loesung_2223s.R)
@@ -26,10 +28,10 @@ knitr::purl("stat1-4/Statistik2_Loesung_2223s.qmd", "purl/Statistik2_Loesung_222
 #| echo: false
 #| results: hide
 
-library(tidyverse)
-# library(ggfortify) # zur Testung der Voraussetzungen
-library(magrittr)
-library(here)
+#lade Packages
+library(ggplot2)
+library(dplyr)
+
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 mytheme <- 
@@ -48,7 +50,7 @@ mytheme <-
 #| fig-cap: "Generierter Plot"
 
 #lade die Daten
-df <- read_csv2("data/Datensatz_novanimal_Uebung_Statistik2.1.csv")
+df <- read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.1.csv")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte an (plus Standardabweichungen)
@@ -61,7 +63,7 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
   # Achtung: Reihenfolge spielt hier eine Rolle!
   stat_boxplot(geom = "errorbar", width = 0.25) +
   geom_boxplot(fill="white", color = "black", size = 1, width = .5) +
-  labs(x = "\nMenü-Inhalt", y = "Anzahl verkaufte Gerichte pro Woche\n") +
+  labs(x = "\nMenu-Inhalt", y = "Anzahl verkaufte Gerichte pro Woche\n") +
   # achtung erster Hinweis einer Varianzheterogenität, wegen den Hot&Cold Gerichten
   mytheme
 
@@ -131,7 +133,7 @@ Weil die Voraussetzungen schwer verletzt sind, wurde eine log-Transformation der
 
 #### Ergebnisse
 
-Die Menüinhalte (Fleisch, Vegetarisch und Buffet) unterscheiden sich in den wöchentlichen Verkaufszahlen signifikant (F(2,15) = `r round(summary.lm(model_log)[[10]]["value"][[1]], 2)`, p < .001). Die Abbildung 1 zeigt die wöchentlichen Verkaufszahlen pro Menüinhalt.
+Die Menüinhalte (Fleisch, Vegetarisch und Buffet) unterscheiden sich in den wöchentlichen Verkaufszahlen signifikant (p < .001). Die Abbildung 1 zeigt die wöchentlichen Verkaufszahlen pro Menüinhalt.
 
 ```{r}
 #| echo: false
@@ -189,17 +191,14 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
 #| fig.cap: ""
 
 #lade Daten
-df <- read_csv2("data/Datensatz_novanimal_Uebung_Statistik2.3s.csv")
+df <- read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.3.csv")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte der Responsevariable an
 # Sind Mittelwerte nahe bei Null? Gäbe uns einen weiteren Hinweis auf 
 # eine spezielle Binomial-Verteilung (vgl. Statistik 4)
-df %>% 
-  split(.$article_description) %>% # teilt den Datensatz in 3 verschiedene Datensätze auf
-  # mit map können andere Funktionen auf den Datensatz angewendet werden 
-  # (alternative Funktionen sind aggregate oder apply)
-  purrr::map(~ psych::describe(.$tot_sold)) 
+aggregate(tot_sold ~ article_description, data = df, FUN = function(x) c(mn = mean(x), n = sd(x) ))
+
 
 # visualisiere dir dein Model, was siehst du? 
 # sind möglicherweise gewiesse Voraussetzungen verletzt?
@@ -282,7 +281,7 @@ Kleiner Exkurs: Verkaufsdaten sind Zähldaten und per se binomial-Verteilt, da e
 
 #### Ergebnisse
 
-Die wöchentlichen Verkaufszahlen der Menülinien unterscheiden sich nach Hochschulzugehörigkeit signifikant (F(3,44) = `r round(summary.lm(model_log)[[10]]["value"][[1]], 2)`, p < .001). Inhaltich bedeutet dies, dass Studierende signifikant häufiger die preisgünstigere Menülinie "Favorite & World" als Mitarbeitende kaufen. Entgegen der Annahme gibt es aber keine signifikanten Unterschiede zwischen Studierende und Mitarbeitende bei dem Kauf der teureren Menülinie "Kitchen". Über die möglichen Gründe können nur spekuliert werden, hierfür bedarf es weiteren Analysen z.B. mit dem Prädiktor "Menüinhalt".
+Die wöchentlichen Verkaufszahlen der Menülinien unterscheiden sich nach Hochschulzugehörigkeit signifikant (p < .001). Inhaltich bedeutet dies, dass Studierende signifikant häufiger die preisgünstigere Menülinie "Favorite & World" als Mitarbeitende kaufen. Entgegen der Annahme gibt es aber keine signifikanten Unterschiede zwischen Studierende und Mitarbeitende bei dem Kauf der teureren Menülinie "Kitchen". Über die möglichen Gründe können nur spekuliert werden, hierfür bedarf es weiteren Analysen z.B. mit dem Prädiktor "Menüinhalt".
 
 ```{r}
 #| echo: false
