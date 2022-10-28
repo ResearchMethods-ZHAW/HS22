@@ -4,10 +4,13 @@ lesson: PrePro3
 thema: Split-Apply-Combine
 index: 2
 execute: 
-  echo: false   # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
   output: false
 code-fold: true
 code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
 ---
 
 # Prepro 3: Übung
@@ -126,6 +129,7 @@ weather_summary2 <- weather |>
 ```{r}
 #| label: fig-baseplot-ex7
 #| fig.cap: baseplot mag keine long tables und macht aus den beiden Jahren eine kontinuierliche Linie
+#| output: true
 
 plot(weather_summary2$week, weather_summary2$temp_mean, type = "l")
 ```
@@ -142,6 +146,8 @@ weather_summary2 <- weather_summary2 |>
 ```{r}
 #| label: fig-baseplot-ex8
 #| fig-cap: "Generierter Plot"
+#| output: true
+
 plot(weather_summary2$week, weather_summary2$year2000, type = "l",col = "blue")
 lines(weather_summary2$week, weather_summary2$year2001, type = "l",col = "red")
 ```

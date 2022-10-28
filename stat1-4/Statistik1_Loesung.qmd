@@ -3,12 +3,12 @@ date: 2022-10-31
 lesson: Stat1
 thema: Grundlagen der Statistik
 index: 4
-execute: 
-  echo: true   # set to true to show musterlösung
+
 ---
 
 # Stat1: Lösung
 
+<<<<<<< HEAD
 ```{r}
 #| echo: false
 #| results: hide
@@ -23,8 +23,10 @@ knitr::purl("stat1-4/Statistik1_Loesung.qmd", "purl/Statistik1_Loesung.R", docum
 
 - Download [R-Skript](../purl/Statistik1_Loesung.R)
 
-### Kommentierter Weg
+### Kommentierter Wegg Fall A
+
 ```{r}
+
 ## ladet die nötigen Packete und die novanimal.csv Datei in R
 
 library(readr)
@@ -102,9 +104,11 @@ par(OP)
 
 #Fisher's Test nur mit 2X2 Kontingenztabelle möglich
 fisher.test(nova_mtx)
+
 ```
 
-### Ergebnisse
+## Ergebnisse
+
 
 Der $\chi^2$-Test sagt uns, dass das Geschlecht und der wahrgenommene Milchkonsum nicht zusammenhängen. Es gibt keine signifikante Unterscheide zwischen dem Geschlecht und dem wahrgenommenen Milchkonsum (*p* = .222). Es sieht so aus, dass Männer leicht mehr angeben weniger Milch zu konsumieren (Tabelle 1). Die Ergebnisse müssen jedoch mit Vorsicht interpretiert werden, denn der $\chi^2$-Test gibt uns nur an, dass ein signifikanter Unterschied zwischen Geschlecht und wahrgenommener Milchkonsum vorliegt. Um die Unterschiede innerhalb einer Gruppen (z.B. Geschlecht nach Alter) festzustellen bedarf es weiterer Analysen z. B. mit einer mehrfaktorieller ANOVA mit anschliessenden Post-hoc Tests (siehe Statistik 3).
 
@@ -120,19 +124,68 @@ table <- nova2 %>%
 knitr::kable(table, caption = "Wahrgenommener Milchkonsum nach Geschlecht")
 ```
 
-##  Musterlösung Übung 1.2: t-Test
 
-> Leseempfehlung Kapitel 2 von [Manny Gimond](https://mgimond.github.io/Stats-in-R/z_t_tests.html) 
+### Kommentierter Weg Fall B
 
+In diesem Beispiel soll einem Klischee auf den Grund gegagen werden: **Sind Aargauer überdurchschnittlich mit weissen Socken assoziiert?** Die Datenerhebung basiert auf männlichen Studenten bei denen folgende beiden binären Variablen erhoben wurden:
+
+-   Sockenfarbe: weiss, nicht-weiss
+
+-   Selbstdeklarierte Kantonsangehörigkeit: AG, nicht-AG
+
+Die Hypothese ist: Das Klischee trifft zu, weisse Socken sind überdurchschnittlich häufig mit Aargauer Studenten assoziiert.
+
+Die Datenerhebung unter 35 Studenten ergab folgende Datengrundlage:
+
+Weisssockige Aargauer: 4
+
+Nicht-weisssockige Aargauer: 2
+
+Weissockige nicht-Aargauer: 7
+
+Nicht-weisssockige nicht-Aargauer: 22
+
+```{r}
+
+# Matrix erstellen
+Aargauer <- c(4, 2)
+names(Aargauer) <- c("Weiss", "NotWeiss")
+NotAargauer <-c (7,22)
+names(NotAargauer) <- c("Weiss", "NotWeiss")
+AGsocks <- data.frame(Aargauer, NotAargauer)
+AGsocks <- as.matrix(AGsocks)
+AGsocks
+
+# Daten anschauen mit erstem Google-Ergebnis für "Assoziation Plot r"
+assocplot(AGsocks) # Interpretation des Plots mit dem Befehl ?assocplot
+```
+
+Der Assoziationsplot zeigt, dass in den Daten weisse Socken bei den Aargauern überverterten und bei den Nicht-Aargauern untervertreten sind.
+
+Für kleine Erwartungswerte in den Zellen (\< 5) ist der Chi-Quadrat-Test nicht zuverlässig (siehe "Warning message"). Darum wird mit Fishers exaktem Test gearbeitet.
+
+```{r}
+# Tests durchführen
+chisq.test(AGsocks) # Chi-Quadrat-Test nur zum anschauen.
+fisher.test(AGsocks) # "Fisher's Exact Test for Count Data"
+
+```
+
+
+### Ergebnisse
+
+In den erhobenen Daten konnte keine signifikante Assoziation zwischen Kantonangehörigkeit (AG, nicht-AG) und Sockenfarbe (weiss, nicht-weiss) festgestellt werden. Der *p*-Wert von Fishers exaktem Test war nur marginal signifikant (*p* = 0.063). Das nicht-signfikante Resultat überrascht auf den ersten Blick, denn der "odds ratio" im Datensatz ist mit 5.9 relativ hoch und 67 % der Aargauer trugen weisse Socken während nur 24 % der Nicht-Aargauer weisse Socken trugen. Doch war der Anteil von nur 6 Aargauer in der nur 35 Männer umfassenden Stichprobe relativ klein, um ein verlässliches Bild der Sockenpräferenzen der Aargauer zu machen. Insofern leuchtet es ein, das bei dieser kleinen und unausgewogenen Stichprobe die "Power" des satistischen Tests (um die Nullhypothese zu verwerfen) relativ klein ist.
+
+## Musterlösung Übung 1.2: t-Test
+
+
+> Leseempfehlung Kapitel 2 von [Manny Gimond](https://mgimond.github.io/Stats-in-R/z_t_tests.html)
 
 ### Null- und Alternativhypothese
 
-$H_0$: Es gibt keine Unterschiede in den Verkaufszahlen zwischen Basis- und Interventionswochen. 
+$H_0$: Es gibt keine Unterschiede in den Verkaufszahlen zwischen Basis- und Interventionswochen.
 
 $H_1$: Es gibt Unterschiede in den Verkaufszahlen zwischen Basis- und Interventionswochen.
-
-
-
 
 ```{r}
 #| label: fig-ggplot-ex2
@@ -166,17 +219,16 @@ t.test(df[df$condit == "Basis", ]$tot_sold,
                  df[df$condit == "Intervention", ]$tot_sold) 
 ```
 
-### Methoden 
+### Methoden
 
+Ziel war es die aggregierten Verkaufszahlen zwischen den Interventions- und Basiswochen zu vergleichen. Die Annahme ist, dass die wöchentlichen Verkaufszahlen unabhängig sind. Daher können die Unterschiede zwischen den Verkaufszahlen pro Woche zwischen den beiden Bedingungen mittels t-Test geprüft werden. Obwohl die visuelle Inspektion keine schwerwiegenden Verletzungen der Modelvoraussetzung zeigte (mit Ausnahme eines Ausreissers), wurde einen Welch t-Test gerechnet. Zudem muss gesagt werden, dass die Gruppengrösse hier jeweils mit n = 6 (Anzahl Wochen) eher klein ist. T-test liefern dennoch relativ reliable Resultate. Für mehr Infos dazu hier eine [Studie](https://scholarworks.umass.edu/cgi/viewcontent.cgi?article=1307&context=pare).
 
-Ziel war es die aggregierten Verkaufszahlen zwischen den Interventions- und Basiswochen zu vergleichen. Die Annahme ist, dass die wöchentlichen Verkaufszahlen unabhängig sind.  Daher können die Unterschiede zwischen den Verkaufszahlen pro Woche zwischen den beiden Bedingungen mittels t-Test geprüft werden. Obwohl die visuelle Inspektion keine schwerwiegenden Verletzungen der Modelvoraussetzung zeigte (mit Ausnahme eines Ausreissers), wurde einen Welch t-Test gerechnet. Zudem muss gesagt werden, dass die Gruppengrösse hier jeweils mit n = 6 (Anzahl Wochen) eher klein ist. T-test liefern dennoch relativ reliable Resultate. Für mehr Infos dazu hier eine [Studie](https://scholarworks.umass.edu/cgi/viewcontent.cgi?article=1307&context=pare). 
+### Ergebnisse
 
-  
-
-### Ergebnisse 
-
-  
 In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventionswochen (siehe Abbildung 1). Die wöchentlichen Verkaufszahlen zwischen den Bedingungen (Basis oder Intervention) unterscheiden sich gemäss Welch t-Test jedoch nicht signifikant (*p* = .791). Die Ergebnisse könnten mit einem $\chi^2$-Test nochmals validiert werden, da die Gruppengrösse mit n = 6 doch eher klein ist. 
+
+In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventionswochen (siehe Abbildung 1). Die wöchentlichen Verkaufszahlen zwischen den Bedingungen (Basis oder Intervention) unterscheiden sich gemäss Welch t-Test jedoch nicht signifikant (*t*(`r round(t_test$parameter[[1]],digits = 0)`) = `r round(t_test$statistic, digits = 3)` , *p* = `r round(t_test$p.value, digits=3)`). Die Ergebnisse könnten mit einem $\chi^2$-Test nochmals validiert werden, da die Gruppengrösse mit n = 6 doch eher klein ist.
+
 
 ```{r}
 #| purl: false

@@ -3,6 +3,14 @@ date: 2022-10-25
 lesson: InfoVis2
 thema: Vertiefung ggplot
 index: 3
+execute: 
+  echo: true   # set to true to show musterlösung
+  output: false
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
 ---
 
 # Infovis 2: Übung B
@@ -13,6 +21,8 @@ Dazu verwenden wir nach wie vor `ggplot2`, aber mit einigen Tricks.
 
 ```{r}
 #| echo: true
+#| code-fold: false
+
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -46,6 +56,7 @@ So sieht der fertige Plot aus:
 ```{r}
 #| label: fig-ggplot-ex1
 #| fig-cap: "Generierter Plot"
+#| output: true
 
 mtcars2 <- mtcars2 |>
   group_by(car) |>
@@ -92,20 +103,12 @@ beaver_new <- beaver_new |>
     ) 
 ```
 
-Der Datensatz: 
-
-```{r}
-#| echo: false
-#| purl: false
-knitr::kable(head(beaver_new))
-#  formatRound(c("min_dec","hour_min_dec"), 2)
-```
-
 So sieht der fertige Plot aus:
 
 ```{r}
 #| label: fig-ggplot-ex2
 #| fig-cap: "Generierter Plot"
+#| output: true
 
 # Lösung Aufgabe 2
 
@@ -160,12 +163,9 @@ AirPassengers3 <- AirPassengers2 |>
 So sieht der fertige Plot aus: 
 
 ```{r}
-#| purl: false
-#| echo: false
-#| fig.height: 5.0
-#| preview: true
 #| label: fig-ggplot-ex3
 #| fig-cap: "Generierter Plot"
+#| output: true
 
 ggplot(AirPassengers3, aes(month, year, fill = n)) +
   geom_raster() +
@@ -176,5 +176,3 @@ ggplot(AirPassengers3, aes(month, year, fill = n)) +
   coord_equal() +
   theme(axis.title = element_blank(), legend.position = "bottom") 
 ```
-
-
