@@ -42,6 +42,8 @@ library(sjPlot)    # Plotten von Modellergebnissen (tab_model)
 library(lattice)   # einfaches plotten von Zusammenhängen zwischen Variablen
 
 
+
+
 # definiere ein farbset zur wiedervewendung
 mycolors <- c("orangered","gold", "mediumvioletred", "darkblue")
 
@@ -630,9 +632,18 @@ ggsave("Wochengang_Lockdown.png", width=15, height=15, units="cm", dpi=1000,
 
 
 # Statistik: Unterschied WE und WO während Lockdown 1
+x <- depo_d %>% 
+  filter(Phase== "Lockdown_1" & Wochenende == "Werktag")
+y <- depo_d %>% 
+  filter(Phase== "Lockdown_1" & Wochenende == "Wochenende")
+
+t.test(x$Total,y$Total)
+
+#oder alles in einem Schritt
 t.test(depo_d$Total [depo_d$Phase == "Lockdown_1" & depo_d$Wochenende=="Werktag"], 
        depo_d$Total [depo_d$Phase == "Lockdown_1" & depo_d$Wochenende=="Wochenende"])
 
+t.test(a,b)
 
 # 3.3 Tagesgang ####
 # Bei diesen Berechnungen wird jeweils der Mittelwert pro Stunde berechnet. 
