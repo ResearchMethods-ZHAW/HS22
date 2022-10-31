@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Research Methods HS22 - 59&nbsp; 4. Übung</title>
+<title>Research Methods HS22 - 59&nbsp; 4. Einstieg Multivariate Modelle - Übung</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-title">4. Übung</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-title">4. Einstieg Multivariate Modelle - Übung</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -553,18 +553,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../fallstudie_n/3_Berechnung_Homeranges_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Aufgabe 3 Berechnung Homeranges - Übung</span></a>
+  <a href="../fallstudie_n/3_Berechnung_Homeranges_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Berechnung Homeranges - Übung</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../fallstudie_n/3_Berechnung_Homeranges_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Aufgabe 3 Berechnung Homeranges - Lösung</span></a>
+  <a href="../fallstudie_n/3_Berechnung_Homeranges_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Berechnung Homeranges - Lösung</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../fallstudie_n/4_Multivariate_Modelle_Uebung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">4. Übung</span></a>
+  <a href="../fallstudie_n/4_Multivariate_Modelle_Uebung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">4. Einstieg Multivariate Modelle - Übung</span></a>
   </div>
 </li>
       </ul>
@@ -595,7 +595,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-title">4. Übung</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-title">4. Einstieg Multivariate Modelle - Übung</span></h1>
 </div>
 
 
@@ -614,19 +614,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="libraries-laden" class="level3">
 <h3 class="anchored" data-anchor-id="libraries-laden">Libraries laden</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Funktion um Packages direkt zu installieren und / oder</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">### zu laden</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ipak <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg) {</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    new.pkg <span class="ot">&lt;-</span> pkg[<span class="sc">!</span>(pkg <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>])]</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(new.pkg))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">install.packages</span>(new.pkg, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sapply</span>(pkg, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sp"</span>, <span class="st">"raster"</span>, <span class="st">"tidyverse"</span>, <span class="st">"PerformanceAnalytics"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pastecs"</span>, <span class="st">"car"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ipak</span>(packages)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Funktion um Packages direkt zu installieren und / oder zu laden</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ipak <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg){</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  new.pkg <span class="ot">&lt;-</span> pkg[<span class="sc">!</span>(pkg <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>])]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(new.pkg)) </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(new.pkg, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(pkg, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sp"</span>, <span class="st">"raster"</span>, <span class="st">"tidyverse"</span>, <span class="st">"PerformanceAnalytics"</span>, <span class="st">"pastecs"</span>, <span class="st">"car"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ipak</span>(packages)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="aufgabe-1" class="level3">
@@ -643,31 +641,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="aufgabe-3" class="level3">
 <h3 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h3>
-<p>Erstellen von Density Plots der Präsenz / Absenz in Abhängigkeit der unabhängigen Variablen</p>
+<p>Erstellen von Density Plots der Präsenz / Absenz in Abhängigkeit der unabhängigen Variablen. Diese Übung dient einer ersten groben Einschätzung der Wirkung der Umweltvariablen auf die abhängige Variable (Präsenz/Absenz in unserem Fall)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ein Satz Density Plots für den Tagesdatensatz und einer</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># für den Nachtdatensatz</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>) {</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># innerhalb des for()-loops die Nummern der gewünschten</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Spalten einstellen</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> DF_mod_day <span class="sc">%&gt;%</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(i)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> <span class="fu">density</span>(d)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    dp <span class="ot">&lt;-</span> DF_mod_day <span class="sc">%&gt;%</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(pres_abs <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(i)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    dp <span class="ot">&lt;-</span> <span class="fu">density</span>(dp)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    da <span class="ot">&lt;-</span> DF_mod_day <span class="sc">%&gt;%</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(pres_abs <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pull</span>(i)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    da <span class="ot">&lt;-</span> <span class="fu">density</span>(da)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">xlim =</span> <span class="fu">range</span>(<span class="fu">c</span>(dp<span class="sc">$</span>x, da<span class="sc">$</span>x)), <span class="at">ylim =</span> <span class="fu">range</span>(dp<span class="sc">$</span>y,</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        da<span class="sc">$</span>y), <span class="at">xlab =</span> <span class="fu">names</span>(DF_mod_day[i]), <span class="at">ylab =</span> <span class="st">"Density"</span>)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(dp<span class="sc">$</span>x, dp<span class="sc">$</span>y, <span class="at">col =</span> <span class="st">"blue"</span>)  <span class="co"># Präsenz</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(da<span class="sc">$</span>x, da<span class="sc">$</span>y, <span class="at">col =</span> <span class="st">"red"</span>)  <span class="co"># Absenz</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ein Satz Density Plots für den Tagesdatensatz und einer für den Nachtdatensatz </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>) {                           <span class="co"># innerhalb des for()-loops die Nummern der gewünschten Spalten einstellen</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  d  <span class="ot">&lt;-</span>  DF_mod_day <span class="sc">%&gt;%</span> <span class="fu">pull</span>(i)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  d  <span class="ot">&lt;-</span>  <span class="fu">density</span>(d)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  dp  <span class="ot">&lt;-</span>  DF_mod_day <span class="sc">%&gt;%</span> <span class="fu">filter</span>(pres_abs <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(i)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  dp <span class="ot">&lt;-</span> <span class="fu">density</span>(dp)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  da  <span class="ot">&lt;-</span>  DF_mod_day <span class="sc">%&gt;%</span> <span class="fu">filter</span>(pres_abs <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(i)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  da <span class="ot">&lt;-</span> <span class="fu">density</span>(da)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="at">type=</span><span class="st">"l"</span>, <span class="at">xlim=</span><span class="fu">range</span>(<span class="fu">c</span>(dp<span class="sc">$</span>x,da<span class="sc">$</span>x)), <span class="at">ylim=</span><span class="fu">range</span>(dp<span class="sc">$</span>y,da<span class="sc">$</span>y), </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab=</span><span class="fu">names</span>(DF_mod_day[i]), <span class="at">ylab=</span><span class="st">"Density"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(dp<span class="sc">$</span>x, dp<span class="sc">$</span>y, <span class="at">col=</span><span class="st">"blue"</span>)             <span class="co"># Präsenz</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(da<span class="sc">$</span>x, da<span class="sc">$</span>y, <span class="at">col=</span><span class="st">"red"</span>)              <span class="co"># Absenz</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="aufgabe-4" class="level3">
@@ -901,7 +891,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../fallstudie_n/3_Berechnung_Homeranges_Loesung.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">3. Aufgabe 3 Berechnung Homeranges - Lösung</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">3. Berechnung Homeranges - Lösung</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

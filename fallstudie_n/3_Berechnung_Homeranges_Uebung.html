@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Research Methods HS22 - 57&nbsp; 3. Aufgabe 3 Berechnung Homeranges - Übung</title>
+<title>Research Methods HS22 - 57&nbsp; 3. Berechnung Homeranges - Übung</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -137,7 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-title">3. Aufgabe 3 Berechnung Homeranges - Übung</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-title">3. Berechnung Homeranges - Übung</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -554,18 +554,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../fallstudie_n/3_Berechnung_Homeranges_Uebung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">3. Aufgabe 3 Berechnung Homeranges - Übung</span></a>
+  <a href="../fallstudie_n/3_Berechnung_Homeranges_Uebung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">3. Berechnung Homeranges - Übung</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../fallstudie_n/3_Berechnung_Homeranges_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Aufgabe 3 Berechnung Homeranges - Lösung</span></a>
+  <a href="../fallstudie_n/3_Berechnung_Homeranges_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Berechnung Homeranges - Lösung</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../fallstudie_n/4_Multivariate_Modelle_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">4. Übung</span></a>
+  <a href="../fallstudie_n/4_Multivariate_Modelle_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">4. Einstieg Multivariate Modelle - Übung</span></a>
   </div>
 </li>
       </ul>
@@ -595,7 +595,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-title">3. Aufgabe 3 Berechnung Homeranges - Übung</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-title">3. Berechnung Homeranges - Übung</span></h1>
 </div>
 
 
@@ -623,193 +623,112 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sf"</span>, <span class="st">"raster"</span>, <span class="st">"tidyverse"</span>, <span class="st">"adehabitatHR"</span>, <span class="st">"maptools"</span>, <span class="st">"sp"</span>, </span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>              <span class="st">"ggspatial"</span>, <span class="st">"rgeos"</span>, <span class="st">"rgdal"</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ipak</span>(packages)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          sf       raster    tidyverse adehabitatHR     maptools           sp 
-        TRUE         TRUE         TRUE         TRUE         TRUE         TRUE 
-   ggspatial        rgeos        rgdal 
-        TRUE         TRUE         TRUE </code></pre>
-</div>
 </div>
 </section>
 <section id="daten-einlesen" class="level3">
 <h3 class="anchored" data-anchor-id="daten-einlesen">Daten einlesen</h3>
 <p>Einlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Datentypen</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Rehe <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Aufgabe3_Homeranges_Rehe_landforst_20221024.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Rehe)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>spec_tbl_df [1,452 × 23] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
- $ TierID         : chr [1:1452] "RE10" "RE10" "RE10" "RE10" ...
- $ CollarID       : num [1:1452] 13573 13573 13573 13573 13573 ...
- $ UTC_Date       : chr [1:1452] "31.05.2014" "01.06.2014" "01.06.2014" "01.06.2014" ...
- $ UTC_Time       : 'hms' num [1:1452] 23:00:44 02:01:02 05:00:44 08:00:43 ...
-  ..- attr(*, "units")= chr "secs"
- $ LMT_Date       : chr [1:1452] "01.06.2014" "01.06.2014" "01.06.2014" "01.06.2014" ...
- $ LMT_Time       : 'hms' num [1:1452] 00:00:44 03:01:02 06:00:44 09:00:43 ...
-  ..- attr(*, "units")= chr "secs"
- $ Latitude       : num [1:1452] 47.3 47.3 47.3 47.3 47.3 ...
- $ Longitude      : num [1:1452] 8.57 8.57 8.57 8.57 8.57 ...
- $ Height         : num [1:1452] 672 669 689 668 647 ...
- $ DOP            : num [1:1452] 1.8 3.8 3.4 3.2 3.2 1.6 2.4 6.4 2.8 3 ...
- $ X              : num [1:1452] 685838 685842 685877 685827 685763 ...
- $ Y              : num [1:1452] 234281 234287 234300 234281 234264 ...
- $ twilight_start : chr [1:1452] "31.05.2014 03:55" "01.06.2014 03:54" "01.06.2014 03:54" "01.06.2014 03:54" ...
- $ sunrise        : chr [1:1452] "31.05.2014 04:34" "01.06.2014 04:33" "01.06.2014 04:33" "01.06.2014 04:33" ...
- $ sunset         : chr [1:1452] "31.05.2014 20:13" "01.06.2014 20:14" "01.06.2014 20:14" "01.06.2014 20:14" ...
- $ twilight_end   : chr [1:1452] "31.05.2014 20:51" "01.06.2014 20:53" "01.06.2014 20:53" "01.06.2014 20:53" ...
- $ moonilumination: num [1:1452] 0.0667 0.1291 0.1291 0.1291 0.1291 ...
- $ daytime        : chr [1:1452] "N" "N" "T" "T" ...
- $ ActMean        : num [1:1452] 55.5 42 74 63.7 68 ...
- $ Trajectory     : chr [1:1452] "RE10" "RE10" "RE10" "RE10" ...
- $ distance       : num [1:1452] 7.21 37.34 53.49 66.22 92.59 ...
- $ speed          : num [1:1452] 0.000667 0.003463 0.004953 0.006131 0.008574 ...
- $ timelag        : num [1:1452] 10818 10782 10799 10801 10799 ...
- - attr(*, "spec")=
-  .. cols(
-  ..   TierID = col_character(),
-  ..   CollarID = col_double(),
-  ..   UTC_Date = col_character(),
-  ..   UTC_Time = col_time(format = ""),
-  ..   LMT_Date = col_character(),
-  ..   LMT_Time = col_time(format = ""),
-  ..   Latitude = col_double(),
-  ..   Longitude = col_double(),
-  ..   Height = col_double(),
-  ..   DOP = col_double(),
-  ..   X = col_double(),
-  ..   Y = col_double(),
-  ..   twilight_start = col_character(),
-  ..   sunrise = col_character(),
-  ..   sunset = col_character(),
-  ..   twilight_end = col_character(),
-  ..   moonilumination = col_double(),
-  ..   daytime = col_character(),
-  ..   ActMean = col_double(),
-  ..   Trajectory = col_character(),
-  ..   distance = col_double(),
-  ..   speed = col_double(),
-  ..   timelag = col_double()
-  .. )
- - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Rehe <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Aufgabe3_Homeranges_Rehe_landforst_20221024.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Rehe)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="aufgabe-1" class="level3">
 <h3 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h3>
 <p>Im Datensatz Rehe eine neue Spalte mit Datum und Zeit in einer Spalte kreieren. Beim Format hat sich ein Fehler eingeschlichen. Findet ihr ihn?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Rehe <span class="ot">&lt;-</span> Rehe <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">UTC_DateTime =</span> <span class="fu">as.POSIXct</span>(<span class="fu">paste</span>(UTC_Date, UTC_Time), </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Rehe <span class="ot">&lt;-</span> Rehe <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">UTC_DateTime =</span> <span class="fu">as.POSIXct</span>(<span class="fu">paste</span>(UTC_Date, UTC_Time), </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">format =</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="aufgabe-2" class="level3">
 <h3 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h3>
+<p>Mit den folgenden Zeilen können die GPS-Punkte visualisiert werden</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> Rehe<span class="sc">$</span>X[Rehe<span class="sc">$</span>TierID<span class="sc">==</span> <span class="st">"RE13"</span>]    </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> Rehe<span class="sc">$</span>Y[Rehe<span class="sc">$</span>TierID<span class="sc">==</span> <span class="st">"RE13"</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>xy <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span> (x, y, <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(x))))       </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(xy)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>)                             </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">proj4string</span>(xy)<span class="ot">&lt;-</span><span class="fu">CRS</span>(<span class="st">"+init=epsg:21781"</span>)  </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xy, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Hier einige Zeilen Code, um eine HomeRange zu berechnen.</p>
 <p>Herumschrauben an den Einstellungen von:</p>
 <ul>
-<li>href (in der Funktion kernelUD)</li>
 <li>an der Ausdehung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr)</li>
+<li>href (in der Funktion kernelUD)</li>
 </ul>
 <p><strong>–&gt; Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> Rehe<span class="sc">$</span>X[Rehe<span class="sc">$</span>TierID<span class="sc">==</span> <span class="st">"RE13"</span>]    </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> Rehe<span class="sc">$</span>Y[Rehe<span class="sc">$</span>TierID<span class="sc">==</span> <span class="st">"RE13"</span>]</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>xy <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span> (x, y, <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(x))))       </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(xy)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>)                             </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">proj4string</span>(xy)<span class="ot">&lt;-</span><span class="fu">CRS</span>(<span class="st">"+init=epsg:21781"</span>)  </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xy, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="3_Berechnung_Homeranges_Uebung_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung von href nach: Pebsworth et al. (2012) Evaluating home range techniques: </span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># use of Global Positioning System (GPS) collar data from chacma baboons</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.5</span><span class="sc">*</span>(<span class="fu">sd</span>(x)<span class="sc">+</span><span class="fu">sd</span>(y))                              </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>href <span class="ot">&lt;-</span> sigma <span class="sc">*</span> n<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)<span class="sc">*</span><span class="fl">0.9</span>  </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># scaled reference: href * 0.9</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>kud <span class="ot">&lt;-</span> <span class="fu">kernelUD</span>(xy, <span class="at">h=</span>href, <span class="at">grid=</span><span class="dv">25</span>)             </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung der Home Range (95% Isopleth)</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>homerange <span class="ot">&lt;-</span> <span class="fu">getverticeshr</span>(kud, <span class="at">percent=</span><span class="dv">95</span>)             </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Schreibt HR in den oben beschriebenen Ordner (als Shapefile)</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>hr <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(homerange)</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(hr, <span class="at">dsn=</span> <span class="st">"Results"</span>, <span class="at">layer=</span><span class="st">"HR_RE13"</span>, <span class="at">driver=</span><span class="st">"ESRI Shapefile"</span>,  </span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">delete_layer =</span> T )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Deleting layer `HR_RE13' using driver `ESRI Shapefile'
-Writing layer `HR_RE13' to data source `Results' using driver `ESRI Shapefile'
-Writing 1 features with 2 fields and geometry type Polygon.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung von href nach: Pebsworth et al. (2012) Evaluating home range techniques: </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># use of Global Positioning System (GPS) collar data from chacma baboons</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.5</span><span class="sc">*</span>(<span class="fu">sd</span>(x)<span class="sc">+</span><span class="fu">sd</span>(y))                              </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>href <span class="ot">&lt;-</span> sigma <span class="sc">*</span> n<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)<span class="sc">*</span><span class="fl">0.9</span>  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># scaled reference: href * 0.9</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>kud <span class="ot">&lt;-</span> <span class="fu">kernelUD</span>(xy, <span class="at">h=</span>href, <span class="at">grid=</span><span class="dv">25</span>)             </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung der Home Range (95% Isopleth)</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>homerange <span class="ot">&lt;-</span> <span class="fu">getverticeshr</span>(kud, <span class="at">percent=</span><span class="dv">95</span>)             </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Schreibt HR in den oben beschriebenen Ordner (als Shapefile)</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>hr <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(homerange)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(hr, <span class="at">dsn=</span> <span class="st">"Results"</span>, <span class="at">layer=</span><span class="st">"HR_RE13"</span>, <span class="at">driver=</span><span class="st">"ESRI Shapefile"</span>,  </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">delete_layer =</span> T )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mit diesem Befehl kann die HR geplottet werden</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hr, <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">fill=</span><span class="st">"red"</span>)) <span class="sc">+</span> </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_sf</span>(<span class="at">datum =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="dv">21781</span>))<span class="sc">+</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="at">legend.position=</span><span class="st">"none"</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="3_Berechnung_Homeranges_Uebung_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># und die Punkte der GPS-Lokalisationen darüber gelegt werden </span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>xy_p <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(xy)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hr, <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">fill=</span><span class="st">"red"</span>)) <span class="sc">+</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_sf</span>(<span class="at">data =</span> xy_p, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"red"</span>)) <span class="sc">+</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_sf</span>(<span class="at">datum =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="dv">21781</span>))<span class="sc">+</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="at">legend.position=</span><span class="st">"none"</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="3_Berechnung_Homeranges_Uebung_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
-</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mit diesem Befehl kann die HR geplottet werden</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hr, <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">fill=</span><span class="st">"red"</span>)) <span class="sc">+</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_sf</span>(<span class="at">datum =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="dv">21781</span>))<span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="at">legend.position=</span><span class="st">"none"</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># und die Punkte der GPS-Lokalisationen darüber gelegt werden </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>xy_p <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(xy)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hr, <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">fill=</span><span class="st">"red"</span>)) <span class="sc">+</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_sf</span>(<span class="at">data =</span> xy_p, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_sf</span>(<span class="at">datum =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="dv">21781</span>))<span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="at">legend.position=</span><span class="st">"none"</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Code um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann mit alpha angepasst werden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>pk25_wpz <span class="ot">&lt;-</span> <span class="fu">brick</span>(<span class="st">"fallstudie_n/data/pk25_wpz.tif"</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>xy_p <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(xy)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hr, <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">fill=</span><span class="st">"red"</span>)) <span class="sc">+</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">annotation_spatial</span>(pk25_wpz) <span class="sc">+</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_sf</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_sf</span>(<span class="at">data =</span> xy_p, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"red"</span>)) <span class="sc">+</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_sf</span>(<span class="at">datum =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="dv">21781</span>))<span class="sc">+</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="at">legend.position=</span><span class="st">"none"</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="3_Berechnung_Homeranges_Uebung_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
-</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pk25_wpz <span class="ot">&lt;-</span> <span class="fu">brick</span>(<span class="st">"fallstudie_n/data/pk25_wpz.tif"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>xy_p <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(xy)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hr, <span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">fill=</span><span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">annotation_spatial</span>(pk25_wpz) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_sf</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_sf</span>(<span class="at">data =</span> xy_p, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_sf</span>(<span class="at">datum =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="dv">21781</span>))<span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="at">legend.position=</span><span class="st">"none"</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nachbauen des Sampling Grids mit den Kreisen (Wird als Grundlage für Extraktion der Umweltvariablen innerhalb der Homeranges benötigt)</p>
 <ul>
@@ -818,45 +737,37 @@ Writing 1 features with 2 fields and geometry type Polygon.</code></pre>
 <li>Anzahl Kreise in X und Y Richtung: c(100, 160)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>x25       <span class="ot">&lt;-</span> <span class="fu">GridTopology</span>(<span class="fu">c</span>(<span class="dv">684000</span>, <span class="dv">234000</span>), <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">25</span>), <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">160</span>)) </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>data25    <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="dv">1</span><span class="sc">:</span>(<span class="dv">100</span><span class="sc">*</span><span class="dv">160</span>))           </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt aus der GridTopology und den Daten ein SpatialGridDataFrame</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>grid25    <span class="ot">&lt;-</span> <span class="fu">SpatialGridDataFrame</span>(x25, data25,  proj4string <span class="ot">&lt;-</span> <span class="fu">CRS</span>(<span class="st">"+init=epsg:21781"</span>))</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>pixel25   <span class="ot">&lt;-</span> <span class="fu">as</span>(grid25, <span class="st">"SpatialPixelsDataFrame"</span>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># zweites Sampling Grid für einen Ausschnitt aufbauen, plotten</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># -&gt; dient nur der Visualisierung des Sampling Grids um einen Eindruck zu erhalten</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>x       <span class="ot">&lt;-</span> <span class="fu">GridTopology</span>(<span class="fu">c</span>(<span class="dv">684200</span>, <span class="dv">236900</span>), <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">25</span>), <span class="fu">c</span>(<span class="dv">35</span>, <span class="dv">35</span>)) </span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>data    <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="dv">1</span><span class="sc">:</span>(<span class="dv">35</span><span class="sc">*</span><span class="dv">35</span>))           </span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt aus der GridTopology und den Daten ein SpatialGridDataFrame</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>grid    <span class="ot">&lt;-</span> <span class="fu">SpatialGridDataFrame</span>(x, data,  proj4string <span class="ot">&lt;-</span> <span class="fu">CRS</span>(<span class="st">"+init=epsg:21781"</span>))</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>pixel  <span class="ot">&lt;-</span> <span class="fu">as</span>(grid, <span class="st">"SpatialPixelsDataFrame"</span>)</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> <span class="fu">as</span>(pixel, <span class="st">"SpatialPointsDataFrame"</span>)</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>grid_plot <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(<span class="fu">st_as_sf</span>(points), <span class="fl">12.5</span>)</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(grid_plot))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="3_Berechnung_Homeranges_Uebung_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grid_plot, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill=</span><span class="cn">NA</span>) <span class="sc">+</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_sf</span>(<span class="at">data =</span> xy_p, <span class="at">color =</span> <span class="st">"blue"</span>,  ) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> hr, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_sf</span>(<span class="at">datum =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="dv">21781</span>))<span class="sc">+</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="at">legend.position=</span><span class="st">"none"</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="3_Berechnung_Homeranges_Uebung_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
-</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x25       <span class="ot">&lt;-</span> <span class="fu">GridTopology</span>(<span class="fu">c</span>(<span class="dv">684000</span>, <span class="dv">234000</span>), <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">25</span>), <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">160</span>)) </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data25    <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="dv">1</span><span class="sc">:</span>(<span class="dv">100</span><span class="sc">*</span><span class="dv">160</span>))           </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt aus der GridTopology und den Daten ein SpatialGridDataFrame</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>grid25    <span class="ot">&lt;-</span> <span class="fu">SpatialGridDataFrame</span>(x25, data25,  proj4string <span class="ot">&lt;-</span> <span class="fu">CRS</span>(<span class="st">"+init=epsg:21781"</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>pixel25   <span class="ot">&lt;-</span> <span class="fu">as</span>(grid25, <span class="st">"SpatialPixelsDataFrame"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># zweites Sampling Grid für einen Ausschnitt aufbauen, plotten</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># -&gt; dient nur der Visualisierung des Sampling Grids um einen Eindruck zu erhalten</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>x       <span class="ot">&lt;-</span> <span class="fu">GridTopology</span>(<span class="fu">c</span>(<span class="dv">684200</span>, <span class="dv">236900</span>), <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">25</span>), <span class="fu">c</span>(<span class="dv">35</span>, <span class="dv">35</span>)) </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>data    <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="dv">1</span><span class="sc">:</span>(<span class="dv">35</span><span class="sc">*</span><span class="dv">35</span>))           </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Erstellt aus der GridTopology und den Daten ein SpatialGridDataFrame</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>grid    <span class="ot">&lt;-</span> <span class="fu">SpatialGridDataFrame</span>(x, data,  proj4string <span class="ot">&lt;-</span> <span class="fu">CRS</span>(<span class="st">"+init=epsg:21781"</span>))</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>pixel  <span class="ot">&lt;-</span> <span class="fu">as</span>(grid, <span class="st">"SpatialPixelsDataFrame"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> <span class="fu">as</span>(pixel, <span class="st">"SpatialPointsDataFrame"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>grid_plot <span class="ot">&lt;-</span> <span class="fu">st_buffer</span>(<span class="fu">st_as_sf</span>(points), <span class="fl">12.5</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(grid_plot))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grid_plot, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill=</span><span class="cn">NA</span>) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_sf</span>(<span class="at">data =</span> xy_p, <span class="at">color =</span> <span class="st">"blue"</span>,  ) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> hr, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_sf</span>(<span class="at">datum =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="dv">21781</span>))<span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="at">legend.position=</span><span class="st">"none"</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="aufgabe-3" class="level3">
@@ -864,24 +775,9 @@ Writing 1 features with 2 fields and geometry type Polygon.</code></pre>
 <p>Testen der Variablen der Vegetationsschichten von letzter Woche auf einen linearen Zusammenhang (Korrelation; Funktion cor.test). DG_Baumschicht vs.&nbsp;DG_os / DG_Strauchschicht vs.&nbsp;DG_us aus dem Datensatz df_with_lidar den wir letzte Woche erstellt haben</p>
 <p><strong>Die Theorie zu Korrelation folgt erst ab 31.10.</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>df_with_lidar <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/df_with_lidar.csv"</span>, <span class="at">delim =</span><span class="st">";"</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="sc">~</span> DG_Strauchschicht<span class="sc">+</span>DG_us, <span class="at">data =</span> df_with_lidar, <span class="at">method=</span><span class="st">"pearson"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's product-moment correlation
-
-data:  DG_Strauchschicht and DG_us
-t = 2.6184, df = 148, p-value = 0.009753
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- 0.05190297 0.35858387
-sample estimates:
-      cor 
-0.2104143 </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_with_lidar <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/df_with_lidar.csv"</span>, <span class="at">delim =</span><span class="st">";"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="sc">~</span> DG_Strauchschicht<span class="sc">+</span>DG_us, <span class="at">data =</span> df_with_lidar, <span class="at">method=</span><span class="st">"pearson"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -1108,7 +1004,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../fallstudie_n/3_Berechnung_Homeranges_Loesung.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-title">3. Aufgabe 3 Berechnung Homeranges - Lösung</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-title">3. Berechnung Homeranges - Lösung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
