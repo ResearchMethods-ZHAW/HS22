@@ -3,13 +3,15 @@ execute:
   echo: true
 ---
 
-# 3. Aufgabe 3 Berechnung Homeranges - Übung
+# 3. Berechnung Homeranges - Übung
 
 ## Berechung der Home-Ranges der Rehe 
 
 ### Libraries laden
 
 ```{r}
+#| output: false
+
 ipak <- function(pkg){
 new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
 if (length(new.pkg))
@@ -19,6 +21,7 @@ sapply(pkg, require, character.only = TRUE)
 packages <- c("sf", "raster", "tidyverse", "adehabitatHR", "maptools", "sp", 
               "ggspatial", "rgeos", "rgdal")
 ipak(packages)
+
 ```
 
 ### Daten einlesen
@@ -26,7 +29,6 @@ ipak(packages)
 Einlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Datentypen
 
 ```{r}
-
 #| output: false
 
 Rehe <- read_delim("fallstudie_n/data/Aufgabe3_Homeranges_Rehe_landforst_20221024.csv", delim = ";")
@@ -50,7 +52,6 @@ Rehe <- Rehe %>%
 Mit den folgenden Zeilen können die GPS-Punkte visualisiert werden
 
 ```{r}
-
 #| output: false
 
 x <- Rehe$X[Rehe$TierID== "RE13"]    
@@ -75,6 +76,7 @@ Herumschrauben an den Einstellungen von:
 **--> Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
 
 ```{r}
+#| output: false
 
 # Berechnung von href nach: Pebsworth et al. (2012) Evaluating home range techniques: 
 # use of Global Positioning System (GPS) collar data from chacma baboons
@@ -100,7 +102,6 @@ st_write(hr, dsn= "Results", layer="HR_RE13", driver="ESRI Shapefile",
 ```
 
 ```{r}
-
 #| output: false
 
 # mit diesem Befehl kann die HR geplottet werden
@@ -134,7 +135,6 @@ legend.position="none"
 Code um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann mit alpha angepasst werden.
 
 ```{r}
-
 #| output: false
 
 pk25_wpz <- brick("fallstudie_n/data/pk25_wpz.tif")
@@ -161,7 +161,6 @@ Nachbauen des Sampling Grids mit den Kreisen (Wird als Grundlage für Extraktion
 - Anzahl Kreise in X und Y Richtung: c(100, 160)
 
 ```{r}
-
 #| output: false
 
 x25       <- GridTopology(c(684000, 234000), c(25, 25), c(100, 160)) 
@@ -205,7 +204,6 @@ Testen der Variablen der Vegetationsschichten von letzter Woche auf einen linear
 **Die Theorie zu Korrelation folgt erst ab 31.10.**
 
 ```{r}
-
 #| output: false
 
 df_with_lidar <- read_delim("fallstudie_n/data/df_with_lidar.csv", delim =";")

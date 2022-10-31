@@ -3,13 +3,14 @@ execute:
   echo: true
 ---
 
-# 3. Aufgabe 3 Berechnung Homeranges - Lösung
+# 3. Berechnung Homeranges - Lösung
 
 ## Berechung der Home-Ranges der Rehe 
 
 ### Libraries laden
 
 ```{r}
+#| output: false
 
 ipak <- function(pkg){
 new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
@@ -27,11 +28,9 @@ ipak(packages)
 Einlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Datentypen
 
 ```{r}
-
 #| output: false
 
-
-Rehe <- read_delim("data/Aufgabe3_Homeranges_Rehe_landforst_20221024.csv", delim = ";")
+Rehe <- read_delim("fallstudie_n/data/Aufgabe3_Homeranges_Rehe_landforst_20221024.csv", delim = ";")
 
 str(Rehe)
 ```
@@ -132,7 +131,7 @@ Code um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann m
 
 ```{r}
 #| tidy: true
-pk25_wpz <- brick("data/pk25_wpz.tif")
+pk25_wpz <- brick("fallstudie_n/data/pk25_wpz.tif")
 
 xy_p <- st_as_sf(xy)
 
@@ -196,11 +195,11 @@ legend.position="none"
 
 Testen der Variablen der Vegetationsschichten von letzter Woche auf einen linearen Zusammenhang (Korrelation; Funktion cor.test). DG_Baumschicht vs. DG_os / DG_Strauchschicht vs. DG_us aus dem Datensatz df_with_lidar den wir letzte Woche erstellt haben
 
-Die Theorie zu Korrelation folgt erst ab 1.11
+Die Theorie zu Korrelation folgt erst ab 31.10.
 
 ```{r}
 
-df_with_lidar <- read_delim("data/df_with_lidar.csv", delim =";")
+df_with_lidar <- read_delim("fallstudie_n/data/df_with_lidar.csv", delim =";")
 
 library(pastecs)
 
