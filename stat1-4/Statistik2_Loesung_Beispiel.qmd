@@ -3,22 +3,18 @@ date: 2022-11-01
 lesson: Stat2
 thema: Einführung in lineare Modelle
 index: 3
+format:
+  html:
+    code-tools:
+      source: true
 ---
 
 # Stat2: Lösung Beispiel
 
-```{r}
-#| echo: false
-#| results: hide
-#| purl: false
-options(knitr.duplicate.label = "allow")
-knitr::purl("stat1-4/Statistik2_Loesung_Beispiel.qmd", "purl/Statistik2_Loesung_Beispiel.R", documentation = 0)
-```
-
 ## Musterlösung Beispiel
-- Datensatz [decay.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=606697)
-- [RCode als Download](../purl/Statistik2_Loesung_Beispiel.R)
-- [Lösungstext Beispiel](Statistik_Loesung_Beispiel.pdf)
+
+- Download dieses Lösungsscripts via "\</\>Code" (oben rechts)
+- [Lösungstext als Download](Statistik_Loesung_Beispiel.pdf)
 
 ### Übungsaufgabe 
 _**(hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)**_
@@ -56,7 +52,7 @@ Vorgehen dokumentieren.
 
 ```{r}
 #| include: false
-decay <- read.delim("data/decay.csv",sep = ",")
+decay <- read.delim("datasets/statistik/decay.csv",sep = ",")
 decay
 ```
 
@@ -133,7 +129,7 @@ hist(decay$amount)
 hist(log(decay$amount))
 ```
 
-_Die log-transformierte Variante rechts sieht sowohl im Boxplot als auch im #Histogramm viel symmetrischer/besser normalverteilt aus. Damit ergibt sich #dann folgendes lineares Modell_
+_Die log-transformierte Variante rechts sieht sowohl im Boxplot als auch im Histogramm viel symmetrischer/besser normalverteilt aus. Damit ergibt sich dann folgendes lineares Modell_
 
 ```{r} 
 lm.2 <- lm(log(amount)~time, data = decay)

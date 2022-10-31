@@ -11,6 +11,10 @@ format:
 
 # Stat2: Demo
 
+- Download dieses Demoscripts via "\</\>Code" (oben rechts)
+- Datensatz für Korrelationen: [Nitrogen.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=667107)
+- Datensatz für 3-fach-Interaktion: [Riesch_et_al_ReMe_Extract.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=667102)
+
 ## t-test als ANOVA
 
 ```{r}
@@ -97,10 +101,6 @@ boxplot(Sepal.Width ~ Species, ylim = c(2, 5), data = iris)
 text(1, 4.8, "a")
 text(2, 4.8, "c")
 text(3, 4.8, "b")
-
-
-
-
 ```
 
 Derselbe Plot mit ggplot
@@ -120,7 +120,6 @@ ggplot(iris, aes(Species, Sepal.Width)) +
 ## Klassische Tests der Modellannahmen (NICHT EMPFOHLEN!!!)
 
 ```{r}
-
 #  Shapiro-Wilk Test auf Normalverteilung
 # Pro Kategorie!
 # (H0 = Notmalverteilung)
@@ -144,7 +143,6 @@ library(car)
 leveneTest(blume2$size[blume2$cultivar == "a"],
            blume2$size[blume2$cultivar == "b"],
            center=mean)
-
 ```
 
 ## Nicht-parametrische Alternativen, wenn Modellannahmen der ANVOA massiv verletzt sind
@@ -200,8 +198,6 @@ blume3 <- data.frame(cultivar = c(rep("a", 20), rep("b", 20), rep("c", 20)),
 blume3
 ```
 
-**Datensatz für 3-fach-Interaktion: [Riesch_et_al_ReMe_Extract.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=667102)**
-
 ```{r}
 #| label: fig-baseplot-anova
 #| fig-cap: "Generierter Plot"
@@ -241,7 +237,7 @@ plot_model(aov, type = "pred", terms = c("cultivar", "house") )
 
 #Datensatz zum Einfluss von Management und Hirschbeweidung auf den Pflanzenartenreichtum
 
-Riesch <- read.delim("./datasets/statistik/Riesch_et_al_ReMe_Extract.csv", sep=";", stringsAsFactors = TRUE)
+Riesch <- read.delim("datasets/statistik/Riesch_et_al_ReMe_Extract.csv", sep=";", stringsAsFactors = TRUE)
 str(Riesch)
 
 aov.deer <- aov(Species.richness ~ Year * Treatment * Plot.type, data = Riesch)
@@ -251,13 +247,11 @@ plot_model(aov.deer, type = "pred", terms = c("Year", "Treatment", "Plot.type"))
 
 ## Korrelationen
 
-**Datensatz für Korrelationen: [Riesch_et_al_ReMe_Extract.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=667107)**
-
 ```{r}
 ##Korrelationen und Regressionen
 
 # Datensatz zum Einfluss von Stickstoffdepositionen auf den Pflanzenartenreichtum
-df <- read.delim("./datasets/statistik/Nitrogen.csv", sep=";")
+df <- read.delim("datasets/statistik/Nitrogen.csv", sep=";")
 summary(df)
 
 #Plotten der Beziehung
@@ -284,11 +278,9 @@ anova(lm) #ANOVA-Tabelle, 1. Möglichkeit
 summary.aov(lm) #ANOVA-Tabelle, 2. Möglichkeit
 summary(lm) #Regressionskoeffizienten
 
-
 #Signifikantes Ergebnis visualisieren
 plot(Species.richness~N.deposition, data = df)
 abline(lm)
-
 ```
 
 ## Beispiele Modelldiagnostik

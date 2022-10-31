@@ -3,20 +3,15 @@ date: 2022-11-14
 lesson: Stat5
 thema: Von linearen Modellen zu GLMMs
 index: 1
+format:
+  html:
+    code-tools:
+      source: true
 ---
 
 # Stat5: Demo
 
-```{r}
-#| echo: false
-#| results: hide
-#| purl: false
-options(knitr.duplicate.label = "allow")
-knitr::purl("stat5-8/Statistik5_Demo.qmd", "purl/Statistik5_Demo.R", documentation = 0)
-```
-
-# Von linearen Modellen zu GLMMs
-- [Demoscript als Download](../purl/Statistik5_Demo.R)
+- Download dieses Demoscripts via "\</\>Code" (oben rechts)
 - Datensatz [spf.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=606657)
 - Datensatz [DeerEcervi.txt](https://moodle.zhaw.ch/mod/resource/view.php?id=606658)
 
@@ -27,7 +22,7 @@ Based on Logan (2010), Chapter 14
 #| label: fig-interaction-plot-anova
 #| fig-cap: "Generierter Plot"
 
-spf <- read.delim("data/spf.csv", sep = ";") 
+spf <- read.delim("datasets/statistik/spf.csv", sep = ";") 
 spf.aov <- aov(Reaktion~Signal * Messung + Error(VP), data = spf)
 summary(spf.aov)
 
@@ -53,7 +48,7 @@ summary(spf.lme.2)
 Based on Zuur et al. (2009), chapter 13
 
 ```{r}
-DeerEcervi <- read.delim("data/DeerEcervi.txt", sep = "", stringsAsFactors = T)
+DeerEcervi <- read.delim("datasets/statistik/DeerEcervi.txt", sep = "", stringsAsFactors = T)
 
 # Anzahl Larven hier in Presence/Absence übersetzt
 DeerEcervi$Ecervi.01 <- DeerEcervi$Ecervi

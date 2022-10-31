@@ -7,18 +7,10 @@ index: 3
 
 # Stat7: Lösung
 
-```{r}
-#| echo: false
-#| results: hide
-#| purl: false
-options(knitr.duplicate.label = "allow")
-knitr::purl("stat5-8/Statistik7_Loesung.qmd", "purl/Statistik7_Loesung.R", documentation = 0)
-```
+- Download dieses Lösungsscripts via "\</\>Code" (oben rechts)
+- [Lösungstext als Download](Statistik_Loesungstext_7.1.pdf)
 
 ## Musterlösung Aufgabe 7.1: RDA
-
-- [R-Skript als Download](../purl/Statistik7_Loesung.R)
-- [Lösungstext](Statistik_Loesungstext_7.1.pdf)
 
 **Übungsaufgabe (hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)**
 
@@ -118,7 +110,7 @@ text(-0.82, 0.55, "b", cex = 1.5)
 ## Triplots of the rda results (wa scores)
 ## Site scores as weighted averages (vegan's default)
 # Scaling 1 :  distance triplot
-dev.new(title = "RDA scaling 2 + wa",width = 7, height = 6, noRStudioGD = TRUE)
+#dev.new(title = "RDA scaling 2 + wa",width = 7, height = 6, noRStudioGD = TRUE)
 
 # Scaling 2 (default) :  correlation triplot
 plot(spe.rda, main = "Triplot RDA spe.hel ~ env3 - scaling 2 - wa scores")
@@ -138,7 +130,7 @@ sel.sp
 # Triplots with homemade function triplot.rda()
 source("triplot.rda.R")
 
-dev.new(title = "RDA plot with triplot.rda", width = 7, height = 6, noRStudioGD = TRUE)
+# dev.new(title = "RDA plot with triplot.rda", width = 7, height = 6, noRStudioGD = TRUE)
 
 triplot.rda(spe.rda, site.sc = "lc", cex.char2 = 0.7, pos.env = 3, 
             pos.centr = 1, mult.arrow = 1.1, mar.percent = 0.05, select.spe = sel.sp)
@@ -179,7 +171,7 @@ anova(spechem.physio2, permutations = how(nperm = 999), by = "axis")
 
 # Partial RDA triplots (with fitted site scores) 
 # with function triplot.rda
-dev.new(title = "Partial RDA", width = 7, height = 6, noRStudioGD = TRUE)
+# dev.new(title = "Partial RDA", width = 7, height = 6, noRStudioGD = TRUE)
 
 triplot.rda(spechem.physio, site.sc = "lc", scaling = 2, 
             cex.char2 = 0.8, pos.env = 3, mult.spe = 1.1, mar.percent = 0.04)
@@ -196,7 +188,7 @@ __Varianzpartitionierung__
 (spe.part.all <- varpart(spe.hel, envchem, envtopo))
 
 # Plot of the partitioning results
-dev.new(title = "Variation partitioning", width = 7, height = 7, noRStudioGD = TRUE)
+# dev.new(title = "Variation partitioning", width = 7, height = 7, noRStudioGD = TRUE)
 
 plot(spe.part.all, digits = 2, bg = c("red", "blue"),
      Xnames = c("Chemistry", "Physiography"), id.size = 0.7)
