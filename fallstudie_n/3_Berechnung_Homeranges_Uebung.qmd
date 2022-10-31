@@ -45,16 +45,11 @@ Rehe <- Rehe %>%
 
 ### Aufgabe 2
 
-Hier einige Zeilen Code, um eine HomeRange zu berechnen.
-
-Herumschrauben an den Einstellungen von: 
-
-- href (in der Funktion kernelUD)
-- an der Ausdehung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr) 
-
-**--> Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
+Mit den folgenden Zeilen können die GPS-Punkte visualisiert werden
 
 ```{r}
+
+#| output: false
 
 x <- Rehe$X[Rehe$TierID== "RE13"]    
 y <- Rehe$Y[Rehe$TierID== "RE13"]
@@ -63,6 +58,21 @@ coordinates(xy)<-c("x","y")
 proj4string(xy)<-CRS("+init=epsg:21781")  
 
 plot(xy, col = "blue", pch = 19, cex = 1.5)
+
+```
+
+
+Hier einige Zeilen Code, um eine HomeRange zu berechnen.
+
+Herumschrauben an den Einstellungen von: 
+
+- an der Ausdehung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr) 
+- href (in der Funktion kernelUD)
+
+
+**--> Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
+
+```{r}
 
 # Berechnung von href nach: Pebsworth et al. (2012) Evaluating home range techniques: 
 # use of Global Positioning System (GPS) collar data from chacma baboons
@@ -89,6 +99,7 @@ st_write(hr, dsn= "Results", layer="HR_RE13", driver="ESRI Shapefile",
 
 ```{r}
 
+#| output: false
 
 # mit diesem Befehl kann die HR geplottet werden
 
@@ -122,7 +133,7 @@ Code um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann m
 
 ```{r}
 
-
+#| output: false
 
 pk25_wpz <- brick("fallstudie_n/data/pk25_wpz.tif")
 
@@ -149,7 +160,7 @@ Nachbauen des Sampling Grids mit den Kreisen (Wird als Grundlage für Extraktion
 
 ```{r}
 
-
+#| output: false
 
 x25       <- GridTopology(c(684000, 234000), c(25, 25), c(100, 160)) 
 data25    = data.frame(1:(100*160))           
@@ -193,7 +204,7 @@ Testen der Variablen der Vegetationsschichten von letzter Woche auf einen linear
 
 ```{r}
 
-#| eval: false
+#| output: false
 
 df_with_lidar <- read_delim("fallstudie_n/data/df_with_lidar.csv", delim =";")
 
