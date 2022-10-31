@@ -615,7 +615,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <ul>
-<li>Download dieses Demoscripts via “&lt;/&gt;Code” (oben rechts)</li>
+<li>Download dieses Demoscript via “&lt;/&gt;Code” (oben rechts)</li>
 <li>Datensatz <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=606667">Doubs.RData</a></li>
 <li>Funktion <a href="triplot.rda.R">triplot.rda.R</a></li>
 </ul>
@@ -714,34 +714,32 @@ REML score: 161.1293     </code></pre>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>mmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(mde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Run 0 stress 0.1478603 
-Run 1 stress 0.1949618 
-Run 2 stress 0.1471649 
-... New best solution
-... Procrustes: rmse 0.01167357  max resid 0.06931161 
-Run 3 stress 0.1940968 
-Run 4 stress 0.177165 
+Run 1 stress 0.1489369 
+Run 2 stress 0.1973136 
+Run 3 stress 0.1782522 
+Run 4 stress 0.1724307 
 Run 5 stress 0.1462813 
 ... New best solution
-... Procrustes: rmse 0.03034379  max resid 0.1479779 
-Run 6 stress 0.1847216 
-Run 7 stress 0.1462959 
-... Procrustes: rmse 0.002048816  max resid 0.01256202 
-Run 8 stress 0.1478582 
-Run 9 stress 0.1478583 
-Run 10 stress 0.1658979 
-Run 11 stress 0.1853605 
-Run 12 stress 0.1912425 
-Run 13 stress 0.1724489 
-Run 14 stress 0.1602716 
-Run 15 stress 0.1645185 
-Run 16 stress 0.1489369 
-Run 17 stress 0.187806 
-Run 18 stress 0.1471696 
-Run 19 stress 0.1603385 
-Run 20 stress 0.1489369 
+... Procrustes: rmse 0.02537654  max resid 0.1451231 
+Run 6 stress 0.1477796 
+Run 7 stress 0.1664509 
+Run 8 stress 0.1462959 
+... Procrustes: rmse 0.002036185  max resid 0.0124776 
+Run 9 stress 0.193001 
+Run 10 stress 0.1882294 
+Run 11 stress 0.1471697 
+Run 12 stress 0.1602714 
+Run 13 stress 0.1877255 
+Run 14 stress 0.1471305 
+Run 15 stress 0.1478582 
+Run 16 stress 0.1943639 
+Run 17 stress 0.148944 
+Run 18 stress 0.1881551 
+Run 19 stress 0.1966806 
+Run 20 stress 0.1611976 
 *** No convergence -- monoMDS stopping criteria:
-    16: stress ratio &gt; sratmax
-     4: scale factor of the gradient &lt; sfgrmin</code></pre>
+    15: stress ratio &gt; sratmax
+     5: scale factor of the gradient &lt; sfgrmin</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MASS)){<span class="fu">install.packages</span>(<span class="st">"MASS"</span>)}</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
@@ -766,7 +764,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 5.99  total = 6.99 
 
-REML score: 41.84464     </code></pre>
+REML score: 41.84456     </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(mmds, ssit<span class="sc">$</span>Waterlev.av,<span class="at">add =</span> T, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -780,7 +778,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 6.32  total = 7.32 
 
-REML score: 168.9814     </code></pre>
+REML score: 168.9824     </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imds<span class="sc">$</span>points)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(imds, ssit<span class="sc">$</span>pH.peat, <span class="at">add =</span> T)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1086,11 +1084,11 @@ Number of permutations: 999
 Model: rda(formula = spe.hel ~ ele + slo + dis + pH + har + pho + nit + amm + oxy + bod, data = env3)
          Df Variance       F Pr(&gt;F)    
 RDA1      1 0.228083 26.6105  0.001 ***
-RDA2      1 0.053698  6.2649  0.008 ** 
-RDA3      1 0.032119  3.7473  0.353    
-RDA4      1 0.023206  2.7074  0.786    
-RDA5      1 0.008699  1.0149  0.999    
-RDA6      1 0.007218  0.8421  0.999    
+RDA2      1 0.053698  6.2649  0.003 ** 
+RDA3      1 0.032119  3.7473  0.334    
+RDA4      1 0.023206  2.7074  0.748    
+RDA5      1 0.008699  1.0149  1.000    
+RDA6      1 0.007218  0.8421  1.000    
 RDA7      1 0.004869  0.5681  1.000    
 RDA8      1 0.002924  0.3412  1.000    
 RDA9      1 0.002141  0.2498  1.000    
@@ -1196,12 +1194,12 @@ Number of permutations: 999
 Model: rda(formula = spe.hel ~ pH + har + pho + nit + amm + oxy + bod + Condition(ele + slo + dis), data = env2)
          Df Variance       F Pr(&gt;F)    
 RDA1      1 0.091363 12.3078  0.001 ***
-RDA2      1 0.045904  6.1839  0.011 *  
-RDA3      1 0.009277  1.2497  0.966    
-RDA4      1 0.006250  0.8420  0.997    
-RDA5      1 0.003868  0.5210  1.000    
-RDA6      1 0.002145  0.2890  0.999    
-RDA7      1 0.001424  0.1919  0.997    
+RDA2      1 0.045904  6.1839  0.015 *  
+RDA3      1 0.009277  1.2497  0.967    
+RDA4      1 0.006250  0.8420  0.992    
+RDA5      1 0.003868  0.5210  0.999    
+RDA6      1 0.002145  0.2890  1.000    
+RDA7      1 0.001424  0.1919  0.999    
 Residual 18 0.133617                   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
@@ -1610,7 +1608,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat7: Demo</span></span>
 <span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Demoscripts via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
 <span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz <span class="co">[</span><span class="ot">Doubs.RData</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=606667)</span></span>
 <span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Funktion <span class="co">[</span><span class="ot">triplot.rda.R</span><span class="co">](triplot.rda.R)</span></span>
 <span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a></span>
