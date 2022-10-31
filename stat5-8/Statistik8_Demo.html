@@ -579,16 +579,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#cluster-analysen" id="toc-cluster-analysen" class="nav-link active" data-scroll-target="#cluster-analysen">Cluster-Analysen</a>
-  <ul class="collapse">
-  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">k-means clustering</a></li>
+  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link active" data-scroll-target="#k-means-clustering">k-means clustering</a></li>
   <li><a href="#agglomarative-clusteranalyse" id="toc-agglomarative-clusteranalyse" class="nav-link" data-scroll-target="#agglomarative-clusteranalyse">Agglomarative Clusteranalyse</a></li>
   <li><a href="#dendogramme-berechnen-und-ploten" id="toc-dendogramme-berechnen-und-ploten" class="nav-link" data-scroll-target="#dendogramme-berechnen-und-ploten">Dendogramme berechnen und ploten</a></li>
   <li><a href="#cophenetic-correlations" id="toc-cophenetic-correlations" class="nav-link" data-scroll-target="#cophenetic-correlations">Cophenetic correlations</a></li>
   <li><a href="#optimale-anzahl-cluster" id="toc-optimale-anzahl-cluster" class="nav-link" data-scroll-target="#optimale-anzahl-cluster">Optimale Anzahl Cluster</a></li>
   <li><a href="#final-dendrogram-with-the-selected-clusters" id="toc-final-dendrogram-with-the-selected-clusters" class="nav-link" data-scroll-target="#final-dendrogram-with-the-selected-clusters">Final dendrogram with the selected clusters</a></li>
   <li><a href="#miscellaneous-graphical-outputs" id="toc-miscellaneous-graphical-outputs" class="nav-link" data-scroll-target="#miscellaneous-graphical-outputs">Miscellaneous graphical outputs</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -597,7 +594,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-title">Stat8: Demo</span></h1>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-title">Stat8: Demo</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -617,13 +614,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell">
-
-</div>
-<section id="cluster-analysen" class="level1">
-<h1>Cluster-Analysen</h1>
 <ul>
-<li><a href="../purl/Statistik8_Demo.R">Demoscript als Download</a></li>
+<li>Download dieses Demoscripts via “&lt;/&gt;Code” (oben rechts)</li>
 <li>Datensatz <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=606667">Doubs.RData</a></li>
 <li>Funktion drawmap.R <a href="drawmap.R">drawmap.R</a></li>
 <li>Funktion hcoplot.R <a href="hcoplot.R">hcoplot.R</a></li>
@@ -665,143 +657,143 @@ size       90    -none- numeric  </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>KM.cascade<span class="sc">$</span>results</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      2 groups     3 groups    4 groups    5 groups     6 groups     7 groups
-SSE 1840.13571 1629.4399038 1488.296154 1378.336905 1286.5005411 1214.3219697
-ssi    0.26103    0.2762098    0.361433    0.318487    0.4037824    0.4654111
+<pre><code>      2 groups     3 groups     4 groups     5 groups     6 groups     7 groups
+SSE 1840.13571 1629.4399038 1488.2961538 1378.3369048 1286.5005411 1214.3219697
+ssi    0.26103    0.2757656    0.3460776    0.3062468    0.3953415    0.4625321
         8 groups     9 groups    10 groups
 SSE 1156.7314935 1101.5523810 1053.1476190
-ssi    0.4051907    0.4991592    0.5099825</code></pre>
+ssi    0.4306329    0.5171075    0.4503257</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>KM.cascade<span class="sc">$</span>partition</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    2 groups 3 groups 4 groups 5 groups 6 groups 7 groups 8 groups 9 groups
-501        2        1        4        3        6        7        1        3
-502        2        1        3        2        3        2        4        4
-503        2        1        4        3        6        7        1        3
-504        2        1        4        3        6        7        1        3
-505        2        1        3        2        3        2        4        4
-506        2        1        4        3        3        2        4        4
-507        2        1        4        3        6        7        1        3
-508        2        1        4        3        6        7        1        3
-509        2        1        4        3        6        7        1        3
-510        2        1        3        2        1        1        5        1
-511        2        1        4        3        6        7        1        3
-512        2        1        3        2        3        2        4        4
-513        2        1        3        2        1        1        5        5
-514        2        1        3        2        3        2        4        4
-515        2        1        3        2        3        2        4        4
-516        2        1        3        2        3        2        4        4
-517        2        1        3        2        1        1        5        1
-518        1        3        1        4        4        3        6        2
-519        2        1        3        2        3        2        4        4
-520        2        1        3        2        1        1        5        1
-521        2        1        4        3        6        7        1        1
-522        2        1        3        2        3        2        4        4
-523        1        3        1        4        4        3        6        2
-524        2        1        4        3        6        7        1        1
-525        2        1        4        3        6        7        1        1
-526        1        2        2        4        4        3        6        2
-527        2        1        3        2        1        1        5        5
-528        2        1        3        2        1        1        5        5
-529        2        1        3        2        1        1        5        5
-530        2        1        3        2        1        1        5        1
-531        1        3        1        5        2        5        8        6
-532        2        1        3        2        1        1        5        5
-533        2        1        3        2        1        1        5        1
-534        2        3        1        5        2        5        8        6
-535        1        3        1        5        2        5        8        6
-536        2        1        3        2        1        1        5        5
-537        2        1        3        2        1        1        5        5
-538        1        3        1        4        4        3        6        2
-539        1        2        2        1        5        4        3        7
-540        2        1        4        3        6        7        1        3
-541        1        2        2        1        5        4        2        9
-542        1        2        2        1        5        4        3        7
-543        1        2        2        1        5        4        2        9
-544        2        3        1        5        2        5        8        6
-545        1        3        1        4        4        3        6        2
-546        1        3        1        5        2        5        8        6
-547        2        3        1        5        2        5        8        5
-548        1        2        2        1        5        4        2        9
-549        1        3        1        5        2        5        8        6
-550        1        3        1        5        2        5        8        6
-551        1        2        2        4        4        6        7        8
-552        1        2        2        1        5        4        2        9
-553        1        2        2        1        5        4        7        8
-554        1        2        2        4        4        6        7        8
-555        1        2        2        4        4        6        7        8
-556        1        2        2        1        5        4        2        9
-557        1        2        2        4        4        6        7        8
-558        1        2        2        4        4        6        7        8
-559        1        2        2        4        4        3        6        2
-560        1        2        2        4        4        3        6        2
-561        1        3        1        4        4        3        6        2
-562        1        2        2        1        5        4        3        7
-563        1        2        2        4        4        6        7        8
+501        1        2        1        5        5        1        1        3
+502        1        2        3        4        6        7        4        6
+503        1        2        1        5        5        1        1        3
+504        1        2        1        5        5        1        1        3
+505        1        2        3        4        6        7        4        6
+506        1        2        1        5        6        7        4        6
+507        1        2        1        5        5        1        1        3
+508        1        2        1        5        5        1        1        3
+509        1        2        1        5        5        1        1        3
+510        1        2        3        4        4        3        6        8
+511        1        2        1        5        5        1        1        3
+512        1        2        3        4        6        7        4        6
+513        1        2        3        4        4        3        6        4
+514        1        2        3        4        6        7        4        6
+515        1        2        3        4        6        7        4        6
+516        1        2        3        4        6        7        4        6
+517        1        2        3        4        4        3        6        8
+518        2        3        4        2        3        4        8        5
+519        1        2        3        4        6        7        4        6
+520        1        2        3        4        4        3        6        8
+521        1        2        1        5        5        1        1        8
+522        1        2        3        4        6        7        4        6
+523        2        3        4        2        3        4        8        5
+524        1        2        1        5        5        1        1        8
+525        1        2        1        5        5        1        1        8
+526        2        1        2        2        3        4        8        5
+527        1        2        3        4        4        3        6        4
+528        1        2        3        4        4        3        6        4
+529        1        2        3        4        4        3        6        4
+530        1        2        3        4        4        3        6        8
+531        2        3        4        1        2        6        3        9
+532        1        2        3        4        4        3        6        4
+533        1        2        3        4        4        3        6        8
+534        1        3        4        1        2        6        3        9
+535        2        3        4        1        2        6        3        9
+536        1        2        3        4        4        3        6        4
+537        1        2        3        4        4        3        6        4
+538        2        3        4        2        3        4        8        5
+539        2        1        2        3        1        2        7        7
+540        1        2        1        5        5        1        1        3
+541        2        1        2        3        1        2        5        2
+542        2        1        2        3        1        2        7        7
+543        2        1        2        3        1        2        5        2
+544        1        3        4        1        2        6        3        9
+545        2        3        4        2        3        4        8        5
+546        2        3        4        1        2        6        3        9
+547        1        3        4        1        2        6        3        4
+548        2        1        2        3        1        2        5        2
+549        2        3        4        1        2        6        3        9
+550        2        3        4        1        2        6        3        9
+551        2        1        2        2        3        5        2        1
+552        2        1        2        3        1        2        5        2
+553        2        1        2        3        1        2        2        1
+554        2        1        2        2        3        5        2        1
+555        2        1        2        2        3        5        2        1
+556        2        1        2        3        1        2        5        2
+557        2        1        2        2        3        5        2        1
+558        2        1        2        2        3        5        2        1
+559        2        1        2        2        3        4        8        5
+560        2        1        2        2        3        4        8        5
+561        2        3        4        2        3        4        8        5
+562        2        1        2        3        1        2        7        7
+563        2        1        2        2        3        5        2        1
     10 groups
-501        10
-502         1
-503        10
-504        10
-505         1
-506         1
-507        10
-508        10
-509        10
-510         7
-511         6
-512         1
-513         9
-514         1
-515         1
-516         1
-517         7
-518         6
-519         1
-520         7
-521         7
-522         1
-523         5
-524         7
-525         7
-526         5
-527         9
-528         9
-529         9
-530         7
-531         2
-532         9
-533         7
-534         2
-535         2
-536         9
-537         9
-538         6
-539         4
-540        10
-541         3
-542         4
-543         3
-544         2
-545         5
-546         2
-547         9
-548         3
-549         2
-550         2
-551         8
-552         3
-553         8
-554         8
-555         8
-556         3
-557         8
-558         8
-559         5
-560         5
-561         5
-562         4
-563         8</code></pre>
+501         2
+502         4
+503         2
+504         2
+505         4
+506         4
+507         2
+508         2
+509         2
+510         9
+511         1
+512         4
+513         5
+514         4
+515         4
+516         4
+517         9
+518         1
+519         4
+520         9
+521         9
+522         4
+523         8
+524         9
+525         9
+526         8
+527         5
+528         5
+529         5
+530         9
+531         7
+532         5
+533         9
+534         7
+535         7
+536         5
+537         5
+538         1
+539         6
+540         2
+541        10
+542         6
+543        10
+544         7
+545         8
+546         7
+547         5
+548        10
+549         7
+550         7
+551         3
+552        10
+553         3
+554         3
+555         3
+556        10
+557         3
+558         3
+559         8
+560         8
+561         8
+562         6
+563         3</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># k-means visualisation</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(KM.cascade, <span class="at">sortg =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -809,7 +801,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-k-means-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-k-means-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.1: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.1: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -817,7 +809,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-k-means-2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-k-means-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.2: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.2: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -825,7 +817,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-k-means-3" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-k-means-3.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.3: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.3: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -833,7 +825,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-k-means-4" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-k-means-4.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.4: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.4: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -843,7 +835,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <h2 class="anchored" data-anchor-id="agglomarative-clusteranalyse">Agglomarative Clusteranalyse</h2>
 <p>mit Daten und Skripten aus Borcard et al.&nbsp;(2018)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/Doubs.RData"</span>)  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"datasets/statistik/Doubs.RData"</span>)  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove empty site 8</span></span>
@@ -920,7 +912,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-agglomerative-clustering-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-agglomerative-clustering-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.5: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.5: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -928,7 +920,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-agglomerative-clustering-2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-agglomerative-clustering-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.6: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.6: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -936,7 +928,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-agglomerative-clustering-3" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-agglomerative-clustering-3.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.7: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.7: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -944,7 +936,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-agglomerative-clustering-4" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-agglomerative-clustering-4.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.8: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.8: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -952,7 +944,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-agglomerative-clustering-5" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-agglomerative-clustering-5.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.9: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.9: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -960,7 +952,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-agglomerative-clustering-6" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-agglomerative-clustering-6.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.10: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.10: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1030,7 +1022,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-cophenetic-correlations" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-cophenetic-correlations-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.11: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.11: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1135,7 +1127,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-hclust-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-hclust-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.12: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.12: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1143,7 +1135,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-hclust-2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-hclust-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.13: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.13: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1192,7 +1184,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-dendrogram-final-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-dendrogram-final-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.14: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.14: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1200,7 +1192,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-dendrogram-final-2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-dendrogram-final-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.15: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.15: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1208,7 +1200,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-dendrogram-final-3" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-dendrogram-final-3.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.16: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.16: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1216,7 +1208,7 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-dendrogram-final-4" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-dendrogram-final-4.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.17: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.17: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1273,14 +1265,15 @@ ssi    0.4051907    0.4991592    0.5099825</code></pre>
 <div id="fig-baseplot-dendrogram-heatmap" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik8_Demo_files/figure-html/fig-baseplot-dendrogram-heatmap-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;30.18: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;29.18: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 
 
-</section>
+<!-- -->
+
 </section>
 
 </main> <!-- /main -->
@@ -1445,6 +1438,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -1506,7 +1550,358 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-title">Stat8: Übung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb30" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-22</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat8</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Clusteranalysen</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat8: Demo</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Demoscripts via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz <span class="co">[</span><span class="ot">Doubs.RData</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=606667)</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Funktion drawmap.R <span class="co">[</span><span class="ot">drawmap.R</span><span class="co">](drawmap.R)</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Funktion hcoplot.R <span class="co">[</span><span class="ot">hcoplot.R</span><span class="co">](hcoplot.R)</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## k-means clustering</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="co"># das Moordatenset aus Wildi...</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dave)){<span class="fu">install.packages</span>(<span class="st">"dave"</span>)}</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave)</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">rda</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>ca <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>)</span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>kmeans<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(sveg, <span class="dv">4</span>)</span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>kmeans<span class="fl">.1</span></span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplot-k-means</span></span>
+<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca, <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb30-45"><a href="#cb30-45" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(ca, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">col =</span> kmeans<span class="fl">.1</span>[[<span class="dv">1</span>]])</span>
+<span id="cb30-46"><a href="#cb30-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-47"><a href="#cb30-47" aria-hidden="true" tabindex="-1"></a>kmeans<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(sveg, <span class="dv">3</span>)</span>
+<span id="cb30-48"><a href="#cb30-48" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca, <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb30-49"><a href="#cb30-49" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pca, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col =</span> kmeans<span class="fl">.2</span>[[<span class="dv">1</span>]])</span>
+<span id="cb30-50"><a href="#cb30-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-51"><a href="#cb30-51" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">type =</span> <span class="st">"n"</span>)</span>
+<span id="cb30-52"><a href="#cb30-52" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pca, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col=</span>kmeans<span class="fl">.2</span>[[<span class="dv">1</span>]])</span>
+<span id="cb30-53"><a href="#cb30-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-54"><a href="#cb30-54" aria-hidden="true" tabindex="-1"></a><span class="co"># k-means partitioning, 2 to 10 groups</span></span>
+<span id="cb30-55"><a href="#cb30-55" aria-hidden="true" tabindex="-1"></a>KM.cascade <span class="ot">&lt;-</span> <span class="fu">cascadeKM</span>(sveg,  <span class="at">inf.gr =</span> <span class="dv">2</span>, <span class="at">sup.gr =</span> <span class="dv">10</span>, <span class="at">iter =</span> <span class="dv">100</span>, <span class="at">criterion =</span> <span class="st">"ssi"</span>)</span>
+<span id="cb30-56"><a href="#cb30-56" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(KM.cascade)</span>
+<span id="cb30-57"><a href="#cb30-57" aria-hidden="true" tabindex="-1"></a>KM.cascade<span class="sc">$</span>results</span>
+<span id="cb30-58"><a href="#cb30-58" aria-hidden="true" tabindex="-1"></a>KM.cascade<span class="sc">$</span>partition</span>
+<span id="cb30-59"><a href="#cb30-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-60"><a href="#cb30-60" aria-hidden="true" tabindex="-1"></a><span class="co"># k-means visualisation</span></span>
+<span id="cb30-61"><a href="#cb30-61" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(KM.cascade, <span class="at">sortg =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb30-62"><a href="#cb30-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb30-63"><a href="#cb30-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-64"><a href="#cb30-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Agglomarative Clusteranalyse</span></span>
+<span id="cb30-65"><a href="#cb30-65" aria-hidden="true" tabindex="-1"></a>mit Daten und Skripten aus Borcard et al. (2018)</span>
+<span id="cb30-66"><a href="#cb30-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-69"><a href="#cb30-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-70"><a href="#cb30-70" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"datasets/statistik/Doubs.RData"</span>)  </span>
+<span id="cb30-71"><a href="#cb30-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb30-74"><a href="#cb30-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-75"><a href="#cb30-75" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb30-76"><a href="#cb30-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove empty site 8</span></span>
+<span id="cb30-77"><a href="#cb30-77" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> spe[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb30-78"><a href="#cb30-78" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> env[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb30-79"><a href="#cb30-79" aria-hidden="true" tabindex="-1"></a>spa <span class="ot">&lt;-</span> spa[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb30-80"><a href="#cb30-80" aria-hidden="true" tabindex="-1"></a>latlong <span class="ot">&lt;-</span> latlong[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb30-81"><a href="#cb30-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb30-82"><a href="#cb30-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-83"><a href="#cb30-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dendogramme berechnen und ploten</span></span>
+<span id="cb30-86"><a href="#cb30-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-87"><a href="#cb30-87" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplot-agglomerative-clustering</span></span>
+<span id="cb30-88"><a href="#cb30-88" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb30-89"><a href="#cb30-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-90"><a href="#cb30-90" aria-hidden="true" tabindex="-1"></a><span class="do">## Hierarchical agglomerative clustering of the species abundance </span></span>
+<span id="cb30-91"><a href="#cb30-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-92"><a href="#cb30-92" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute matrix of chord distance among sites</span></span>
+<span id="cb30-93"><a href="#cb30-93" aria-hidden="true" tabindex="-1"></a>spe.norm <span class="ot">&lt;-</span> <span class="fu">decostand</span>(spe, <span class="st">"normalize"</span>)</span>
+<span id="cb30-94"><a href="#cb30-94" aria-hidden="true" tabindex="-1"></a>spe.ch <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(spe.norm, <span class="st">"euc"</span>)</span>
+<span id="cb30-95"><a href="#cb30-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-96"><a href="#cb30-96" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach site names to object of class 'dist'</span></span>
+<span id="cb30-97"><a href="#cb30-97" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(spe.ch, <span class="st">"Labels"</span>) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(spe)</span>
+<span id="cb30-98"><a href="#cb30-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-99"><a href="#cb30-99" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb30-100"><a href="#cb30-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-101"><a href="#cb30-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute single linkage agglomerative clustering</span></span>
+<span id="cb30-102"><a href="#cb30-102" aria-hidden="true" tabindex="-1"></a>spe.ch.single <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"single"</span>)</span>
+<span id="cb30-103"><a href="#cb30-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a dendrogram using the default options</span></span>
+<span id="cb30-104"><a href="#cb30-104" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.single, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Single linkage"</span>)</span>
+<span id="cb30-105"><a href="#cb30-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-106"><a href="#cb30-106" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute complete-linkage agglomerative clustering</span></span>
+<span id="cb30-107"><a href="#cb30-107" aria-hidden="true" tabindex="-1"></a>spe.ch.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"complete"</span>)</span>
+<span id="cb30-108"><a href="#cb30-108" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.complete, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Complete linkage"</span>)</span>
+<span id="cb30-109"><a href="#cb30-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-110"><a href="#cb30-110" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute UPGMA agglomerative clustering</span></span>
+<span id="cb30-111"><a href="#cb30-111" aria-hidden="true" tabindex="-1"></a>spe.ch.UPGMA <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"average"</span>)</span>
+<span id="cb30-112"><a href="#cb30-112" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.UPGMA, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - UPGMA"</span>)</span>
+<span id="cb30-113"><a href="#cb30-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-114"><a href="#cb30-114" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute centroid clustering</span></span>
+<span id="cb30-115"><a href="#cb30-115" aria-hidden="true" tabindex="-1"></a>spe.ch.centroid <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"centroid"</span>)</span>
+<span id="cb30-116"><a href="#cb30-116" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.centroid, <span class="at">labels =</span> <span class="fu">rownames</span>(spe),  <span class="at">main =</span> <span class="st">"Chord - Centroid"</span>)</span>
+<span id="cb30-117"><a href="#cb30-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-118"><a href="#cb30-118" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute Ward's minimum variance clustering</span></span>
+<span id="cb30-119"><a href="#cb30-119" aria-hidden="true" tabindex="-1"></a>spe.ch.ward <span class="ot">&lt;-</span><span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb30-120"><a href="#cb30-120" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.ward, <span class="at">labels =</span> <span class="fu">rownames</span>(spe),  <span class="at">main =</span> <span class="st">"Chord - Ward"</span>)</span>
+<span id="cb30-121"><a href="#cb30-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-122"><a href="#cb30-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute beta-flexible clustering using cluster::agnes()</span></span>
+<span id="cb30-123"><a href="#cb30-123" aria-hidden="true" tabindex="-1"></a><span class="co"># beta = -0.1</span></span>
+<span id="cb30-124"><a href="#cb30-124" aria-hidden="true" tabindex="-1"></a>spe.ch.beta1 <span class="ot">&lt;-</span> <span class="fu">agnes</span>(spe.ch, <span class="at">method =</span> <span class="st">"flexible"</span>, <span class="at">par.method =</span> <span class="fl">0.55</span>)</span>
+<span id="cb30-125"><a href="#cb30-125" aria-hidden="true" tabindex="-1"></a><span class="co"># beta = -0.25</span></span>
+<span id="cb30-126"><a href="#cb30-126" aria-hidden="true" tabindex="-1"></a>spe.ch.beta2 <span class="ot">&lt;-</span> <span class="fu">agnes</span>(spe.ch, <span class="at">method =</span> <span class="st">"flexible"</span>, <span class="at">par.method =</span> <span class="fl">0.625</span>)</span>
+<span id="cb30-127"><a href="#cb30-127" aria-hidden="true" tabindex="-1"></a><span class="co"># beta = -0.5</span></span>
+<span id="cb30-128"><a href="#cb30-128" aria-hidden="true" tabindex="-1"></a>spe.ch.beta3 <span class="ot">&lt;-</span> <span class="fu">agnes</span>(spe.ch, <span class="at">method =</span> <span class="st">"flexible"</span>, <span class="at">par.method =</span> <span class="fl">0.75</span>)</span>
+<span id="cb30-129"><a href="#cb30-129" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the class of agnes objects</span></span>
+<span id="cb30-130"><a href="#cb30-130" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(spe.ch.beta1)</span>
+<span id="cb30-131"><a href="#cb30-131" aria-hidden="true" tabindex="-1"></a>spe.ch.beta1 <span class="ot">&lt;-</span> <span class="fu">as.hclust</span>(spe.ch.beta1)</span>
+<span id="cb30-132"><a href="#cb30-132" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(spe.ch.beta1)</span>
+<span id="cb30-133"><a href="#cb30-133" aria-hidden="true" tabindex="-1"></a>spe.ch.beta2 <span class="ot">&lt;-</span> <span class="fu">as.hclust</span>(spe.ch.beta2)</span>
+<span id="cb30-134"><a href="#cb30-134" aria-hidden="true" tabindex="-1"></a>spe.ch.beta3 <span class="ot">&lt;-</span> <span class="fu">as.hclust</span>(spe.ch.beta3)</span>
+<span id="cb30-135"><a href="#cb30-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-136"><a href="#cb30-136" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb30-137"><a href="#cb30-137" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.beta1, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Beta-flexible (beta=-0.1)"</span>)</span>
+<span id="cb30-138"><a href="#cb30-138" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.beta2, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Beta-flexible (beta=-0.25)"</span>)</span>
+<span id="cb30-139"><a href="#cb30-139" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.beta3,  <span class="at">labels =</span> <span class="fu">rownames</span>(spe),  <span class="at">main =</span> <span class="st">"Chord - Beta-flexible (beta=-0.5)"</span>)</span>
+<span id="cb30-140"><a href="#cb30-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-141"><a href="#cb30-141" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute Ward's minimum variance clustering</span></span>
+<span id="cb30-142"><a href="#cb30-142" aria-hidden="true" tabindex="-1"></a>spe.ch.ward <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.ch, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb30-143"><a href="#cb30-143" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch.ward, <span class="at">labels =</span> <span class="fu">rownames</span>(spe), <span class="at">main =</span> <span class="st">"Chord - Ward"</span>)</span>
+<span id="cb30-144"><a href="#cb30-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb30-145"><a href="#cb30-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-146"><a href="#cb30-146" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cophenetic correlations</span></span>
+<span id="cb30-147"><a href="#cb30-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-150"><a href="#cb30-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-151"><a href="#cb30-151" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplot-cophenetic-correlations</span></span>
+<span id="cb30-152"><a href="#cb30-152" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb30-153"><a href="#cb30-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-154"><a href="#cb30-154" aria-hidden="true" tabindex="-1"></a><span class="co"># Single linkage clustering</span></span>
+<span id="cb30-155"><a href="#cb30-155" aria-hidden="true" tabindex="-1"></a>spe.ch.single.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.single)</span>
+<span id="cb30-156"><a href="#cb30-156" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.single.coph)</span>
+<span id="cb30-157"><a href="#cb30-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-158"><a href="#cb30-158" aria-hidden="true" tabindex="-1"></a><span class="co"># Complete linkage clustering</span></span>
+<span id="cb30-159"><a href="#cb30-159" aria-hidden="true" tabindex="-1"></a>spe.ch.comp.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.complete)</span>
+<span id="cb30-160"><a href="#cb30-160" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.comp.coph)</span>
+<span id="cb30-161"><a href="#cb30-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-162"><a href="#cb30-162" aria-hidden="true" tabindex="-1"></a><span class="co"># Average clustering</span></span>
+<span id="cb30-163"><a href="#cb30-163" aria-hidden="true" tabindex="-1"></a>spe.ch.UPGMA.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.UPGMA)</span>
+<span id="cb30-164"><a href="#cb30-164" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.UPGMA.coph)</span>
+<span id="cb30-165"><a href="#cb30-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-166"><a href="#cb30-166" aria-hidden="true" tabindex="-1"></a><span class="co"># Ward clustering</span></span>
+<span id="cb30-167"><a href="#cb30-167" aria-hidden="true" tabindex="-1"></a>spe.ch.ward.coph <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(spe.ch.ward)</span>
+<span id="cb30-168"><a href="#cb30-168" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(spe.ch, spe.ch.ward.coph)</span>
+<span id="cb30-169"><a href="#cb30-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-170"><a href="#cb30-170" aria-hidden="true" tabindex="-1"></a><span class="co"># Shepard-like diagrams</span></span>
+<span id="cb30-171"><a href="#cb30-171" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb30-172"><a href="#cb30-172" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.single.coph,</span>
+<span id="cb30-173"><a href="#cb30-173" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb30-174"><a href="#cb30-174" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)),</span>
+<span id="cb30-175"><a href="#cb30-175" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"Single linkage"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>,</span>
+<span id="cb30-176"><a href="#cb30-176" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">round</span>(<span class="fu">cor</span>(spe.ch, spe.ch.single.coph), <span class="dv">3</span>))))</span>
+<span id="cb30-177"><a href="#cb30-177" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb30-178"><a href="#cb30-178" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.single.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb30-179"><a href="#cb30-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-180"><a href="#cb30-180" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.comp.coph,</span>
+<span id="cb30-181"><a href="#cb30-181" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb30-182"><a href="#cb30-182" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)),</span>
+<span id="cb30-183"><a href="#cb30-183" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"Complete linkage"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>,</span>
+<span id="cb30-184"><a href="#cb30-184" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">round</span>(<span class="fu">cor</span>(spe.ch, spe.ch.comp.coph), <span class="dv">3</span>))))</span>
+<span id="cb30-185"><a href="#cb30-185" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb30-186"><a href="#cb30-186" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.comp.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb30-187"><a href="#cb30-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-188"><a href="#cb30-188" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.UPGMA.coph,</span>
+<span id="cb30-189"><a href="#cb30-189" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb30-190"><a href="#cb30-190" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)),</span>
+<span id="cb30-191"><a href="#cb30-191" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"UPGMA"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>,</span>
+<span id="cb30-192"><a href="#cb30-192" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">round</span>( <span class="fu">cor</span>(spe.ch, spe.ch.UPGMA.coph), <span class="dv">3</span>))))</span>
+<span id="cb30-193"><a href="#cb30-193" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb30-194"><a href="#cb30-194" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.UPGMA.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb30-195"><a href="#cb30-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-196"><a href="#cb30-196" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ch, spe.ch.ward.coph,</span>
+<span id="cb30-197"><a href="#cb30-197" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Chord distance"</span>, <span class="at">ylab =</span> <span class="st">"Cophenetic distance"</span>,</span>
+<span id="cb30-198"><a href="#cb30-198" aria-hidden="true" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(spe.ch.ward<span class="sc">$</span>height)),</span>
+<span id="cb30-199"><a href="#cb30-199" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">c</span>(<span class="st">"Ward"</span>, <span class="fu">paste</span>(<span class="st">"Cophenetic correlation ="</span>, </span>
+<span id="cb30-200"><a href="#cb30-200" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">round</span>(<span class="fu">cor</span>(spe.ch, spe.ch.ward.coph), <span class="dv">3</span>))))</span>
+<span id="cb30-201"><a href="#cb30-201" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb30-202"><a href="#cb30-202" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(spe.ch, spe.ch.ward.coph), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb30-203"><a href="#cb30-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb30-204"><a href="#cb30-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-205"><a href="#cb30-205" aria-hidden="true" tabindex="-1"></a><span class="fu">## Optimale Anzahl Cluster</span></span>
+<span id="cb30-208"><a href="#cb30-208" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-209"><a href="#cb30-209" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplot-hclust</span></span>
+<span id="cb30-210"><a href="#cb30-210" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb30-211"><a href="#cb30-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-212"><a href="#cb30-212" aria-hidden="true" tabindex="-1"></a><span class="do">## Select a dendrogram (Ward/chord) and apply three criteria</span></span>
+<span id="cb30-213"><a href="#cb30-213" aria-hidden="true" tabindex="-1"></a><span class="do">## to choose the optimal number of clusters</span></span>
+<span id="cb30-214"><a href="#cb30-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-215"><a href="#cb30-215" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose and rename the dendrogram ("hclust" object)</span></span>
+<span id="cb30-216"><a href="#cb30-216" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> spe.ch.ward</span>
+<span id="cb30-217"><a href="#cb30-217" aria-hidden="true" tabindex="-1"></a><span class="co"># hc &lt;- spe.ch.beta2</span></span>
+<span id="cb30-218"><a href="#cb30-218" aria-hidden="true" tabindex="-1"></a><span class="co"># hc &lt;- spe.ch.complete</span></span>
+<span id="cb30-219"><a href="#cb30-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-220"><a href="#cb30-220" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb30-221"><a href="#cb30-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-222"><a href="#cb30-222" aria-hidden="true" tabindex="-1"></a><span class="co"># Average silhouette widths (Rousseeuw quality index)</span></span>
+<span id="cb30-223"><a href="#cb30-223" aria-hidden="true" tabindex="-1"></a>Si <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(spe))</span>
+<span id="cb30-224"><a href="#cb30-224" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(spe) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb30-225"><a href="#cb30-225" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb30-226"><a href="#cb30-226" aria-hidden="true" tabindex="-1"></a>  sil <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(<span class="fu">cutree</span>(hc, <span class="at">k =</span> k), spe.ch)</span>
+<span id="cb30-227"><a href="#cb30-227" aria-hidden="true" tabindex="-1"></a>  Si[k] <span class="ot">&lt;-</span> <span class="fu">summary</span>(sil)<span class="sc">$</span>avg.width</span>
+<span id="cb30-228"><a href="#cb30-228" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb30-229"><a href="#cb30-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-230"><a href="#cb30-230" aria-hidden="true" tabindex="-1"></a>k.best <span class="ot">&lt;-</span> <span class="fu">which.max</span>(Si)</span>
+<span id="cb30-231"><a href="#cb30-231" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe), Si, <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb30-232"><a href="#cb30-232" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Silhouette-optimal number of clusters"</span>,</span>
+<span id="cb30-233"><a href="#cb30-233" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>, <span class="at">ylab =</span> <span class="st">"Average silhouette width"</span>)</span>
+<span id="cb30-234"><a href="#cb30-234" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, k.best,<span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>), <span class="at">col =</span> <span class="st">"red"</span>, </span>
+<span id="cb30-235"><a href="#cb30-235" aria-hidden="true" tabindex="-1"></a>     <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb30-236"><a href="#cb30-236" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(k.best,<span class="fu">max</span>(Si), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb30-237"><a href="#cb30-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-238"><a href="#cb30-238" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimal number of clusters according to matrix correlation </span></span>
+<span id="cb30-239"><a href="#cb30-239" aria-hidden="true" tabindex="-1"></a><span class="co"># statistic (Pearson)</span></span>
+<span id="cb30-240"><a href="#cb30-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-241"><a href="#cb30-241" aria-hidden="true" tabindex="-1"></a><span class="co"># Homemade function grpdist from Borcard et al. (2018)</span></span>
+<span id="cb30-242"><a href="#cb30-242" aria-hidden="true" tabindex="-1"></a>grpdist <span class="ot">&lt;-</span> <span class="cf">function</span>(X)</span>
+<span id="cb30-243"><a href="#cb30-243" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb30-244"><a href="#cb30-244" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(cluster)</span>
+<span id="cb30-245"><a href="#cb30-245" aria-hidden="true" tabindex="-1"></a>  veg <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.factor</span>(X))</span>
+<span id="cb30-246"><a href="#cb30-246" aria-hidden="true" tabindex="-1"></a>  distgr <span class="ot">&lt;-</span> <span class="fu">daisy</span>(veg, <span class="st">"gower"</span>)</span>
+<span id="cb30-247"><a href="#cb30-247" aria-hidden="true" tabindex="-1"></a>  distgr</span>
+<span id="cb30-248"><a href="#cb30-248" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb30-249"><a href="#cb30-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-250"><a href="#cb30-250" aria-hidden="true" tabindex="-1"></a>kt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe), <span class="at">r =</span> <span class="dv">0</span>)</span>
+<span id="cb30-251"><a href="#cb30-251" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(spe) <span class="sc">-</span> <span class="dv">1</span>)) </span>
+<span id="cb30-252"><a href="#cb30-252" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb30-253"><a href="#cb30-253" aria-hidden="true" tabindex="-1"></a>  gr <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc, i)</span>
+<span id="cb30-254"><a href="#cb30-254" aria-hidden="true" tabindex="-1"></a>  distgr <span class="ot">&lt;-</span> <span class="fu">grpdist</span>(gr)</span>
+<span id="cb30-255"><a href="#cb30-255" aria-hidden="true" tabindex="-1"></a>  mt <span class="ot">&lt;-</span> <span class="fu">cor</span>(spe.ch, distgr, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb30-256"><a href="#cb30-256" aria-hidden="true" tabindex="-1"></a>  kt[i, <span class="dv">2</span>] <span class="ot">&lt;-</span> mt</span>
+<span id="cb30-257"><a href="#cb30-257" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb30-258"><a href="#cb30-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-259"><a href="#cb30-259" aria-hidden="true" tabindex="-1"></a>k.best <span class="ot">&lt;-</span> <span class="fu">which.max</span>(kt<span class="sc">$</span>r)</span>
+<span id="cb30-260"><a href="#cb30-260" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kt<span class="sc">$</span>k,kt<span class="sc">$</span>r, <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb30-261"><a href="#cb30-261" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Matrix correlation-optimal number of clusters"</span>,</span>
+<span id="cb30-262"><a href="#cb30-262" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>, <span class="at">ylab =</span> <span class="st">"Pearson's correlation"</span>)</span>
+<span id="cb30-263"><a href="#cb30-263" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, k.best, <span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb30-264"><a href="#cb30-264" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb30-265"><a href="#cb30-265" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(k.best, <span class="fu">max</span>(kt<span class="sc">$</span>r), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb30-266"><a href="#cb30-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-267"><a href="#cb30-267" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimal number of clusters according as per indicator species</span></span>
+<span id="cb30-268"><a href="#cb30-268" aria-hidden="true" tabindex="-1"></a><span class="co"># analysis (IndVal, Dufrene-Legendre; package: labdsv)</span></span>
+<span id="cb30-269"><a href="#cb30-269" aria-hidden="true" tabindex="-1"></a>IndVal <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(spe))</span>
+<span id="cb30-270"><a href="#cb30-270" aria-hidden="true" tabindex="-1"></a>ng <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">nrow</span>(spe))</span>
+<span id="cb30-271"><a href="#cb30-271" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(<span class="fu">nrow</span>(spe) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb30-272"><a href="#cb30-272" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb30-273"><a href="#cb30-273" aria-hidden="true" tabindex="-1"></a>  iva <span class="ot">&lt;-</span> <span class="fu">indval</span>(spe, <span class="fu">cutree</span>(hc, <span class="at">k =</span> k), <span class="at">numitr =</span> <span class="dv">1000</span>)</span>
+<span id="cb30-274"><a href="#cb30-274" aria-hidden="true" tabindex="-1"></a>  gr <span class="ot">&lt;-</span> <span class="fu">factor</span>(iva<span class="sc">$</span>maxcls[iva<span class="sc">$</span>pval <span class="sc">&lt;=</span> <span class="fl">0.05</span>])</span>
+<span id="cb30-275"><a href="#cb30-275" aria-hidden="true" tabindex="-1"></a>  ng[k] <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">levels</span>(gr)) <span class="sc">/</span> k</span>
+<span id="cb30-276"><a href="#cb30-276" aria-hidden="true" tabindex="-1"></a>  iv <span class="ot">&lt;-</span> iva<span class="sc">$</span>indcls[iva<span class="sc">$</span>pval <span class="sc">&lt;=</span> <span class="fl">0.05</span>]</span>
+<span id="cb30-277"><a href="#cb30-277" aria-hidden="true" tabindex="-1"></a>  IndVal[k] <span class="ot">&lt;-</span> <span class="fu">sum</span>(iv)</span>
+<span id="cb30-278"><a href="#cb30-278" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb30-279"><a href="#cb30-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-280"><a href="#cb30-280" aria-hidden="true" tabindex="-1"></a>k.best <span class="ot">&lt;-</span> <span class="fu">which.max</span>(IndVal[ng <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb30-281"><a href="#cb30-281" aria-hidden="true" tabindex="-1"></a>col3 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(spe))</span>
+<span id="cb30-282"><a href="#cb30-282" aria-hidden="true" tabindex="-1"></a>col3[ng <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb30-283"><a href="#cb30-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-284"><a href="#cb30-284" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb30-285"><a href="#cb30-285" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe), IndVal, <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb30-286"><a href="#cb30-286" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"IndVal-optimal number of clusters"</span>,</span>
+<span id="cb30-287"><a href="#cb30-287" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>, <span class="at">ylab =</span> <span class="st">"IndVal sum"</span>, <span class="at">col =</span> col3)</span>
+<span id="cb30-288"><a href="#cb30-288" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,k.best,<span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb30-289"><a href="#cb30-289" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb30-290"><a href="#cb30-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-291"><a href="#cb30-291" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">which.max</span>(IndVal),<span class="fu">max</span>(IndVal),<span class="at">pch =</span> <span class="dv">16</span>,<span class="at">col =</span> <span class="st">"red"</span>,<span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb30-292"><a href="#cb30-292" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">28</span>, <span class="fl">15.7</span>, <span class="st">"a"</span>, <span class="at">cex =</span> <span class="fl">1.8</span>)</span>
+<span id="cb30-293"><a href="#cb30-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-294"><a href="#cb30-294" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spe),ng,</span>
+<span id="cb30-295"><a href="#cb30-295" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb30-296"><a href="#cb30-296" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"k (number of clusters)"</span>,</span>
+<span id="cb30-297"><a href="#cb30-297" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Ratio"</span>,</span>
+<span id="cb30-298"><a href="#cb30-298" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Proportion of clusters with significant indicator species"</span>,</span>
+<span id="cb30-299"><a href="#cb30-299" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> col3)</span>
+<span id="cb30-300"><a href="#cb30-300" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,k.best,<span class="fu">paste</span>(<span class="st">"optimum"</span>, k.best, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb30-301"><a href="#cb30-301" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="st">"red"</span>)</span>
+<span id="cb30-302"><a href="#cb30-302" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(k.best,<span class="fu">max</span>(ng), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb30-303"><a href="#cb30-303" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">28</span>, <span class="fl">0.98</span>, <span class="st">"b"</span>, <span class="at">cex =</span> <span class="fl">1.8</span>)</span>
+<span id="cb30-304"><a href="#cb30-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb30-305"><a href="#cb30-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-306"><a href="#cb30-306" aria-hidden="true" tabindex="-1"></a><span class="fu">## Final dendrogram with the selected clusters</span></span>
+<span id="cb30-309"><a href="#cb30-309" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-310"><a href="#cb30-310" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplot-dendrogram-final</span></span>
+<span id="cb30-311"><a href="#cb30-311" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb30-312"><a href="#cb30-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-313"><a href="#cb30-313" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose the number of clusters</span></span>
+<span id="cb30-314"><a href="#cb30-314" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb30-315"><a href="#cb30-315" aria-hidden="true" tabindex="-1"></a><span class="co"># Silhouette plot of the final partition</span></span>
+<span id="cb30-316"><a href="#cb30-316" aria-hidden="true" tabindex="-1"></a>spech.ward.g <span class="ot">&lt;-</span> <span class="fu">cutree</span>(spe.ch.ward, <span class="at">k =</span> k)</span>
+<span id="cb30-317"><a href="#cb30-317" aria-hidden="true" tabindex="-1"></a>sil <span class="ot">&lt;-</span> <span class="fu">silhouette</span>(spech.ward.g, spe.ch)</span>
+<span id="cb30-318"><a href="#cb30-318" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(sil) <span class="ot">&lt;-</span> <span class="fu">row.names</span>(spe)</span>
+<span id="cb30-319"><a href="#cb30-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-320"><a href="#cb30-320" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sil, <span class="at">main =</span> <span class="st">"Silhouette plot - Chord - Ward"</span>, <span class="at">cex.names =</span> <span class="fl">0.8</span>, <span class="at">col =</span> <span class="dv">2</span><span class="sc">:</span>(k <span class="sc">+</span> <span class="dv">1</span>), <span class="at">nmax =</span> <span class="dv">100</span>)</span>
+<span id="cb30-321"><a href="#cb30-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-322"><a href="#cb30-322" aria-hidden="true" tabindex="-1"></a><span class="co"># Reorder clusters</span></span>
+<span id="cb30-323"><a href="#cb30-323" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(gclus)){<span class="fu">install.packages</span>(<span class="st">"gclus"</span>)}</span>
+<span id="cb30-324"><a href="#cb30-324" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"gclus"</span>)</span>
+<span id="cb30-325"><a href="#cb30-325" aria-hidden="true" tabindex="-1"></a>spe.chwo <span class="ot">&lt;-</span> <span class="fu">reorder.hclust</span>(spe.ch.ward, spe.ch)</span>
+<span id="cb30-326"><a href="#cb30-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-327"><a href="#cb30-327" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot reordered dendrogram with group labels</span></span>
+<span id="cb30-328"><a href="#cb30-328" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb30-329"><a href="#cb30-329" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.chwo, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">xlab =</span> <span class="st">"4 groups"</span>, <span class="at">ylab =</span> <span class="st">"Height"</span>, <span class="at">sub =</span> <span class="st">""</span>,</span>
+<span id="cb30-330"><a href="#cb30-330" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Chord - Ward (reordered)"</span>, <span class="at">labels =</span> <span class="fu">cutree</span>(spe.chwo, <span class="at">k =</span> k))</span>
+<span id="cb30-331"><a href="#cb30-331" aria-hidden="true" tabindex="-1"></a><span class="fu">rect.hclust</span>(spe.chwo, <span class="at">k =</span> k)</span>
+<span id="cb30-332"><a href="#cb30-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-333"><a href="#cb30-333" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the final dendrogram with group colors (RGBCMY...)</span></span>
+<span id="cb30-334"><a href="#cb30-334" aria-hidden="true" tabindex="-1"></a><span class="co"># Fast method using the additional hcoplot() function:</span></span>
+<span id="cb30-335"><a href="#cb30-335" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage:</span></span>
+<span id="cb30-336"><a href="#cb30-336" aria-hidden="true" tabindex="-1"></a><span class="co"># hcoplot(tree = hclust.object,</span></span>
+<span id="cb30-337"><a href="#cb30-337" aria-hidden="true" tabindex="-1"></a><span class="co">#   diss = dissimilarity.matrix,</span></span>
+<span id="cb30-338"><a href="#cb30-338" aria-hidden="true" tabindex="-1"></a><span class="co">#   lab = object labels (default NULL),</span></span>
+<span id="cb30-339"><a href="#cb30-339" aria-hidden="true" tabindex="-1"></a><span class="co">#   k = nb.clusters,</span></span>
+<span id="cb30-340"><a href="#cb30-340" aria-hidden="true" tabindex="-1"></a><span class="co">#   title = paste("Reordered dendrogram from",deparse(tree$call),</span></span>
+<span id="cb30-341"><a href="#cb30-341" aria-hidden="true" tabindex="-1"></a><span class="co">#   sep="\n"))</span></span>
+<span id="cb30-342"><a href="#cb30-342" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"stat5-8/hcoplot.R"</span>)</span>
+<span id="cb30-343"><a href="#cb30-343" aria-hidden="true" tabindex="-1"></a><span class="fu">hcoplot</span>(spe.ch.ward, spe.ch, <span class="at">lab =</span> <span class="fu">rownames</span>(spe), <span class="at">k =</span> <span class="dv">4</span>)</span>
+<span id="cb30-344"><a href="#cb30-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-345"><a href="#cb30-345" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Ward clusters on a map of the Doubs River</span></span>
+<span id="cb30-346"><a href="#cb30-346" aria-hidden="true" tabindex="-1"></a><span class="co"># (see Chapter 2)</span></span>
+<span id="cb30-347"><a href="#cb30-347" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"stat5-8/drawmap.R"</span>)</span>
+<span id="cb30-348"><a href="#cb30-348" aria-hidden="true" tabindex="-1"></a><span class="fu">drawmap</span>(<span class="at">xy =</span> spa, <span class="at">clusters =</span> spech.ward.g, <span class="at">main =</span> <span class="st">"Four Ward clusters along the Doubs River"</span>)</span>
+<span id="cb30-349"><a href="#cb30-349" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb30-350"><a href="#cb30-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-351"><a href="#cb30-351" aria-hidden="true" tabindex="-1"></a><span class="fu">## Miscellaneous graphical outputs</span></span>
+<span id="cb30-354"><a href="#cb30-354" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-355"><a href="#cb30-355" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplot-dendrogram-heatmap</span></span>
+<span id="cb30-356"><a href="#cb30-356" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb30-357"><a href="#cb30-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-358"><a href="#cb30-358" aria-hidden="true" tabindex="-1"></a><span class="co"># konvertieren von "hclust" Objekt in ein Dendogram Objekt</span></span>
+<span id="cb30-359"><a href="#cb30-359" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(spe.ch.ward)</span>
+<span id="cb30-360"><a href="#cb30-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-361"><a href="#cb30-361" aria-hidden="true" tabindex="-1"></a><span class="co"># Heat map of the dissimilarity matrix ordered with the dendrogram</span></span>
+<span id="cb30-362"><a href="#cb30-362" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(<span class="fu">as.matrix</span>(spe.ch), <span class="at">Rowv =</span> dend, <span class="at">symm =</span> <span class="cn">TRUE</span>, <span class="at">margin =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb30-363"><a href="#cb30-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-364"><a href="#cb30-364" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordered community table</span></span>
+<span id="cb30-365"><a href="#cb30-365" aria-hidden="true" tabindex="-1"></a><span class="co"># Species are ordered by their weighted averages on site scores.</span></span>
+<span id="cb30-366"><a href="#cb30-366" aria-hidden="true" tabindex="-1"></a><span class="co"># Dots represent absences.</span></span>
+<span id="cb30-367"><a href="#cb30-367" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb30-368"><a href="#cb30-368" aria-hidden="true" tabindex="-1"></a>or <span class="ot">&lt;-</span> <span class="fu">vegemite</span>(spe, spe.chwo)</span>
+<span id="cb30-369"><a href="#cb30-369" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 

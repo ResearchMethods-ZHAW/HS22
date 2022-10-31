@@ -594,7 +594,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-title">Stat7: Demo</span></h1>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-title">Stat7: Demo</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -614,16 +614,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell">
-
-</div>
-<section id="ordinationen-ii" class="level2">
-<h2 class="anchored" data-anchor-id="ordinationen-ii">Ordinationen II</h2>
 <ul>
-<li><a href="../purl/Statistik7_Demo.R">Demoscript als Download</a></li>
+<li>Download dieses Demoscripts via “&lt;/&gt;Code” (oben rechts)</li>
 <li>Datensatz <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=606667">Doubs.RData</a></li>
 <li>Funktion <a href="triplot.rda.R">triplot.rda.R</a></li>
 </ul>
+<section id="ordinationen-ii" class="level2">
+<h2 class="anchored" data-anchor-id="ordinationen-ii">Ordinationen II</h2>
 <section id="interpretation-von-ordinationen" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-von-ordinationen">Interpretation von Ordinationen</h3>
 <p>Wildi pp.&nbsp;96 et seq.</p>
@@ -717,33 +714,34 @@ REML score: 161.1293     </code></pre>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>mmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(mde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Run 0 stress 0.1478603 
-Run 1 stress 0.1652625 
-Run 2 stress 0.1989437 
-Run 3 stress 0.1611976 
-Run 4 stress 0.1652625 
+Run 1 stress 0.1949618 
+Run 2 stress 0.1471649 
+... New best solution
+... Procrustes: rmse 0.01167357  max resid 0.06931161 
+Run 3 stress 0.1940968 
+Run 4 stress 0.177165 
 Run 5 stress 0.1462813 
 ... New best solution
-... Procrustes: rmse 0.02537661  max resid 0.1451257 
-Run 6 stress 0.1471495 
-Run 7 stress 0.1675598 
-Run 8 stress 0.1602715 
-Run 9 stress 0.1792628 
-Run 10 stress 0.1471495 
-Run 11 stress 0.4064439 
-Run 12 stress 0.1659453 
-Run 13 stress 0.1741626 
-Run 14 stress 0.1471495 
-Run 15 stress 0.1925595 
-Run 16 stress 0.1462959 
-... Procrustes: rmse 0.002078915  max resid 0.01276148 
-Run 17 stress 0.1471847 
-Run 18 stress 0.1476293 
-Run 19 stress 0.1864317 
-Run 20 stress 0.1766467 
+... Procrustes: rmse 0.03034379  max resid 0.1479779 
+Run 6 stress 0.1847216 
+Run 7 stress 0.1462959 
+... Procrustes: rmse 0.002048816  max resid 0.01256202 
+Run 8 stress 0.1478582 
+Run 9 stress 0.1478583 
+Run 10 stress 0.1658979 
+Run 11 stress 0.1853605 
+Run 12 stress 0.1912425 
+Run 13 stress 0.1724489 
+Run 14 stress 0.1602716 
+Run 15 stress 0.1645185 
+Run 16 stress 0.1489369 
+Run 17 stress 0.187806 
+Run 18 stress 0.1471696 
+Run 19 stress 0.1603385 
+Run 20 stress 0.1489369 
 *** No convergence -- monoMDS stopping criteria:
-     1: no. of iterations &gt;= maxit
-    13: stress ratio &gt; sratmax
-     6: scale factor of the gradient &lt; sfgrmin</code></pre>
+    16: stress ratio &gt; sratmax
+     4: scale factor of the gradient &lt; sfgrmin</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MASS)){<span class="fu">install.packages</span>(<span class="st">"MASS"</span>)}</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
@@ -768,7 +766,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 5.99  total = 6.99 
 
-REML score: 41.84463     </code></pre>
+REML score: 41.84464     </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(mmds, ssit<span class="sc">$</span>Waterlev.av,<span class="at">add =</span> T, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -782,7 +780,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 6.32  total = 7.32 
 
-REML score: 168.9827     </code></pre>
+REML score: 168.9814     </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imds<span class="sc">$</span>points)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(imds, ssit<span class="sc">$</span>pH.peat, <span class="at">add =</span> T)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -896,7 +894,7 @@ REML score: 167.6801     </code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Datensatz Doubs</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Doubs Datensatz in den workspace laden</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/Doubs.RData"</span>)  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"datasets/statistik/Doubs.RData"</span>)  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spe)</span>
@@ -1088,11 +1086,11 @@ Number of permutations: 999
 Model: rda(formula = spe.hel ~ ele + slo + dis + pH + har + pho + nit + amm + oxy + bod, data = env3)
          Df Variance       F Pr(&gt;F)    
 RDA1      1 0.228083 26.6105  0.001 ***
-RDA2      1 0.053698  6.2649  0.003 ** 
-RDA3      1 0.032119  3.7473  0.309    
-RDA4      1 0.023206  2.7074  0.762    
-RDA5      1 0.008699  1.0149  1.000    
-RDA6      1 0.007218  0.8421  1.000    
+RDA2      1 0.053698  6.2649  0.008 ** 
+RDA3      1 0.032119  3.7473  0.353    
+RDA4      1 0.023206  2.7074  0.786    
+RDA5      1 0.008699  1.0149  0.999    
+RDA6      1 0.007218  0.8421  0.999    
 RDA7      1 0.004869  0.5681  1.000    
 RDA8      1 0.002924  0.3412  1.000    
 RDA9      1 0.002141  0.2498  1.000    
@@ -1198,12 +1196,12 @@ Number of permutations: 999
 Model: rda(formula = spe.hel ~ pH + har + pho + nit + amm + oxy + bod + Condition(ele + slo + dis), data = env2)
          Df Variance       F Pr(&gt;F)    
 RDA1      1 0.091363 12.3078  0.001 ***
-RDA2      1 0.045904  6.1839  0.016 *  
-RDA3      1 0.009277  1.2497  0.962    
-RDA4      1 0.006250  0.8420  0.991    
-RDA5      1 0.003868  0.5210  0.999    
-RDA6      1 0.002145  0.2890  1.000    
-RDA7      1 0.001424  0.1919  0.995    
+RDA2      1 0.045904  6.1839  0.011 *  
+RDA3      1 0.009277  1.2497  0.966    
+RDA4      1 0.006250  0.8420  0.997    
+RDA5      1 0.003868  0.5210  1.000    
+RDA6      1 0.002145  0.2890  0.999    
+RDA7      1 0.001424  0.1919  0.997    
 Residual 18 0.133617                   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
@@ -1318,6 +1316,8 @@ Use function 'rda' to test significance of fractions of interest</code></pre>
 </div>
 </div>
 
+
+<!-- -->
 
 </section>
 </section>
@@ -1484,6 +1484,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -1545,7 +1596,323 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-title">Stat7: Übung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb74" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-21</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat7</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Ordinationen II</span></span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat7: Demo</span></span>
+<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Demoscripts via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz <span class="co">[</span><span class="ot">Doubs.RData</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=606667)</span></span>
+<span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Funktion <span class="co">[</span><span class="ot">triplot.rda.R</span><span class="co">](triplot.rda.R)</span></span>
+<span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ordinationen II</span></span>
+<span id="cb74-19"><a href="#cb74-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-20"><a href="#cb74-20" aria-hidden="true" tabindex="-1"></a><span class="fu">### Interpretation von Ordinationen</span></span>
+<span id="cb74-21"><a href="#cb74-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-22"><a href="#cb74-22" aria-hidden="true" tabindex="-1"></a>Wildi pp. 96 et seq.</span>
+<span id="cb74-23"><a href="#cb74-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-26"><a href="#cb74-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-27"><a href="#cb74-27" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplot-interpret-ordinations</span></span>
+<span id="cb74-28"><a href="#cb74-28" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb74-29"><a href="#cb74-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-30"><a href="#cb74-30" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot Arten</span></span>
+<span id="cb74-31"><a href="#cb74-31" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dave)){<span class="fu">install.packages</span>(<span class="st">"dave"</span>)}</span>
+<span id="cb74-32"><a href="#cb74-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave)</span>
+<span id="cb74-33"><a href="#cb74-33" aria-hidden="true" tabindex="-1"></a>ca <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>)</span>
+<span id="cb74-34"><a href="#cb74-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-35"><a href="#cb74-35" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot mit ausgewählten Arten</span></span>
+<span id="cb74-36"><a href="#cb74-36" aria-hidden="true" tabindex="-1"></a>sel.spec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">23</span>, <span class="dv">31</span>, <span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">72</span>, <span class="dv">77</span>, <span class="dv">96</span>)</span>
+<span id="cb74-37"><a href="#cb74-37" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">names</span>(sveg[,sel.spec])</span>
+<span id="cb74-38"><a href="#cb74-38" aria-hidden="true" tabindex="-1"></a>snames</span>
+<span id="cb74-39"><a href="#cb74-39" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(ca, <span class="at">display =</span> <span class="st">"species"</span>, <span class="at">scaling =</span> <span class="st">"sites"</span>)</span>
+<span id="cb74-40"><a href="#cb74-40" aria-hidden="true" tabindex="-1"></a>sx <span class="ot">&lt;-</span> scores[sel.spec, <span class="dv">1</span>]</span>
+<span id="cb74-41"><a href="#cb74-41" aria-hidden="true" tabindex="-1"></a>sy <span class="ot">&lt;-</span> scores[sel.spec, <span class="dv">2</span>]</span>
+<span id="cb74-42"><a href="#cb74-42" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"point"</span>)</span>
+<span id="cb74-43"><a href="#cb74-43" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(sx, sy, <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb74-44"><a href="#cb74-44" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">make.cepnames</span>(snames)</span>
+<span id="cb74-45"><a href="#cb74-45" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(sx, sy, snames, <span class="at">pos =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>), <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb74-46"><a href="#cb74-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-47"><a href="#cb74-47" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot "response surfaces" in der CA</span></span>
+<span id="cb74-48"><a href="#cb74-48" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"point"</span>)</span>
+<span id="cb74-49"><a href="#cb74-49" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(ca, ssit<span class="sc">$</span>pH.peat, <span class="at">add =</span> T)</span>
+<span id="cb74-50"><a href="#cb74-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-51"><a href="#cb74-51" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"points"</span>)</span>
+<span id="cb74-52"><a href="#cb74-52" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(ca, ssit<span class="sc">$</span>Waterlev.av, <span class="at">add =</span> T, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb74-53"><a href="#cb74-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-54"><a href="#cb74-54" aria-hidden="true" tabindex="-1"></a><span class="do">## Das gleiche für die DCA</span></span>
+<span id="cb74-55"><a href="#cb74-55" aria-hidden="true" tabindex="-1"></a>dca <span class="ot">&lt;-</span> <span class="fu">decorana</span>(sveg)</span>
+<span id="cb74-56"><a href="#cb74-56" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dca, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"points"</span>)</span>
+<span id="cb74-57"><a href="#cb74-57" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(dca, ssit<span class="sc">$</span>pH.peat, <span class="at">add =</span> T)</span>
+<span id="cb74-58"><a href="#cb74-58" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(dca, ssit<span class="sc">$</span>Waterlev.av, <span class="at">add =</span> T, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb74-59"><a href="#cb74-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-60"><a href="#cb74-60" aria-hidden="true" tabindex="-1"></a><span class="do">## Das gleiche mit NMDS</span></span>
+<span id="cb74-61"><a href="#cb74-61" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(sveg, <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
+<span id="cb74-62"><a href="#cb74-62" aria-hidden="true" tabindex="-1"></a>mmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(mde)</span>
+<span id="cb74-63"><a href="#cb74-63" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MASS)){<span class="fu">install.packages</span>(<span class="st">"MASS"</span>)}</span>
+<span id="cb74-64"><a href="#cb74-64" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb74-65"><a href="#cb74-65" aria-hidden="true" tabindex="-1"></a>imds <span class="ot">&lt;-</span> <span class="fu">isoMDS</span>(mde)</span>
+<span id="cb74-66"><a href="#cb74-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-67"><a href="#cb74-67" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mmds<span class="sc">$</span>points)</span>
+<span id="cb74-68"><a href="#cb74-68" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(mmds, ssit<span class="sc">$</span>pH.peat, <span class="at">add =</span> T)</span>
+<span id="cb74-69"><a href="#cb74-69" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(mmds, ssit<span class="sc">$</span>Waterlev.av,<span class="at">add =</span> T, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb74-70"><a href="#cb74-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-71"><a href="#cb74-71" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imds<span class="sc">$</span>points)</span>
+<span id="cb74-72"><a href="#cb74-72" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(imds, ssit<span class="sc">$</span>pH.peat, <span class="at">add =</span> T)</span>
+<span id="cb74-73"><a href="#cb74-73" aria-hidden="true" tabindex="-1"></a><span class="fu">ordisurf</span>(imds, ssit<span class="sc">$</span>Waterlev.av, <span class="at">add =</span> T, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb74-74"><a href="#cb74-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-75"><a href="#cb74-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-76"><a href="#cb74-76" aria-hidden="true" tabindex="-1"></a><span class="fu">### Constrained ordination</span></span>
+<span id="cb74-77"><a href="#cb74-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-80"><a href="#cb74-80" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-81"><a href="#cb74-81" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb74-82"><a href="#cb74-82" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Umweltvariablen gewählt, durch die die Ordination constrained werden soll</span></span>
+<span id="cb74-83"><a href="#cb74-83" aria-hidden="true" tabindex="-1"></a>ssit</span>
+<span id="cb74-84"><a href="#cb74-84" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ssit)</span>
+<span id="cb74-85"><a href="#cb74-85" aria-hidden="true" tabindex="-1"></a>s5 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"pH.peat"</span>, <span class="st">"P.peat"</span>, <span class="st">"Waterlev.av"</span>, <span class="st">"CEC.peat"</span>, <span class="st">"Acidity.peat"</span>)</span>
+<span id="cb74-86"><a href="#cb74-86" aria-hidden="true" tabindex="-1"></a>ssit5 <span class="ot">&lt;-</span> ssit[s5]</span>
+<span id="cb74-87"><a href="#cb74-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-88"><a href="#cb74-88" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sveg)</span>
+<span id="cb74-89"><a href="#cb74-89" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sveg)</span>
+<span id="cb74-90"><a href="#cb74-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-91"><a href="#cb74-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-94"><a href="#cb74-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-95"><a href="#cb74-95" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb74-96"><a href="#cb74-96" aria-hidden="true" tabindex="-1"></a><span class="do">## RDA = constrained PCA</span></span>
+<span id="cb74-97"><a href="#cb74-97" aria-hidden="true" tabindex="-1"></a>rda <span class="ot">&lt;-</span> <span class="fu">rda</span>(sveg<span class="sc">~</span>., ssit5)</span>
+<span id="cb74-98"><a href="#cb74-98" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rda)</span>
+<span id="cb74-99"><a href="#cb74-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-100"><a href="#cb74-100" aria-hidden="true" tabindex="-1"></a><span class="do">## CCA = constrained CA</span></span>
+<span id="cb74-101"><a href="#cb74-101" aria-hidden="true" tabindex="-1"></a>cca <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">~</span>., ssit5)</span>
+<span id="cb74-102"><a href="#cb74-102" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cca)</span>
+<span id="cb74-103"><a href="#cb74-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-104"><a href="#cb74-104" aria-hidden="true" tabindex="-1"></a><span class="do">## Unconstrained and constrained variance</span></span>
+<span id="cb74-105"><a href="#cb74-105" aria-hidden="true" tabindex="-1"></a>tot <span class="ot">&lt;-</span> cca<span class="sc">$</span>tot.chi</span>
+<span id="cb74-106"><a href="#cb74-106" aria-hidden="true" tabindex="-1"></a>constr <span class="ot">&lt;-</span> cca<span class="sc">$</span>CCA<span class="sc">$</span>tot.chi</span>
+<span id="cb74-107"><a href="#cb74-107" aria-hidden="true" tabindex="-1"></a>constr <span class="sc">/</span> tot</span>
+<span id="cb74-108"><a href="#cb74-108" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-109"><a href="#cb74-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-110"><a href="#cb74-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### Redundancy analysis (RDA)</span></span>
+<span id="cb74-111"><a href="#cb74-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-112"><a href="#cb74-112" aria-hidden="true" tabindex="-1"></a>Mehr Details zu RDA aus Borcard et al. (Numerical ecology with R)</span>
+<span id="cb74-113"><a href="#cb74-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-116"><a href="#cb74-116" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-117"><a href="#cb74-117" aria-hidden="true" tabindex="-1"></a><span class="do">## Datensatz Doubs</span></span>
+<span id="cb74-118"><a href="#cb74-118" aria-hidden="true" tabindex="-1"></a><span class="do">## Doubs Datensatz in den workspace laden</span></span>
+<span id="cb74-119"><a href="#cb74-119" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"datasets/statistik/Doubs.RData"</span>)  </span>
+<span id="cb74-120"><a href="#cb74-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-121"><a href="#cb74-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-124"><a href="#cb74-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-125"><a href="#cb74-125" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb74-126"><a href="#cb74-126" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spe)</span>
+<span id="cb74-127"><a href="#cb74-127" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env)</span>
+<span id="cb74-128"><a href="#cb74-128" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spa)</span>
+<span id="cb74-129"><a href="#cb74-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-130"><a href="#cb74-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-133"><a href="#cb74-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-134"><a href="#cb74-134" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplot-rda1</span></span>
+<span id="cb74-135"><a href="#cb74-135" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb74-136"><a href="#cb74-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-137"><a href="#cb74-137" aria-hidden="true" tabindex="-1"></a><span class="do">## Entfernen der Untersuchungsfläche ohne Arten</span></span>
+<span id="cb74-138"><a href="#cb74-138" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> spe[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb74-139"><a href="#cb74-139" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> env[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb74-140"><a href="#cb74-140" aria-hidden="true" tabindex="-1"></a>spa <span class="ot">&lt;-</span> spa[<span class="sc">-</span><span class="dv">8</span>, ]</span>
+<span id="cb74-141"><a href="#cb74-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-142"><a href="#cb74-142" aria-hidden="true" tabindex="-1"></a><span class="do">## Karten für 4 Fischarten</span></span>
+<span id="cb74-143"><a href="#cb74-143" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb74-144"><a href="#cb74-144" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spa, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"brown"</span>, <span class="at">cex =</span> spe<span class="sc">$</span>Satr, <span class="at">xlab =</span> <span class="st">"x (km)"</span>, <span class="at">ylab =</span> <span class="st">"y (km)"</span>, <span class="at">main =</span> <span class="st">"Brown trout"</span>)</span>
+<span id="cb74-145"><a href="#cb74-145" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(spa, <span class="at">col =</span> <span class="st">"light blue"</span>)</span>
+<span id="cb74-146"><a href="#cb74-146" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spa, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"brown"</span>, <span class="at">cex =</span> spe<span class="sc">$</span>Thth, <span class="at">xlab =</span> <span class="st">"x (km)"</span>, <span class="at">ylab =</span> <span class="st">"y (km)"</span>, <span class="at">main =</span> <span class="st">"Grayling"</span>)</span>
+<span id="cb74-147"><a href="#cb74-147" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(spa, <span class="at">col =</span> <span class="st">"light blue"</span>)</span>
+<span id="cb74-148"><a href="#cb74-148" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spa, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"brown"</span>, <span class="at">cex =</span> spe<span class="sc">$</span>Alal, <span class="at">xlab =</span> <span class="st">"x (km)"</span>, <span class="at">ylab =</span> <span class="st">"y (km)"</span>, <span class="at">main =</span> <span class="st">"Bleak"</span>)</span>
+<span id="cb74-149"><a href="#cb74-149" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(spa, <span class="at">col =</span> <span class="st">"light blue"</span>)</span>
+<span id="cb74-150"><a href="#cb74-150" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spa, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"brown"</span>, <span class="at">cex =</span> spe<span class="sc">$</span>Titi, <span class="at">xlab =</span> <span class="st">"x (km)"</span>, <span class="at">ylab =</span> <span class="st">"y (km)"</span>, <span class="at">main =</span> <span class="st">"Tench"</span>)</span>
+<span id="cb74-151"><a href="#cb74-151" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(spa, <span class="at">col =</span> <span class="st">"light blue"</span>)</span>
+<span id="cb74-152"><a href="#cb74-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-153"><a href="#cb74-153" aria-hidden="true" tabindex="-1"></a><span class="do">## Set aside the variable 'dfs' (distance from the source) for </span></span>
+<span id="cb74-154"><a href="#cb74-154" aria-hidden="true" tabindex="-1"></a><span class="do">## later use</span></span>
+<span id="cb74-155"><a href="#cb74-155" aria-hidden="true" tabindex="-1"></a>dfs <span class="ot">&lt;-</span> env[, <span class="dv">1</span>]</span>
+<span id="cb74-156"><a href="#cb74-156" aria-hidden="true" tabindex="-1"></a><span class="do">## Remove the 'dfs' variable from the env data frame</span></span>
+<span id="cb74-157"><a href="#cb74-157" aria-hidden="true" tabindex="-1"></a>env2 <span class="ot">&lt;-</span> env[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb74-158"><a href="#cb74-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-159"><a href="#cb74-159" aria-hidden="true" tabindex="-1"></a><span class="do">## Recode the slope variable (slo) into a factor (qualitative) </span></span>
+<span id="cb74-160"><a href="#cb74-160" aria-hidden="true" tabindex="-1"></a><span class="do">## variable to show how these are handled in the ordinations</span></span>
+<span id="cb74-161"><a href="#cb74-161" aria-hidden="true" tabindex="-1"></a>slo2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">".very_steep"</span>, <span class="fu">nrow</span>(env))</span>
+<span id="cb74-162"><a href="#cb74-162" aria-hidden="true" tabindex="-1"></a>slo2[env<span class="sc">$</span>slo <span class="sc">&lt;=</span> <span class="fu">quantile</span>(env<span class="sc">$</span>slo)[<span class="dv">4</span>]] <span class="ot">&lt;-</span> <span class="st">".steep"</span></span>
+<span id="cb74-163"><a href="#cb74-163" aria-hidden="true" tabindex="-1"></a>slo2[env<span class="sc">$</span>slo <span class="sc">&lt;=</span> <span class="fu">quantile</span>(env<span class="sc">$</span>slo)[<span class="dv">3</span>]] <span class="ot">&lt;-</span> <span class="st">".moderate"</span></span>
+<span id="cb74-164"><a href="#cb74-164" aria-hidden="true" tabindex="-1"></a>slo2[env<span class="sc">$</span>slo <span class="sc">&lt;=</span> <span class="fu">quantile</span>(env<span class="sc">$</span>slo)[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="st">".low"</span></span>
+<span id="cb74-165"><a href="#cb74-165" aria-hidden="true" tabindex="-1"></a>slo2 <span class="ot">&lt;-</span> <span class="fu">factor</span>(slo2, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">".low"</span>, <span class="st">".moderate"</span>, <span class="st">".steep"</span>, <span class="st">".very_steep"</span>))</span>
+<span id="cb74-166"><a href="#cb74-166" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(slo2)</span>
+<span id="cb74-167"><a href="#cb74-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-168"><a href="#cb74-168" aria-hidden="true" tabindex="-1"></a><span class="do">## Create an env3 data frame with slope as a qualitative variable</span></span>
+<span id="cb74-169"><a href="#cb74-169" aria-hidden="true" tabindex="-1"></a>env3 <span class="ot">&lt;-</span> env2</span>
+<span id="cb74-170"><a href="#cb74-170" aria-hidden="true" tabindex="-1"></a>env3<span class="sc">$</span>slo <span class="ot">&lt;-</span> slo2</span>
+<span id="cb74-171"><a href="#cb74-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-172"><a href="#cb74-172" aria-hidden="true" tabindex="-1"></a><span class="do">## Create two subsets of explanatory variables</span></span>
+<span id="cb74-173"><a href="#cb74-173" aria-hidden="true" tabindex="-1"></a><span class="do">## Physiography (upstream-downstream gradient)</span></span>
+<span id="cb74-174"><a href="#cb74-174" aria-hidden="true" tabindex="-1"></a>envtopo <span class="ot">&lt;-</span> env2[, <span class="fu">c</span>(<span class="dv">1</span> <span class="sc">:</span> <span class="dv">3</span>)]</span>
+<span id="cb74-175"><a href="#cb74-175" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(envtopo)</span>
+<span id="cb74-176"><a href="#cb74-176" aria-hidden="true" tabindex="-1"></a><span class="do">## Water quality</span></span>
+<span id="cb74-177"><a href="#cb74-177" aria-hidden="true" tabindex="-1"></a>envchem <span class="ot">&lt;-</span> env2[, <span class="fu">c</span>(<span class="dv">4</span> <span class="sc">:</span> <span class="dv">10</span>)]</span>
+<span id="cb74-178"><a href="#cb74-178" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(envchem)</span>
+<span id="cb74-179"><a href="#cb74-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-180"><a href="#cb74-180" aria-hidden="true" tabindex="-1"></a><span class="do">## Hellinger-transform the species dataset</span></span>
+<span id="cb74-181"><a href="#cb74-181" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb74-182"><a href="#cb74-182" aria-hidden="true" tabindex="-1"></a>spe.hel <span class="ot">&lt;-</span> <span class="fu">decostand</span>(spe, <span class="st">"hellinger"</span>)</span>
+<span id="cb74-183"><a href="#cb74-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-184"><a href="#cb74-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-187"><a href="#cb74-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-188"><a href="#cb74-188" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb74-189"><a href="#cb74-189" aria-hidden="true" tabindex="-1"></a>spe.hel</span>
+<span id="cb74-190"><a href="#cb74-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-193"><a href="#cb74-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-194"><a href="#cb74-194" aria-hidden="true" tabindex="-1"></a><span class="do">## Redundancy analysis (RDA)</span></span>
+<span id="cb74-195"><a href="#cb74-195" aria-hidden="true" tabindex="-1"></a><span class="do">### RDA of the Hellinger-transformed fish species data, constrained</span></span>
+<span id="cb74-196"><a href="#cb74-196" aria-hidden="true" tabindex="-1"></a><span class="do">### by all the environmental variables contained in env3</span></span>
+<span id="cb74-197"><a href="#cb74-197" aria-hidden="true" tabindex="-1"></a>spe.rda <span class="ot">&lt;-</span> <span class="fu">rda</span>(spe.hel <span class="sc">~</span> ., env3) <span class="co"># Observe the shortcut formula</span></span>
+<span id="cb74-198"><a href="#cb74-198" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-199"><a href="#cb74-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-202"><a href="#cb74-202" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-203"><a href="#cb74-203" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb74-204"><a href="#cb74-204" aria-hidden="true" tabindex="-1"></a>spe.rda</span>
+<span id="cb74-205"><a href="#cb74-205" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spe.rda)    <span class="co"># Scaling 2 (default)</span></span>
+<span id="cb74-206"><a href="#cb74-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-207"><a href="#cb74-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-210"><a href="#cb74-210" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-211"><a href="#cb74-211" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb74-212"><a href="#cb74-212" aria-hidden="true" tabindex="-1"></a><span class="do">## Canonical coefficients from the rda object</span></span>
+<span id="cb74-213"><a href="#cb74-213" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(spe.rda)</span>
+<span id="cb74-214"><a href="#cb74-214" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-215"><a href="#cb74-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-218"><a href="#cb74-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-219"><a href="#cb74-219" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplot-rda2</span></span>
+<span id="cb74-220"><a href="#cb74-220" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb74-221"><a href="#cb74-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-222"><a href="#cb74-222" aria-hidden="true" tabindex="-1"></a><span class="do">## Unadjusted R^2 und Adjusted R^2</span></span>
+<span id="cb74-223"><a href="#cb74-223" aria-hidden="true" tabindex="-1"></a>(R2 <span class="ot">&lt;-</span> <span class="fu">RsquareAdj</span>(spe.rda))</span>
+<span id="cb74-224"><a href="#cb74-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-225"><a href="#cb74-225" aria-hidden="true" tabindex="-1"></a><span class="do">### Triplots of the rda results (lc scores)</span></span>
+<span id="cb74-226"><a href="#cb74-226" aria-hidden="true" tabindex="-1"></a><span class="do">### Site scores as linear combinations of the environmental variables</span></span>
+<span id="cb74-227"><a href="#cb74-227" aria-hidden="true" tabindex="-1"></a><span class="do">## dev.new(title = "RDA scaling 1 and 2 + lc", width = 12, height = 6, noRStudioGD = TRUE)</span></span>
+<span id="cb74-228"><a href="#cb74-228" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb74-229"><a href="#cb74-229" aria-hidden="true" tabindex="-1"></a><span class="do">## Scaling 1</span></span>
+<span id="cb74-230"><a href="#cb74-230" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.rda,<span class="at">scaling =</span> <span class="dv">1</span>, <span class="at">display =</span> <span class="fu">c</span>(<span class="st">"sp"</span>, <span class="st">"lc"</span>, <span class="st">"cn"</span>), <span class="at">main =</span> <span class="st">"Triplot RDA spe.hel ~ env3 - scaling 1 - lc scores"</span>)</span>
+<span id="cb74-231"><a href="#cb74-231" aria-hidden="true" tabindex="-1"></a>spe.sc1 <span class="ot">&lt;-</span> <span class="fu">scores</span>(spe.rda, <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">scaling =</span> <span class="dv">1</span>, <span class="at">display =</span> <span class="st">"sp"</span>)</span>
+<span id="cb74-232"><a href="#cb74-232" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, spe.sc1[, <span class="dv">1</span>] <span class="sc">*</span> <span class="fl">0.92</span>, spe.sc1[, <span class="dv">2</span>] <span class="sc">*</span> <span class="fl">0.92</span>, <span class="at">length =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb74-233"><a href="#cb74-233" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.75</span>, <span class="fl">0.7</span>, <span class="st">"a"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb74-234"><a href="#cb74-234" aria-hidden="true" tabindex="-1"></a><span class="do">## Scaling 2</span></span>
+<span id="cb74-235"><a href="#cb74-235" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.rda, <span class="at">display =</span> <span class="fu">c</span>(<span class="st">"sp"</span>, <span class="st">"lc"</span>, <span class="st">"cn"</span>), <span class="at">main =</span> <span class="st">"Triplot RDA spe.hel ~ env3 - scaling 2 - lc scores"</span>)</span>
+<span id="cb74-236"><a href="#cb74-236" aria-hidden="true" tabindex="-1"></a>spe.sc2 <span class="ot">&lt;-</span> <span class="fu">scores</span>(spe.rda, <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">display =</span> <span class="st">"sp"</span>)</span>
+<span id="cb74-237"><a href="#cb74-237" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, spe.sc2[, <span class="dv">1</span>] <span class="sc">*</span> <span class="fl">0.92</span>, spe.sc2[, <span class="dv">2</span>] <span class="sc">*</span> <span class="fl">0.92</span>,<span class="at">length =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb74-238"><a href="#cb74-238" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.82</span>, <span class="fl">0.55</span>, <span class="st">"b"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb74-239"><a href="#cb74-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-240"><a href="#cb74-240" aria-hidden="true" tabindex="-1"></a><span class="do">### Triplots of the rda results (wa scores)</span></span>
+<span id="cb74-241"><a href="#cb74-241" aria-hidden="true" tabindex="-1"></a><span class="do">### Site scores as weighted averages (vegan's default)</span></span>
+<span id="cb74-242"><a href="#cb74-242" aria-hidden="true" tabindex="-1"></a><span class="do">## Scaling 1 :  distance triplot</span></span>
+<span id="cb74-243"><a href="#cb74-243" aria-hidden="true" tabindex="-1"></a><span class="do">##dev.new(title = "RDA plot", width = 12, height = 6, noRStudioGD = TRUE)</span></span>
+<span id="cb74-244"><a href="#cb74-244" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb74-245"><a href="#cb74-245" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.rda, <span class="at">scaling =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">"Triplot RDA spe.hel ~ env3 - scaling 1 - wa scores"</span>)</span>
+<span id="cb74-246"><a href="#cb74-246" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, spe.sc1[, <span class="dv">1</span>] <span class="sc">*</span> <span class="fl">0.92</span>, spe.sc1[, <span class="dv">2</span>] <span class="sc">*</span> <span class="fl">0.92</span>, <span class="at">length =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb74-247"><a href="#cb74-247" aria-hidden="true" tabindex="-1"></a><span class="do">## Scaling 2 (default) :  correlation triplot</span></span>
+<span id="cb74-248"><a href="#cb74-248" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.rda, <span class="at">main =</span> <span class="st">"Triplot RDA spe.hel ~ env3 - scaling 2 - wa scores"</span>)</span>
+<span id="cb74-249"><a href="#cb74-249" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, spe.sc2[, <span class="dv">1</span>] <span class="sc">*</span> <span class="fl">0.92</span>, spe.sc2[, <span class="dv">2</span>] <span class="sc">*</span> <span class="fl">0.92</span>, <span class="at">length =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb74-250"><a href="#cb74-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-251"><a href="#cb74-251" aria-hidden="true" tabindex="-1"></a><span class="do">## Select species with goodness-of-fit at least 0.6 in the </span></span>
+<span id="cb74-252"><a href="#cb74-252" aria-hidden="true" tabindex="-1"></a><span class="do">## ordination plane formed by axes 1 and 2</span></span>
+<span id="cb74-253"><a href="#cb74-253" aria-hidden="true" tabindex="-1"></a>spe.good <span class="ot">&lt;-</span> <span class="fu">goodness</span>(spe.rda)</span>
+<span id="cb74-254"><a href="#cb74-254" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">which</span>(spe.good[, <span class="dv">2</span>] <span class="sc">&gt;=</span> <span class="fl">0.6</span>)</span>
+<span id="cb74-255"><a href="#cb74-255" aria-hidden="true" tabindex="-1"></a>sel.sp</span>
+<span id="cb74-256"><a href="#cb74-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-257"><a href="#cb74-257" aria-hidden="true" tabindex="-1"></a><span class="do">## Triplots with homemade function triplot.rda(), scalings 1 and 2</span></span>
+<span id="cb74-258"><a href="#cb74-258" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"stat5-8/triplot.rda.R"</span>)</span>
+<span id="cb74-259"><a href="#cb74-259" aria-hidden="true" tabindex="-1"></a><span class="do">##dev.new(title = "RDA plot with triplot.rda", width = 12, height = 6, noRStudioGD = TRUE)</span></span>
+<span id="cb74-260"><a href="#cb74-260" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb74-261"><a href="#cb74-261" aria-hidden="true" tabindex="-1"></a><span class="fu">triplot.rda</span>(spe.rda, <span class="at">site.sc =</span> <span class="st">"lc"</span>, <span class="at">scaling =</span> <span class="dv">1</span>, <span class="at">cex.char2 =</span> <span class="fl">0.7</span>, <span class="at">pos.env =</span> <span class="dv">3</span>, </span>
+<span id="cb74-262"><a href="#cb74-262" aria-hidden="true" tabindex="-1"></a>            <span class="at">pos.centr =</span> <span class="dv">1</span>, <span class="at">mult.arrow =</span> <span class="fl">1.1</span>, <span class="at">mar.percent =</span> <span class="fl">0.05</span>, <span class="at">select.spe =</span> sel.sp)</span>
+<span id="cb74-263"><a href="#cb74-263" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.92</span>, <span class="fl">0.72</span>, <span class="st">"a"</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb74-264"><a href="#cb74-264" aria-hidden="true" tabindex="-1"></a><span class="fu">triplot.rda</span>(spe.rda, <span class="at">site.sc =</span> <span class="st">"lc"</span>, <span class="at">scaling =</span> <span class="dv">2</span>, <span class="at">cex.char2 =</span> <span class="fl">0.7</span>, <span class="at">pos.env =</span> <span class="dv">3</span>, </span>
+<span id="cb74-265"><a href="#cb74-265" aria-hidden="true" tabindex="-1"></a>            <span class="at">pos.centr =</span> <span class="dv">1</span>, <span class="at">mult.arrow =</span> <span class="fl">1.1</span>, <span class="at">mar.percent =</span> <span class="fl">0.05</span>, <span class="at">select.spe =</span> sel.sp)</span>
+<span id="cb74-266"><a href="#cb74-266" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">2.82</span>, <span class="dv">2</span>, <span class="st">"b"</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb74-267"><a href="#cb74-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-268"><a href="#cb74-268" aria-hidden="true" tabindex="-1"></a><span class="do">## Global test of the RDA result</span></span>
+<span id="cb74-269"><a href="#cb74-269" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spe.rda, <span class="at">permutations =</span> <span class="fu">how</span>(<span class="at">nperm =</span> <span class="dv">999</span>))</span>
+<span id="cb74-270"><a href="#cb74-270" aria-hidden="true" tabindex="-1"></a><span class="do">## Tests of all canonical axes</span></span>
+<span id="cb74-271"><a href="#cb74-271" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spe.rda, <span class="at">by =</span> <span class="st">"axis"</span>, <span class="at">permutations =</span> <span class="fu">how</span>(<span class="at">nperm =</span> <span class="dv">999</span>))</span>
+<span id="cb74-272"><a href="#cb74-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-273"><a href="#cb74-273" aria-hidden="true" tabindex="-1"></a><span class="do">### Partial RDA: effect of water chemistry, holding physiography</span></span>
+<span id="cb74-274"><a href="#cb74-274" aria-hidden="true" tabindex="-1"></a><span class="do">### constant</span></span>
+<span id="cb74-275"><a href="#cb74-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-276"><a href="#cb74-276" aria-hidden="true" tabindex="-1"></a><span class="do">## Simple syntax; X and W may be in separate tables of quantitative </span></span>
+<span id="cb74-277"><a href="#cb74-277" aria-hidden="true" tabindex="-1"></a><span class="do">## variables</span></span>
+<span id="cb74-278"><a href="#cb74-278" aria-hidden="true" tabindex="-1"></a>(spechem.physio <span class="ot">&lt;-</span> <span class="fu">rda</span>(spe.hel, envchem, envtopo))</span>
+<span id="cb74-279"><a href="#cb74-279" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-280"><a href="#cb74-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-283"><a href="#cb74-283" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-284"><a href="#cb74-284" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb74-285"><a href="#cb74-285" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spechem.physio)</span>
+<span id="cb74-286"><a href="#cb74-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-287"><a href="#cb74-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-290"><a href="#cb74-290" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-291"><a href="#cb74-291" aria-hidden="true" tabindex="-1"></a><span class="do">## Formula interface; X and W variables must be in the same </span></span>
+<span id="cb74-292"><a href="#cb74-292" aria-hidden="true" tabindex="-1"></a><span class="do">## data frame</span></span>
+<span id="cb74-293"><a href="#cb74-293" aria-hidden="true" tabindex="-1"></a>(spechem.physio2 <span class="ot">&lt;-</span> <span class="fu">rda</span>(spe.hel <span class="sc">~</span> pH <span class="sc">+</span> har <span class="sc">+</span> pho <span class="sc">+</span> nit <span class="sc">+</span> amm <span class="sc">+</span> oxy <span class="sc">+</span> bod </span>
+<span id="cb74-294"><a href="#cb74-294" aria-hidden="true" tabindex="-1"></a>        <span class="sc">+</span> <span class="fu">Condition</span>(ele <span class="sc">+</span> slo <span class="sc">+</span> dis), <span class="at">data =</span> env2))</span>
+<span id="cb74-295"><a href="#cb74-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-296"><a href="#cb74-296" aria-hidden="true" tabindex="-1"></a><span class="do">## Test of the partial RDA, using the results with the formula </span></span>
+<span id="cb74-297"><a href="#cb74-297" aria-hidden="true" tabindex="-1"></a><span class="do">## interface to allow the tests of the axes to be run</span></span>
+<span id="cb74-298"><a href="#cb74-298" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spechem.physio2, <span class="at">permutations =</span> <span class="fu">how</span>(<span class="at">nperm =</span> <span class="dv">999</span>))</span>
+<span id="cb74-299"><a href="#cb74-299" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spechem.physio2, <span class="at">permutations =</span> <span class="fu">how</span>(<span class="at">nperm =</span> <span class="dv">999</span>), <span class="at">by =</span> <span class="st">"axis"</span>)</span>
+<span id="cb74-300"><a href="#cb74-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-301"><a href="#cb74-301" aria-hidden="true" tabindex="-1"></a><span class="do">## Partial RDA triplots (with fitted site scores) </span></span>
+<span id="cb74-302"><a href="#cb74-302" aria-hidden="true" tabindex="-1"></a><span class="do">## with function triplot.rda</span></span>
+<span id="cb74-303"><a href="#cb74-303" aria-hidden="true" tabindex="-1"></a><span class="do">## Scaling 1</span></span>
+<span id="cb74-304"><a href="#cb74-304" aria-hidden="true" tabindex="-1"></a><span class="do">##dev.new(title = "Partial RDA",width = 12, height = 6, noRStudioGD = TRUE)</span></span>
+<span id="cb74-305"><a href="#cb74-305" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb74-306"><a href="#cb74-306" aria-hidden="true" tabindex="-1"></a><span class="fu">triplot.rda</span>(spechem.physio, <span class="at">site.sc =</span> <span class="st">"lc"</span>, <span class="at">scaling =</span> <span class="dv">1</span>, </span>
+<span id="cb74-307"><a href="#cb74-307" aria-hidden="true" tabindex="-1"></a>            <span class="at">cex.char2 =</span> <span class="fl">0.8</span>, <span class="at">pos.env =</span> <span class="dv">3</span>, <span class="at">mar.percent =</span> <span class="dv">0</span>)</span>
+<span id="cb74-308"><a href="#cb74-308" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.58</span>, <span class="fl">0.64</span>, <span class="st">"a"</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb74-309"><a href="#cb74-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-310"><a href="#cb74-310" aria-hidden="true" tabindex="-1"></a><span class="do">## Scaling 2</span></span>
+<span id="cb74-311"><a href="#cb74-311" aria-hidden="true" tabindex="-1"></a><span class="fu">triplot.rda</span>(spechem.physio, <span class="at">site.sc =</span> <span class="st">"lc"</span>, <span class="at">scaling =</span> <span class="dv">2</span>, <span class="at">cex.char2 =</span> <span class="fl">0.8</span>, </span>
+<span id="cb74-312"><a href="#cb74-312" aria-hidden="true" tabindex="-1"></a>            <span class="at">pos.env =</span> <span class="dv">3</span>, <span class="at">mult.spe =</span> <span class="fl">1.1</span>, <span class="at">mar.percent =</span> <span class="fl">0.04</span>)</span>
+<span id="cb74-313"><a href="#cb74-313" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">3.34</span>, <span class="fl">3.64</span>, <span class="st">"b"</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb74-314"><a href="#cb74-314" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb74-315"><a href="#cb74-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-316"><a href="#cb74-316" aria-hidden="true" tabindex="-1"></a><span class="fu">### Variation partioning</span></span>
+<span id="cb74-317"><a href="#cb74-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-320"><a href="#cb74-320" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb74-321"><a href="#cb74-321" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplot-variation-partioning</span></span>
+<span id="cb74-322"><a href="#cb74-322" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb74-323"><a href="#cb74-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-324"><a href="#cb74-324" aria-hidden="true" tabindex="-1"></a><span class="do">### Variation partitioning with two sets of explanatory variables</span></span>
+<span id="cb74-325"><a href="#cb74-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-326"><a href="#cb74-326" aria-hidden="true" tabindex="-1"></a><span class="do">## Explanation of fraction labels (two, three and four explanatory </span></span>
+<span id="cb74-327"><a href="#cb74-327" aria-hidden="true" tabindex="-1"></a><span class="do">## matrices) with optional colours</span></span>
+<span id="cb74-328"><a href="#cb74-328" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb74-329"><a href="#cb74-329" aria-hidden="true" tabindex="-1"></a><span class="fu">showvarparts</span>(<span class="dv">2</span>, <span class="at">bg =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>))</span>
+<span id="cb74-330"><a href="#cb74-330" aria-hidden="true" tabindex="-1"></a><span class="fu">showvarparts</span>(<span class="dv">3</span>, <span class="at">bg =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"yellow"</span>))</span>
+<span id="cb74-331"><a href="#cb74-331" aria-hidden="true" tabindex="-1"></a><span class="fu">showvarparts</span>(<span class="dv">4</span>, <span class="at">bg =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"yellow"</span>, <span class="st">"green"</span>))</span>
+<span id="cb74-332"><a href="#cb74-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-333"><a href="#cb74-333" aria-hidden="true" tabindex="-1"></a><span class="do">### 1. Variation partitioning with all explanatory variables</span></span>
+<span id="cb74-334"><a href="#cb74-334" aria-hidden="true" tabindex="-1"></a><span class="do">###    (except dfs)</span></span>
+<span id="cb74-335"><a href="#cb74-335" aria-hidden="true" tabindex="-1"></a>(spe.part.all <span class="ot">&lt;-</span> <span class="fu">varpart</span>(spe.hel, envchem, envtopo))</span>
+<span id="cb74-336"><a href="#cb74-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-337"><a href="#cb74-337" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot of the partitioning results</span></span>
+<span id="cb74-338"><a href="#cb74-338" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb74-339"><a href="#cb74-339" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.part.all, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">bg =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>),</span>
+<span id="cb74-340"><a href="#cb74-340" aria-hidden="true" tabindex="-1"></a>     <span class="at">Xnames =</span> <span class="fu">c</span>(<span class="st">"Chemistry"</span>, <span class="st">"Physiography"</span>), </span>
+<span id="cb74-341"><a href="#cb74-341" aria-hidden="true" tabindex="-1"></a>     <span class="at">id.size =</span> <span class="fl">0.7</span>)</span>
+<span id="cb74-342"><a href="#cb74-342" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 
