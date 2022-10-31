@@ -1,83 +1,8 @@
-#Beispiel inspiriert von Luke Hayden: https://www.datacamp.com/community/tutorials/pca-analysis-r
+knitr::opts_chunk$set(echo = T, collapse=TRUE, message = FALSE, results = "hide", warning = FALSE)
 
-#Ausgangslage: viel zusammenhängende Variablen
-#Ziel: Reduktion der Variablenkomplexität
-#WICHTIG hier: Datenformat muss Wide sein! Damit die Matrixmultiplikation gemacht werden kann
-
-# lade Datei
-cars <- mtcars
-
-# Korrelationen
-cor<- cor(cars[,c(1:7,10,11)])
-cor[abs(cor)<.7] <- 0
-cor
-
-#definiere Datei für PCA
-cars <- mtcars[,c(1:7,10,11)]
-
-# pca
-# achtung unterschiedliche messeinheiten, wichtig es muss noch einheitlich transfomiert werden
-library(FactoMineR) # siehe Beispiel hier: https://www.youtube.com/watch?v=vP4korRby0Q
-o.pca <- PCA(cars, scale.unit = TRUE) # entweder korrelations oder covarianzmatrix
-
-# schaue output an
-summary(o.pca) # generiert auch automatische plots
-
-# plotte das ganze
-library(devtools)
-install_github("vqv/ggbiplot")
-
-library(ggbiplot)
-ggbiplot(o.pca,choices = c(1,2))
-
-# nehme noch die autonamen hinzu
-ggbiplot(o.pca, labels=rownames(mtcars), choices = c(1,2)) # (+ mytheme) # choice gibt die axen an
-
-library(vegan)
-
-# ebenfalls mit transformierten daten
-o.ca<-vegan::cca(cars)
-o.ca1 <- FactoMineR::CA(cars) #blau: auots, rot: variablen
-
-# plotten (schwarz: autos, rot: variablen)
-plot(o.ca)
-summary(o.ca)
-summary(o.ca1)
-
-#Nur autos plotten; wieso?
-x<-o.ca$CA$u[,1]
-y<-o.ca$CA$u[,2]
-plot(x,y)
-
-#Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird
-o.ca$CA$eig[1:8]/sum(o.ca$CA$eig)
-
-#Distanzmatrix als Start erzeugen
-library(MASS)
-
-mde <-vegan::vegdist(cars,method="euclidean")
-mdm <-vegan::vegdist(cars,method="manhattan")
-
-#Zwei verschiedene NMDS-Methoden
-set.seed(1) #macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will
-o.mde.mass <- MASS::isoMDS(mde, k=2) # mit K = Dimensionen
-o.mdm.mass <- MASS::isoMDS(mdm)
-
-set.seed(1)
-o.mde.vegan <- vegan::metaMDS(mde,k=1) # scheint nicht mit 2 Dimensionen zu konvergieren
-o.mdm.vegan <- vegan::metaMDS(mdm, k = 2)
-
-#plot euclidean distance
-plot(o.mde.mass$points)
-plot(o.mde.vegan$points)
-
-#plot manhattan distance
-plot(o.mdm.mass$points)
-plot(o.mdm.vegan$points)
-
-#Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
-vegan::stressplot(o.mde.vegan, mde)
-vegan::stressplot(o.mde.mass, mde)
+#export files
+options(knitr.duplicate.label = "allow")
+knitr::purl("statKons/StatKons2_Demo_PCA.qmd", "purl/StatKons2_Demo_PCA.R", documentation = 0)
 
 #Mit Beispieldaten aus Wildi (2013, 2017)
 library(labdsv)
@@ -242,3 +167,74 @@ plot(o.mmds$points)
 #Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
 stressplot(o.imds,mde)
 stressplot(o.mmds,mde)
+
+#Beispiel inspiriert von Luke Hayden: https://www.datacamp.com/community/tutorials/pca-analysis-r
+
+#Ausgangslage: viel zusammenhängende Variablen
+#Ziel: Reduktion der Variablenkomplexität
+#WICHTIG hier: Datenformat muss Wide sein! Damit die Matrixmultiplikation gemacht werden kann
+
+# lade Datei
+cars <- mtcars
+
+# Korrelationen
+cor<- cor(cars[,c(1:7,10,11)])
+cor[abs(cor)<.7] <- 0
+cor
+
+#definiere Datei für PCA
+cars <- mtcars[,c(1:7,10,11)]
+
+# pca
+# achtung unterschiedliche messeinheiten, wichtig es muss noch einheitlich transfomiert werden
+library(FactoMineR) # siehe Beispiel hier: https://www.youtube.com/watch?v=vP4korRby0Q
+o.pca <- PCA(cars, scale.unit = TRUE) # entweder korrelations oder covarianzmatrix
+
+# schaue output an
+summary(o.pca) # generiert auch automatische plots
+
+library(vegan)
+
+# ebenfalls mit transformierten daten
+o.ca<-vegan::cca(cars)
+o.ca1 <- FactoMineR::CA(cars) #blau: auots, rot: variablen
+
+# plotten (schwarz: autos, rot: variablen)
+plot(o.ca)
+summary(o.ca)
+summary(o.ca1)
+
+#Nur autos plotten; wieso?
+x<-o.ca$CA$u[,1]
+y<-o.ca$CA$u[,2]
+plot(x,y)
+
+#Anteilige Varianz, die durch die ersten beiden Achsen erklaert wird
+o.ca$CA$eig[1:8]/sum(o.ca$CA$eig)
+
+#Distanzmatrix als Start erzeugen
+library(MASS)
+
+mde <-vegan::vegdist(cars,method="euclidean")
+mdm <-vegan::vegdist(cars,method="manhattan")
+
+#Zwei verschiedene NMDS-Methoden
+set.seed(1) #macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will
+o.mde.mass <- MASS::isoMDS(mde, k=2) # mit K = Dimensionen
+o.mdm.mass <- MASS::isoMDS(mdm)
+
+set.seed(1)
+o.mde.vegan <- vegan::metaMDS(mde,k=1) # scheint nicht mit 2 Dimensionen zu konvergieren
+o.mdm.vegan <- vegan::metaMDS(mdm, k = 2)
+
+#plot euclidean distance
+plot(o.mde.mass$points)
+plot(o.mde.vegan$points)
+
+#plot manhattan distance
+plot(o.mdm.mass$points)
+plot(o.mdm.vegan$points)
+
+#Stress =  Abweichung der zweidimensionalen NMDS-Loesung von der originalen Distanzmatrix
+vegan::stressplot(o.mde.vegan, mde)
+vegan::stressplot(o.mde.mass, mde)

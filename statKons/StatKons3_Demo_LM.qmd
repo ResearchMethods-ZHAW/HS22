@@ -9,22 +9,21 @@ index: 1
 
 ```{r}
 #| echo: false
-#| purl: false
 #| results: hide
+
 options(knitr.duplicate.label = "allow")
-knitr::purl("statKons/StatKons3_Demo_LM.qmd", "purl/StatKons3_Demo_LM.R", documentation = 0)
+knitr::purl("statKons/StatKons3_Demo_LM.qmd", 
+            "purl/StatKons3_Demo_LM.R", documentation = 0)
 ```
 
-> Download [R-Skript](../purl/StatKons3_Demo_LM.R)
+- Download [R-Skript](../purl/StatKons3_Demo_LM.R)
 
 ```{r}
 #| include: false
-#| purl: false
-knitr::opts_chunk$set(echo = TRUE, collapse=FALSE, message = FALSE, results = "hide", warning = FALSE)
 
 library(tidyverse)
 if (!require("rosetta")) install.packages("rosetta", repos = "http://cran.us.r-project.org")
-library(magrittr)
+
 
 mytheme <- 
   theme_classic() + 
@@ -48,8 +47,8 @@ mytheme <-
 # für mehr infos
 #https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html
 
-cars <- mtcars %>% 
-    mutate(cyl = as.factor(cyl)) %>% 
+cars <- mtcars |> 
+    mutate(cyl = as.factor(cyl)) |> 
     slice(-31) # lösch die 31ste Zeile
 
 #Alternativ ginge auch das
@@ -126,8 +125,8 @@ library(tidyverse)
 #1. Wähle zusätzliche Variable aus (wenn nicht in der Aufgabe steht), 
 #was für eine Skala muss die Variable aufweisen?
 
-cars <- mtcars %>% 
-    mutate(cyl = as.factor(cyl)) %>% 
+cars <- mtcars |> 
+    mutate(cyl = as.factor(cyl)) |> 
     slice(-31)
 
 #2. definiere das Modell für eine zwei-faktorielle Anova
@@ -158,10 +157,10 @@ summary.lm(aov.2)
 #| fig-cap: "Generierter Plot"
 
 # inspiriert von Simon Jackson: http s://drsimonj.svbtle.com/visualising-residuals
-cars <- mtcars %>% 
+cars <- mtcars |> 
   #ändere die unabhängige Variable mpg in 100Km/L
   mutate(kml = (235.214583/mpg)) # mehr Infos hier: https://www.asknumbers.com/mpg-to-L100km.aspx
-  # %>%  # klone data set
+  # |>  # klone data set
   # slice(-31) # # lösche Maserrati und schaue nochmals Modelfit an
 
 #############
@@ -199,7 +198,7 @@ cars$predicted <- predict(model)   # bilde neue Variable mit geschätzten y-Wert
 cars$residuals <- residuals(model)
 
 # schaue es dir an, sieht man gut was die Residuen sind
-d <- cars %>%  
+d <- cars |>  
     dplyr::select(hp, kml, predicted, residuals)
 
 # schauen wir es uns an
@@ -243,9 +242,9 @@ ggplot(d, aes(x = kml, y = hp)) +
 #| fig-cap: "Generierter Plot"
 
 # Select data
-cars <- mtcars %>% 
-    slice(-31) %>%
-    mutate(kml = (235.214583/mpg)) %>% 
+cars <- mtcars |> 
+    slice(-31) |>
+    mutate(kml = (235.214583/mpg)) |> 
     dplyr::select(kml, hp, wt, disp)
 
 ################
@@ -304,12 +303,12 @@ cars$predicted_own <- predict(model2, newdata = new.data)
 # 3. train_test_split durchführen (empfohlen) muss jedoch von beginn an bereits 
 # gemacht werden - Logik findet ihr hier: https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6 oder https://towardsdatascience.com/6-amateur-mistakes-ive-made-working-with-train-test-splits-916fabb421bb
 # beispiel hier: https://ijlyttle.github.io/model_cv_selection.html
-cars <- mtcars %>% 
-  mutate(id = 1:nrow(.)) %>%  # für das mergen der Datensätze
-  mutate(kml = (235.214583/mpg)) %>% 
+cars <- mtcars |> 
+  mutate(id = 1:nrow(.)) |>  # für das mergen der Datensätze
+  mutate(kml = (235.214583/mpg)) |> 
   dplyr::select(kml, hp, wt, disp, id)
   
-train_data <- cars %>% 
+train_data <- cars |> 
   dplyr::sample_frac(.75) # für das Modellfitting
 
 test_data  <- dplyr::anti_join(cars, train_data, by = 'id') # für den Test mit predict
@@ -330,7 +329,7 @@ head(train_data)
 
 #----------------
 # Schnelle variante mit broom
-d <- lm(hp ~ kml + wt+ disp, data = cars) %>% 
+d <- lm(hp ~ kml + wt+ disp, data = cars) |> 
     broom::augment()
 
 head(d)
@@ -351,8 +350,8 @@ ggplot(d, aes(x = kml, y = hp)) +
 
 # Varianzpartitionierung
 library(hier.part)
-cars <- mtcars %>% 
-  mutate(kml = (235.214583/mpg)) %>% 
+cars <- mtcars |> 
+  mutate(kml = (235.214583/mpg)) |> 
   select(-mpg)
 
 names(cars) # finde "position" deiner Responsevariable
@@ -381,3 +380,4 @@ summary(avgmodel)
 model_ad <- lm(hp ~ carb + disp + wt, data = mtcars)
 summary(model_ad)
 ```
+= 

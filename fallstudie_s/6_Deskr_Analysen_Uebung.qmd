@@ -1,6 +1,5 @@
 # KW 43+44: Übung Deskriptiv
 
-
 ```{r include=FALSE, echo = FALSE}
 # Benoetigte Bibliotheken ####
 library(tidyverse) # Data wrangling und piping
@@ -419,6 +418,7 @@ Wir interessieren uns in den Analysen für 5 Zeitabschnitte:
 
 Haltet euch dabei an untenstehenden Plot:
 
+
 ```{r echo=FALSE}
 ggplot(depo_m, mapping = aes(Ym, Total, group = 1))+ # group = 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird
   #zeichne Lockdown 1
@@ -442,9 +442,9 @@ __Hinweis:__
 ```{r eval=FALSE}
 ggplot(data = depo_m, mapping = aes(Ym, Total, group = 1))+ # group 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird
   # zeichne Lockdown 1; ein einfaches Rechteck. bestimme mit min und max die Dimensionen
-  geom_rect(mapping = aes(xmin="2020 3", xmax="2020 5",
-                          ymin =0, ymax=max(Total+(Total/100*10))), # das Rechteck soll 10 % grösser als die maximale Besuchszahl sein 
-            fill = "lightskyblue", alpha = 0.4, colour = NA)+
+  geom_rect(mapping = aes(xmin = ym("2020-3"), xmax = ym("2020-5"),
+                          ymin = 0, ymax = max(Total+(Total/100*10))),# das Rechteck soll 10 % grösser als die maximale Besuchszahl sein 
+            fill = "lightskyblue", alpha = 0.2, colour = NA)+ 
   # zeichne Lockdown 2
     ...+
   # zeichne die Linie
@@ -475,7 +475,7 @@ Nachdem wir nun wissen, wie sich die Besuchszahlen während der Untersuchungsdau
 
 ### 2a)
 
-- Berechnet zuerst die Totale Anzahl pro Wochentag pro Phase.
+- Berechnet die Totale Anzahl pro Wochentag pro Phase. Das brauchen wir nicht weiter für unsere Berechnungen, kann aber später ein nützliches Resultat für den Bericht sein.
 
 ```{r eval=FALSE}
 mean_phase_wd <- depo_d %>% 
@@ -529,7 +529,7 @@ Vom Grossen zum Kleinen, von der Übersicht ins Detail. Jetzt widmen wir uns dem
 
 - Berechnet zuerst den Mittelwert der Totalen Besuchszahlen pro Wochentag pro Stunde pro Phase. (ganz ähnlich wie unter 2a) und speichert das df unter __Mean_h__.
 
-ggplots haben Daten lieber im Format long als wide. 
+Vergewissert euch vor dem Plotten, dass der Datensatz im long-Format vorliegt.
 
 ### 3b)
 

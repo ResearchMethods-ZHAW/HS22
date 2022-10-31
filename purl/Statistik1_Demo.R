@@ -1,13 +1,3 @@
-binom.test(43, 100)
-binom.test(57, 100)
-
-qchisq(0.95, 1)
-
-count <- matrix(c(38, 14, 11, 51), nrow = 2)
-count
-chisq.test(count)
-fisher.test(count)
-
 a <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14)
 b <- c(12, 15, 16, 7, 8, 10, 12, 11, 13, 10)
 blume <- data.frame(a,b)
@@ -18,18 +8,19 @@ boxplot(blume)
 hist(blume$a)
 hist(blume$b)
 
-t.test(blume$a, blume$b)
+t.test(blume$a, blume$b) # Zweiseitig "Test auf a ≠ b" (default)
 
-t.test(blume$a, blume$b, alternative = "greater") #einseitig
-t.test(blume$a, blume$b, alternative = "less") #einseitig
+t.test(blume$a, blume$b, alternative = "greater") # Einseitig "Test auf a > b"
+t.test(blume$a, blume$b, alternative = "less") # Einseitig "Test auf a < b"
 
 # Varianzen gleich, klassischer t-Test
-t.test(blume$a, blume$b, var.equal = T) 
+t.test(blume$a, blume$b, var.equal = TRUE) 
 
-# Varianzen ungleich, Welch's t-Test, ist auch default, d.h. wenn var.equal 
-# nicht  definiert wird, wird ein Welch's t-Test ausgeführt. 
-t.test(blume$a, blume$b, var.equal = F) 
+# Varianzen ungleich, Welch's t-Test, der auch default Einstellung ist (siehe Titelzeile des R outputs)
+t.test(blume$a, blume$b) # dasselbe wie var.equal = FALSE
 
+# Gepaarter t-Test: erster Wert von  a wird mit erstem Wert von
+# b gepaart, zweiter Wert von a mit zweitem von b ect.
 t.test(blume$a, blume$b, paired = T)
 t.test(blume$a, blume$b, paired = T, alternative = "greater")
 
@@ -48,8 +39,6 @@ boxplot(size~cultivar, data = blume.long)
 
 t.test(size~cultivar, blume.long, var.equal = T)
 
-# gepaarter t-Test erster Wert von Cultivar a wird mit erstem Wert von Cultivar
-# b gepaart, zweiter Wert von a mit zweitem von b ect.
 t.test(size~cultivar, blume.long, paired = T)
 
 library(tidyverse)
@@ -85,3 +74,15 @@ ggplot (blume.long, aes(cultivar,size)) +
   geom_boxplot(size = 1) + 
   mytheme +
   labs(x="Cultivar",y="Size (cm)")
+
+binom.test(84, 200) # Anzahl Frauen im Nationalrat (≙ 42.0 %; Stand 2019) 
+binom.test(116, 200) # Anzahl Männer im Nationalrat (≙ 58.0 %; Stand 2019) 
+binom.test(3, 7) # Anzahl Frauen im Bundesrat (≙ 42.9 %; Stand 2019)
+
+
+qchisq(0.95, 1)
+
+count <- matrix(c(38, 14, 11, 51), nrow = 2)
+count
+chisq.test(count)
+fisher.test(count)

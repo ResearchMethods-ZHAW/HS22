@@ -32,14 +32,14 @@ Lade die Wetterdaten von letzer Woche runter ([weather.csv](https://moodle.zhaw.
 
 ```{r}
 # Variante 1
-wetter <- read_csv("data/weather.csv")
+wetter <- read_csv("datasets/prepro/weather.csv")
 wetter$stn <- as.factor(wetter$stn)
 wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H", tz = "UTC")
 ```
 
 ```{r}
 # Variate 2 (für Profis)
-wetter <- read_csv("data/weather.csv",
+wetter <- read_csv("datasets/prepro/weather.csv",
                   col_types = cols(
                     col_factor(levels = NULL),    
                     col_datetime(format = "%Y%m%d%H"),
@@ -62,7 +62,7 @@ Wenn ihr die codierung eines Files *nicht* kennt, könnt wie folgt vorgehen: Anl
 :::
 
 ```{r}
-metadata <- read_delim("data/metadata.csv", delim = ";", locale = locale(encoding = "UTF-8"))
+metadata <- read_delim("datasets/prepro/metadata.csv", delim = ";", locale = locale(encoding = "UTF-8"))
 ```
 
 ## Aufgabe 3
