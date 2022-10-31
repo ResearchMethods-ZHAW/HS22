@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Research Methods HS22 - 53&nbsp; KW 44: Übung Multivariat</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fallstudie_n/1_Vorbemerkung.html" rel="next">
+<link href="../fallstudie_s/6_Deskr_Analysen_Loesung.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken"
+  }
+}</script>
+<script src="../site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="../site_libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="../site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="../site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+
+<link rel="stylesheet" href="../custom.css">
+<link rel="stylesheet" href="../theme-custom.scss">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-title">KW 44: Übung Multivariat</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../" class="sidebar-logo-link">
+      <img src="../images/zhaw_sw_neg.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Research Methods HS22</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Willkommen</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../PrePro.html" class="sidebar-item-text sidebar-link">Pre-Processing</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 1: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PrePro 1: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro3_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 3: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 3: Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../InfoVis.html" class="sidebar-item-text sidebar-link">InfoVis</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Demo A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Script_eda.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Demo B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung B</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Stat1-4.html" class="sidebar-item-text sidebar-link">Statistik 1 - 4</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Novanimal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: NOVANIMAL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_Beispiel.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung Beispiel</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Stat5-8.html" class="sidebar-item-text sidebar-link">Statistik 5 - 8</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../StatKons.html" class="sidebar-item-text sidebar-link">Statistik Konsolidierung</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons1_Demo_assoziationen.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons1_Demo_open_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Open Datasets</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons2_Demo_PCA.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons2: Demo</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons3_Demo_LM.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons3: Demo</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons4_Demo_GLM.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons4: Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../RaumAn.html" class="sidebar-item-text sidebar-link">Räumliche Analysen</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman1_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 1: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman1_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 1: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman2_Uebung_C.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung C</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman3_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 3: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman4_Uebung_A_ahp.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 4: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman4_Uebung_B_raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 4: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman5_Uebung_mce.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 5: Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Fallstudie S</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/1_Einleitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW40: Einleitung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/2_Felderhebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW 40 - KW 42: Felderhebung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/3_Aufgabenstellung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW 42: Aufgabenstellung WPZ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/4_Projektierung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW 42: Projektierung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/5_Vorverarbeitung_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW 42+43: Übung Datenvorverarbeitung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/5_Vorverarbeitung_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW 42+43: Lösung Datenvorverarbeitung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/6_Deskr_Analysen_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW 43+44: Übung Deskriptiv</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/6_Deskr_Analysen_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KW 43+44: Lösung Deskriptiv</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/7_Multivariat_Uebung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">KW 44: Übung Multivariat</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">Fallstudie N</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/1_Vorbemerkung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1. Vorbemerkung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/2_Datenverarbeitung_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2. Daten(vor)verarbeitung - Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/2_Datenverarbeitung_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2. Daten(vor)verarbeitung - Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/3_Berechnung_Homeranges_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3. Aufgabe 3 Berechnung Homeranges - Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#aufgabe-1-verbinden-von-daten" id="toc-aufgabe-1-verbinden-von-daten" class="nav-link active" data-scroll-target="#aufgabe-1-verbinden-von-daten">Aufgabe 1: Verbinden von Daten</a></li>
+  <li><a href="#aufgabe-2-convenience-variablen-faktoren-skalieren" id="toc-aufgabe-2-convenience-variablen-faktoren-skalieren" class="nav-link" data-scroll-target="#aufgabe-2-convenience-variablen-faktoren-skalieren">Aufgabe 2: Convenience Variablen, Faktoren, Skalieren</a>
+  <ul class="collapse">
+  <li><a href="#a" id="toc-a" class="nav-link" data-scroll-target="#a">2a)</a></li>
+  <li><a href="#b" id="toc-b" class="nav-link" data-scroll-target="#b">2b)</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">2c)</a></li>
+  </ul></li>
+  <li><a href="#aufgabe-3-korrelationen-und-variablenselektion" id="toc-aufgabe-3-korrelationen-und-variablenselektion" class="nav-link" data-scroll-target="#aufgabe-3-korrelationen-und-variablenselektion">Aufgabe 3: Korrelationen und Variablenselektion</a>
+  <ul class="collapse">
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">3a)</a></li>
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">3b)</a></li>
+  </ul></li>
+  <li><a href="#aufgabe-4-optional-automatische-variablenselektion" id="toc-aufgabe-4-optional-automatische-variablenselektion" class="nav-link" data-scroll-target="#aufgabe-4-optional-automatische-variablenselektion">Aufgabe 4 (OPTIONAL): Automatische Variablenselektion</a></li>
+  <li><a href="#aufgabe-5-verteilung-der-abhängigen-variabel-pruefen" id="toc-aufgabe-5-verteilung-der-abhängigen-variabel-pruefen" class="nav-link" data-scroll-target="#aufgabe-5-verteilung-der-abhängigen-variabel-pruefen">Aufgabe 5: Verteilung der abhängigen Variabel pruefen</a></li>
+  <li><a href="#aufgabe-6-multivariates-modell-berechnen" id="toc-aufgabe-6-multivariates-modell-berechnen" class="nav-link" data-scroll-target="#aufgabe-6-multivariates-modell-berechnen">Aufgabe 6: Multivariates Modell berechnen</a>
+  <ul class="collapse">
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">6a)</a></li>
+  <li><a href="#b-modelldiagnostik" id="toc-b-modelldiagnostik" class="nav-link" data-scroll-target="#b-modelldiagnostik">6b) Modelldiagnostik</a></li>
+  <li><a href="#c-alternative-modelle" id="toc-c-alternative-modelle" class="nav-link" data-scroll-target="#c-alternative-modelle">6c) Alternative Modelle</a></li>
+  <li><a href="#d-optional-transformationen" id="toc-d-optional-transformationen" class="nav-link" data-scroll-target="#d-optional-transformationen">6d) (OPTIONAL) Transformationen</a></li>
+  <li><a href="#c-exportiere-die-modellresultate-des-besten-modells" id="toc-c-exportiere-die-modellresultate-des-besten-modells" class="nav-link" data-scroll-target="#c-exportiere-die-modellresultate-des-besten-modells">6c) Exportiere die Modellresultate (des besten Modells)</a></li>
+  </ul></li>
+  <li><a href="#aufgabe-7-modellvisualisierung" id="toc-aufgabe-7-modellvisualisierung" class="nav-link" data-scroll-target="#aufgabe-7-modellvisualisierung">Aufgabe 7: Modellvisualisierung</a></li>
+  <li><a href="#abschluss" id="toc-abschluss" class="nav-link" data-scroll-target="#abschluss">Abschluss</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-title">KW 44: Übung Multivariat</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>Nachdem die deskriptiven Resultate vorliegen, kann jetzt die Berechnung eines multivariaten Modells angegangen werden. Das Ziel ist es, den Zusammenhang zwischen der gesamten Anzahl Besucher:innen (Total) und verschiedenen erklärenden Variablen (Tageszeit, Wetter, Ferien, Phase Covid, Wochentag, KW, Jahr) aufzuzeigen.</p>
+<section id="aufgabe-1-verbinden-von-daten" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-verbinden-von-daten">Aufgabe 1: Verbinden von Daten</h2>
+<p>Aktuell haben wir noch zwei einzelne Datensätze von Interesse:</p>
+<ol type="1">
+<li>einen mit den täglichen Besuchszahlen von Besucher:innen mit den dazugehörigen Datumsinformationen (Datensatz “depo_d” - zu Tagen aggregierte Stunden)</li>
+<li>und einen mit den Wetterparametern (“meteo”).</li>
+</ol>
+<ul>
+<li>Diese beiden Datensätze müssen miteinander verbunden werden. <strong>Ziel</strong>: Ein Datensatz mit den täglichen Zähldaten (sowie Conviniencevariablen wie Wetter, Phase Covid, Tageszeit usw.) angereichert mit Wetterdaten. Der neue Datensatz soll ” <strong>umwelt</strong> ” heissen.</li>
+<li>Sind durch das Zusammenführen NA’s entstanden? Falls ja, müssen <strong>alle</strong> für die weiteren Auswertungen ausgeschlossen werden.</li>
+</ul>
+</section>
+<section id="aufgabe-2-convenience-variablen-faktoren-skalieren" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2-convenience-variablen-faktoren-skalieren">Aufgabe 2: Convenience Variablen, Faktoren, Skalieren</h2>
+<section id="a" class="level3">
+<h3 class="anchored" data-anchor-id="a">2a)</h3>
+<p>Wir haben bereits verschiedene Convenience Variablen definiert. Nun brauchen wir noch neu die Ferienzeiten als Faktor.</p>
+<p>Ich mache das elegant mit der Funktion von Melina Grether (MSc ENR 21).</p>
+<p>Zuerst erstellen wir ein data.frame mit den Start- und Endzeitpunkten der Ferien:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Start <span class="ot">&lt;-</span> <span class="fu">c</span>(Winterferien_2016_start, Fruehlingsferien_2017_start, Sommerferien_2017_start, Herbstferien_2017_start, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>           Winterferien_2017_start, Fruehlingsferien_2018_start, Sommerferien_2018_start, Herbstferien_2018_start,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>           Winterferien_2019_start, Fruehlingsferien_2019_start, Sommerferien_2019_start, Herbstferien_2019_start,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>           Winterferien_2020_start, Fruehlingsferien_2020_start, Sommerferien_2020_start, Herbstferien_2020_start,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>           Winterferien_2021_start, Fruehlingsferien_2021_start, Sommerferien_2021_start, Herbstferien_2021_start,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>           Winterferien_2022_start, Fruehlingsferien_2022_start, Sommerferien_2022_start, Herbstferien_2022_start)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>End <span class="ot">&lt;-</span> <span class="fu">c</span>(Winterferien_2016_ende, Fruehlingsferien_2017_ende, Sommerferien_2017_ende, Herbstferien_2017_ende, </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         Winterferien_2017_ende, Fruehlingsferien_2018_ende, Sommerferien_2018_ende, Herbstferien_2018_ende,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>         Winterferien_2019_ende, Fruehlingsferien_2019_ende, Sommerferien_2019_ende, Herbstferien_2019_ende,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>         Winterferien_2020_ende, Fruehlingsferien_2020_ende, Sommerferien_2020_ende, Herbstferien_2020_ende,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>         Winterferien_2021_ende, Fruehlingsferien_2021_ende, Sommerferien_2021_ende, Herbstferien_2021_ende,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         Winterferien_2022_ende, Fruehlingsferien_2022_ende, Sommerferien_2022_ende, Herbstferien_2022_ende)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># verbinde das zu einem df</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>ferien <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Start, End)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Jetzt schreiben wir die Funktion, mit welcher wir die Ferienzeiträume zuweisen können. Einfach gesagt: WENN grösser gleich Starzeitraum UND kleiner gleich Endzeitraum, DANN schreibe eine 1. Wo es keine 1 hat, wird ein NA generiert. Ersetze das dann mit 0.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(ferien)){</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  umwelt<span class="sc">$</span>Ferien[umwelt<span class="sc">$</span>Datum <span class="sc">&gt;=</span> ferien[i,<span class="st">"Start"</span>] <span class="sc">&amp;</span> umwelt<span class="sc">$</span>Datum <span class="sc">&lt;=</span> ferien[i,<span class="st">"End"</span>]] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>umwelt<span class="sc">$</span>Ferien[<span class="fu">is.na</span>(umwelt<span class="sc">$</span>Ferien)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Zum einfachen prüfen, ob das funktioniert hat, kann man die Anzahl Ferientage zählen. Diese sollte nicht gleich 0 sein.</p>
+</section>
+<section id="b" class="level3">
+<h3 class="anchored" data-anchor-id="b">2b)</h3>
+<ul>
+<li>Macht aus den Ferien einen Faktor.</li>
+<li>Auch das Jahr, der Monat und die KW müssen als Faktor vorliegen.</li>
+</ul>
+<p>Hinweis: Im Modell werden die Levels der Variablen (z.B. bei der Phase Covid: Pre, Normal, Lockdown 1 und 2, Covid) per “default” alphabetisch geordnet und die Effektstärken der einzelnen Levels gegenüber dem ersten Level gerechnet. Das macht wenig Sinn, den ohne eigene Ordnung zeigt es uns die Effekte von Lockdown 1, Lockdown 2 und Normal gegenüber Covid an. Besser ist aber Lockdown 1, Lockdown 2 und Covid <strong>gegenüber Pre</strong>.</p>
+<p>Das solltet ihr bereits unter [KW 42+43: Übung Datenvorverarbeitung], Aufgabe 3: Datenvorverarbeitung gemacht haben.</p>
+<ul>
+<li><p>Vergewissert euch, dass die numerischen Messwerte zu Wetter auch in numerischer Form vorliegen. (<strong>is.numeric()</strong>)</p></li>
+<li><p>Nachfolgende Schritte funktionieren nur, wenn <strong>umwelt</strong> als data.frame vorliegt! Prüft das und ändert das, falls noch kein <strong>data.frame</strong> (Hinweis: auch ein “tibble” funktioniert nicht, obwohl bei der Abfrage <strong>is.data.frame()</strong> TRUE angegeben wird. Damit ihr beim scalen keine NaN Werte erhaltet, wendet ihr darum am besten in allen Fällen zuerst den Befehl <strong>as.data.frame()</strong> an).</p></li>
+<li><p>Unser Modell kann in der abhängigen Variabel nur mit Ganzzahlen (Integer) umgehen. Daher müssen Kommazahlen in Integer umgewandelt werden. Zum Glück haben wir das schon gemacht und uns bleibt nichts weiter zu tun. =)</p></li>
+</ul>
+</section>
+<section id="c" class="level3">
+<h3 class="anchored" data-anchor-id="c">2c)</h3>
+<p>Problem: verschiedene Skalen der Variablen (z.B. Temperatur in Grad Celsius, Niederschlag in Millimeter und Sonnenscheindauer in %)</p>
+<ul>
+<li>Lösung: Skalieren aller Variablen mit Masseinheiten gemäss unterstehendem Code:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>umwelt <span class="ot">&lt;-</span> umwelt <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tre200jx_scaled =</span> <span class="fu">scale</span>(tre200jx)<span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="aufgabe-3-korrelationen-und-variablenselektion" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3-korrelationen-und-variablenselektion">Aufgabe 3: Korrelationen und Variablenselektion</h2>
+<section id="a-1" class="level3">
+<h3 class="anchored" data-anchor-id="a-1">3a)</h3>
+<p>Korrelierende Variablen können das Modellergebnis verfälschen. Daher muss vor der Modelldefinition auf Korrelation zwischen den Messwerten getestet werden. Welches sind die erklärenden Variablen, welches ist die Abhängige? (Ihr müsst nicht prüfen, ob die Voraussetzungen zur Berechnung von Korrelationen erfüllt sind)</p>
+<ul>
+<li>Teste mittels folgendem Code auf eine Korrelation zwischen den Messwerten.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span>  <span class="fu">cor</span>(umwelt[,ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN <span class="sc">:</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)]<span class="er">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b-1" class="level3">
+<h3 class="anchored" data-anchor-id="b-1">3b)</h3>
+<ul>
+<li>Korrelationsmatrix erstellen</li>
+</ul>
+<p>Mit dem folgenden Code kann eine Korrelationsmatrix (mit den Messwerten) aufgebaut werden. Hier kann auch die Schwelle für die Korrelation gesetzt werden (0.7 ist liberal / 0.5 konservativ).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor) <span class="sc">&lt;</span> <span class="fl">0.7</span>] <span class="ot">&lt;-</span>  <span class="dv">0</span> <span class="co">#Setzt alle Werte kleiner 0.7 auf 0</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Zur Visualisierung kann ein einfacher Plot erstellt werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chart.Correlation</span>(umwelt[,ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN <span class="sc">:</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)], histogram<span class="ot">=</span><span class="cn">TRUE</span>, pch<span class="ot">=</span><span class="dv">19</span><span class="er">)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wo kann eine kritische Korrelation beobachtet werden? Kann man es verantworten, trotzdem alle (Wetter)parameter in das Modell zu geben?</p>
+<p>Falls ja: warum? Falls nein: schliesst den betreffenden Parameter aus. Wenn ihr Parameter ausschliesst: welchen der beiden korrelierenden Parameter behaltet ihr im Modell?</p>
+</section>
+</section>
+<section id="aufgabe-4-optional-automatische-variablenselektion" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-4-optional-automatische-variablenselektion">Aufgabe 4 (OPTIONAL): Automatische Variablenselektion</h2>
+<p>Führe die dredge-Funktion und ein Modelaveraging durch. Der Code dazu ist unten. Was passiert in der Funktion? Macht es Sinn, die Funktion auszuführen?</p>
+<p><strong>Hinweis:</strong> untenstehender Code ist sehr rechenentensiv.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier wird die Formel für die dredge-Funktion vorbereitet</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> Total <span class="sc">~</span> Wochentag <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Monat <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span> rre150n0_scaled <span class="sc">+</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  sremaxdv_scaled</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Jetzt kommt der Random-Factor hinzu und es wird eine Formel daraus gemacht</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>f_dredge <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">c</span>(f, <span class="st">"+ (1|Jahr)"</span>), <span class="at">collapse =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.formula</span>()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Modell mit dieser Formel ausführen</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmer.nb</span>(f_dredge, <span class="at">data =</span> umwelt, <span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Modell in die dredge-Funktion einfügen (siehe auch ?dredge)</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>all_m <span class="ot">&lt;-</span> <span class="fu">dredge</span>(m)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># suche das beste Modell</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(all_m)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Importance values der Variablen</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># hier wird die wichtigkeit der Variablen in den verschiedenen Modellen abgelesen</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>MuMIn<span class="sc">::</span><span class="fu">sw</span>(all_m)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Schliesslich wird ein Modelaverage durchgeführt</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Schwellenwert für das delta-AIC = 2</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(all_m, <span class="at">rank =</span> <span class="st">"AICc"</span>, <span class="at">subset =</span> delta <span class="sc">&lt;</span> <span class="dv">2</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="aufgabe-5-verteilung-der-abhängigen-variabel-pruefen" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-5-verteilung-der-abhängigen-variabel-pruefen">Aufgabe 5: Verteilung der abhängigen Variabel pruefen</h2>
+<p>Die Verteilung der abhängigen Variabel bestimmt, was für ein Modell geschrieben werden kann. Die Modelle gehen von einer gegebenen Verteilung aus. Wenn diese Annahme verletzt wird, kann es sein, dass das Modellergebnis nicht valide ist.</p>
+<ul>
+<li>Folgender Codeblock zeigt, wie die Daten auf verschiedene Verteilungen passen.</li>
+</ul>
+<p><strong>Hinweis:</strong> es kann sein, dass nicht jede Verteilung geplottet werden kann, es erscheint eine Fehlermeldung. Das ist nicht weiter schlimm, die betreffende Verteilung kann gelöscht werden. Analog muss das auch im Befehl <strong>gofstat()</strong> passieren.</p>
+<ul>
+<li>Die besten drei Verteilungen (gemäss AIC) sollen zur Visualisierung geplottet werden. Dabei gilt, je besser die schwarze Punktlinie (eure Daten) auf die farbigen Linien (theoretische Verteilungen) passen, desto besser ist diese Verteilung geeignet.</li>
+</ul>
+<p><strong>Hinweis:</strong> CDF = Cumulative distribution function; Wikipedia = “Anschaulich entspricht dabei der Wert der Verteilungsfunktion an der Stelle x der Wahrscheinlichkeit, dass die zugehörige Zufallsvariable X einen Wert kleiner oder gleich x annimmt.” Ihr müsst aber nicht weiter verstehen, wie das berechnet wird, wichtig für euch ist, dass ihr den Plot interpretieren könnt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>f1<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt<span class="sc">$</span>Anzahl_Total,<span class="st">"norm"</span>)  <span class="co"># Normalverteilung</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>f1_1<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt<span class="sc">$</span>Anzahl_Total,<span class="st">"lnorm"</span>)  <span class="co"># log-Normalvert. </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>f2<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt<span class="sc">$</span>Anzahl_Total,<span class="st">"pois"</span>)  <span class="co"># Poisson</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>f3<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt<span class="sc">$</span>Anzahl_Total,<span class="st">"nbinom"</span>)  <span class="co"># negativ binomial</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>f4<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt<span class="sc">$</span>Anzahl_Total,<span class="st">"exp"</span>)  <span class="co"># exponentiell</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>f5<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt<span class="sc">$</span>Anzahl_Total,<span class="st">"gamma"</span>)  <span class="co"># gamma</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>f6<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt<span class="sc">$</span>Anzahl_Total,<span class="st">"logis"</span>)  <span class="co"># logistisch</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>f7<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt<span class="sc">$</span>Anzahl_Total,<span class="st">"geom"</span>)  <span class="co"># geometrisch</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>f8<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt<span class="sc">$</span>Anzahl_Total,<span class="st">"weibull"</span>)  <span class="co"># Weibull</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">gofstat</span>(<span class="fu">list</span>(f1,f1_1,f2,f3,f4,f5,f6,f7,f8), </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">fitnames =</span> <span class="fu">c</span>(<span class="st">"Normalverteilung"</span>, <span class="st">"log-Normalverteilung"</span>, <span class="st">"Poisson"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"negativ binomial"</span>,<span class="st">"exponentiell"</span>,<span class="st">"gamma"</span>, <span class="st">"logistisch"</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"geometrisch"</span>,<span class="st">"weibull"</span>))</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># die 2 besten (gemaess Akaike's Information Criterion) als Plot + normalverteilt, </span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>plot.legend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Normalverteilung"</span>, <span class="st">"exponentiell"</span>, <span class="st">"negativ binomial"</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># vergleicht mehrere theoretische Verteilungen mit den empirischen Daten</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(<span class="fu">list</span>(f1, f4, f3), <span class="at">legendtext =</span> plot.legend)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>Wie sind unsere Daten verteilt? Welche Modelle können wir anwenden?</p></li>
+<li><p>Wählt die besten zwei Verteilungen aus und berechnet damit nachfolgend Modelle.</p></li>
+</ul>
+</section>
+<section id="aufgabe-6-multivariates-modell-berechnen" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-6-multivariates-modell-berechnen">Aufgabe 6: Multivariates Modell berechnen</h2>
+<p>Ich verwende die Funktion <strong>glmer()</strong> aus der Bibliothek <strong>lme4</strong> (diese Bibliothek wird auch in vielen wissenschaftlichen Papern im Feld Biologie / Wildtiermamagement zitiert).</p>
+<p>Hinweise zu GLMM: https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html</p>
+<section id="a-2" class="level3">
+<h3 class="anchored" data-anchor-id="a-2">6a)</h3>
+<p><strong>Hinweis:</strong> Auch wenn wir gerade herausgefunden haben, dass die Verteilung negativ binominal (in meinem Fall) ist, berechne ich für den Vergleich zuerst ein “einfaches Modell” der Familie poisson. Alternative Modelle rechnen wir in 6c.</p>
+<ul>
+<li>Die Totale Besucheranzahl soll durch die Wetterparameter, den Wochentag, die Ferien sowie die Covid-Phasen und die Tageszeit erklärt werden (Datensatz “umwelt”). Die einzelnen Jahre sollen hierbei nicht beachtet werden, sie werden als “random factor” bestimmt.</li>
+</ul>
+<p>Frage: Warum bestimmen wir das Jahr als random factor?</p>
+<p>Falls ihr der Meinung seid, Jahr ist kein “guter” random factor, dann nehmt es nicht an random factor ins Modell sondern als erklärende Variable. Begründet das unbedingt in eurer Methodik.</p>
+<p>Die Modellformel lautet:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Tages_Model <span class="ot">&lt;-</span> <span class="fu">glmer</span>(ABHAENGIGE VARIABLE <span class="sc">~</span> ERKLAERENDE VARIABLE <span class="dv">1</span> <span class="sc">+</span> ERKLAERENDE VARIABLE <span class="dv">2</span> <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                      ERKLAERENDE VARIABLE <span class="dv">3</span> <span class="sc">+</span> ERKLAERENDE VARIABLE <span class="dv">4</span> <span class="sc">+</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                      ERKLAERENDE VARIABLE <span class="dv">5</span> <span class="sc">+</span> ... <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                     (<span class="dv">1</span><span class="sc">|</span>RANDOM FACTOR),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">family =</span> poisson, <span class="at">data =</span> DATENSATZ)<span class="er">)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Tages_Model) <span class="co">#Zeigt das Resultat des Modells</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Frage: Was bedeutet “family = poisson”?</p>
+<p>Löst zuerst Aufgabe 6b bevor ihr alternative Modelle rechnet; das kommt in Aufgabe 6c!</p>
+</section>
+<section id="b-modelldiagnostik" class="level3">
+<h3 class="anchored" data-anchor-id="b-modelldiagnostik">6b) Modelldiagnostik</h3>
+<ul>
+<li>Prüft optisch ob euer Modell valide ist.</li>
+</ul>
+<p><strong>Hinweis:</strong> glmer bringt einige eigene Funktionen mit, mit denen sich testen lässt, ob das Modell valide ist. Unten sind sie aufgeführt (–&gt; analog zu den Funktionen aus der Vorlesung, aber halt für glmer).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspektionsplots</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Tages_Model, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"p"</span>, <span class="st">"smooth"</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqmath</span>(Tages_Model)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pruefe auf Overdispersion</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersion_glmer</span>(Tages_Model) <span class="co">#it shouldn't be over 1.4</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># wir gut erklaert das Modell?</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">r.squaredGLMM</span>(Tages_Model) </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># check for multicollinearity</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># https://rforpoliticalscience.com/2020/08/03/check-for-multicollinearity-with-the-car-package-in-r/</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(Tages_Model) <span class="co"># VIF für beide predictors = 1, d.h. voneinander unabhängig (kritisch wird es ab einem Wert von &gt;4-5)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sind die Voraussetzungen des Modells erfüllt?</p>
+</section>
+<section id="c-alternative-modelle" class="level3">
+<h3 class="anchored" data-anchor-id="c-alternative-modelle">6c) Alternative Modelle</h3>
+<p>Wir sind auf der Suche nach dem minimalen adäquaten Modell. Das ist ein iterativer Prozess. Wir schreiben ein Modell, prüfen ob die Voraussetzungen erfüllt sind und ob die abhängige Variable besser erklärt wird als im vorhergehenden. Und machen das nochmals und nochmals…</p>
+<ul>
+<li><p>Über <strong>family =</strong> kann in der Funktion _glmer()__ einiges (aber leider nicht alles so einfach [z.B. negativ binominale Modelle]) angepasst werden: https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html</p></li>
+<li><p>Auch über <strong>link =</strong> kann man anpassen: https://stat.ethz.ch/R-manual/R-devel/library/stats/html/make.link.html</p></li>
+<li><p>Unsere (meine) Daten sind negativ binominal verteilt. Daher sollte wir unbedingt ein solches Modell programmieren. –&gt; Funktion <strong>glmer.nb()</strong></p></li>
+<li><p>Falls die Daten exponentiell Verteilt sind, hier der Link zu einem Blogeintrag dazu: https://stats.stackexchange.com/questions/240455/fitting-exponential-regression-model-by-mle</p></li>
+<li><p>Hypothese: “Es gehen weniger Leute in den Wald, wenn es zu heiss ist” –&gt; auf quadratischen Term Temperatur testen (Codeblock unten).</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>tre200jx_scaled <span class="sc">+</span> <span class="fu">I</span>(tre200jx_scaled<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Könnte es zwischen einzelnen Variablen zu Interaktionen kommen, die plausible sind? (z. B.: Im Winter hat Niederschlag einen negativeren Effekt als im Sommer, wenn es heiss ist) –&gt; Falls ja: testen!</li>
+</ul>
+<p><strong>Hinweis:</strong> Interaktionen berechnen ist sehr rechenintensiv. Auch die Interpretation der Resultate wird nicht unbedingt einfacher. Wenn ihr auf Interaktionen testet, dann geht “langsam” vor, probiert nicht zu viel auf einmal.</p>
+<ul>
+<li>Wenn ihr verschiedene Modelle gerechnet habt, können diese über den AICc verglichen werden. Folgender Code kann dazu genutzt werden:</li>
+</ul>
+<p><strong>Hinweis:</strong> Nur Modelle mit demselben Datensatz können miteinander verglichen werden. D.h., dass die Modelle mit den originalen Daten nicht mit logarithmiertem oder exponierten Daten verglichen werden können.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Vergleich der Modellguete mittels AICc</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cand.models<span class="ot">&lt;-</span><span class="fu">list</span>()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> Tages_Model</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> Tages_Model_nb</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">3</span>]] <span class="ot">&lt;-</span> Tages_Model_nb_quad</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>Modnames<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"Tages_Model"</span>,<span class="st">"Tages_Model_nb"</span>, </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Tages_Model_nb_quad"</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">aictab</span>(<span class="at">cand.set=</span>cand.models,<span class="at">modnames=</span>Modnames)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">##K = Anzahl geschaetzter Parameter (2 Funktionsparameter und die Varianz)</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="do">##Delta_AICc &lt;2 = Statistisch gleichwertig</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="do">##AICcWt =  Akaike weight in %</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="d-optional-transformationen" class="level3">
+<h3 class="anchored" data-anchor-id="d-optional-transformationen">6d) (OPTIONAL) Transformationen</h3>
+<p>Bei meinen Daten waren die Modellvoraussetzungen überall mehr oder weniger verletzt. Das ist ein Problem, allerdings auch nicht ein so grosses (man sollte es aber trotzdem ernst nehmen). Mehr dazu unter:</p>
+<p>Schielzeth et al.&nbsp;Robustness of linear mixed‐effects models to violations of distributional assumptions https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.13434 Lo and Andrews, To transform or not to transform: using generalized linear mixed models to analyse reaction time data https://www.frontiersin.org/articles/10.3389/fpsyg.2015.01171/full</p>
+<p>Falls die Voraussetzungen stark verletzt werden, wäre eine Transformation angezeigt.</p>
+<p>Mehr dazu unter:</p>
+<p>https://www.datanovia.com/en/lessons/transform-data-to-normal-distribution-in-r/</p>
+<ul>
+<li>Wenn ihr das machen wollt, berechnet zuerst den skewness coefficient</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(moments)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skewness</span>(umwelt<span class="sc">$</span>Anzahl_Total)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">## A positive value means the distribution is positively skewed (rechtsschief).</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">## The most frequent values are low; tail is toward the high values (on the right-hand side)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Welche Transformation kann angewandt werden?</li>
+<li>Was spricht gegen eine Transformation (auch im Hinblick zur Visualisierung und Interpretation)? Was spricht dafür?</li>
+</ul>
+</section>
+<section id="c-exportiere-die-modellresultate-des-besten-modells" class="level3">
+<h3 class="anchored" data-anchor-id="c-exportiere-die-modellresultate-des-besten-modells">6c) Exportiere die Modellresultate (des besten Modells)</h3>
+<p>Modellresultate können mit <strong>summary()</strong> angezeigt werden. Ich verwende aber lieber die Funktion <strong>tab_model()</strong>! Die Resultate werden gerundet und praktisch im separaten Fenster angezeigt. Von dort kann man sie via copy + paste ins (z.B.) Word bringen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(MODELLNAME, <span class="at">transform =</span> <span class="cn">NULL</span>, <span class="at">show.se =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">## The marginal R squared values are those associated with your fixed effects, </span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">## the conditional ones are those of your fixed effects plus the random effects. </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Usually we will be interested in the marginal effects.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="aufgabe-7-modellvisualisierung" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-7-modellvisualisierung">Aufgabe 7: Modellvisualisierung</h2>
+<ul>
+<li>Visualisiert die (signifikanten) Ergebnisse eures Modells.</li>
+</ul>
+<p>Das Resultat soll sich für kontinuierliche Variablen an untenstehendem Plot orientieren:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="7_Multivariat_Uebung_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Für diskrete Variablen haltet ihr euch bitte an diesen Plot:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="7_Multivariat_Uebung_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Sabrina Harsch hat im HS21 eine sehr nützliche Funktion dafür geschriben:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a> rescale_plot_num <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title=</span><span class="st">""</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  labels <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">seq</span>(<span class="fu">floor</span>(<span class="fu">min</span>(unscaled_var)), <span class="fu">ceiling</span>(<span class="fu">max</span>(unscaled_var)), <span class="at">length.out =</span> num_breaks<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>x_scaling, x_nk)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  custom_breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var), <span class="at">by =</span> ((<span class="fu">max</span>(scaled_var)<span class="sc">-</span><span class="fu">min</span>(scaled_var))<span class="sc">/</span>num_breaks))</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  custom_limits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var))</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> custom_breaks, <span class="at">limits =</span> custom_limits, <span class="at">labels =</span> <span class="fu">c</span>(labels), <span class="fu">labs</span>(<span class="at">x=</span>x_lab)) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y=</span>y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>)) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nun können die einzelnen Variabeln in der Funktion jeweils für die Plots angepasst werden:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tagesmaximaltemperatur</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>input_df     <span class="ot">&lt;-</span>  Tages_Model_nb_quad</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>input_term   <span class="ot">&lt;-</span> <span class="st">"tre200jx_scaled [all]"</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>unscaled_var <span class="ot">&lt;-</span> umwelt<span class="sc">$</span>tre200jx</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>scaled_var   <span class="ot">&lt;-</span> umwelt<span class="sc">$</span>tre200jx_scaled</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>num_breaks   <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>x_lab        <span class="ot">&lt;-</span> <span class="st">"Temperatur [°C]"</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>y_lab        <span class="ot">&lt;-</span> <span class="st">"Fussgänger:innen pro Tag"</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>x_scaling    <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in prozent</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>x_nk         <span class="ot">&lt;-</span> <span class="dv">0</span>   <span class="co"># x round nachkommastellen    </span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>p_temp <span class="ot">&lt;-</span> <span class="fu">rescale_plot_num</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>                         x_lab, y_lab, x_scaling, x_nk)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>p_temp</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>Exportiert die Ergebnisse via <strong>ggsave()</strong>.</p></li>
+<li><p>Passt die Funktion so an, dass damit nicht nur die kontinuierlichen Variablen sondern auch die diskreten Variablen geplottet werden können (das ist schon fortgeschritten; Falls ihr nicht weiterkommt, kommt auf mich zu).</p></li>
+</ul>
+<p><strong>Hinweis:</strong> damit unsere Plots verglichen werden können, sollen sie alle dieselbe Skalierung (limits) auf der y-Achse haben. Das wird erreicht, indem man bei jedem Plot die <strong>limits</strong> in <strong>scale_y_continuous()</strong> gleichsetzt.</p>
+<p><strong>Hinweis:</strong> Es könnten auch interaction-plots erstellt werden: https://cran.r-project.org/web/packages/sjPlot/vignettes/plot_interactions.html</p>
+</section>
+<section id="abschluss" class="level2">
+<h2 class="anchored" data-anchor-id="abschluss">Abschluss</h2>
+<p>Nun habt ihr verschiedenste Ergebnisse vorliegen. In einem wissenschaftlichen Bericht sollen aber niemals alle Ergebnisse abgebildet werden. Eine Faustregel besagt, dass nur signifikante Ergebnisse visualisiert werden. Entscheidet euch daher, was ihr in eurem Bericht abbilden wollt und was lediglich besprochen werden soll.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'alternate';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fallstudie_s/6_Deskr_Analysen_Loesung.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">KW 43+44: Lösung Deskriptiv</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fallstudie_n/1_Vorbemerkung.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-title">1. Vorbemerkung</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
