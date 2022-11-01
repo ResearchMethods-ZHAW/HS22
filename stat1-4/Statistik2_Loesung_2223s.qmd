@@ -3,23 +3,15 @@ date: 2022-11-01
 lesson: Stat2
 thema: Einführung in lineare Modelle
 index: 5
-execute: 
-  echo: true   # set to true to show musterlösung
+format:
+  html:
+    code-tools:
+      source: true
 ---
 
-# Stat2: Lösung 2.2 & 2.3S
+# Stat2: Lösung 2.2 & 2.3S 
 
-```{r}
-#| echo: false
-#| results: hide
-
-options(knitr.duplicate.label = "allow")
-knitr::purl("stat1-4/Statistik2_Loesung_2223s.qmd", 
-            "purl/Statistik2_Loesung_2223s.R", 
-            documentation = 0)
-```
-
-- Download [R-Skript](../purl/Statistik2_Loesung_2223s.R)
+- Download dieses Lösungsscript via "\</\>Code" (oben rechts)
 
 ## Musterlösung Übung 2.2
 
@@ -30,8 +22,7 @@ knitr::purl("stat1-4/Statistik2_Loesung_2223s.qmd",
 
 #lade Packages
 library(ggplot2)
-library(dplyr)
-
+library(readr)
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 mytheme <- 
@@ -50,7 +41,7 @@ mytheme <-
 #| fig-cap: "Generierter Plot"
 
 #lade die Daten
-df <- read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.1.csv")
+df <- readr::read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.1.csv")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte an (plus Standardabweichungen)
@@ -73,7 +64,7 @@ boxplot(df$tot_sold~df$label_content)
 # definiert das Modell (vgl. Skript Statistik 2)
 model <- aov(tot_sold ~ label_content, data = df)
 
-summary.lm(model)
+summary.lm(model)  
 
 # überprüft die Modelvoraussetzungen
 par(mfrow = c(2,2))
@@ -182,8 +173,6 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
 - **Lese-Empfehlung** Kapitel 7 von [Manny Gimond](https://mgimond.github.io/Stats-in-R/ANOVA.html)
 
 ### Kommentierter Lösungsweg
-
-
 
 ```{r}
 #| echo: false
@@ -313,5 +302,5 @@ ggplot(df, aes(x = interaction(article_description, member), y= tot_sold)) +
 ggsave("stat1-4/distill-preview.png",
        height = 12,
        width = 20,
-       device = png)
+       device = png)   
 ``` 

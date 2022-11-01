@@ -256,7 +256,7 @@ Nun könnt ihr Morans $I$ auf der Ebene der Gemeine oder Bezirke und untersuchen
 #| label: fig-ggplot-ex2
 #| fig-cap: "Generierter Plot"
 
-zweitwohnung_gemeinde <- read_sf("data/zweitwohnungsinitiative.gpkg", "gemeinde")
+zweitwohnung_gemeinde <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "gemeinde")
 
 ggplot(zweitwohnung_gemeinde) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
@@ -287,13 +287,4 @@ morans_i <- function(sf_object,col) {
 ```{r}
 #| eval: false
 MI_gemeinde <-  morans_i(zweitwohnung_gemeinde,"ja_in_percent")
-```
-
-
-```{r}
-#| echo: false
-
-#| results: asis
-#| purl: false
-#distill::mypurl()
 ```

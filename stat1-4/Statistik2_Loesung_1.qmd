@@ -3,26 +3,21 @@ date: 2022-11-01
 lesson: Stat2
 thema: Einführung in lineare Modelle
 index: 4
+format:
+  html:
+    code-tools:
+      source: true
 ---
 
 # Stat2: Lösung  2.1
 
-```{r}
-#| echo: false
-#| results: hide
-#| purl: false
-options(knitr.duplicate.label = "allow")
-knitr::purl("stat1-4/Statistik2_Loesung_1.qmd", "purl/Statistik2_Loesung_1.R", documentation = 0)
-```
-
-- Datensatz [SAR.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604474)
-- [RCode als Download](../purl/Statistik2_Loesung_1.R)
+- Download dieses Lösungsscript via "\</\>Code" (oben rechts)
 - [Lösungstext als Download](Statistik_Loesung_2.1.pdf)
 
 ## Lösungsweg
 
 ```{r}
-SAR <- read.delim("data/SAR.csv", sep = ";")
+SAR <- read.delim("datasets/statistik/SAR.csv", sep = ";")
 ```
 
 ```{r}
@@ -92,7 +87,7 @@ summary(lm.2)
 par(mfrow = c(2, 2))
 plot(lm.2)
 ```
-#sieht noch schlechter aus
+**Sieht noch schlechter aus**
 
 ## Lösung B: log-Transformation beider Variablen
 ```{r}
@@ -118,14 +113,7 @@ summary(lm.3)
 par(mfrow = c(2, 2))
 plot(lm.3)
 ```
-das sieht jetzt sehr gut aus, bis auf zwei Ausreisser im QQ-Plot
-
-**Ergebnisplots C **
-
-```{r}
-par(mfrow = c(1, 1))
-xv <- seq(0, 100, 0.1)
-```
+Das sieht jetzt sehr gut aus, bis auf zwei Ausreisser im QQ-Plot
 
 ## Ergebnisplots
 ```{r}

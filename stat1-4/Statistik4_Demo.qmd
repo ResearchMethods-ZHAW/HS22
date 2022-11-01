@@ -3,19 +3,15 @@ date: 2022-11-08
 lesson: Stat4
 thema: Komplexere Regressionsmethoden
 index: 1
+format:
+  html:
+    code-tools:
+      source: true
 ---
 
 # Stat4: Demo
 
-```{r}
-#| echo: false
-#| results: hide
-#| purl: false
-options(knitr.duplicate.label = "allow")
-knitr::purl("stat1-4/Statistik4_Demo.qmd", "purl/Statistik4_Demo.R", documentation = 0)
-```
-
-- [Demoscript als Download](../purl/Statistik4_Demo.R)
+- Download dieses Demoscript via "\</\>Code" (oben rechts)
 - Datensatz [loyn.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604496)
 
 ## von LMs zu GLMs
@@ -148,7 +144,7 @@ if(!require(nlstools)){install.packages("nlstools")}
 library(AICcmodavg)
 library(nlstools)
 
-loyn <- read.delim("data/loyn.csv", sep = ",") # Verzeichnis muss dort gesetzt sein wo Daten sind
+loyn <- read.delim("datasets/statistik/loyn.csv", sep = ",") # Verzeichnis muss dort gesetzt sein wo Daten sind
 
 #Selbstdefinierte Funktion, hier Potenzfunktion
 power.model <- nls(ABUND~c*AREA^z, start = (list(c = 1, z = 0)), data = loyn)

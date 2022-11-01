@@ -1,18 +1,16 @@
-# 4. Übung
+---
+execute:
+  echo: true
+---
+
+# 4. Einstieg Multivariate Modelle - Übung
 
 ## Einstieg Multivariate Modelle / Habitatselektionsmodell
-
-```{r}
-#| label: setup
-#| include: false
-knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
-```
 
 ### Libraries laden
 
 ```{r}
-#| results: hide
-
+#| output: false
 
 ### Funktion um Packages direkt zu installieren und / oder zu laden
 ipak <- function(pkg){
@@ -40,18 +38,19 @@ Unterteilung des Datensatzes in Teildatensätze entsprechend der Tageszeit
 
 ### Aufgabe 3
 
-Erstellen von Density Plots der Präsenz / Absenz in Abhängigkeit der unabhängigen Variablen
+Erstellen von Density Plots der Präsenz / Absenz in Abhängigkeit der unabhängigen Variablen. Diese Übung dient einer ersten groben Einschätzung der Wirkung der Umweltvariablen auf die abhängige Variable (Präsenz/Absenz in unserem Fall)
 
 ```{r}
-#| tidy: true
-#| results: hide
+#| output: false
 #| eval: false
-#| fig.keep: none
+
 # Ein Satz Density Plots für den Tagesdatensatz und einer für den Nachtdatensatz 
 
-par(mfrow=c(3,3), mar=c(4, 4, 3, 3))
-for (i in 6:12) {          # innerhalb des for()-loops die Nummern der gewünschten 
-                           # Spalten einstellen
+par(mfrow=c(3,3), mar=c(4, 4, 3, 3)) # Vorbereitung Raster für Plots
+
+# innerhalb des for()-loops die Nummern der gewünschten Spalten einstellen
+
+for (i in 6:12) {                           
   d  <-  DF_mod_day %>% pull(i)
   d  <-  density(d)
   dp  <-  DF_mod_day %>% filter(pres_abs == 1) %>% pull(i)
