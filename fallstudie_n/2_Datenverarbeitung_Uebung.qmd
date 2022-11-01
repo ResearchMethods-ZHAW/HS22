@@ -1,10 +1,9 @@
-# 2. Daten(vor)verarbeitung - Übung
+---
+execute:
+  echo: true
+---
 
-```{r}
-#| label: setup
-#| include: false
-knitr::opts_chunk$set(echo = TRUE)
-```
+# 2. Daten(vor)verarbeitung - Übung
 
 ## Projektaufbau RStudio-Projekte
 
@@ -18,8 +17,6 @@ Arbeitet mit Projekten, da diese sehr einfach ausgetauscht und somit auch reprod
 Im Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen des Skripts nennen. Hier soll auch die Herkunft der Daten ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer die Datenherrschaft hat (Rehdaten: Forschungsgruppe WILMA).
 
 ```{r}
-
-#| results: hide
 #.##################################################################################
 # Daten(vor)verarbeitung Fallstudie WPZ  ####
 # Modul Research Methods, HS22. Autor/in ####
@@ -45,8 +42,6 @@ Im Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen de
 Bereitet euer Skript also nach dieser Struktur vor. Nutzt für den Text, welcher nicht Code ist, vor dem Text das Symbol #. Wenn ihr den Text als Titel definieren wollt, der die grobe Struktur des Skripts absteckt, baut in wie in folgendem Beispiel auf:
 
 ```{r}
-
-#| results: hide
 #.###################################################################################
 # METADATA ####
 #.###################################################################################
@@ -72,7 +67,6 @@ Herunterladen der Daten der [Feldaufnahmen](https://moodle.zhaw.ch/mod/folder/vi
 
 ```{r}
 #| tidy: true
-#| results: hide
 #| eval: false
 
 df_team1 <- read_delim("fallstudie_n/data/Felderhebungen_Waldstruktur.csv", delim = ";")
@@ -207,5 +201,5 @@ Scatterplot der korrespondondierenden Umweltvariablen aus den Felderhebungen geg
 ggplot(df_with_LIDAR, aes(DG_us, DG_Strauchschicht, color = team)) + geom_point() + 
   stat_smooth(method = "lm")
 
-write_delim(df_with_LIDAR, "data/df_with_lidar.csv", delim = ";")
+write_delim(df_with_LIDAR, "fallstudie_n/data/df_with_lidar.csv", delim = ";")
 ```

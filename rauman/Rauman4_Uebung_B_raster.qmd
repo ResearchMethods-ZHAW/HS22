@@ -7,11 +7,11 @@ index: 2
 
 # Rauman 4: Übung B
 
-One of the important aspects of the upcoming exercise (Multi-Criteria Evaluation (MCE)) is the use and manipulation of **raster datasets**. In `R`, two are the main packages used to handle raster data: `terra` and `raster` package. The latter is still heavily used, but inevitably is going to be replaced by the first one.
+Einer der wichtigsten Aspekte der bevorstehenden Übung (Multi-Criteria Evaluation (MCE)) ist die Verwendung und Bearbeitung von **Rasterdatensätzen**. In "R" werden hauptsächlich zwei Pakete zur Bearbeitung von Rasterdaten verwendet: `terra` und das Paket `raster`. Das letztere wird immer noch stark genutzt, wird aber unweigerlich durch das erstere ersetzt.
 
-Below we will use `terra` to demonstrate how we can import a raster dataset. In the link below you can download a tif file, representing the `Digital Elevation Model` *(Digitales Höhenmodell, DHM)* of Canton Schwyz in Switzerland. Download the dataset and repeat the code provided.
+Im dieser Übung werden wir `terra` verwenden, um zu zeigen, wie wir einen Rasterdatensatz importieren können. Unter dem untenstehenden Link können Sie eine tif-Datei herunterladen, die das "Digitale Höhenmodell" (DHM)* des Kantons Schwyz in der Schweiz darstellt. Laden Sie den Datensatz herunter und führen Sie den angegebenen Code aus.
 
-- Dataset: [dhm25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602285)
+- Datensatz: [dhm25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602285)
 
 ```{r}
 #| results: asis
@@ -23,19 +23,19 @@ knitr::opts_chunk$set(echo = TRUE)
 library(terra)
 ```
 
-Import your raster with the function `rast`
+Importieren Sie Ihr Raster mit der Funktion `rast`
 
 ```{r}
-dhm_schwyz <- rast("data/dhm25m.tif")
+dhm_schwyz <- rast("datasets/rauman/dhm25m.tif")
 ```
 
-You get some important metadata on the raster dataset when you type the variable name in the console.  
+Sie erhalten einige wichtige Metadaten über den Rasterdatensatz, wenn Sie den Variablennamen in die Konsole eingeben.  
 
 ```{r}
 dhm_schwyz 
 ```
 
-To get a quick look at the raster dataset, we can simply use either of the following `plot()` function:  
+Um einen schnellen Überblick eines Rasterdatensatz zu erhalten, können wir einfach die `plot()` Funktion verwenden.
 
 ```{r}
 #| echo: true
@@ -45,16 +45,16 @@ To get a quick look at the raster dataset, we can simply use either of the follo
 plot(dhm_schwyz)
 ```
 
-Unfortunately, adding `raster` to ggplot is not very straightforward. Since `ggplot` is a universal plotting framework we quickly reach the limits of what is possible when creating something as specialized as maps. For this reason, we will introduce a new plotting framework which is specialized on maps and was built in a very similar design as ggplot: `tmap`. Install and load this package now.
+Leider ist das Verwenden von `Rastern` in ggplot nicht sehr einfach. Da `ggplot` ein universelles Plot-Framework ist, stossen wir schnell an die Grenzen des Möglichen, wenn wir etwas so Spezielles wie Karten erstellen. Aus diesem Grund werden wir ein neues Plot-Framework einführen, das auf Karten spezialisiert ist und in einem sehr ähnlichen Design wie ggplot gebaut wurde: `tmap`. Installieren und laden Sie dieses Paket jetzt.
 
 ```{r}
 library(tmap)
 ```
 
-Just as `ggplot`, `tmap` is based on the idea of "layers" that are joined using a `+`. Each layer has two components:
+Genau wie `ggplot` basiert `tmap` auf der Idee von "Ebenen", die durch ein `+` verbunden sind. Jede Ebene hat zwei Komponenten:
 
-- a dataset component which is always `tm_shape(dataset)` (replace `dataset` with your variable)
-- a geometry component which describes how the preceeding `tm_shape()` should be visualized. This can be `tm_dots()` for points, `tm_polygons()` for polygons, `tm_lines()` for lines etc. For single band raster (which is the case for `dhm_schwyz`), it is `tm_raster()`
+- eine Datensatzkomponente, die immer `tm_shape(dataset)` ist (ersetzen Sie `dataset` durch Ihre Variable)
+- eine Geometriekomponente, die beschreibt, wie das vorangegangene `tm_shape()` visualisiert werden soll. Dies kann `tm_dots()` für Punkte, `tm_polygons()` für Polygone, `tm_lines()` für Linien usw. sein. Für Einzelbandraster (was bei `dhm_schwyz` der Fall ist) ist es `tm_raster()`
 
 ```{r}
 #| label: fig-shape-ex2
@@ -64,9 +64,9 @@ tm_shape(dhm_schwyz) +
   tm_raster() 
 ```
 
-Note that `tm_shape()` and `tm_raster()` (in this case) belong together, one cannot live without the other.
+Beachten Sie, dass `tm_shape()` und `tm_raster()` (in diesem Fall) zusammengehören. Das eine kann nicht ohne das andere leben.
 
-If you consult the help of `?tm_raster` you will see a multitude of options with which to change the visualisation of your data. For example, the default `style` of `tm_raster()` is to create "bins" of the data with a descrete colour scale. We can override this using `style = "cont"`
+Wenn Sie die Hilfe von `?tm_raster` konsultieren, werden Sie eine Vielzahl von Optionen sehen, mit denen Sie die Visualisierung Ihrer Daten verändern können. Zum Beispiel ist der Standardstil von `tm_raster()` die Erstellung von "Bins" mit einer diskreten Farbskala. Wir können dies mit `style = "cont"` ausser Kraft setzen.
 
 ```{r}
 #| label: fig-shape-ex3
@@ -76,7 +76,7 @@ tm_shape(dhm_schwyz) +
   tm_raster(style = "cont") 
 ```
 
-This already looks pretty awesome, but maby we want to change the default colour palette. Fortunately, this is *much* simpler in `tmap` than in `ggplot2`. To look at the available palettes, type `tmaptools::palette_explorer()` or `RColorBrewer::display.brewer.all()` in the console (the former might require you to install additional packages, e.g. `shinyjs`).
+Das sieht schon ziemlich toll aus, aber vielleicht wollen wir die Standard-Farbpalette ändern. Glücklicherweise ist das in `tmap` viel einfacher als in `ggplot2`. Um sich die verfügbaren Paletten anzusehen, geben Sie `tmaptools::palette_explorer()` oder `RColorBrewer::display.brewer.all()` in der Konsole ein (für Ersteres müssen Sie möglicherweise zusätzliche Pakete installieren, z.B. `shinyjs`).
 
 ```{r}
 #| label: fig-shape-ex4
@@ -86,7 +86,7 @@ tm_shape(dhm_schwyz) +
   tm_raster(style = "cont", palette = "Spectral") 
 ```
 
-You can make layout adjustments using `tm_layout()`, check `?tm_layout` to see all of the options available!
+Sie können Layout-Anpassungen mit `tm_layout()` vornehmen, prüfen Sie `?tm_layout`, um alle verfügbaren Optionen zu sehen!
 
 ::: {.column-body}
 ```{r}
@@ -98,5 +98,3 @@ tm_shape(dhm_schwyz) +
   tm_layout(legend.outside = TRUE, legend.outside.position = "bottom",frame = FALSE)
 ```
 :::
-
-

@@ -1,19 +1,15 @@
-# 3. Übung
+---
+execute:
+  echo: true
+---
 
-```{r}
-#| label: setup
-#| include: false
-knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
-```
+# 3. Aufgabe 3 Berechnung Homeranges - Übung
 
 ## Berechung der Home-Ranges der Rehe 
 
 ### Libraries laden
 
 ```{r}
-#| results: hide
-
-
 ipak <- function(pkg){
 new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
 if (length(new.pkg))
@@ -30,45 +26,33 @@ ipak(packages)
 Einlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Datentypen
 
 ```{r}
-#| tidy: true
 
+#| output: false
 
-#| results: hide
-Rehe <- read_delim("data/Aufgabe3_Homeranges_Rehe_landforst_20211014.csv", delim = ";")
+Rehe <- read_delim("fallstudie_n/data/Aufgabe3_Homeranges_Rehe_landforst_20221024.csv", delim = ";")
 
 str(Rehe)
 ```
 
 ### Aufgabe 1
 
-In Datensatz Rehe eine neue Spalte mit Datum und Zeit in einer Spalte kreieren. Beim Format hat sich ein Fehler eingeschlichen. Findet ihr ihn?
+Im Datensatz Rehe eine neue Spalte mit Datum und Zeit in einer Spalte kreieren. Beim Format hat sich ein Fehler eingeschlichen. Findet ihr ihn?
 
 ```{r}
-#| tidy: true
-#| eval: true
-#| warnings: false
+
 Rehe <- Rehe %>%
   mutate(UTC_DateTime = as.POSIXct(paste(UTC_Date, UTC_Time), 
                                    format = "%Y-%m-%d %H:%M:%S"))
 ```
 
-Hier einige Zeilen Code, um eine HomeRange zu berechnen.
-
 ### Aufgabe 2
 
-Herumschrauben an den Einstellungen von: 
-
-- href (in der Funktion kernelUD)
-- an der Ausdehung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr) 
-
-**--> Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
+Mit den folgenden Zeilen können die GPS-Punkte visualisiert werden
 
 ```{r}
-#| tidy: true
 
+#| output: false
 
-#| fig.keep: none
-#| results: hide
 x <- Rehe$X[Rehe$TierID== "RE13"]    
 y <- Rehe$Y[Rehe$TierID== "RE13"]
 xy <- data.frame(cbind (x, y, rep(1, length(x))))       
@@ -76,6 +60,21 @@ coordinates(xy)<-c("x","y")
 proj4string(xy)<-CRS("+init=epsg:21781")  
 
 plot(xy, col = "blue", pch = 19, cex = 1.5)
+
+```
+
+
+Hier einige Zeilen Code, um eine HomeRange zu berechnen.
+
+Herumschrauben an den Einstellungen von: 
+
+- an der Ausdehung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr) 
+- href (in der Funktion kernelUD)
+
+
+**--> Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
+
+```{r}
 
 # Berechnung von href nach: Pebsworth et al. (2012) Evaluating home range techniques: 
 # use of Global Positioning System (GPS) collar data from chacma baboons
@@ -101,11 +100,9 @@ st_write(hr, dsn= "Results", layer="HR_RE13", driver="ESRI Shapefile",
 ```
 
 ```{r}
-#| tidy: true
 
+#| output: false
 
-#| fig.keep: none
-#| results: hide
 # mit diesem Befehl kann die HR geplottet werden
 
 ggplot(hr, aes(color = "red", fill="red")) + 
@@ -137,9 +134,10 @@ legend.position="none"
 Code um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann mit alpha angepasst werden.
 
 ```{r}
-#| tidy: true
-#| fig.keep: none
-pk25_wpz <- brick("data/pk25_wpz.tif")
+
+#| output: false
+
+pk25_wpz <- brick("fallstudie_n/data/pk25_wpz.tif")
 
 xy_p <- st_as_sf(xy)
 
@@ -163,10 +161,9 @@ Nachbauen des Sampling Grids mit den Kreisen (Wird als Grundlage für Extraktion
 - Anzahl Kreise in X und Y Richtung: c(100, 160)
 
 ```{r}
-#| tidy: true
 
-#| results: hide
-#| fig.keep: none
+#| output: false
+
 x25       <- GridTopology(c(684000, 234000), c(25, 25), c(100, 160)) 
 data25    = data.frame(1:(100*160))           
 # Erstellt aus der GridTopology und den Daten ein SpatialGridDataFrame
@@ -205,14 +202,13 @@ legend.position="none"
 
 Testen der Variablen der Vegetationsschichten von letzter Woche auf einen linearen Zusammenhang (Korrelation; Funktion cor.test). DG_Baumschicht vs. DG_os / DG_Strauchschicht vs. DG_us aus dem Datensatz df_with_lidar den wir letzte Woche erstellt haben
 
-**Die Theorie zu Korrelation folgt erst ab 1.11**
+**Die Theorie zu Korrelation folgt erst ab 31.10.**
 
 ```{r}
-#| tidy: true
-#| echo: false
 
-#| results: hide
-df_with_lidar <- read_delim("data/df_with_lidar.csv", delim =";")
+#| output: false
+
+df_with_lidar <- read_delim("fallstudie_n/data/df_with_lidar.csv", delim =";")
 
 cor.test(~ DG_Strauchschicht+DG_us, data = df_with_lidar, method="pearson")
 ```

@@ -5,23 +5,30 @@ thema: Statistik Grundlagen
 index: 1
 ---
 
-# StatKons1: Demo 1
+# StatKons1: Demo
 
-```{r, include=FALSE, purl=F}
+```{r}
+#| echo: false
+#| results: hide
+
 knitr::opts_chunk$set(echo = T, collapse=TRUE)
 
 #export R file
-# knitr::purl("statKons/StatKons1_Demo_assoziationen.qmd", "Demo_assoziationen.R", documentation = 0)
+knitr::purl("statKons/StatKons1_Demo_assoziationen.qmd", "Demo_assoziationen.R", documentation = 0)
 ```
 
-> Download [R-Skript](Demo_assoziationen.R)
+- Download [R-Skript](Demo_assoziationen.R)
 
 ## Grundlagen
 
-```{r message=F}
+```{r}
+#| echo: false
+#| results: hide
 #lade Packages
 
-library(tidyverse)
+
+library(dplyr)
+library(tibble)
 
 #mytheme
 mytheme <- 
@@ -41,9 +48,9 @@ mytheme <-
 cars <- mtcars
 
 #neue kategoriale variable
-cars %<>% 
-  as_tibble() %>% # da "nur" data frame kann glimplse nichts damit anfangen 
-  mutate(vs_cat = if_else(.$vs == 0, "normal", "v-type")) %>% 
+cars <-  
+  as_tibble(cars) |> # da "nur" data frame kann glimplse nichts damit anfangen 
+  mutate(vs_cat = if_else(vs == 0, "normal", "v-type")) |> 
   mutate(am_cat = if_else(am == 0, "automatic", "manual"))
 
 # betrachte die Daten
@@ -80,7 +87,7 @@ par(OP)
 
 ## Möglicher Text für Ergebnisse
 
-Der $\chi^2$-Test sagt uns, dass das Art des Motors und Art des Fahrwerks statistisch nicht zusammenhängen. Es gibt keine signifikante Unterscheide zwischen den Variablen "VS" und "AM - Transmission" ($\chi^2$(`r chi_sq$parameter`) = `r round(chi_sq$statistic[[1]], digits = 3)`, *p* = `r round(chi_sq$p.value[[1]], digits = 3)`. Der Fisher exacter Test bestätigt diesen Befund.
+Der $\chi^2$-Test sagt uns, dass das Art des Motors und Art des Fahrwerks statistisch nicht zusammenhängen. Es gibt keine signifikante Unterscheide zwischen den Variablen "VS" und "AM - Transmission" (*p* = .555). Der Fisher exacter Test bestätigt diesen Befund.
 Die Odds Ratio (OR) sagt uns hingegen - unter der Prämisse, dass "normale" Motoren eher mit automatischen und V-Motoren eher mit handgeschalteten Fahrwerken ausgestattet sind - dass die Chance doppelt so hoch ist, dass ein Auto mit "normalem" Motor automatisch geschaltet ist, als dies bei einem Auto mit V-Motor der Fall wäre
 
 ```{r, eval=TRUE}
@@ -88,9 +95,9 @@ Die Odds Ratio (OR) sagt uns hingegen - unter der Prämisse, dass "normale" Moto
 cars <- mtcars
 
 #neue kategoriale variable
-cars %<>% 
-  as_tibble() %>% # da "nur" data frame kann glimplse nichts damit anfangen 
-  mutate(vs_cat = if_else(.$vs == 0, "normal", "v-type")) %>% 
+cars <- 
+  as_tibble(cars) |> # da "nur" data frame kann glimplse nichts damit anfangen 
+  mutate(vs_cat = if_else(vs == 0, "normal", "v-type")) |> 
   mutate(am_cat = if_else(am == 0, "automatic", "manual"))
 
 # bei t-Test immer zuerst visualisieren: in diesem Fall Boxplot mit Variablen Getriebe (v- vs. s-motor) und Anzahl Pferdestärke
@@ -119,14 +126,14 @@ summary.lm(aov.1)
 #wie würdet ihr nun die Ergebnisse darstellen?
 ```
 
-```{r, eval=FALSE}
+```{r}
 # für mehr infos here: https://cran.r-project.org/web/packages/datasauRus/vignettes/Datasaurus.html
 
 library(datasauRus)
 if(requireNamespace("dplyr")){
   suppressPackageStartupMessages(library(dplyr))
-  dt <- datasaurus_dozen %>% 
-    group_by(dataset) %>% 
+  dt <- datasaurus_dozen |> 
+    group_by(dataset) |> 
     summarize(
       mean_x    = mean(x),
       mean_y    = mean(y),

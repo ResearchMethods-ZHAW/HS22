@@ -1,18 +1,15 @@
-# 3. Lösung
+---
+execute:
+  echo: true
+---
 
-```{r}
-#| label: setup
-#| include: false
-knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
-```
+# 3. Aufgabe 3 Berechnung Homeranges - Lösung
 
 ## Berechung der Home-Ranges der Rehe 
 
 ### Libraries laden
 
 ```{r}
-#| results: hide
-
 
 ipak <- function(pkg){
 new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
@@ -30,11 +27,11 @@ ipak(packages)
 Einlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Datentypen
 
 ```{r}
-#| tidy: true
+
+#| output: false
 
 
-#| results: hide
-Rehe <- read_delim("data/Aufgabe3_Homeranges_Rehe_landforst_20211014.csv", delim = ";")
+Rehe <- read_delim("data/Aufgabe3_Homeranges_Rehe_landforst_20221024.csv", delim = ";")
 
 str(Rehe)
 ```
@@ -44,30 +41,16 @@ str(Rehe)
 In Datensatz Rehe eine neue Spalte mit Datum und Zeit in einer Spalte kreieren. Beim Format hat sich ein Fehler eingeschlichen. Findet ihr ihn?
 
 ```{r}
-#| tidy: true
-#| eval: true
-#| warnings: false
+
 Rehe <- Rehe %>%
   mutate(UTC_DateTime = as.POSIXct(paste(UTC_Date, UTC_Time), 
                                    format = "%Y-%m-%d %H:%M:%S"))
 ```
 
-Hier einige Zeilen Code, um eine HomeRange zu berechnen.
-
-### Aufgabe 2
-
-Herumschrauben an den Einstellungen von: 
-
-- href (in der Funktion kernelUD)
-- an der Ausdehung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr) 
---> Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR
+Mit den folgenden Zeilen können die GPS-Punkte visualisiert werden
 
 ```{r}
-#| tidy: true
 
-
-#| fig.keep: none
-#| results: hide
 x <- Rehe$X[Rehe$TierID== "RE13"]    
 y <- Rehe$Y[Rehe$TierID== "RE13"]
 xy <- data.frame(cbind (x, y, rep(1, length(x))))       
@@ -75,6 +58,21 @@ coordinates(xy)<-c("x","y")
 proj4string(xy)<-CRS("+init=epsg:21781")  
 
 plot(xy, col = "blue", pch = 19, cex = 1.5)
+
+```
+
+
+Hier einige Zeilen Code, um eine HomeRange zu berechnen.
+
+Herumschrauben an den Einstellungen von: 
+
+- an der Ausdehung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr) 
+- href (in der Funktion kernelUD)
+
+
+**--> Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
+
+```{r}
 
 # Berechnung von href nach: Pebsworth et al. (2012) Evaluating home range techniques: 
 # use of Global Positioning System (GPS) collar data from chacma baboons
@@ -89,21 +87,19 @@ kud <- kernelUD(xy, h=href, grid=25)
 
 # Berechnung der Home Range (95% Isopleth)
 
-homerange <- getverticeshr(kud, percent=50)             
+homerange <- getverticeshr(kud, percent=95)             
 
 # Schreibt HR in den oben beschriebenen Ordner (als Shapefile)
 
 hr <- st_as_sf(homerange)
 
-st_write(hr, dsn= "data/Results", layer="HR_RE13", driver="ESRI Shapefile", delete_layer = TRUE)
+st_write(hr, dsn= "Results", layer="HR_RE13", driver="ESRI Shapefile",  
+         delete_layer = T )
 ```
 
+
 ```{r}
-#| tidy: true
 
-
-#| fig.keep: none
-#| results: hide
 # mit diesem Befehl kann die HR geplottet werden
 
 ggplot(hr, aes(color = "red", fill="red")) + 
@@ -161,10 +157,7 @@ Nachbauen des Sampling Grids mit den Kreisen (Wird als Grundlage für Extraktion
 - Anzahl Kreise in X und Y Richtung: c(100, 160)
 
 ```{r}
-#| tidy: true
 
-#| results: hide
-#| fig.keep: none
 x25       <- GridTopology(c(684000, 234000), c(25, 25), c(100, 160)) 
 data25    = data.frame(1:(100*160))           
 # Erstellt aus der GridTopology und den Daten ein SpatialGridDataFrame
@@ -206,7 +199,6 @@ Testen der Variablen der Vegetationsschichten von letzter Woche auf einen linear
 Die Theorie zu Korrelation folgt erst ab 1.11
 
 ```{r}
-#| tidy: true
 
 df_with_lidar <- read_delim("data/df_with_lidar.csv", delim =";")
 

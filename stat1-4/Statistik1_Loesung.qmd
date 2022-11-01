@@ -3,8 +3,7 @@ date: 2022-10-31
 lesson: Stat1
 thema: Grundlagen der Statistik
 index: 4
-execute: 
-  echo: false   # set to true to show musterlösung
+
 ---
 
 # Stat1: Lösung
@@ -12,137 +11,86 @@ execute:
 ```{r}
 #| echo: false
 #| results: hide
-#| purl: false
+
 options(knitr.duplicate.label = "allow")
-knitr::purl("stat1-4/Statistik1_Loesung.qmd", "purl/Statistik1_Loesung.R", documentation = 0)
+knitr::purl("/stat1-4/Statistik1_Loesung.qmd", "/purl/Statistik1_Loesung.R", documentation = 0)
+
+
 ```
 
 ##  Musterlösung Übung 1.1
 
 - Download [R-Skript](../purl/Statistik1_Loesung.R)
 
-### Kommentierter Weg
-```{r}
-#| message: !expr T
-#| purl: false
-#| include: false
-## ladet die nötigen Packete und die novanimal.csv Datei in R
 
-library(tidyverse)
+### Kommentierter Weg Fall B
 
-# lade Daten vom Feldexperiment: Kassendaten
-# für Informationen zu den einzelnen Variablen, siehe 
-```
+In diesem Beispiel soll einem Klischee auf den Grund gegagen werden: **Sind Aargauer überdurchschnittlich mit weissen Socken assoziiert?** Die Datenerhebung basiert auf männlichen Studenten bei denen folgende beiden binären Variablen erhoben wurden:
 
-Lade Daten von der Gästebefragung 2017 herunter (für Informationen zu den einzelnen Variablen, siehe [diesen Link](https://zenodo.org/record/3554884/files/2020_ZHAW_vonRickenbach_Variablen_cleaned_recoded_survey_dataset_anonym_NOVANIMAL.pdf?download=1)):
+-   Sockenfarbe: weiss, nicht-weiss
 
-Zu den originalen Datensätze gehts hier lang:
+-   Selbstdeklarierte Kantonsangehörigkeit: AG, nicht-AG
 
-- [2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv](https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1)
-- [2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv](https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1)
+Die Hypothese ist: Das Klischee trifft zu, weisse Socken sind überdurchschnittlich häufig mit Aargauer Studenten assoziiert.
 
-```{r}
-# so kannst du die Daten direkt von der Webpage laden
-nova <- read_delim(file = "https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1", delim = ";")
-nova_survey <- read_delim(file = "https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1", delim = ";", )
-```
+Die Datenerhebung unter 35 Studenten ergab folgende Datengrundlage:
+
+Weisssockige Aargauer: 4
+
+Nicht-weisssockige Aargauer: 2
+
+Weissockige nicht-Aargauer: 7
+
+Nicht-weisssockige nicht-Aargauer: 22
 
 ```{r}
-#überprüfe die Datenstruktur
-head(nova_survey, 5)
-glimpse(nova_survey)
-#str(nova_survey) #alternativ dazu
 
-## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
-mytheme <- 
-  theme_classic() + 
-  theme(
-    axis.line = element_line(color = "black"), 
-    axis.text = element_text(size = 12, color = "black"), 
-    axis.title = element_text(size = 12, color = "black"), 
-    axis.ticks = element_line(size = .75, color = "black"), 
-    axis.ticks.length = unit(.5, "cm")
-    )
+# Matrix erstellen
+Aargauer <- c(4, 2)
+names(Aargauer) <- c("Weiss", "NotWeiss")
+NotAargauer <-c (7,22)
+names(NotAargauer) <- c("Weiss", "NotWeiss")
+AGsocks <- data.frame(Aargauer, NotAargauer)
+AGsocks <- as.matrix(AGsocks)
+AGsocks
+
+# Daten anschauen mit erstem Google-Ergebnis für "Assoziation Plot r"
+assocplot(AGsocks) # Interpretation des Plots mit dem Befehl ?assocplot
 ```
+
+Der Assoziationsplot zeigt, dass in den Daten weisse Socken bei den Aargauern überverterten und bei den Nicht-Aargauern untervertreten sind.
+
+Für kleine Erwartungswerte in den Zellen (\< 5) ist der Chi-Quadrat-Test nicht zuverlässig (siehe "Warning message"). Darum wird mit Fishers exaktem Test gearbeitet.
 
 ```{r}
-#| label: fig-mosaicplots
-#| fig-cap: "Generierter Plot"
+# Tests durchführen
+chisq.test(AGsocks) # Chi-Quadrat-Test nur zum anschauen.
+fisher.test(AGsocks) # "Fisher's Exact Test for Count Data"
 
-# Als eine Möglichkeit, die Aufgabe 1.1 zu bearbeiten, nehmen wir hier den 
-# Datensatz  der Gästebefragung NOVANIMAL und gehen der folgenden Frage nach: 
-# Gibt es einen Zusammenhang zwischen Geschlecht und dem wahrgenommenen 
-# Milchkonsum (viel vs. wenig Milch/-produkte)
-
-# die Variable wahrgenommener Milchkonsum muss 
-# noch in 2 Kategorien zusammengefasst werden: geringer vs. hoher Milchkonsum
-
-# Variable  milk == wahrgenommener Milchkonsum 
-# alles kleiner als 4 (3 inklusive) == geringer wahrgenommener Milchkonsum, 
-#alles grösser als 3 (4 inklusive) == hoher wahrgenommener Milchkonsum
-nova2 <- nova_survey %>% 
-  filter(gender != "x") %>% # x aus der Variable Geschlecht entfernen 
-  mutate(milkcon = if_else(milk <= 3, "wenig", "viel")) %>% 
-  select(gender, milkcon) %>% 
-  drop_na() # alle Missings können gestrichen werden
- 
-# mal anschauen
-table(nova2)
-
-#achtung chi_squre erwartet matrix
-nova_mtx <- xtabs(~ gender + milkcon ,data = nova2) 
-# da es in diesem fall keine kriteriumsvariable gibt, fehlt das y sozusagen
-
-#Chi-squared Test
-chi_sq <- chisq.test(nova_mtx)
-chi_sq
-
-#visualisierung
-OP <- par(mfrow=c(1,2), "mar"=c(1,1,3,1))
-mosaicplot(chi_sq$observed, cex.axis =1 , main = "Observed counts")
-mosaicplot(chi_sq$expected, cex.axis =1 , main = "Expected counts\n(wenn geschlecht keinen einfluss hat)")
-par(OP)
-
-#Fisher's Test nur mit 2X2 Kontingenztabelle möglich
-fisher.test(nova_mtx)
 ```
+
 
 ### Ergebnisse
 
-Der $\chi^2$-Test sagt uns, dass das Geschlecht und der wahrgenommene Milchkonsum nicht zusammenhängen. Es gibt keine signifikante Unterscheide zwischen dem Geschlecht und dem wahrgenommenen Milchkonsum ($\chi^2$(`r chi_sq$parameter`) = `r round(chi_sq$statistic[[1]], digits = 3)`, *p* = `r round(chi_sq$p.value[[1]], digits = 3)`. Es sieht so aus, dass Männer leicht mehr angeben weniger Milch zu konsumieren (Tabelle 1). Die Ergebnisse müssen jedoch mit Vorsicht interpretiert werden, denn der $\chi^2$-Test gibt uns nur an, dass ein signifikanter Unterschied zwischen Geschlecht und wahrgenommener Milchkonsum vorliegt. Um die Unterschiede innerhalb einer Gruppen (z.B. Geschlecht nach Alter) festzustellen bedarf es weiterer Analysen z. B. mit einer mehrfaktorieller ANOVA mit anschliessenden Post-hoc Tests (siehe Statistik 3).
+In den erhobenen Daten konnte keine signifikante Assoziation zwischen Kantonangehörigkeit (AG, nicht-AG) und Sockenfarbe (weiss, nicht-weiss) festgestellt werden. Der *p*-Wert von Fishers exaktem Test war nur marginal signifikant (*p* = 0.063). Das nicht-signfikante Resultat überrascht auf den ersten Blick, denn der "odds ratio" im Datensatz ist mit 5.9 relativ hoch und 67 % der Aargauer trugen weisse Socken während nur 24 % der Nicht-Aargauer weisse Socken trugen. Doch war der Anteil von nur 6 Aargauer in der nur 35 Männer umfassenden Stichprobe relativ klein, um ein verlässliches Bild der Sockenpräferenzen der Aargauer zu machen. Insofern leuchtet es ein, das bei dieser kleinen und unausgewogenen Stichprobe die "Power" des satistischen Tests (um die Nullhypothese zu verwerfen) relativ klein ist.
 
-```{r}
-#| echo: false
+## Musterlösung Übung 1.2: t-Test
 
-table <- nova2 %>%
-  group_by(gender, milkcon) %>% 
-  summarise(tot = n()) %>% 
-  mutate(`wahr. Milchkonsum (%)` = round(tot / sum(tot) * 100, 1)) %>% 
-  rename(Geschlecht = gender, `wahr. Milchkonsum` = milkcon, `absolute Werte`= tot)
 
-knitr::kable(table, caption = "Wahrgenommener Milchkonsum nach Geschlecht")
-```
-
-##  Musterlösung Übung 1.2: t-Test
-
-> Leseempfehlung Kapitel 2 von [Manny Gimond](https://mgimond.github.io/Stats-in-R/z_t_tests.html) 
-
+> Leseempfehlung Kapitel 2 von [Manny Gimond](https://mgimond.github.io/Stats-in-R/z_t_tests.html)
 
 ### Null- und Alternativhypothese
 
-$H_0$: Es gibt keine Unterschiede in den Verkaufszahlen zwischen Basis- und Interventionswochen. 
+$H_0$: Es gibt keine Unterschiede in den Verkaufszahlen zwischen Basis- und Interventionswochen.
 
 $H_1$: Es gibt Unterschiede in den Verkaufszahlen zwischen Basis- und Interventionswochen.
-
-
-
 
 ```{r}
 #| label: fig-ggplot-ex2
 #| fig-cap: "Generierter Plot"
 
 #lade Daten
-df <- readr::read_csv2("data/Datensatz_novanimal_Uebung_Statistik1.2.csv")
+df <- readr::read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik1.2.csv")
 
 
 # überprüft die Voraussetzungen für einen t-Test
@@ -169,21 +117,18 @@ t.test(df[df$condit == "Basis", ]$tot_sold,
                  df[df$condit == "Intervention", ]$tot_sold) 
 ```
 
-### Methoden 
+### Methoden
 
+Ziel war es die aggregierten Verkaufszahlen zwischen den Interventions- und Basiswochen zu vergleichen. Die Annahme ist, dass die wöchentlichen Verkaufszahlen unabhängig sind. Daher können die Unterschiede zwischen den Verkaufszahlen pro Woche zwischen den beiden Bedingungen mittels t-Test geprüft werden. Obwohl die visuelle Inspektion keine schwerwiegenden Verletzungen der Modelvoraussetzung zeigte (mit Ausnahme eines Ausreissers), wurde einen Welch t-Test gerechnet. Zudem muss gesagt werden, dass die Gruppengrösse hier jeweils mit n = 6 (Anzahl Wochen) eher klein ist. T-test liefern dennoch relativ reliable Resultate. Für mehr Infos dazu hier eine [Studie](https://scholarworks.umass.edu/cgi/viewcontent.cgi?article=1307&context=pare).
 
-Ziel war es die aggregierten Verkaufszahlen zwischen den Interventions- und Basiswochen zu vergleichen. Die Annahme ist, dass die wöchentlichen Verkaufszahlen unabhängig sind.  Daher können die Unterschiede zwischen den Verkaufszahlen pro Woche zwischen den beiden Bedingungen mittels t-Test geprüft werden. Obwohl die visuelle Inspektion keine schwerwiegenden Verletzungen der Modelvoraussetzung zeigte (mit Ausnahme eines Ausreissers), wurde einen Welch t-Test gerechnet. Zudem muss gesagt werden, dass die Gruppengrösse hier jeweils mit n = 6 (Anzahl Wochen) eher klein ist. T-test liefern dennoch relativ reliable Resultate. Für mehr Infos dazu hier eine [Studie](https://scholarworks.umass.edu/cgi/viewcontent.cgi?article=1307&context=pare). 
+### Ergebnisse
 
-  
+In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventionswochen (siehe Abbildung 1). Die wöchentlichen Verkaufszahlen zwischen den Bedingungen (Basis oder Intervention) unterscheiden sich gemäss Welch t-Test jedoch nicht signifikant (*p* = .791). Die Ergebnisse könnten mit einem $\chi^2$-Test nochmals validiert werden, da die Gruppengrösse mit n = 6 doch eher klein ist. 
 
-### Ergebnisse 
+In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventionswochen (siehe Abbildung 1). Die wöchentlichen Verkaufszahlen zwischen den Bedingungen (Basis oder Intervention) unterscheiden sich gemäss Welch t-Test jedoch nicht signifikant (*t*(`r round(t_test$parameter[[1]],digits = 0)`) = `r round(t_test$statistic, digits = 3)` , *p* = `r round(t_test$p.value, digits=3)`). Die Ergebnisse könnten mit einem $\chi^2$-Test nochmals validiert werden, da die Gruppengrösse mit n = 6 doch eher klein ist.
 
-  
-In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventionswochen (siehe Abbildung 1). Die wöchentlichen Verkaufszahlen zwischen den Bedingungen (Basis oder Intervention) unterscheiden sich gemäss Welch t-Test jedoch nicht signifikant (*t*(`r round(t_test$parameter[[1]],digits = 0)`) = `r round(t_test$statistic, digits = 3)` , *p* = `r round(t_test$p.value, digits=3)`). Die Ergebnisse könnten mit einem $\chi^2$-Test nochmals validiert werden, da die Gruppengrösse mit n = 6 doch eher klein ist. 
 
 ```{r}
-#| purl: false
-#| message: !expr T
 #| echo: false
 #| label: fig-ggplot-boxplot-final
 #| fig.cap: Die wöchentlichen Verkaufszahlen für die Interventions- und Basiswochen unterscheiden

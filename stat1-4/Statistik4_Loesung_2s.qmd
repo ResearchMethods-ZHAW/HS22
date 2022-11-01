@@ -4,19 +4,23 @@ lesson: Stat4
 thema: Komplexere Regressionsmethoden
 index: 4
 execute: 
-  echo: false   # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
 ---
 
 # Stat4: Lösung 4.2S
 
+
 ```{r}
 #| echo: false
 #| results: hide
-#| purl: false
-#export files
+
 options(knitr.duplicate.label = "allow")
 knitr::purl("stat1-4/Statistik4_Loesung_2s.qmd", "purl/Statistik4_Loesung_2s.R", documentation = 0)
+
+
 ```
+
+
 
 - Download [R-Skript](../purl/Statistik4_Loesung_2s.R) 
 
@@ -33,8 +37,6 @@ knitr::purl("stat1-4/Statistik4_Loesung_2s.qmd", "purl/Statistik4_Loesung_2s.R",
 
 library(dplyr)
 library(readr)
-library(magrittr)
-library(lubridate)
 library(ggplot2)
 
 
@@ -56,12 +58,12 @@ mytheme <-
 #| label: fig-missingness-map
 #| fig-cap: "Generierter Plot"
 
-df <- read_csv2("data/Datensatz_novanimal_Uebung_Statistik4.2.csv")
+df <- read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik4.2.csv")
 
 #  sieht euch die Verteilung zwischen Mensagänger und Selbstverpfleger an
 # sind nicht gleichmässig verteilt, bei der Vorhersage müssen wir das berücksichtigen
 table(df$mensa) 
-df %>% count(mensa) # alternativ
+df |> count(mensa) # alternativ
 
 # definiert das logistische Modell und wendet es auf den Datensatz an
 

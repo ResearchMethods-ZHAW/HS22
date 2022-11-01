@@ -4,10 +4,13 @@ lesson: PrePro3
 thema: Split-Apply-Combine
 index: 2
 execute: 
-  echo: false   # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
   output: false
 code-fold: true
 code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
 ---
 
 # Prepro 3: Übung
@@ -21,7 +24,7 @@ Formatiere die `Datetime` Spalte in `POSIXct` um. Verwende dazu die Funktion `as
 ```{r}
 library(readr)
 
-sensors_combined <- read_csv("data/sensors_combined.csv")
+sensors_combined <- read_csv("datasets/prepro/sensors_combined.csv")
 
 sensors_combined$Datetime <- as.POSIXct(sensors_combined$Datetime, format = "%d%m%Y_%H%M")
 ```
@@ -80,7 +83,7 @@ sensors_long |>
 Lade jetzt nochmal den Datensatz [weather.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602135) (Quelle MeteoSchweiz) herunter und importiere ihn als CSV mit den korrekten Spaltentypen (`stn` als `factor`, `time` als `POSIXct`, `tre200h0` als `double`).
 
 ```{r}
-weather <- read_csv("data/weather.csv", col_types = cols(col_factor(), col_datetime("%Y%m%d%H"), col_double()))
+weather <- read_csv("datasets/prepro/weather.csv", col_types = cols(col_factor(), col_datetime("%Y%m%d%H"), col_double()))
 ```
 
 ## Aufgabe 6
@@ -126,6 +129,7 @@ weather_summary2 <- weather |>
 ```{r}
 #| label: fig-baseplot-ex7
 #| fig.cap: baseplot mag keine long tables und macht aus den beiden Jahren eine kontinuierliche Linie
+#| output: true
 
 plot(weather_summary2$week, weather_summary2$temp_mean, type = "l")
 ```
@@ -142,6 +146,8 @@ weather_summary2 <- weather_summary2 |>
 ```{r}
 #| label: fig-baseplot-ex8
 #| fig-cap: "Generierter Plot"
+#| output: true
+
 plot(weather_summary2$week, weather_summary2$year2000, type = "l",col = "blue")
 lines(weather_summary2$week, weather_summary2$year2001, type = "l",col = "red")
 ```

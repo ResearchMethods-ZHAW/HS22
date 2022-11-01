@@ -33,7 +33,7 @@ library(ggplot2)
 Wir laden die Wetterdaten (Quelle MeteoSchweiz) von der letzten Übung.
 
 ```{r}
-wetter <- read_csv("data/weather.csv")
+wetter <- read_csv("datasets/prepro/weather.csv")
 
 wetter <- wetter  |>
   mutate(
@@ -190,7 +190,7 @@ Lange Tabellen sind in verschiedenen Situationen praktischer. Beispielsweise ist
 
 ```{r}
 #| label: fig-ggplot-long
-#| fig-cap: "Generiereter Plot"
+#| fig-cap: "Generierter Plot"
 ggplot(weather_summary_long, aes(day,Messwert, colour = Messtyp)) +
   geom_line()
 ```
@@ -208,7 +208,7 @@ Zum Vergleich: mit einer *wide* table müssen wir in `ggplot2` jede Spalte einze
 
 ```{r}
 #| label: fig-ggplot-wide
-#| fig-cap: "Generiereter Plot"
+#| fig-cap: "Generierter Plot"
 ggplot(weather_summary) +
   geom_line(aes(day, temp_max)) +
   geom_line(aes(day, temp_min))

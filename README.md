@@ -57,7 +57,7 @@ Um die ganzen \*.Rmd Files lokal bearbeiten zu können, muss das Repository gekl
 Um das Github repo als standart "upstream" zu setzen muss man im Terminal nachstehenden Befehl eingeben. Danach RStudio neu starten und das entsprechende Projekt laden. Nun sollte im "Git" fenster der "Push" button nicht mehr inaktiv sein.
 
     git branch -u origin/main
-
+    
 
 ## Anleitung 3: Inhalte Editieren und veröffentlichen
 
@@ -96,6 +96,7 @@ Um die Änderungen zu veröffentlichen (für die Studenten sichtbar zu machen) m
 
 ## Todo's
 
+<<<<<<< HEAD
 - library(tidyverse) vermeiden
 - Funktion dpkg vermeinden, wenn das geht
 - case_when statt verschachtelte ifelse
@@ -103,3 +104,10 @@ Um die Änderungen zu veröffentlichen (für die Studenten sichtbar zu machen) m
 - multiple mutate in einem befehl
 - sf, raster, tmap möglichst einheitlich und wenn möglich nach rauman1-5
 - implement submodule datasets
+=======
+
+## Anleitung 4: Umgang mit Daten
+
+**TODO: Hier Anleitung schreiben**
+
+>>>>>>> bc745010dd48842e320bd76811fb7d43f3c8f76e
