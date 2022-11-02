@@ -11,30 +11,35 @@ format:
 
 # Stat3: Demo
 
-- Download dieses Demoscript via "\</\>Code" (oben rechts)
-- Datensatz [ipomopsis.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604493)
-- Datensatz [loyn.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604496)
+-   Download dieses Demoscript via "\</\>Code" (oben rechts)
+-   Datensatz [ipomopsis.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604493)
+-   Datensatz [loyn.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604496)
 
 ## ANCOVA
 
-Experiment zur Fruchtproduktion (“Fruit”) von Ipomopsis sp. (“Fruit”) in Abhängigkeit Ungrazedvon der Beweidung (Grazing mit 2 Levels: Grazed, Ungrazed) und korrigiert für die Pflanzengrösse vor der Beweidung (hier ausgedrückt als Durchmesser an der Spitze des Wurzelstock: “Root”)
+Experiment zur Fruchtproduktion ("Fruit") von Ipomopsis sp. ("Fruit") in Abhängigkeit von der Beweidung ("Grazing" mit 2 Levels: "Grazed", "Ungrazed") und korrigiert für die Pflanzengrösse vor der Beweidung (hier ausgedrückt als Durchmesser an der Spitze des Wurzelstock: "Root")
 
 ```{r}
+# Daten einlesen und anschauen
+
 compensation <- read.delim("datasets/statistik/ipomopsis.csv", sep = ",", stringsAsFactors = T)
+ head(compensation)
+summary(compensation)
+
 ```
 
 ```{r}
-#| echo: false
-#| label: fig-plots-ancova
-#| fig.cap: "Generierter Plot"
-
-summary(compensation)
-
+# Pflanzengrösse ("Root") vs. Fruchtproduktion ("Fruit") 
 plot(Fruit~Root, data = compensation)
+```
+
+```{r}
+# Beweidung ("Grazing") vs. Fruchtroduktion ("Fruit)
 boxplot(Fruit~Grazing, data = compensation)
+```
 
-tapply(compensation$Fruit, compensation$Grazing, mean)
-
+```{r}
+#Lineare Modelle definieren und anschauen
 aoc.1 <- lm(Fruit~Root * Grazing, data = compensation)
 summary.aov(aoc.1)
 
@@ -43,22 +48,29 @@ summary.aov(aoc.2)
 
 aoc.3 <- lm(Fruit~Grazing + Root, data = compensation)
 summary.lm(aoc.3)
+```
 
-# Plotten der Ergebnisse
+```{r}
+# Plotten der Daten
 library(tidyverse)
 ggplot(compensation, aes(Root, Fruit, color = Grazing)) +
-  geom_point() + theme_classic()
+  geom_point() + 
+  theme_classic()
+```
 
+```{r}
 # Ploten mit base R
 plot(Fruit~Root, pch = 16, col = Grazing, data = compensation)
 legend("topleft", c("grazed", "ungrazed"), col = c("black","red"), pch = 16) 
 ```
 
-## 
+## lm mit quadratischem Term
+
 ```{r}
 #| label: fig-plots-ancova2
 #| fig.cap: "Generierter Plot"
 
+## Daten generieren
 e <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14, 25, 39, 38, 28, 24)
 f <- c(12, 15, 10, 7, 2, 10, 12, 11, 13, 10, 9, 2, 4, 7, 13)
 
@@ -89,6 +101,7 @@ plot(lm.quad)
 ## Multiple lineare Regression
 
 ### Simulation Overfitting
+
 ```{r}
 #| eval: false
 #| label: fig-plots-lm
@@ -128,13 +141,15 @@ yv <- predict(lm.5, list(x = xv))
 lines(xv, yv, col = "black", lwd = 3)
 ```
 
-### Multiple lineare Regression basierend auf Logan, Beispiel 9A 
+### Multiple lineare Regression basierend auf Logan, Beispiel 9A
+
 ```{r}
 loyn <- read.delim("datasets/statistik/loyn.csv", sep = ",")
 summary(loyn)
 ```
 
 ### Korrelation zwischen den Prädiktoren
+
 ```{r}
 cor <- cor(loyn[, 2:7])
 print(cor, digits = 2)
@@ -152,6 +167,7 @@ influence.measures(lm.1)
 ```
 
 ### Modellvereinfachung
+
 ```{r}
 #| label: fig-plots-lm-simplify
 #| fig.cap: "Generierter Plot"
@@ -172,6 +188,7 @@ plot(lm.1)
 ```
 
 ### Hierarchical partitioning
+
 ```{r}
 #| label: fig-hierarchical-partitioning
 #| fig-cap: "Generierter Plot"
@@ -184,6 +201,7 @@ hier.part(loyn$ABUND, loyn.preds, gof = "Rsqu")
 ```
 
 ### Partial regressions
+
 ```{r}
 #| label: fig-plots-lm-partial-reg
 #| fig.cap: "Generierter Plot"
