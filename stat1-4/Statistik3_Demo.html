@@ -1096,60 +1096,30 @@ F-statistic: 47.09 on 1 and 54 DF,  p-value: 6.897e-09</code></pre>
 <section id="hierarchical-partitioning" class="level3">
 <h3 class="anchored" data-anchor-id="hierarchical-partitioning">Hierarchical partitioning</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(hier.part)){<span class="fu">install.packages</span>(<span class="st">"hier.part"</span>)}</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hier.part)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>loyn.preds <span class="ot">&lt;-</span><span class="fu">with</span>(loyn, <span class="fu">data.frame</span>(YR.ISOL, ALT, GRAZE))</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hier.part</span>(loyn<span class="sc">$</span>ABUND, loyn.preds, <span class="at">gof =</span> <span class="st">"Rsqu"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$gfs
-[1] 0.0000000 0.2533690 0.1488696 0.4658218 0.3297010 0.4739432 0.4797883
-[8] 0.4887284
-
-$IJ
-                 I          J     Total
-YR.ISOL 0.11892853 0.13444049 0.2533690
-ALT     0.06960132 0.07926823 0.1488696
-GRAZE   0.30019854 0.16562324 0.4658218
-
-$I.perc
-        ind.exp.var
-YR.ISOL    24.33428
-ALT        14.24131
-GRAZE      61.42441
-
-$params
-$params$full.model
-[1] "y ~ YR.ISOL + ALT + GRAZE"
-
-$params$family
-[1] "gaussian"
-
-$params$link
-[1] "default"
-
-$params$gof
-[1] "Rsqu"</code></pre>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(hier.part)){<span class="fu">install.packages</span>(<span class="st">"hier.part"</span>)}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in contrib.url(repos, "source"): versuche CRAN ohne einen Spiegelserver zu nutzen</code></pre>
 </div>
-<div class="cell-output-display">
-<div id="fig-hierarchical-partitioning" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Statistik3_Demo_files/figure-html/fig-hierarchical-partitioning-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;19.10: Generierter Plot</figcaption><p></p>
-</figure>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hier.part)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(hier.part): es gibt kein Paket namens 'hier.part'</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>loyn.preds <span class="ot">&lt;-</span><span class="fu">with</span>(loyn, <span class="fu">data.frame</span>(YR.ISOL, ALT, GRAZE))</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hier.part</span>(loyn<span class="sc">$</span>ABUND, loyn.preds, <span class="at">gof =</span> <span class="st">"Rsqu"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in hier.part(loyn$ABUND, loyn.preds, gof = "Rsqu"): konnte Funktion "hier.part" nicht finden</code></pre>
 </div>
 </div>
 </section>
 <section id="partial-regressions" class="level3">
 <h3 class="anchored" data-anchor-id="partial-regressions">Partial regressions</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(lm<span class="fl">.1</span>, <span class="at">ask =</span> F)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(lm<span class="fl">.1</span>, <span class="at">ask =</span> F)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-plots-lm-partial-reg" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik3_Demo_files/figure-html/fig-plots-lm-partial-reg-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;19.11: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;19.10: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1159,14 +1129,14 @@ $params$gof
 <section id="multimodel-inference" class="level2">
 <h2 class="anchored" data-anchor-id="multimodel-inference">Multimodel inference</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MuMIn)){<span class="fu">install.packages</span>(<span class="st">"MuMIn"</span>)}</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>global.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> GRAZE, <span class="at">data =</span> loyn)</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>allmodels <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global.model)</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>allmodels</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MuMIn)){<span class="fu">install.packages</span>(<span class="st">"MuMIn"</span>)}</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>global.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> GRAZE, <span class="at">data =</span> loyn)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>allmodels <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global.model)</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>allmodels</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Global model call: lm(formula = ABUND ~ YR.ISOL + ALT + GRAZE, data = loyn)
 ---
@@ -1182,14 +1152,14 @@ Model selection table
 1   19.510                         2 -211.871 428.0 32.88  0.000
 Models ranked by AICc(x) </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sw</span>(allmodels)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sw</span>(allmodels)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     GRAZE ALT  YR.ISOL
 Sum of weights:      1.00  0.40 0.33   
 N containing models:    4     4    4   </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(allmodels, <span class="at">subset =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(allmodels, <span class="at">subset =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1512,215 +1482,215 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb45" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-07</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat3</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Lineare Modelle II</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat3: Demo</span></span>
-<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
-<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz <span class="co">[</span><span class="ot">ipomopsis.csv</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=604493)</span></span>
-<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz <span class="co">[</span><span class="ot">loyn.csv</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=604496)</span></span>
-<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## ANCOVA</span></span>
-<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>Experiment zur Fruchtproduktion (“Fruit”) von Ipomopsis sp. (“Fruit”) in Abhängigkeit Ungrazedvon der Beweidung (Grazing mit 2 Levels: Grazed, Ungrazed) und korrigiert für die Pflanzengrösse vor der Beweidung (hier ausgedrückt als Durchmesser an der Spitze des Wurzelstock: “Root”)</span>
-<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a>compensation <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/ipomopsis.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> T)</span>
-<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-plots-ancova</span></span>
-<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Generierter Plot"</span></span>
-<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(compensation)</span>
-<span id="cb45-36"><a href="#cb45-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-37"><a href="#cb45-37" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Fruit<span class="sc">~</span>Root, <span class="at">data =</span> compensation)</span>
-<span id="cb45-38"><a href="#cb45-38" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Fruit<span class="sc">~</span>Grazing, <span class="at">data =</span> compensation)</span>
-<span id="cb45-39"><a href="#cb45-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-40"><a href="#cb45-40" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(compensation<span class="sc">$</span>Fruit, compensation<span class="sc">$</span>Grazing, mean)</span>
-<span id="cb45-41"><a href="#cb45-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-42"><a href="#cb45-42" aria-hidden="true" tabindex="-1"></a>aoc<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fruit<span class="sc">~</span>Root <span class="sc">*</span> Grazing, <span class="at">data =</span> compensation)</span>
-<span id="cb45-43"><a href="#cb45-43" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(aoc<span class="fl">.1</span>)</span>
-<span id="cb45-44"><a href="#cb45-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-45"><a href="#cb45-45" aria-hidden="true" tabindex="-1"></a>aoc<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fruit<span class="sc">~</span>Grazing <span class="sc">*</span> Root, <span class="at">data =</span> compensation)</span>
-<span id="cb45-46"><a href="#cb45-46" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(aoc<span class="fl">.2</span>)</span>
-<span id="cb45-47"><a href="#cb45-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-48"><a href="#cb45-48" aria-hidden="true" tabindex="-1"></a>aoc<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fruit<span class="sc">~</span>Grazing <span class="sc">+</span> Root, <span class="at">data =</span> compensation)</span>
-<span id="cb45-49"><a href="#cb45-49" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(aoc<span class="fl">.3</span>)</span>
-<span id="cb45-50"><a href="#cb45-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-51"><a href="#cb45-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten der Ergebnisse</span></span>
-<span id="cb45-52"><a href="#cb45-52" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb45-53"><a href="#cb45-53" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(compensation, <span class="fu">aes</span>(Root, Fruit, <span class="at">color =</span> Grazing)) <span class="sc">+</span></span>
-<span id="cb45-54"><a href="#cb45-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_classic</span>()</span>
-<span id="cb45-55"><a href="#cb45-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-56"><a href="#cb45-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Ploten mit base R</span></span>
-<span id="cb45-57"><a href="#cb45-57" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Fruit<span class="sc">~</span>Root, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> Grazing, <span class="at">data =</span> compensation)</span>
-<span id="cb45-58"><a href="#cb45-58" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="fu">c</span>(<span class="st">"grazed"</span>, <span class="st">"ungrazed"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>), <span class="at">pch =</span> <span class="dv">16</span>) </span>
-<span id="cb45-59"><a href="#cb45-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb45-60"><a href="#cb45-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-61"><a href="#cb45-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## </span></span>
-<span id="cb45-64"><a href="#cb45-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb45-65"><a href="#cb45-65" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-plots-ancova2</span></span>
-<span id="cb45-66"><a href="#cb45-66" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Generierter Plot"</span></span>
-<span id="cb45-67"><a href="#cb45-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-68"><a href="#cb45-68" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>)</span>
-<span id="cb45-69"><a href="#cb45-69" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">13</span>)</span>
-<span id="cb45-70"><a href="#cb45-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-71"><a href="#cb45-71" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(f<span class="sc">~</span>e)</span>
-<span id="cb45-72"><a href="#cb45-72" aria-hidden="true" tabindex="-1"></a>lm.quad <span class="ot">&lt;-</span> <span class="fu">lm</span>(f<span class="sc">~</span>e <span class="sc">+</span> <span class="fu">I</span>(e<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb45-73"><a href="#cb45-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-74"><a href="#cb45-74" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb45-75"><a href="#cb45-75" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.quad)</span>
-<span id="cb45-76"><a href="#cb45-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-77"><a href="#cb45-77" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb45-78"><a href="#cb45-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-79"><a href="#cb45-79" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. lineares Modell</span></span>
-<span id="cb45-80"><a href="#cb45-80" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f<span class="sc">~</span>e, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>))</span>
-<span id="cb45-81"><a href="#cb45-81" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(f<span class="sc">~</span>e), <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb45-82"><a href="#cb45-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-83"><a href="#cb45-83" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. quadratisches Modell</span></span>
-<span id="cb45-84"><a href="#cb45-84" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="fl">0.1</span>)</span>
-<span id="cb45-85"><a href="#cb45-85" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f<span class="sc">~</span>e, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>))</span>
-<span id="cb45-86"><a href="#cb45-86" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.quad, <span class="fu">list</span>(<span class="at">e =</span> xv))</span>
-<span id="cb45-87"><a href="#cb45-87" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb45-88"><a href="#cb45-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-89"><a href="#cb45-89" aria-hidden="true" tabindex="-1"></a><span class="co"># Residualplots</span></span>
-<span id="cb45-90"><a href="#cb45-90" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb45-91"><a href="#cb45-91" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb45-92"><a href="#cb45-92" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.quad)</span>
-<span id="cb45-93"><a href="#cb45-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb45-94"><a href="#cb45-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-95"><a href="#cb45-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple lineare Regression</span></span>
-<span id="cb45-96"><a href="#cb45-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-97"><a href="#cb45-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simulation Overfitting</span></span>
-<span id="cb45-100"><a href="#cb45-100" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb45-101"><a href="#cb45-101" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb45-102"><a href="#cb45-102" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-plots-lm</span></span>
-<span id="cb45-103"><a href="#cb45-103" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Generierter Plot"</span></span>
-<span id="cb45-104"><a href="#cb45-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-105"><a href="#cb45-105" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"x"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="st">"y"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">21</span>, <span class="dv">70</span>, <span class="dv">47</span>, <span class="dv">23</span>, <span class="dv">45</span>))</span>
-<span id="cb45-106"><a href="#cb45-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-107"><a href="#cb45-107" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb45-108"><a href="#cb45-108" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>x, <span class="at">data =</span> test)</span>
-<span id="cb45-109"><a href="#cb45-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-110"><a href="#cb45-110" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> test)</span>
-<span id="cb45-111"><a href="#cb45-111" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x, <span class="at">data =</span> test)</span>
-<span id="cb45-112"><a href="#cb45-112" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x<span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> test)</span>
-<span id="cb45-113"><a href="#cb45-113" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x<span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>), <span class="at">data =</span> test)</span>
-<span id="cb45-114"><a href="#cb45-114" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x<span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>), <span class="at">data =</span> test)</span>
-<span id="cb45-115"><a href="#cb45-115" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x<span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">5</span>), <span class="at">data =</span> test)</span>
-<span id="cb45-116"><a href="#cb45-116" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x<span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">6</span>), <span class="at">data =</span> test)</span>
-<span id="cb45-117"><a href="#cb45-117" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.0</span>)</span>
-<span id="cb45-118"><a href="#cb45-118" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb45-119"><a href="#cb45-119" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.2</span>)</span>
-<span id="cb45-120"><a href="#cb45-120" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.3</span>)</span>
-<span id="cb45-121"><a href="#cb45-121" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.4</span>)</span>
-<span id="cb45-122"><a href="#cb45-122" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.5</span>)</span>
-<span id="cb45-123"><a href="#cb45-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-124"><a href="#cb45-124" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb45-125"><a href="#cb45-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-126"><a href="#cb45-126" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>x, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">data =</span> test)</span>
-<span id="cb45-127"><a href="#cb45-127" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.1</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
-<span id="cb45-128"><a href="#cb45-128" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb45-129"><a href="#cb45-129" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.2</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
-<span id="cb45-130"><a href="#cb45-130" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb45-131"><a href="#cb45-131" aria-hidden="true" tabindex="-1"></a>yv<span class="ot">&lt;-</span><span class="fu">predict</span>(lm<span class="fl">.3</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
-<span id="cb45-132"><a href="#cb45-132" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"green"</span>, <span class="at">lwd =</span><span class="dv">3</span>)</span>
-<span id="cb45-133"><a href="#cb45-133" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.4</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
-<span id="cb45-134"><a href="#cb45-134" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb45-135"><a href="#cb45-135" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.5</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
-<span id="cb45-136"><a href="#cb45-136" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb45-137"><a href="#cb45-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb45-138"><a href="#cb45-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-139"><a href="#cb45-139" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multiple lineare Regression basierend auf Logan, Beispiel 9A </span></span>
-<span id="cb45-142"><a href="#cb45-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb45-143"><a href="#cb45-143" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>)</span>
-<span id="cb45-144"><a href="#cb45-144" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(loyn)</span>
-<span id="cb45-145"><a href="#cb45-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb45-146"><a href="#cb45-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-147"><a href="#cb45-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### Korrelation zwischen den Prädiktoren</span></span>
-<span id="cb45-150"><a href="#cb45-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb45-151"><a href="#cb45-151" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(loyn[, <span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>])</span>
-<span id="cb45-152"><a href="#cb45-152" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cor, <span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb45-153"><a href="#cb45-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-154"><a href="#cb45-154" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor)<span class="sc">&lt;</span><span class="fl">0.6</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb45-155"><a href="#cb45-155" aria-hidden="true" tabindex="-1"></a>cor</span>
-<span id="cb45-156"><a href="#cb45-156" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cor, <span class="at">digits =</span> <span class="dv">3</span>)</span>
-<span id="cb45-157"><a href="#cb45-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-158"><a href="#cb45-158" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span> (ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> GRAZE, <span class="at">data =</span> loyn)</span>
-<span id="cb45-159"><a href="#cb45-159" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(car)){<span class="fu">install.packages</span>(<span class="st">"car"</span>)} </span>
-<span id="cb45-160"><a href="#cb45-160" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb45-161"><a href="#cb45-161" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb45-162"><a href="#cb45-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-163"><a href="#cb45-163" aria-hidden="true" tabindex="-1"></a><span class="fu">influence.measures</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb45-164"><a href="#cb45-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb45-165"><a href="#cb45-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-166"><a href="#cb45-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modellvereinfachung</span></span>
-<span id="cb45-169"><a href="#cb45-169" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb45-170"><a href="#cb45-170" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-plots-lm-simplify</span></span>
-<span id="cb45-171"><a href="#cb45-171" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Generierter Plot"</span></span>
-<span id="cb45-172"><a href="#cb45-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-173"><a href="#cb45-173" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> GRAZE, <span class="at">data =</span> loyn)</span>
-<span id="cb45-174"><a href="#cb45-174" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb45-175"><a href="#cb45-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-176"><a href="#cb45-176" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.1</span>,<span class="sc">~</span>.<span class="sc">-</span>YR.ISOL)</span>
-<span id="cb45-177"><a href="#cb45-177" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.1</span>, lm<span class="fl">.2</span>)</span>
-<span id="cb45-178"><a href="#cb45-178" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.2</span>)</span>
-<span id="cb45-179"><a href="#cb45-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-180"><a href="#cb45-180" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.2</span>,<span class="sc">~</span>.<span class="sc">-</span>ALT)</span>
-<span id="cb45-181"><a href="#cb45-181" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.2</span>, lm<span class="fl">.3</span>)</span>
-<span id="cb45-182"><a href="#cb45-182" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.3</span>)</span>
-<span id="cb45-183"><a href="#cb45-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-184"><a href="#cb45-184" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb45-185"><a href="#cb45-185" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb45-186"><a href="#cb45-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb45-187"><a href="#cb45-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-188"><a href="#cb45-188" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hierarchical partitioning</span></span>
-<span id="cb45-191"><a href="#cb45-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb45-192"><a href="#cb45-192" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-hierarchical-partitioning</span></span>
-<span id="cb45-193"><a href="#cb45-193" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb45-194"><a href="#cb45-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-195"><a href="#cb45-195" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(hier.part)){<span class="fu">install.packages</span>(<span class="st">"hier.part"</span>)}</span>
-<span id="cb45-196"><a href="#cb45-196" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hier.part)</span>
-<span id="cb45-197"><a href="#cb45-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-198"><a href="#cb45-198" aria-hidden="true" tabindex="-1"></a>loyn.preds <span class="ot">&lt;-</span><span class="fu">with</span>(loyn, <span class="fu">data.frame</span>(YR.ISOL, ALT, GRAZE))</span>
-<span id="cb45-199"><a href="#cb45-199" aria-hidden="true" tabindex="-1"></a><span class="fu">hier.part</span>(loyn<span class="sc">$</span>ABUND, loyn.preds, <span class="at">gof =</span> <span class="st">"Rsqu"</span>)</span>
-<span id="cb45-200"><a href="#cb45-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb45-201"><a href="#cb45-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-202"><a href="#cb45-202" aria-hidden="true" tabindex="-1"></a><span class="fu">### Partial regressions</span></span>
-<span id="cb45-205"><a href="#cb45-205" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb45-206"><a href="#cb45-206" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-plots-lm-partial-reg</span></span>
-<span id="cb45-207"><a href="#cb45-207" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Generierter Plot"</span></span>
-<span id="cb45-208"><a href="#cb45-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-209"><a href="#cb45-209" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(lm<span class="fl">.1</span>, <span class="at">ask =</span> F)</span>
-<span id="cb45-210"><a href="#cb45-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb45-211"><a href="#cb45-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-212"><a href="#cb45-212" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multimodel inference</span></span>
-<span id="cb45-213"><a href="#cb45-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-216"><a href="#cb45-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb45-217"><a href="#cb45-217" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MuMIn)){<span class="fu">install.packages</span>(<span class="st">"MuMIn"</span>)}</span>
-<span id="cb45-218"><a href="#cb45-218" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
-<span id="cb45-219"><a href="#cb45-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-220"><a href="#cb45-220" aria-hidden="true" tabindex="-1"></a>global.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> GRAZE, <span class="at">data =</span> loyn)</span>
-<span id="cb45-221"><a href="#cb45-221" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
-<span id="cb45-222"><a href="#cb45-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-223"><a href="#cb45-223" aria-hidden="true" tabindex="-1"></a>allmodels <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global.model)</span>
-<span id="cb45-224"><a href="#cb45-224" aria-hidden="true" tabindex="-1"></a>allmodels</span>
-<span id="cb45-225"><a href="#cb45-225" aria-hidden="true" tabindex="-1"></a><span class="fu">sw</span>(allmodels)</span>
-<span id="cb45-226"><a href="#cb45-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-227"><a href="#cb45-227" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(allmodels, <span class="at">subset =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb45-228"><a href="#cb45-228" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span>
-<span id="cb45-229"><a href="#cb45-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb49" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-07</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat3</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Lineare Modelle II</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat3: Demo</span></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz <span class="co">[</span><span class="ot">ipomopsis.csv</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=604493)</span></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz <span class="co">[</span><span class="ot">loyn.csv</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=604496)</span></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## ANCOVA</span></span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>Experiment zur Fruchtproduktion (“Fruit”) von Ipomopsis sp. (“Fruit”) in Abhängigkeit Ungrazedvon der Beweidung (Grazing mit 2 Levels: Grazed, Ungrazed) und korrigiert für die Pflanzengrösse vor der Beweidung (hier ausgedrückt als Durchmesser an der Spitze des Wurzelstock: “Root”)</span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>compensation <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/ipomopsis.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> T)</span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-plots-ancova</span></span>
+<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Generierter Plot"</span></span>
+<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-35"><a href="#cb49-35" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(compensation)</span>
+<span id="cb49-36"><a href="#cb49-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-37"><a href="#cb49-37" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Fruit<span class="sc">~</span>Root, <span class="at">data =</span> compensation)</span>
+<span id="cb49-38"><a href="#cb49-38" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Fruit<span class="sc">~</span>Grazing, <span class="at">data =</span> compensation)</span>
+<span id="cb49-39"><a href="#cb49-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-40"><a href="#cb49-40" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(compensation<span class="sc">$</span>Fruit, compensation<span class="sc">$</span>Grazing, mean)</span>
+<span id="cb49-41"><a href="#cb49-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-42"><a href="#cb49-42" aria-hidden="true" tabindex="-1"></a>aoc<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fruit<span class="sc">~</span>Root <span class="sc">*</span> Grazing, <span class="at">data =</span> compensation)</span>
+<span id="cb49-43"><a href="#cb49-43" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(aoc<span class="fl">.1</span>)</span>
+<span id="cb49-44"><a href="#cb49-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-45"><a href="#cb49-45" aria-hidden="true" tabindex="-1"></a>aoc<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fruit<span class="sc">~</span>Grazing <span class="sc">*</span> Root, <span class="at">data =</span> compensation)</span>
+<span id="cb49-46"><a href="#cb49-46" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(aoc<span class="fl">.2</span>)</span>
+<span id="cb49-47"><a href="#cb49-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-48"><a href="#cb49-48" aria-hidden="true" tabindex="-1"></a>aoc<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fruit<span class="sc">~</span>Grazing <span class="sc">+</span> Root, <span class="at">data =</span> compensation)</span>
+<span id="cb49-49"><a href="#cb49-49" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(aoc<span class="fl">.3</span>)</span>
+<span id="cb49-50"><a href="#cb49-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-51"><a href="#cb49-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten der Ergebnisse</span></span>
+<span id="cb49-52"><a href="#cb49-52" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb49-53"><a href="#cb49-53" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(compensation, <span class="fu">aes</span>(Root, Fruit, <span class="at">color =</span> Grazing)) <span class="sc">+</span></span>
+<span id="cb49-54"><a href="#cb49-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_classic</span>()</span>
+<span id="cb49-55"><a href="#cb49-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-56"><a href="#cb49-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Ploten mit base R</span></span>
+<span id="cb49-57"><a href="#cb49-57" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Fruit<span class="sc">~</span>Root, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> Grazing, <span class="at">data =</span> compensation)</span>
+<span id="cb49-58"><a href="#cb49-58" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="fu">c</span>(<span class="st">"grazed"</span>, <span class="st">"ungrazed"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>), <span class="at">pch =</span> <span class="dv">16</span>) </span>
+<span id="cb49-59"><a href="#cb49-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-60"><a href="#cb49-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-61"><a href="#cb49-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## </span></span>
+<span id="cb49-64"><a href="#cb49-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-65"><a href="#cb49-65" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-plots-ancova2</span></span>
+<span id="cb49-66"><a href="#cb49-66" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Generierter Plot"</span></span>
+<span id="cb49-67"><a href="#cb49-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-68"><a href="#cb49-68" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>)</span>
+<span id="cb49-69"><a href="#cb49-69" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">13</span>)</span>
+<span id="cb49-70"><a href="#cb49-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-71"><a href="#cb49-71" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(f<span class="sc">~</span>e)</span>
+<span id="cb49-72"><a href="#cb49-72" aria-hidden="true" tabindex="-1"></a>lm.quad <span class="ot">&lt;-</span> <span class="fu">lm</span>(f<span class="sc">~</span>e <span class="sc">+</span> <span class="fu">I</span>(e<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb49-73"><a href="#cb49-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-74"><a href="#cb49-74" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb49-75"><a href="#cb49-75" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.quad)</span>
+<span id="cb49-76"><a href="#cb49-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-77"><a href="#cb49-77" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb49-78"><a href="#cb49-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-79"><a href="#cb49-79" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. lineares Modell</span></span>
+<span id="cb49-80"><a href="#cb49-80" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f<span class="sc">~</span>e, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>))</span>
+<span id="cb49-81"><a href="#cb49-81" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(f<span class="sc">~</span>e), <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb49-82"><a href="#cb49-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-83"><a href="#cb49-83" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. quadratisches Modell</span></span>
+<span id="cb49-84"><a href="#cb49-84" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="fl">0.1</span>)</span>
+<span id="cb49-85"><a href="#cb49-85" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f<span class="sc">~</span>e, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>))</span>
+<span id="cb49-86"><a href="#cb49-86" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.quad, <span class="fu">list</span>(<span class="at">e =</span> xv))</span>
+<span id="cb49-87"><a href="#cb49-87" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb49-88"><a href="#cb49-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-89"><a href="#cb49-89" aria-hidden="true" tabindex="-1"></a><span class="co"># Residualplots</span></span>
+<span id="cb49-90"><a href="#cb49-90" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb49-91"><a href="#cb49-91" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb49-92"><a href="#cb49-92" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.quad)</span>
+<span id="cb49-93"><a href="#cb49-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-94"><a href="#cb49-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-95"><a href="#cb49-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple lineare Regression</span></span>
+<span id="cb49-96"><a href="#cb49-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-97"><a href="#cb49-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simulation Overfitting</span></span>
+<span id="cb49-100"><a href="#cb49-100" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-101"><a href="#cb49-101" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb49-102"><a href="#cb49-102" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-plots-lm</span></span>
+<span id="cb49-103"><a href="#cb49-103" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Generierter Plot"</span></span>
+<span id="cb49-104"><a href="#cb49-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-105"><a href="#cb49-105" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"x"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="st">"y"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">21</span>, <span class="dv">70</span>, <span class="dv">47</span>, <span class="dv">23</span>, <span class="dv">45</span>))</span>
+<span id="cb49-106"><a href="#cb49-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-107"><a href="#cb49-107" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb49-108"><a href="#cb49-108" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>x, <span class="at">data =</span> test)</span>
+<span id="cb49-109"><a href="#cb49-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-110"><a href="#cb49-110" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> test)</span>
+<span id="cb49-111"><a href="#cb49-111" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x, <span class="at">data =</span> test)</span>
+<span id="cb49-112"><a href="#cb49-112" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x<span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> test)</span>
+<span id="cb49-113"><a href="#cb49-113" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x<span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>), <span class="at">data =</span> test)</span>
+<span id="cb49-114"><a href="#cb49-114" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x<span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>), <span class="at">data =</span> test)</span>
+<span id="cb49-115"><a href="#cb49-115" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x<span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">5</span>), <span class="at">data =</span> test)</span>
+<span id="cb49-116"><a href="#cb49-116" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y<span class="sc">~</span>x<span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">6</span>), <span class="at">data =</span> test)</span>
+<span id="cb49-117"><a href="#cb49-117" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.0</span>)</span>
+<span id="cb49-118"><a href="#cb49-118" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb49-119"><a href="#cb49-119" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.2</span>)</span>
+<span id="cb49-120"><a href="#cb49-120" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.3</span>)</span>
+<span id="cb49-121"><a href="#cb49-121" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.4</span>)</span>
+<span id="cb49-122"><a href="#cb49-122" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.5</span>)</span>
+<span id="cb49-123"><a href="#cb49-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-124"><a href="#cb49-124" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb49-125"><a href="#cb49-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-126"><a href="#cb49-126" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>x, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">data =</span> test)</span>
+<span id="cb49-127"><a href="#cb49-127" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.1</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
+<span id="cb49-128"><a href="#cb49-128" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb49-129"><a href="#cb49-129" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.2</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
+<span id="cb49-130"><a href="#cb49-130" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb49-131"><a href="#cb49-131" aria-hidden="true" tabindex="-1"></a>yv<span class="ot">&lt;-</span><span class="fu">predict</span>(lm<span class="fl">.3</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
+<span id="cb49-132"><a href="#cb49-132" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"green"</span>, <span class="at">lwd =</span><span class="dv">3</span>)</span>
+<span id="cb49-133"><a href="#cb49-133" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.4</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
+<span id="cb49-134"><a href="#cb49-134" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb49-135"><a href="#cb49-135" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.5</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
+<span id="cb49-136"><a href="#cb49-136" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb49-137"><a href="#cb49-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-138"><a href="#cb49-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-139"><a href="#cb49-139" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multiple lineare Regression basierend auf Logan, Beispiel 9A </span></span>
+<span id="cb49-142"><a href="#cb49-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-143"><a href="#cb49-143" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>)</span>
+<span id="cb49-144"><a href="#cb49-144" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(loyn)</span>
+<span id="cb49-145"><a href="#cb49-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-146"><a href="#cb49-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-147"><a href="#cb49-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### Korrelation zwischen den Prädiktoren</span></span>
+<span id="cb49-150"><a href="#cb49-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-151"><a href="#cb49-151" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(loyn[, <span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>])</span>
+<span id="cb49-152"><a href="#cb49-152" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cor, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb49-153"><a href="#cb49-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-154"><a href="#cb49-154" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor)<span class="sc">&lt;</span><span class="fl">0.6</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb49-155"><a href="#cb49-155" aria-hidden="true" tabindex="-1"></a>cor</span>
+<span id="cb49-156"><a href="#cb49-156" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cor, <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb49-157"><a href="#cb49-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-158"><a href="#cb49-158" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span> (ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> GRAZE, <span class="at">data =</span> loyn)</span>
+<span id="cb49-159"><a href="#cb49-159" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(car)){<span class="fu">install.packages</span>(<span class="st">"car"</span>)} </span>
+<span id="cb49-160"><a href="#cb49-160" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb49-161"><a href="#cb49-161" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb49-162"><a href="#cb49-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-163"><a href="#cb49-163" aria-hidden="true" tabindex="-1"></a><span class="fu">influence.measures</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb49-164"><a href="#cb49-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-165"><a href="#cb49-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-166"><a href="#cb49-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modellvereinfachung</span></span>
+<span id="cb49-169"><a href="#cb49-169" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-170"><a href="#cb49-170" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-plots-lm-simplify</span></span>
+<span id="cb49-171"><a href="#cb49-171" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Generierter Plot"</span></span>
+<span id="cb49-172"><a href="#cb49-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-173"><a href="#cb49-173" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> GRAZE, <span class="at">data =</span> loyn)</span>
+<span id="cb49-174"><a href="#cb49-174" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb49-175"><a href="#cb49-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-176"><a href="#cb49-176" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.1</span>,<span class="sc">~</span>.<span class="sc">-</span>YR.ISOL)</span>
+<span id="cb49-177"><a href="#cb49-177" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.1</span>, lm<span class="fl">.2</span>)</span>
+<span id="cb49-178"><a href="#cb49-178" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.2</span>)</span>
+<span id="cb49-179"><a href="#cb49-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-180"><a href="#cb49-180" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.2</span>,<span class="sc">~</span>.<span class="sc">-</span>ALT)</span>
+<span id="cb49-181"><a href="#cb49-181" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.2</span>, lm<span class="fl">.3</span>)</span>
+<span id="cb49-182"><a href="#cb49-182" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.3</span>)</span>
+<span id="cb49-183"><a href="#cb49-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-184"><a href="#cb49-184" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb49-185"><a href="#cb49-185" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb49-186"><a href="#cb49-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-187"><a href="#cb49-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-188"><a href="#cb49-188" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hierarchical partitioning</span></span>
+<span id="cb49-191"><a href="#cb49-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-192"><a href="#cb49-192" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-hierarchical-partitioning</span></span>
+<span id="cb49-193"><a href="#cb49-193" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb49-194"><a href="#cb49-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-195"><a href="#cb49-195" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(hier.part)){<span class="fu">install.packages</span>(<span class="st">"hier.part"</span>)}</span>
+<span id="cb49-196"><a href="#cb49-196" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hier.part)</span>
+<span id="cb49-197"><a href="#cb49-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-198"><a href="#cb49-198" aria-hidden="true" tabindex="-1"></a>loyn.preds <span class="ot">&lt;-</span><span class="fu">with</span>(loyn, <span class="fu">data.frame</span>(YR.ISOL, ALT, GRAZE))</span>
+<span id="cb49-199"><a href="#cb49-199" aria-hidden="true" tabindex="-1"></a><span class="fu">hier.part</span>(loyn<span class="sc">$</span>ABUND, loyn.preds, <span class="at">gof =</span> <span class="st">"Rsqu"</span>)</span>
+<span id="cb49-200"><a href="#cb49-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-201"><a href="#cb49-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-202"><a href="#cb49-202" aria-hidden="true" tabindex="-1"></a><span class="fu">### Partial regressions</span></span>
+<span id="cb49-205"><a href="#cb49-205" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-206"><a href="#cb49-206" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-plots-lm-partial-reg</span></span>
+<span id="cb49-207"><a href="#cb49-207" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Generierter Plot"</span></span>
+<span id="cb49-208"><a href="#cb49-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-209"><a href="#cb49-209" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(lm<span class="fl">.1</span>, <span class="at">ask =</span> F)</span>
+<span id="cb49-210"><a href="#cb49-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-211"><a href="#cb49-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-212"><a href="#cb49-212" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multimodel inference</span></span>
+<span id="cb49-213"><a href="#cb49-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-216"><a href="#cb49-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-217"><a href="#cb49-217" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MuMIn)){<span class="fu">install.packages</span>(<span class="st">"MuMIn"</span>)}</span>
+<span id="cb49-218"><a href="#cb49-218" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
+<span id="cb49-219"><a href="#cb49-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-220"><a href="#cb49-220" aria-hidden="true" tabindex="-1"></a>global.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> GRAZE, <span class="at">data =</span> loyn)</span>
+<span id="cb49-221"><a href="#cb49-221" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
+<span id="cb49-222"><a href="#cb49-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-223"><a href="#cb49-223" aria-hidden="true" tabindex="-1"></a>allmodels <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global.model)</span>
+<span id="cb49-224"><a href="#cb49-224" aria-hidden="true" tabindex="-1"></a>allmodels</span>
+<span id="cb49-225"><a href="#cb49-225" aria-hidden="true" tabindex="-1"></a><span class="fu">sw</span>(allmodels)</span>
+<span id="cb49-226"><a href="#cb49-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-227"><a href="#cb49-227" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(allmodels, <span class="at">subset =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-228"><a href="#cb49-228" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span>
+<span id="cb49-229"><a href="#cb49-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

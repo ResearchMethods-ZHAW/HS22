@@ -939,17 +939,21 @@ Achieved convergence tolerance: 7.966e-06</code></pre>
 <section id="modelldiagnostik-3" class="level3">
 <h3 class="anchored" data-anchor-id="modelldiagnostik-3">Modelldiagnostik</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(nlstools)){<span class="fu">install.packages</span>(<span class="st">"nlstools"</span>)}</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlstools)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>residuals.nls <span class="ot">&lt;-</span> <span class="fu">nlsResiduals</span>(model.nls)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuals.nls)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-boxplot-var3-modeldiagnostics" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Statistik2_Loesung_Beispiel_files/figure-html/fig-boxplot-var3-modeldiagnostics-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;18.10: Generierter Plot</figcaption><p></p>
-</figure>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(nlstools)){<span class="fu">install.packages</span>(<span class="st">"nlstools"</span>)}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in contrib.url(repos, "source"): versuche CRAN ohne einen Spiegelserver zu nutzen</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlstools)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(nlstools): es gibt kein Paket namens 'nlstools'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>residuals.nls <span class="ot">&lt;-</span> <span class="fu">nlsResiduals</span>(model.nls)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in nlsResiduals(model.nls): konnte Funktion "nlsResiduals" nicht finden</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuals.nls)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in plot(residuals.nls): Objekt 'residuals.nls' nicht gefunden</code></pre>
 </div>
 </div>
 <p>Für nls kann man nicht den normalen Plotbefehl für die Residualdiagnostik nehmen, sondern verwendet das Äquivalent aus nlstools. Die beiden entscheidenden Plots sind jetzt links oben und rechts unten. Der QQ-Plot hat im unteren Bereich einen kleinen Schönheitsfehler, aber ansonsten ist alles OK.</p>
@@ -959,21 +963,21 @@ Achieved convergence tolerance: 7.966e-06</code></pre>
 <h2 class="anchored" data-anchor-id="ergebnisplots">Ergebnisplots</h2>
 <p>Da alle drei Lösungen zumindest statistisch OK waren, sollen jetzt noch die zugehörigen Ergebnisplots erstellt werden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="fl">0.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="fl">0.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="1">
 <li>lineares Modell mit log-transformierter Abhängiger</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(lm<span class="fl">.2</span>, <span class="fu">list</span>(<span class="at">time =</span> xv)))</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv1, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(lm<span class="fl">.2</span>, <span class="fu">list</span>(<span class="at">time =</span> xv)))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv1, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-boxplot-var3-result-log" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik2_Loesung_Beispiel_files/figure-html/fig-boxplot-var3-result-log-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;18.11: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;18.10: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -982,14 +986,14 @@ Achieved convergence tolerance: 7.966e-06</code></pre>
 <li>quadratisches Modell</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.quad, <span class="fu">list</span>(<span class="at">time =</span> xv))</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col=</span>  <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.quad, <span class="fu">list</span>(<span class="at">time =</span> xv))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col=</span>  <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-boxplot-var3-result-quadm" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik2_Loesung_Beispiel_files/figure-html/fig-boxplot-var3-result-quadm-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;18.12: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;18.11: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -998,14 +1002,14 @@ Achieved convergence tolerance: 7.966e-06</code></pre>
 <li>nicht-lineares Modell</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>yv3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.nls, <span class="fu">list</span>(<span class="at">time =</span> xv))</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv3, <span class="at">col =</span> <span class="st">"green"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>yv3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.nls, <span class="fu">list</span>(<span class="at">time =</span> xv))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv3, <span class="at">col =</span> <span class="st">"green"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-boxplot-var3-result-nlm" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik2_Loesung_Beispiel_files/figure-html/fig-boxplot-var3-result-nlm-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;18.13: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;18.12: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1292,261 +1296,261 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb26" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-01</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat2</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Einführung in lineare Modelle</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 3</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat2: Lösung Beispiel</span></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Musterlösung Beispiel</span></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Lösungsscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Lösungstext als Download</span><span class="co">](Statistik_Loesung_Beispiel.pdf)</span></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### Übungsaufgabe </span></span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>_**(hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)**_</span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Laden Sie den Datensatz decay.csv. Dieser enthält die Zahl radioaktiver Zerfälle pro</span>
-<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>Zeiteinheit (amount) für Zeitpunkte (time) nach dem Start des Experimentes.</span>
-<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Ermitteln Sie ein statistisches Modell, dass die Zerfallshäufigkeit in Abhängigkeit</span>
-<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>von der Zeit beschreibt.**</span>
-<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bitte erklären und begründen Sie die einzelnen Schritte, die Sie unternehmen, um zu</span>
-<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>diesem Ergebnis zu kommen. Dazu erstellen Sie bitte ein Word-Dokument, in das Sie</span>
-<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>Schritt für Schritt den verwendeten R-Code, die dazu gehörigen Ausgaben von R, Ihre</span>
-<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>Interpretation derselben und die sich ergebenden Schlussfolgerungen für das weitere</span>
-<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>Vorgehen dokumentieren.</span>
-<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dieser Ablauf sollte insbesondere beinhalten:</span>
-<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Überprüfen der Datenstruktur nach dem Einlesen, welches sind die abhängige(n) und welches die unabängige(n) Variablen</span>
-<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Explorative Datenanalyse, um zu sehen, ob evtl. Dateneingabefehler vorliegen oder</span>
-<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>      Datentransformationen vorgenommen werden sollten</span>
-<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Auswahl und Begründung eines statistischen Verfahrens (es gibt hier mehrere</span>
-<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>      statistisch korrekte Möglichkeiten!)</span>
-<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Ermittlung eines Modells</span>
-<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Durchführen der Modelldiagnostik für das gewählte Modell</span>
-<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Generieren aller Zahlen, Statistiken und Tabellen, die für eine wiss.</span>
-<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>      Ergebnisdarstellung benötigt werden</span>
-<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Formulieren Sie abschliessend einen Methoden- und Ergebnisteil (ggf. incl.</span>
-<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>      adäquaten Abbildungen) zu dieser Untersuchung in der Form einer</span>
-<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>      wissenschaftlichen Arbeit (ausformulierte schriftliche Zusammenfassung, mit je</span>
-<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>      einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und</span>
-<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>      Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige</span>
-<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>      Redundanz dagegen vermieden werden.</span>
-<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>**Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg</span>
-<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>      (Kombination aus R-Code, R Output und dessen Interpretation) und (c)</span>
-<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>      ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**</span>
-<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kommentierter Lösungsweg</span></span>
-<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>decay <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/decay.csv"</span>,<span class="at">sep =</span> <span class="st">","</span>)</span>
-<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a>decay</span>
-<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(decay)</span>
-<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(decay)</span>
-<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a>Man erkennt, dass es 31 Beobachtungen für die Zeit als Integer von Zerfällen gibt, die als rationale Zahlen angegeben werden (dass die Zahl der Zerfälle nicht ganzzahlig ist, deutet darauf hin, dass sie möglicherweise nur in einem Teil des Zeitintervalls oder für einen Teil des betrachteten Raumes gemessen und dann hochgerechnet wurde.</span>
-<span id="cb26-69"><a href="#cb26-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-70"><a href="#cb26-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Explorative Datenanalyse</span></span>
-<span id="cb26-71"><a href="#cb26-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-74"><a href="#cb26-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-75"><a href="#cb26-75" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-expl</span></span>
-<span id="cb26-76"><a href="#cb26-76" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb26-77"><a href="#cb26-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-78"><a href="#cb26-78" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(decay<span class="sc">$</span>time)</span>
-<span id="cb26-79"><a href="#cb26-79" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(decay<span class="sc">$</span>amount)</span>
-<span id="cb26-80"><a href="#cb26-80" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(amount<span class="sc">~</span>time, <span class="at">data=</span>decay)</span>
-<span id="cb26-81"><a href="#cb26-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-82"><a href="#cb26-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-83"><a href="#cb26-83" aria-hidden="true" tabindex="-1"></a>Während der Boxplot für time wunderbar symmetrisch ohne Ausreisser ist, zeigt amount eine stark rechtsschiefe (linkssteile) Verteilung mit einem Ausreiser. Das deutet schon an, dass ein einfaches lineares Modell vermutlich die Modellannahmen verletzen wird. Auch der einfache Scatterplot zeigt, dass ein lineares Modell wohl nicht adäquat ist. Wir rechnen aber erst einmal weiter.</span>
-<span id="cb26-84"><a href="#cb26-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-85"><a href="#cb26-85" aria-hidden="true" tabindex="-1"></a><span class="fu">### Einfaches lineares Modell</span></span>
-<span id="cb26-86"><a href="#cb26-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-89"><a href="#cb26-89" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-90"><a href="#cb26-90" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(amount<span class="sc">~</span>time, <span class="at">data =</span> decay)</span>
-<span id="cb26-91"><a href="#cb26-91" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb26-92"><a href="#cb26-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-93"><a href="#cb26-93" aria-hidden="true" tabindex="-1"></a>Das sieht erst einmal nach einem Supermodell aus, höchstsignifikant und mit einem hohen R² von fast 77%. ABER: wir müssen uns noch die Modelldiagnostik ansehen...</span>
-<span id="cb26-94"><a href="#cb26-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-95"><a href="#cb26-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modelldiagnostik</span></span>
-<span id="cb26-96"><a href="#cb26-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-99"><a href="#cb26-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-100"><a href="#cb26-100" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-modeldiagnostics</span></span>
-<span id="cb26-101"><a href="#cb26-101" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb26-102"><a href="#cb26-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-103"><a href="#cb26-103" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb26-104"><a href="#cb26-104" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb26-105"><a href="#cb26-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-106"><a href="#cb26-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-107"><a href="#cb26-107" aria-hidden="true" tabindex="-1"></a>Hier zeigen die wichtigen oberen Plots beide massive Abweichungen vom „Soll“. Der Plot oben links zeigt eine „Banane“ und beim Q-Q-Plot oben rechts weichen die Punkte rechts der Mitte alle stark nach oben von der Solllinie ab. Wir haben unser Modell also offensichtlich falsch spezifiziert.</span>
-<span id="cb26-108"><a href="#cb26-108" aria-hidden="true" tabindex="-1"></a>Um eine Idee zu bekommen, was falsch ist, plotten wir noch, wie das Ergebnis dieses Modells aussähe:</span>
-<span id="cb26-109"><a href="#cb26-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-110"><a href="#cb26-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ergebnisplot</span></span>
-<span id="cb26-111"><a href="#cb26-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-114"><a href="#cb26-114" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-115"><a href="#cb26-115" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-result</span></span>
-<span id="cb26-116"><a href="#cb26-116" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb26-117"><a href="#cb26-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-118"><a href="#cb26-118" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb26-119"><a href="#cb26-119" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
-<span id="cb26-120"><a href="#cb26-120" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm<span class="fl">.1</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb26-121"><a href="#cb26-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-122"><a href="#cb26-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-123"><a href="#cb26-123" aria-hidden="true" tabindex="-1"></a>Die Punkte links liegen alle über der Regressionslinie, die in der Mitte darunter und die ganz rechts wieder systematisch darüber (darum im Diagnostikplot oben die „Banane“). Es liegt also offensichtlich keine lineare Beziehung vor, sondern eine curvilineare.</span>
-<span id="cb26-124"><a href="#cb26-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-125"><a href="#cb26-125" aria-hidden="true" tabindex="-1"></a>Um diese korrekt zu analysieren, gibt es im Prinzip drei Möglichkeiten, wovon am zweiten Kurstag nur eine hatten, während die zweite und dritte in Statistik 3 und 4 folgten. Im Folgenden sind alle drei nacheinander dargestellt (in der Klausur würde es aber genügen, eine davon darzustellen, wenn die Aufgabenstellung wie oben lautet).</span>
-<span id="cb26-126"><a href="#cb26-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-127"><a href="#cb26-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## Variante (1): log-Transformation der abängigen Variablen</span></span>
-<span id="cb26-128"><a href="#cb26-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-129"><a href="#cb26-129" aria-hidden="true" tabindex="-1"></a>Dass die Verteilung der abhängigen Variable nicht normal ist, haben wir ja schon bei der explorativen Datenanalyse am Anfang gesehen. Da sie stark linkssteil ist, zugleich aber keine Nullwerte enthält, bietet sich eine Logarithmustransformation an, hier z. B. mit dem natürlichen Logarithmus.</span>
-<span id="cb26-130"><a href="#cb26-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-133"><a href="#cb26-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-134"><a href="#cb26-134" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var1-expl</span></span>
-<span id="cb26-135"><a href="#cb26-135" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb26-136"><a href="#cb26-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-137"><a href="#cb26-137" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb26-138"><a href="#cb26-138" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(decay<span class="sc">$</span>amount)</span>
-<span id="cb26-139"><a href="#cb26-139" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log</span>(decay<span class="sc">$</span>amount))</span>
-<span id="cb26-140"><a href="#cb26-140" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(decay<span class="sc">$</span>amount)</span>
-<span id="cb26-141"><a href="#cb26-141" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log</span>(decay<span class="sc">$</span>amount))</span>
-<span id="cb26-142"><a href="#cb26-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-143"><a href="#cb26-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-144"><a href="#cb26-144" aria-hidden="true" tabindex="-1"></a>_Die log-transformierte Variante rechts sieht sowohl im Boxplot als auch im Histogramm viel symmetrischer/besser normalverteilt aus. Damit ergibt sich dann folgendes lineares Modell_</span>
-<span id="cb26-145"><a href="#cb26-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-148"><a href="#cb26-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-149"><a href="#cb26-149" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(amount)<span class="sc">~</span>time, <span class="at">data =</span> decay)</span>
-<span id="cb26-150"><a href="#cb26-150" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.2</span>)</span>
-<span id="cb26-151"><a href="#cb26-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-152"><a href="#cb26-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-153"><a href="#cb26-153" aria-hidden="true" tabindex="-1"></a>Jetzt ist der R²-Wert noch höher und der p-Wert noch niedriger als im ursprünglichen linearen Modell ohne Transformation. Das erlaubt aber keine Aussage, da wir Äpfel mit Birnen vergleichen, da die abhängige Variable einmal untransformiert und einmal log-transformiert ist. Entscheidend ist die Modelldiagnostik.</span>
-<span id="cb26-154"><a href="#cb26-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-155"><a href="#cb26-155" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modelldiagnostik</span></span>
-<span id="cb26-156"><a href="#cb26-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-159"><a href="#cb26-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-160"><a href="#cb26-160" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var1-modeldiagnostics</span></span>
-<span id="cb26-161"><a href="#cb26-161" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb26-162"><a href="#cb26-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-163"><a href="#cb26-163" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb26-164"><a href="#cb26-164" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.2</span>)</span>
-<span id="cb26-165"><a href="#cb26-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-166"><a href="#cb26-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-167"><a href="#cb26-167" aria-hidden="true" tabindex="-1"></a>Der Q-Q-Plot sieht jetzt exzellent aus, der Plot rechts oben hat kaum noch eine Banane, nur noch einen leichten Keil. Insgesamt deutlich besser und auf jeden Fall ein statistisch korrektes Modell.</span>
-<span id="cb26-168"><a href="#cb26-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-169"><a href="#cb26-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-170"><a href="#cb26-170" aria-hidden="true" tabindex="-1"></a>Lösungen 2 und 3 greifen auf Methoden von Statistik 3 und 4 zurück, sie sind hier nur zum Vergleich angeführt</span>
-<span id="cb26-171"><a href="#cb26-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-172"><a href="#cb26-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## Variante (2): Quadratische Regression </span></span>
-<span id="cb26-173"><a href="#cb26-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-174"><a href="#cb26-174" aria-hidden="true" tabindex="-1"></a>(kommt erst in Statistik 3)</span>
-<span id="cb26-175"><a href="#cb26-175" aria-hidden="true" tabindex="-1"></a>_**könnte für die Datenverteilung passen, entspricht aber nicht der physikalischen**_</span>
-<span id="cb26-176"><a href="#cb26-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-177"><a href="#cb26-177" aria-hidden="true" tabindex="-1"></a><span class="fu">### Gesetzmässigkeit</span></span>
-<span id="cb26-178"><a href="#cb26-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-181"><a href="#cb26-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-182"><a href="#cb26-182" aria-hidden="true" tabindex="-1"></a>model.quad <span class="ot">&lt;-</span> <span class="fu">lm</span>(amount<span class="sc">~</span>time <span class="sc">+</span> <span class="fu">I</span>(time<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>  decay)</span>
-<span id="cb26-183"><a href="#cb26-183" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model.quad)</span>
-<span id="cb26-184"><a href="#cb26-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-185"><a href="#cb26-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-186"><a href="#cb26-186" aria-hidden="true" tabindex="-1"></a>Hier können wir R² mit dem ursprünglichen Modell vergleichen (beide haben amount als abhängige Grösse) und es sieht viel besser aus. Sowohl der lineare als auch der quadratische Term sind hochsignifikant. Sicherheitshalber vergleichen wir die beiden Modelle aber noch mittels ANOVA.</span>
-<span id="cb26-187"><a href="#cb26-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-188"><a href="#cb26-188" aria-hidden="true" tabindex="-1"></a><span class="fu">### Vergleich mit dem einfachen Modell mittels ANOVA (es ginge auch AICc)</span></span>
-<span id="cb26-189"><a href="#cb26-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-192"><a href="#cb26-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-193"><a href="#cb26-193" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.1</span>, model.quad)</span>
-<span id="cb26-194"><a href="#cb26-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-195"><a href="#cb26-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-196"><a href="#cb26-196" aria-hidden="true" tabindex="-1"></a>In der Tat ist das komplexere Modell (jenes mit dem quadratischen Term) höchstsignifikant besser. Jetzt brauchen wir noch die Modelldiagnostik.</span>
-<span id="cb26-197"><a href="#cb26-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-198"><a href="#cb26-198" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modelldiagnostik</span></span>
-<span id="cb26-199"><a href="#cb26-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-202"><a href="#cb26-202" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-203"><a href="#cb26-203" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var2-modeldiagnostics</span></span>
-<span id="cb26-204"><a href="#cb26-204" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb26-205"><a href="#cb26-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-206"><a href="#cb26-206" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb26-207"><a href="#cb26-207" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model.quad)</span>
-<span id="cb26-208"><a href="#cb26-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-209"><a href="#cb26-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-210"><a href="#cb26-210" aria-hidden="true" tabindex="-1"></a><span class="fu">## Variante (3): Nicht lineare Regression</span></span>
-<span id="cb26-211"><a href="#cb26-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-212"><a href="#cb26-212" aria-hidden="true" tabindex="-1"></a>(die beste, hatten wir aber am 2. Tag noch nicht; mit Startwerten muss man ggf. ausprobieren)</span>
-<span id="cb26-213"><a href="#cb26-213" aria-hidden="true" tabindex="-1"></a>_**mit Startwerten muss man ggf. ausprobieren**_</span>
-<span id="cb26-214"><a href="#cb26-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-217"><a href="#cb26-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-218"><a href="#cb26-218" aria-hidden="true" tabindex="-1"></a>model.nls <span class="ot">&lt;-</span> <span class="fu">nls</span>(amount<span class="sc">~</span>a<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>b<span class="sc">*</span>time), <span class="at">start=</span>(<span class="fu">list</span>(<span class="at">a =</span> <span class="dv">100</span>, <span class="at">b =</span> <span class="dv">1</span>)),<span class="at">data =</span> decay)</span>
-<span id="cb26-219"><a href="#cb26-219" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model.nls)</span>
-<span id="cb26-220"><a href="#cb26-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-221"><a href="#cb26-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-222"><a href="#cb26-222" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modelldiagnostik</span></span>
-<span id="cb26-223"><a href="#cb26-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-226"><a href="#cb26-226" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-227"><a href="#cb26-227" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var3-modeldiagnostics</span></span>
-<span id="cb26-228"><a href="#cb26-228" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb26-229"><a href="#cb26-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-230"><a href="#cb26-230" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(nlstools)){<span class="fu">install.packages</span>(<span class="st">"nlstools"</span>)}</span>
-<span id="cb26-231"><a href="#cb26-231" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlstools)</span>
-<span id="cb26-232"><a href="#cb26-232" aria-hidden="true" tabindex="-1"></a>residuals.nls <span class="ot">&lt;-</span> <span class="fu">nlsResiduals</span>(model.nls)</span>
-<span id="cb26-233"><a href="#cb26-233" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuals.nls)</span>
-<span id="cb26-234"><a href="#cb26-234" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-235"><a href="#cb26-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-236"><a href="#cb26-236" aria-hidden="true" tabindex="-1"></a>Für nls kann man nicht den normalen Plotbefehl für die Residualdiagnostik nehmen, sondern verwendet das Äquivalent aus nlstools. Die beiden entscheidenden Plots sind jetzt links oben und rechts unten. Der QQ-Plot hat im unteren Bereich einen kleinen Schönheitsfehler, aber ansonsten ist alles OK.</span>
-<span id="cb26-237"><a href="#cb26-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-238"><a href="#cb26-238" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ergebnisplots</span></span>
-<span id="cb26-239"><a href="#cb26-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-240"><a href="#cb26-240" aria-hidden="true" tabindex="-1"></a>Da alle drei Lösungen zumindest statistisch OK waren, sollen jetzt noch die zugehörigen Ergebnisplots erstellt werden.</span>
-<span id="cb26-241"><a href="#cb26-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-244"><a href="#cb26-244" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-245"><a href="#cb26-245" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var3-result</span></span>
-<span id="cb26-246"><a href="#cb26-246" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb26-247"><a href="#cb26-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-248"><a href="#cb26-248" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb26-249"><a href="#cb26-249" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="fl">0.1</span>)</span>
-<span id="cb26-250"><a href="#cb26-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-251"><a href="#cb26-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-252"><a href="#cb26-252" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>lineares Modell mit log-transformierter Abhängiger</span>
-<span id="cb26-253"><a href="#cb26-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-256"><a href="#cb26-256" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-257"><a href="#cb26-257" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var3-result-log</span></span>
-<span id="cb26-258"><a href="#cb26-258" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb26-259"><a href="#cb26-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-260"><a href="#cb26-260" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
-<span id="cb26-261"><a href="#cb26-261" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(lm<span class="fl">.2</span>, <span class="fu">list</span>(<span class="at">time =</span> xv)))</span>
-<span id="cb26-262"><a href="#cb26-262" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv1, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb26-263"><a href="#cb26-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-264"><a href="#cb26-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-265"><a href="#cb26-265" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>quadratisches Modell</span>
-<span id="cb26-266"><a href="#cb26-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-269"><a href="#cb26-269" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-270"><a href="#cb26-270" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var3-result-quadm</span></span>
-<span id="cb26-271"><a href="#cb26-271" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb26-272"><a href="#cb26-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-273"><a href="#cb26-273" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
-<span id="cb26-274"><a href="#cb26-274" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.quad, <span class="fu">list</span>(<span class="at">time =</span> xv))</span>
-<span id="cb26-275"><a href="#cb26-275" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col=</span>  <span class="st">"blue"</span>)</span>
-<span id="cb26-276"><a href="#cb26-276" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-277"><a href="#cb26-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-278"><a href="#cb26-278" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>nicht-lineares Modell</span>
-<span id="cb26-279"><a href="#cb26-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-282"><a href="#cb26-282" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-283"><a href="#cb26-283" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var3-result-nlm</span></span>
-<span id="cb26-284"><a href="#cb26-284" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb26-285"><a href="#cb26-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-286"><a href="#cb26-286" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
-<span id="cb26-287"><a href="#cb26-287" aria-hidden="true" tabindex="-1"></a>yv3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.nls, <span class="fu">list</span>(<span class="at">time =</span> xv))</span>
-<span id="cb26-288"><a href="#cb26-288" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv3, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb26-289"><a href="#cb26-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb26-290"><a href="#cb26-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-291"><a href="#cb26-291" aria-hidden="true" tabindex="-1"></a>Optisch betrachtet, geben (2) und (3) den empirischen Zusammenhang etwas besser wieder als (1), da sie im linken Bereich die hohen Werte besser treffen. Man könnte sogar meinen, bei Betrachtung der Daten, dass die Werte ab time = 28 wieder leicht ansteigen, was die quadratische Funktion wiedergibt. Wer sich aber mit Physik etwas auskennt, weiss, dass Version (2) physikalisch nicht zutrifft, da die Zerfallsrate mit der Zeit immer weiter abfällt. Aufgrund der kurzen Messreihe wäre eine quadratische Funktion trotzdem eine statistisch korrekte Interpretation. Mit längeren Messreihen würde sich jedoch schnell zeigen, dass sie nicht zutrifft.</span>
+<div class="sourceCode" id="cb33" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-01</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat2</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Einführung in lineare Modelle</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 3</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat2: Lösung Beispiel</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Musterlösung Beispiel</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Lösungsscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Lösungstext als Download</span><span class="co">](Statistik_Loesung_Beispiel.pdf)</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### Übungsaufgabe </span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>_**(hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)**_</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Laden Sie den Datensatz decay.csv. Dieser enthält die Zahl radioaktiver Zerfälle pro</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>Zeiteinheit (amount) für Zeitpunkte (time) nach dem Start des Experimentes.</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Ermitteln Sie ein statistisches Modell, dass die Zerfallshäufigkeit in Abhängigkeit</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>von der Zeit beschreibt.**</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bitte erklären und begründen Sie die einzelnen Schritte, die Sie unternehmen, um zu</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>diesem Ergebnis zu kommen. Dazu erstellen Sie bitte ein Word-Dokument, in das Sie</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>Schritt für Schritt den verwendeten R-Code, die dazu gehörigen Ausgaben von R, Ihre</span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>Interpretation derselben und die sich ergebenden Schlussfolgerungen für das weitere</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>Vorgehen dokumentieren.</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dieser Ablauf sollte insbesondere beinhalten:</span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Überprüfen der Datenstruktur nach dem Einlesen, welches sind die abhängige(n) und welches die unabängige(n) Variablen</span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Explorative Datenanalyse, um zu sehen, ob evtl. Dateneingabefehler vorliegen oder</span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>      Datentransformationen vorgenommen werden sollten</span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Auswahl und Begründung eines statistischen Verfahrens (es gibt hier mehrere</span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>      statistisch korrekte Möglichkeiten!)</span>
+<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Ermittlung eines Modells</span>
+<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Durchführen der Modelldiagnostik für das gewählte Modell</span>
+<span id="cb33-39"><a href="#cb33-39" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Generieren aller Zahlen, Statistiken und Tabellen, die für eine wiss.</span>
+<span id="cb33-40"><a href="#cb33-40" aria-hidden="true" tabindex="-1"></a>      Ergebnisdarstellung benötigt werden</span>
+<span id="cb33-41"><a href="#cb33-41" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Formulieren Sie abschliessend einen Methoden- und Ergebnisteil (ggf. incl.</span>
+<span id="cb33-42"><a href="#cb33-42" aria-hidden="true" tabindex="-1"></a>      adäquaten Abbildungen) zu dieser Untersuchung in der Form einer</span>
+<span id="cb33-43"><a href="#cb33-43" aria-hidden="true" tabindex="-1"></a>      wissenschaftlichen Arbeit (ausformulierte schriftliche Zusammenfassung, mit je</span>
+<span id="cb33-44"><a href="#cb33-44" aria-hidden="true" tabindex="-1"></a>      einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und</span>
+<span id="cb33-45"><a href="#cb33-45" aria-hidden="true" tabindex="-1"></a>      Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige</span>
+<span id="cb33-46"><a href="#cb33-46" aria-hidden="true" tabindex="-1"></a>      Redundanz dagegen vermieden werden.</span>
+<span id="cb33-47"><a href="#cb33-47" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>**Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg</span>
+<span id="cb33-48"><a href="#cb33-48" aria-hidden="true" tabindex="-1"></a>      (Kombination aus R-Code, R Output und dessen Interpretation) und (c)</span>
+<span id="cb33-49"><a href="#cb33-49" aria-hidden="true" tabindex="-1"></a>      ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**</span>
+<span id="cb33-50"><a href="#cb33-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-51"><a href="#cb33-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kommentierter Lösungsweg</span></span>
+<span id="cb33-52"><a href="#cb33-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-55"><a href="#cb33-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-56"><a href="#cb33-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb33-57"><a href="#cb33-57" aria-hidden="true" tabindex="-1"></a>decay <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/decay.csv"</span>,<span class="at">sep =</span> <span class="st">","</span>)</span>
+<span id="cb33-58"><a href="#cb33-58" aria-hidden="true" tabindex="-1"></a>decay</span>
+<span id="cb33-59"><a href="#cb33-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-60"><a href="#cb33-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-63"><a href="#cb33-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-64"><a href="#cb33-64" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(decay)</span>
+<span id="cb33-65"><a href="#cb33-65" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(decay)</span>
+<span id="cb33-66"><a href="#cb33-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-67"><a href="#cb33-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-68"><a href="#cb33-68" aria-hidden="true" tabindex="-1"></a>Man erkennt, dass es 31 Beobachtungen für die Zeit als Integer von Zerfällen gibt, die als rationale Zahlen angegeben werden (dass die Zahl der Zerfälle nicht ganzzahlig ist, deutet darauf hin, dass sie möglicherweise nur in einem Teil des Zeitintervalls oder für einen Teil des betrachteten Raumes gemessen und dann hochgerechnet wurde.</span>
+<span id="cb33-69"><a href="#cb33-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-70"><a href="#cb33-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Explorative Datenanalyse</span></span>
+<span id="cb33-71"><a href="#cb33-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-74"><a href="#cb33-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-75"><a href="#cb33-75" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-expl</span></span>
+<span id="cb33-76"><a href="#cb33-76" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb33-77"><a href="#cb33-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-78"><a href="#cb33-78" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(decay<span class="sc">$</span>time)</span>
+<span id="cb33-79"><a href="#cb33-79" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(decay<span class="sc">$</span>amount)</span>
+<span id="cb33-80"><a href="#cb33-80" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(amount<span class="sc">~</span>time, <span class="at">data=</span>decay)</span>
+<span id="cb33-81"><a href="#cb33-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-82"><a href="#cb33-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-83"><a href="#cb33-83" aria-hidden="true" tabindex="-1"></a>Während der Boxplot für time wunderbar symmetrisch ohne Ausreisser ist, zeigt amount eine stark rechtsschiefe (linkssteile) Verteilung mit einem Ausreiser. Das deutet schon an, dass ein einfaches lineares Modell vermutlich die Modellannahmen verletzen wird. Auch der einfache Scatterplot zeigt, dass ein lineares Modell wohl nicht adäquat ist. Wir rechnen aber erst einmal weiter.</span>
+<span id="cb33-84"><a href="#cb33-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-85"><a href="#cb33-85" aria-hidden="true" tabindex="-1"></a><span class="fu">### Einfaches lineares Modell</span></span>
+<span id="cb33-86"><a href="#cb33-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-89"><a href="#cb33-89" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-90"><a href="#cb33-90" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(amount<span class="sc">~</span>time, <span class="at">data =</span> decay)</span>
+<span id="cb33-91"><a href="#cb33-91" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb33-92"><a href="#cb33-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-93"><a href="#cb33-93" aria-hidden="true" tabindex="-1"></a>Das sieht erst einmal nach einem Supermodell aus, höchstsignifikant und mit einem hohen R² von fast 77%. ABER: wir müssen uns noch die Modelldiagnostik ansehen...</span>
+<span id="cb33-94"><a href="#cb33-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-95"><a href="#cb33-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modelldiagnostik</span></span>
+<span id="cb33-96"><a href="#cb33-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-99"><a href="#cb33-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-100"><a href="#cb33-100" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-modeldiagnostics</span></span>
+<span id="cb33-101"><a href="#cb33-101" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb33-102"><a href="#cb33-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-103"><a href="#cb33-103" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb33-104"><a href="#cb33-104" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb33-105"><a href="#cb33-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-106"><a href="#cb33-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-107"><a href="#cb33-107" aria-hidden="true" tabindex="-1"></a>Hier zeigen die wichtigen oberen Plots beide massive Abweichungen vom „Soll“. Der Plot oben links zeigt eine „Banane“ und beim Q-Q-Plot oben rechts weichen die Punkte rechts der Mitte alle stark nach oben von der Solllinie ab. Wir haben unser Modell also offensichtlich falsch spezifiziert.</span>
+<span id="cb33-108"><a href="#cb33-108" aria-hidden="true" tabindex="-1"></a>Um eine Idee zu bekommen, was falsch ist, plotten wir noch, wie das Ergebnis dieses Modells aussähe:</span>
+<span id="cb33-109"><a href="#cb33-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-110"><a href="#cb33-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ergebnisplot</span></span>
+<span id="cb33-111"><a href="#cb33-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-114"><a href="#cb33-114" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-115"><a href="#cb33-115" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-result</span></span>
+<span id="cb33-116"><a href="#cb33-116" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb33-117"><a href="#cb33-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-118"><a href="#cb33-118" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb33-119"><a href="#cb33-119" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
+<span id="cb33-120"><a href="#cb33-120" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm<span class="fl">.1</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb33-121"><a href="#cb33-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-122"><a href="#cb33-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-123"><a href="#cb33-123" aria-hidden="true" tabindex="-1"></a>Die Punkte links liegen alle über der Regressionslinie, die in der Mitte darunter und die ganz rechts wieder systematisch darüber (darum im Diagnostikplot oben die „Banane“). Es liegt also offensichtlich keine lineare Beziehung vor, sondern eine curvilineare.</span>
+<span id="cb33-124"><a href="#cb33-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-125"><a href="#cb33-125" aria-hidden="true" tabindex="-1"></a>Um diese korrekt zu analysieren, gibt es im Prinzip drei Möglichkeiten, wovon am zweiten Kurstag nur eine hatten, während die zweite und dritte in Statistik 3 und 4 folgten. Im Folgenden sind alle drei nacheinander dargestellt (in der Klausur würde es aber genügen, eine davon darzustellen, wenn die Aufgabenstellung wie oben lautet).</span>
+<span id="cb33-126"><a href="#cb33-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-127"><a href="#cb33-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## Variante (1): log-Transformation der abängigen Variablen</span></span>
+<span id="cb33-128"><a href="#cb33-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-129"><a href="#cb33-129" aria-hidden="true" tabindex="-1"></a>Dass die Verteilung der abhängigen Variable nicht normal ist, haben wir ja schon bei der explorativen Datenanalyse am Anfang gesehen. Da sie stark linkssteil ist, zugleich aber keine Nullwerte enthält, bietet sich eine Logarithmustransformation an, hier z. B. mit dem natürlichen Logarithmus.</span>
+<span id="cb33-130"><a href="#cb33-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-133"><a href="#cb33-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-134"><a href="#cb33-134" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var1-expl</span></span>
+<span id="cb33-135"><a href="#cb33-135" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb33-136"><a href="#cb33-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-137"><a href="#cb33-137" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb33-138"><a href="#cb33-138" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(decay<span class="sc">$</span>amount)</span>
+<span id="cb33-139"><a href="#cb33-139" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log</span>(decay<span class="sc">$</span>amount))</span>
+<span id="cb33-140"><a href="#cb33-140" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(decay<span class="sc">$</span>amount)</span>
+<span id="cb33-141"><a href="#cb33-141" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log</span>(decay<span class="sc">$</span>amount))</span>
+<span id="cb33-142"><a href="#cb33-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-143"><a href="#cb33-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-144"><a href="#cb33-144" aria-hidden="true" tabindex="-1"></a>_Die log-transformierte Variante rechts sieht sowohl im Boxplot als auch im Histogramm viel symmetrischer/besser normalverteilt aus. Damit ergibt sich dann folgendes lineares Modell_</span>
+<span id="cb33-145"><a href="#cb33-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-148"><a href="#cb33-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-149"><a href="#cb33-149" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(amount)<span class="sc">~</span>time, <span class="at">data =</span> decay)</span>
+<span id="cb33-150"><a href="#cb33-150" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.2</span>)</span>
+<span id="cb33-151"><a href="#cb33-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-152"><a href="#cb33-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-153"><a href="#cb33-153" aria-hidden="true" tabindex="-1"></a>Jetzt ist der R²-Wert noch höher und der p-Wert noch niedriger als im ursprünglichen linearen Modell ohne Transformation. Das erlaubt aber keine Aussage, da wir Äpfel mit Birnen vergleichen, da die abhängige Variable einmal untransformiert und einmal log-transformiert ist. Entscheidend ist die Modelldiagnostik.</span>
+<span id="cb33-154"><a href="#cb33-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-155"><a href="#cb33-155" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modelldiagnostik</span></span>
+<span id="cb33-156"><a href="#cb33-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-159"><a href="#cb33-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-160"><a href="#cb33-160" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var1-modeldiagnostics</span></span>
+<span id="cb33-161"><a href="#cb33-161" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb33-162"><a href="#cb33-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-163"><a href="#cb33-163" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb33-164"><a href="#cb33-164" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.2</span>)</span>
+<span id="cb33-165"><a href="#cb33-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-166"><a href="#cb33-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-167"><a href="#cb33-167" aria-hidden="true" tabindex="-1"></a>Der Q-Q-Plot sieht jetzt exzellent aus, der Plot rechts oben hat kaum noch eine Banane, nur noch einen leichten Keil. Insgesamt deutlich besser und auf jeden Fall ein statistisch korrektes Modell.</span>
+<span id="cb33-168"><a href="#cb33-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-169"><a href="#cb33-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-170"><a href="#cb33-170" aria-hidden="true" tabindex="-1"></a>Lösungen 2 und 3 greifen auf Methoden von Statistik 3 und 4 zurück, sie sind hier nur zum Vergleich angeführt</span>
+<span id="cb33-171"><a href="#cb33-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-172"><a href="#cb33-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## Variante (2): Quadratische Regression </span></span>
+<span id="cb33-173"><a href="#cb33-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-174"><a href="#cb33-174" aria-hidden="true" tabindex="-1"></a>(kommt erst in Statistik 3)</span>
+<span id="cb33-175"><a href="#cb33-175" aria-hidden="true" tabindex="-1"></a>_**könnte für die Datenverteilung passen, entspricht aber nicht der physikalischen**_</span>
+<span id="cb33-176"><a href="#cb33-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-177"><a href="#cb33-177" aria-hidden="true" tabindex="-1"></a><span class="fu">### Gesetzmässigkeit</span></span>
+<span id="cb33-178"><a href="#cb33-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-181"><a href="#cb33-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-182"><a href="#cb33-182" aria-hidden="true" tabindex="-1"></a>model.quad <span class="ot">&lt;-</span> <span class="fu">lm</span>(amount<span class="sc">~</span>time <span class="sc">+</span> <span class="fu">I</span>(time<span class="sc">^</span><span class="dv">2</span>), <span class="at">data=</span>  decay)</span>
+<span id="cb33-183"><a href="#cb33-183" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model.quad)</span>
+<span id="cb33-184"><a href="#cb33-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-185"><a href="#cb33-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-186"><a href="#cb33-186" aria-hidden="true" tabindex="-1"></a>Hier können wir R² mit dem ursprünglichen Modell vergleichen (beide haben amount als abhängige Grösse) und es sieht viel besser aus. Sowohl der lineare als auch der quadratische Term sind hochsignifikant. Sicherheitshalber vergleichen wir die beiden Modelle aber noch mittels ANOVA.</span>
+<span id="cb33-187"><a href="#cb33-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-188"><a href="#cb33-188" aria-hidden="true" tabindex="-1"></a><span class="fu">### Vergleich mit dem einfachen Modell mittels ANOVA (es ginge auch AICc)</span></span>
+<span id="cb33-189"><a href="#cb33-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-192"><a href="#cb33-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-193"><a href="#cb33-193" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.1</span>, model.quad)</span>
+<span id="cb33-194"><a href="#cb33-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-195"><a href="#cb33-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-196"><a href="#cb33-196" aria-hidden="true" tabindex="-1"></a>In der Tat ist das komplexere Modell (jenes mit dem quadratischen Term) höchstsignifikant besser. Jetzt brauchen wir noch die Modelldiagnostik.</span>
+<span id="cb33-197"><a href="#cb33-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-198"><a href="#cb33-198" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modelldiagnostik</span></span>
+<span id="cb33-199"><a href="#cb33-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-202"><a href="#cb33-202" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-203"><a href="#cb33-203" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var2-modeldiagnostics</span></span>
+<span id="cb33-204"><a href="#cb33-204" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb33-205"><a href="#cb33-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-206"><a href="#cb33-206" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb33-207"><a href="#cb33-207" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model.quad)</span>
+<span id="cb33-208"><a href="#cb33-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-209"><a href="#cb33-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-210"><a href="#cb33-210" aria-hidden="true" tabindex="-1"></a><span class="fu">## Variante (3): Nicht lineare Regression</span></span>
+<span id="cb33-211"><a href="#cb33-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-212"><a href="#cb33-212" aria-hidden="true" tabindex="-1"></a>(die beste, hatten wir aber am 2. Tag noch nicht; mit Startwerten muss man ggf. ausprobieren)</span>
+<span id="cb33-213"><a href="#cb33-213" aria-hidden="true" tabindex="-1"></a>_**mit Startwerten muss man ggf. ausprobieren**_</span>
+<span id="cb33-214"><a href="#cb33-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-217"><a href="#cb33-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-218"><a href="#cb33-218" aria-hidden="true" tabindex="-1"></a>model.nls <span class="ot">&lt;-</span> <span class="fu">nls</span>(amount<span class="sc">~</span>a<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>b<span class="sc">*</span>time), <span class="at">start=</span>(<span class="fu">list</span>(<span class="at">a =</span> <span class="dv">100</span>, <span class="at">b =</span> <span class="dv">1</span>)),<span class="at">data =</span> decay)</span>
+<span id="cb33-219"><a href="#cb33-219" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model.nls)</span>
+<span id="cb33-220"><a href="#cb33-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-221"><a href="#cb33-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-222"><a href="#cb33-222" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modelldiagnostik</span></span>
+<span id="cb33-223"><a href="#cb33-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-226"><a href="#cb33-226" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-227"><a href="#cb33-227" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var3-modeldiagnostics</span></span>
+<span id="cb33-228"><a href="#cb33-228" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb33-229"><a href="#cb33-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-230"><a href="#cb33-230" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(nlstools)){<span class="fu">install.packages</span>(<span class="st">"nlstools"</span>)}</span>
+<span id="cb33-231"><a href="#cb33-231" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlstools)</span>
+<span id="cb33-232"><a href="#cb33-232" aria-hidden="true" tabindex="-1"></a>residuals.nls <span class="ot">&lt;-</span> <span class="fu">nlsResiduals</span>(model.nls)</span>
+<span id="cb33-233"><a href="#cb33-233" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuals.nls)</span>
+<span id="cb33-234"><a href="#cb33-234" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-235"><a href="#cb33-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-236"><a href="#cb33-236" aria-hidden="true" tabindex="-1"></a>Für nls kann man nicht den normalen Plotbefehl für die Residualdiagnostik nehmen, sondern verwendet das Äquivalent aus nlstools. Die beiden entscheidenden Plots sind jetzt links oben und rechts unten. Der QQ-Plot hat im unteren Bereich einen kleinen Schönheitsfehler, aber ansonsten ist alles OK.</span>
+<span id="cb33-237"><a href="#cb33-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-238"><a href="#cb33-238" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ergebnisplots</span></span>
+<span id="cb33-239"><a href="#cb33-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-240"><a href="#cb33-240" aria-hidden="true" tabindex="-1"></a>Da alle drei Lösungen zumindest statistisch OK waren, sollen jetzt noch die zugehörigen Ergebnisplots erstellt werden.</span>
+<span id="cb33-241"><a href="#cb33-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-244"><a href="#cb33-244" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-245"><a href="#cb33-245" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var3-result</span></span>
+<span id="cb33-246"><a href="#cb33-246" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb33-247"><a href="#cb33-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-248"><a href="#cb33-248" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb33-249"><a href="#cb33-249" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="fl">0.1</span>)</span>
+<span id="cb33-250"><a href="#cb33-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-251"><a href="#cb33-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-252"><a href="#cb33-252" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>lineares Modell mit log-transformierter Abhängiger</span>
+<span id="cb33-253"><a href="#cb33-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-256"><a href="#cb33-256" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-257"><a href="#cb33-257" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var3-result-log</span></span>
+<span id="cb33-258"><a href="#cb33-258" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb33-259"><a href="#cb33-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-260"><a href="#cb33-260" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
+<span id="cb33-261"><a href="#cb33-261" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(lm<span class="fl">.2</span>, <span class="fu">list</span>(<span class="at">time =</span> xv)))</span>
+<span id="cb33-262"><a href="#cb33-262" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv1, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb33-263"><a href="#cb33-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-264"><a href="#cb33-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-265"><a href="#cb33-265" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>quadratisches Modell</span>
+<span id="cb33-266"><a href="#cb33-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-269"><a href="#cb33-269" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-270"><a href="#cb33-270" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var3-result-quadm</span></span>
+<span id="cb33-271"><a href="#cb33-271" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb33-272"><a href="#cb33-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-273"><a href="#cb33-273" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
+<span id="cb33-274"><a href="#cb33-274" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.quad, <span class="fu">list</span>(<span class="at">time =</span> xv))</span>
+<span id="cb33-275"><a href="#cb33-275" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col=</span>  <span class="st">"blue"</span>)</span>
+<span id="cb33-276"><a href="#cb33-276" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-277"><a href="#cb33-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-278"><a href="#cb33-278" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>nicht-lineares Modell</span>
+<span id="cb33-279"><a href="#cb33-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-282"><a href="#cb33-282" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-283"><a href="#cb33-283" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-boxplot-var3-result-nlm</span></span>
+<span id="cb33-284"><a href="#cb33-284" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb33-285"><a href="#cb33-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-286"><a href="#cb33-286" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decay<span class="sc">$</span>time, decay<span class="sc">$</span>amount)</span>
+<span id="cb33-287"><a href="#cb33-287" aria-hidden="true" tabindex="-1"></a>yv3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.nls, <span class="fu">list</span>(<span class="at">time =</span> xv))</span>
+<span id="cb33-288"><a href="#cb33-288" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv3, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb33-289"><a href="#cb33-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb33-290"><a href="#cb33-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-291"><a href="#cb33-291" aria-hidden="true" tabindex="-1"></a>Optisch betrachtet, geben (2) und (3) den empirischen Zusammenhang etwas besser wieder als (1), da sie im linken Bereich die hohen Werte besser treffen. Man könnte sogar meinen, bei Betrachtung der Daten, dass die Werte ab time = 28 wieder leicht ansteigen, was die quadratische Funktion wiedergibt. Wer sich aber mit Physik etwas auskennt, weiss, dass Version (2) physikalisch nicht zutrifft, da die Zerfallsrate mit der Zeit immer weiter abfällt. Aufgrund der kurzen Messreihe wäre eine quadratische Funktion trotzdem eine statistisch korrekte Interpretation. Mit längeren Messreihen würde sich jedoch schnell zeigen, dass sie nicht zutrifft.</span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
