@@ -639,14 +639,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="von-lms-zu-glms" class="level2">
 <h2 class="anchored" data-anchor-id="von-lms-zu-glms">von LMs zu GLMs</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span> ,<span class="dv">16</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">33</span>, <span class="dv">37</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>besucher <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">12</span>, <span class="dv">50</span>, <span class="dv">500</span>, <span class="dv">400</span>, <span class="dv">900</span>, <span class="dv">1500</span>, <span class="dv">900</span>, <span class="dv">2000</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>strand <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"Temperatur"</span> <span class="ot">=</span> temp, <span class="st">"Besucher"</span> <span class="ot">=</span> besucher)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(besucher<span class="sc">~</span>temp, <span class="at">data =</span> strand)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>lm.strand <span class="ot">&lt;-</span> <span class="fu">lm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">data =</span> strand)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.strand)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten erstellen und anschauen</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span> ,<span class="dv">16</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">33</span>, <span class="dv">37</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>besucher <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">12</span>, <span class="dv">50</span>, <span class="dv">500</span>, <span class="dv">400</span>, <span class="dv">900</span>, <span class="dv">1500</span>, <span class="dv">900</span>, <span class="dv">2000</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>strand <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"Temperatur"</span> <span class="ot">=</span> temp, <span class="st">"Besucher"</span> <span class="ot">=</span> besucher)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(besucher<span class="sc">~</span>temp, <span class="at">data =</span> strand)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modell definieren und anschauen</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>lm.strand <span class="ot">&lt;-</span> <span class="fu">lm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">data =</span> strand)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.strand)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -667,19 +673,28 @@ Residual standard error: 311.7 on 7 degrees of freedom
 Multiple R-squared:  0.8244,    Adjusted R-squared:  0.7993 
 F-statistic: 32.86 on 1 and 7 DF,  p-value: 0.0007115</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.strand)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span> ,<span class="dv">1</span>))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.strand, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strand<span class="sc">$</span>Temperatur, strand<span class="sc">$</span>Besucher, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>))</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col=</span>  <span class="st">"blue"</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>glm.gaussian <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> gaussian, <span class="at">data =</span> strand)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>glm.poisson <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> poisson, <span class="at">data =</span> strand)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.gaussian)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.strand)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span> ,<span class="dv">1</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.strand, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strand<span class="sc">$</span>Temperatur, strand<span class="sc">$</span>Besucher, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col=</span>  <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GLMs definieren und anschauen</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>glm.gaussian <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> gaussian, <span class="at">data =</span> strand)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>glm.poisson <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> poisson, <span class="at">data =</span> strand)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.gaussian)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -704,7 +719,7 @@ AIC: 132.63
 
 Number of Fisher Scoring iterations: 2</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.poisson)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.poisson)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -729,69 +744,44 @@ AIC: 1185.1
 
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
-<div class="cell-output-display">
-<div id="fig-baseplots-lmglm-1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Statistik4_Demo_files/figure-html/fig-baseplots-lmglm-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.1: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-baseplots-lmglm-2" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Statistik4_Demo_files/figure-html/fig-baseplots-lmglm-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.2: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-baseplots-lmglm-3" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Statistik4_Demo_files/figure-html/fig-baseplots-lmglm-3.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.3: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
 </div>
 <p>Rücktranformation der Werte auf die orginale Skale (Hier Exponentialfunktion da family=possion als Link-Funktion den natürlichen Logarithmus (log) verwendet) Besucher = exp(3.50 + 0.11 Temperatur/°C)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplots-glm</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">3.500301</span>) <span class="co"># Anzahl besucher bei 0°C</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">3.500301</span>) <span class="co"># Anzahl besucher bei 0°C</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 33.12542</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(glm.poisson<span class="sc">$</span>coefficients[<span class="dv">1</span>]) <span class="co"># Werte aus Modell</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(glm.poisson<span class="sc">$</span>coefficients[<span class="dv">1</span>]) <span class="co"># Werte aus Modell</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
    33.12542 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">3.500301</span> <span class="sc">+</span> <span class="dv">30</span><span class="sc">*</span><span class="fl">0.112817</span>) <span class="co"># Anzahl besucher bei 30°C</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">3.500301</span> <span class="sc">+</span> <span class="dv">30</span><span class="sc">*</span><span class="fl">0.112817</span>) <span class="co"># Anzahl besucher bei 30°C</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 977.3169</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(glm.poisson<span class="sc">$</span>coeff[<span class="dv">1</span>] <span class="sc">*</span> glm.poisson<span class="sc">$</span>coeff[<span class="dv">2</span>]) <span class="co">#coefficients kann mit coeff abgekürzt werden</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(glm.poisson<span class="sc">$</span>coeff[<span class="dv">1</span>] <span class="sc">*</span> glm.poisson<span class="sc">$</span>coeff[<span class="dv">2</span>]) <span class="co">#coefficients kann mit coeff abgekürzt werden</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
    1.484225 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test Overdispersion</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(AER)){<span class="fu">install.packages</span>(<span class="st">"AER"</span>)}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in contrib.url(repos, "source"): versuche CRAN ohne einen Spiegelserver zu nutzen</code></pre>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test Overdispersion</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(AER)){<span class="fu">install.packages</span>(<span class="st">"AER"</span>)}</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(glm.poisson)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Overdispersion test
+
+data:  glm.poisson
+z = 3.8576, p-value = 5.726e-05
+alternative hypothesis: true dispersion is greater than 1
+sample estimates:
+dispersion 
+  116.5467 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in library(AER): es gibt kein Paket namens 'AER'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(glm.poisson)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in dispersiontest(glm.poisson): konnte Funktion "dispersiontest" nicht finden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>glm.quasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> quasipoisson, <span class="at">data =</span> strand)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.quasi)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>glm.quasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> quasipoisson, <span class="at">data =</span> strand)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.quasi)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -816,46 +806,58 @@ AIC: NA
 
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.gaussian, <span class="at">main =</span> <span class="st">"glm.gaussian"</span> )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.gaussian)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.poisson, <span class="at">main =</span> <span class="st">"glm.poisson"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.poisson)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.quasi)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.quasi, <span class="at">main =</span> <span class="st">"glm.quasi"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid" width="672"></p>
+<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strand<span class="sc">$</span>Temperatur, strand<span class="sc">$</span>Besucher, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>))</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.strand, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm.poisson, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, <span class="fu">exp</span>(yv2), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>yv3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm.quasi, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, <span class="fu">exp</span>(yv3), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strand<span class="sc">$</span>Temperatur, strand<span class="sc">$</span>Besucher, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.strand, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm.poisson, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, <span class="fu">exp</span>(yv2), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>yv3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm.quasi, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, <span class="fu">exp</span>(yv3), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid" width="672"></p>
+<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="logistische-regression" class="level2">
 <h2 class="anchored" data-anchor-id="logistische-regression">Logistische Regression</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>bathing <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"temperature"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">14</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">19</span>, <span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">26</span>, <span class="dv">27</span>, <span class="dv">28</span>, <span class="dv">29</span>),</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bathing"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bathing<span class="sc">~</span>temperature, <span class="at">data =</span> bathing)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>glm<span class="fl">.1</span><span class="ot">&lt;-</span><span class="fu">glm</span>(bathing<span class="sc">~</span>temperature, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> bathing)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>bathing <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"temperature"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">14</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">19</span>, <span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">26</span>, <span class="dv">27</span>, <span class="dv">28</span>, <span class="dv">29</span>),</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bathing"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bathing<span class="sc">~</span>temperature, <span class="at">data =</span> bathing)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>glm<span class="fl">.1</span><span class="ot">&lt;-</span><span class="fu">glm</span>(bathing<span class="sc">~</span>temperature, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> bathing)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -930,20 +932,7 @@ Number of Fisher Scoring iterations: 6</code></pre>
 <span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(model.predict<span class="sc">$</span>fit<span class="sc">+</span>model.predict<span class="sc">$</span>se.fit <span class="sc">~</span> xs, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(model.predict<span class="sc">$</span>fit<span class="sc">-</span>model.predict<span class="sc">$</span>se.fit <span class="sc">~</span> xs, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-baseplots-log-glm-1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Statistik4_Demo_files/figure-html/fig-baseplots-log-glm-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.4: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-baseplots-log-glm-2" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Statistik4_Demo_files/figure-html/fig-baseplots-log-glm-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.5: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
+<p><img src="Statistik4_Demo_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1057,7 +1046,7 @@ Achieved convergence tolerance: 4.371e-06</code></pre>
 <div id="fig-baseplots-nlr-glm-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik4_Demo_files/figure-html/fig-baseplots-nlr-glm-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.6: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.1: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1065,7 +1054,7 @@ Achieved convergence tolerance: 4.371e-06</code></pre>
 <div id="fig-baseplots-nlr-glm-2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik4_Demo_files/figure-html/fig-baseplots-nlr-glm-2.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.7: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.2: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1073,7 +1062,7 @@ Achieved convergence tolerance: 4.371e-06</code></pre>
 <div id="fig-baseplots-nlr-glm-3" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik4_Demo_files/figure-html/fig-baseplots-nlr-glm-3.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.8: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.3: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1081,7 +1070,7 @@ Achieved convergence tolerance: 4.371e-06</code></pre>
 <div id="fig-baseplots-nlr-glm-4" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik4_Demo_files/figure-html/fig-baseplots-nlr-glm-4.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.9: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.4: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1099,7 +1088,7 @@ Achieved convergence tolerance: 4.371e-06</code></pre>
 <div id="fig-baseplots-nlr-glm-smoother" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik4_Demo_files/figure-html/fig-baseplots-nlr-glm-smoother-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.10: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.5: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1187,7 +1176,7 @@ GCV = 52.145  Scale est. = 48.529    n = 56</code></pre>
 <div id="fig-baseplots-gam" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Statistik4_Demo_files/figure-html/fig-baseplots-gam-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.11: Generierter Plot</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;25.6: Generierter Plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1486,226 +1475,241 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat4: Demo</span></span>
 <span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
-<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz <span class="co">[</span><span class="ot">loyn.csv</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=604496)</span></span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Datensatz <span class="co">[</span><span class="ot">loyn.csv</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=604496)</span></span>
 <span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## von LMs zu GLMs</span></span>
 <span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb65-21"><a href="#cb65-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-22"><a href="#cb65-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplots-lmglm</span></span>
-<span id="cb65-23"><a href="#cb65-23" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb65-24"><a href="#cb65-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-25"><a href="#cb65-25" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span> ,<span class="dv">16</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">33</span>, <span class="dv">37</span>)</span>
-<span id="cb65-26"><a href="#cb65-26" aria-hidden="true" tabindex="-1"></a>besucher <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">12</span>, <span class="dv">50</span>, <span class="dv">500</span>, <span class="dv">400</span>, <span class="dv">900</span>, <span class="dv">1500</span>, <span class="dv">900</span>, <span class="dv">2000</span>)</span>
-<span id="cb65-27"><a href="#cb65-27" aria-hidden="true" tabindex="-1"></a>strand <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"Temperatur"</span> <span class="ot">=</span> temp, <span class="st">"Besucher"</span> <span class="ot">=</span> besucher)</span>
-<span id="cb65-28"><a href="#cb65-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-29"><a href="#cb65-29" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(besucher<span class="sc">~</span>temp, <span class="at">data =</span> strand)</span>
-<span id="cb65-30"><a href="#cb65-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-31"><a href="#cb65-31" aria-hidden="true" tabindex="-1"></a>lm.strand <span class="ot">&lt;-</span> <span class="fu">lm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">data =</span> strand)</span>
-<span id="cb65-32"><a href="#cb65-32" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.strand)</span>
-<span id="cb65-33"><a href="#cb65-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-34"><a href="#cb65-34" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb65-35"><a href="#cb65-35" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.strand)</span>
+<span id="cb65-22"><a href="#cb65-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten erstellen und anschauen</span></span>
+<span id="cb65-23"><a href="#cb65-23" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span> ,<span class="dv">16</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">33</span>, <span class="dv">37</span>)</span>
+<span id="cb65-24"><a href="#cb65-24" aria-hidden="true" tabindex="-1"></a>besucher <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">12</span>, <span class="dv">50</span>, <span class="dv">500</span>, <span class="dv">400</span>, <span class="dv">900</span>, <span class="dv">1500</span>, <span class="dv">900</span>, <span class="dv">2000</span>)</span>
+<span id="cb65-25"><a href="#cb65-25" aria-hidden="true" tabindex="-1"></a>strand <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"Temperatur"</span> <span class="ot">=</span> temp, <span class="st">"Besucher"</span> <span class="ot">=</span> besucher)</span>
+<span id="cb65-26"><a href="#cb65-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-27"><a href="#cb65-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(besucher<span class="sc">~</span>temp, <span class="at">data =</span> strand)</span>
+<span id="cb65-28"><a href="#cb65-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-29"><a href="#cb65-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-32"><a href="#cb65-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-33"><a href="#cb65-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Modell definieren und anschauen</span></span>
+<span id="cb65-34"><a href="#cb65-34" aria-hidden="true" tabindex="-1"></a>lm.strand <span class="ot">&lt;-</span> <span class="fu">lm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">data =</span> strand)</span>
+<span id="cb65-35"><a href="#cb65-35" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.strand)</span>
 <span id="cb65-36"><a href="#cb65-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-37"><a href="#cb65-37" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span> ,<span class="dv">1</span>))</span>
-<span id="cb65-38"><a href="#cb65-38" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
-<span id="cb65-39"><a href="#cb65-39" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.strand, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
-<span id="cb65-40"><a href="#cb65-40" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strand<span class="sc">$</span>Temperatur, strand<span class="sc">$</span>Besucher, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>))</span>
-<span id="cb65-41"><a href="#cb65-41" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col=</span>  <span class="st">"blue"</span>)</span>
-<span id="cb65-42"><a href="#cb65-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-43"><a href="#cb65-43" aria-hidden="true" tabindex="-1"></a>glm.gaussian <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> gaussian, <span class="at">data =</span> strand)</span>
-<span id="cb65-44"><a href="#cb65-44" aria-hidden="true" tabindex="-1"></a>glm.poisson <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> poisson, <span class="at">data =</span> strand)</span>
-<span id="cb65-45"><a href="#cb65-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-46"><a href="#cb65-46" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.gaussian)</span>
-<span id="cb65-47"><a href="#cb65-47" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.poisson)</span>
-<span id="cb65-48"><a href="#cb65-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-49"><a href="#cb65-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-50"><a href="#cb65-50" aria-hidden="true" tabindex="-1"></a>Rücktranformation der Werte auf die orginale Skale (Hier Exponentialfunktion da family=possion als Link-Funktion den natürlichen Logarithmus (log) verwendet)</span>
-<span id="cb65-51"><a href="#cb65-51" aria-hidden="true" tabindex="-1"></a>Besucher = exp(3.50 + 0.11 Temperatur/°C)</span>
-<span id="cb65-52"><a href="#cb65-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-55"><a href="#cb65-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-56"><a href="#cb65-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplots-glm</span></span>
-<span id="cb65-57"><a href="#cb65-57" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb65-58"><a href="#cb65-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-59"><a href="#cb65-59" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">3.500301</span>) <span class="co"># Anzahl besucher bei 0°C</span></span>
-<span id="cb65-60"><a href="#cb65-60" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(glm.poisson<span class="sc">$</span>coefficients[<span class="dv">1</span>]) <span class="co"># Werte aus Modell</span></span>
-<span id="cb65-61"><a href="#cb65-61" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">3.500301</span> <span class="sc">+</span> <span class="dv">30</span><span class="sc">*</span><span class="fl">0.112817</span>) <span class="co"># Anzahl besucher bei 30°C</span></span>
-<span id="cb65-62"><a href="#cb65-62" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(glm.poisson<span class="sc">$</span>coeff[<span class="dv">1</span>] <span class="sc">*</span> glm.poisson<span class="sc">$</span>coeff[<span class="dv">2</span>]) <span class="co">#coefficients kann mit coeff abgekürzt werden</span></span>
+<span id="cb65-37"><a href="#cb65-37" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb65-38"><a href="#cb65-38" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.strand)</span>
+<span id="cb65-39"><a href="#cb65-39" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-40"><a href="#cb65-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-43"><a href="#cb65-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-44"><a href="#cb65-44" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span> ,<span class="dv">1</span>))</span>
+<span id="cb65-45"><a href="#cb65-45" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
+<span id="cb65-46"><a href="#cb65-46" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.strand, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
+<span id="cb65-47"><a href="#cb65-47" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strand<span class="sc">$</span>Temperatur, strand<span class="sc">$</span>Besucher, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>))</span>
+<span id="cb65-48"><a href="#cb65-48" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col=</span>  <span class="st">"blue"</span>)</span>
+<span id="cb65-49"><a href="#cb65-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-50"><a href="#cb65-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-53"><a href="#cb65-53" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-54"><a href="#cb65-54" aria-hidden="true" tabindex="-1"></a><span class="co"># GLMs definieren und anschauen</span></span>
+<span id="cb65-55"><a href="#cb65-55" aria-hidden="true" tabindex="-1"></a>glm.gaussian <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> gaussian, <span class="at">data =</span> strand)</span>
+<span id="cb65-56"><a href="#cb65-56" aria-hidden="true" tabindex="-1"></a>glm.poisson <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> poisson, <span class="at">data =</span> strand)</span>
+<span id="cb65-57"><a href="#cb65-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-58"><a href="#cb65-58" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.gaussian)</span>
+<span id="cb65-59"><a href="#cb65-59" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.poisson)</span>
+<span id="cb65-60"><a href="#cb65-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-61"><a href="#cb65-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-62"><a href="#cb65-62" aria-hidden="true" tabindex="-1"></a>Rücktranformation der Werte auf die orginale Skale (Hier Exponentialfunktion da family=possion als Link-Funktion den natürlichen Logarithmus (log) verwendet) Besucher = exp(3.50 + 0.11 Temperatur/°C)</span>
 <span id="cb65-63"><a href="#cb65-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-64"><a href="#cb65-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Test Overdispersion</span></span>
-<span id="cb65-65"><a href="#cb65-65" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(AER)){<span class="fu">install.packages</span>(<span class="st">"AER"</span>)}</span>
-<span id="cb65-66"><a href="#cb65-66" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
-<span id="cb65-67"><a href="#cb65-67" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(glm.poisson)</span>
-<span id="cb65-68"><a href="#cb65-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-69"><a href="#cb65-69" aria-hidden="true" tabindex="-1"></a>glm.quasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> quasipoisson, <span class="at">data =</span> strand)</span>
-<span id="cb65-70"><a href="#cb65-70" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.quasi)</span>
+<span id="cb65-66"><a href="#cb65-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-67"><a href="#cb65-67" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">3.500301</span>) <span class="co"># Anzahl besucher bei 0°C</span></span>
+<span id="cb65-68"><a href="#cb65-68" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(glm.poisson<span class="sc">$</span>coefficients[<span class="dv">1</span>]) <span class="co"># Werte aus Modell</span></span>
+<span id="cb65-69"><a href="#cb65-69" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">3.500301</span> <span class="sc">+</span> <span class="dv">30</span><span class="sc">*</span><span class="fl">0.112817</span>) <span class="co"># Anzahl besucher bei 30°C</span></span>
+<span id="cb65-70"><a href="#cb65-70" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(glm.poisson<span class="sc">$</span>coeff[<span class="dv">1</span>] <span class="sc">*</span> glm.poisson<span class="sc">$</span>coeff[<span class="dv">2</span>]) <span class="co">#coefficients kann mit coeff abgekürzt werden</span></span>
 <span id="cb65-71"><a href="#cb65-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-72"><a href="#cb65-72" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb65-73"><a href="#cb65-73" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.gaussian)</span>
-<span id="cb65-74"><a href="#cb65-74" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.poisson)</span>
-<span id="cb65-75"><a href="#cb65-75" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.quasi)</span>
+<span id="cb65-72"><a href="#cb65-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Test Overdispersion</span></span>
+<span id="cb65-73"><a href="#cb65-73" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(AER)){<span class="fu">install.packages</span>(<span class="st">"AER"</span>)}</span>
+<span id="cb65-74"><a href="#cb65-74" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb65-75"><a href="#cb65-75" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(glm.poisson)</span>
 <span id="cb65-76"><a href="#cb65-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-77"><a href="#cb65-77" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb65-78"><a href="#cb65-78" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strand<span class="sc">$</span>Temperatur, strand<span class="sc">$</span>Besucher, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>))</span>
-<span id="cb65-79"><a href="#cb65-79" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
-<span id="cb65-80"><a href="#cb65-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-81"><a href="#cb65-81" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.strand, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
-<span id="cb65-82"><a href="#cb65-82" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb65-83"><a href="#cb65-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-84"><a href="#cb65-84" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm.poisson, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
-<span id="cb65-85"><a href="#cb65-85" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, <span class="fu">exp</span>(yv2), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb65-86"><a href="#cb65-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-87"><a href="#cb65-87" aria-hidden="true" tabindex="-1"></a>yv3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm.quasi, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
-<span id="cb65-88"><a href="#cb65-88" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, <span class="fu">exp</span>(yv3), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb65-89"><a href="#cb65-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-90"><a href="#cb65-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-91"><a href="#cb65-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Logistische Regression</span></span>
-<span id="cb65-92"><a href="#cb65-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-95"><a href="#cb65-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-96"><a href="#cb65-96" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplots-log-glm</span></span>
-<span id="cb65-97"><a href="#cb65-97" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb65-98"><a href="#cb65-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-99"><a href="#cb65-99" aria-hidden="true" tabindex="-1"></a>bathing <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb65-100"><a href="#cb65-100" aria-hidden="true" tabindex="-1"></a>  <span class="st">"temperature"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">14</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">19</span>, <span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">26</span>, <span class="dv">27</span>, <span class="dv">28</span>, <span class="dv">29</span>),</span>
-<span id="cb65-101"><a href="#cb65-101" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bathing"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb65-102"><a href="#cb65-102" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bathing<span class="sc">~</span>temperature, <span class="at">data =</span> bathing)</span>
+<span id="cb65-77"><a href="#cb65-77" aria-hidden="true" tabindex="-1"></a>glm.quasi <span class="ot">&lt;-</span> <span class="fu">glm</span>(Besucher<span class="sc">~</span>Temperatur, <span class="at">family =</span> quasipoisson, <span class="at">data =</span> strand)</span>
+<span id="cb65-78"><a href="#cb65-78" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.quasi)</span>
+<span id="cb65-79"><a href="#cb65-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-80"><a href="#cb65-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-81"><a href="#cb65-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-84"><a href="#cb65-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-85"><a href="#cb65-85" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb65-86"><a href="#cb65-86" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.gaussian, <span class="at">main =</span> <span class="st">"glm.gaussian"</span> )</span>
+<span id="cb65-87"><a href="#cb65-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-88"><a href="#cb65-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-91"><a href="#cb65-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-92"><a href="#cb65-92" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb65-93"><a href="#cb65-93" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.poisson, <span class="at">main =</span> <span class="st">"glm.poisson"</span>)</span>
+<span id="cb65-94"><a href="#cb65-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-95"><a href="#cb65-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-98"><a href="#cb65-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-99"><a href="#cb65-99" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb65-100"><a href="#cb65-100" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glm.quasi, <span class="at">main =</span> <span class="st">"glm.quasi"</span>)</span>
+<span id="cb65-101"><a href="#cb65-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-102"><a href="#cb65-102" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb65-103"><a href="#cb65-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-104"><a href="#cb65-104" aria-hidden="true" tabindex="-1"></a>glm<span class="fl">.1</span><span class="ot">&lt;-</span><span class="fu">glm</span>(bathing<span class="sc">~</span>temperature, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> bathing)</span>
-<span id="cb65-105"><a href="#cb65-105" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm<span class="fl">.1</span>)</span>
-<span id="cb65-106"><a href="#cb65-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-107"><a href="#cb65-107" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeldiagnostik (wenn nicht signifikant, dann OK)</span></span>
-<span id="cb65-108"><a href="#cb65-108" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span> (glm<span class="fl">.1</span><span class="sc">$</span>deviance, glm<span class="fl">.1</span><span class="sc">$</span>df.resid)</span>
-<span id="cb65-109"><a href="#cb65-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-110"><a href="#cb65-110" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellgüte (pseudo-R²)</span></span>
-<span id="cb65-111"><a href="#cb65-111" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (glm<span class="fl">.1</span><span class="sc">$</span>dev <span class="sc">/</span> glm<span class="fl">.1</span><span class="sc">$</span>null)</span>
-<span id="cb65-112"><a href="#cb65-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-113"><a href="#cb65-113" aria-hidden="true" tabindex="-1"></a><span class="co"># Steilheit der Beziehung (relative Änderung der odds bei x + 1 vs. x)</span></span>
-<span id="cb65-114"><a href="#cb65-114" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(glm<span class="fl">.1</span><span class="sc">$</span>coefficients[<span class="dv">2</span>])</span>
-<span id="cb65-115"><a href="#cb65-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-116"><a href="#cb65-116" aria-hidden="true" tabindex="-1"></a><span class="co"># LD50 (also hier: Temperatur, bei der 50% der Touristen baden)</span></span>
-<span id="cb65-117"><a href="#cb65-117" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>glm<span class="fl">.1</span><span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">/</span> glm<span class="fl">.1</span><span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
-<span id="cb65-118"><a href="#cb65-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-119"><a href="#cb65-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Vorhersagen</span></span>
-<span id="cb65-120"><a href="#cb65-120" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb65-104"><a href="#cb65-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-107"><a href="#cb65-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-108"><a href="#cb65-108" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb65-109"><a href="#cb65-109" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strand<span class="sc">$</span>Temperatur, strand<span class="sc">$</span>Besucher, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>))</span>
+<span id="cb65-110"><a href="#cb65-110" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="at">by =</span> .<span class="dv">1</span>)</span>
+<span id="cb65-111"><a href="#cb65-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-112"><a href="#cb65-112" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.strand, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
+<span id="cb65-113"><a href="#cb65-113" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb65-114"><a href="#cb65-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-115"><a href="#cb65-115" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm.poisson, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
+<span id="cb65-116"><a href="#cb65-116" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, <span class="fu">exp</span>(yv2), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb65-117"><a href="#cb65-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-118"><a href="#cb65-118" aria-hidden="true" tabindex="-1"></a>yv3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm.quasi, <span class="fu">list</span>(<span class="at">Temperatur =</span> xv))</span>
+<span id="cb65-119"><a href="#cb65-119" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, <span class="fu">exp</span>(yv3), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb65-120"><a href="#cb65-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-121"><a href="#cb65-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-122"><a href="#cb65-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Konfusionsmatrix</span></span>
-<span id="cb65-123"><a href="#cb65-123" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">table</span>(bathing<span class="sc">$</span>bathing, predicted <span class="sc">&gt;</span> <span class="fl">0.5</span>)</span>
-<span id="cb65-124"><a href="#cb65-124" aria-hidden="true" tabindex="-1"></a>km</span>
-<span id="cb65-125"><a href="#cb65-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-126"><a href="#cb65-126" aria-hidden="true" tabindex="-1"></a><span class="co"># Missklassifizierungsrate</span></span>
-<span id="cb65-127"><a href="#cb65-127" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(km) <span class="sc">/</span> <span class="fu">sum</span>(km))</span>
-<span id="cb65-128"><a href="#cb65-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-129"><a href="#cb65-129" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting</span></span>
-<span id="cb65-130"><a href="#cb65-130" aria-hidden="true" tabindex="-1"></a>xs <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="at">l =</span> <span class="dv">1000</span>)</span>
-<span id="cb65-131"><a href="#cb65-131" aria-hidden="true" tabindex="-1"></a>model.predict <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se =</span> T, </span>
-<span id="cb65-132"><a href="#cb65-132" aria-hidden="true" tabindex="-1"></a>                         <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">temperature =</span> xs))</span>
-<span id="cb65-133"><a href="#cb65-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-134"><a href="#cb65-134" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bathing<span class="sc">~</span>temperature, <span class="at">xlab =</span> <span class="st">"Temperature (°C)"</span>, </span>
-<span id="cb65-135"><a href="#cb65-135" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"% Bathing"</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">data =</span> bathing)</span>
-<span id="cb65-136"><a href="#cb65-136" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(model.predict<span class="sc">$</span>fit <span class="sc">~</span> xs, <span class="at">type=</span><span class="st">"l"</span>)</span>
-<span id="cb65-137"><a href="#cb65-137" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(model.predict<span class="sc">$</span>fit<span class="sc">+</span>model.predict<span class="sc">$</span>se.fit <span class="sc">~</span> xs, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb65-138"><a href="#cb65-138" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(model.predict<span class="sc">$</span>fit<span class="sc">-</span>model.predict<span class="sc">$</span>se.fit <span class="sc">~</span> xs, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb65-139"><a href="#cb65-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-140"><a href="#cb65-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-141"><a href="#cb65-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## Nicht-lineare Regression </span></span>
-<span id="cb65-142"><a href="#cb65-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-145"><a href="#cb65-145" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-146"><a href="#cb65-146" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplots-nlr-glm</span></span>
-<span id="cb65-147"><a href="#cb65-147" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb65-148"><a href="#cb65-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-149"><a href="#cb65-149" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(AICcmodavg)){<span class="fu">install.packages</span>(<span class="st">"AICcmodavg"</span>)}</span>
-<span id="cb65-150"><a href="#cb65-150" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(nlstools)){<span class="fu">install.packages</span>(<span class="st">"nlstools"</span>)}</span>
-<span id="cb65-151"><a href="#cb65-151" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AICcmodavg)</span>
-<span id="cb65-152"><a href="#cb65-152" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlstools)</span>
-<span id="cb65-153"><a href="#cb65-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-154"><a href="#cb65-154" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>) <span class="co"># Verzeichnis muss dort gesetzt sein wo Daten sind</span></span>
-<span id="cb65-155"><a href="#cb65-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-156"><a href="#cb65-156" aria-hidden="true" tabindex="-1"></a><span class="co">#Selbstdefinierte Funktion, hier Potenzfunktion</span></span>
-<span id="cb65-157"><a href="#cb65-157" aria-hidden="true" tabindex="-1"></a>power.model <span class="ot">&lt;-</span> <span class="fu">nls</span>(ABUND<span class="sc">~</span>c<span class="sc">*</span>AREA<span class="sc">^</span>z, <span class="at">start =</span> (<span class="fu">list</span>(<span class="at">c =</span> <span class="dv">1</span>, <span class="at">z =</span> <span class="dv">0</span>)), <span class="at">data =</span> loyn)</span>
-<span id="cb65-158"><a href="#cb65-158" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(power.model)</span>
-<span id="cb65-159"><a href="#cb65-159" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(power.model)</span>
-<span id="cb65-160"><a href="#cb65-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-161"><a href="#cb65-161" aria-hidden="true" tabindex="-1"></a><span class="co">#Modeldiagnostik (in nlstools)</span></span>
-<span id="cb65-162"><a href="#cb65-162" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">nlsResiduals</span>(power.model))</span>
-<span id="cb65-163"><a href="#cb65-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-164"><a href="#cb65-164" aria-hidden="true" tabindex="-1"></a><span class="co">#Vordefinierte "Selbststartfunktionen"#</span></span>
-<span id="cb65-165"><a href="#cb65-165" aria-hidden="true" tabindex="-1"></a>?selfStart</span>
-<span id="cb65-166"><a href="#cb65-166" aria-hidden="true" tabindex="-1"></a>logistic.model <span class="ot">&lt;-</span> <span class="fu">nls</span>(ABUND<span class="sc">~</span><span class="fu">SSlogis</span>(AREA, Asym, xmid, scal), <span class="at">data =</span> loyn)</span>
-<span id="cb65-167"><a href="#cb65-167" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logistic.model)</span>
-<span id="cb65-168"><a href="#cb65-168" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(logistic.model)</span>
+<span id="cb65-122"><a href="#cb65-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-123"><a href="#cb65-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## Logistische Regression</span></span>
+<span id="cb65-124"><a href="#cb65-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-127"><a href="#cb65-127" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-128"><a href="#cb65-128" aria-hidden="true" tabindex="-1"></a>bathing <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb65-129"><a href="#cb65-129" aria-hidden="true" tabindex="-1"></a>  <span class="st">"temperature"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">14</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">19</span>, <span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">26</span>, <span class="dv">27</span>, <span class="dv">28</span>, <span class="dv">29</span>),</span>
+<span id="cb65-130"><a href="#cb65-130" aria-hidden="true" tabindex="-1"></a>  <span class="st">"bathing"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb65-131"><a href="#cb65-131" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bathing<span class="sc">~</span>temperature, <span class="at">data =</span> bathing)</span>
+<span id="cb65-132"><a href="#cb65-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-133"><a href="#cb65-133" aria-hidden="true" tabindex="-1"></a>glm<span class="fl">.1</span><span class="ot">&lt;-</span><span class="fu">glm</span>(bathing<span class="sc">~</span>temperature, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> bathing)</span>
+<span id="cb65-134"><a href="#cb65-134" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm<span class="fl">.1</span>)</span>
+<span id="cb65-135"><a href="#cb65-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-136"><a href="#cb65-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeldiagnostik (wenn nicht signifikant, dann OK)</span></span>
+<span id="cb65-137"><a href="#cb65-137" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span> (glm<span class="fl">.1</span><span class="sc">$</span>deviance, glm<span class="fl">.1</span><span class="sc">$</span>df.resid)</span>
+<span id="cb65-138"><a href="#cb65-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-139"><a href="#cb65-139" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellgüte (pseudo-R²)</span></span>
+<span id="cb65-140"><a href="#cb65-140" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (glm<span class="fl">.1</span><span class="sc">$</span>dev <span class="sc">/</span> glm<span class="fl">.1</span><span class="sc">$</span>null)</span>
+<span id="cb65-141"><a href="#cb65-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-142"><a href="#cb65-142" aria-hidden="true" tabindex="-1"></a><span class="co"># Steilheit der Beziehung (relative Änderung der odds bei x + 1 vs. x)</span></span>
+<span id="cb65-143"><a href="#cb65-143" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(glm<span class="fl">.1</span><span class="sc">$</span>coefficients[<span class="dv">2</span>])</span>
+<span id="cb65-144"><a href="#cb65-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-145"><a href="#cb65-145" aria-hidden="true" tabindex="-1"></a><span class="co"># LD50 (also hier: Temperatur, bei der 50% der Touristen baden)</span></span>
+<span id="cb65-146"><a href="#cb65-146" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>glm<span class="fl">.1</span><span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">/</span> glm<span class="fl">.1</span><span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb65-147"><a href="#cb65-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-148"><a href="#cb65-148" aria-hidden="true" tabindex="-1"></a><span class="co"># Vorhersagen</span></span>
+<span id="cb65-149"><a href="#cb65-149" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb65-150"><a href="#cb65-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-151"><a href="#cb65-151" aria-hidden="true" tabindex="-1"></a><span class="co"># Konfusionsmatrix</span></span>
+<span id="cb65-152"><a href="#cb65-152" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">table</span>(bathing<span class="sc">$</span>bathing, predicted <span class="sc">&gt;</span> <span class="fl">0.5</span>)</span>
+<span id="cb65-153"><a href="#cb65-153" aria-hidden="true" tabindex="-1"></a>km</span>
+<span id="cb65-154"><a href="#cb65-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-155"><a href="#cb65-155" aria-hidden="true" tabindex="-1"></a><span class="co"># Missklassifizierungsrate</span></span>
+<span id="cb65-156"><a href="#cb65-156" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(km) <span class="sc">/</span> <span class="fu">sum</span>(km))</span>
+<span id="cb65-157"><a href="#cb65-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-158"><a href="#cb65-158" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting</span></span>
+<span id="cb65-159"><a href="#cb65-159" aria-hidden="true" tabindex="-1"></a>xs <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="at">l =</span> <span class="dv">1000</span>)</span>
+<span id="cb65-160"><a href="#cb65-160" aria-hidden="true" tabindex="-1"></a>model.predict <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se =</span> T, </span>
+<span id="cb65-161"><a href="#cb65-161" aria-hidden="true" tabindex="-1"></a>                         <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">temperature =</span> xs))</span>
+<span id="cb65-162"><a href="#cb65-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-163"><a href="#cb65-163" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bathing<span class="sc">~</span>temperature, <span class="at">xlab =</span> <span class="st">"Temperature (°C)"</span>, </span>
+<span id="cb65-164"><a href="#cb65-164" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"% Bathing"</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">data =</span> bathing)</span>
+<span id="cb65-165"><a href="#cb65-165" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(model.predict<span class="sc">$</span>fit <span class="sc">~</span> xs, <span class="at">type=</span><span class="st">"l"</span>)</span>
+<span id="cb65-166"><a href="#cb65-166" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(model.predict<span class="sc">$</span>fit<span class="sc">+</span>model.predict<span class="sc">$</span>se.fit <span class="sc">~</span> xs, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb65-167"><a href="#cb65-167" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(model.predict<span class="sc">$</span>fit<span class="sc">-</span>model.predict<span class="sc">$</span>se.fit <span class="sc">~</span> xs, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb65-168"><a href="#cb65-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb65-169"><a href="#cb65-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-170"><a href="#cb65-170" aria-hidden="true" tabindex="-1"></a><span class="co">#Modeldiagnostik (in nlstools)</span></span>
-<span id="cb65-171"><a href="#cb65-171" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">nlsResiduals</span>(logistic.model))</span>
-<span id="cb65-172"><a href="#cb65-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-173"><a href="#cb65-173" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualisierung</span></span>
-<span id="cb65-174"><a href="#cb65-174" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND<span class="sc">~</span>AREA, <span class="at">data =</span> loyn)</span>
-<span id="cb65-175"><a href="#cb65-175" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb65-176"><a href="#cb65-176" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2000</span>, <span class="fl">0.01</span>)</span>
+<span id="cb65-170"><a href="#cb65-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## Nicht-lineare Regression</span></span>
+<span id="cb65-171"><a href="#cb65-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-174"><a href="#cb65-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-175"><a href="#cb65-175" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplots-nlr-glm</span></span>
+<span id="cb65-176"><a href="#cb65-176" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
 <span id="cb65-177"><a href="#cb65-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-178"><a href="#cb65-178" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Potenzfunktion</span></span>
-<span id="cb65-179"><a href="#cb65-179" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(power.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
-<span id="cb65-180"><a href="#cb65-180" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv1, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb65-181"><a href="#cb65-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-182"><a href="#cb65-182" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Logistische Funktion</span></span>
-<span id="cb65-183"><a href="#cb65-183" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
-<span id="cb65-184"><a href="#cb65-184" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb65-185"><a href="#cb65-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-186"><a href="#cb65-186" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualisierung II</span></span>
-<span id="cb65-187"><a href="#cb65-187" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND<span class="sc">~</span><span class="fu">log10</span>(AREA), <span class="at">data =</span> loyn)</span>
-<span id="cb65-188"><a href="#cb65-188" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb65-178"><a href="#cb65-178" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(AICcmodavg)){<span class="fu">install.packages</span>(<span class="st">"AICcmodavg"</span>)}</span>
+<span id="cb65-179"><a href="#cb65-179" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(nlstools)){<span class="fu">install.packages</span>(<span class="st">"nlstools"</span>)}</span>
+<span id="cb65-180"><a href="#cb65-180" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AICcmodavg)</span>
+<span id="cb65-181"><a href="#cb65-181" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlstools)</span>
+<span id="cb65-182"><a href="#cb65-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-183"><a href="#cb65-183" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>) <span class="co"># Verzeichnis muss dort gesetzt sein wo Daten sind</span></span>
+<span id="cb65-184"><a href="#cb65-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-185"><a href="#cb65-185" aria-hidden="true" tabindex="-1"></a><span class="co">#Selbstdefinierte Funktion, hier Potenzfunktion</span></span>
+<span id="cb65-186"><a href="#cb65-186" aria-hidden="true" tabindex="-1"></a>power.model <span class="ot">&lt;-</span> <span class="fu">nls</span>(ABUND<span class="sc">~</span>c<span class="sc">*</span>AREA<span class="sc">^</span>z, <span class="at">start =</span> (<span class="fu">list</span>(<span class="at">c =</span> <span class="dv">1</span>, <span class="at">z =</span> <span class="dv">0</span>)), <span class="at">data =</span> loyn)</span>
+<span id="cb65-187"><a href="#cb65-187" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(power.model)</span>
+<span id="cb65-188"><a href="#cb65-188" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(power.model)</span>
 <span id="cb65-189"><a href="#cb65-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-190"><a href="#cb65-190" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Potenzfunktion</span></span>
-<span id="cb65-191"><a href="#cb65-191" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(power.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
-<span id="cb65-192"><a href="#cb65-192" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">log10</span>(xv), yv1, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb65-193"><a href="#cb65-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-194"><a href="#cb65-194" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Logistische Funktion</span></span>
-<span id="cb65-195"><a href="#cb65-195" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
-<span id="cb65-196"><a href="#cb65-196" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">log10</span>(xv), yv2, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb65-197"><a href="#cb65-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-198"><a href="#cb65-198" aria-hidden="true" tabindex="-1"></a><span class="co">#Model seletkion zwischen den nicht-lineraen Modelen</span></span>
-<span id="cb65-199"><a href="#cb65-199" aria-hidden="true" tabindex="-1"></a>cand.models<span class="ot">&lt;-</span><span class="fu">list</span>()</span>
-<span id="cb65-200"><a href="#cb65-200" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> power.model</span>
-<span id="cb65-201"><a href="#cb65-201" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> logistic.model</span>
-<span id="cb65-202"><a href="#cb65-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-203"><a href="#cb65-203" aria-hidden="true" tabindex="-1"></a>Modnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Power"</span>, <span class="st">"Logistic"</span>)</span>
-<span id="cb65-204"><a href="#cb65-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-205"><a href="#cb65-205" aria-hidden="true" tabindex="-1"></a><span class="fu">aictab</span>(<span class="at">cand.set =</span> cand.models, <span class="at">modnames =</span> Modnames)</span>
-<span id="cb65-206"><a href="#cb65-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb65-207"><a href="#cb65-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-208"><a href="#cb65-208" aria-hidden="true" tabindex="-1"></a><span class="fu">## Smoother</span></span>
-<span id="cb65-209"><a href="#cb65-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-212"><a href="#cb65-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-213"><a href="#cb65-213" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplots-nlr-glm-smoother</span></span>
-<span id="cb65-214"><a href="#cb65-214" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb65-215"><a href="#cb65-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-216"><a href="#cb65-216" aria-hidden="true" tabindex="-1"></a>loyn<span class="sc">$</span>log_AREA<span class="ot">&lt;-</span><span class="fu">log10</span>(loyn<span class="sc">$</span>AREA)       </span>
-<span id="cb65-217"><a href="#cb65-217" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND<span class="sc">~</span>log_AREA, <span class="at">data =</span> loyn)</span>
-<span id="cb65-218"><a href="#cb65-218" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="fl">0.25</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb65-219"><a href="#cb65-219" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="fl">0.5</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb65-220"><a href="#cb65-220" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="dv">1</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb65-221"><a href="#cb65-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-190"><a href="#cb65-190" aria-hidden="true" tabindex="-1"></a><span class="co">#Modeldiagnostik (in nlstools)</span></span>
+<span id="cb65-191"><a href="#cb65-191" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">nlsResiduals</span>(power.model))</span>
+<span id="cb65-192"><a href="#cb65-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-193"><a href="#cb65-193" aria-hidden="true" tabindex="-1"></a><span class="co">#Vordefinierte "Selbststartfunktionen"#</span></span>
+<span id="cb65-194"><a href="#cb65-194" aria-hidden="true" tabindex="-1"></a>?selfStart</span>
+<span id="cb65-195"><a href="#cb65-195" aria-hidden="true" tabindex="-1"></a>logistic.model <span class="ot">&lt;-</span> <span class="fu">nls</span>(ABUND<span class="sc">~</span><span class="fu">SSlogis</span>(AREA, Asym, xmid, scal), <span class="at">data =</span> loyn)</span>
+<span id="cb65-196"><a href="#cb65-196" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logistic.model)</span>
+<span id="cb65-197"><a href="#cb65-197" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(logistic.model)</span>
+<span id="cb65-198"><a href="#cb65-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-199"><a href="#cb65-199" aria-hidden="true" tabindex="-1"></a><span class="co">#Modeldiagnostik (in nlstools)</span></span>
+<span id="cb65-200"><a href="#cb65-200" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">nlsResiduals</span>(logistic.model))</span>
+<span id="cb65-201"><a href="#cb65-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-202"><a href="#cb65-202" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualisierung</span></span>
+<span id="cb65-203"><a href="#cb65-203" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND<span class="sc">~</span>AREA, <span class="at">data =</span> loyn)</span>
+<span id="cb65-204"><a href="#cb65-204" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb65-205"><a href="#cb65-205" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2000</span>, <span class="fl">0.01</span>)</span>
+<span id="cb65-206"><a href="#cb65-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-207"><a href="#cb65-207" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Potenzfunktion</span></span>
+<span id="cb65-208"><a href="#cb65-208" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(power.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
+<span id="cb65-209"><a href="#cb65-209" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv1, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb65-210"><a href="#cb65-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-211"><a href="#cb65-211" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Logistische Funktion</span></span>
+<span id="cb65-212"><a href="#cb65-212" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
+<span id="cb65-213"><a href="#cb65-213" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb65-214"><a href="#cb65-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-215"><a href="#cb65-215" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualisierung II</span></span>
+<span id="cb65-216"><a href="#cb65-216" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND<span class="sc">~</span><span class="fu">log10</span>(AREA), <span class="at">data =</span> loyn)</span>
+<span id="cb65-217"><a href="#cb65-217" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb65-218"><a href="#cb65-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-219"><a href="#cb65-219" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Potenzfunktion</span></span>
+<span id="cb65-220"><a href="#cb65-220" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(power.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
+<span id="cb65-221"><a href="#cb65-221" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">log10</span>(xv), yv1, <span class="at">col =</span> <span class="st">"green"</span>)</span>
 <span id="cb65-222"><a href="#cb65-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-223"><a href="#cb65-223" aria-hidden="true" tabindex="-1"></a><span class="fu">## GAMs</span></span>
-<span id="cb65-224"><a href="#cb65-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-227"><a href="#cb65-227" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb65-228"><a href="#cb65-228" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplots-gam</span></span>
-<span id="cb65-229"><a href="#cb65-229" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb65-230"><a href="#cb65-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-231"><a href="#cb65-231" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(mgcv)){<span class="fu">install.packages</span>(<span class="st">"mgcv"</span>)}</span>
-<span id="cb65-232"><a href="#cb65-232" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
+<span id="cb65-223"><a href="#cb65-223" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Logistische Funktion</span></span>
+<span id="cb65-224"><a href="#cb65-224" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
+<span id="cb65-225"><a href="#cb65-225" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">log10</span>(xv), yv2, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb65-226"><a href="#cb65-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-227"><a href="#cb65-227" aria-hidden="true" tabindex="-1"></a><span class="co">#Model seletkion zwischen den nicht-lineraen Modelen</span></span>
+<span id="cb65-228"><a href="#cb65-228" aria-hidden="true" tabindex="-1"></a>cand.models<span class="ot">&lt;-</span><span class="fu">list</span>()</span>
+<span id="cb65-229"><a href="#cb65-229" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> power.model</span>
+<span id="cb65-230"><a href="#cb65-230" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> logistic.model</span>
+<span id="cb65-231"><a href="#cb65-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-232"><a href="#cb65-232" aria-hidden="true" tabindex="-1"></a>Modnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Power"</span>, <span class="st">"Logistic"</span>)</span>
 <span id="cb65-233"><a href="#cb65-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-234"><a href="#cb65-234" aria-hidden="true" tabindex="-1"></a>gam<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">gam</span>(ABUND<span class="sc">~</span><span class="fu">s</span>(log_AREA), <span class="at">data =</span> loyn)</span>
-<span id="cb65-235"><a href="#cb65-235" aria-hidden="true" tabindex="-1"></a>gam<span class="fl">.1</span></span>
-<span id="cb65-236"><a href="#cb65-236" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam<span class="fl">.1</span>)</span>
-<span id="cb65-237"><a href="#cb65-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-238"><a href="#cb65-238" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">pch =</span> <span class="dv">16</span>)</span>
-<span id="cb65-239"><a href="#cb65-239" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">4</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb65-240"><a href="#cb65-240" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(gam<span class="fl">.1</span>, <span class="fu">list</span>(<span class="at">log_AREA =</span> xv))</span>
-<span id="cb65-241"><a href="#cb65-241" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb65-242"><a href="#cb65-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-243"><a href="#cb65-243" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(gam<span class="fl">.1</span>)</span>
-<span id="cb65-244"><a href="#cb65-244" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam<span class="fl">.1</span>)</span>
-<span id="cb65-245"><a href="#cb65-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-234"><a href="#cb65-234" aria-hidden="true" tabindex="-1"></a><span class="fu">aictab</span>(<span class="at">cand.set =</span> cand.models, <span class="at">modnames =</span> Modnames)</span>
+<span id="cb65-235"><a href="#cb65-235" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-236"><a href="#cb65-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-237"><a href="#cb65-237" aria-hidden="true" tabindex="-1"></a><span class="fu">## Smoother</span></span>
+<span id="cb65-238"><a href="#cb65-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-241"><a href="#cb65-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-242"><a href="#cb65-242" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplots-nlr-glm-smoother</span></span>
+<span id="cb65-243"><a href="#cb65-243" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb65-244"><a href="#cb65-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-245"><a href="#cb65-245" aria-hidden="true" tabindex="-1"></a>loyn<span class="sc">$</span>log_AREA<span class="ot">&lt;-</span><span class="fu">log10</span>(loyn<span class="sc">$</span>AREA)       </span>
+<span id="cb65-246"><a href="#cb65-246" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND<span class="sc">~</span>log_AREA, <span class="at">data =</span> loyn)</span>
+<span id="cb65-247"><a href="#cb65-247" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="fl">0.25</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb65-248"><a href="#cb65-248" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="fl">0.5</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb65-249"><a href="#cb65-249" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="dv">1</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb65-250"><a href="#cb65-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb65-251"><a href="#cb65-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-252"><a href="#cb65-252" aria-hidden="true" tabindex="-1"></a><span class="fu">## GAMs</span></span>
+<span id="cb65-253"><a href="#cb65-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-256"><a href="#cb65-256" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb65-257"><a href="#cb65-257" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-baseplots-gam</span></span>
+<span id="cb65-258"><a href="#cb65-258" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb65-259"><a href="#cb65-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-260"><a href="#cb65-260" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(mgcv)){<span class="fu">install.packages</span>(<span class="st">"mgcv"</span>)}</span>
+<span id="cb65-261"><a href="#cb65-261" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
+<span id="cb65-262"><a href="#cb65-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-263"><a href="#cb65-263" aria-hidden="true" tabindex="-1"></a>gam<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">gam</span>(ABUND<span class="sc">~</span><span class="fu">s</span>(log_AREA), <span class="at">data =</span> loyn)</span>
+<span id="cb65-264"><a href="#cb65-264" aria-hidden="true" tabindex="-1"></a>gam<span class="fl">.1</span></span>
+<span id="cb65-265"><a href="#cb65-265" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam<span class="fl">.1</span>)</span>
+<span id="cb65-266"><a href="#cb65-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-267"><a href="#cb65-267" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb65-268"><a href="#cb65-268" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">4</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb65-269"><a href="#cb65-269" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(gam<span class="fl">.1</span>, <span class="fu">list</span>(<span class="at">log_AREA =</span> xv))</span>
+<span id="cb65-270"><a href="#cb65-270" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb65-271"><a href="#cb65-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-272"><a href="#cb65-272" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(gam<span class="fl">.1</span>)</span>
+<span id="cb65-273"><a href="#cb65-273" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam<span class="fl">.1</span>)</span>
+<span id="cb65-274"><a href="#cb65-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
