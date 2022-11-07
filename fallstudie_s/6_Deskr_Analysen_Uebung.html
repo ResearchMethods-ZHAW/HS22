@@ -646,7 +646,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-title">KW 43+44: Übung Deskriptiv</span></h1>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-title">KW 43+44: Übung Deskriptiv</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -828,6 +828,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 
 
+<!-- -->
+
 </section>
 </section>
 
@@ -993,6 +995,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -1054,7 +1107,620 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-title">KW 43+44: Lösung Deskriptiv</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># KW 43+44: Übung Deskriptiv</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r include=FALSE, echo = FALSE}</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Benoetigte Bibliotheken ####</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># Data wrangling und piping</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># Arbeiten mit Datumsformaten</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(suncalc)   <span class="co"># berechne Tageszeiten abhaengig vom Sonnenstand</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)    <span class="co"># to arrange multiple plots in one graph</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PerformanceAnalytics) <span class="co"># Plotte Korrelationsmatrix</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)     <span class="co"># Multi-Model Inference</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AICcmodavg)<span class="co"># Modellaverageing</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)<span class="co"># Prueft die Verteilung in Daten</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)      <span class="co"># Multivariate Modelle</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(blmeco)    <span class="co"># Bayesian data analysis using linear models</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)    <span class="co"># Plotten von Modellergebnissen (tab_model)</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)   <span class="co"># einfaches plotten von Zusammenhängen zwischen Variablen</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co"># definiere ein farbset zur wiedervewendung</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>mycolors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"orangered"</span>,<span class="st">"gold"</span>, <span class="st">"mediumvioletred"</span>, <span class="st">"darkblue"</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Start und Ende ####</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Untersuchungszeitraum, ich waehle hier das Jahr 2019 bis und mit Sommer 2021</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>depo_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-01-01"</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>depo_end <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-7-31"</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Start und Ende Lockdown</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co"># definieren, wichtig fuer die spaeteren Auswertungen</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>lock_1_start_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-03-16"</span>)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>lock_1_end_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-05-11"</span>)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>lock_2_start_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-12-22"</span>)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>lock_2_end_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-03-01"</span>)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Ebenfalls muessen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Diese werden bei Wochenweisen Analysen ebenfalls ausgeklammert da sie i.d.R. unvollstaendig sind</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>KW_start <span class="ot">&lt;-</span> <span class="fu">isoweek</span>(depo_start)</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>KW_end <span class="ot">&lt;-</span> <span class="fu">isoweek</span>(depo_end)</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Erster und letzter Tag der Ferien</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="co"># je nach Untersuchungsdauer muessen hier weitere oder andere Ferienzeiten ergaenzt werden</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="co"># (https://www.schulferien.org/schweiz/ferien/2020/)</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>Winterferien_2016_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-01-01"</span>) </span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>Winterferien_2016_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-01-08"</span>)</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2017_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-04-15"</span>) </span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2017_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-04-30"</span>) </span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>Sommerferien_2017_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-07-15"</span>) </span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>Sommerferien_2017_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-08-20"</span>) </span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>Herbstferien_2017_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-10-07"</span>) </span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>Herbstferien_2017_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-10-22"</span>) </span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>Winterferien_2017_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-12-23"</span>) </span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>Winterferien_2017_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-01-07"</span>) </span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2018_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-04-21"</span>) </span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2018_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-05-06"</span>) </span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>Sommerferien_2018_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-07-14"</span>) </span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>Sommerferien_2018_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-08-19"</span>) </span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>Herbstferien_2018_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-10-06"</span>) </span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>Herbstferien_2018_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-10-21"</span>) </span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>Winterferien_2018_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-12-22"</span>) </span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>Winterferien_2018_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-01-06"</span>) </span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-04-20"</span>) </span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-05-05"</span>) </span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>Sommerferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-07-13"</span>) </span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>Sommerferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-08-18"</span>) </span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>Herbstferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-10-05"</span>) </span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>Herbstferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-10-20"</span>) </span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>Winterferien_2019_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-12-21"</span>) </span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>Winterferien_2019_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-01-05"</span>)</span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-04-11"</span>)</span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-04-26"</span>)</span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>Sommerferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-07-11"</span>)</span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>Sommerferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-08-16"</span>)</span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a>Herbstferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-10-03"</span>)</span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>Herbstferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-10-18"</span>)</span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>Winterferien_2020_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-12-19"</span>)</span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>Winterferien_2020_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-01-03"</span>)</span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2021_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-04-24"</span>)</span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2021_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-05-09"</span>)</span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>Sommerferien_2021_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-07-17"</span>)</span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>Sommerferien_2021_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-08-22"</span>)</span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>Herbstferien_2021_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-10-09"</span>)</span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>Herbstferien_2021_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-10-24"</span>)</span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>Winterferien_2021_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-12-18"</span>)</span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>Winterferien_2021_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-01-02"</span>)</span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2022_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-04-16"</span>)</span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>Fruehlingsferien_2022_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-05-01"</span>)</span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>Sommerferien_2022_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-07-16"</span>)</span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>Sommerferien_2022_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-08-21"</span>)</span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>Herbstferien_2022_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-10-08"</span>)</span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>Herbstferien_2022_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-10-23"</span>)</span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>Winterferien_2022_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-12-24"</span>)</span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>Winterferien_2022_ende <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2023-01-08"</span>)</span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a><span class="co">#.################################################################################################</span></span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. DATENIMPORT #####</span></span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a><span class="co">#.################################################################################################</span></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Beim Daten einlesen koennen sogleich die Datentypen und erste Bereinigungen vorgenommen werden</span></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.1 Zaehldaten ####</span></span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Zaehldaten des Wildnispark wurden vorgaengig bereinigt. z.B. wurden Stundenwerte </span></span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a><span class="co"># entfernt, an denen am Zaehler Wartungsarbeiten stattgefunden haben.</span></span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a><span class="co"># lese die Daten ein </span></span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a><span class="co"># Je nach Bedarf muss der Speicherort sowie der Dateiname angepasst werden</span></span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./data/211_sihlwaldstrasse_2017_2022.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a><span class="co"># Hinweis zu den Daten:</span></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a><span class="co"># In hourly analysis format, the data at 11:00 am corresponds to the counts saved between </span></span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a><span class="co"># 11:00 am and 12:00 am.</span></span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Anpassen der Datentypen und erstes Sichten</span></span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(depo)</span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span></span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Datum =</span> <span class="fu">as.character</span>(Datum)) <span class="sc">|&gt;</span></span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Datum =</span> <span class="fu">as.Date</span>(Datum, <span class="at">format =</span> <span class="st">"%Y%m%d"</span>))</span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Schneide das df auf den gewuenschten Zeitraum zu</span></span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(Datum &gt;= depo_start, Datum &lt;=  depo_end) # das Komma hat die gleiche Funktion wie ein &amp;</span></span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a><span class="co"># In dieser Auswertung werden nur Personen zu Fuss betrachtet!</span></span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a><span class="co"># it select werden spalten ausgewaehlt oder eben fallengelassen</span></span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Velo_IN, Velo_OUT))</span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnen des Totals, da dieses in den Daten nicht vorhanden ist</span></span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo<span class="sc">|&gt;</span></span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total =</span> Fuss_IN <span class="sc">+</span> Fuss_OUT)</span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Entferne die NA's in dem df.</span></span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(depo)</span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.2 Meteodaten ####</span></span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a><span class="co"># Einlesen</span></span>
+<span id="cb8-141"><a href="#cb8-141" aria-hidden="true" tabindex="-1"></a>meteo <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./data/order_105742_data.txt"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-143"><a href="#cb8-143" aria-hidden="true" tabindex="-1"></a><span class="co"># Datentypen setzen</span></span>
+<span id="cb8-144"><a href="#cb8-144" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Datum wird als Integer erkannt. Zuerst muss es in Text umgewaldelt werden aus dem dann</span></span>
+<span id="cb8-145"><a href="#cb8-145" aria-hidden="true" tabindex="-1"></a><span class="co"># das eigentliche Datum herausgelesen werden kann</span></span>
+<span id="cb8-146"><a href="#cb8-146" aria-hidden="true" tabindex="-1"></a>meteo <span class="ot">&lt;-</span> <span class="fu">transform</span>(meteo, <span class="at">time =</span> <span class="fu">as.Date</span>(<span class="fu">as.character</span>(time), <span class="st">"%Y%m%d"</span>))</span>
+<span id="cb8-147"><a href="#cb8-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-148"><a href="#cb8-148" aria-hidden="true" tabindex="-1"></a><span class="co"># Die eigentlichen Messwerte sind alle nummerisch</span></span>
+<span id="cb8-149"><a href="#cb8-149" aria-hidden="true" tabindex="-1"></a>meteo <span class="ot">&lt;-</span> meteo<span class="sc">|&gt;</span></span>
+<span id="cb8-150"><a href="#cb8-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tre200jx =</span> <span class="fu">as.numeric</span>(tre200jx))<span class="sc">|&gt;</span></span>
+<span id="cb8-151"><a href="#cb8-151" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rre150j0 =</span> <span class="fu">as.numeric</span>(rre150j0))<span class="sc">|&gt;</span></span>
+<span id="cb8-152"><a href="#cb8-152" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sremaxdv =</span> <span class="fu">as.numeric</span>(sremaxdv)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-153"><a href="#cb8-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">&gt;=</span> depo_start, time <span class="sc">&lt;=</span>  depo_end) <span class="co"># schneide dann auf Untersuchungsdauer</span></span>
+<span id="cb8-154"><a href="#cb8-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-155"><a href="#cb8-155" aria-hidden="true" tabindex="-1"></a><span class="co"># Was ist eigentlich Niederschlag:</span></span>
+<span id="cb8-156"><a href="#cb8-156" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html</span></span>
+<span id="cb8-157"><a href="#cb8-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-158"><a href="#cb8-158" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtere Werte mit NA</span></span>
+<span id="cb8-159"><a href="#cb8-159" aria-hidden="true" tabindex="-1"></a>meteo <span class="ot">&lt;-</span> meteo <span class="sc">|&gt;</span></span>
+<span id="cb8-160"><a href="#cb8-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stn)) <span class="sc">|&gt;</span></span>
+<span id="cb8-161"><a href="#cb8-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(time))<span class="sc">|&gt;</span></span>
+<span id="cb8-162"><a href="#cb8-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(tre200jx))<span class="sc">|&gt;</span></span>
+<span id="cb8-163"><a href="#cb8-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(rre150j0))<span class="sc">|&gt;</span></span>
+<span id="cb8-164"><a href="#cb8-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sremaxdv))</span>
+<span id="cb8-165"><a href="#cb8-165" aria-hidden="true" tabindex="-1"></a><span class="co"># Pruefe ob alles funktioniert hat</span></span>
+<span id="cb8-166"><a href="#cb8-166" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(meteo)</span>
+<span id="cb8-167"><a href="#cb8-167" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(meteo)) <span class="co"># zeigt die Anzahl NA's im data.frame an</span></span>
+<span id="cb8-168"><a href="#cb8-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-169"><a href="#cb8-169" aria-hidden="true" tabindex="-1"></a><span class="co">#.################################################################################################</span></span>
+<span id="cb8-170"><a href="#cb8-170" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. VORBEREITUNG DER DATEN #####</span></span>
+<span id="cb8-171"><a href="#cb8-171" aria-hidden="true" tabindex="-1"></a><span class="co">#.################################################################################################</span></span>
+<span id="cb8-172"><a href="#cb8-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-173"><a href="#cb8-173" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.1 Convinience Variablen ####</span></span>
+<span id="cb8-174"><a href="#cb8-174" aria-hidden="true" tabindex="-1"></a><span class="co"># fuege dem Dataframe (df) die Wochentage hinzu</span></span>
+<span id="cb8-175"><a href="#cb8-175" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> </span>
+<span id="cb8-176"><a href="#cb8-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wochentag =</span> <span class="fu">weekdays</span>(Datum)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-177"><a href="#cb8-177" aria-hidden="true" tabindex="-1"></a>  <span class="co"># R sortiert die Levels aplhabetisch. Da das in unserem Fall aber sehr unpraktisch ist,</span></span>
+<span id="cb8-178"><a href="#cb8-178" aria-hidden="true" tabindex="-1"></a>  <span class="co"># muessen die Levels manuell manuell bestimmt werden</span></span>
+<span id="cb8-179"><a href="#cb8-179" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wochentag =</span> base<span class="sc">::</span><span class="fu">factor</span>(Wochentag, </span>
+<span id="cb8-180"><a href="#cb8-180" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Montag"</span>, <span class="st">"Dienstag"</span>, <span class="st">"Mittwoch"</span>, </span>
+<span id="cb8-181"><a href="#cb8-181" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"Donnerstag"</span>, <span class="st">"Freitag"</span>, <span class="st">"Samstag"</span>, <span class="st">"Sonntag"</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb8-182"><a href="#cb8-182" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Werktag oder Wochenende hinzufuegen</span></span>
+<span id="cb8-183"><a href="#cb8-183" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wochenende =</span> <span class="fu">if_else</span>(Wochentag <span class="sc">==</span> <span class="st">"Montag"</span> <span class="sc">|</span> Wochentag <span class="sc">==</span> <span class="st">"Dienstag"</span> <span class="sc">|</span> </span>
+<span id="cb8-184"><a href="#cb8-184" aria-hidden="true" tabindex="-1"></a>                           Wochentag <span class="sc">==</span> <span class="st">"Mittwoch"</span> <span class="sc">|</span> Wochentag <span class="sc">==</span> <span class="st">"Donnerstag"</span> <span class="sc">|</span> </span>
+<span id="cb8-185"><a href="#cb8-185" aria-hidden="true" tabindex="-1"></a>                           Wochentag <span class="sc">==</span> <span class="st">"Freitag"</span>, <span class="st">"Werktag"</span>, <span class="st">"Wochenende"</span>))<span class="sc">|&gt;</span></span>
+<span id="cb8-186"><a href="#cb8-186" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Kalenderwoche hinzufuegen</span></span>
+<span id="cb8-187"><a href="#cb8-187" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">KW=</span> <span class="fu">isoweek</span>(Datum))<span class="sc">|&gt;</span></span>
+<span id="cb8-188"><a href="#cb8-188" aria-hidden="true" tabindex="-1"></a>  <span class="co"># monat und Jahr</span></span>
+<span id="cb8-189"><a href="#cb8-189" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Monat =</span> <span class="fu">month</span>(Datum)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-190"><a href="#cb8-190" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Jahr =</span> <span class="fu">year</span>(Datum))</span>
+<span id="cb8-191"><a href="#cb8-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-192"><a href="#cb8-192" aria-hidden="true" tabindex="-1"></a><span class="co">#Lockdown </span></span>
+<span id="cb8-193"><a href="#cb8-193" aria-hidden="true" tabindex="-1"></a><span class="co"># Hinweis: ich mache das nachgelagert, da ich die Erfahrung hatte, dass zu viele </span></span>
+<span id="cb8-194"><a href="#cb8-194" aria-hidden="true" tabindex="-1"></a><span class="co"># Operationen in einem Schritt auch schon mal durcheinander erzeugen koennen.</span></span>
+<span id="cb8-195"><a href="#cb8-195" aria-hidden="true" tabindex="-1"></a><span class="co"># Hinweis II: Wir packen alle Phasen (normal, die beiden Lockdowns und Covid aber ohne Lockdown)</span></span>
+<span id="cb8-196"><a href="#cb8-196" aria-hidden="true" tabindex="-1"></a><span class="co"># in eine Spalte --&gt; long ist schoener als wide</span></span>
+<span id="cb8-197"><a href="#cb8-197" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span></span>
+<span id="cb8-198"><a href="#cb8-198" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Phase =</span> <span class="fu">if_else</span>(Datum <span class="sc">&gt;=</span> lock_1_start_2020 <span class="sc">&amp;</span> Datum <span class="sc">&lt;=</span> lock_1_end_2020,</span>
+<span id="cb8-199"><a href="#cb8-199" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"Lockdown_1"</span>,</span>
+<span id="cb8-200"><a href="#cb8-200" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">if_else</span>(Datum <span class="sc">&gt;=</span> lock_2_start_2021 <span class="sc">&amp;</span> Datum <span class="sc">&lt;=</span> lock_2_end_2021,</span>
+<span id="cb8-201"><a href="#cb8-201" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Lockdown_2"</span>,</span>
+<span id="cb8-202"><a href="#cb8-202" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">if_else</span>(Datum<span class="sc">&gt;=</span> (lock_1_start_2020 <span class="sc">-</span> <span class="fu">years</span>(<span class="dv">1</span>)) <span class="sc">&amp;</span> Datum <span class="sc">&lt;</span> lock_1_start_2020,</span>
+<span id="cb8-203"><a href="#cb8-203" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"Normal"</span>, </span>
+<span id="cb8-204"><a href="#cb8-204" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">if_else</span>(Datum <span class="sc">&gt;</span> lock_2_end_2021,</span>
+<span id="cb8-205"><a href="#cb8-205" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">"Post"</span>, <span class="st">"Pre"</span>)))))</span>
+<span id="cb8-206"><a href="#cb8-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-207"><a href="#cb8-207" aria-hidden="true" tabindex="-1"></a><span class="co"># hat das gepklappt?!</span></span>
+<span id="cb8-208"><a href="#cb8-208" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(depo<span class="sc">$</span>Phase)</span>
+<span id="cb8-209"><a href="#cb8-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-210"><a href="#cb8-210" aria-hidden="true" tabindex="-1"></a><span class="co"># aendere die Datentypen</span></span>
+<span id="cb8-211"><a href="#cb8-211" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> </span>
+<span id="cb8-212"><a href="#cb8-212" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wochenende =</span> <span class="fu">as.factor</span>(Wochenende)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-213"><a href="#cb8-213" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">KW =</span> <span class="fu">factor</span>(KW)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-214"><a href="#cb8-214" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mit factor() koennen die levels direkt einfach selbst definiert werden.</span></span>
+<span id="cb8-215"><a href="#cb8-215" aria-hidden="true" tabindex="-1"></a>  <span class="co"># wichtig: speizfizieren, dass aus R base, ansonsten kommt es zu einem </span></span>
+<span id="cb8-216"><a href="#cb8-216" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mix-up mit anderen packages</span></span>
+<span id="cb8-217"><a href="#cb8-217" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Phase =</span> base<span class="sc">::</span><span class="fu">factor</span>(Phase, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Pre"</span>, <span class="st">"Normal"</span>, <span class="st">"Lockdown_1"</span>, <span class="st">"Lockdown_2"</span>, <span class="st">"Post"</span>)))</span>
+<span id="cb8-218"><a href="#cb8-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-219"><a href="#cb8-219" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(depo)</span>
+<span id="cb8-220"><a href="#cb8-220" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-221"><a href="#cb8-221" aria-hidden="true" tabindex="-1"></a><span class="co"># Fuer einige Auswertungen muss auf die Stunden als nummerischer Wert zurueckgegriffen werden</span></span>
+<span id="cb8-222"><a href="#cb8-222" aria-hidden="true" tabindex="-1"></a>depo<span class="sc">$</span>Stunde <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">format</span>(<span class="fu">as.POSIXct</span>(depo<span class="sc">$</span>Zeit,<span class="at">format=</span><span class="st">"%H:%M:%S"</span>),<span class="st">"%H"</span>))</span>
+<span id="cb8-223"><a href="#cb8-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-224"><a href="#cb8-224" aria-hidden="true" tabindex="-1"></a><span class="co"># ersetze 0 Uhr mit 24 Uhr (damit wir besser rechnen können)</span></span>
+<span id="cb8-225"><a href="#cb8-225" aria-hidden="true" tabindex="-1"></a>depo<span class="sc">$</span>Stunde[depo<span class="sc">$</span>Stunde <span class="sc">==</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">24</span></span>
+<span id="cb8-226"><a href="#cb8-226" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(depo<span class="sc">$</span>Stunde)</span>
+<span id="cb8-227"><a href="#cb8-227" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(depo<span class="sc">$</span>Stunde)</span>
+<span id="cb8-228"><a href="#cb8-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-229"><a href="#cb8-229" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Daten wurden kalibriert. Wir runden sie fuer unserer Analysen auf Ganzzahlen</span></span>
+<span id="cb8-230"><a href="#cb8-230" aria-hidden="true" tabindex="-1"></a>depo<span class="sc">$</span>Total <span class="ot">&lt;-</span> <span class="fu">round</span>(depo<span class="sc">$</span>Total, <span class="at">digits =</span> <span class="dv">0</span>)</span>
+<span id="cb8-231"><a href="#cb8-231" aria-hidden="true" tabindex="-1"></a>depo<span class="sc">$</span>Fuss_IN <span class="ot">&lt;-</span> <span class="fu">round</span>(depo<span class="sc">$</span>Fuss_IN, <span class="at">digits =</span> <span class="dv">0</span>)</span>
+<span id="cb8-232"><a href="#cb8-232" aria-hidden="true" tabindex="-1"></a>depo<span class="sc">$</span>Fuss_OUT <span class="ot">&lt;-</span> <span class="fu">round</span>(depo<span class="sc">$</span>Fuss_OUT, <span class="at">digits =</span> <span class="dv">0</span>)</span>
+<span id="cb8-233"><a href="#cb8-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-234"><a href="#cb8-234" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.2 Tageszeit hinzufuegen ####</span></span>
+<span id="cb8-235"><a href="#cb8-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-236"><a href="#cb8-236" aria-hidden="true" tabindex="-1"></a><span class="co"># Einteilung Standort Zuerich</span></span>
+<span id="cb8-237"><a href="#cb8-237" aria-hidden="true" tabindex="-1"></a>Latitude <span class="ot">&lt;-</span> <span class="fl">47.38598</span></span>
+<span id="cb8-238"><a href="#cb8-238" aria-hidden="true" tabindex="-1"></a>Longitude <span class="ot">&lt;-</span> <span class="fl">8.50806</span></span>
+<span id="cb8-239"><a href="#cb8-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-240"><a href="#cb8-240" aria-hidden="true" tabindex="-1"></a><span class="co"># Zur Berechnung der Tageslaege muessen wir zuerst den Start und das Ende der Sommer-</span></span>
+<span id="cb8-241"><a href="#cb8-241" aria-hidden="true" tabindex="-1"></a><span class="co"># zeit definieren</span></span>
+<span id="cb8-242"><a href="#cb8-242" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.schulferien.org/schweiz/zeit/zeitumstellung/</span></span>
+<span id="cb8-243"><a href="#cb8-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-244"><a href="#cb8-244" aria-hidden="true" tabindex="-1"></a>So_start_2017 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-03-26"</span>) </span>
+<span id="cb8-245"><a href="#cb8-245" aria-hidden="true" tabindex="-1"></a>So_end_2017 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-10-29"</span>) </span>
+<span id="cb8-246"><a href="#cb8-246" aria-hidden="true" tabindex="-1"></a>So_start_2018 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-03-25"</span>) </span>
+<span id="cb8-247"><a href="#cb8-247" aria-hidden="true" tabindex="-1"></a>So_end_2018 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2018-10-28"</span>) </span>
+<span id="cb8-248"><a href="#cb8-248" aria-hidden="true" tabindex="-1"></a>So_start_2019 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-03-31"</span>) </span>
+<span id="cb8-249"><a href="#cb8-249" aria-hidden="true" tabindex="-1"></a>So_end_2019 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-10-27"</span>) </span>
+<span id="cb8-250"><a href="#cb8-250" aria-hidden="true" tabindex="-1"></a>So_start_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-03-29"</span>)</span>
+<span id="cb8-251"><a href="#cb8-251" aria-hidden="true" tabindex="-1"></a>So_end_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-10-25"</span>)</span>
+<span id="cb8-252"><a href="#cb8-252" aria-hidden="true" tabindex="-1"></a>So_start_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-03-28"</span>)</span>
+<span id="cb8-253"><a href="#cb8-253" aria-hidden="true" tabindex="-1"></a>So_end_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-10-31"</span>)</span>
+<span id="cb8-254"><a href="#cb8-254" aria-hidden="true" tabindex="-1"></a>So_start_2022 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-03-27"</span>)</span>
+<span id="cb8-255"><a href="#cb8-255" aria-hidden="true" tabindex="-1"></a>So_end_2022 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-10-30"</span>)</span>
+<span id="cb8-256"><a href="#cb8-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-257"><a href="#cb8-257" aria-hidden="true" tabindex="-1"></a><span class="co"># Welche Zeitzone haben wir eigentlich?</span></span>
+<span id="cb8-258"><a href="#cb8-258" aria-hidden="true" tabindex="-1"></a><span class="co"># Switzerland uses Central European Time (CET) during the winter as standard time, </span></span>
+<span id="cb8-259"><a href="#cb8-259" aria-hidden="true" tabindex="-1"></a><span class="co"># which is one hour ahead of Coordinated Universal Time (UTC+01:00), and </span></span>
+<span id="cb8-260"><a href="#cb8-260" aria-hidden="true" tabindex="-1"></a><span class="co"># Central European Summer Time (CEST) during the summer as daylight saving time, </span></span>
+<span id="cb8-261"><a href="#cb8-261" aria-hidden="true" tabindex="-1"></a><span class="co"># which is two hours ahead of Coordinated Universal Time (UTC+02:00).</span></span>
+<span id="cb8-262"><a href="#cb8-262" aria-hidden="true" tabindex="-1"></a><span class="co"># https://en.wikipedia.org/wiki/Time_in_Switzerland</span></span>
+<span id="cb8-263"><a href="#cb8-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-264"><a href="#cb8-264" aria-hidden="true" tabindex="-1"></a><span class="co"># Was sind Astronomische Dämmerung und Golden Hour ueberhaupt?</span></span>
+<span id="cb8-265"><a href="#cb8-265" aria-hidden="true" tabindex="-1"></a><span class="co"># https://sunrisesunset.de/sonne/schweiz/zurich-kreis-1-city/</span></span>
+<span id="cb8-266"><a href="#cb8-266" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.rdocumentation.org/packages/suncalc/versions/0.5.0/topics/getSunlightTimes</span></span>
+<span id="cb8-267"><a href="#cb8-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-268"><a href="#cb8-268" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir arbeiten mit folgenden Variablen:</span></span>
+<span id="cb8-269"><a href="#cb8-269" aria-hidden="true" tabindex="-1"></a><span class="co"># "nightEnd" : night ends (morning astronomical twilight starts)</span></span>
+<span id="cb8-270"><a href="#cb8-270" aria-hidden="true" tabindex="-1"></a><span class="co"># "goldenHourEnd" : morning golden hour (soft light, best time for photography) ends</span></span>
+<span id="cb8-271"><a href="#cb8-271" aria-hidden="true" tabindex="-1"></a><span class="co"># "goldenHour" : evening golden hour starts</span></span>
+<span id="cb8-272"><a href="#cb8-272" aria-hidden="true" tabindex="-1"></a><span class="co"># "night" : night starts (dark enough for astronomical observations)</span></span>
+<span id="cb8-273"><a href="#cb8-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-274"><a href="#cb8-274" aria-hidden="true" tabindex="-1"></a>lumidata <span class="ot">&lt;-</span></span>
+<span id="cb8-275"><a href="#cb8-275" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getSunlightTimes</span>(</span>
+<span id="cb8-276"><a href="#cb8-276" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">seq.Date</span>(depo_start, depo_end, <span class="at">by =</span> <span class="dv">1</span>),</span>
+<span id="cb8-277"><a href="#cb8-277" aria-hidden="true" tabindex="-1"></a>    <span class="at">keep =</span> <span class="fu">c</span>(<span class="st">"nightEnd"</span>, <span class="st">"goldenHourEnd"</span>, <span class="st">"goldenHour"</span>, <span class="st">"night"</span>),</span>
+<span id="cb8-278"><a href="#cb8-278" aria-hidden="true" tabindex="-1"></a>    <span class="at">lat =</span> Latitude,</span>
+<span id="cb8-279"><a href="#cb8-279" aria-hidden="true" tabindex="-1"></a>    <span class="at">lon =</span> Longitude,</span>
+<span id="cb8-280"><a href="#cb8-280" aria-hidden="true" tabindex="-1"></a>    <span class="at">tz =</span> <span class="st">"CET"</span>)</span>
+<span id="cb8-281"><a href="#cb8-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-282"><a href="#cb8-282" aria-hidden="true" tabindex="-1"></a>lumidata <span class="ot">&lt;-</span> lumidata <span class="sc">|&gt;</span> </span>
+<span id="cb8-283"><a href="#cb8-283" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Jahreszeit =</span> <span class="fu">ifelse</span>(date <span class="sc">&gt;=</span> So_start_2017 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span>  So_end_2017 <span class="sc">|</span></span>
+<span id="cb8-284"><a href="#cb8-284" aria-hidden="true" tabindex="-1"></a>                               date <span class="sc">&gt;=</span> So_start_2018 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span>  So_end_2018 <span class="sc">|</span></span>
+<span id="cb8-285"><a href="#cb8-285" aria-hidden="true" tabindex="-1"></a>                               date <span class="sc">&gt;=</span> So_start_2019 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span>  So_end_2019 <span class="sc">|</span></span>
+<span id="cb8-286"><a href="#cb8-286" aria-hidden="true" tabindex="-1"></a>                               date <span class="sc">&gt;=</span> So_start_2020 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span> So_end_2020 <span class="sc">|</span></span>
+<span id="cb8-287"><a href="#cb8-287" aria-hidden="true" tabindex="-1"></a>                               date <span class="sc">&gt;=</span> So_start_2021 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span> So_end_2021 <span class="sc">|</span></span>
+<span id="cb8-288"><a href="#cb8-288" aria-hidden="true" tabindex="-1"></a>                               date <span class="sc">&gt;=</span> So_start_2022 <span class="sc">&amp;</span> date <span class="sc">&lt;=</span> So_end_2022, </span>
+<span id="cb8-289"><a href="#cb8-289" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Sommerzeit"</span>, <span class="st">"Winterzeit"</span>))</span>
+<span id="cb8-290"><a href="#cb8-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-291"><a href="#cb8-291" aria-hidden="true" tabindex="-1"></a><span class="co"># CH ist im Im Sommer CET + 1. </span></span>
+<span id="cb8-292"><a href="#cb8-292" aria-hidden="true" tabindex="-1"></a><span class="co"># Darum auf alle relevanten Spalten eine Stunde addieren</span></span>
+<span id="cb8-293"><a href="#cb8-293" aria-hidden="true" tabindex="-1"></a><span class="co"># hinweis: ich verzichte hier auf ifelse, da es einfacher und nachvollziehbarer scheint,</span></span>
+<span id="cb8-294"><a href="#cb8-294" aria-hidden="true" tabindex="-1"></a><span class="co"># hier mit einem filter die betreffenden Spalten zu waehlen</span></span>
+<span id="cb8-295"><a href="#cb8-295" aria-hidden="true" tabindex="-1"></a>lumidata_So <span class="ot">&lt;-</span> lumidata <span class="sc">|&gt;</span> </span>
+<span id="cb8-296"><a href="#cb8-296" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Jahreszeit<span class="sc">==</span><span class="st">"Sommerzeit"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-297"><a href="#cb8-297" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nightEnd =</span> nightEnd <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">1</span>),</span>
+<span id="cb8-298"><a href="#cb8-298" aria-hidden="true" tabindex="-1"></a>         <span class="at">goldenHourEnd =</span>  goldenHourEnd <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">1</span>),</span>
+<span id="cb8-299"><a href="#cb8-299" aria-hidden="true" tabindex="-1"></a>         <span class="at">goldenHour =</span> goldenHour <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">1</span>),</span>
+<span id="cb8-300"><a href="#cb8-300" aria-hidden="true" tabindex="-1"></a>         <span class="at">night =</span> night <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">1</span>))</span>
+<span id="cb8-301"><a href="#cb8-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-302"><a href="#cb8-302" aria-hidden="true" tabindex="-1"></a>lumidata_Wi <span class="ot">&lt;-</span> lumidata <span class="sc">|&gt;</span> </span>
+<span id="cb8-303"><a href="#cb8-303" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Jahreszeit<span class="sc">==</span><span class="st">"Winterzeit"</span>) </span>
+<span id="cb8-304"><a href="#cb8-304" aria-hidden="true" tabindex="-1"></a><span class="co"># verbinde sommer- und winterzeit wieder</span></span>
+<span id="cb8-305"><a href="#cb8-305" aria-hidden="true" tabindex="-1"></a>lumidata <span class="ot">&lt;-</span> <span class="fu">rbind</span>(lumidata_So, lumidata_Wi) <span class="sc">|&gt;</span> </span>
+<span id="cb8-306"><a href="#cb8-306" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span>
+<span id="cb8-307"><a href="#cb8-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-308"><a href="#cb8-308" aria-hidden="true" tabindex="-1"></a><span class="co"># change data type</span></span>
+<span id="cb8-309"><a href="#cb8-309" aria-hidden="true" tabindex="-1"></a>lumidata<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(lumidata<span class="sc">$</span>date, <span class="at">format=</span> <span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb8-310"><a href="#cb8-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-311"><a href="#cb8-311" aria-hidden="true" tabindex="-1"></a><span class="co"># drop unnecessary cols</span></span>
+<span id="cb8-312"><a href="#cb8-312" aria-hidden="true" tabindex="-1"></a>lumidata <span class="ot">&lt;-</span> lumidata <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>lat, <span class="sc">-</span>lon)</span>
+<span id="cb8-313"><a href="#cb8-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-314"><a href="#cb8-314" aria-hidden="true" tabindex="-1"></a><span class="co"># jetzt haben wir alle noetigen Angaben zu Sonnenaufgang, Tageslaenge usw. </span></span>
+<span id="cb8-315"><a href="#cb8-315" aria-hidden="true" tabindex="-1"></a><span class="co"># diese Angaben koennen wir nun mit unseren Zaehldaten verbinden:</span></span>
+<span id="cb8-316"><a href="#cb8-316" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> <span class="fu">left_join</span>(depo,lumidata, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Datum"</span> <span class="ot">=</span><span class="st">"date"</span>))</span>
+<span id="cb8-317"><a href="#cb8-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-318"><a href="#cb8-318" aria-hidden="true" tabindex="-1"></a><span class="co"># aendere alle Zeit- und Datumsangaben so, dass sie gleich sind und miteinander verrechnet werden können.</span></span>
+<span id="cb8-319"><a href="#cb8-319" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> </span>
+<span id="cb8-320"><a href="#cb8-320" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datetime =</span> <span class="fu">paste</span>(Datum, Zeit)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-321"><a href="#cb8-321" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datetime =</span> <span class="fu">as.POSIXct</span>(datetime, <span class="at">format =</span> <span class="st">"%Y-%m-%d  %H:%M:%S"</span>))<span class="sc">|&gt;</span> </span>
+<span id="cb8-322"><a href="#cb8-322" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nightEnd =</span> <span class="fu">as.POSIXct</span>(nightEnd)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-323"><a href="#cb8-323" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">goldenHourEnd =</span> <span class="fu">as.POSIXct</span>(goldenHourEnd)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-324"><a href="#cb8-324" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">goldenHourEnd =</span> goldenHourEnd <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-325"><a href="#cb8-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">goldenHour =</span> <span class="fu">as.POSIXct</span>(goldenHour)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-326"><a href="#cb8-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">goldenHour =</span> goldenHour <span class="sc">-</span> <span class="fu">hours</span>(<span class="dv">1</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-327"><a href="#cb8-327" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">night =</span> <span class="fu">as.POSIXct</span>(night))</span>
+<span id="cb8-328"><a href="#cb8-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-329"><a href="#cb8-329" aria-hidden="true" tabindex="-1"></a><span class="co"># im naechsten Schritt weise ich den Stunden die Tageszeiten Morgen, Tag, Abend und Nacht zu.</span></span>
+<span id="cb8-330"><a href="#cb8-330" aria-hidden="true" tabindex="-1"></a><span class="co"># diese Zuweisung basiert auf der Einteilung gem. suncalc und eigener Definition.</span></span>
+<span id="cb8-331"><a href="#cb8-331" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo<span class="sc">|&gt;</span></span>
+<span id="cb8-332"><a href="#cb8-332" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Tageszeit =</span> <span class="fu">if_else</span>(datetime <span class="sc">&gt;=</span> nightEnd <span class="sc">&amp;</span> datetime <span class="sc">&lt;=</span> goldenHourEnd, <span class="st">"Morgen"</span>,</span>
+<span id="cb8-333"><a href="#cb8-333" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">ifelse</span>(datetime <span class="sc">&gt;</span> goldenHourEnd <span class="sc">&amp;</span> datetime <span class="sc">&lt;</span> goldenHour, <span class="st">"Tag"</span>,</span>
+<span id="cb8-334"><a href="#cb8-334" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">ifelse</span>(datetime <span class="sc">&gt;=</span> goldenHour <span class="sc">&amp;</span> datetime <span class="sc">&lt;=</span> night,</span>
+<span id="cb8-335"><a href="#cb8-335" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Abend"</span>,</span>
+<span id="cb8-336"><a href="#cb8-336" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">"Nacht"</span>)))) <span class="sc">|&gt;</span></span>
+<span id="cb8-337"><a href="#cb8-337" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Tageszeit =</span> <span class="fu">factor</span>(Tageszeit, <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb8-338"><a href="#cb8-338" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Morgen"</span>, <span class="st">"Tag"</span>, <span class="st">"Abend"</span>, <span class="st">"Nacht"</span>)))</span>
+<span id="cb8-339"><a href="#cb8-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-340"><a href="#cb8-340" aria-hidden="true" tabindex="-1"></a><span class="co"># # behalte die relevanten Var</span></span>
+<span id="cb8-341"><a href="#cb8-341" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>nightEnd, <span class="sc">-</span>goldenHourEnd, <span class="sc">-</span>goldenHour, <span class="sc">-</span>night)</span>
+<span id="cb8-342"><a href="#cb8-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-343"><a href="#cb8-343" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotte zum pruefn ob das funktioniert hat</span></span>
+<span id="cb8-344"><a href="#cb8-344" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(depo, <span class="fu">aes</span>(<span class="at">y =</span> Datum, <span class="at">color =</span> Tageszeit, <span class="at">x =</span> Stunde))<span class="sc">+</span></span>
+<span id="cb8-345"><a href="#cb8-345" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>()<span class="sc">+</span></span>
+<span id="cb8-346"><a href="#cb8-346" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>mycolors)</span>
+<span id="cb8-347"><a href="#cb8-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-348"><a href="#cb8-348" aria-hidden="true" tabindex="-1"></a>plotly<span class="sc">::</span><span class="fu">ggplotly</span>(p)</span>
+<span id="cb8-349"><a href="#cb8-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-350"><a href="#cb8-350" aria-hidden="true" tabindex="-1"></a><span class="co"># bei mir hat der Zusatz der Tageszeit noch zu einigen NA-Wertren gefueht. </span></span>
+<span id="cb8-351"><a href="#cb8-351" aria-hidden="true" tabindex="-1"></a><span class="co"># Diese loesche ich einfach:</span></span>
+<span id="cb8-352"><a href="#cb8-352" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(depo)</span>
+<span id="cb8-353"><a href="#cb8-353" aria-hidden="true" tabindex="-1"></a><span class="co"># hat das funktioniert?</span></span>
+<span id="cb8-354"><a href="#cb8-354" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(depo))</span>
+<span id="cb8-355"><a href="#cb8-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-356"><a href="#cb8-356" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.4 Aggregierung der Stundendaten zu ganzen Tagen ####</span></span>
+<span id="cb8-357"><a href="#cb8-357" aria-hidden="true" tabindex="-1"></a><span class="co"># Zur Berechnung von Kennwerten ist es hilfreich, wenn neben den Stundendaten auch auf Ganztagesdaten</span></span>
+<span id="cb8-358"><a href="#cb8-358" aria-hidden="true" tabindex="-1"></a><span class="co"># zurueckgegriffen werden kann</span></span>
+<span id="cb8-359"><a href="#cb8-359" aria-hidden="true" tabindex="-1"></a><span class="co"># hier werden also pro Nutzergruppe und Richtung die Stundenwerte pro Tag aufsummiert</span></span>
+<span id="cb8-360"><a href="#cb8-360" aria-hidden="true" tabindex="-1"></a>depo_d <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> </span>
+<span id="cb8-361"><a href="#cb8-361" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase) <span class="sc">|&gt;</span> </span>
+<span id="cb8-362"><a href="#cb8-362" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Fuss_IN <span class="sc">+</span> Fuss_OUT), </span>
+<span id="cb8-363"><a href="#cb8-363" aria-hidden="true" tabindex="-1"></a>            <span class="at">Fuss_IN =</span> <span class="fu">sum</span>(Fuss_IN),</span>
+<span id="cb8-364"><a href="#cb8-364" aria-hidden="true" tabindex="-1"></a>            <span class="at">Fuss_OUT =</span> <span class="fu">sum</span>(Fuss_OUT)) </span>
+<span id="cb8-365"><a href="#cb8-365" aria-hidden="true" tabindex="-1"></a><span class="co"># Wenn man die Convinience Variablen als grouping variable einspeisst, dann werden sie in </span></span>
+<span id="cb8-366"><a href="#cb8-366" aria-hidden="true" tabindex="-1"></a><span class="co"># das neue df uebernommen und muessen nicht nochmals hinzugefuegt werden</span></span>
+<span id="cb8-367"><a href="#cb8-367" aria-hidden="true" tabindex="-1"></a><span class="co"># pruefe das df</span></span>
+<span id="cb8-368"><a href="#cb8-368" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(depo_d)</span>
+<span id="cb8-369"><a href="#cb8-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-370"><a href="#cb8-370" aria-hidden="true" tabindex="-1"></a><span class="co"># nun gruppieren wir nicht nur nach Tag sondern auch noch nach Tageszeit</span></span>
+<span id="cb8-371"><a href="#cb8-371" aria-hidden="true" tabindex="-1"></a>depo_daytime <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> </span>
+<span id="cb8-372"><a href="#cb8-372" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase, Tageszeit) <span class="sc">|&gt;</span> </span>
+<span id="cb8-373"><a href="#cb8-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Fuss_IN <span class="sc">+</span> Fuss_OUT), </span>
+<span id="cb8-374"><a href="#cb8-374" aria-hidden="true" tabindex="-1"></a>            <span class="at">Fuss_IN =</span> <span class="fu">sum</span>(Fuss_IN),</span>
+<span id="cb8-375"><a href="#cb8-375" aria-hidden="true" tabindex="-1"></a>            <span class="at">Fuss_OUT =</span> <span class="fu">sum</span>(Fuss_OUT)) </span>
+<span id="cb8-376"><a href="#cb8-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-377"><a href="#cb8-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-378"><a href="#cb8-378" aria-hidden="true" tabindex="-1"></a><span class="co"># Gruppiere die Werte nach Monat</span></span>
+<span id="cb8-379"><a href="#cb8-379" aria-hidden="true" tabindex="-1"></a>depo_m <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> </span>
+<span id="cb8-380"><a href="#cb8-380" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Jahr, Monat) <span class="sc">|&gt;</span> </span>
+<span id="cb8-381"><a href="#cb8-381" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Total)) </span>
+<span id="cb8-382"><a href="#cb8-382" aria-hidden="true" tabindex="-1"></a><span class="co"># sortiere das df aufsteigend (nur das es sicher stimmt)</span></span>
+<span id="cb8-383"><a href="#cb8-383" aria-hidden="true" tabindex="-1"></a>depo_m <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(depo_m)</span>
+<span id="cb8-384"><a href="#cb8-384" aria-hidden="true" tabindex="-1"></a>depo_m[</span>
+<span id="cb8-385"><a href="#cb8-385" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(depo_m, <span class="fu">order</span>(Jahr, Monat)),]</span>
+<span id="cb8-386"><a href="#cb8-386" aria-hidden="true" tabindex="-1"></a>depo_m <span class="ot">&lt;-</span> depo_m <span class="sc">|&gt;</span> </span>
+<span id="cb8-387"><a href="#cb8-387" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ym =</span> <span class="fu">paste</span>(Jahr, Monat)) <span class="sc">|&gt;</span> <span class="co"># und mache eine neue Spalte, in der Jahr und</span></span>
+<span id="cb8-388"><a href="#cb8-388" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ym=</span> lubridate<span class="sc">::</span><span class="fu">ym</span>(Ym)) <span class="co"># formatiere als Datum</span></span>
+<span id="cb8-389"><a href="#cb8-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-390"><a href="#cb8-390" aria-hidden="true" tabindex="-1"></a><span class="co"># Gruppiere die Werte nach Monat und TAGESZEIT</span></span>
+<span id="cb8-391"><a href="#cb8-391" aria-hidden="true" tabindex="-1"></a>depo_m_daytime <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> </span>
+<span id="cb8-392"><a href="#cb8-392" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Jahr, Monat, Tageszeit) <span class="sc">|&gt;</span> </span>
+<span id="cb8-393"><a href="#cb8-393" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Total)) </span>
+<span id="cb8-394"><a href="#cb8-394" aria-hidden="true" tabindex="-1"></a><span class="co"># sortiere das df aufsteigend (nur das es sicher stimmt)</span></span>
+<span id="cb8-395"><a href="#cb8-395" aria-hidden="true" tabindex="-1"></a>depo_m_daytime <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(depo_m_daytime)</span>
+<span id="cb8-396"><a href="#cb8-396" aria-hidden="true" tabindex="-1"></a>depo_m_daytime[</span>
+<span id="cb8-397"><a href="#cb8-397" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(depo_m_daytime, <span class="fu">order</span>(Jahr, Monat)),]</span>
+<span id="cb8-398"><a href="#cb8-398" aria-hidden="true" tabindex="-1"></a>depo_m_daytime <span class="ot">&lt;-</span> depo_m_daytime <span class="sc">|&gt;</span> </span>
+<span id="cb8-399"><a href="#cb8-399" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ym =</span> <span class="fu">paste</span>(Jahr, Monat)) <span class="sc">|&gt;</span> <span class="co"># und mache eine neue Spalte, in der Jahr und</span></span>
+<span id="cb8-400"><a href="#cb8-400" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ym=</span> lubridate<span class="sc">::</span><span class="fu">ym</span>(Ym)) <span class="co"># formatiere als Datum</span></span>
+<span id="cb8-401"><a href="#cb8-401" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-402"><a href="#cb8-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-403"><a href="#cb8-403" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aufgabe 1: Verlauf der Besuchszahlen / m</span></span>
+<span id="cb8-404"><a href="#cb8-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-405"><a href="#cb8-405" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1a)</span></span>
+<span id="cb8-406"><a href="#cb8-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-407"><a href="#cb8-407" aria-hidden="true" tabindex="-1"></a>Nachdem wir die Projektstruktur aufgebaut haben und die Daten vorbereitet (inkl. aggregiert) sind, machen wir uns an die deskriptive Analyse. Dies macht eigentlich immer Sinn. Bevor mach sich an die schliessende Statistik macht, muss man ein "Gefühl" für die Daten bekommen. Dies funktioniert am einfachsten mit explorativen Analysen.</span>
+<span id="cb8-408"><a href="#cb8-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-409"><a href="#cb8-409" aria-hidden="true" tabindex="-1"></a>Wir interessieren uns in den Analysen für 5 Zeitabschnitte:</span>
+<span id="cb8-410"><a href="#cb8-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-411"><a href="#cb8-411" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1 (pre)</span>
+<span id="cb8-412"><a href="#cb8-412" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>1 Jahr vor Corona (normal)</span>
+<span id="cb8-413"><a href="#cb8-413" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Lockdown 1</span>
+<span id="cb8-414"><a href="#cb8-414" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Lockdown 2</span>
+<span id="cb8-415"><a href="#cb8-415" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Ende 2. Lockdown bis Ende Untersuchungsperiode</span>
+<span id="cb8-416"><a href="#cb8-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-417"><a href="#cb8-417" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Plottet den Verlauf der monatlichen Besuchszahlen an eurer Zählstelle. Auf der x-Achse steht dabei dabei Jahr und Monat (gespeichert im df _depo_m_), auf der y-Achse die monatlichen Besuchszahlen. Zeichnet auch die beiden Lockdown ein (Hinweis: rundet das Start- und Enddatum der Lockdowns auf den Monat, da im Plot die monatlichen Zahlen gezeigt werden).</span>
+<span id="cb8-418"><a href="#cb8-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-419"><a href="#cb8-419" aria-hidden="true" tabindex="-1"></a>Haltet euch dabei an untenstehenden Plot:</span>
+<span id="cb8-420"><a href="#cb8-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-421"><a href="#cb8-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-422"><a href="#cb8-422" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
+<span id="cb8-423"><a href="#cb8-423" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(depo_m, <span class="at">mapping =</span> <span class="fu">aes</span>(Ym, Total, <span class="at">group =</span> <span class="dv">1</span>))<span class="sc">+</span> <span class="co"># group = 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird</span></span>
+<span id="cb8-424"><a href="#cb8-424" aria-hidden="true" tabindex="-1"></a>  <span class="co">#zeichne Lockdown 1</span></span>
+<span id="cb8-425"><a href="#cb8-425" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">xmin =</span> <span class="fu">ym</span>(<span class="st">"2020-3"</span>), <span class="at">xmax =</span> <span class="fu">ym</span>(<span class="st">"2020-5"</span>),</span>
+<span id="cb8-426"><a href="#cb8-426" aria-hidden="true" tabindex="-1"></a>                          <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> <span class="fu">max</span>(Total<span class="sc">+</span>(Total<span class="sc">/</span><span class="dv">100</span><span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb8-427"><a href="#cb8-427" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"lightskyblue"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">colour =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb8-428"><a href="#cb8-428" aria-hidden="true" tabindex="-1"></a>  <span class="co">#zeichne Lockdown 2</span></span>
+<span id="cb8-429"><a href="#cb8-429" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">xmin =</span> <span class="fu">ym</span>(<span class="st">"2020-12"</span>), <span class="at">xmax =</span> <span class="fu">ym</span>(<span class="st">"2021-3"</span>), </span>
+<span id="cb8-430"><a href="#cb8-430" aria-hidden="true" tabindex="-1"></a>                          <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> <span class="fu">max</span>(Total<span class="sc">+</span>(Total<span class="sc">/</span><span class="dv">100</span><span class="sc">*</span><span class="dv">10</span>))), </span>
+<span id="cb8-431"><a href="#cb8-431" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"lightskyblue"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">colour =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb8-432"><a href="#cb8-432" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">1.5</span>)<span class="sc">+</span></span>
+<span id="cb8-433"><a href="#cb8-433" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span> <span class="st">""</span>, <span class="at">y=</span><span class="st">"Fussgänger:innen pro Monat"</span>, <span class="at">x =</span> <span class="st">"Jahr"</span>)<span class="sc">+</span></span>
+<span id="cb8-434"><a href="#cb8-434" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_linedraw</span>(<span class="at">base_size =</span> <span class="dv">15</span>)<span class="sc">+</span></span>
+<span id="cb8-435"><a href="#cb8-435" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span>
+<span id="cb8-436"><a href="#cb8-436" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-437"><a href="#cb8-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-438"><a href="#cb8-438" aria-hidden="true" tabindex="-1"></a>__Hinweis:__ </span>
+<span id="cb8-439"><a href="#cb8-439" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nutzt zum plotten __ggplot()__</span>
+<span id="cb8-440"><a href="#cb8-440" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>folgende Codeschnipsel helfen euch:</span>
+<span id="cb8-441"><a href="#cb8-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-442"><a href="#cb8-442" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb8-443"><a href="#cb8-443" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> depo_m, <span class="at">mapping =</span> <span class="fu">aes</span>(Ym, Total, <span class="at">group =</span> <span class="dv">1</span>))<span class="sc">+</span> <span class="co"># group 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird</span></span>
+<span id="cb8-444"><a href="#cb8-444" aria-hidden="true" tabindex="-1"></a>  <span class="co"># zeichne Lockdown 1; ein einfaches Rechteck. bestimme mit min und max die Dimensionen</span></span>
+<span id="cb8-445"><a href="#cb8-445" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">xmin =</span> <span class="fu">ym</span>(<span class="st">"2020-3"</span>), <span class="at">xmax =</span> <span class="fu">ym</span>(<span class="st">"2020-5"</span>),</span>
+<span id="cb8-446"><a href="#cb8-446" aria-hidden="true" tabindex="-1"></a>                          <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> <span class="fu">max</span>(Total<span class="sc">+</span>(Total<span class="sc">/</span><span class="dv">100</span><span class="sc">*</span><span class="dv">10</span>))),<span class="co"># das Rechteck soll 10 % grösser als die maximale Besuchszahl sein </span></span>
+<span id="cb8-447"><a href="#cb8-447" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">"lightskyblue"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">colour =</span> <span class="cn">NA</span>)<span class="sc">+</span> </span>
+<span id="cb8-448"><a href="#cb8-448" aria-hidden="true" tabindex="-1"></a>  <span class="co"># zeichne Lockdown 2</span></span>
+<span id="cb8-449"><a href="#cb8-449" aria-hidden="true" tabindex="-1"></a>    ...<span class="sc">+</span></span>
+<span id="cb8-450"><a href="#cb8-450" aria-hidden="true" tabindex="-1"></a>  <span class="co"># zeichne die Linie</span></span>
+<span id="cb8-451"><a href="#cb8-451" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(...)<span class="sc">+</span></span>
+<span id="cb8-452"><a href="#cb8-452" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_linedraw</span>(<span class="at">base_size =</span> <span class="dv">15</span>)<span class="sc">+</span></span>
+<span id="cb8-453"><a href="#cb8-453" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb8-454"><a href="#cb8-454" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-455"><a href="#cb8-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-456"><a href="#cb8-456" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Exportiert euren Plot mit __ggsave()__ nach __results__. Breite = 20, Höhe = 10, Einheiten = cm, dpi = 1000</span>
+<span id="cb8-457"><a href="#cb8-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-458"><a href="#cb8-458" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1b)</span></span>
+<span id="cb8-459"><a href="#cb8-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-460"><a href="#cb8-460" aria-hidden="true" tabindex="-1"></a>Nachdem wir wissen, wie sich die Besuchszahlen allgemein entwickelt haben, untersuchen wir wie sich diese während den unterschiedlichen Tageszeiten entwickelten.</span>
+<span id="cb8-461"><a href="#cb8-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-462"><a href="#cb8-462" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Wie benötigen dazu wieder denselben Datensatz, dieselben x- und y-Achsen. Allerdings ergänzen wir den area-plot mit dem "fill"-Argument:</span>
+<span id="cb8-463"><a href="#cb8-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-464"><a href="#cb8-464" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Speichert auch diesen Plot.</span>
+<span id="cb8-465"><a href="#cb8-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-466"><a href="#cb8-466" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb8-467"><a href="#cb8-467" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(depo_m_daytime, <span class="fu">aes</span>(Ym, Total, <span class="at">fill =</span> Tageszeit)) <span class="sc">+</span> </span>
+<span id="cb8-468"><a href="#cb8-468" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">position =</span> <span class="st">"fill"</span>)<span class="sc">+</span></span>
+<span id="cb8-469"><a href="#cb8-469" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb8-470"><a href="#cb8-470" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-471"><a href="#cb8-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-472"><a href="#cb8-472" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aufgabe 2: Wochengang</span></span>
+<span id="cb8-473"><a href="#cb8-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-474"><a href="#cb8-474" aria-hidden="true" tabindex="-1"></a>Nachdem wir nun wissen, wie sich die Besuchszahlen während der Untersuchungsdauer monatlich entwickelt haben, möchten wir genauer untersuchen, wie sich die Zahlen je nach Phase (Pre, Normal, Lockdown 1, Lockdown 2 und Covid) auf die Wochentage verteilen. </span>
+<span id="cb8-475"><a href="#cb8-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-476"><a href="#cb8-476" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2a)</span></span>
+<span id="cb8-477"><a href="#cb8-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-478"><a href="#cb8-478" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Berechnet die Totale Anzahl pro Wochentag pro Phase. Das brauchen wir nicht weiter für unsere Berechnungen, kann aber später ein nützliches Resultat für den Bericht sein.</span>
+<span id="cb8-479"><a href="#cb8-479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-480"><a href="#cb8-480" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb8-481"><a href="#cb8-481" aria-hidden="true" tabindex="-1"></a>mean_phase_wd <span class="ot">&lt;-</span> depo_d <span class="sc">%&gt;%</span> </span>
+<span id="cb8-482"><a href="#cb8-482" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(...) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-483"><a href="#cb8-483" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb8-484"><a href="#cb8-484" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-485"><a href="#cb8-485" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-486"><a href="#cb8-486" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Speichert das als .csv</span>
+<span id="cb8-487"><a href="#cb8-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-488"><a href="#cb8-488" aria-hidden="true" tabindex="-1"></a><span class="in">```{r  eval=FALSE}</span></span>
+<span id="cb8-489"><a href="#cb8-489" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(mean_phase_wd, <span class="st">"results/mean_phase_wd.csv"</span>)</span>
+<span id="cb8-490"><a href="#cb8-490" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-491"><a href="#cb8-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-492"><a href="#cb8-492" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2b)</span></span>
+<span id="cb8-493"><a href="#cb8-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-494"><a href="#cb8-494" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Erstellt einen Boxplot nach untenstehender Vorgabe:</span>
+<span id="cb8-495"><a href="#cb8-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-496"><a href="#cb8-496" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
+<span id="cb8-497"><a href="#cb8-497" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> depo_d)<span class="sc">+</span></span>
+<span id="cb8-498"><a href="#cb8-498" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span> Wochentag, <span class="at">y =</span> Total, <span class="at">fill =</span> Phase))<span class="sc">+</span></span>
+<span id="cb8-499"><a href="#cb8-499" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">""</span>, <span class="at">y=</span> <span class="st">"Fussgänger:innen pro Tag"</span>)<span class="sc">+</span></span>
+<span id="cb8-500"><a href="#cb8-500" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"lightgray"</span>, <span class="st">"royalblue"</span>, <span class="st">"red4"</span>, <span class="st">"orangered"</span>, <span class="st">"gold2"</span>))<span class="sc">+</span></span>
+<span id="cb8-501"><a href="#cb8-501" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)<span class="sc">+</span></span>
+<span id="cb8-502"><a href="#cb8-502" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust=</span><span class="dv">1</span>),</span>
+<span id="cb8-503"><a href="#cb8-503" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb8-504"><a href="#cb8-504" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-505"><a href="#cb8-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-506"><a href="#cb8-506" aria-hidden="true" tabindex="-1"></a>__Hinweis:__ </span>
+<span id="cb8-507"><a href="#cb8-507" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nutzt zum plotten __ggplot()__</span>
+<span id="cb8-508"><a href="#cb8-508" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>folgende Codeschnipsel helfen euch:</span>
+<span id="cb8-509"><a href="#cb8-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-510"><a href="#cb8-510" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb8-511"><a href="#cb8-511" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> depo_d)<span class="sc">+</span></span>
+<span id="cb8-512"><a href="#cb8-512" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span> Wochentag, <span class="at">y =</span> Total, <span class="at">fill =</span> Phase))<span class="sc">+</span></span>
+<span id="cb8-513"><a href="#cb8-513" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb8-514"><a href="#cb8-514" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-515"><a href="#cb8-515" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-516"><a href="#cb8-516" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Exportiert auch diesen Plot mit __ggsave()__. Welche Breite und Höhe passt hier?</span>
+<span id="cb8-517"><a href="#cb8-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-518"><a href="#cb8-518" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2c)</span></span>
+<span id="cb8-519"><a href="#cb8-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-520"><a href="#cb8-520" aria-hidden="true" tabindex="-1"></a>Sind die Unterschiede zwischen Werktag und Wochenende wirklich signifikant? Falls ja, in allen Phasen oder nur während bestimmter?</span>
+<span id="cb8-521"><a href="#cb8-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-522"><a href="#cb8-522" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prüft das pro Phase mit einem einfachen t.test.</span>
+<span id="cb8-523"><a href="#cb8-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-524"><a href="#cb8-524" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aufgabe 3: Tagesgang</span></span>
+<span id="cb8-525"><a href="#cb8-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-526"><a href="#cb8-526" aria-hidden="true" tabindex="-1"></a>Vom Grossen zum Kleinen, von der Übersicht ins Detail. Jetzt widmen wir uns dem Tagesgang, das heisst der Verteilung der Besuchenden auf die 24 Tagesstunden je nach Phase.</span>
+<span id="cb8-527"><a href="#cb8-527" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-528"><a href="#cb8-528" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3a)</span></span>
+<span id="cb8-529"><a href="#cb8-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-530"><a href="#cb8-530" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Berechnet zuerst den Mittelwert der Totalen Besuchszahlen pro Wochentag pro Stunde pro Phase. (ganz ähnlich wie unter 2a) und speichert das df unter __Mean_h__.</span>
+<span id="cb8-531"><a href="#cb8-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-532"><a href="#cb8-532" aria-hidden="true" tabindex="-1"></a>Vergewissert euch vor dem Plotten, dass der Datensatz im long-Format vorliegt.</span>
+<span id="cb8-533"><a href="#cb8-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-534"><a href="#cb8-534" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3b)</span></span>
+<span id="cb8-535"><a href="#cb8-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-536"><a href="#cb8-536" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Plottet den Tagesgang, unterteilt nach den 7 Wochentagen nun für unsere 5 Phasen.</span>
+<span id="cb8-537"><a href="#cb8-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-538"><a href="#cb8-538" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE} </span></span>
+<span id="cb8-539"><a href="#cb8-539" aria-hidden="true" tabindex="-1"></a>Mean_h <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> </span>
+<span id="cb8-540"><a href="#cb8-540" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Wochentag, Stunde, Phase) <span class="sc">|&gt;</span> </span>
+<span id="cb8-541"><a href="#cb8-541" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">mean</span>(Total)) </span>
+<span id="cb8-542"><a href="#cb8-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-543"><a href="#cb8-543" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Mean_h, <span class="fu">aes</span>(<span class="at">x =</span> Stunde, <span class="at">y =</span> Total, <span class="at">colour =</span> Wochentag, <span class="at">linetype =</span> Wochentag))<span class="sc">+</span></span>
+<span id="cb8-544"><a href="#cb8-544" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb8-545"><a href="#cb8-545" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_d</span>()<span class="sc">+</span></span>
+<span id="cb8-546"><a href="#cb8-546" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"solid"</span>, <span class="dv">5</span>),  <span class="st">"twodash"</span>, <span class="st">"twodash"</span>))<span class="sc">+</span></span>
+<span id="cb8-547"><a href="#cb8-547" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">23</span>, <span class="at">by =</span> <span class="dv">2</span>)), <span class="at">labels =</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">23</span>, <span class="at">by =</span> <span class="dv">2</span>)))<span class="sc">+</span></span>
+<span id="cb8-548"><a href="#cb8-548" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(Phase))<span class="sc">+</span></span>
+<span id="cb8-549"><a href="#cb8-549" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Uhrzeit [h]"</span>, <span class="at">y=</span> <span class="st">"∅ Fussganger_Innen / h"</span>, <span class="at">title =</span> <span class="st">""</span>)<span class="sc">+</span></span>
+<span id="cb8-550"><a href="#cb8-550" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lims</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">25</span>))<span class="sc">+</span></span>
+<span id="cb8-551"><a href="#cb8-551" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_linedraw</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span>
+<span id="cb8-552"><a href="#cb8-552" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-553"><a href="#cb8-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-554"><a href="#cb8-554" aria-hidden="true" tabindex="-1"></a>__Hinweis:__ </span>
+<span id="cb8-555"><a href="#cb8-555" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nutzt zum plotten __ggplot()__</span>
+<span id="cb8-556"><a href="#cb8-556" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>folgende Codeschnipsel helfen euch:</span>
+<span id="cb8-557"><a href="#cb8-557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-558"><a href="#cb8-558" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb8-559"><a href="#cb8-559" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Mean_h, <span class="fu">aes</span>(<span class="at">x =</span> Stunde, <span class="at">y =</span> Total, <span class="at">colour =</span> Wochentag, <span class="at">linetype =</span> Wochentag))<span class="sc">+</span></span>
+<span id="cb8-560"><a href="#cb8-560" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb8-561"><a href="#cb8-561" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(...)</span>
+<span id="cb8-562"><a href="#cb8-562" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb8-563"><a href="#cb8-563" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-564"><a href="#cb8-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-565"><a href="#cb8-565" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aufgabe 4: Kennzahlen</span></span>
+<span id="cb8-566"><a href="#cb8-566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-567"><a href="#cb8-567" aria-hidden="true" tabindex="-1"></a>Schliesslich berechnen wir noch einige Kennzahlen (Anzahl Passagen, Richtungsverteilung, ...).</span>
+<span id="cb8-568"><a href="#cb8-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-569"><a href="#cb8-569" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4a)</span></span>
+<span id="cb8-570"><a href="#cb8-570" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-571"><a href="#cb8-571" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gruppiert nach Phase und Tageszeit und berechnet dieses mal die Summe (nicht den Durchschnitt) Total, IN und OUT (ähnlich wie in 2a und 3a).</span>
+<span id="cb8-572"><a href="#cb8-572" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nehmt dafür das vorbereitete df "depo_daytime"</span>
+<span id="cb8-573"><a href="#cb8-573" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Speichert das das neu erstellte data.frame als .csv. Dieses .csv brauchen wir für keine weiteren Auswertungen, es enthällt für den Bericht aber nützliche Kennzahlen.</span>
+<span id="cb8-574"><a href="#cb8-574" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-575"><a href="#cb8-575" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4b) </span></span>
+<span id="cb8-576"><a href="#cb8-576" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-577"><a href="#cb8-577" aria-hidden="true" tabindex="-1"></a>Die Zeitreihen der 5 Phasen unterscheiden sich deutlich voneinander. Totale Summen sind da kaum miteinander vergleichbar, besser eignet sich der Durchschnitt oder der Median.</span>
+<span id="cb8-578"><a href="#cb8-578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-579"><a href="#cb8-579" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gruppiert nach Phase und Tageszeit und berechnet den Durchschnitt Total, IN und OUT und speichert das df unter __mean_phase_d__.</span>
+<span id="cb8-580"><a href="#cb8-580" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ergänzt das mit der prozentualen Richtungsverteilung</span>
+<span id="cb8-581"><a href="#cb8-581" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-582"><a href="#cb8-582" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb8-583"><a href="#cb8-583" aria-hidden="true" tabindex="-1"></a>mean_phase_d <span class="ot">&lt;-</span> mean_phase_d <span class="sc">%&gt;%</span> </span>
+<span id="cb8-584"><a href="#cb8-584" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proz_IN =</span> <span class="fu">round</span>(<span class="dv">100</span><span class="sc">/</span>Total<span class="sc">*</span>IN, <span class="dv">1</span>)) <span class="sc">%&gt;%</span> <span class="co"># berechnen und auf eine Nachkommastelle runden</span></span>
+<span id="cb8-585"><a href="#cb8-585" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb8-586"><a href="#cb8-586" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-587"><a href="#cb8-587" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-588"><a href="#cb8-588" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4c)</span></span>
+<span id="cb8-589"><a href="#cb8-589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-590"><a href="#cb8-590" aria-hidden="true" tabindex="-1"></a>Schliesslich soll das Ergebnis noch visualisiert werden. </span>
+<span id="cb8-591"><a href="#cb8-591" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-592"><a href="#cb8-592" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Erstellt einen Plot nach untenstehendem Beispiel und speichert ihn:</span>
+<span id="cb8-593"><a href="#cb8-593" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-594"><a href="#cb8-594" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
+<span id="cb8-595"><a href="#cb8-595" aria-hidden="true" tabindex="-1"></a><span class="co"># mean besser Vergleichbar, da Zeitreihen unterschiedlich lange</span></span>
+<span id="cb8-596"><a href="#cb8-596" aria-hidden="true" tabindex="-1"></a>mean_phase_d <span class="ot">&lt;-</span> depo_daytime <span class="sc">|&gt;</span> </span>
+<span id="cb8-597"><a href="#cb8-597" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Phase, Tageszeit) <span class="sc">|&gt;</span> </span>
+<span id="cb8-598"><a href="#cb8-598" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">mean</span>(Total),</span>
+<span id="cb8-599"><a href="#cb8-599" aria-hidden="true" tabindex="-1"></a>            <span class="at">IN =</span> <span class="fu">mean</span>(Fuss_IN),</span>
+<span id="cb8-600"><a href="#cb8-600" aria-hidden="true" tabindex="-1"></a>            <span class="at">OUT =</span> <span class="fu">mean</span>(Fuss_OUT))</span>
+<span id="cb8-601"><a href="#cb8-601" aria-hidden="true" tabindex="-1"></a><span class="co"># berechne prozentuale Richtungsverteilung</span></span>
+<span id="cb8-602"><a href="#cb8-602" aria-hidden="true" tabindex="-1"></a>mean_phase_d <span class="ot">&lt;-</span> mean_phase_d <span class="sc">|&gt;</span> </span>
+<span id="cb8-603"><a href="#cb8-603" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proz_IN =</span> <span class="fu">round</span>(<span class="dv">100</span><span class="sc">/</span>Total<span class="sc">*</span>IN, <span class="dv">1</span>)) <span class="sc">|&gt;</span> <span class="co"># berechnen und auf eine Nachkommastelle runden</span></span>
+<span id="cb8-604"><a href="#cb8-604" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proz_OUT =</span> <span class="fu">round</span>(<span class="dv">100</span><span class="sc">/</span>Total<span class="sc">*</span>OUT,<span class="dv">1</span>))</span>
+<span id="cb8-605"><a href="#cb8-605" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-606"><a href="#cb8-606" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mean_phase_d, <span class="at">mapping =</span> <span class="fu">aes</span>(Phase, Total, <span class="at">fill=</span>Tageszeit)) <span class="sc">+</span> </span>
+<span id="cb8-607"><a href="#cb8-607" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"fill"</span>)<span class="sc">+</span></span>
+<span id="cb8-608"><a href="#cb8-608" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> mycolors)<span class="sc">+</span></span>
+<span id="cb8-609"><a href="#cb8-609" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)<span class="sc">+</span></span>
+<span id="cb8-610"><a href="#cb8-610" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust=</span><span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb8-611"><a href="#cb8-611" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span> <span class="st">""</span>, <span class="at">y=</span><span class="st">"Verteilung Fussgänger:innen nach Tageszeit [%]"</span>, <span class="at">x =</span> <span class="st">"Phase"</span>)</span>
+<span id="cb8-612"><a href="#cb8-612" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 

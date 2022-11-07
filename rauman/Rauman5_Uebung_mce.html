@@ -626,7 +626,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-title">Rauman 5: Übung</span></h1>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-title">Rauman 5: Übung</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -924,6 +924,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 
 
+<!-- -->
+
 </section>
 
 </main> <!-- /main -->
@@ -1088,6 +1090,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -1149,7 +1202,439 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-title">KW40: Einleitung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-12-12</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> RaumAn5</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Multi-Criteria Evaluation (MCE)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu"># Rauman 5: Übung</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>Die folgende Übung mag einigen von Ihnen bekannt vorkommen, wenn Sie unseren Bachelorstudiengang besucht haben. Dieses MCE wurde bereits im Bachelormodul "GIS" unter Verwendung von ArcGIS Pro und dessen ModelBuilder durchgeführt (siehe @fig-mce-process).</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="al">![MCE Prozess](images/mce_process.png)</span>{#fig-mce-process}</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>Das Ziel dieser Übung ist es, das gleiche MCE nur mit R durchzuführen. Wir werden hauptsächlich Funktionen aus den R-Paketen <span class="co">[</span><span class="ot">sf</span><span class="co">](https://cran.r-project.org/web/packages/sf/sf.pdf)</span> und <span class="co">[</span><span class="ot">raster</span><span class="co">](https://cran.r-project.org/web/packages/raster/raster.pdf)</span> verwenden. Bitte schauen Sie sich das Prozessmodell (siehe @fig-mce-process) an, das in ArcGIS Pro erstellt wurde, und versuchen Sie herauszufinden, welche Funktionen in den beiden R-Paketen denen im Modell entsprechen. Sie werden sehen, dass es einige ähnliche Funktionen gibt, aber für einige Berechnungen ist ein anderer Ansatz erforderlich.</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übungen 1: Daten laden und anzeigen</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>Laden Sie die nachfolgenden Rasterdatensätze herunter:</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>| Layer | Koord. System | Beschreibung | Typ | Ausschlussgebiet | </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|:---|</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">dhm25m.tif</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=602285)</span> | CH1903/LV03 | Geländemodell (m) | Raster (25m) | Nein |</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">eis25m.tif</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=602288)</span> | CH1903/LV03 | Häufigkeit der Vereisung (Tage/Jahr) | Raster (25m) | Nein |</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">wind25m.tif</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=602297)</span> | CH1903/LV03 | Durchschnittliche Windgeschwindigkeit (dm/s) | Raster (25m) | Nein |</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>Laden Sie das File <span class="co">[</span><span class="ot">windkraft_geodata.gpkg</span><span class="co">](https://moodle.zhaw.ch/mod/resource/view.php?id=663498)</span> von Moodle herunter. Dieses beinhaltet die folgenden Layers:</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>| Layer | Koord. System | Beschreibung | Typ | Ausschlussgebiet |</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|:---|</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>| Bewohnte_Flaeche| CH1903/LV03 | Siedlungen (inkl. Puffer 200m) | Polygon | (Ja)/Distanz |</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>| Nationale_Schutzgebiete | CH1903/LV03 | Nationale Schutzgebiete| Polygon | (Ja)/Distanz |</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>| Seeflaechen | CH1903/LV03 | Seegebiete | Polygon | Ja |</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>| Strassen | CH1903/LV03 | Strassen | Linie | Nein/Distanz |</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>| Untersuchungsgebiet_Schwyz | CH1903/LV03 | Untersuchungsgebiet, Kanton Schwyz | Polygon | Nein |</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>| Waldgebiete | CH1903/LV03 | Waldgebiete | Polygon | (Ja)/Distanz |</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>Die Rasterdaten können mit der Funktion <span class="in">`terra::rast`</span> und die Vektorebenen mit <span class="in">`sf::read_sf`</span> geladen werden. Zeigen Sie die verfügbaren Layers an und plotten Sie sie auf ansprechende Weise. Zur Visualisierung können Sie die Funktionen <span class="in">`plot`</span> für Rasterdaten und <span class="in">`ggplot`</span> für Vektordaten verwenden.</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Einige Datensätze überschreiten die Grenzen des Untersuchungsgebiets. Verwenden Sie die Funktion `crop` für Rasterdatensätze und `st_intersection` für sf/Vektor-Daten, um die relevanten Bereiche zu extrahieren. --&gt;</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>Wir werden die folgenden Pakete in dieser Übung verwenden:</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: solutionEx1</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="co">#Vector data</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="fu">st_layers</span>(<span class="st">"datasets/rauman/windkraft_geodata.gpkg"</span>)</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>kt_schwyz <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/windkraft_geodata.gpkg"</span>, <span class="st">"Untersuchungsgebiet_Schwyz"</span>)</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>settlements <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/windkraft_geodata.gpkg"</span>, <span class="st">"Bewohnte_Flaeche"</span>)</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>forests <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/windkraft_geodata.gpkg"</span>, <span class="st">"Waldgebiete"</span>)</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>protected_areas <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/windkraft_geodata.gpkg"</span>, <span class="st">"Nationale_Schutzgebiete"</span>)</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>lakes <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/windkraft_geodata.gpkg"</span>, <span class="st">"Seeflaechen"</span>)</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>streets <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/windkraft_geodata.gpkg"</span>, <span class="st">"Strassen"</span>) <span class="sc">|&gt;</span> <span class="fu">st_intersection</span>(kt_schwyz) <span class="co">#intersect with study area</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="co">#Raster data</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>eis25m <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"datasets/rauman/eis25m.tif"</span>)</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>dhm25m <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"datasets/rauman/dhm25m.tif"</span>)</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>wind25m <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"datasets/rauman/wind25m.tif"</span>)</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-solutionEx2</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot vector data</span></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(lakes) <span class="sc">+</span> <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"dodgerblue3"</span>) <span class="sc">+</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(streets) <span class="sc">+</span> <span class="fu">tm_lines</span>(<span class="at">col =</span> <span class="st">"gray18"</span>) <span class="sc">+</span></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(forests) <span class="sc">+</span> <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"darkseagreen4"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(settlements) <span class="sc">+</span> <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"gray"</span>,<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-solutionEx3</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm25m) <span class="sc">+</span> <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>) <span class="sc">+</span> <span class="fu">tm_shape</span>(kt_schwyz) <span class="sc">+</span> <span class="fu">tm_borders</span>()</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(eis25m) <span class="sc">+</span> <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>) <span class="sc">+</span> <span class="fu">tm_shape</span>(kt_schwyz) <span class="sc">+</span> <span class="fu">tm_borders</span>()</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(wind25m) <span class="sc">+</span> <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>) <span class="sc">+</span> <span class="fu">tm_shape</span>(kt_schwyz) <span class="sc">+</span> <span class="fu">tm_borders</span>()</span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übung 2: Ausschlusskriterien zusammenführen</span></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>Führen Sie die Ausschlusskriterien Siedlungsgebiete, nationale Schutzgebiete, Seeflächen und Waldgebiete zusammen. Diese Vektordatensätze sind als Data Frames strukturiert und können daher durch einfaches Kombinieren zusammengeführt werden. Beachten Sie dabei, dass die Data Frames unterschiedliche Grössen haben. Zusätzlich müssen wir aus dem neu erstellten Vektordatensatz (Ausschlussgebiet) ein Raster erstellen. Dazu können Sie die Funktion <span class="in">`rasterize`</span> verwenden. Die Ausgabe soll ein Raster mit 0 und 1 sein, wobei die Felder des Ausschlussbereichs den Wert 0 und die restlichen Felder den Wert 1 haben (siehe @fig-exclusion-areas).</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Tipp**: Um ein Raster mit nur 0 und 1 zu erhalten, verwenden Sie die Optionen "rasterize" field = 0 und background = 1.</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Tipp**: Um Vektordaten zu rastern, müssen Sie vorher ein leeres Raster erstellen. Dieses Raster sollte die gleichen Grenzen (extent), die gleiche Auflösung und das gleiche Koordinatensystem (crs) haben wie die anderen Rastersätze. Verwenden Sie dazu den folgenden Code.*</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: create_empty_raster</span></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">ext</span>(kt_schwyz), </span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>          <span class="at">resolution =</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">250</span>), </span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>          <span class="at">crs =</span> <span class="st">"EPSG:21781"</span>)</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a><span class="al">![Ausschlussgebiete](images/exclusion_areas.png)</span>{#fig-exclusion-areas width=50%}</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-solutionEx4</span></span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a><span class="co">#Merge exclusion area</span></span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>exclusion_areas <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(settlements, forests, protected_areas, lakes)</span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a><span class="co">#create raster</span></span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">ext</span>(kt_schwyz), </span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>          <span class="at">resolution =</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">250</span>), </span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>          <span class="at">crs =</span> <span class="st">"EPSG:21781"</span>)</span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>raster_exclusion_areas <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(<span class="fu">vect</span>(exclusion_areas), r,</span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>                       <span class="at">field =</span> <span class="dv">0</span>, <span class="at">background =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">crop</span>(kt_schwyz)</span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(raster_exclusion_areas, <span class="at">main=</span><span class="st">"Exclusion area"</span>, <span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">legend=</span><span class="cn">FALSE</span>, <span class="at">col=</span><span class="fu">terrain.colors</span>(<span class="dv">2</span>))</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übung 3: Neigung berechnen</span></span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>Als nächstes berechnen Sie die Neigung in Grad auf der Grundlage des Geländemodells (dhm25m). Das terra-Paket bietet Ihnen eine sehr hilfreiche Funktion namens <span class="in">`terrain`</span>. </span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Tipp**: Wenn Sie die Terrain-Funktion verwenden, benutzen Sie die folgenden Optionen: v="slope", unit="degrees", neighbors=8.*</span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/slope.png)</span>{width=50%}</span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-solutionEx5</span></span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>slope <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">terrain</span>(dhm25m, <span class="at">v=</span><span class="st">"slope"</span>,<span class="at">unit=</span><span class="st">"degrees"</span>, <span class="at">neighbors=</span><span class="dv">8</span>)</span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>slope_250 <span class="ot">&lt;-</span> slope <span class="sc">|&gt;</span> <span class="fu">aggregate</span>(<span class="at">fact =</span> <span class="dv">10</span>)</span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(slope_250, <span class="at">main=</span><span class="st">"Slope"</span>, <span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übung 4: Entfernungen zu Kriterien berechnen</span></span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a>Bei der Bewertung geeigneter Standorte für Windkraftanlagen ist die Entfernung zu Strassen, Waldgebieten, nationalen Schutzgebieten und bewohnten Gebieten relevant. Je nach Kriterium hat eine geringe oder grosse Entfernung einen positiven Einfluss auf die Bewertung der potenziellen Standorte. Führen Sie zu diesem Zweck eine Abstandsanalyse mit den ausgewählten Kriterien-Rasterlayern durch. Verwenden Sie für diese Berechnung die Rasterfunktion <span class="in">`distance`</span>. </span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Tipp**: Um die Funktion <span class="in">`distance`</span> durchführen zu können, müssen Sie die Kriterien ebenfalls "rastern". Sie können den gleichen Befehl wie in Übung 2 verwenden, aber nur mit der Option field = 1.</span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Tipp**: Verwenden Sie erneut die Funktion "Zuschneiden", um nur relevante Daten aus dem Untersuchungsgebiet zu erhalten.</span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/d_to_settlements.png)</span>{width=50%}</span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: solutionEx6</span></span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a><span class="co">#create raster layers from vector </span></span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>raster_settlements <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rasterize</span>(<span class="fu">vect</span>(settlements), r, <span class="at">field =</span> <span class="dv">1</span>)</span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>raster_protected_areas <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rasterize</span>(<span class="fu">vect</span>(protected_areas), r, <span class="at">field =</span> <span class="dv">1</span>) </span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a>raster_forests <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rasterize</span>(<span class="fu">vect</span>(forests), r, <span class="at">field =</span> <span class="dv">1</span>) </span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a>raster_streets <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rasterize</span>(<span class="fu">vect</span>(streets<span class="sc">$</span>geom), r, <span class="at">field =</span> <span class="dv">1</span>)</span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate euclidean distances</span></span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a>settlements_ed <span class="ot">&lt;-</span> <span class="fu">distance</span>(raster_settlements) <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>() <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">mask</span>(kt_schwyz) <span class="sc">|&gt;</span> terra<span class="sc">::</span><span class="fu">rast</span>()</span>
+<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a>protected_areas_ed <span class="ot">&lt;-</span> <span class="fu">distance</span>(raster_protected_areas) <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>() <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">mask</span>(kt_schwyz) <span class="sc">|&gt;</span> terra<span class="sc">::</span><span class="fu">rast</span>()</span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a>forests_ed <span class="ot">&lt;-</span> <span class="fu">distance</span>(raster_forests) <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>() <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">mask</span>(kt_schwyz) <span class="sc">|&gt;</span> terra<span class="sc">::</span><span class="fu">rast</span>()</span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>streets_ed <span class="ot">&lt;-</span> <span class="fu">distance</span>(raster_streets) <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>() <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">mask</span>(kt_schwyz) <span class="sc">|&gt;</span> terra<span class="sc">::</span><span class="fu">rast</span>()</span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übung 5: Kriterien standardisieren und bewerten (grading)</span></span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a>Die Datenebenen Neigung, Windgeschwindigkeit, Vereisungshäufigkeit und die in Übung 4 berechneten Entfernungsebenen haben unterschiedliche Einheiten (dm/s, Grad, d/yr und m). Diese Einheiten können nicht direkt miteinander verrechnet werden. Daher müssen die verschiedenen Ebenen durch eine lineare Abstufung operationalisiert werden. Die lineare Abstufung wird mit der Funktion <span class="in">`reclassify`</span> durchgeführt. Verwenden Sie die Standards für die Neuklassifizierung aus @fig-mce-reclassify-1 und @fig-mce-reclassify-2).</span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Tipp**: Beachten Sie die Minimal- und Maximalwerte der einzelnen Rasterebenen.</span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Tipp**: Hier ist ein Beispielcode zur Neuklassifizierung der Entfernungen zu Siedlungen.</span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: examplereclassifysettlements</span></span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a>settlements_max <span class="ot">&lt;-</span> <span class="fu">minmax</span>(settlements_ed)[<span class="dv">2</span>]</span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>reclass_settlements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">80</span>,<span class="dv">0</span>,</span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>                        <span class="dv">80</span>,<span class="dv">160</span>,<span class="fl">0.1</span>,</span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a>                        <span class="dv">160</span>,<span class="dv">240</span>,<span class="fl">0.2</span>,</span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a>                        <span class="dv">240</span>,<span class="dv">320</span>,<span class="fl">0.3</span>,</span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a>                        <span class="dv">320</span>,<span class="dv">400</span>,<span class="fl">0.4</span>,</span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a>                        <span class="dv">400</span>,<span class="dv">480</span>,<span class="fl">0.5</span>,</span>
+<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a>                        <span class="dv">480</span>,<span class="dv">560</span>,<span class="fl">0.6</span>,</span>
+<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a>                        <span class="dv">560</span>,<span class="dv">640</span>,<span class="fl">0.7</span>,</span>
+<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a>                        <span class="dv">640</span>,<span class="dv">720</span>,<span class="fl">0.8</span>,</span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a>                        <span class="dv">720</span>,<span class="dv">800</span>,<span class="fl">0.9</span>,</span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a>                        <span class="dv">800</span>,settlements_max,<span class="fl">1.0</span>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a>reclass_settlements_ed <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">classify</span>(settlements_ed, reclass_settlements)</span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a>::: {#fig-mce-reclassify layout-ncol=2}</span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/mce_reclassify_1.png)</span>{#fig-mce-reclassify-1}</span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/mce_reclassify_2.png)</span>{#fig-mce-reclassify-2}</span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a>MCE Reclassify</span>
+<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/d_to_settlements_reclassified.png)</span>{width=50%}</span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-solutionEx7</span></span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a><span class="do">#### reclassify wind</span></span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>wind250m <span class="ot">&lt;-</span> wind25m <span class="sc">|&gt;</span> <span class="fu">aggregate</span>(<span class="at">fact =</span> <span class="dv">10</span>)</span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>wind_max <span class="ot">&lt;-</span> <span class="fu">minmax</span>(wind250m)[<span class="dv">2</span>]</span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>reclass_wind_m <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">35</span>,<span class="dv">0</span>,</span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>                      <span class="dv">35</span>,<span class="dv">40</span>,<span class="fl">0.1</span>,</span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>                      <span class="dv">40</span>,<span class="dv">45</span>,<span class="fl">0.2</span>,</span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a>                      <span class="dv">45</span>,<span class="dv">50</span>,<span class="fl">0.3</span>,</span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>                      <span class="dv">50</span>,<span class="dv">55</span>,<span class="fl">0.4</span>,</span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a>                      <span class="dv">55</span>,<span class="dv">60</span>,<span class="fl">0.5</span>,</span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a>                      <span class="dv">60</span>,<span class="dv">65</span>,<span class="fl">0.6</span>,</span>
+<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a>                      <span class="dv">65</span>,<span class="dv">70</span>,<span class="fl">0.7</span>,</span>
+<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a>                      <span class="dv">70</span>,<span class="dv">75</span>,<span class="fl">0.8</span>,</span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a>                      <span class="dv">75</span>,wind_max,<span class="fl">0.9</span>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a>reclass_wind <span class="ot">&lt;-</span> <span class="fu">classify</span>(wind250m, reclass_wind_m)</span>
+<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reclass_wind, <span class="at">main=</span><span class="st">"Average wind speed (reclassified)"</span>, <span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a><span class="do">#### reclassify ice    </span></span>
+<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a>eis250m <span class="ot">&lt;-</span> eis25m <span class="sc">|&gt;</span> <span class="fu">aggregate</span>(<span class="at">fact =</span> <span class="dv">10</span>) <span class="do">## lowering the resolution</span></span>
+<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a>eis_max <span class="ot">&lt;-</span> <span class="fu">minmax</span>(eis250m)[<span class="dv">2</span>]</span>
+<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a>reclass_ice_m <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">6</span>,<span class="dv">1</span>,</span>
+<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">6</span>,<span class="dv">12</span>,<span class="fl">0.9</span>,</span>
+<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">12</span>,<span class="dv">18</span>,<span class="fl">0.8</span>,</span>
+<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">18</span>,<span class="dv">24</span>,<span class="fl">0.7</span>,</span>
+<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">24</span>,<span class="dv">30</span>,<span class="fl">0.6</span>,</span>
+<span id="cb5-258"><a href="#cb5-258" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">30</span>,<span class="dv">36</span>,<span class="fl">0.5</span>,</span>
+<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">36</span>,eis_max,<span class="fl">0.4</span>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a>reclass_ice <span class="ot">&lt;-</span> <span class="fu">classify</span>(eis250m, reclass_ice_m)</span>
+<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reclass_ice, <span class="at">main=</span><span class="st">"Icing frequency (reclassified)"</span>, <span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a><span class="do">#### reclassify slope</span></span>
+<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a>slope250m <span class="ot">&lt;-</span> slope <span class="sc">|&gt;</span> <span class="fu">aggregate</span>(<span class="at">fact =</span> <span class="dv">10</span>) <span class="do">## lowering the resolution</span></span>
+<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a>slope_max <span class="ot">&lt;-</span> <span class="fu">minmax</span>(slope250m)[<span class="dv">2</span>]</span>
+<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a>reclass_slope_m <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">1</span>,</span>
+<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">2</span>,<span class="dv">4</span>,<span class="fl">0.9</span>,</span>
+<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">4</span>,<span class="dv">6</span>,<span class="fl">0.8</span>,</span>
+<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">6</span>,<span class="dv">8</span>,<span class="fl">0.7</span>,</span>
+<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">8</span>,<span class="dv">10</span>,<span class="fl">0.6</span>,</span>
+<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">10</span>,<span class="dv">12</span>,<span class="fl">0.5</span>,</span>
+<span id="cb5-272"><a href="#cb5-272" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">12</span>,<span class="dv">14</span>,<span class="fl">0.4</span>,</span>
+<span id="cb5-273"><a href="#cb5-273" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">14</span>,<span class="dv">16</span>,<span class="fl">0.3</span>,</span>
+<span id="cb5-274"><a href="#cb5-274" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">16</span>,<span class="dv">18</span>,<span class="fl">0.2</span>,</span>
+<span id="cb5-275"><a href="#cb5-275" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">18</span>,<span class="dv">20</span>,<span class="fl">0.1</span>,</span>
+<span id="cb5-276"><a href="#cb5-276" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">20</span>,slope_max,<span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-277"><a href="#cb5-277" aria-hidden="true" tabindex="-1"></a>reclass_slope <span class="ot">&lt;-</span> <span class="fu">classify</span>(slope250m, reclass_slope_m)</span>
+<span id="cb5-278"><a href="#cb5-278" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reclass_slope, <span class="at">main=</span><span class="st">"Slope (reclassified)"</span>, <span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-279"><a href="#cb5-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-280"><a href="#cb5-280" aria-hidden="true" tabindex="-1"></a><span class="do">#### reclassify settlements </span></span>
+<span id="cb5-281"><a href="#cb5-281" aria-hidden="true" tabindex="-1"></a>settlements_max <span class="ot">&lt;-</span> <span class="fu">minmax</span>(settlements_ed)[<span class="dv">2</span>]</span>
+<span id="cb5-282"><a href="#cb5-282" aria-hidden="true" tabindex="-1"></a>reclass_settlements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">80</span>,<span class="dv">0</span>,</span>
+<span id="cb5-283"><a href="#cb5-283" aria-hidden="true" tabindex="-1"></a>                             <span class="dv">80</span>,<span class="dv">160</span>,<span class="fl">0.1</span>,</span>
+<span id="cb5-284"><a href="#cb5-284" aria-hidden="true" tabindex="-1"></a>                             <span class="dv">160</span>,<span class="dv">240</span>,<span class="fl">0.2</span>,</span>
+<span id="cb5-285"><a href="#cb5-285" aria-hidden="true" tabindex="-1"></a>                             <span class="dv">240</span>,<span class="dv">320</span>,<span class="fl">0.3</span>,</span>
+<span id="cb5-286"><a href="#cb5-286" aria-hidden="true" tabindex="-1"></a>                             <span class="dv">320</span>,<span class="dv">400</span>,<span class="fl">0.4</span>,</span>
+<span id="cb5-287"><a href="#cb5-287" aria-hidden="true" tabindex="-1"></a>                             <span class="dv">400</span>,<span class="dv">480</span>,<span class="fl">0.5</span>,</span>
+<span id="cb5-288"><a href="#cb5-288" aria-hidden="true" tabindex="-1"></a>                             <span class="dv">480</span>,<span class="dv">560</span>,<span class="fl">0.6</span>,</span>
+<span id="cb5-289"><a href="#cb5-289" aria-hidden="true" tabindex="-1"></a>                             <span class="dv">560</span>,<span class="dv">640</span>,<span class="fl">0.7</span>,</span>
+<span id="cb5-290"><a href="#cb5-290" aria-hidden="true" tabindex="-1"></a>                             <span class="dv">640</span>,<span class="dv">720</span>,<span class="fl">0.8</span>,</span>
+<span id="cb5-291"><a href="#cb5-291" aria-hidden="true" tabindex="-1"></a>                             <span class="dv">720</span>,<span class="dv">800</span>,<span class="fl">0.9</span>,</span>
+<span id="cb5-292"><a href="#cb5-292" aria-hidden="true" tabindex="-1"></a>                             <span class="dv">800</span>,settlements_max,<span class="fl">1.0</span>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-293"><a href="#cb5-293" aria-hidden="true" tabindex="-1"></a>reclass_settlements_ed <span class="ot">&lt;-</span> <span class="fu">classify</span>(settlements_ed, reclass_settlements)</span>
+<span id="cb5-294"><a href="#cb5-294" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reclass_settlements_ed, <span class="at">main=</span><span class="st">"Distance to settlements (reclassified)"</span>, <span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-295"><a href="#cb5-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-296"><a href="#cb5-296" aria-hidden="true" tabindex="-1"></a><span class="do">#### reclassify protected areas</span></span>
+<span id="cb5-297"><a href="#cb5-297" aria-hidden="true" tabindex="-1"></a>protected_areas_max <span class="ot">&lt;-</span> <span class="fu">minmax</span>(protected_areas_ed)[<span class="dv">2</span>]</span>
+<span id="cb5-298"><a href="#cb5-298" aria-hidden="true" tabindex="-1"></a>reclass_protected_areas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>,<span class="dv">0</span>,</span>
+<span id="cb5-299"><a href="#cb5-299" aria-hidden="true" tabindex="-1"></a>                                 <span class="dv">50</span>,<span class="dv">100</span>,<span class="fl">0.1</span>,</span>
+<span id="cb5-300"><a href="#cb5-300" aria-hidden="true" tabindex="-1"></a>                                 <span class="dv">100</span>,<span class="dv">150</span>,<span class="fl">0.2</span>,</span>
+<span id="cb5-301"><a href="#cb5-301" aria-hidden="true" tabindex="-1"></a>                                 <span class="dv">150</span>,<span class="dv">200</span>,<span class="fl">0.3</span>,</span>
+<span id="cb5-302"><a href="#cb5-302" aria-hidden="true" tabindex="-1"></a>                                 <span class="dv">200</span>,<span class="dv">250</span>,<span class="fl">0.4</span>,</span>
+<span id="cb5-303"><a href="#cb5-303" aria-hidden="true" tabindex="-1"></a>                                 <span class="dv">250</span>,<span class="dv">300</span>,<span class="fl">0.5</span>,</span>
+<span id="cb5-304"><a href="#cb5-304" aria-hidden="true" tabindex="-1"></a>                                 <span class="dv">300</span>,<span class="dv">350</span>,<span class="fl">0.6</span>,</span>
+<span id="cb5-305"><a href="#cb5-305" aria-hidden="true" tabindex="-1"></a>                                 <span class="dv">350</span>,<span class="dv">400</span>,<span class="fl">0.7</span>,</span>
+<span id="cb5-306"><a href="#cb5-306" aria-hidden="true" tabindex="-1"></a>                                 <span class="dv">400</span>,<span class="dv">450</span>,<span class="fl">0.8</span>,</span>
+<span id="cb5-307"><a href="#cb5-307" aria-hidden="true" tabindex="-1"></a>                                 <span class="dv">450</span>,<span class="dv">500</span>,<span class="fl">0.9</span>,</span>
+<span id="cb5-308"><a href="#cb5-308" aria-hidden="true" tabindex="-1"></a>                                 <span class="dv">500</span>,protected_areas_max,<span class="fl">1.0</span>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-309"><a href="#cb5-309" aria-hidden="true" tabindex="-1"></a>reclass_protected_areas_ed <span class="ot">&lt;-</span> <span class="fu">classify</span>(protected_areas_ed, reclass_protected_areas)</span>
+<span id="cb5-310"><a href="#cb5-310" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reclass_protected_areas_ed, <span class="at">main=</span><span class="st">"Distance to protected areas (reclassified)"</span>, <span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-311"><a href="#cb5-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-312"><a href="#cb5-312" aria-hidden="true" tabindex="-1"></a><span class="do">#### reclassify forest area </span></span>
+<span id="cb5-313"><a href="#cb5-313" aria-hidden="true" tabindex="-1"></a>forests_max <span class="ot">&lt;-</span> <span class="fu">minmax</span>(forests_ed)[<span class="dv">2</span>]</span>
+<span id="cb5-314"><a href="#cb5-314" aria-hidden="true" tabindex="-1"></a>reclass_forests <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">0</span>,</span>
+<span id="cb5-315"><a href="#cb5-315" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">10</span>,<span class="dv">20</span>,<span class="fl">0.1</span>,</span>
+<span id="cb5-316"><a href="#cb5-316" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">20</span>,<span class="dv">30</span>,<span class="fl">0.2</span>,</span>
+<span id="cb5-317"><a href="#cb5-317" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">30</span>,<span class="dv">40</span>,<span class="fl">0.3</span>,</span>
+<span id="cb5-318"><a href="#cb5-318" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">40</span>,<span class="dv">50</span>,<span class="fl">0.4</span>,</span>
+<span id="cb5-319"><a href="#cb5-319" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">50</span>,<span class="dv">60</span>,<span class="fl">0.5</span>,</span>
+<span id="cb5-320"><a href="#cb5-320" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">60</span>,<span class="dv">70</span>,<span class="fl">0.6</span>,</span>
+<span id="cb5-321"><a href="#cb5-321" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">70</span>,<span class="dv">80</span>,<span class="fl">0.7</span>,</span>
+<span id="cb5-322"><a href="#cb5-322" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">80</span>,<span class="dv">90</span>,<span class="fl">0.8</span>,</span>
+<span id="cb5-323"><a href="#cb5-323" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">90</span>,<span class="dv">100</span>,<span class="fl">0.9</span>,</span>
+<span id="cb5-324"><a href="#cb5-324" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">100</span>,forests_max,<span class="fl">1.0</span>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-325"><a href="#cb5-325" aria-hidden="true" tabindex="-1"></a>reclass_forests_ed <span class="ot">&lt;-</span> <span class="fu">classify</span>(forests_ed, reclass_forests)</span>
+<span id="cb5-326"><a href="#cb5-326" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reclass_forests_ed, <span class="at">main=</span><span class="st">"Distance to forest areas (reclassified)"</span>, <span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-327"><a href="#cb5-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-328"><a href="#cb5-328" aria-hidden="true" tabindex="-1"></a><span class="do">#### reclassify streets   </span></span>
+<span id="cb5-329"><a href="#cb5-329" aria-hidden="true" tabindex="-1"></a>streets_max <span class="ot">&lt;-</span> <span class="fu">minmax</span>(streets_ed)[<span class="dv">2</span>]</span>
+<span id="cb5-330"><a href="#cb5-330" aria-hidden="true" tabindex="-1"></a>reclass_streets <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">250</span>,<span class="fl">1.0</span>,</span>
+<span id="cb5-331"><a href="#cb5-331" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">250</span>,<span class="dv">500</span>,<span class="fl">0.9</span>,</span>
+<span id="cb5-332"><a href="#cb5-332" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">500</span>,<span class="dv">750</span>,<span class="fl">0.8</span>,</span>
+<span id="cb5-333"><a href="#cb5-333" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">750</span>,<span class="dv">1000</span>,<span class="fl">0.7</span>,</span>
+<span id="cb5-334"><a href="#cb5-334" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">1000</span>,<span class="dv">1250</span>,<span class="fl">0.6</span>,</span>
+<span id="cb5-335"><a href="#cb5-335" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">1250</span>,<span class="dv">1500</span>,<span class="fl">0.5</span>,</span>
+<span id="cb5-336"><a href="#cb5-336" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">1500</span>,<span class="dv">1750</span>,<span class="fl">0.4</span>,</span>
+<span id="cb5-337"><a href="#cb5-337" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">1750</span>,<span class="dv">2000</span>,<span class="fl">0.3</span>,</span>
+<span id="cb5-338"><a href="#cb5-338" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">2000</span>,<span class="dv">2250</span>,<span class="fl">0.2</span>,</span>
+<span id="cb5-339"><a href="#cb5-339" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">2250</span>,<span class="dv">2500</span>,<span class="fl">0.1</span>,</span>
+<span id="cb5-340"><a href="#cb5-340" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">2500</span>,streets_max,<span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-341"><a href="#cb5-341" aria-hidden="true" tabindex="-1"></a>reclass_streets_ed <span class="ot">&lt;-</span> <span class="fu">classify</span>(streets_ed, reclass_streets)</span>
+<span id="cb5-342"><a href="#cb5-342" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reclass_streets_ed, <span class="at">main=</span><span class="st">"Distance to streets (reclassified)"</span>, <span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-343"><a href="#cb5-343" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-344"><a href="#cb5-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-345"><a href="#cb5-345" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übung 6: Gewichtung der Kriterien mit AHP</span></span>
+<span id="cb5-346"><a href="#cb5-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-347"><a href="#cb5-347" aria-hidden="true" tabindex="-1"></a>Führen Sie einen AHP durch, um die Kriterien zu gewichten, die dem MCE zugrunde liegen. Vergleichen Sie zunächst die Kriterien paarweise und berechnen Sie dann die Gewichte - wie Sie es in der letzten Woche gelernt haben. Am Ende sollten Sie eine Liste mit 7 Gewichten erhalten, wie unten dargestellt.</span>
+<span id="cb5-348"><a href="#cb5-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-349"><a href="#cb5-349" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Tipp**: Sehen Sie sich die Übungen 2 und 3 aus der letzten Woche an. Verwenden Sie den vorbereiteten R-Code, um Ihre ahp-Matrix zu erstellen.</span>
+<span id="cb5-350"><a href="#cb5-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-351"><a href="#cb5-351" aria-hidden="true" tabindex="-1"></a>| Wind | Streets | Ice | Settlements | Forest | Slope | Protected areas |</span>
+<span id="cb5-352"><a href="#cb5-352" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|:---|:---|:---|</span>
+<span id="cb5-353"><a href="#cb5-353" aria-hidden="true" tabindex="-1"></a>| 0.33862692 | 0.09816760 | 0.06166626 | 0.24969460 | 0.03515759 | 0.18043000 | 0.03625702 |</span>
+<span id="cb5-354"><a href="#cb5-354" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-357"><a href="#cb5-357" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-358"><a href="#cb5-358" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ahp_mce</span></span>
+<span id="cb5-359"><a href="#cb5-359" aria-hidden="true" tabindex="-1"></a>ahp_matrix <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb5-360"><a href="#cb5-360" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Wind</span></span>
+<span id="cb5-361"><a href="#cb5-361" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Distance to streets</span></span>
+<span id="cb5-362"><a href="#cb5-362" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Ice</span></span>
+<span id="cb5-363"><a href="#cb5-363" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Distance to settlements</span></span>
+<span id="cb5-364"><a href="#cb5-364" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="co">#Distance to forests</span></span>
+<span id="cb5-365"><a href="#cb5-365" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="co">#Slope</span></span>
+<span id="cb5-366"><a href="#cb5-366" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>  <span class="co">#Distance to protected areas</span></span>
+<span id="cb5-367"><a href="#cb5-367" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">7</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-368"><a href="#cb5-368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-369"><a href="#cb5-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-372"><a href="#cb5-372" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-373"><a href="#cb5-373" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: solutionEx8</span></span>
+<span id="cb5-374"><a href="#cb5-374" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-375"><a href="#cb5-375" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb5-376"><a href="#cb5-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-377"><a href="#cb5-377" aria-hidden="true" tabindex="-1"></a><span class="co">#create AHP</span></span>
+<span id="cb5-378"><a href="#cb5-378" aria-hidden="true" tabindex="-1"></a>ahp_matrix <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb5-379"><a href="#cb5-379" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>,   <span class="dv">6</span>,   <span class="dv">7</span>,   <span class="dv">3</span>,   <span class="dv">7</span>, <span class="dv">4</span>,   <span class="dv">5</span>, <span class="co">#Wind</span></span>
+<span id="cb5-380"><a href="#cb5-380" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>, <span class="dv">1</span>,   <span class="dv">2</span>,   <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">3</span>, <span class="co">#Distance to streets</span></span>
+<span id="cb5-381"><a href="#cb5-381" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">/</span><span class="dv">7</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span>,   <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">2</span>, <span class="co">#Ice</span></span>
+<span id="cb5-382"><a href="#cb5-382" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">5</span>,   <span class="dv">6</span>,   <span class="dv">1</span>,   <span class="dv">5</span>, <span class="dv">3</span>,   <span class="dv">4</span>, <span class="co">#Distance to settlements</span></span>
+<span id="cb5-383"><a href="#cb5-383" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">/</span><span class="dv">7</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="co">#Distance to forests</span></span>
+<span id="cb5-384"><a href="#cb5-384" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">5</span>,   <span class="dv">3</span>,   <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>,   <span class="dv">4</span>, <span class="co">#Slope</span></span>
+<span id="cb5-385"><a href="#cb5-385" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span>  <span class="co">#Distance to protected areas</span></span>
+<span id="cb5-386"><a href="#cb5-386" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">7</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-387"><a href="#cb5-387" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ahp_matrix) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Wind"</span>, <span class="st">"Streets"</span>, <span class="st">"Ice"</span>, <span class="st">"Settlements"</span>, <span class="st">"Forest"</span>, <span class="st">"Slope"</span>, <span class="st">"Protected areas"</span>)</span>
+<span id="cb5-388"><a href="#cb5-388" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(ahp_matrix) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Wind"</span>, <span class="st">"Streets"</span>, <span class="st">"Ice"</span>, <span class="st">"Settlements"</span>, <span class="st">"Forest"</span>, <span class="st">"Slope"</span>, <span class="st">"Protected areas"</span>)</span>
+<span id="cb5-389"><a href="#cb5-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-390"><a href="#cb5-390" aria-hidden="true" tabindex="-1"></a><span class="co">#Normalization of matrix &amp; weighting of criteria</span></span>
+<span id="cb5-391"><a href="#cb5-391" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(ahp_matrix) <span class="co">#add row sum</span></span>
+<span id="cb5-392"><a href="#cb5-392" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-393"><a href="#cb5-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-394"><a href="#cb5-394" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übung 7: Gewichtetes Overlay</span></span>
+<span id="cb5-395"><a href="#cb5-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-396"><a href="#cb5-396" aria-hidden="true" tabindex="-1"></a>Die linear gewichteten Kriterien (Übung 5) sollen nun unter Berücksichtigung der mit dem AHP ermittelten Gewichtung (Übung 6) miteinander kombiniert werden. Diese gewichtete Überlagerung kann mit Hilfe von Rasterberechnungen durchgeführt werden, indem einfach jedes Kriterium mit seinem Gewicht multipliziert und addiert wird (siehe @fig-weighted-overlay).</span>
+<span id="cb5-397"><a href="#cb5-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-398"><a href="#cb5-398" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Tipp**: Da die Rastersätze leicht unterschiedliche Ursprünge haben, erhöhen Sie die Toleranz, indem Sie rasterOptions(tolerance = 0.5) verwenden.</span>
+<span id="cb5-399"><a href="#cb5-399" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Tipp**: Achten Sie bei der Multiplikation auch auf die Reihenfolge der Gewichte in Ihrer Liste.</span>
+<span id="cb5-400"><a href="#cb5-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-401"><a href="#cb5-401" aria-hidden="true" tabindex="-1"></a><span class="al">![Gewichteter Overlay](images/weighted_overlay.png)</span>{#fig-weighted-overlay width=50%}</span>
+<span id="cb5-402"><a href="#cb5-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-405"><a href="#cb5-405" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-406"><a href="#cb5-406" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-solutionEx9</span></span>
+<span id="cb5-407"><a href="#cb5-407" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb5-408"><a href="#cb5-408" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-409"><a href="#cb5-409" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb5-410"><a href="#cb5-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-411"><a href="#cb5-411" aria-hidden="true" tabindex="-1"></a><span class="co"># rasterOptions(tolerance = 0.5) #raster sets have different origins, increase tolerance</span></span>
+<span id="cb5-412"><a href="#cb5-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-413"><a href="#cb5-413" aria-hidden="true" tabindex="-1"></a>wind_f <span class="ot">&lt;-</span> (reclass_wind <span class="sc">*</span> weights[<span class="dv">1</span>])</span>
+<span id="cb5-414"><a href="#cb5-414" aria-hidden="true" tabindex="-1"></a>streets_f <span class="ot">&lt;-</span> (reclass_streets_ed <span class="sc">*</span> weights[<span class="dv">2</span>])</span>
+<span id="cb5-415"><a href="#cb5-415" aria-hidden="true" tabindex="-1"></a>eis_f <span class="ot">&lt;-</span> (reclass_ice <span class="sc">*</span> weights[<span class="dv">3</span>]) </span>
+<span id="cb5-416"><a href="#cb5-416" aria-hidden="true" tabindex="-1"></a>settlements_f <span class="ot">&lt;-</span> (reclass_settlements_ed <span class="sc">*</span> weights[<span class="dv">4</span>])</span>
+<span id="cb5-417"><a href="#cb5-417" aria-hidden="true" tabindex="-1"></a>forests_f <span class="ot">&lt;-</span> (reclass_forests_ed <span class="sc">*</span> weights[<span class="dv">5</span>])</span>
+<span id="cb5-418"><a href="#cb5-418" aria-hidden="true" tabindex="-1"></a>slope_f <span class="ot">&lt;-</span> (reclass_slope <span class="sc">*</span> weights[<span class="dv">6</span>])</span>
+<span id="cb5-419"><a href="#cb5-419" aria-hidden="true" tabindex="-1"></a>protected_areas_f <span class="ot">&lt;-</span> (reclass_protected_areas_ed <span class="sc">*</span> weights[<span class="dv">7</span>])</span>
+<span id="cb5-420"><a href="#cb5-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-421"><a href="#cb5-421" aria-hidden="true" tabindex="-1"></a>weighted_overlay <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">merge</span>(streets_f,eis_f,settlements_f,forests_f,</span>
+<span id="cb5-422"><a href="#cb5-422" aria-hidden="true" tabindex="-1"></a>                                  slope_f,protected_areas_f,wind_f)</span>
+<span id="cb5-423"><a href="#cb5-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-424"><a href="#cb5-424" aria-hidden="true" tabindex="-1"></a><span class="co"># Transforming all the layer from SpatRaster class to RasterLayer class, so</span></span>
+<span id="cb5-425"><a href="#cb5-425" aria-hidden="true" tabindex="-1"></a><span class="co"># we can perform the raster multiplication operation</span></span>
+<span id="cb5-426"><a href="#cb5-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-427"><a href="#cb5-427" aria-hidden="true" tabindex="-1"></a>streets_R <span class="ot">&lt;-</span> streets_f <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>()</span>
+<span id="cb5-428"><a href="#cb5-428" aria-hidden="true" tabindex="-1"></a>eis_R <span class="ot">&lt;-</span> eis_f <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>()</span>
+<span id="cb5-429"><a href="#cb5-429" aria-hidden="true" tabindex="-1"></a>settlements_R <span class="ot">&lt;-</span> settlements_f <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>()</span>
+<span id="cb5-430"><a href="#cb5-430" aria-hidden="true" tabindex="-1"></a>forests_R <span class="ot">&lt;-</span> forests_f <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>()</span>
+<span id="cb5-431"><a href="#cb5-431" aria-hidden="true" tabindex="-1"></a>slope_R <span class="ot">&lt;-</span> slope_f <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>()</span>
+<span id="cb5-432"><a href="#cb5-432" aria-hidden="true" tabindex="-1"></a>protected_areas_R <span class="ot">&lt;-</span> protected_areas_f <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>()</span>
+<span id="cb5-433"><a href="#cb5-433" aria-hidden="true" tabindex="-1"></a>wind_R <span class="ot">&lt;-</span> wind_f <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>()</span>
+<span id="cb5-434"><a href="#cb5-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-435"><a href="#cb5-435" aria-hidden="true" tabindex="-1"></a>weighted_overlay <span class="ot">&lt;-</span> streets_R<span class="sc">*</span>eis_R<span class="sc">*</span>settlements_R<span class="sc">*</span>forests_R<span class="sc">*</span>slope_R<span class="sc">*</span>protected_areas_R<span class="sc">*</span>wind_R</span>
+<span id="cb5-436"><a href="#cb5-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-437"><a href="#cb5-437" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(weighted_overlay, <span class="at">main=</span><span class="st">"Weighted overlay with all criteria"</span>, <span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">legend=</span>F)</span>
+<span id="cb5-438"><a href="#cb5-438" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-439"><a href="#cb5-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-440"><a href="#cb5-440" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übung 8: Potenzielle Gebiete mit Ausschlusskriterien überschneiden</span></span>
+<span id="cb5-441"><a href="#cb5-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-442"><a href="#cb5-442" aria-hidden="true" tabindex="-1"></a>Durch einfache Multiplikation des Ausschluss-Layers (Ergebnis aus Übung 2) mit dem gewichteten Overlay-Layer (Ergebnis aus Übung 7) schliessen wir alle Flächen mit dem Wert 0 (Ausschlussflächen) aus und behalten alle anderen Flächen mit dem Wert 1 (z.B. 0x3=0, 1x3=3). Erstellen Sie als Abschluss der Studie eine endgültige Darstellung der Potenzialflächen für Windkraftanlagen im Kanton Schwyz (wie @fig-potential-sites). Diskutieren Sie die Ergebnisse und bestimmen Sie drei mögliche Standorte, an denen eine konkrete Planung von Windkraftanlagen möglich wäre.</span>
+<span id="cb5-443"><a href="#cb5-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-444"><a href="#cb5-444" aria-hidden="true" tabindex="-1"></a><span class="al">![Potenzielle Standorte](images/potential_sites.png)</span>{#fig-potential-sites}</span>
+<span id="cb5-445"><a href="#cb5-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-448"><a href="#cb5-448" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-449"><a href="#cb5-449" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-solutionEx10</span></span>
+<span id="cb5-450"><a href="#cb5-450" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
+<span id="cb5-451"><a href="#cb5-451" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-452"><a href="#cb5-452" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb5-453"><a href="#cb5-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-454"><a href="#cb5-454" aria-hidden="true" tabindex="-1"></a><span class="co"># Transforming  the layer depicting the exclusion areas from SpatRaster class to RasterLayer class, so we can perform the final raster multiplication operation</span></span>
+<span id="cb5-455"><a href="#cb5-455" aria-hidden="true" tabindex="-1"></a>raster_exclusion_areas <span class="ot">&lt;-</span> raster_exclusion_areas <span class="sc">|&gt;</span> raster<span class="sc">::</span><span class="fu">raster</span>()</span>
+<span id="cb5-456"><a href="#cb5-456" aria-hidden="true" tabindex="-1"></a>final_model <span class="ot">&lt;-</span> weighted_overlay <span class="sc">*</span> raster_exclusion_areas</span>
+<span id="cb5-457"><a href="#cb5-457" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(final_model, <span class="at">main=</span><span class="st">"Potential sites for wind power plants in Kt. Schwyz"</span>, <span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">legend=</span>F)</span>
+<span id="cb5-458"><a href="#cb5-458" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 
