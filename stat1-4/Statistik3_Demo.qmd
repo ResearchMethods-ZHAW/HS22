@@ -23,7 +23,7 @@ Experiment zur Fruchtproduktion ("Fruit") von Ipomopsis sp. ("Fruit") in Abhäng
 # Daten einlesen und anschauen
 
 compensation <- read.delim("datasets/statistik/ipomopsis.csv", sep = ",", stringsAsFactors = T)
- head(compensation)
+head(compensation)
 summary(compensation)
 
 ```
@@ -43,21 +43,7 @@ boxplot(Fruit~Grazing, data = compensation)
 > > In der beweideten Gruppe scheint die Fruchtproduktion grösser. Liegt dies an der Beweidung oder an den Pflanzengrössen in der Gruppe?
 
 ```{r}
-#Lineare Modelle definieren und anschauen
-
-aoc.1 <- lm(Fruit~Root * Grazing, data = compensation)
-summary.aov(aoc.1)
-
-aoc.2 <- lm(Fruit~Grazing * Root, data = compensation)
-summary.aov(aoc.2)
-
-aoc.3 <- lm(Fruit~Grazing + Root, data = compensation)
-summary.aov(aoc.2)
-summary.lm(aoc.3)
-```
-
-```{r}
-# Plotten der Daten
+# Plotten der vollständigen Daten/Information
 library(tidyverse)
 ggplot(compensation, aes(Root, Fruit, color = Grazing)) +
   geom_point() + 
@@ -65,9 +51,14 @@ ggplot(compensation, aes(Root, Fruit, color = Grazing)) +
 ```
 
 ```{r}
-# Ploten mit base R
-plot(Fruit~Root, pch = 16, col = Grazing, data = compensation)
-legend("topleft", c("grazed", "ungrazed"), col = c("black","red"), pch = 16) 
+#Lineare Modelle definieren und anschauen
+
+aoc.1 <- lm(Fruit~Root * Grazing, data = compensation)
+summary.aov(aoc.1)
+
+aoc.2 <- lm(Fruit~Grazing + Root, data = compensation)
+summary.aov(aoc.1)
+summary.lm(aoc.2)
 ```
 
 ## Polynomische Regression
@@ -86,7 +77,7 @@ lm.quad <- lm(f~e + I(e^2))
 summary(lm.1)
 ```
 
--\> kein signifikanter Zusammenhang und entsprechend kleines Bestimmtheitsmass (adj. R^2^ = 0.07)
+$\\leftarrow$ kein signifikanter Zusammenhang und entsprechend kleines Bestimmtheitsmass (adj. R^2^ = 0.07)
 
 ```{r}
 summary(lm.quad)
@@ -126,6 +117,7 @@ test <- data.frame("x" = c(1, 2, 3, 4, 5, 6), "y" = c(34, 21, 70, 47, 23, 45))
 
 par(mfrow=c(1,1))
 plot(y~x, data = test)
+
 ```
 
 ```{r}
@@ -136,33 +128,50 @@ lm.2 <- lm(y~x+ I(x^2), data = test)
 lm.3 <- lm(y~x+ I(x^2) + I(x^3), data = test)
 lm.4 <- lm(y~x+ I(x^2) + I(x^3) + I(x^4), data = test)
 lm.5 <- lm(y~x+ I(x^2) + I(x^3) + I(x^4) + I(x^5), data = test)
-lm.6 <- lm(y~x+ I(x^2) + I(x^3) + I(x^4) + I(x^5) + I(x^6), data = test)
-summary(lm.0)
-summary(lm.1)
-summary(lm.2)
-summary(lm.3)
-summary(lm.4)
-summary(lm.5)
 
+# Summaries rechnen 
+smy.0 <- summary(lm.0)
+smy.1 <- summary(lm.1)
+smy.2 <- summary(lm.2)
+smy.3 <- summary(lm.3)
+smy.4 <- summary(lm.4)
+smy.5 <- summary(lm.5)
 
+# R2 vergleichen
+
+smy.0$r.squared
+smy.1$r.squared
+smy.2$r.squared
+smy.3$r.squared
+smy.4$r.squared
+smy.5$r.squared
 ```
+
+-\> R2 wird immer grösser, modelle werden immer besser. ;-)
 
 ```{r}
 # Modelle plotten
 xv <- seq(from = 0, to = 10, by = 0.1)
-
 plot(y~x, cex = 2, col = "black", lwd = 3, data = test)
 yv <- predict(lm.1, list(x = xv))
 lines(xv, yv, col = "red", lwd = 3)
+text(x = c(1,70), "lm.1", col = "red" )
 yv <- predict(lm.2, list(x = xv))
 lines(xv, yv, col = "blue", lwd = 3)
+text(x = c(1,65), "lm.2", col = "blue" )
 yv<-predict(lm.3, list(x = xv))
 lines(xv, yv, col = "green", lwd =3)
+text(x = c(1,60), "lm.3", col = "green" )
 yv <- predict(lm.4, list(x = xv))
 lines(xv, yv, col = "orange", lwd = 3)
+text(x = c(1,55), "lm.4", col = "orange" )
 yv <- predict(lm.5, list(x = xv))
-lines(xv, yv, col = "black", lwd = 3)
+lines(xv, yv, col = "violet", lwd = 3)
+text(x = c(1,50), "lm.5", col = "violet" )
+
 ```
+
+-\> Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 Parametern zu fitten??
 
 ## Multiple lineare Regression (basierend auf Logan, Beispiel 9A)
 
