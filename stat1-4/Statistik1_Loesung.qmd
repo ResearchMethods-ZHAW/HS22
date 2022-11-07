@@ -3,49 +3,65 @@ date: 2022-10-31
 lesson: Stat1
 thema: Grundlagen der Statistik
 index: 4
-
+format:
+  html:
+    code-tools:
+      source: true
 ---
 
+<<<<<<< HEAD
 # Stat1: Lösung
 
-<<<<<<< HEAD
 ```{r}
 #| echo: false
 #| results: hide
 
 options(knitr.duplicate.label = "allow")
 knitr::purl("/stat1-4/Statistik1_Loesung.qmd", "/purl/Statistik1_Loesung.R", documentation = 0)
+=======
+# Stat1: Lösungen
+>>>>>>> df4e3032503088970257809eef233a83fd12f9ad
 
+- Download dieses Lösungsscript via "\</\>Code" (oben rechts)
 
-```
-
-##  Musterlösung Übung 1.1
-
-- Download [R-Skript](../purl/Statistik1_Loesung.R)
-
-
-### Kommentierter Weg Fall B
+## Musterlösung Übung 1.1: Assoziationstest
 
 In diesem Beispiel soll einem Klischee auf den Grund gegagen werden: **Sind Aargauer überdurchschnittlich mit weissen Socken assoziiert?** Die Datenerhebung basiert auf männlichen Studenten bei denen folgende beiden binären Variablen erhoben wurden:
 
--   Sockenfarbe: weiss, nicht-weiss
-
--   Selbstdeklarierte Kantonsangehörigkeit: AG, nicht-AG
+- Sockenfarbe: weiss, nicht-weiss
+- Selbstdeklarierte Kantonsangehörigkeit: AG, nicht-AG
 
 Die Hypothese ist: Das Klischee trifft zu, weisse Socken sind überdurchschnittlich häufig mit Aargauer Studenten assoziiert.
 
 Die Datenerhebung unter 35 Studenten ergab folgende Datengrundlage:
 
-Weisssockige Aargauer: 4
-
-Nicht-weisssockige Aargauer: 2
-
-Weissockige nicht-Aargauer: 7
-
-Nicht-weisssockige nicht-Aargauer: 22
+- Weisssockige Aargauer: 4
+- Nicht-weisssockige Aargauer: 2
+- Weissockige nicht-Aargauer: 7
+- Nicht-weisssockige nicht-Aargauer: 22
 
 ```{r}
+#| echo: false
+#| results: hide
 
+#lade Packages
+library(ggplot2)
+library(dplyr)
+library(readr)
+
+## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
+mytheme <- 
+  theme_classic() + 
+  theme(
+    axis.line = element_line(color = "black"), 
+    axis.text = element_text(size = 12, color = "black"), 
+    axis.title = element_text(size = 12, color = "black"), 
+    axis.ticks = element_line(size = .75, color = "black"), 
+    axis.ticks.length = unit(.5, "cm")
+    )
+```
+
+```{r}
 # Matrix erstellen
 Aargauer <- c(4, 2)
 names(Aargauer) <- c("Weiss", "NotWeiss")
@@ -67,16 +83,13 @@ Für kleine Erwartungswerte in den Zellen (\< 5) ist der Chi-Quadrat-Test nicht 
 # Tests durchführen
 chisq.test(AGsocks) # Chi-Quadrat-Test nur zum anschauen.
 fisher.test(AGsocks) # "Fisher's Exact Test for Count Data"
-
 ```
-
 
 ### Ergebnisse
 
 In den erhobenen Daten konnte keine signifikante Assoziation zwischen Kantonangehörigkeit (AG, nicht-AG) und Sockenfarbe (weiss, nicht-weiss) festgestellt werden. Der *p*-Wert von Fishers exaktem Test war nur marginal signifikant (*p* = 0.063). Das nicht-signfikante Resultat überrascht auf den ersten Blick, denn der "odds ratio" im Datensatz ist mit 5.9 relativ hoch und 67 % der Aargauer trugen weisse Socken während nur 24 % der Nicht-Aargauer weisse Socken trugen. Doch war der Anteil von nur 6 Aargauer in der nur 35 Männer umfassenden Stichprobe relativ klein, um ein verlässliches Bild der Sockenpräferenzen der Aargauer zu machen. Insofern leuchtet es ein, das bei dieser kleinen und unausgewogenen Stichprobe die "Power" des satistischen Tests (um die Nullhypothese zu verwerfen) relativ klein ist.
 
 ## Musterlösung Übung 1.2: t-Test
-
 
 > Leseempfehlung Kapitel 2 von [Manny Gimond](https://mgimond.github.io/Stats-in-R/z_t_tests.html)
 
@@ -92,7 +105,6 @@ $H_1$: Es gibt Unterschiede in den Verkaufszahlen zwischen Basis- und Interventi
 
 #lade Daten
 df <- readr::read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik1.2.csv")
-
 
 # überprüft die Voraussetzungen für einen t-Test
 ggplot2::ggplot(df, aes(x = condit, y= tot_sold)) + # achtung 0 Punkt fehlt
@@ -124,10 +136,7 @@ Ziel war es die aggregierten Verkaufszahlen zwischen den Interventions- und Basi
 
 ### Ergebnisse
 
-In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventionswochen (siehe Abbildung 1). Die wöchentlichen Verkaufszahlen zwischen den Bedingungen (Basis oder Intervention) unterscheiden sich gemäss Welch t-Test jedoch nicht signifikant (*p* = .791). Die Ergebnisse könnten mit einem $\chi^2$-Test nochmals validiert werden, da die Gruppengrösse mit n = 6 doch eher klein ist. 
-
 In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventionswochen (siehe Abbildung 1). Die wöchentlichen Verkaufszahlen zwischen den Bedingungen (Basis oder Intervention) unterscheiden sich gemäss Welch t-Test jedoch nicht signifikant (*t*(`r round(t_test$parameter[[1]],digits = 0)`) = `r round(t_test$statistic, digits = 3)` , *p* = `r round(t_test$p.value, digits=3)`). Die Ergebnisse könnten mit einem $\chi^2$-Test nochmals validiert werden, da die Gruppengrösse mit n = 6 doch eher klein ist.
-
 
 ```{r}
 #| echo: false

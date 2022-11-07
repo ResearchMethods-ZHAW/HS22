@@ -1,5 +1,11 @@
+<<<<<<< HEAD
+# so kannst du die Daten direkt von der Webpage laden
+nova <- read_delim(file = "https://zenodo.org/record/3890931/files/2017_ZHAW_aggregated_menu_sales_NOVANIMAL.csv?download=1", delim = ";")
+nova_survey <- read_delim(file = "https://zenodo.org/record/3554884/files/2019_ZHAW_vonRickenbach_cleaned_recorded_survey_dataset_NOVANIMAL_anonym.csv?download=1", delim = ";")
+=======
 options(knitr.duplicate.label = "allow")
 knitr::purl("stat1-4/Statistik1_Loesung.qmd", "purl/Statistik1_Loesung.R", documentation = 0)
+>>>>>>> bc745010dd48842e320bd76811fb7d43f3c8f76e
 
 
 

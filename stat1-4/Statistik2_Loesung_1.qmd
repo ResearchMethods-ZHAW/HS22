@@ -3,176 +3,190 @@ date: 2022-11-01
 lesson: Stat2
 thema: Einführung in lineare Modelle
 index: 4
+format:
+  html:
+    code-tools:
+      source: true
 ---
 
-# Stat2: Lösung  2.1
+# Stat2: Lösung 2.1
+
+-   Download dieses Lösungsscript via "\</\>Code" (oben rechts)
+-   [Lösungstext als Download](Statistik_Loesung_2.1.pdf)
+
+## Daten einlesen und exlporieren
 
 ```{r}
-#| echo: false
-#| results: hide
-#| purl: false
-options(knitr.duplicate.label = "allow")
-knitr::purl("stat1-4/Statistik2_Loesung_1.qmd", "purl/Statistik2_Loesung_1.R", documentation = 0)
-```
 
-- Datensatz [SAR.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604474)
-- [RCode als Download](../purl/Statistik2_Loesung_1.R)
-- [Lösungstext als Download](Statistik_Loesung_2.1.pdf)
-
-## Lösungsweg
-
-```{r}
-SAR <- read.delim("data/SAR.csv", sep = ";")
+SAR <- read.delim("datasets/statistik/SAR.csv", sep = ";") # Daten einlesen
+head(SAR) # Daten anschauen
+str(SAR) # Datenformat überprüfen
 ```
 
 ```{r}
-#| eval: false
-SAR
-```
 
-### Explorative Datenanalyse
+summary(SAR) # Überblick verschaffen
+```
 
 ```{r}
-#| label: fig-plots-data-analysis
-#| fig-cap: "Generierter Plot"
 
-summary(SAR)
-boxplot(SAR$area) # extrem rechtsschief
-boxplot(SAR$richness) # extrem rechtsschief
-plot(richness~area, data = SAR) # sieht nicht linear aus
+boxplot(SAR$area) # Boxplot der Flächengrösse
 ```
 
-### Einfaches lineares Modell
+-\> Erklärende Variable extrem rechtsschief.
+
 ```{r}
-lm.1 <- lm(richness~area, data = SAR)
-summary(lm.1)
+
+boxplot(SAR$richness) # Boxplot der Artenzahl
 ```
 
-### Modelldiagnostik
+-\> Auch abhängige Variable extrem rechtsschief.
+
 ```{r}
-#| label: fig-plot-modeldiagnostics
-#| fig-cap: "Generierter Plot"
 
-par(mfrow = c(2, 2))
-plot(lm.1)
+plot(richness~area, data = SAR) # Daten plotten
 ```
 
-### Ergebnisplot
+-\> Zusammenhang sieht nicht linear aus.
+
+**Fazit Datenexploration**: Sowohl die abhängige als auch die unabhängige Variable sind extrem rechtsschief verteilt und ihr Zusammenhang sieht nicht linear aus. Die Voraussetzungen für ein lineares Modell sehen also schlecht aus. Um diese Vermutung zu überprüfen, wird im Folgenden ein Lineares Modell mit anschliessender Modelldiagnostik gerechnet.
+
+## Einfaches lineares Modell mit Modelldiagnostik
+
 ```{r}
-#| label: fig-plot-results
-#| fig-cap: "Generierter Plot"
 
-par(mfrow = c(1, 1))
-plot(SAR$area, SAR$richness, xlab = "Area [m²]", ylab = "Species richness")
-abline(lm(richness~area, data = SAR), col = "red") #Alternative 1
-abline(lm.1, col = "red") #Alternative 2
+lm.1 <- lm(richness~area, data = SAR) # lm erstellen
+summary(lm.1) # lm anschauen
 ```
+
+-\> Zwar hochsignifikant, aber stimmen die Voraussetzungen?
+
+```{r}
+
+# Modell und Daten plotten
+plot(SAR$area, SAR$richness, xlab = "Area [m²]", ylab = "Species richness") # Daten plotten
+abline(lm.1, col = "red") # Modell plotten
+```
+
+-\> Eine Gerade scheint ein schlechtes Modell zu sein für die Daten.
+
+```{r}
+
+# Modelldiagnostik
+par(mfrow = c(2, 2)) # 4-Plot-panel
+plot(lm.1) 
+```
+
+-\> Auch Modelldiagnostikplots sehen schlecht aus.
+
+**Fazit lm**: Wie erwartet sind die Modellvoraussetzungen nicht gut erfüllt: Das geplottete Modell verläuft teils auffällig "neben den Daten", im Residuals vs. Fittet Plot zeigen die Residuen Trichter- und Bananenform und der Q-Q-Plot zeigt starke Abweichung der Residuen von Normalverteilung. Da drängt sich Datentransformation auf. Als nächstes wird darum Log10-Transformation ausprobiert.
 
 ## Lösung A: log-Transformation der abhängigen Variablen
-```{r}
-#| label: fig-plot-solA
-#| fig-cap: "Generierter Plot"
 
-par(mfrow=c(1,2))
+```{r}
+
+# Daten vor und nach log10-Transformation vergleichen
+par(mfrow=c(2,2))
 boxplot(SAR$richness)
 boxplot(log10(SAR$richness))
 hist(SAR$richness)
 hist(log10(SAR$richness))
+```
 
+-\> Tansformation zeigt den gewünschten Effekt.
+
+```{r}
+
+# lm rechnen mit log10 transformierter abhängigen Variable
 SAR$log_richness <- log10(SAR$richness)
 lm.2 <- lm(log_richness~area, data = SAR)
 summary(lm.2)
 ```
 
-### Modelldiagnostik
-```{r}
-#| label: fig-plot-solA-modeldiagnostics
-#| fig-cap: "Generierter Plot"
+-\> Zwar hochsignifikant, aber stimmen die Voraussetzungen??
 
+```{r}
+
+# Modelldiagnostik
 par(mfrow = c(2, 2))
 plot(lm.2)
 ```
-#sieht noch schlechter aus
+
+-\> Modelldiagnostikplots sehen noch schlechter aus als mit untransformierten Daten!
+
+**Fazit Lösung A:** log-Transformation der abhängigen Variablen hat das Modell nicht verbessert. Im Gegebteil... Als nächstes wird darum eine zusätzlichge Log10-Transformation der Abhängigen Variablen ausprobiert.
 
 ## Lösung B: log-Transformation beider Variablen
-```{r}
-#| label: fig-plot-solB
-#| fig-cap: "Generierter Plot"
 
-par(mfrow=c(1,2))
+```{r}
+
+# Daten vor und nach log10-Transformation vergleichen
+par(mfrow=c(2,2))
 boxplot(SAR$area)
 boxplot(log10(SAR$area))
 hist(SAR$area)
 hist(log10(SAR$area))
+```
 
+-\> Tansformation zeigt den gewünschten Effekt.
+
+```{r}
+
+# lm rechnen mit log10-Transformation beider VAriablen
 SAR$log_area <- log10(SAR$area)
 lm.3 <- lm(log_richness~log_area, data = SAR)
 summary(lm.3)
 ```
 
-### Modelldiagnostik
-```{r}
-#| label: fig-plot-solB-modeldiagnostics
-#| fig-cap: "Generierter Plot"
+-\> Zwar hochsignifikant, aber stimmen die Voraussetzungen??
 
+```{r}
+
+# Modelldiagnostik
 par(mfrow = c(2, 2))
 plot(lm.3)
 ```
-das sieht jetzt sehr gut aus, bis auf zwei Ausreisser im QQ-Plot
 
-**Ergebnisplots C **
-
-```{r}
-par(mfrow = c(1, 1))
-xv <- seq(0, 100, 0.1)
-```
-
-## Ergebnisplots
-```{r}
-par(mfrow = c(1,1))
-xv <- seq(0,100,0.1)
-```
-
-### A. lineares Modell mit log-transformierter Abhängiger
-```{r}
-#| label: fig-plot-a-ln
-#| fig-cap: "Generierter Plot"
-
-plot(SAR$area, SAR$richness)
-yv1a <- 10^predict(lm.2, list(area = xv))
-lines(xv, yv1a, col = "blue")
-```
-
-### B. lineares Modell mit log-Transformation beider Variablen
-```{r}
-#| label: fig-plot-b-ln
-#| fig-cap: "Generierter Plot"
-
-xvlog <- seq(-4,2,0.1)
-plot(SAR$log_area, SAR$log_richness, xlab = "log10 (Fläche [m²])", ylab = "log10 (Artenreichtum)")
-yv1b <- predict(lm.3, list(log_area = xvlog))
-lines(xvlog, yv1b, col = "green")
-```
-
-### C. lineares Modell mit log-Transformation beider Variablen (zurücktransformiert)
+-\> Das sieht jetzt vergleichsweise sehr gut aus! (Bis auf ein paar Aussreisser)
 
 ```{r}
-#| label: fig-plot-c-ln
-#| fig-cap: "Generierter Plot"
 
-plot(SAR$area, SAR$richness, xlab = "Fläche [m²]", ylab = "Artenreichtum")
-yv1b <- predict(lm.3, list(log_area = xv))
-lines(10^xv, 10^yv1b, col = "green")
+# Modell und Daten plotten
+plot(SAR$log_area, SAR$log_richness, xlab = "log10(Area [m²])", ylab = "log10(Species richness)") # Daten plotten
+abline(lm.3, col = "red") # Modell plotten
 ```
 
-## Modelle im Vergleich
+-\> Das Modell bildet die Daten gut ab.
+
+**Fazit Lösung B:** Ein lineares Modell mit log-Transformation der unabhängigen und der abhängigen Variablen scheint die Daten am besten abzubilden. Abschliessend sollen nun die drei Modelle in einem Plot dargestellt werden.
+
+## Darstellung der drei Modelle
+
 ```{r}
-#| label: fig-plot-ln-comp
-#| fig-cap: "Generierter Plot"
 
-#Modelle im Vergleich
-plot(SAR$area, SAR$richness)
-abline(lm.1, col="red")
-lines(xv, yv1a, col="blue")
-lines(10^xv, 10^yv1b, col="green")
+# Input-Vektor mit x-Werten für die Modelle erstellen, der die Bandbreite der Daten abdeckt
+xv <- seq(min(SAR$area), max(SAR$area), 0.1)
+
+
+plot(SAR$area, SAR$richness)# Daten plotten
+abline(lm.1, col="red") # Modell 1 (untransformiert) zu Plot hinzufügen
+
+# Modell 2 (Anhängige Variable log10-transformiert) 
+# Modellvoraussagen berechnen
+logyvlm2 <- predict(lm.2, list(area = xv)) 
+# Modellvoraussagen rücktransformieren
+yvlm2 <- 10^logyvlm2 # 10^ ist Umkekrfunktion von Log10
+# Zu Plot hinzufügen
+lines(xv, yvlm2, col = "blue") # Modell 2 auf untransformierte Fläche plotten
+
+
+# Modell 2 (beide Variablen log10-transformiert) 
+# Modellvoraussagen berechnen
+log10xv <- log10(xv) # Tansformierter Input-Vektor erstellen
+logyvlm3 <- predict(lm.3, list(log_area = log10xv ))
+# Modellvoraussagen rücktransformieren 
+yvlm3 <- 10^logyvlm3 # 10^ ist Umkekrfunktion von Log10
+lines(xv, yvlm3, col = "green") # Modell 2 auf untransformierte Fläche plotten
 ```
+
+\--\> Auch hier lässt sich bestätigen dass Modell lm2 (blau) die Daten am schlechtesten und Modell lm3 (grün) die Daten am besten abbildet.
