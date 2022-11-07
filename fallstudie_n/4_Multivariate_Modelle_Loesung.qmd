@@ -1,18 +1,16 @@
-# 4. Lösung
+---
+execute:
+  echo: true
+---
 
-## Einstieg Habitatselektionsmodell / Multivariate Modelle
+# 4. Einstieg Multivariate Modelle - Lösung
 
-```{r}
-#| label: setup
-#| include: false
-knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
-```
+## Einstieg Multivariate Modelle / Habitatselektionsmodell
 
 ### Libraries laden
 
 ```{r}
-#| results: hide
-
+#| output: false
 
 ### Funktion um Packages direkt zu installieren und / oder zu laden
 
@@ -36,10 +34,8 @@ Einlesen des Gesamtdatensatzes von Moodle
 - Kontrolle wieviele Rehe in diesem Datensatz enthalten sind
 
 ```{r}
-#| tidy: true
 
-
-DF_mod <- read_delim("data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv", 
+DF_mod <- read_delim("fallstudie_n/data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", 
                      delim = ";")
 
 str(DF_mod)
@@ -51,6 +47,7 @@ table(DF_mod$id)
 DF_mod %>% group_by(id) %>% summarize(anzahl = n())
 
 length(unique(DF_mod$id))
+
 ```
 
 ### Aufgabe 2
@@ -58,8 +55,7 @@ length(unique(DF_mod$id))
 Unterteilung des Datensatzes in Teildatensätze entsprechend der Tageszeit
 
 ```{r}
-#| tidy: true
-#| eval: true
+
 DF_mod_night <- DF_mod %>%
   filter(time_of_day == "night")
 
@@ -76,15 +72,11 @@ table(DF_mod_day$time_of_day)
 Erstellen von Density Plots der Präsenz / Absenz in Abhängigkeit der unabhängigen Variablen (für Tag und Nacht)
 
 ```{r}
-#| tidy: true
-#| results: hide
+
 # Ein Satz Density Plots für den Tagesdatensatz und einer für den Nachtdatensatz 
 
 par(mfrow=c(3,3), mar=c(4, 4, 3, 3))
-for (i in 6:12) {                           # innerhalb des for()-loops die Nummern der 
-                                            # gewünschten Spalten einstellen
-  d  <-  DF_mod_day %>% pull(i)
-  d  <-  density(d)
+for (i in 6:12) {                           # innerhalb des for()-loops die Nummern der gewünschten Spalten einstellen
   dp  <-  DF_mod_day %>% filter(pres_abs == 1) %>% pull(i)
   dp <- density(dp)
   da  <-  DF_mod_day %>% filter(pres_abs == 0) %>% pull(i)
@@ -94,6 +86,7 @@ for (i in 6:12) {                           # innerhalb des for()-loops die Numm
   lines(dp$x, dp$y, col="blue")             # Präsenz
   lines(da$x, da$y, col="red")              # Absenz
 }
+
 ```
 
 ### Aufgabe 4
@@ -101,8 +94,6 @@ for (i in 6:12) {                           # innerhalb des for()-loops die Numm
 Testen erklärenden Variablen auf Normalverteilung (nur kontinuierlichen) 
 
 ```{r}
-#| tidy: true
-
 
 # klassischer Weg mit shapiro-wilk (mehrere Spalten, verschiedenene statistische
 # Kenngrössen werden angezeigt. Normalverteilung: Wert ganz unten. p>0.05 = ja)
@@ -130,8 +121,6 @@ Explorative Analysen der Variablen mit Scatterplots, Scatterplotmatrizen
 2. Testen der Korrelation zwischen den Variablen (Parametrisch oder nicht-parametrische Methode? Ausserdem: gewisse Scatterplotmatrizen zeigen euch die Koeffizenten direkt an)
 
 ```{r}
-#| tidy: true
-
 
 chart.Correlation(DF_mod_day[6:12], histogram=TRUE, pch=19, method = "kendall")
 
