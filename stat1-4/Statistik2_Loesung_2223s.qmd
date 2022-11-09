@@ -37,9 +37,6 @@ mytheme <-
 ```
 
 ```{r}
-#| label: fig-plots-sol2-modeldiagnostics
-#| fig-cap: "Generierter Plot"
-
 #lade die Daten
 df <- readr::read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.1.csv")
 
@@ -80,9 +77,6 @@ plot(model)
 <br>
 
 ```{r}
-#| label: fig-plots-sol2-modeldiagnostics-log10
-#| fig-cap: "Generierter Plot"
-
 # überprüft die Voraussetzungen des Welch-Tests:
 # Gibt es eine hohe Varianzheterogenität und ist die relative Verteilung der 
 # Residuen gegeben? (siehe Statistik 2)
@@ -176,8 +170,6 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
 
 ```{r}
 #| echo: false
-#| label: fig-plots-sol3-modeldiagnostics1
-#| fig.cap: ""
 
 #lade Daten
 df <- read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.3.csv")
@@ -209,9 +201,6 @@ ggplot(df, aes(x = interaction(article_description, member), y= tot_sold)) +
 
 
 ```{r}
-#| label: fig-plots-sol3-modeldiagnostics2
-#| fig.cap: ""
-
 # definiert das Modell (Skript Statistik 2)
 model <- aov(tot_sold ~ article_description * member, data = df)
 
@@ -225,9 +214,6 @@ plot(model)
 **Fazit**: Die Inspektion des Modells zeigt kleinere Verletzungen bei der Normalverteilung der Residuen (Q-Q Plot). Aufgrund keiner starken Verbesserung durch eine Transformation der Responsevariable, entscheide ich mich für eine ANOVA ohne log-transformierten Responsevariablen (AV).
 
 ```{r }
-#| label: fig-plots-sol3-modeldiagnostics3
-#| fig.cap: ""
-
 # sieht aus, als ob die Voraussetzungen für eine Anova nur geringfügig verletzt sind
 # mögliche alternativen: 
 # 0. keine Tranformation der AV (machen wir hier)

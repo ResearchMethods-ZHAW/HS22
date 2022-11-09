@@ -153,9 +153,6 @@ lines(model.predict$fit-model.predict$se.fit ~ xs, type = "l", lty = 2)
 ## Nicht-lineare Regression
 
 ```{r}
-#| label: fig-baseplots-nlr-glm
-#| fig-cap: "Generierter Plot"
-
 if(!require(AICcmodavg)){install.packages("AICcmodavg")}
 if(!require(nlstools)){install.packages("nlstools")}
 library(AICcmodavg)
@@ -218,9 +215,6 @@ aictab(cand.set = cand.models, modnames = Modnames)
 ## Smoother
 
 ```{r}
-#| label: fig-baseplots-nlr-glm-smoother
-#| fig-cap: "Generierter Plot"
-
 loyn$log_AREA<-log10(loyn$AREA)       
 plot(ABUND~log_AREA, data = loyn)
 lines(lowess(loyn$log_AREA, loyn$ABUND, f = 0.25), lwd = 2, col = "red")
@@ -231,9 +225,6 @@ lines(lowess(loyn$log_AREA, loyn$ABUND, f = 1), lwd = 2, col = "green")
 ## GAMs
 
 ```{r}
-#| label: fig-baseplots-gam
-#| fig-cap: "Generierter Plot"
-
 if(!require(mgcv)){install.packages("mgcv")}
 library(mgcv)
 

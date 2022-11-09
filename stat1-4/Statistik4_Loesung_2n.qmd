@@ -27,9 +27,6 @@ summary(polis)
 Man erkennt, dass polis 19 Beobachtungen von drei Parametern enthält, wobei ISLAND ein Faktor mit den Inselnamen ist, während RATIO metrisch ist und PA nur 0 oder 1 enthält. Prädiktorvariable ist RATIO, abhängige Variable PA, mithin ist das korrekte statistische Verfahren eine logistische Regression (GLM).
 
 ```{r}
-#| label: fig-boxplot-sol2-expl
-#| fig-cap: "Generierter Plot"
-
 # Explorative Datenanalyse
 boxplot(polis$RATIO)
 ```
@@ -45,9 +42,6 @@ summary (glm.1)
 Modell ist signifikant (p-Wert in Zeile RATIO ist < 0.05). Jetzt müssen wir noch prüfen, ob es auch valide ist:
 
 ```{r}
-#| label: fig-crplots-sol2
-#| fig-cap: "Generierter Plot"
-
 # Modelldiagnostik für das gewählte Modell (wenn nicht signifikant, dann OK)
 1 - pchisq(glm.1$deviance, glm.1$df.resid)
 
@@ -90,9 +84,6 @@ P = exp (3.606 – 0.220 RATIO) / (1 + exp (3.606 – 0.220 RATIO))
 Das ist also unsere vorhergesagte Regressionsfunktion, die wir in einem letzten Schritt auch noch visualisieren können (und sollten):
 
 ```{r}
-#| label: fig-baseplot-sol2-final
-#| fig-cap: "Generierter Plot"
-
 # Ergebnisplots
 par(mfrow = c(1, 1))
 
