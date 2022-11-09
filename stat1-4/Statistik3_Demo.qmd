@@ -26,9 +26,6 @@ compensation <- read.delim("datasets/statistik/ipomopsis.csv", sep = ",", string
 head(compensation)
 summary(compensation)
 
-```
-
-```{r}
 # Pflanzengrösse ("Root") vs. Fruchtproduktion ("Fruit") 
 plot(Fruit~Root, data = compensation)
 ```
@@ -40,7 +37,7 @@ plot(Fruit~Root, data = compensation)
 boxplot(Fruit~Grazing, data = compensation)
 ```
 
-> > In der beweideten Gruppe scheint die Fruchtproduktion grösser. Liegt dies an der Beweidung oder an den Pflanzengrössen in der Gruppe?
+-\> In der beweideten Gruppe scheint die Fruchtproduktion grösser. Liegt dies an der Beweidung oder an unterschiedlichen Pflanzengrössen zwischen den Gruppen?
 
 ```{r}
 # Plotten der vollständigen Daten/Information
@@ -50,37 +47,48 @@ ggplot(compensation, aes(Root, Fruit, color = Grazing)) +
   theme_classic()
 ```
 
+-\> Die grössere Fruchtproduktion innerhalb der beweideten Gruppe scheint also ein Resultat von unterschiedlichen Pflanzengrössen zwischen den Gruppen zu sein und nicht an der Beweidung zu liegen.
+
 ```{r}
 #Lineare Modelle definieren und anschauen
 
-aoc.1 <- lm(Fruit~Root * Grazing, data = compensation)
+aoc.1 <- lm(Fruit~Root * Grazing, data = compensation) # Volles Modell mit Interaktion
 summary.aov(aoc.1)
 
-aoc.2 <- lm(Fruit~Grazing + Root, data = compensation)
-summary.aov(aoc.1)
-summary.lm(aoc.2)
+aoc.2 <- lm(Fruit~Grazing + Root, data = compensation) # Finales Modell ohne die (nicht signifikante Interaktion)
+summary.aov(aoc.2) # ANOVA-Tabelle
+summary(aoc.2) # Parameter-Tabelle
+
+# Residualplots anschauen
+par(mfrow = c(2, 2))
+plot(aoc.2)
+
 ```
+
+-\> Das ANCOVA-Modell widerspiegelt die Zusammenhänge wie sie aufgrun der Grafisch dargestellten Daten zu vermuten sind gut. Die Residual-Plots zeigen 3 Ausreisser (Beobachtungen 27, 34 und 37), welche "aus der Reihe tanzen".
 
 ## Polynomische Regression
 
 ```{r}
 # Daten generieren und Modelle rechnen
-e <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14, 25, 39, 38, 28, 24)
-f <- c(12, 15, 10, 7, 2, 10, 12, 11, 13, 10, 9, 2, 4, 7, 13)
+pred <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14, 25, 39, 38, 28, 24) # "pred" sei unsere unabhängige Variable
+resp <- c(12, 15, 10, 7, 2, 10, 12, 11, 13, 10, 9, 2, 4, 7, 13) # "resp" sei unsere abhängige Variable
 
-lm.1 <- lm(f~e)
-lm.quad <- lm(f~e + I(e^2))
+plot(pred, resp) # So sehen die Daten aus
+
+# Modelle definieren
+lm.1 <- lm(resp ~ pred) # Einfaches lineares Modell
+lm.quad <- lm(resp ~ pred + I(pred^2)) # lineares Modell mit quadratischem Term
+
+summary(lm.1) # Modell anschauen
+
 
 ```
 
-```{r}
-summary(lm.1)
-```
-
-$\\leftarrow$ kein signifikanter Zusammenhang und entsprechend kleines Bestimmtheitsmass (adj. R^2^ = 0.07)
+-\> kein signifikanter Zusammenhang und entsprechend kleines Bestimmtheitsmass (adj. R^2^ = 0.07)
 
 ```{r}
-summary(lm.quad)
+summary(lm.quad) # Modell anschauen
 ```
 
 -\> signifikanter Zusammenhang und viel besseres Bestimmtheitsmass (adj. R^2^ = 0.60)
@@ -91,13 +99,13 @@ summary(lm.quad)
 par(mfrow = c(1, 2))
 
 # 1. lineares Modell
-plot(f~e, xlim = c(0, 40), ylim = c(0, 20), main = "Lineares Modell")
+plot(resp~pred, main = "Lineares Modell")
 abline(lm.1, col = "blue")
 
 # 2. quadratisches Modell
-plot(f~e, xlim = c(0, 40), ylim = c(0, 20), main = "Quadratisches  Modell")
+plot(resp~pred, main = "Quadratisches  Modell")
 xv <- seq(0, 40, 0.1) # Input für Modellvoraussage via predict ()
-yv2 <- predict(lm.quad, list(e = xv))
+yv2 <- predict(lm.quad, list(pred = xv))
 lines(xv, yv2, col = "red")
 
 ```
@@ -145,9 +153,11 @@ smy.2$r.squared
 smy.3$r.squared
 smy.4$r.squared
 smy.5$r.squared
+smy.5$adj.r.squared
+
 ```
 
--\> R2 wird immer grösser, modelle werden immer besser. ;-)
+-\> R2 wird immer grösser, d.h. die Modelle werden immer besser. ;-)
 
 ```{r}
 # Modelle plotten
@@ -184,6 +194,8 @@ summary(loyn)
 ### Korrelation zwischen den Prädiktoren
 
 ```{r}
+# Wir setzen die Schwelle bei |0.7| 
+
 cor <- cor(loyn[, 3:8]) # Korrelationen rechnen details siehe: "?cor"
 
 # Korrelationen Visualisieren (google: "correlation plot r"...)
@@ -191,53 +203,85 @@ if(!require(corrplot)){install.packages("corrplot")}
 library(corrplot)
 
 corrplot.mixed(cor, lower = 'ellipse', upper = "number", order = 'AOE')
-
 ```
+
+-\> Keine Korrelation ist \>\|0.7\| . Aber es gilt zu beachten , dass GRAZE ziemlich stark \|\>0.6\| mit YR.ISOL korreliert ist
 
 ```{r}
 # Volles Modell definieren
 # Eigentlich bestünde das volle Modell aus 6 Prädiktoren
 # Aus pragmatischen Gründen wird hier nur mit 3 Prädiktoren weitergerechnet
 
-lm.1 <- lm (ABUND ~ YR.ISOL + ALT + GRAZE, data = loyn)
+# lm.1 <- lm (ABUND ~ YR.ISOL + ALT + GRAZE, data = loyn)
+names(loyn)
+lm.1 <- lm (ABUND ~ YR.ISOL +AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)
 if(!require(car)){install.packages("car")} 
 library(car)
 
-vif(lm.1) 
+par(mfrow=c(2,2))
+plot(lm.1)
+```
 
-influence.measures(lm.1)
+-\> Plot sieht zwar ok aus, aber mit 6 Prädiktoren ist das Modell wohl "overfitted"
 
+```{r}
+vif(lm.1)
 ```
 
 ### Modellvereinfachung
 
-```{r}
+Schrittweise die am wenigsten signifkanten Terme entfernen:
 
-lm.1 <- lm(ABUND ~ YR.ISOL + ALT + GRAZE, data = loyn)
+```{r}
+#lm.1 <- lm(ABUND ~ YR.ISOL + ALT + GRAZE, data = loyn)
+
+lm.1 <- lm (ABUND ~ YR.ISOL + AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)
 summary(lm.1)
 
-lm.2 <- update(lm.1,~.-YR.ISOL)
+#lm.2 <- update(lm.1,~.-YR.ISOL)
+
+lm.2 <- update(lm.1,~.-AREA)
 anova(lm.1, lm.2)
 summary(lm.2)
 
-lm.3 <- update(lm.2,~.-ALT)
+#lm.3 <- update(lm.2,~.-ALT)
+lm.3 <- update(lm.2,~.-DIST)
 anova(lm.2, lm.3)
 summary(lm.3)
 
+lm.4 <- update(lm.3,~.-YR.ISOL)
+anova(lm.3, lm.4)
+summary(lm.4)
+
+lm.5 <- update(lm.4,~.-LDIST)
+anova(lm.4, lm.5)
+summary(lm.5)
+
+lm.6 <- update(lm.5,~.-ALT)
+anova(lm.5, lm.6)
+summary(lm.6)
+
 par(mfrow = c(2, 2))
-plot(lm.1)
+plot(lm.6)
 ```
 
+-\> das minimal adäquate Modell enthält nur noch einen Prädiktor (GRAZE) und dessen Residualplots sehen ok aus.
+
 ### Hierarchical partitioning
+
+Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:
 
 ```{r}
 
 if(!require(hier.part)){install.packages("hier.part")}
 library(hier.part)
+loyn.preds <-with(loyn, data.frame(YR.ISOL, AREA,  DIST, LDIST, GRAZE, ALT))
 
-loyn.preds <-with(loyn, data.frame(YR.ISOL, ALT, GRAZE))
+par(mfrow = c(1, 1))
 hier.part(loyn$ABUND, loyn.preds, gof = "Rsqu")
 ```
+
+-\> auch hier sticht GRAZE heraus. (und an zweiter Stelle YR.ISOL, der mit GRAZE am stärksten korreliert ist)
 
 ### Partial regressions
 
@@ -252,13 +296,20 @@ avPlots(lm.1, ask = F)
 if(!require(MuMIn)){install.packages("MuMIn")}
 library(MuMIn)
 
-global.model <- lm(ABUND ~ YR.ISOL + ALT + GRAZE, data = loyn)
+global.model <-  lm (ABUND ~ YR.ISOL + AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)
+
 options(na.action = "na.fail")
 
 allmodels <- dredge(global.model)
 allmodels
+
+# Variable importance
 sw(allmodels)
 
+```
+-> Auch mit dieser Sichtweise ist GRAZE der wichtigste Prädiktor
+
+```{r}
 avgmodel <- model.avg(allmodels, subset = TRUE)
 summary(avgmodel)
 ```
