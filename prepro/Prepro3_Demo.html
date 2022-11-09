@@ -958,12 +958,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(weather_summary_long, <span class="fu">aes</span>(day,Messwert, <span class="at">colour =</span> Messtyp)) <span class="sc">+</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-ggplot-long" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Prepro3_Demo_files/figure-html/fig-ggplot-long-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;6.1: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
+<p><img src="Prepro3_Demo_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -994,12 +989,7 @@ div.csl-indent {
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(day, temp_max)) <span class="sc">+</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(day, temp_min))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-ggplot-wide" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Prepro3_Demo_files/figure-html/fig-ggplot-wide-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;6.2: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
+<p><img src="Prepro3_Demo_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
@@ -1491,30 +1481,26 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-219"><a href="#cb17-219" aria-hidden="true" tabindex="-1"></a>Lange Tabellen sind in verschiedenen Situationen praktischer. Beispielsweise ist das Visualisieren mittels <span class="in">`ggplot2`</span> (dieses Package werdet ihr im Block "InfoVis" kennenlernen) mit *long tables* wesentlich einfacher.</span>
 <span id="cb17-220"><a href="#cb17-220" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-223"><a href="#cb17-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb17-224"><a href="#cb17-224" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-ggplot-long</span></span>
-<span id="cb17-225"><a href="#cb17-225" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb17-226"><a href="#cb17-226" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(weather_summary_long, <span class="fu">aes</span>(day,Messwert, <span class="at">colour =</span> Messtyp)) <span class="sc">+</span></span>
-<span id="cb17-227"><a href="#cb17-227" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span>
-<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-224"><a href="#cb17-224" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(weather_summary_long, <span class="fu">aes</span>(day,Messwert, <span class="at">colour =</span> Messtyp)) <span class="sc">+</span></span>
+<span id="cb17-225"><a href="#cb17-225" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span>
+<span id="cb17-226"><a href="#cb17-226" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-227"><a href="#cb17-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lang → breit</span></span>
 <span id="cb17-229"><a href="#cb17-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-230"><a href="#cb17-230" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lang → breit</span></span>
+<span id="cb17-230"><a href="#cb17-230" aria-hidden="true" tabindex="-1"></a>Das Gegenstück zu <span class="in">`pivot_longer`</span> ist <span class="in">`pivot_wider`</span>. Mit dieser Funktion können wir eine *lange* Tabelle in eine *breite* überführen. Dazu müssen wir in <span class="in">`names_from`</span> angeben, aus welcher Spalte die neuen Spaltennamen erstellt werden sollen (<span class="in">`names_from`</span>) und aus welcher Spalte die Werte entstammen sollen (<span class="in">`values_from`</span>):</span>
 <span id="cb17-231"><a href="#cb17-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-232"><a href="#cb17-232" aria-hidden="true" tabindex="-1"></a>Das Gegenstück zu <span class="in">`pivot_longer`</span> ist <span class="in">`pivot_wider`</span>. Mit dieser Funktion können wir eine *lange* Tabelle in eine *breite* überführen. Dazu müssen wir in <span class="in">`names_from`</span> angeben, aus welcher Spalte die neuen Spaltennamen erstellt werden sollen (<span class="in">`names_from`</span>) und aus welcher Spalte die Werte entstammen sollen (<span class="in">`values_from`</span>):</span>
-<span id="cb17-233"><a href="#cb17-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-236"><a href="#cb17-236" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb17-237"><a href="#cb17-237" aria-hidden="true" tabindex="-1"></a>weather_summary_long <span class="sc">|&gt;</span></span>
-<span id="cb17-238"><a href="#cb17-238" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Messtyp, <span class="at">values_from =</span> Messwert)</span>
-<span id="cb17-239"><a href="#cb17-239" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-234"><a href="#cb17-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-235"><a href="#cb17-235" aria-hidden="true" tabindex="-1"></a>weather_summary_long <span class="sc">|&gt;</span></span>
+<span id="cb17-236"><a href="#cb17-236" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Messtyp, <span class="at">values_from =</span> Messwert)</span>
+<span id="cb17-237"><a href="#cb17-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-238"><a href="#cb17-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-239"><a href="#cb17-239" aria-hidden="true" tabindex="-1"></a>Zum Vergleich: mit einer *wide* table müssen wir in <span class="in">`ggplot2`</span> jede Spalte einzeln plotten. Dies ist bei wenigen Variabeln wie hier noch nicht problematisch, aber bei einer hohen Anzahl wird dies schnell mühsam.</span>
 <span id="cb17-240"><a href="#cb17-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-241"><a href="#cb17-241" aria-hidden="true" tabindex="-1"></a>Zum Vergleich: mit einer *wide* table müssen wir in <span class="in">`ggplot2`</span> jede Spalte einzeln plotten. Dies ist bei wenigen Variabeln wie hier noch nicht problematisch, aber bei einer hohen Anzahl wird dies schnell mühsam.</span>
-<span id="cb17-242"><a href="#cb17-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-245"><a href="#cb17-245" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb17-246"><a href="#cb17-246" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-ggplot-wide</span></span>
-<span id="cb17-247"><a href="#cb17-247" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Generierter Plot"</span></span>
-<span id="cb17-248"><a href="#cb17-248" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(weather_summary) <span class="sc">+</span></span>
-<span id="cb17-249"><a href="#cb17-249" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(day, temp_max)) <span class="sc">+</span></span>
-<span id="cb17-250"><a href="#cb17-250" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(day, temp_min))</span>
-<span id="cb17-251"><a href="#cb17-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-243"><a href="#cb17-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-244"><a href="#cb17-244" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(weather_summary) <span class="sc">+</span></span>
+<span id="cb17-245"><a href="#cb17-245" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(day, temp_max)) <span class="sc">+</span></span>
+<span id="cb17-246"><a href="#cb17-246" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(day, temp_min))</span>
+<span id="cb17-247"><a href="#cb17-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
