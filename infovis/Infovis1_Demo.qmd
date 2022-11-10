@@ -34,9 +34,6 @@ knitr::kable(head(temperature))
 Um in "base-R" einen Scatterplot zu erstellen wo Datum der Temperatur gegenübersteht, gehen wir wie folgt vor:
 
 ```{r}
-#| label: fig-baseplot
-#| fig-cap: "Generierter Plot"
-
 plot(temperature$time, temperature$SHA, type = "l", col = "red")
 lines(temperature$time, temperature$ZER, col = "blue")
 ```
@@ -44,9 +41,6 @@ lines(temperature$time, temperature$ZER, col = "blue")
 In `ggplot` sieht das etwas anders und auf den ersten Blick etwas komplizierter aus: Ein plot wird durch den Befehl `ggplot()` initiiert. Hier wird einerseits der Datensatz festgelegt, auf dem der Plot beruht (`data = `), sowie die Variablen innerhalb des Datensatzes, die Einfluss auf den Plot ausüben (`mapping = aes()`). 
 
 ```{r}
-#| label: fig-ggplot
-#| fig-cap: "Generierter Plot"
-
 # Datensatz: "temperature" | Beeinflussende Variabeln: "time" und "temp"
 ggplot(data = temperature, mapping = aes(time,SHA))             
 ```
@@ -55,9 +49,6 @@ Weiter braucht es *mindestens* ein "Layer" der beschreibt, wie die Daten dargest
 Anders als bei "Piping" (`|>`) wird ein Layer mit `+` hinzugefügt.
 
 ```{r}
-#| label: fig-ggplot-scatter
-#| fig-cap: "Generierter Plot"
-
 ggplot(data = temperature, mapping = aes(time,SHA)) +         
   # Layer: "geom_point" entspricht Punkten in einem Scatterplot 
   geom_point()                                    
@@ -66,9 +57,6 @@ ggplot(data = temperature, mapping = aes(time,SHA)) +
 Da ggplot die Eingaben in der Reihenfolge `data = ` und dann `mapping = `erwartet, können wir diese Spezifizierungen auch weglassen.
 
 ```{r}
-#| label: fig-ggplot-scatter2
-#| fig-cap: "Generierter Plot"
-
 #| eval: false
 ggplot(temperature, aes(time,SHA)) +
   geom_point()
@@ -85,9 +73,6 @@ temperature_long <- pivot_longer(temperature, -time, names_to = "station", value
 Nun wollen wir die unterschiedlichen Stationen unterschiedlich einfärben. Da wir Variablen definieren wollen, welche Einfluss auf die Grafik haben sollen, gehört diese Information in `aes()`.
 
 ```{r}
-#| label: fig-ggplot-scatter-color
-#| fig-cap: "Generierter Plot"
-
 ggplot(temperature_long, aes(time,temp, colour = station)) +
   geom_point()
 ```
@@ -95,9 +80,6 @@ ggplot(temperature_long, aes(time,temp, colour = station)) +
 Wir können noch einen Layer mit Linien hinzufügen:
 
 ```{r}
-#| label: fig-ggplot-scatter-line
-#| fig-cap: "Generierter Plot"
-
 ggplot(temperature_long, aes(time,temp, colour = station)) +
   geom_point()+
   geom_line()
@@ -108,9 +90,6 @@ ggplot(temperature_long, aes(time,temp, colour = station)) +
 Weiter können wir die Achsen beschriften und einen Titel hinzufügen. Zudem lasse ich die Punkte (`geom_point()`) nun weg, da mir diese nicht gefallen.
 
 ```{r}
-#| label: fig-ggplot-line-labs
-#| fig-cap: "Generierter Plot"
-
 ggplot(temperature_long, aes(time,temp, colour = station)) +
   geom_line() +
   labs(
@@ -146,9 +125,6 @@ Man kann auch Einfluss auf die x-/y-Achsen nehmen. Dabei muss man zuerst festleg
 Bei unserer y-Achse handelt es sich um numerische Daten, `ggplot` nennt diese: `scale_y_continuous()`. Unter [ggplot2.tidyverse.org](http://ggplot2.tidyverse.org/reference/#section-scales) findet man noch andere x/y-Achsentypen (`scale_x_irgenwas` bzw. `scale_y_irgendwas`).
 
 ```{r}
-#| label: fig-ggplot-line-scale-y
-#| fig-cap: "Generierter Plot"
-
 ggplot(temperature_day, aes(time,temp, colour = station)) +
   geom_line() +
   labs(
@@ -166,9 +142,6 @@ ggplot(temperature_day, aes(time,temp, colour = station)) +
 Das gleiche Spiel kann man für die y-Achse betreiben. Bei unserer y-Achse handelt es sich ja um Datumsangaben. `ggplot` nennt diese: `scale_x_date()`. 
 
 ```{r}
-#| label: fig-ggplot-line-scale-x
-#| fig-cap: "Generierter Plot"
-
 ggplot(temperature_day, aes(time,temp, colour = station)) +
   geom_line() +
   labs(
@@ -191,8 +164,6 @@ Individuell pro Plot:
 
 ```{r}
 #| eval: false
-#| label: fig-ggplot-line-classic
-#| fig-cap: "Generierter Plot"
 
 ggplot(temperature_day, aes(time,temp, colour = station)) +
   geom_line() +
@@ -210,9 +181,6 @@ theme_set(theme_classic())
 Sehr praktisch sind auch die Funktionen für "Small multiples". Dies erreicht man mit `facet_wrap()` (oder `facet_grid()`, mehr dazu später). Man muss mit einem Tilde-Symbol "`~`" nur festlegen, welche *Variable* für das Aufteilen des Plots in kleinere Subplots verantwortlich sein soll. 
 
 ```{r}
-#| label: fig-ggplot-line-facet
-#| fig-cap: "Generierter Plot"
-
 ggplot(temperature_day, aes(time,temp, colour = station)) +
   geom_line() +
   labs(
@@ -233,9 +201,6 @@ Auch `facet_wrap` kann man auf seine Bedürfnisse anpassen: Beispielweise kann m
 Zudem brauchen wir die Legende nicht mehr, da der Stationsnamen über jedem Facet steht. Ich setze deshalb `theme(legend.position="none")` 
 
 ```{r}
-#| label: fig-ggplot-line-theme
-#| fig-cap: "Generierter Plot"
-
 ggplot(temperature_day, aes(time,temp, colour = station)) +
   geom_line() +
   labs(
@@ -298,9 +263,6 @@ p <- p +
 Mit `geom_smooth()` kann `ggplot` eine Trendlinie auf der Baiss von Punktdaten berechnen. Die zugrunde liegende statistische Methode kann selbst gewählt werden (ohne Angabe verwendet `ggplot` bei < 1'000 Messungen `stats::loess`, ansonsten `mgcv::gam`)
 
 ```{r}
-#| label: fig-ggplot-smooth
-#| fig-cap: "Generierter Plot"
-
 p <- p +
   geom_smooth(colour = "black")
 

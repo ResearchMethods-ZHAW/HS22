@@ -42,9 +42,6 @@ Vektordaten (`sf` Objekte) lassen sich teilweise sehr schön in die bekannten Ti
 
 ```{r}
 #| echo: true
-#| label: fig-baseplot-ex2
-#| fig-cap: "Generierter Plot"
-
 plot(gemeinden, max.plot = 1)
 
 plot(kantone, max.plot = 1)
@@ -105,9 +102,6 @@ st_crs(kantone)
 Auch wenn das CRS der Datensätze bekannt ist, nutzt ggplot immer noch `EPSG 4326` um die Achsen zu beschriften.  Wenn das stört, kann man `coord_sf(datum = 2056)` in einem weiteren Layer spezifizieren. Oder aber man blendet die Achsenbeschriftung mit `theme_void()` komplett aus. Versuche beide Varianten.
 
 ```{r}
-#| label: fig-ggplot-ex2
-#| fig-cap: "Generierter Plot"
-
 ggplot() + 
   geom_sf(data = kantone) +
   coord_sf(datum = 2056)

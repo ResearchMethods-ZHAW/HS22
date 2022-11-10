@@ -19,9 +19,6 @@ format:
 Based on Logan (2010), Chapter 14
 
 ```{r}
-#| label: fig-interaction-plot-anova
-#| fig-cap: "Generierter Plot"
-
 spf <- read.delim("datasets/statistik/spf.csv", sep = ";") 
 spf.aov <- aov(Reaktion~Signal * Messung + Error(VP), data = spf)
 summary(spf.aov)
@@ -61,9 +58,6 @@ DeerEcervi$fSex <- as.factor(DeerEcervi$Sex)
 Hirschlänge hier standardisiert, sonst würde der Achsenabschnitt im Modell für einen Hirsch der Länge 0 modelliert, was schlecht interpretierbar ist, jetzt ist der Achsenabschnitt für einen durschnittlich langen Hirsch
 
 ```{r}
-#| label: fig-baseplot-glmm1
-#| fig-cap: "Generierter Plot"
-
 DeerEcervi$CLength <- DeerEcervi$Length - mean(DeerEcervi$Length)
 
 # Zunächst als GLM
@@ -94,9 +88,6 @@ for (j in AllFarms){
 ## GLMM
 
 ```{r}
-#| label: fig-baseplot-glmm2
-#| fig-cap: "Generierter Plot"
-
 if(!require(MASS)){install.packages("MASS")}
 library(MASS)
 DE.PQL <- glmmPQL(Ecervi.01 ~ CLength * fSex,

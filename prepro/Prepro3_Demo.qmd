@@ -189,8 +189,6 @@ nrow(weather_summary_long)
 Lange Tabellen sind in verschiedenen Situationen praktischer. Beispielsweise ist das Visualisieren mittels `ggplot2` (dieses Package werdet ihr im Block "InfoVis" kennenlernen) mit *long tables* wesentlich einfacher.
 
 ```{r}
-#| label: fig-ggplot-long
-#| fig-cap: "Generierter Plot"
 ggplot(weather_summary_long, aes(day,Messwert, colour = Messtyp)) +
   geom_line()
 ```
@@ -207,8 +205,6 @@ weather_summary_long |>
 Zum Vergleich: mit einer *wide* table müssen wir in `ggplot2` jede Spalte einzeln plotten. Dies ist bei wenigen Variabeln wie hier noch nicht problematisch, aber bei einer hohen Anzahl wird dies schnell mühsam.
 
 ```{r}
-#| label: fig-ggplot-wide
-#| fig-cap: "Generierter Plot"
 ggplot(weather_summary) +
   geom_line(aes(day, temp_max)) +
   geom_line(aes(day, temp_min))

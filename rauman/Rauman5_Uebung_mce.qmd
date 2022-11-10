@@ -48,7 +48,6 @@ library(tmap)
 ```
 
 ```{r}
-#| label: solutionEx1
 #| echo: false
 #| include: false
 
@@ -70,8 +69,6 @@ wind25m <- rast("datasets/rauman/wind25m.tif")
 
 ```{r}
 #| include: false
-#| label: fig-solutionEx2
-#| fig-cap: "Generierter Plot"
 
 #Plot vector data
 tm_shape(lakes) + tm_polygons(col = "dodgerblue3") +
@@ -82,8 +79,7 @@ tm_shape(lakes) + tm_polygons(col = "dodgerblue3") +
 
 ```{r}
 #| include: false
-#| label: fig-solutionEx3
-#| fig-cap: "Generierter Plot"
+
 tm_shape(dhm25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
 tm_shape(eis25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
 tm_shape(wind25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
@@ -97,7 +93,6 @@ Führen Sie die Ausschlusskriterien Siedlungsgebiete, nationale Schutzgebiete, S
 * **Tipp**: Um Vektordaten zu rastern, müssen Sie vorher ein leeres Raster erstellen. Dieses Raster sollte die gleichen Grenzen (extent), die gleiche Auflösung und das gleiche Koordinatensystem (crs) haben wie die anderen Rastersätze. Verwenden Sie dazu den folgenden Code.*
   
 ```{r}
-#| label: create_empty_raster
 r <- terra::rast(ext(kt_schwyz), 
           resolution = c(250, 250), 
           crs = "EPSG:21781")
@@ -106,8 +101,6 @@ r <- terra::rast(ext(kt_schwyz),
 ![Ausschlussgebiete](images/exclusion_areas.png){#fig-exclusion-areas width=50%}
 
 ```{r}
-#| label: fig-solutionEx4
-#| fig-cap: "Generierter Plot"
 #| echo: false
 #| include: false
 
@@ -133,8 +126,6 @@ Als nächstes berechnen Sie die Neigung in Grad auf der Grundlage des Geländemo
 ![](images/slope.png){width=50%}
 
 ```{r}
-#| label: fig-solutionEx5
-#| fig-cap: "Generierter Plot"
 #| echo: false
 #| include: false
 
@@ -153,7 +144,6 @@ Bei der Bewertung geeigneter Standorte für Windkraftanlagen ist die Entfernung 
 ![](images/d_to_settlements.png){width=50%}
 
 ```{r}
-#| label: solutionEx6
 #| echo: false
 #| include: false
 
@@ -178,7 +168,6 @@ Die Datenebenen Neigung, Windgeschwindigkeit, Vereisungshäufigkeit und die in �
 * **Tipp**: Hier ist ein Beispielcode zur Neuklassifizierung der Entfernungen zu Siedlungen.
 
 ```{r}
-#| label: examplereclassifysettlements
 settlements_max <- minmax(settlements_ed)[2]
 
 reclass_settlements <- c(0,80,0,
@@ -206,8 +195,6 @@ MCE Reclassify
 ![](images/d_to_settlements_reclassified.png){width=50%}
 
 ```{r}
-#| label: fig-solutionEx7
-#| fig-cap: "Generierter Plot"
 #| echo: false
 #| include: false
 
@@ -333,7 +320,6 @@ Führen Sie einen AHP durch, um die Kriterien zu gewichten, die dem MCE zugrunde
 | 0.33862692 | 0.09816760 | 0.06166626 | 0.24969460 | 0.03515759 | 0.18043000 | 0.03625702 |
   
 ```{r}
-#| label: ahp_mce
 ahp_matrix <- c(
   1, 0, 0, 0, 0, 0, 0, #Wind
   0, 1, 0, 0, 0, 0, 0, #Distance to streets
@@ -346,7 +332,6 @@ ahp_matrix <- c(
 ```
 
 ```{r}
-#| label: solutionEx8
 #| echo: false
 #| include: false
 
@@ -377,8 +362,6 @@ Die linear gewichteten Kriterien (Übung 5) sollen nun unter Berücksichtigung d
 ![Gewichteter Overlay](images/weighted_overlay.png){#fig-weighted-overlay width=50%}
 
 ```{r}
-#| label: fig-solutionEx9
-#| fig-cap: "Generierter Plot"
 #| echo: false
 #| include: false
 
@@ -418,8 +401,6 @@ Durch einfache Multiplikation des Ausschluss-Layers (Ergebnis aus Übung 2) mit 
 ![Potenzielle Standorte](images/potential_sites.png){#fig-potential-sites}
 
 ```{r}
-#| label: fig-solutionEx10
-#| fig-cap: "Generierter Plot"
 #| echo: false
 #| include: false
 

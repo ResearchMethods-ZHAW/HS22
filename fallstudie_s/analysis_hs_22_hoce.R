@@ -477,9 +477,13 @@ depo_m_daytime <- depo_m_daytime |>
 # Monatliche Summen am Standort
 
 # wann beginnt die Datenreihe schon wieder?
-first(depo_m$Ym)
+start_ym <- first(depo_m$Ym)
 # und wann ist die fertig?
-last(depo_m$Ym)
+end_ym <- last(depo_m$Ym)
+
+# generiere sequenz für achsenbeschriftung
+mybreaks = as.Date(seq(start_ym, end_ym, '6 months'))
+mybreaks
 
 # Plotte
 ggplot(depo_m, mapping = aes(Ym, Total, group = 1))+ # group = 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird
@@ -492,6 +496,7 @@ ggplot(depo_m, mapping = aes(Ym, Total, group = 1))+ # group = 1 braucht R, dass
                           ymin = 0, ymax = max(Total+(Total/100*10))), 
             fill = "lightskyblue", alpha = 0.2, colour = NA)+
   geom_line(alpha = 0.6, size = 1.5)+
+  scale_x_continuous(breaks = mybreaks)+  
   labs(title= "", y="Fussgänger:innen pro Monat", x = "Jahr")+
   theme_linedraw(base_size = 15)+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
@@ -499,22 +504,23 @@ ggplot(depo_m, mapping = aes(Ym, Total, group = 1))+ # group = 1 braucht R, dass
 ggsave("Entwicklung_Zaehlstelle.png", width=20, height=10, units="cm", dpi=1000, 
        path = "fallstudie_s/results/") 
 
-# # mit TAGESZEIT
-# ggplot(depo_m_daytime, mapping = aes(Ym, Total, group = Tageszeit, color = Tageszeit))+
-#   #zeichne Lockdown 1
-#   geom_rect(mapping = aes(xmin = ym("2020-3"), xmax = ym("2020-5"),
-#                           ymin = 0, ymax = max(Total+(Total/100*10))),
-#             fill = "lightskyblue", alpha = 0.2, colour = NA)+
-#   #zeichne Lockdown 2
-#   geom_rect(mapping = aes(xmin = ym("2020-12"), xmax = ym("2021-3"), 
-#                           ymin = 0, ymax = max(Total+(Total/100*10))), 
-#             fill = "lightskyblue", alpha = 0.2, colour = NA)+
-#   geom_line(alpha = 0.8, size = 1.5)+
-#   labs(title= "", y="Fussgänger:innen pro Monat", x = "Jahr")+
-#   scale_color_manual(values = mycolors)+
-#   # scale_y_continuous(trans="log10")+
-#   theme_linedraw(base_size = 15)+
-#   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+# mit TAGESZEIT
+ggplot(depo_m_daytime, mapping = aes(Ym, Total, group = Tageszeit, color = Tageszeit))+
+  #zeichne Lockdown 1
+  geom_rect(mapping = aes(xmin = ym("2020-3"), xmax = ym("2020-5"),
+                          ymin = 0, ymax = max(Total+(Total/100*10))),
+            fill = "lightskyblue", alpha = 0.2, colour = NA)+
+  #zeichne Lockdown 2
+  geom_rect(mapping = aes(xmin = ym("2020-12"), xmax = ym("2021-3"),
+                          ymin = 0, ymax = max(Total+(Total/100*10))),
+            fill = "lightskyblue", alpha = 0.2, colour = NA)+
+  geom_line(alpha = 0.8, size = 1.5)+
+  labs(title= "", y="Fussgänger:innen pro Monat", x = "Jahr")+
+  scale_color_manual(values = mycolors)+
+  scale_x_continuous(breaks = mybreaks)+  
+    # scale_y_continuous(trans="log10")+
+  theme_linedraw(base_size = 15)+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 
 # mache einen prozentuellen areaplot
 ggplot(depo_m_daytime, aes(Ym, Total, fill = Tageszeit)) + 
@@ -535,6 +541,7 @@ ggplot(subset(depo_m_daytime, !(Tageszeit %in% "Tag")),
   labs(title= "", y="Fussgänger:innen pro Monat", x = "Monat")+
   scale_color_manual(values = mycolors)+
   facet_grid(rows = vars(Jahr), scales = "free_x")+
+  scale_x_continuous(breaks = c(1:12))+
   # scale_y_continuous(trans="log10")+
   theme_linedraw(base_size = 15)+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
@@ -578,9 +585,9 @@ st <- as.simpleparty(ct)
 
 # WICHTIG: um ueberlappungen zu vermeiden, plotte Bild, oeffne im separaten Fenster, amche Screenshot und speichere unter ctrees.png ab.
 
-plot(st, gp = gpar(fontsize = 10),
+plot(st, gp = gpar(fontsize = 5),
      inner_panel=node_inner,
-     ep_args = list(justmin = 10),
+     ep_args = list(justmin = 5),
      ip_args=list(
        abbreviate = FALSE,
        id = FALSE))
@@ -655,14 +662,15 @@ Mean_h <- depo |>
 # Plotte den Tagesgang, unterteilt nach Wochentagen
 
 ggplot(Mean_h, aes(x = Stunde, y = Total, colour = Wochentag, linetype = Wochentag))+
-  geom_line(size = 2)+
+  geom_line(size = 1)+
   scale_colour_viridis_d()+
   scale_linetype_manual(values = c(rep("solid", 5),  "twodash", "twodash"))+
-  scale_x_continuous(breaks = c(seq(0, 23, by = 2)), labels = c(seq(0, 23, by = 2)))+
+  scale_x_continuous(breaks = c(seq(0, 23, by = 1)), labels = c(seq(0, 23, by = 1)))+
   facet_grid(rows = vars(Phase))+
-  labs(x="Uhrzeit [h]", y= "∅ Fussganger_Innen / h", title = "")+
+  labs(x="Uhrzeit [h]", y= "Durchscnnitt Fussganger_Innen / h", title = "")+
   lims(y = c(0,25))+
-  theme_linedraw(base_size = 15)
+  theme_linedraw(base_size = 15)+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 
 ggsave("Tagesgang.png", width=25, height=25, units="cm", dpi=1000,
        path = "fallstudie_s/results/")
@@ -795,6 +803,7 @@ umwelt <- umwelt |>
   mutate(Jahr = as.factor(Jahr)) |> 
   mutate(KW = as.factor(KW)) |>
   mutate(Monat = as.factor(Monat)) |>
+  mutate(Ferien = as.factor(Ferien)) |>
   # zudem muessen die die nummerischen Wetterdaten auch als solche abgespeichert sein
   mutate(tre200nx = as.numeric(tre200nx))|>
   mutate(tre200jx = as.numeric(tre200jx))|>
@@ -1075,7 +1084,7 @@ tab_model(Tages_Model_nb_quad, transform = NULL, show.se = TRUE)
 # Hintergrundinfo interaction plot:
 # https://cran.r-project.org/web/packages/sjPlot/vignettes/plot_interactions.html
 
-# definiere eine Funktion zum Plotten der Modellergebnisse
+## definiere eine Funktion zum Plotten der Modellergebnisse
 # Credits function to Sabrina Harsch
 
 # original
@@ -1095,7 +1104,7 @@ tab_model(Tages_Model_nb_quad, transform = NULL, show.se = TRUE)
 #   return(plot_id)
 # }
 
-
+# schreibe fun fuer continuierliche var
 rescale_plot_num <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {
   
   plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title="")
@@ -1106,11 +1115,25 @@ rescale_plot_num <- function(input_df, input_term, unscaled_var, scaled_var, num
   
   plot_id <- plot_id +
     scale_x_continuous(breaks = custom_breaks, limits = custom_limits, labels = c(labels), labs(x=x_lab)) +
-    scale_y_continuous(labs(y=y_lab), limits = c(0,50)) +
+    scale_y_continuous(labs(y=y_lab), limits = c(0,65)) +
     theme_classic(base_size = 20)
   
   return(plot_id)
 }
+
+# schreibe fun fuer diskrete var
+rescale_plot_fac <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {
+  
+  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title="")
+  
+  plot_id <- plot_id +
+    scale_y_continuous(labs(y=y_lab), limits = c(0,65)) +
+    theme_classic(base_size = 20)+
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  
+  return(plot_id)
+}
+
 
 ## Tagesmaximaltemperatur
 input_df     <-  Tages_Model_nb_quad
@@ -1132,23 +1155,47 @@ ggsave("temp.png", width=15, height=15, units="cm", dpi=1000,
        path = "fallstudie_s/results/") 
 
 
+## sonnenscheinsauer
+input_df     <-  Tages_Model_nb_quad
+input_term   <- "sremaxdv_scaled [all]"
+unscaled_var <- umwelt$sremaxdv
+scaled_var   <- umwelt$sremaxdv_scaled
+num_breaks   <- 10
+x_lab        <- "Sonnenscheinsauer [%]"
+y_lab        <- "Fussgänger:innen pro Tag"
+x_scaling    <- 1 # in prozent
+x_nk         <- 0   # x round nachkommastellen    
+
+
+p_sonn <- rescale_plot_num(input_df, input_term, unscaled_var, scaled_var, num_breaks, 
+                           x_lab, y_lab, x_scaling, x_nk)
+p_sonn
+
+ggsave("sonne.png", width=15, height=15, units="cm", dpi=1000, 
+       path = "fallstudie_s/results/") 
+
+
+## regen tag
+input_df     <-  Tages_Model_nb_quad
+input_term   <- "rre150j0_scaled [all]"
+unscaled_var <- umwelt$rre150j0
+scaled_var   <- umwelt$rre150j0_scaled
+num_breaks   <- 10
+x_lab        <- "Regensumme 6 - 18 Uhr [mm]"
+y_lab        <- "Fussgänger:innen pro Tag"
+x_scaling    <- 1 # in prozent
+x_nk         <- 0   # x round nachkommastellen    
+
+
+p_reg <- rescale_plot_num(input_df, input_term, unscaled_var, scaled_var, num_breaks, 
+                           x_lab, y_lab, x_scaling, x_nk)
+p_reg
+
+ggsave("regen.png", width=15, height=15, units="cm", dpi=1000, 
+       path = "fallstudie_s/results/") 
+
+
 ## Wochentag
-
-rescale_plot_fac <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {
-  
-  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title="")
-
-  plot_id <- plot_id +
-    scale_y_continuous(labs(y=y_lab), limits = c(0,50)) +
-    theme_classic(base_size = 20)+
-    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
-  
-  return(plot_id)
-}
-
-
-
-
 input_df     <-  Tages_Model_nb_quad
 input_term   <- "Wochentag [all]"
 unscaled_var <- umwelt$Wochentag
@@ -1168,13 +1215,64 @@ ggsave("wd.png", width=15, height=15, units="cm", dpi=1000,
        path = "fallstudie_s/results/") 
 
 
+## Ferien
+# input_df     <-  Tages_Model_nb_quad
+# input_term   <- "Ferien [all]"
+# unscaled_var <- umwelt$Ferien
+# scaled_var   <- umwelt$Ferien
+# num_breaks   <- 10
+# x_lab        <- "Ferien"
+# y_lab        <- "Fussgänger:innen pro Tag"
+# x_scaling    <- 1 # in prozent
+# x_nk         <- 0   # x round nachkommastellen    
+# 
+# 
+# p_feri <- rescale_plot_fac(input_df, input_term, unscaled_var, scaled_var, num_breaks, 
+#                          x_lab, y_lab, x_scaling, x_nk)
+# p_feri
+# 
+# ggsave("ferien.png", width=15, height=15, units="cm", dpi=1000, 
+#        path = "fallstudie_s/results/") 
 
 
+## Phase
+input_df     <-  Tages_Model_nb_quad
+input_term   <- "Phase [all]"
+unscaled_var <- umwelt$Phase
+scaled_var   <- umwelt$Phase
+num_breaks   <- 10
+x_lab        <- "Phase"
+y_lab        <- "Fussgänger:innen pro Tag"
+x_scaling    <- 1 # in prozent
+x_nk         <- 0   # x round nachkommastellen    
 
 
+p_phase <- rescale_plot_fac(input_df, input_term, unscaled_var, scaled_var, num_breaks, 
+                         x_lab, y_lab, x_scaling, x_nk)
+p_phase
+
+ggsave("phase.png", width=15, height=15, units="cm", dpi=1000, 
+       path = "fallstudie_s/results/") 
 
 
+## Monat
+input_df     <-  Tages_Model_nb_quad
+input_term   <- "Monat [all]"
+unscaled_var <- umwelt$Monat
+scaled_var   <- umwelt$Monat
+num_breaks   <- 10
+x_lab        <- "Monat"
+y_lab        <- "Fussgänger:innen pro Tag"
+x_scaling    <- 1 # in prozent
+x_nk         <- 0   # x round nachkommastellen    
 
+
+p_monat <- rescale_plot_fac(input_df, input_term, unscaled_var, scaled_var, num_breaks, 
+                            x_lab, y_lab, x_scaling, x_nk)
+p_monat
+
+ggsave("monat.png", width=15, height=15, units="cm", dpi=1000, 
+       path = "fallstudie_s/results/")
 
 
 

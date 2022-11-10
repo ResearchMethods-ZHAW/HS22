@@ -73,9 +73,6 @@ Man sieht, dass die Variable yield metrisch ist, während die vier anderen Varia
 korrekt als kategoriale Variablen (factors) kodiert sind
 
 ```{r}
-#| label: fig-baseplot-glmm-expl
-#| fig-cap: "Generierter Plot"
-
 # Explorative Datenanalyse (auf Normalverteilung, Varianzhomogenität)
 boxplot(yield~fertilizer, data = splityield)
 boxplot(yield~irrigation, data = splityield)
@@ -95,9 +92,6 @@ grossen Mittelwerten aufgetreten wären, hätten wir eine log- oder Wurzeltransf
 yield in Betracht ziehen müssen).
 
 ```{r}
-#| label: fig-baseplot-glmm-expl-log10
-#| fig-cap: "Generierter Plot"
-
 boxplot(log10(yield)~irrigation * density * fertilizer, data = splityield)# bringt keine Verbesserung
 aov.1 <- aov(yield~irrigation * density * fertilizer + Error(block/irrigation/density), data = splityield)
 ```
@@ -139,9 +133,6 @@ Jetzt muss man nur noch herausfinden, wie irrigation und fertilizer wirken und w
 Interaktionen aussehen. Bei multiplen ANOVAs macht man das am besten visuell:
 
 ```{r}
-#| label: fig-baseplot-glmm-result
-#| fig-cap: "Generierter Plot"
-
 # Visualisierung der Ergebnisse
 boxplot(yield~fertilizer, data = splityield)
 boxplot(yield~irrigation, data = splityield)
