@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Research Methods HS22 - 43&nbsp; Rauman 2: Übung B</title>
+<title>Research Methods HS22 - 47&nbsp; Rauman 2: Übung B</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -330,6 +330,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../stat1-4/Statistik3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Übung</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Lösung</span></a>
+  </div>
+</li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -339,6 +344,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stat1-4/Statistik4_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2n.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2N</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2s.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2S</span></a>
   </div>
 </li>
       </ul>
@@ -719,7 +739,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-ggplot-ex1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Rauman2_Uebung_B_files/figure-html/fig-ggplot-ex1-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;43.1: Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz mit der Inverse Distance Weighted Methode. Die verschiedenen Plots zeigen die Veränderung der Interpolation bei steigendem IDP-Wert</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;47.1: Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz mit der Inverse Distance Weighted Methode. Die verschiedenen Plots zeigen die Veränderung der Interpolation bei steigendem IDP-Wert</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -736,7 +756,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Rauman2_Uebung_B_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ggplot-ex2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Rauman2_Uebung_B_files/figure-html/fig-ggplot-ex2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;47.2: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p><code>st_voronoi</code> hat die Thiessenpolygone etwas weiter gezogen als wir sie wollen. Dies ist allerdings eine schöne Illustration der Randeffekte von Thiessenpolygonen, die zum Rand hin (wo es immer weniger Punkte hat) sehr gross werden können. Wir können die Polygone auf die Ausdehnung der Schweiz mit <code>st_intersection()</code> clippen. Auch hier braucht es zwei kleine Vorverarbeitungsschritte:</p>
@@ -751,7 +776,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Rauman2_Uebung_B_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<div id="fig-ggplot-ex2-clip" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Rauman2_Uebung_B_files/figure-html/fig-ggplot-ex2-clip-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;47.3: Generierter Plot</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Jetzt müssen wir nur noch den jeweiligen Wert für jedes Polygon ermitteln. Dies erreichen wir wieder durch <code>st_join</code>. Auch hier ist noch ein <em>kleiner</em> Vorverarbeitungsschritt nötig: Wir konvertieren das <code>sfc</code> Objekt (nur Geometrien) in ein <code>sf</code> Objekt (Geometrien mit Attributtabelle).</p>
@@ -773,7 +803,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-ggplot-ex2-final" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Rauman2_Uebung_B_files/figure-html/fig-ggplot-ex2-final-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;43.2: Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz nach der Nearest Neighbour Methode.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;47.4: Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz nach der Nearest Neighbour Methode.</figcaption><p></p>
 </figure>
 </div>
 </div>

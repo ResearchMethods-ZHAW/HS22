@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Research Methods HS22 - 48&nbsp; Rauman 5: Übung</title>
+<title>Research Methods HS22 - 52&nbsp; Rauman 5: Übung</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -329,6 +329,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../stat1-4/Statistik3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Übung</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Lösung</span></a>
+  </div>
+</li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -338,6 +343,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stat1-4/Statistik4_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2n.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2N</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2s.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2S</span></a>
   </div>
 </li>
       </ul>
@@ -646,14 +666,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>Die folgende Übung mag einigen von Ihnen bekannt vorkommen, wenn Sie unseren Bachelorstudiengang besucht haben. Dieses MCE wurde bereits im Bachelormodul “GIS” unter Verwendung von ArcGIS Pro und dessen ModelBuilder durchgeführt (siehe <a href="#fig-mce-process">Abbildung&nbsp;<span>48.1</span></a>).</p>
+<p>Die folgende Übung mag einigen von Ihnen bekannt vorkommen, wenn Sie unseren Bachelorstudiengang besucht haben. Dieses MCE wurde bereits im Bachelormodul “GIS” unter Verwendung von ArcGIS Pro und dessen ModelBuilder durchgeführt (siehe <a href="#fig-mce-process">Abbildung&nbsp;<span>52.1</span></a>).</p>
 <div id="fig-mce-process" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/mce_process.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;48.1: MCE Prozess</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;52.1: MCE Prozess</figcaption><p></p>
 </figure>
 </div>
-<p>Das Ziel dieser Übung ist es, das gleiche MCE nur mit R durchzuführen. Wir werden hauptsächlich Funktionen aus den R-Paketen <a href="https://cran.r-project.org/web/packages/sf/sf.pdf">sf</a> und <a href="https://cran.r-project.org/web/packages/raster/raster.pdf">raster</a> verwenden. Bitte schauen Sie sich das Prozessmodell (siehe <a href="#fig-mce-process">Abbildung&nbsp;<span>48.1</span></a>) an, das in ArcGIS Pro erstellt wurde, und versuchen Sie herauszufinden, welche Funktionen in den beiden R-Paketen denen im Modell entsprechen. Sie werden sehen, dass es einige ähnliche Funktionen gibt, aber für einige Berechnungen ist ein anderer Ansatz erforderlich.</p>
+<p>Das Ziel dieser Übung ist es, das gleiche MCE nur mit R durchzuführen. Wir werden hauptsächlich Funktionen aus den R-Paketen <a href="https://cran.r-project.org/web/packages/sf/sf.pdf">sf</a> und <a href="https://cran.r-project.org/web/packages/raster/raster.pdf">raster</a> verwenden. Bitte schauen Sie sich das Prozessmodell (siehe <a href="#fig-mce-process">Abbildung&nbsp;<span>52.1</span></a>) an, das in ArcGIS Pro erstellt wurde, und versuchen Sie herauszufinden, welche Funktionen in den beiden R-Paketen denen im Modell entsprechen. Sie werden sehen, dass es einige ähnliche Funktionen gibt, aber für einige Berechnungen ist ein anderer Ansatz erforderlich.</p>
 <section id="übungen-1-daten-laden-und-anzeigen" class="level2">
 <h2 class="anchored" data-anchor-id="übungen-1-daten-laden-und-anzeigen">Übungen 1: Daten laden und anzeigen</h2>
 <p>Laden Sie die nachfolgenden Rasterdatensätze herunter:</p>
@@ -766,7 +786,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="übung-2-ausschlusskriterien-zusammenführen" class="level2">
 <h2 class="anchored" data-anchor-id="übung-2-ausschlusskriterien-zusammenführen">Übung 2: Ausschlusskriterien zusammenführen</h2>
-<p>Führen Sie die Ausschlusskriterien Siedlungsgebiete, nationale Schutzgebiete, Seeflächen und Waldgebiete zusammen. Diese Vektordatensätze sind als Data Frames strukturiert und können daher durch einfaches Kombinieren zusammengeführt werden. Beachten Sie dabei, dass die Data Frames unterschiedliche Grössen haben. Zusätzlich müssen wir aus dem neu erstellten Vektordatensatz (Ausschlussgebiet) ein Raster erstellen. Dazu können Sie die Funktion <code>rasterize</code> verwenden. Die Ausgabe soll ein Raster mit 0 und 1 sein, wobei die Felder des Ausschlussbereichs den Wert 0 und die restlichen Felder den Wert 1 haben (siehe <a href="#fig-exclusion-areas">Abbildung&nbsp;<span>48.2</span></a>).</p>
+<p>Führen Sie die Ausschlusskriterien Siedlungsgebiete, nationale Schutzgebiete, Seeflächen und Waldgebiete zusammen. Diese Vektordatensätze sind als Data Frames strukturiert und können daher durch einfaches Kombinieren zusammengeführt werden. Beachten Sie dabei, dass die Data Frames unterschiedliche Grössen haben. Zusätzlich müssen wir aus dem neu erstellten Vektordatensatz (Ausschlussgebiet) ein Raster erstellen. Dazu können Sie die Funktion <code>rasterize</code> verwenden. Die Ausgabe soll ein Raster mit 0 und 1 sein, wobei die Felder des Ausschlussbereichs den Wert 0 und die restlichen Felder den Wert 1 haben (siehe <a href="#fig-exclusion-areas">Abbildung&nbsp;<span>52.2</span></a>).</p>
 <ul>
 <li><strong>Tipp</strong>: Um ein Raster mit nur 0 und 1 zu erhalten, verwenden Sie die Optionen “rasterize” field = 0 und background = 1.</li>
 <li><strong>Tipp</strong>: Um Vektordaten zu rastern, müssen Sie vorher ein leeres Raster erstellen. Dieses Raster sollte die gleichen Grenzen (extent), die gleiche Auflösung und das gleiche Koordinatensystem (crs) haben wie die anderen Rastersätze. Verwenden Sie dazu den folgenden Code.*</li>
@@ -779,7 +799,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-exclusion-areas" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/exclusion_areas.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;48.2: Ausschlussgebiete</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;52.2: Ausschlussgebiete</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -802,7 +822,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="übung-5-kriterien-standardisieren-und-bewerten-grading" class="level2">
 <h2 class="anchored" data-anchor-id="übung-5-kriterien-standardisieren-und-bewerten-grading">Übung 5: Kriterien standardisieren und bewerten (grading)</h2>
-<p>Die Datenebenen Neigung, Windgeschwindigkeit, Vereisungshäufigkeit und die in Übung 4 berechneten Entfernungsebenen haben unterschiedliche Einheiten (dm/s, Grad, d/yr und m). Diese Einheiten können nicht direkt miteinander verrechnet werden. Daher müssen die verschiedenen Ebenen durch eine lineare Abstufung operationalisiert werden. Die lineare Abstufung wird mit der Funktion <code>reclassify</code> durchgeführt. Verwenden Sie die Standards für die Neuklassifizierung aus <a href="#fig-mce-reclassify-1">Abbildung&nbsp;<span>48.3 (a)</span></a> und <a href="#fig-mce-reclassify-2">Abbildung&nbsp;<span>48.3 (b)</span></a>).</p>
+<p>Die Datenebenen Neigung, Windgeschwindigkeit, Vereisungshäufigkeit und die in Übung 4 berechneten Entfernungsebenen haben unterschiedliche Einheiten (dm/s, Grad, d/yr und m). Diese Einheiten können nicht direkt miteinander verrechnet werden. Daher müssen die verschiedenen Ebenen durch eine lineare Abstufung operationalisiert werden. Die lineare Abstufung wird mit der Funktion <code>reclassify</code> durchgeführt. Verwenden Sie die Standards für die Neuklassifizierung aus <a href="#fig-mce-reclassify-1">Abbildung&nbsp;<span>52.3 (a)</span></a> und <a href="#fig-mce-reclassify-2">Abbildung&nbsp;<span>52.3 (b)</span></a>).</p>
 <ul>
 <li><strong>Tipp</strong>: Beachten Sie die Minimal- und Maximalwerte der einzelnen Rasterebenen.</li>
 <li><strong>Tipp</strong>: Hier ist ein Beispielcode zur Neuklassifizierung der Entfernungen zu Siedlungen.</li>
@@ -843,7 +863,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;48.3: MCE Reclassify</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;52.3: MCE Reclassify</figcaption><p></p>
 </figure>
 </div>
 <p><img src="images/d_to_settlements_reclassified.png" class="img-fluid" style="width:50.0%"></p>
@@ -901,7 +921,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="übung-7-gewichtetes-overlay" class="level2">
 <h2 class="anchored" data-anchor-id="übung-7-gewichtetes-overlay">Übung 7: Gewichtetes Overlay</h2>
-<p>Die linear gewichteten Kriterien (Übung 5) sollen nun unter Berücksichtigung der mit dem AHP ermittelten Gewichtung (Übung 6) miteinander kombiniert werden. Diese gewichtete Überlagerung kann mit Hilfe von Rasterberechnungen durchgeführt werden, indem einfach jedes Kriterium mit seinem Gewicht multipliziert und addiert wird (siehe <a href="#fig-weighted-overlay">Abbildung&nbsp;<span>48.4</span></a>).</p>
+<p>Die linear gewichteten Kriterien (Übung 5) sollen nun unter Berücksichtigung der mit dem AHP ermittelten Gewichtung (Übung 6) miteinander kombiniert werden. Diese gewichtete Überlagerung kann mit Hilfe von Rasterberechnungen durchgeführt werden, indem einfach jedes Kriterium mit seinem Gewicht multipliziert und addiert wird (siehe <a href="#fig-weighted-overlay">Abbildung&nbsp;<span>52.4</span></a>).</p>
 <ul>
 <li><strong>Tipp</strong>: Da die Rastersätze leicht unterschiedliche Ursprünge haben, erhöhen Sie die Toleranz, indem Sie rasterOptions(tolerance = 0.5) verwenden.</li>
 <li><strong>Tipp</strong>: Achten Sie bei der Multiplikation auch auf die Reihenfolge der Gewichte in Ihrer Liste.</li>
@@ -909,17 +929,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-weighted-overlay" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/weighted_overlay.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;48.4: Gewichteter Overlay</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;52.4: Gewichteter Overlay</figcaption><p></p>
 </figure>
 </div>
 </section>
 <section id="übung-8-potenzielle-gebiete-mit-ausschlusskriterien-überschneiden" class="level2">
 <h2 class="anchored" data-anchor-id="übung-8-potenzielle-gebiete-mit-ausschlusskriterien-überschneiden">Übung 8: Potenzielle Gebiete mit Ausschlusskriterien überschneiden</h2>
-<p>Durch einfache Multiplikation des Ausschluss-Layers (Ergebnis aus Übung 2) mit dem gewichteten Overlay-Layer (Ergebnis aus Übung 7) schliessen wir alle Flächen mit dem Wert 0 (Ausschlussflächen) aus und behalten alle anderen Flächen mit dem Wert 1 (z.B. 0x3=0, 1x3=3). Erstellen Sie als Abschluss der Studie eine endgültige Darstellung der Potenzialflächen für Windkraftanlagen im Kanton Schwyz (wie <a href="#fig-potential-sites">Abbildung&nbsp;<span>48.5</span></a>). Diskutieren Sie die Ergebnisse und bestimmen Sie drei mögliche Standorte, an denen eine konkrete Planung von Windkraftanlagen möglich wäre.</p>
+<p>Durch einfache Multiplikation des Ausschluss-Layers (Ergebnis aus Übung 2) mit dem gewichteten Overlay-Layer (Ergebnis aus Übung 7) schliessen wir alle Flächen mit dem Wert 0 (Ausschlussflächen) aus und behalten alle anderen Flächen mit dem Wert 1 (z.B. 0x3=0, 1x3=3). Erstellen Sie als Abschluss der Studie eine endgültige Darstellung der Potenzialflächen für Windkraftanlagen im Kanton Schwyz (wie <a href="#fig-potential-sites">Abbildung&nbsp;<span>52.5</span></a>). Diskutieren Sie die Ergebnisse und bestimmen Sie drei mögliche Standorte, an denen eine konkrete Planung von Windkraftanlagen möglich wäre.</p>
 <div id="fig-potential-sites" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/potential_sites.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;48.5: Potenzielle Standorte</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;52.5: Potenzielle Standorte</figcaption><p></p>
 </figure>
 </div>
 
