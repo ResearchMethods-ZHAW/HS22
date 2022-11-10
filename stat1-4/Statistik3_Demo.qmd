@@ -30,14 +30,14 @@ summary(compensation)
 plot(Fruit~Root, data = compensation)
 ```
 
--\> Je grösser die Pflanze, desto grösser ihre Fruchtproduktion.
+-> Je grösser die Pflanze, desto grösser ihre Fruchtproduktion.
 
 ```{r}
 # Beweidung ("Grazing") vs. Fruchtroduktion ("Fruit)
 boxplot(Fruit~Grazing, data = compensation)
 ```
 
--\> In der beweideten Gruppe scheint die Fruchtproduktion grösser. Liegt dies an der Beweidung oder an unterschiedlichen Pflanzengrössen zwischen den Gruppen?
+-> In der beweideten Gruppe scheint die Fruchtproduktion grösser. Liegt dies an der Beweidung oder an unterschiedlichen Pflanzengrössen zwischen den Gruppen?
 
 ```{r}
 # Plotten der vollständigen Daten/Information
@@ -47,7 +47,7 @@ ggplot(compensation, aes(Root, Fruit, color = Grazing)) +
   theme_classic()
 ```
 
--\> Die grössere Fruchtproduktion innerhalb der beweideten Gruppe scheint also ein Resultat von unterschiedlichen Pflanzengrössen zwischen den Gruppen zu sein und nicht an der Beweidung zu liegen.
+-> Die grössere Fruchtproduktion innerhalb der beweideten Gruppe scheint also ein Resultat von unterschiedlichen Pflanzengrössen zwischen den Gruppen zu sein und nicht an der Beweidung zu liegen.
 
 ```{r}
 #Lineare Modelle definieren und anschauen
@@ -65,7 +65,7 @@ plot(aoc.2)
 
 ```
 
--\> Das ANCOVA-Modell widerspiegelt die Zusammenhänge wie sie aufgrun der Grafisch dargestellten Daten zu vermuten sind gut. Die Residual-Plots zeigen 3 Ausreisser (Beobachtungen 27, 34 und 37), welche "aus der Reihe tanzen".
+-> Das ANCOVA-Modell widerspiegelt die Zusammenhänge wie sie aufgrund der grafisch dargestellten Daten zu vermuten sind gut. Die Residual-Plots zeigen 3 Ausreisser (Beobachtungen 27, 34 und 37), welche "aus der Reihe tanzen".
 
 ## Polynomische Regression
 
@@ -85,13 +85,13 @@ summary(lm.1) # Modell anschauen
 
 ```
 
--\> kein signifikanter Zusammenhang und entsprechend kleines Bestimmtheitsmass (adj. R^2^ = 0.07)
+-> kein signifikanter Zusammenhang und entsprechend kleines Bestimmtheitsmass (adj. R^2^ = 0.07)
 
 ```{r}
 summary(lm.quad) # Modell anschauen
 ```
 
--\> signifikanter Zusammenhang und viel besseres Bestimmtheitsmass (adj. R^2^ = 0.60)
+-> signifikanter Zusammenhang und viel besseres Bestimmtheitsmass (adj. R^2^ = 0.60)
 
 ```{r}
 # Modelle plotten
@@ -129,7 +129,7 @@ plot(y~x, data = test)
 ```
 
 ```{r}
-# Zunehmend komplizierte Modelle definieren und anschauen
+# Zunehmend komplizierte Modelle (je komplizierter desto overfitteter) definieren
 lm.0 <- lm(y~1, data = test)
 lm.1 <- lm(y~x, data = test)
 lm.2 <- lm(y~x+ I(x^2), data = test)
@@ -157,7 +157,7 @@ smy.5$adj.r.squared
 
 ```
 
--\> R2 wird immer grösser, d.h. die Modelle werden immer besser. ;-)
+-> R2 wird immer grösser, d.h. die Modelle werden immer besser. ;-)
 
 ```{r}
 # Modelle plotten
@@ -181,7 +181,7 @@ text(x = c(1,50), "lm.5", col = "violet" )
 
 ```
 
--\> Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 Parametern zu fitten??
+-> Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 Parametern zu fitten??
 
 ## Multiple lineare Regression (basierend auf Logan, Beispiel 9A)
 
@@ -205,14 +205,11 @@ library(corrplot)
 corrplot.mixed(cor, lower = 'ellipse', upper = "number", order = 'AOE')
 ```
 
--\> Keine Korrelation ist \>\|0.7\| . Aber es gilt zu beachten , dass GRAZE ziemlich stark \|\>0.6\| mit YR.ISOL korreliert ist
+-> Keine Korrelation ist \>\|0.7\| . Aber es gilt zu beachten , dass GRAZE ziemlich stark \|\>0.6\| mit YR.ISOL korreliert ist
 
 ```{r}
 # Volles Modell definieren
-# Eigentlich bestünde das volle Modell aus 6 Prädiktoren
-# Aus pragmatischen Gründen wird hier nur mit 3 Prädiktoren weitergerechnet
 
-# lm.1 <- lm (ABUND ~ YR.ISOL + ALT + GRAZE, data = loyn)
 names(loyn)
 lm.1 <- lm (ABUND ~ YR.ISOL +AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)
 if(!require(car)){install.packages("car")} 
@@ -222,7 +219,7 @@ par(mfrow=c(2,2))
 plot(lm.1)
 ```
 
--\> Plot sieht zwar ok aus, aber mit 6 Prädiktoren ist das Modell wohl "overfitted"
+-> Plot sieht zwar ok aus, aber mit 6 Prädiktoren ist das Modell wohl "overfitted"
 
 ```{r}
 vif(lm.1)
@@ -233,19 +230,15 @@ vif(lm.1)
 Schrittweise die am wenigsten signifkanten Terme entfernen:
 
 ```{r}
-#lm.1 <- lm(ABUND ~ YR.ISOL + ALT + GRAZE, data = loyn)
-
 lm.1 <- lm (ABUND ~ YR.ISOL + AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)
 summary(lm.1)
 
-#lm.2 <- update(lm.1,~.-YR.ISOL)
+lm.2 <- update(lm.1,~.-AREA) # Prädiktor mit grösstem p-Wert entfernen
+anova(lm.1, lm.2) # Modelle vergleichen (falls signifikant, so müssten man den Prädiktor wieder ins Modell nehmen)
+summary(lm.2) # Neues einfacheres Modell anschauen und Prädiktor mit grösstem p-Wert ausfindig machen
 
-lm.2 <- update(lm.1,~.-AREA)
-anova(lm.1, lm.2)
-summary(lm.2)
-
-#lm.3 <- update(lm.2,~.-ALT)
-lm.3 <- update(lm.2,~.-DIST)
+# Oben beschriebene Schritte wiederholen bis nur noch signifikante Prädiktoren im Modell
+lm.3 <- update(lm.2,~.-DIST) 
 anova(lm.2, lm.3)
 summary(lm.3)
 
@@ -265,7 +258,7 @@ par(mfrow = c(2, 2))
 plot(lm.6)
 ```
 
--\> das minimal adäquate Modell enthält nur noch einen Prädiktor (GRAZE) und dessen Residualplots sehen ok aus.
+-> das minimal adäquate Modell enthält nur noch einen Prädiktor (GRAZE) und dessen Residualplots sehen ok aus.
 
 ### Hierarchical partitioning
 
@@ -281,7 +274,7 @@ par(mfrow = c(1, 1))
 hier.part(loyn$ABUND, loyn.preds, gof = "Rsqu")
 ```
 
--\> auch hier sticht GRAZE heraus. (und an zweiter Stelle YR.ISOL, der mit GRAZE am stärksten korreliert ist)
+-> auch hier sticht GRAZE heraus. (und an zweiter Stelle YR.ISOL, der mit GRAZE am stärksten korreliert ist)
 
 ### Partial regressions
 
