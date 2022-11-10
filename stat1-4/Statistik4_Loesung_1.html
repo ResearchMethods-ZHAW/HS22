@@ -711,12 +711,7 @@ Pflanzenartenzahlen (Species.richness) von geschachtelten Plots (Vegetationsaufn
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> <span class="co"># Explorative Datenanalyse</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Species.richness<span class="sc">~</span>Area, <span class="at">data =</span> curonian)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-boxplot-sol1-expl" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Statistik4_Loesung_1_files/figure-html/fig-boxplot-sol1-expl-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;28.1: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
+<p><img src="Statistik4_Loesung_1_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Es liegt in der Tat ein nicht-linearer Zusammenhang vor, der sich gut mit nls analysieren lässt. Die Daten beinhalten keine erkennbaren Fehler, da der Artenreichtum der geschachtelten Plots mit der Fläche ansteigt.</p>
@@ -918,12 +913,7 @@ Michaelis-Menten          3 165.17      68.42   0.00   1.00 -78.58</code></pre>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlstools)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">nlsResiduals</span>(power.model))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-boxplot-sol1-modeldiagnostics" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Statistik4_Loesung_1_files/figure-html/fig-boxplot-sol1-modeldiagnostics-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;28.2: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
+<p><img src="Statistik4_Loesung_1_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Links oben sieht man zwar ein Muster (liegt daran, dass in diesem Fall die Plots geschachtelt, und nicht unabhängig waren), aber jedenfalls keinen problematischen Fall wie einen Bogen oder einen Keil. Der QQ-Plot rechts unten ist völlig OK. Somit haben wir auch keine problematische Abweichung von der Normalverteilung der Residuen. Da es sich bei den einzelnen Punkten allerdings bereits um arithmetische Mittelwerte aus je 8 Beobachtungen handelt, hätte man sich auch einfach auf das Central Limit Theorem beziehen können, das sagt, dass Mittelwerte automatisch einer Normalverteilung folgen.</p>
@@ -936,12 +926,7 @@ Michaelis-Menten          3 165.17      68.42   0.00   1.00 -78.58</code></pre>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(micmen<span class="fl">.1</span>, <span class="fu">list</span>(<span class="at">Area =</span> xv))</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-baseplot-sol1-final" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Statistik4_Loesung_1_files/figure-html/fig-baseplot-sol1-final-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;28.3: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
+<p><img src="Statistik4_Loesung_1_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Das ist der Ergebnisplot für das beste Modell. Wichtig ist, dass man die Achsen korrekt beschriftet und nicht einfach die mehr oder weniger kryptischen Spaltennamen aus R nimmt.</p>
@@ -959,12 +944,7 @@ Michaelis-Menten          3 165.17      68.42   0.00   1.00 -78.58</code></pre>
 <span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(micmen<span class="fl">.1</span>, <span class="fu">list</span>(<span class="at">Area=</span>xv))</span>
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">log10</span>(xv), <span class="fu">log10</span>(yv2), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-baseplot-sol1-final-log" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Statistik4_Loesung_1_files/figure-html/fig-baseplot-sol1-final-log-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;28.4: Generierter Plot</figcaption><p></p>
-</figure>
-</div>
+<p><img src="Statistik4_Loesung_1_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Auch hier sieht man, dass die rote Kurve zwar nicht perfekt, aber doch viel besser als die blaue Kurve ist.</p>
