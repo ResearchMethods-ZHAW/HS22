@@ -44,9 +44,6 @@ Die adäquate Analyse (1 metrische Abhängige vs. 2 kategoriale Unabhängige) is
 Die Sortierung der Jahreszeiten (default: alphabetisch) ist inhaltlich aber nicht sinnvoll und sollte angepasst werden.
 
 ```{r}
-#| label: fig-boxplot-sol3-expl
-#| fig-cap: "Generierter Plot"
-
 # Umsortieren der Faktoren, damit sie in den Boxplots eine sinnvolle Reihung haben
 kormoran$Jahreszeit <- ordered(kormoran$Jahreszeit, levels = c("F", "S", "H", "W"))
 kormoran$Jahreszeit
@@ -58,18 +55,12 @@ boxplot(kormoran$Tauchzeit)
 Das ist noch OK für parametrische Verfahren (Box ziemlich symmetrisch um Median, Whisker etwas asymmetrisch aber nicht kritisch). Wegen der leichten Asymmetrie (Linksschiefe) könnte man eine log-Transformation ausprobieren.
 
 ```{r}
-#| label: fig-boxplot-sol3-expl-log10
-#| fig-cap: "Generierter Plot"
-
 boxplot(log10(kormoran$Tauchzeit))
 ```
 
 Der Gesamtboxplot für log10 sieht perfekt symmetrisch aus, das spräche also für eine log10-Transformation. De facto kommt es aber nicht auf den Gesamtboxplot an, sondern auf die einzelnen.
 
 ```{r}
-#| label: fig-boxplot-sol3-expl-comb
-#| fig-cap: "Generierter Plot"
-
 # Explorative Datenanalyse 
 # (Check auf Normalverteilung der Residuen und Varianzhomogenitaet)
 boxplot(Tauchzeit~Jahreszeit * Unterart, data = kormoran)
@@ -98,9 +89,6 @@ summary(aov.2)
 Im so vereinfachten Modell sind alle verbleibenden Terme signifikant, wir sind also beim „minimal adäquaten Modell“ angelangt
 
 ```{r}
-#| label: fig-baseplot-sol3-aov
-#| fig-cap: "Generierter Plot"
-
 # Anderer Weg, um zu pruefen, ob man das komplexere Modell mit Interaktion behalten soll
 anova(aov.1, aov.2)
 # In diesem Fall bekommen wir den gleichen p-Wert wie oben (0.266)
@@ -122,9 +110,6 @@ Rechts oben ganz gut, allerdings weichen Punkte 1 und 20 deutlich von der optima
 Rechts unten: kein Punkt hat einen problematischen Einfluss (die roten Linien für Cook’s D > 0.5 und > 1 sind noch nicht einmal im Bildausschnitt.
 
 ```{r}
-#| label: fig-baseplot-sol3-aov-log10
-#| fig-cap: "Generierter Plot"
-
 # Alternative mit log10
 aov.3 <-aov(log10(Tauchzeit)~Unterart + Jahreszeit, data=kormoran)
 aov.3
@@ -136,9 +121,6 @@ Rechts oben: Punkt 20 jetzt auf der Linie, aber Punkt 1 weicht umso deutlicher a
 Da wir keine Interaktion zwischen Unterart und Jahreszeit festgestellt haben, brauchen wir auch keinen Interaktionsplot (unnötig kompliziert), statt dessen können wir die Ergebnisse am besten mit zwei getrennten Plots für die beiden Faktoren darstellen. Bitte die Achsenbeschriftungen und den Tukey post-hoc-Test nicht vergessen.
 
 ```{r}
-#| label: fig-boxplot-sol3-final
-#| fig-cap: "Generierter Plot"
-
 par(mfrow = c(1, 1)) #Zurückschalten auf Einzelplots
 if(!require(multcomp)){install.packages("multcomp")} 
 library(multcomp)

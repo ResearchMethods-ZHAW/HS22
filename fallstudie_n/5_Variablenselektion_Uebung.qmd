@@ -84,8 +84,6 @@ Ein erstes GLMM (Generalized Linear Mixed Effects Modell) aufbauen: Funktion und
 #| output: false
 
 # wir werden das package lme4 mit der Funktion glmer verwenden 
-# ausserdem brauchen wir noch das package bbmle
-# --> installieren & laden
 
 # die Hilfe von glmer aufrufen: ?glmer
 
@@ -179,7 +177,7 @@ all_m <- dredge(m)
 # Importance values der einzelnen Variablen (Gibt an, wie bedeutsam eine bestimmte 
 # Variable ist, wenn man viele verschiedene Modelle vergleicht (multimodel inference))
 
-importance(all_m)
+sw(all_m)
 
 # Schlussendlich wird ein Modelaverage durchgeführt (Schwellenwert für das delta-AIC = 2)
 
@@ -187,5 +185,5 @@ avgmodel <- model.avg(all_m, rank="AICc", subset = delta < 2)
 summary(avgmodel)
 
 # ==> für den Nachtdatensatz muss der gleiche Prozess der Variablenselektion 
-# durchgespielt werden. 
+# durchgespielt werden.
 ```

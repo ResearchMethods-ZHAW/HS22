@@ -18,8 +18,6 @@ format:
 ### PCA
 
 ```{r}
-#| label: fig-baseplot-pca1
-#| fig-cap: "Generierter Plot"
 
 if(!require(labdsv)){install.packages("labdsv")}
 library(labdsv)
@@ -117,8 +115,6 @@ pca.5$loadings
 ```
 
 ```{r}
-#| label: fig-baseplot-pca2
-#| fig-cap: "Generierter Plot"
 
 # Erklärte Varianz der Achsen in Prozent (sdev ist die Wurzel daraus)
 E <- pca.5$sdev^2 / pca.5$totdev * 100
@@ -168,8 +164,6 @@ text(x[sel.sp], y[sel.sp], snames, pos = 1, cex = 0.6)
 ### CA
 
 ```{r}
-#| label: fig-baseplot-ca
-#| fig-cap: "Generierter Plot"
 
 ca.1 <- cca(sveg^0.5)
 # Arten (o) und Communities (+) plotten
@@ -187,8 +181,6 @@ summary(eigenvals(ca.1))
 ### DCA
  
 ```{r}
-#| label: fig-baseplot-dca
-#| fig-cap: "Generierter Plot"
 
 library(vegan)
 dca.1 <- decorana(sveg, mk = 10)
@@ -201,8 +193,6 @@ plot(dca.2, display = "sites", type = "point")
 ### NMDS
  
 ```{r}
-#| label: fig-baseplot-nmds
-#| fig-cap: "Generierter Plot"
 
 # Distanzmatrix als Start erzeugen
 mde <- vegdist(sveg, method = "euclidean")
