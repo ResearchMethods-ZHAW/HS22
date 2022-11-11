@@ -650,7 +650,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-title">2. Daten(vor)verarbeitung - Lösung</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title d-none d-lg-block"><span class="chapter-title">2. Daten(vor)verarbeitung - Lösung</span></h1>
 </div>
 
 
@@ -875,8 +875,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 
-
-<!-- -->
 
 </section>
 </section>
@@ -1155,193 +1153,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-title">3. Berechnung Homeranges - Übung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb44" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># 2. Daten(vor)verarbeitung - Lösung</span></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Projektaufbau RStudio-Projekte</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>Vor den eigentlichen Auswertungen müssen einige vorbereitende Arbeiten unternommen werden. Die Zeit, die man hier investiert, wird in der späteren Projektphase um ein vielfaches eingespart. Im Skript soll die Ordnerstruktur des Projekts genannt werden, damit der Arbeitsvorgang auf verschiedenen Rechnern reproduzierbar ist.</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>Arbeitet mit Projekten, da diese sehr einfach ausgetauscht und somit auch reproduziert werden önnen; es gibt keine absoluten Arbeitspfade sondern nur relative. Der Datenimport (und auch der Export) kann mithilfe dieser relativen Pfaden stark vereinfacht werden. Projekte helfen alles am richtigen Ort zu behalten. (mehr zur Arbeit mit Projekten: <span class="co">[</span><span class="ot">Link</span><span class="co">](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)</span>)</span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aufbau von R-Skripten</span></span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>Im Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen des Skripts nennen. Hier soll auch die Herkunft der Daten ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer die Datenherrschaft hat (Rehdaten: Forschungsgruppe WILMA).</span>
-<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="co">#.##################################################################################</span></span>
-<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten(vor)verarbeitung Fallstudie WPZ  ####</span></span>
-<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Modul Research Methods, HS22. Autor/in ####</span></span>
-<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a><span class="co">#.##################################################################################</span></span>
-<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Beschreibt zudem folgendes:</span></span>
-<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a><span class="co"># • Ordnerstruktur; ich verwende hier den Projektordner mit den Unterordnern: </span></span>
-<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   • Skripts</span></span>
-<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a><span class="co">#   • Data</span></span>
-<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a><span class="co">#   • Results</span></span>
-<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a><span class="co">#   • Plots</span></span>
-<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a><span class="co"># • Verwendete Daten</span></span>
-<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-34"><a href="#cb44-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Ein Skript soll in R eigentlich immer nach dem selbem Schema aufgebaut sein. </span></span>
-<span id="cb44-35"><a href="#cb44-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Dieses Schema beinhaltet (nach dem bereits erwähnten Kopf des Skripts) 4 Kapitel: </span></span>
-<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb44-37"><a href="#cb44-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-38"><a href="#cb44-38" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Datenimport</span>
-<span id="cb44-39"><a href="#cb44-39" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Datenvorverarbeitung</span>
-<span id="cb44-40"><a href="#cb44-40" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Analyse</span>
-<span id="cb44-41"><a href="#cb44-41" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Visualisierung</span>
-<span id="cb44-42"><a href="#cb44-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-43"><a href="#cb44-43" aria-hidden="true" tabindex="-1"></a>Bereitet euer Skript also nach dieser Struktur vor. Nutzt für den Text, welcher nicht Code ist, vor dem Text das Symbol #. Wenn ihr den Text als Titel definieren wollt, der die grobe Struktur des Skripts absteckt, baut in wie in folgendem Beispiel auf:</span>
-<span id="cb44-44"><a href="#cb44-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-47"><a href="#cb44-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb44-48"><a href="#cb44-48" aria-hidden="true" tabindex="-1"></a><span class="co">#.###################################################################################</span></span>
-<span id="cb44-49"><a href="#cb44-49" aria-hidden="true" tabindex="-1"></a><span class="co"># METADATA ####</span></span>
-<span id="cb44-50"><a href="#cb44-50" aria-hidden="true" tabindex="-1"></a><span class="co">#.###################################################################################</span></span>
-<span id="cb44-51"><a href="#cb44-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Datenherkunft ####</span></span>
-<span id="cb44-52"><a href="#cb44-52" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span>
-<span id="cb44-53"><a href="#cb44-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-54"><a href="#cb44-54" aria-hidden="true" tabindex="-1"></a><span class="co">#.###################################################################################</span></span>
-<span id="cb44-55"><a href="#cb44-55" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. DATENIMPORT ####</span></span>
-<span id="cb44-56"><a href="#cb44-56" aria-hidden="true" tabindex="-1"></a><span class="co">#.###################################################################################</span></span>
-<span id="cb44-57"><a href="#cb44-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb44-58"><a href="#cb44-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-59"><a href="#cb44-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### Libraries laden</span></span>
-<span id="cb44-60"><a href="#cb44-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-63"><a href="#cb44-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb44-64"><a href="#cb44-64" aria-hidden="true" tabindex="-1"></a><span class="co">#| tidy: true</span></span>
-<span id="cb44-65"><a href="#cb44-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-66"><a href="#cb44-66" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb44-67"><a href="#cb44-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb44-68"><a href="#cb44-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-69"><a href="#cb44-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Daten laden</span></span>
-<span id="cb44-70"><a href="#cb44-70" aria-hidden="true" tabindex="-1"></a>Herunterladen der Daten der Feldaufnahme von Moodle, Einlesen, Sichtung der Datensätze und der Datentypen.</span>
-<span id="cb44-71"><a href="#cb44-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-74"><a href="#cb44-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb44-75"><a href="#cb44-75" aria-hidden="true" tabindex="-1"></a>df_team1 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Felderhebungen_Waldstruktur.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
-<span id="cb44-76"><a href="#cb44-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-77"><a href="#cb44-77" aria-hidden="true" tabindex="-1"></a>df_team2 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Felderhebung_11102022_gr3.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
-<span id="cb44-78"><a href="#cb44-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-79"><a href="#cb44-79" aria-hidden="true" tabindex="-1"></a>df_team3 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Felderhebung_Waldstruktur_TEAM3_pink_Gruppe 7.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
-<span id="cb44-80"><a href="#cb44-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-81"><a href="#cb44-81" aria-hidden="true" tabindex="-1"></a>df_team4 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Felderhebungen_Team4_Blau_221011.csv"</span>,<span class="at">delim =</span> <span class="st">";"</span>)</span>
-<span id="cb44-82"><a href="#cb44-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-83"><a href="#cb44-83" aria-hidden="true" tabindex="-1"></a>df_team5 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Felderhebung TEAM 5.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
-<span id="cb44-84"><a href="#cb44-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-85"><a href="#cb44-85" aria-hidden="true" tabindex="-1"></a>df_team6 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Team6_Felderhebung.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
-<span id="cb44-86"><a href="#cb44-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-87"><a href="#cb44-87" aria-hidden="true" tabindex="-1"></a><span class="co"># hier können die Probekreise mit den Angaben zur Anzahl Rehlokalisationen und der </span></span>
-<span id="cb44-88"><a href="#cb44-88" aria-hidden="true" tabindex="-1"></a><span class="co"># LIDAR-basierten Ableitung der Waldstruktur eingelesen werden</span></span>
-<span id="cb44-89"><a href="#cb44-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-90"><a href="#cb44-90" aria-hidden="true" tabindex="-1"></a>df_reh <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"fallstudie_n/data/Aufgabe3_Reh_Waldstruktur_221013.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
-<span id="cb44-91"><a href="#cb44-91" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_reh)</span>
-<span id="cb44-92"><a href="#cb44-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-93"><a href="#cb44-93" aria-hidden="true" tabindex="-1"></a><span class="co"># Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz  </span></span>
-<span id="cb44-94"><a href="#cb44-94" aria-hidden="true" tabindex="-1"></a><span class="co"># verbinden. Ist der Output zufriedenstellend?</span></span>
-<span id="cb44-95"><a href="#cb44-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-96"><a href="#cb44-96" aria-hidden="true" tabindex="-1"></a>df_gesamt <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df_team1, df_team2, df_team3, df_team4, df_team5, df_team6)</span>
-<span id="cb44-97"><a href="#cb44-97" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_gesamt)</span>
-<span id="cb44-98"><a href="#cb44-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb44-99"><a href="#cb44-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-100"><a href="#cb44-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aufgabe 1</span></span>
-<span id="cb44-101"><a href="#cb44-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-102"><a href="#cb44-102" aria-hidden="true" tabindex="-1"></a>1.1 Einügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-6).</span>
-<span id="cb44-103"><a href="#cb44-103" aria-hidden="true" tabindex="-1"></a>1.2 Spaltenumbenennung damit die Bezeichungen in allen Datensätzen gleich sind und der Gesamtdatensatz zusammengefügt werden kann.</span>
-<span id="cb44-104"><a href="#cb44-104" aria-hidden="true" tabindex="-1"></a>--&gt; Befehle mutate und rename, mit pipes (alt: %&gt;%, neu: |&gt;) in einem Schritt möglich</span>
-<span id="cb44-105"><a href="#cb44-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-108"><a href="#cb44-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb44-109"><a href="#cb44-109" aria-hidden="true" tabindex="-1"></a><span class="co">#.#################################################################################</span></span>
-<span id="cb44-110"><a href="#cb44-110" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. DATENVORVERARBEITUNG #####</span></span>
-<span id="cb44-111"><a href="#cb44-111" aria-hidden="true" tabindex="-1"></a><span class="co">#.#################################################################################</span></span>
-<span id="cb44-112"><a href="#cb44-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-113"><a href="#cb44-113" aria-hidden="true" tabindex="-1"></a>df_team1 <span class="ot">&lt;-</span> df_team1 <span class="sc">|&gt;</span></span>
-<span id="cb44-114"><a href="#cb44-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">team =</span> <span class="st">"team1"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb44-115"><a href="#cb44-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">KreisID =</span> <span class="st">"Kreis (r 12.5m)"</span>,</span>
-<span id="cb44-116"><a href="#cb44-116" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Rubus =</span> <span class="st">"Deckungsgrad Rubus sp. [%]"</span>,</span>
-<span id="cb44-117"><a href="#cb44-117" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Strauchschicht =</span> <span class="st">"DG Strauchschicht [%] (0.5-3m)"</span>,</span>
-<span id="cb44-118"><a href="#cb44-118" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Baumschicht =</span> <span class="st">"DG Baumschicht [%] (ab 3m)"</span>)</span>
-<span id="cb44-119"><a href="#cb44-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-120"><a href="#cb44-120" aria-hidden="true" tabindex="-1"></a>df_team2 <span class="ot">&lt;-</span> df_team2 <span class="sc">|&gt;</span></span>
-<span id="cb44-121"><a href="#cb44-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">team =</span> <span class="st">"team2"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb44-122"><a href="#cb44-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">KreisID =</span> <span class="st">"Kreis"</span>,</span>
-<span id="cb44-123"><a href="#cb44-123" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Rubus =</span> <span class="st">"Deckungsgrad Rubus sp. [%]"</span>,</span>
-<span id="cb44-124"><a href="#cb44-124" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Strauchschicht =</span> <span class="st">"DG Strauchschicht [%] (0.5-3m)"</span>,</span>
-<span id="cb44-125"><a href="#cb44-125" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Baumschicht =</span> <span class="st">"DG Baumschicht [%] (ab 3m)"</span>)</span>
-<span id="cb44-126"><a href="#cb44-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-127"><a href="#cb44-127" aria-hidden="true" tabindex="-1"></a>df_team3 <span class="ot">&lt;-</span> df_team3 <span class="sc">|&gt;</span></span>
-<span id="cb44-128"><a href="#cb44-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">team =</span> <span class="st">"team3"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb44-129"><a href="#cb44-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">KreisID =</span> <span class="st">"Kreis (r 12.5m)"</span>,</span>
-<span id="cb44-130"><a href="#cb44-130" aria-hidden="true" tabindex="-1"></a>         <span class="at">X =</span> <span class="st">"x"</span>,</span>
-<span id="cb44-131"><a href="#cb44-131" aria-hidden="true" tabindex="-1"></a>         <span class="at">Y =</span> <span class="st">"y"</span>,</span>
-<span id="cb44-132"><a href="#cb44-132" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Rubus =</span> <span class="st">"Deckungsgrad Rubus sp. [%]"</span>,</span>
-<span id="cb44-133"><a href="#cb44-133" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Strauchschicht =</span> <span class="st">"DG Strauchschicht [%] (0.5-3m)"</span>,</span>
-<span id="cb44-134"><a href="#cb44-134" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Baumschicht =</span> <span class="st">"DG Baumschicht [%] (ab 3m)"</span>)</span>
-<span id="cb44-135"><a href="#cb44-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-136"><a href="#cb44-136" aria-hidden="true" tabindex="-1"></a>df_team4 <span class="ot">&lt;-</span> df_team4 <span class="sc">|&gt;</span></span>
-<span id="cb44-137"><a href="#cb44-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">team =</span> <span class="st">"team4"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb44-138"><a href="#cb44-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">KreisID =</span> <span class="st">"Kreis (r 12.5m)"</span>,</span>
-<span id="cb44-139"><a href="#cb44-139" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Rubus =</span> <span class="st">"Deckungsgrad Rubus sp. [%]"</span>,</span>
-<span id="cb44-140"><a href="#cb44-140" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Strauchschicht =</span> <span class="st">"DG Strauchschicht [%] (0.5-3m)"</span>,</span>
-<span id="cb44-141"><a href="#cb44-141" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Baumschicht =</span> <span class="st">"DG Baumschicht [%] (ab 3m)"</span>)</span>
-<span id="cb44-142"><a href="#cb44-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-143"><a href="#cb44-143" aria-hidden="true" tabindex="-1"></a>df_team5 <span class="ot">&lt;-</span> df_team5 <span class="sc">|&gt;</span></span>
-<span id="cb44-144"><a href="#cb44-144" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">team =</span> <span class="st">"team5"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb44-145"><a href="#cb44-145" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">KreisID =</span> <span class="st">"Kreis"</span>,</span>
-<span id="cb44-146"><a href="#cb44-146" aria-hidden="true" tabindex="-1"></a>         <span class="at">X =</span> <span class="st">"x"</span>,</span>
-<span id="cb44-147"><a href="#cb44-147" aria-hidden="true" tabindex="-1"></a>         <span class="at">Y =</span> <span class="st">"y"</span>,</span>
-<span id="cb44-148"><a href="#cb44-148" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Rubus =</span> <span class="st">"Deckungsgrad Rubus sp [%]"</span>,</span>
-<span id="cb44-149"><a href="#cb44-149" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Strauchschicht =</span> <span class="st">"DG Strauchschicht [%] (0.5-3m)"</span>,</span>
-<span id="cb44-150"><a href="#cb44-150" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Baumschicht =</span> <span class="st">"DG Baumschicht [%] (ab 3m)"</span>)</span>
-<span id="cb44-151"><a href="#cb44-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-152"><a href="#cb44-152" aria-hidden="true" tabindex="-1"></a>df_team6 <span class="ot">&lt;-</span> df_team6 <span class="sc">|&gt;</span></span>
-<span id="cb44-153"><a href="#cb44-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">team =</span> <span class="st">"team6"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb44-154"><a href="#cb44-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">KreisID =</span> <span class="st">"Kreis"</span>,</span>
-<span id="cb44-155"><a href="#cb44-155" aria-hidden="true" tabindex="-1"></a>         <span class="at">X =</span> <span class="st">"x"</span>,</span>
-<span id="cb44-156"><a href="#cb44-156" aria-hidden="true" tabindex="-1"></a>         <span class="at">Y =</span> <span class="st">"y"</span>,</span>
-<span id="cb44-157"><a href="#cb44-157" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Rubus =</span> <span class="st">"DG Rubus sp. [%]"</span>,</span>
-<span id="cb44-158"><a href="#cb44-158" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Strauchschicht =</span> <span class="st">"DG Strauchschicht [%] (0.5-3m)"</span>,</span>
-<span id="cb44-159"><a href="#cb44-159" aria-hidden="true" tabindex="-1"></a>         <span class="at">DG_Baumschicht =</span> <span class="st">"DG Baumschicht [%] (ab 3m)"</span>)</span>
-<span id="cb44-160"><a href="#cb44-160" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb44-161"><a href="#cb44-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-162"><a href="#cb44-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aufgabe 2</span></span>
-<span id="cb44-163"><a href="#cb44-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-164"><a href="#cb44-164" aria-hidden="true" tabindex="-1"></a>Zusammenführen der Teildatensätze zu einem Datensatz</span>
-<span id="cb44-165"><a href="#cb44-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-168"><a href="#cb44-168" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb44-169"><a href="#cb44-169" aria-hidden="true" tabindex="-1"></a>df_gesamt <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df_team1, df_team2, df_team3, df_team4, df_team5, df_team6)</span>
-<span id="cb44-170"><a href="#cb44-170" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb44-171"><a href="#cb44-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-172"><a href="#cb44-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## Aufgabe 3</span></span>
-<span id="cb44-173"><a href="#cb44-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-174"><a href="#cb44-174" aria-hidden="true" tabindex="-1"></a>Verbinden (join) des Datensatzes der Felderhebungen mit dem Datensatz der Rehe. </span>
-<span id="cb44-175"><a href="#cb44-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-176"><a href="#cb44-176" aria-hidden="true" tabindex="-1"></a>**Ziel: ein Datensatz mit allen Kreisen der Felderhebung, angereichert mit den Umweltvariablen Understory und Overstory aus den LIDAR-Daten (DG_us, DG_os) aus dem Rehdatensatz.**</span>
-<span id="cb44-177"><a href="#cb44-177" aria-hidden="true" tabindex="-1"></a>--&gt; Welche Art von join? Welche Spalten zum Verbinden (by = ?) der Datensätze</span>
-<span id="cb44-178"><a href="#cb44-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-181"><a href="#cb44-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb44-182"><a href="#cb44-182" aria-hidden="true" tabindex="-1"></a>df_with_LIDAR <span class="ot">&lt;-</span> <span class="fu">left_join</span>(df_gesamt,df_reh, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"X"</span> <span class="ot">=</span> <span class="st">"x"</span>, <span class="st">"Y"</span> <span class="ot">=</span> <span class="st">"y"</span>))</span>
-<span id="cb44-183"><a href="#cb44-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb44-184"><a href="#cb44-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-185"><a href="#cb44-185" aria-hidden="true" tabindex="-1"></a><span class="fu">### Aufgabe 4</span></span>
-<span id="cb44-186"><a href="#cb44-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-187"><a href="#cb44-187" aria-hidden="true" tabindex="-1"></a>Scatterplot der korrespondondierenden Umweltvariablen aus den Felderhebungen gegen die Umweltvariablen aus den LIDAR-Daten erstellen (zusätzlich Einfärben der Gruppen und Regressionslinie darüberlegen). </span>
-<span id="cb44-188"><a href="#cb44-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-191"><a href="#cb44-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb44-192"><a href="#cb44-192" aria-hidden="true" tabindex="-1"></a><span class="co">#.#####################################################################################</span></span>
-<span id="cb44-193"><a href="#cb44-193" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. VISUALISERUNG #####</span></span>
-<span id="cb44-194"><a href="#cb44-194" aria-hidden="true" tabindex="-1"></a><span class="co">#.#####################################################################################</span></span>
-<span id="cb44-195"><a href="#cb44-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-196"><a href="#cb44-196" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_with_LIDAR, <span class="fu">aes</span>(DG_Strauchschicht, DG_us, <span class="at">color =</span> team)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb44-197"><a href="#cb44-197" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
-<span id="cb44-198"><a href="#cb44-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-199"><a href="#cb44-199" aria-hidden="true" tabindex="-1"></a><span class="fu">write_delim</span>(df_with_LIDAR, <span class="st">"data/df_with_lidar.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
-<span id="cb44-200"><a href="#cb44-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-</code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 
 

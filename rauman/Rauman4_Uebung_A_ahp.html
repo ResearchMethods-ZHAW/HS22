@@ -648,7 +648,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-title">Rauman 4: Übung A</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title d-none d-lg-block"><span class="chapter-title">Rauman 4: Übung A</span></h1>
 </div>
 
 
@@ -845,8 +845,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Bestimmen Sie die beste Entscheidung auf der Grundlage des Ergebnisses aus 3)</li>
 </ol>
 
-
-<!-- -->
 
 </section>
 
@@ -1124,210 +1122,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-title">Rauman 4: Übung B</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-12-06</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> RaumAn4</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Analytical Hierarchy Process (AHP)</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu"># Rauman 4: Übung A</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| purl: false</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>Nachdem Sie nun die Theorie kennengelernt haben, werden Sie ein konkretes Beispiel für einen Analytischen Hierarchieprozess (AHP) durchführen. Dies ist ein manueller Ansatz, um Ihnen die Grundlagen eines AHP zu zeigen. Wenn Sie einen komplexeren AHP erstellen möchten, können Sie spezielle R AHP-Pakete verwenden, wie zum Beispiel <span class="co">[</span><span class="ot">ahpsurvey package</span><span class="co">](https://cran.r-project.org/web/packages/ahpsurvey/vignettes/my-vignette.html)</span>.</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übung 1: Definieren Sie die Ausgangssituation </span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>Denken Sie zunächst an eine *aktuelle Entscheidung*, vor der Sie gerade stehen oder gestanden haben (z. B. Fahrradkauf oder Wohnungsmiete), und definieren Sie die folgenden Punkte.</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Ein Ziel für Ihren AHP (z.B. Wohnungsmiete)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>4 Kriterien, auf die Sie Ihre Entscheidung stützen wollen (z. B. *Preis*, *Entfernung zur Arbeit/Schule*, *Grösse*, *Schönheit der Landschaft*)</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>3 verschiedene Optionen/Alternativen (z. B. 3 verschiedene Wohnungen)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Ziel: Eine neue Wohnung mieten Die 4 Kriterien, die wir verwenden werden, sind:</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Citeria: </span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co"># - Preis</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co"># - Entfernung zur Arbeit</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co"># - Grösse</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co"># - Schönheit der Landschaft</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Optionen/Alternativen</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Weinbergstrasse 17, 8134 Adliswil, 35 m2 für 1'455 CHF, nicht so schön und 45 Minuten von der Arbeit entfernt</span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Zürichstrasse 56, 8134 Adliswil, 104 m2 für 2'960.- CHF, sehr hübsch und 45 Minuten von der Arbeit entfernt</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Geissbergstrasse 18, 8184 Bachenbülach, 130 m2 für 3'800 CHF, sehr schön und 30 Minuten von der Arbeit entfernt</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übung 2: Paarweiser Vergleich 1 &amp; 2</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>n einem ersten Schritt muss jedes Kriterium paarweise mit einem anderen Kriterium verglichen werden. Verwenden Sie die folgende Skala zur Gewichtung der Kriterien (siehe @tbl-ahprating). </span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="co">#| purl: false</span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-ahprating</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: AHP Skala Gewichtungen</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>Wert,    <span class="sc">~</span>Definition,</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">"Die beiden Merkmale sind gleich wichtig"</span>,</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">"Kriterium A ist etwas wichtiger als Kriterium B"</span>,</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  <span class="dv">5</span>, <span class="st">"Kriterium A ist mässig wichtiger als Kriterium B"</span>,</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  <span class="dv">7</span>, <span class="st">"Kriterium A ist deutlich wichtiger als Kriterium B"</span>,</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>  <span class="dv">9</span>, <span class="st">"Kriterium A ist absolut wichtiger als Kriterium B"</span>,</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>), <span class="st">"Zwischenwerte"</span></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Skala zur Gewichtung der Kriterien."</span>)</span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>Sie können den folgenden Code verwenden, um Ihre Gewichtungsmatrix zu erstellen. In der Matrix werden zwei Kriterien immer zweimal verglichen, und diese beiden Vergleiche sollten den Kehrwert des jeweils anderen darstellen. Zur Veranschaulichung haben wir einen Vergleich hinzugefügt, der wie folgt lautet: </span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Zeile 1, Spalte 2: *Kriterium 1* ist etwas wichtiger als *Kriterium 2*</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Zeile 2, Spalte 1: *Kriterium 2* ist etwas weniger wichtig als *Kriterium 1*</span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>Erstellen Sie diesen Matrixvergleich, der Ihren Kriterien entspricht, und ersetzen Sie die "0"-Werte durch Ihre Gewichte gemäss der @tbl-ahprating. Beachten Sie, dass alle Diagonalwerte gleich "1" sein sollten</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>pairwise_comparison <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>,   <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>,   <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>,</span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>,   <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="co"># criteria 1: Price</span></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="co"># criteria 2: Distance to work</span></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="co"># criteria 3: Size</span></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="co"># criteria 4: Scenic Beauty</span></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>pairwise_comparison <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>,   <span class="dv">5</span>,   <span class="dv">9</span>,   <span class="dv">9</span>,</span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>, <span class="dv">1</span>,   <span class="dv">6</span>,   <span class="dv">7</span>,</span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">/</span><span class="dv">9</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>, <span class="dv">1</span>,   <span class="dv">7</span>,</span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span><span class="sc">/</span><span class="dv">9</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">7</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">7</span>, <span class="dv">1</span></span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>**Tipp**: Fügen Sie Spalten- und Zeilennamen hinzu, damit Ihre Matrix besser lesbar ist. </span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>criterias <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"price"</span>, <span class="st">"distance"</span>, <span class="st">"size"</span>, <span class="st">"beauty"</span>)</span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(pairwise_comparison) <span class="ot">&lt;-</span> criterias</span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(pairwise_comparison) <span class="ot">&lt;-</span> criterias</span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übung 3: Berechnung der Kriteriengewichte </span></span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="fu">### Übung 3.1: Normalisierung der Matrix (Berechnung der Kritiriengewichte 1)</span></span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>Im nächsten Schritt muss die Matrix normalisiert werden (siehe @fig-criteria-normalize). Dies kann in den folgenden zwei Schritten erfolgen: </span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Berechnen Sie die Summe jeder Spalte mit <span class="in">`colSums`</span>. Speichern Sie die Ausgabe in einer Variablen (z.B. <span class="in">`ahp_colsums`</span>).</span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Teilen Sie jeden Wert in der Matrix durch die entsprechende Spaltensumme. Um dies zu erreichen, können Sie die Funktion <span class="in">`sweep()`</span> auf die Matrix anwenden, die der Funktion <span class="in">`apply`</span> sehr ähnlich ist (verwenden Sie <span class="in">`MARGIN = 2`</span> (Spalten), <span class="in">`STATS = ahp_colsums`</span> und <span class="in">`FUN = "/"`</span>).</span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>ahp_colsums <span class="ot">&lt;-</span> <span class="fu">colSums</span>(pairwise_comparison)</span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>pairwise_comparison_normalized <span class="ot">&lt;-</span> <span class="fu">sweep</span>(pairwise_comparison, <span class="dv">2</span>,ahp_colsums, <span class="at">FUN =</span> <span class="st">"/"</span>)</span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="al">![Normalisierung der Kriterien](images/criteria_normalize.png)</span>{#fig-criteria-normalize}</span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### Übung 3.2: Gewichtung der Kriterien (Berechnung der Kritiriengewichte 2)</span></span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>Dies ist der letzte Schritt zur Berechnung der Gewichtung der einzelnen Kriterien (siehe @fig-weights-normalize). Dies geschieht wie folgt:</span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Berechne die Summe jeder Zeile und speichere das Ergebnis in einer Variablen (z.B. <span class="in">`criteria_sum`</span>). </span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Dividiere die Summe der Kriterien durch die Summe der Kriterien und speichere das Ergebnis in einer Variablen (z.B. <span class="in">`criteria_weight`</span>).</span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>Hinweis: Die Summe von <span class="in">`criteria_weight`</span> sollte 1 sein.</span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>criteria_sums <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(pairwise_comparison_normalized)</span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>criteria_weight <span class="ot">&lt;-</span> criteria_sums<span class="sc">/</span><span class="fu">sum</span>(criteria_sums)</span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(criteria_weight)</span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a><span class="al">![Gewichtung der Kriterien](images/weights_normalize.png)</span>{#fig-weights-normalize}</span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="fu">## Übung 4: Konsistenzanalyse (Konsistenzanalyse 1 &amp; 2)</span></span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a>Nachdem der paarweise Vergleich durchgeführt wurde, muss eine Konsistenzanalyse durchgeführt werden, um zu prüfen, ob die paarweisen Vergleiche konsistent sind oder dieser Widersprüche enthalten. Eine gewisse Inkonsistenz ist im Rahmen eines AHP zulässig, sie sollte aber nicht zu gross sein.</span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a>Um die Konsistenz zu berechnen, sollten Sie wie in Folie 30 (Konsistenzanalyse 1) und den folgenden Schritten vorgehen:</span>
-<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Führen Sie eine Matrixmultiplikation (<span class="in">`%*%`</span>) zwischen <span class="in">`pairwise_comparison`</span> und <span class="in">`criteria_weight`</span> durch. </span>
-<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a>a_values <span class="ot">&lt;-</span> pairwise_comparison <span class="sc">%*%</span> criteria_weight</span>
-<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Dividiere das Ergebnis von 1) durch <span class="in">`criteria_weight`</span></span>
-<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>b_values <span class="ot">&lt;-</span> a_values <span class="sc">/</span> criteria_weight</span>
-<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Berechnen Sie $\lambda_{max}$, indem Sie die Summe des in 2) erhaltenen Ergebnisses durch die Anzahl der Kriterien dividieren</span>
-<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a>lambda_max <span class="ot">=</span> <span class="fu">sum</span>(a_values)<span class="sc">/</span><span class="fu">ncol</span>(pairwise_comparison)</span>
-<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Berechnung von $CI$ ($CI = \frac{\lambda_{max} - n}{n-1}$), wobei "n" der Anzahl der Kriterien entspricht</span>
-<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a>CI <span class="ot">&lt;-</span> (lambda_max <span class="sc">-</span> <span class="fu">ncol</span>(pairwise_comparison)) <span class="sc">/</span> (<span class="fu">ncol</span>(pairwise_comparison)<span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Ermitteln Sie $RI$ durch Nachschlagen in der @fig-ahp-random-index-by-saaty</span>
-<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a>RI <span class="ot">&lt;-</span> <span class="fl">0.89</span></span>
-<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Berechnen Sie $CR$ ($CR = CI / RI$)</span>
-<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a>CR <span class="ot">&lt;-</span> CI<span class="sc">/</span>RI</span>
-<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Wenn CR &gt; 0,1 ist, müssen Sie Ihre paarweisen Vergleiche neu bewerten. </span>
-<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a>CR <span class="sc">&lt;</span> <span class="fl">0.1</span></span>
-<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a><span class="al">![AHP Random Index by Saaty](images/ahp_random_index_by_saaty.png)</span>{#fig-ahp-random-index-by-saaty}</span>
-<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a><span class="fu">## Gratuliere!</span></span>
-<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a>Sie haben nun die Gewichte bestimmt, auf denen Sie Ihre Entscheidung aufbauen können, und haben festgestellt, ob diese Gewichte konsistent sind oder nicht. Diese nächsten Schritte sind technisch gesehen sehr ähnlich zu dem, was Sie in der obigen Übung getan haben, daher überlassen wir es Ihnen, ob Sie diese Schritte ausführen wollen oder nicht. Der Vollständigkeit halber sei gesagt, dass der nächsten Schritte folgende wären:</span>
-<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Vergleichen Sie Ihre Optionen/Alternativen in einem paarweisen Vergleich miteinander (ähnlich wie Sie die Kriterien miteinander verglichen haben). Dies tun Sie für *jedes* Kriterium</span>
-<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Normalisieren Sie die paarweisen Vergleiche Ihrer Optionen (ähnlich wie Sie die paarweisen Vergleiche der Kriterien normalisiert haben)</span>
-<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Verwenden Sie die Gewichte, die Sie in der obigen Übung ermittelt haben, um Ihre Ergebnisse aus 2) zu gewichten</span>
-<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Bestimmen Sie die beste Entscheidung auf der Grundlage des Ergebnisses aus 3)</span>
-</code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 
 
