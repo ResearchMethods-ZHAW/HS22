@@ -878,24 +878,35 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Rechts oben: Punkt 20 jetzt auf der Linie, aber Punkt 1 weicht umso deutlicher ab -&gt; keine Verbesserung -&gt; wir bleiben bei den untransformierten Daten. Da wir keine Interaktion zwischen Unterart und Jahreszeit festgestellt haben, brauchen wir auch keinen Interaktionsplot (unnötig kompliziert), statt dessen können wir die Ergebnisse am besten mit zwei getrennten Plots für die beiden Faktoren darstellen. Bitte die Achsenbeschriftungen und den Tukey post-hoc-Test nicht vergessen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)) <span class="co">#Zurückschalten auf Einzelplots</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(multcomp)){<span class="fu">install.packages</span>(<span class="st">"multcomp"</span>)} </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">data =</span> kormoran)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(multcomp)){<span class="fu">install.packages</span>(<span class="st">"multcomp"</span>)} </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in contrib.url(repos, "source"): versuche CRAN ohne einen Spiegelserver zu nutzen</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(multcomp): es gibt kein Paket namens 'multcomp'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">data =</span> kormoran)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Loesung_23n_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(aov<span class="fl">.2</span>, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">Jahreszeit =</span> <span class="st">"Tukey"</span>)))</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">data =</span> kormoran)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(aov<span class="fl">.2</span>, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">Jahreszeit =</span> <span class="st">"Tukey"</span>)))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in cld(glht(aov.2, linfct = mcp(Jahreszeit = "Tukey"))): konnte Funktion "cld" nicht finden</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">data =</span> kormoran)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Loesung_23n_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in letters$mcletters: $ operator is invalid for atomic vectors</code></pre>
 </div>
 </div>
 <p>Jetzt brauchen wir noch die Mittelwerte bzw. Effektgroessen</p>
 <p>Für den Ergebnistext brauchen wir auch noch Angaben zu den Effektgrössen. Hier sind zwei Möglichkeiten, um an sie zu gelangen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">FUN =</span> mean, <span class="at">data =</span> kormoran)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">FUN =</span> mean, <span class="at">data =</span> kormoran)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Jahreszeit Tauchzeit
 1          F     11.86
@@ -903,13 +914,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 3          H     19.23
 4          W     23.42</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">FUN =</span> mean, <span class="at">data =</span> kormoran)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">FUN =</span> mean, <span class="at">data =</span> kormoran)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Unterart Tauchzeit
 1        C    19.035
 2        S    15.765</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">data =</span> kormoran))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">data =</span> kormoran))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -932,7 +943,7 @@ Residual standard error: 2.374 on 36 degrees of freedom
 Multiple R-squared:  0.7884,    Adjusted R-squared:  0.7708 
 F-statistic: 44.72 on 3 and 36 DF,  p-value: 3.156e-12</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">data =</span> kormoran))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">data =</span> kormoran))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1235,151 +1246,151 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb39" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-01</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat2</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Einführung in lineare Modelle</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 6</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat2: Lösung 2.3N</span></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Lösungsscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Lösungstext als Download</span><span class="co">](Statistik_Loesung_2.3N.pdf)</span></span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>**Übungsaufgabe (hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)**</span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Laden Sie den Datensatz kormoran.csv mit ein Dieser enthält Tauchzeiten (hier ohne Einheit) von Kormoranen in Abhängigkeit von Jahreszeit und Unterart. Unterarten: Phalacrocorax carbo carbo (C) und Phalacrocorax carbo sinensis (S); Jahreszeiten: F = Frühling, S = Sommer, H = Herbst, W = Winter.</span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Ihre Gesamtaufgabe ist es, aus diesen Daten ein minimal adäquates Modell zu ermitteln, das diese Abhängigkeit beschreibt.**</span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bitte erklären und begründen Sie die einzelnen Schritte, die Sie unternehmen, um zu diesem Ergebnis zu kommen. Dazu erstellen Sie bitte ein Word-Dokument, in das Sie Schritt für Schritt den verwendeten R-Code, die dazu gehörigen Ausgaben von R, Ihre Interpretation derselben und die sich ergebenden Schlussfolgerungen für das weitere Vorgehen dokumentieren.</span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dieser Ablauf sollte insbesondere beinhalten:</span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Überprüfen der Datenstruktur nach dem Einlesen, welches sind die abhängige(n) und welches die unabängige(n) Variablen, welches statistische Verfahren wenden Sie an?</span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Explorative Datenanalyse, um zu sehen, ob schon vor dem Start der Analysen Transformationen o.ä. vorgenommen werden sollten</span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Definition eines vollen Modelles, das nach statistischen Kritierien zum minimal adäquaten Modell reduziert wird</span>
-<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Durchführen der Modelldiagnostik, um zu entscheiden, ob das gewählte Vorgehen korrekt war oder ggf. angepasst werden muss</span>
-<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Generieren aller Zahlen, Statistiken und Tabellen, die für eine wiss. Ergebnisdarstellung benötigt werden</span>
-<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Formulieren Sie abschliessend einen Methoden- und Ergebnisteil (ggf. incl. adäquaten Abbildungen) zu dieser Untersuchung in der Form einer wissenschaftlichen Arbeit (ausformulierte schriftliche Zusammenfassung, mit je einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige Redundanz dagegen vermieden werden.</span>
-<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation) und (c) ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**</span>
-<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kommentierter Lösungsweg</span></span>
-<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Working directory muss angepasst werden</span></span>
-<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>kormoran <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/kormoran.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>, <span class="at">stringsAsFactors =</span> T)  <span class="co"># </span></span>
-<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Ueberpruefen, ob Einlesen richtig funktioniert hat und welche Datenstruktur vorliegt</span></span>
-<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(kormoran)</span>
-<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(kormoran)</span>
-<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-43"><a href="#cb39-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-44"><a href="#cb39-44" aria-hidden="true" tabindex="-1"></a>Man erkennt, dass es sich um einen Dataframe mit einer metrischen (Tauchzeit) und zwei kategorialen (Unterart, Jahreszeit) Variablen handelt.</span>
-<span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a>Die adäquate Analyse (1 metrische Abhängige vs. 2 kategoriale Unabhängige) ist damit eine zweifaktorielle ANOVA</span>
-<span id="cb39-46"><a href="#cb39-46" aria-hidden="true" tabindex="-1"></a>Die Sortierung der Jahreszeiten (default: alphabetisch) ist inhaltlich aber nicht sinnvoll und sollte angepasst werden.</span>
-<span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-50"><a href="#cb39-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-51"><a href="#cb39-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Umsortieren der Faktoren, damit sie in den Boxplots eine sinnvolle Reihung haben</span></span>
-<span id="cb39-52"><a href="#cb39-52" aria-hidden="true" tabindex="-1"></a>kormoran<span class="sc">$</span>Jahreszeit <span class="ot">&lt;-</span> <span class="fu">ordered</span>(kormoran<span class="sc">$</span>Jahreszeit, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"F"</span>, <span class="st">"S"</span>, <span class="st">"H"</span>, <span class="st">"W"</span>))</span>
-<span id="cb39-53"><a href="#cb39-53" aria-hidden="true" tabindex="-1"></a>kormoran<span class="sc">$</span>Jahreszeit</span>
-<span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-55"><a href="#cb39-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Explorative Datenanalyse (zeigt uns die Gesamtverteilung)</span></span>
-<span id="cb39-56"><a href="#cb39-56" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(kormoran<span class="sc">$</span>Tauchzeit)</span>
-<span id="cb39-57"><a href="#cb39-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-58"><a href="#cb39-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-59"><a href="#cb39-59" aria-hidden="true" tabindex="-1"></a>Das ist noch OK für parametrische Verfahren (Box ziemlich symmetrisch um Median, Whisker etwas asymmetrisch aber nicht kritisch). Wegen der leichten Asymmetrie (Linksschiefe) könnte man eine log-Transformation ausprobieren.</span>
-<span id="cb39-60"><a href="#cb39-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-63"><a href="#cb39-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-64"><a href="#cb39-64" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log10</span>(kormoran<span class="sc">$</span>Tauchzeit))</span>
-<span id="cb39-65"><a href="#cb39-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-66"><a href="#cb39-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-67"><a href="#cb39-67" aria-hidden="true" tabindex="-1"></a>Der Gesamtboxplot für log10 sieht perfekt symmetrisch aus, das spräche also für eine log10-Transformation. De facto kommt es aber nicht auf den Gesamtboxplot an, sondern auf die einzelnen.</span>
-<span id="cb39-68"><a href="#cb39-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-71"><a href="#cb39-71" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-72"><a href="#cb39-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Explorative Datenanalyse </span></span>
-<span id="cb39-73"><a href="#cb39-73" aria-hidden="true" tabindex="-1"></a><span class="co"># (Check auf Normalverteilung der Residuen und Varianzhomogenitaet)</span></span>
-<span id="cb39-74"><a href="#cb39-74" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Tauchzeit<span class="sc">~</span>Jahreszeit <span class="sc">*</span> Unterart, <span class="at">data =</span> kormoran)</span>
-<span id="cb39-75"><a href="#cb39-75" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log10</span>(Tauchzeit)<span class="sc">~</span>Jahreszeit <span class="sc">*</span> Unterart, <span class="at">data =</span> kormoran)</span>
-<span id="cb39-76"><a href="#cb39-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-77"><a href="#cb39-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-78"><a href="#cb39-78" aria-hidden="true" tabindex="-1"></a>Hier sieht mal die Verteilung für die untransformierten Daten, mal für die transformierten besser aus. Da die Transformation keine klare Verbesserung bringt, bleiben wir im Folgenden bei den untransformierten Daten, da diese leichter (direkter) interpretiert werden können</span>
-<span id="cb39-79"><a href="#cb39-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-82"><a href="#cb39-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-83"><a href="#cb39-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Vollständiges Modell mit Interaktion</span></span>
-<span id="cb39-84"><a href="#cb39-84" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(Tauchzeit<span class="sc">~</span>Unterart <span class="sc">*</span> Jahreszeit, <span class="at">data =</span> kormoran)</span>
-<span id="cb39-85"><a href="#cb39-85" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.1</span></span>
-<span id="cb39-86"><a href="#cb39-86" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.1</span>)</span>
-<span id="cb39-87"><a href="#cb39-87" aria-hidden="true" tabindex="-1"></a><span class="co"># p-Wert der Interaktion ist 0.266</span></span>
-<span id="cb39-88"><a href="#cb39-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-89"><a href="#cb39-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-90"><a href="#cb39-90" aria-hidden="true" tabindex="-1"></a>Das volle (maximale) Modell zeigt, dass es keine signifikante Interaktion zwischen Jahreszeit und Unterart gibt. Wir können das Modell also vereinfachen, indem wir die Interaktion herausnehmen (+ statt * in der Modellspezifikation)</span>
-<span id="cb39-91"><a href="#cb39-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-94"><a href="#cb39-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-95"><a href="#cb39-95" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvereinfachung</span></span>
-<span id="cb39-96"><a href="#cb39-96" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(Tauchzeit<span class="sc">~</span>Unterart <span class="sc">+</span> Jahreszeit, <span class="at">data =</span> kormoran)</span>
-<span id="cb39-97"><a href="#cb39-97" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.2</span></span>
-<span id="cb39-98"><a href="#cb39-98" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.2</span>)</span>
-<span id="cb39-99"><a href="#cb39-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-100"><a href="#cb39-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-101"><a href="#cb39-101" aria-hidden="true" tabindex="-1"></a>Im so vereinfachten Modell sind alle verbleibenden Terme signifikant, wir sind also beim „minimal adäquaten Modell“ angelangt</span>
-<span id="cb39-102"><a href="#cb39-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-105"><a href="#cb39-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-106"><a href="#cb39-106" aria-hidden="true" tabindex="-1"></a><span class="co"># Anderer Weg, um zu pruefen, ob man das komplexere Modell mit Interaktion behalten soll</span></span>
-<span id="cb39-107"><a href="#cb39-107" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(aov<span class="fl">.1</span>, aov<span class="fl">.2</span>)</span>
-<span id="cb39-108"><a href="#cb39-108" aria-hidden="true" tabindex="-1"></a><span class="co"># In diesem Fall bekommen wir den gleichen p-Wert wie oben (0.266)</span></span>
-<span id="cb39-109"><a href="#cb39-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-110"><a href="#cb39-110" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelldiagnostik</span></span>
-<span id="cb39-111"><a href="#cb39-111" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co">#alle vier Abbildungen in einem 2 x 2 Raster</span></span>
-<span id="cb39-112"><a href="#cb39-112" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aov<span class="fl">.2</span>)</span>
-<span id="cb39-113"><a href="#cb39-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-114"><a href="#cb39-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-117"><a href="#cb39-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-118"><a href="#cb39-118" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb39-119"><a href="#cb39-119" aria-hidden="true" tabindex="-1"></a><span class="fu">influence.measures</span>(aov<span class="fl">.2</span>) <span class="co"># </span></span>
-<span id="cb39-120"><a href="#cb39-120" aria-hidden="true" tabindex="-1"></a><span class="co"># kann man sich zusätzlich zum "plot" ansehen, um herauszufinden, </span></span>
-<span id="cb39-121"><a href="#cb39-121" aria-hidden="true" tabindex="-1"></a><span class="co"># ob es evtl. sehr einflussreiche Werte mit Cook's D von 1 oder grösser gibt</span></span>
-<span id="cb39-122"><a href="#cb39-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-123"><a href="#cb39-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-124"><a href="#cb39-124" aria-hidden="true" tabindex="-1"></a>Links oben ist alles bestens, d. h. keine Hinweise auf Varianzheterogenität („Keil“) oder Nichtlinearität („Banane“)</span>
-<span id="cb39-125"><a href="#cb39-125" aria-hidden="true" tabindex="-1"></a>Rechts oben ganz gut, allerdings weichen Punkte 1 und 20 deutlich von der optimalen Gerade ab -&gt; aus diesem Grund können wir es doch noch mal mit der log10-Transformation versuchen (s.u.)</span>
-<span id="cb39-126"><a href="#cb39-126" aria-hidden="true" tabindex="-1"></a>Rechts unten: kein Punkt hat einen problematischen Einfluss (die roten Linien für Cook’s D &gt; 0.5 und &gt; 1 sind noch nicht einmal im Bildausschnitt.</span>
-<span id="cb39-127"><a href="#cb39-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-130"><a href="#cb39-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-131"><a href="#cb39-131" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative mit log10</span></span>
-<span id="cb39-132"><a href="#cb39-132" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.3</span> <span class="ot">&lt;-</span><span class="fu">aov</span>(<span class="fu">log10</span>(Tauchzeit)<span class="sc">~</span>Unterart <span class="sc">+</span> Jahreszeit, <span class="at">data=</span>kormoran)</span>
-<span id="cb39-133"><a href="#cb39-133" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.3</span></span>
-<span id="cb39-134"><a href="#cb39-134" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.3</span>)</span>
-<span id="cb39-135"><a href="#cb39-135" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aov<span class="fl">.3</span>)</span>
-<span id="cb39-136"><a href="#cb39-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-137"><a href="#cb39-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-138"><a href="#cb39-138" aria-hidden="true" tabindex="-1"></a>Rechts oben: Punkt 20 jetzt auf der Linie, aber Punkt 1 weicht umso deutlicher ab -&gt; keine Verbesserung -&gt; wir bleiben bei den untransformierten Daten.</span>
-<span id="cb39-139"><a href="#cb39-139" aria-hidden="true" tabindex="-1"></a>Da wir keine Interaktion zwischen Unterart und Jahreszeit festgestellt haben, brauchen wir auch keinen Interaktionsplot (unnötig kompliziert), statt dessen können wir die Ergebnisse am besten mit zwei getrennten Plots für die beiden Faktoren darstellen. Bitte die Achsenbeschriftungen und den Tukey post-hoc-Test nicht vergessen.</span>
-<span id="cb39-140"><a href="#cb39-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-143"><a href="#cb39-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-144"><a href="#cb39-144" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)) <span class="co">#Zurückschalten auf Einzelplots</span></span>
-<span id="cb39-145"><a href="#cb39-145" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(multcomp)){<span class="fu">install.packages</span>(<span class="st">"multcomp"</span>)} </span>
-<span id="cb39-146"><a href="#cb39-146" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
-<span id="cb39-147"><a href="#cb39-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-148"><a href="#cb39-148" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">data =</span> kormoran)</span>
-<span id="cb39-149"><a href="#cb39-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-150"><a href="#cb39-150" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(aov<span class="fl">.2</span>, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">Jahreszeit =</span> <span class="st">"Tukey"</span>)))</span>
-<span id="cb39-151"><a href="#cb39-151" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">data =</span> kormoran)</span>
-<span id="cb39-152"><a href="#cb39-152" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb39-153"><a href="#cb39-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb39-154"><a href="#cb39-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-155"><a href="#cb39-155" aria-hidden="true" tabindex="-1"></a>Jetzt brauchen wir noch die Mittelwerte bzw. Effektgroessen</span>
-<span id="cb39-156"><a href="#cb39-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-157"><a href="#cb39-157" aria-hidden="true" tabindex="-1"></a>Für den Ergebnistext brauchen wir auch noch Angaben zu den Effektgrössen. Hier sind zwei Möglichkeiten, um an sie zu gelangen.</span>
-<span id="cb39-158"><a href="#cb39-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-161"><a href="#cb39-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb39-162"><a href="#cb39-162" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">FUN =</span> mean, <span class="at">data =</span> kormoran)</span>
-<span id="cb39-163"><a href="#cb39-163" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">FUN =</span> mean, <span class="at">data =</span> kormoran)</span>
-<span id="cb39-164"><a href="#cb39-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-165"><a href="#cb39-165" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">data =</span> kormoran))</span>
-<span id="cb39-166"><a href="#cb39-166" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">data =</span> kormoran))</span>
-<span id="cb39-167"><a href="#cb39-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb47" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-01</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat2</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Einführung in lineare Modelle</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 6</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat2: Lösung 2.3N</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Lösungsscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Lösungstext als Download</span><span class="co">](Statistik_Loesung_2.3N.pdf)</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>**Übungsaufgabe (hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)**</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Laden Sie den Datensatz kormoran.csv mit ein Dieser enthält Tauchzeiten (hier ohne Einheit) von Kormoranen in Abhängigkeit von Jahreszeit und Unterart. Unterarten: Phalacrocorax carbo carbo (C) und Phalacrocorax carbo sinensis (S); Jahreszeiten: F = Frühling, S = Sommer, H = Herbst, W = Winter.</span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Ihre Gesamtaufgabe ist es, aus diesen Daten ein minimal adäquates Modell zu ermitteln, das diese Abhängigkeit beschreibt.**</span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bitte erklären und begründen Sie die einzelnen Schritte, die Sie unternehmen, um zu diesem Ergebnis zu kommen. Dazu erstellen Sie bitte ein Word-Dokument, in das Sie Schritt für Schritt den verwendeten R-Code, die dazu gehörigen Ausgaben von R, Ihre Interpretation derselben und die sich ergebenden Schlussfolgerungen für das weitere Vorgehen dokumentieren.</span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dieser Ablauf sollte insbesondere beinhalten:</span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Überprüfen der Datenstruktur nach dem Einlesen, welches sind die abhängige(n) und welches die unabängige(n) Variablen, welches statistische Verfahren wenden Sie an?</span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Explorative Datenanalyse, um zu sehen, ob schon vor dem Start der Analysen Transformationen o.ä. vorgenommen werden sollten</span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Definition eines vollen Modelles, das nach statistischen Kritierien zum minimal adäquaten Modell reduziert wird</span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Durchführen der Modelldiagnostik, um zu entscheiden, ob das gewählte Vorgehen korrekt war oder ggf. angepasst werden muss</span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Generieren aller Zahlen, Statistiken und Tabellen, die für eine wiss. Ergebnisdarstellung benötigt werden</span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Formulieren Sie abschliessend einen Methoden- und Ergebnisteil (ggf. incl. adäquaten Abbildungen) zu dieser Untersuchung in der Form einer wissenschaftlichen Arbeit (ausformulierte schriftliche Zusammenfassung, mit je einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige Redundanz dagegen vermieden werden.</span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation) und (c) ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**</span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kommentierter Lösungsweg</span></span>
+<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-35"><a href="#cb47-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-36"><a href="#cb47-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Working directory muss angepasst werden</span></span>
+<span id="cb47-37"><a href="#cb47-37" aria-hidden="true" tabindex="-1"></a>kormoran <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/kormoran.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>, <span class="at">stringsAsFactors =</span> T)  <span class="co"># </span></span>
+<span id="cb47-38"><a href="#cb47-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-39"><a href="#cb47-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Ueberpruefen, ob Einlesen richtig funktioniert hat und welche Datenstruktur vorliegt</span></span>
+<span id="cb47-40"><a href="#cb47-40" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(kormoran)</span>
+<span id="cb47-41"><a href="#cb47-41" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(kormoran)</span>
+<span id="cb47-42"><a href="#cb47-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-43"><a href="#cb47-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-44"><a href="#cb47-44" aria-hidden="true" tabindex="-1"></a>Man erkennt, dass es sich um einen Dataframe mit einer metrischen (Tauchzeit) und zwei kategorialen (Unterart, Jahreszeit) Variablen handelt.</span>
+<span id="cb47-45"><a href="#cb47-45" aria-hidden="true" tabindex="-1"></a>Die adäquate Analyse (1 metrische Abhängige vs. 2 kategoriale Unabhängige) ist damit eine zweifaktorielle ANOVA</span>
+<span id="cb47-46"><a href="#cb47-46" aria-hidden="true" tabindex="-1"></a>Die Sortierung der Jahreszeiten (default: alphabetisch) ist inhaltlich aber nicht sinnvoll und sollte angepasst werden.</span>
+<span id="cb47-47"><a href="#cb47-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-50"><a href="#cb47-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-51"><a href="#cb47-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Umsortieren der Faktoren, damit sie in den Boxplots eine sinnvolle Reihung haben</span></span>
+<span id="cb47-52"><a href="#cb47-52" aria-hidden="true" tabindex="-1"></a>kormoran<span class="sc">$</span>Jahreszeit <span class="ot">&lt;-</span> <span class="fu">ordered</span>(kormoran<span class="sc">$</span>Jahreszeit, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"F"</span>, <span class="st">"S"</span>, <span class="st">"H"</span>, <span class="st">"W"</span>))</span>
+<span id="cb47-53"><a href="#cb47-53" aria-hidden="true" tabindex="-1"></a>kormoran<span class="sc">$</span>Jahreszeit</span>
+<span id="cb47-54"><a href="#cb47-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-55"><a href="#cb47-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Explorative Datenanalyse (zeigt uns die Gesamtverteilung)</span></span>
+<span id="cb47-56"><a href="#cb47-56" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(kormoran<span class="sc">$</span>Tauchzeit)</span>
+<span id="cb47-57"><a href="#cb47-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-58"><a href="#cb47-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-59"><a href="#cb47-59" aria-hidden="true" tabindex="-1"></a>Das ist noch OK für parametrische Verfahren (Box ziemlich symmetrisch um Median, Whisker etwas asymmetrisch aber nicht kritisch). Wegen der leichten Asymmetrie (Linksschiefe) könnte man eine log-Transformation ausprobieren.</span>
+<span id="cb47-60"><a href="#cb47-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-63"><a href="#cb47-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-64"><a href="#cb47-64" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log10</span>(kormoran<span class="sc">$</span>Tauchzeit))</span>
+<span id="cb47-65"><a href="#cb47-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-66"><a href="#cb47-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-67"><a href="#cb47-67" aria-hidden="true" tabindex="-1"></a>Der Gesamtboxplot für log10 sieht perfekt symmetrisch aus, das spräche also für eine log10-Transformation. De facto kommt es aber nicht auf den Gesamtboxplot an, sondern auf die einzelnen.</span>
+<span id="cb47-68"><a href="#cb47-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-71"><a href="#cb47-71" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-72"><a href="#cb47-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Explorative Datenanalyse </span></span>
+<span id="cb47-73"><a href="#cb47-73" aria-hidden="true" tabindex="-1"></a><span class="co"># (Check auf Normalverteilung der Residuen und Varianzhomogenitaet)</span></span>
+<span id="cb47-74"><a href="#cb47-74" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Tauchzeit<span class="sc">~</span>Jahreszeit <span class="sc">*</span> Unterart, <span class="at">data =</span> kormoran)</span>
+<span id="cb47-75"><a href="#cb47-75" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log10</span>(Tauchzeit)<span class="sc">~</span>Jahreszeit <span class="sc">*</span> Unterart, <span class="at">data =</span> kormoran)</span>
+<span id="cb47-76"><a href="#cb47-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-77"><a href="#cb47-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-78"><a href="#cb47-78" aria-hidden="true" tabindex="-1"></a>Hier sieht mal die Verteilung für die untransformierten Daten, mal für die transformierten besser aus. Da die Transformation keine klare Verbesserung bringt, bleiben wir im Folgenden bei den untransformierten Daten, da diese leichter (direkter) interpretiert werden können</span>
+<span id="cb47-79"><a href="#cb47-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-82"><a href="#cb47-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-83"><a href="#cb47-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Vollständiges Modell mit Interaktion</span></span>
+<span id="cb47-84"><a href="#cb47-84" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(Tauchzeit<span class="sc">~</span>Unterart <span class="sc">*</span> Jahreszeit, <span class="at">data =</span> kormoran)</span>
+<span id="cb47-85"><a href="#cb47-85" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.1</span></span>
+<span id="cb47-86"><a href="#cb47-86" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.1</span>)</span>
+<span id="cb47-87"><a href="#cb47-87" aria-hidden="true" tabindex="-1"></a><span class="co"># p-Wert der Interaktion ist 0.266</span></span>
+<span id="cb47-88"><a href="#cb47-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-89"><a href="#cb47-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-90"><a href="#cb47-90" aria-hidden="true" tabindex="-1"></a>Das volle (maximale) Modell zeigt, dass es keine signifikante Interaktion zwischen Jahreszeit und Unterart gibt. Wir können das Modell also vereinfachen, indem wir die Interaktion herausnehmen (+ statt * in der Modellspezifikation)</span>
+<span id="cb47-91"><a href="#cb47-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-94"><a href="#cb47-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-95"><a href="#cb47-95" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvereinfachung</span></span>
+<span id="cb47-96"><a href="#cb47-96" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(Tauchzeit<span class="sc">~</span>Unterart <span class="sc">+</span> Jahreszeit, <span class="at">data =</span> kormoran)</span>
+<span id="cb47-97"><a href="#cb47-97" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.2</span></span>
+<span id="cb47-98"><a href="#cb47-98" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.2</span>)</span>
+<span id="cb47-99"><a href="#cb47-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-100"><a href="#cb47-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-101"><a href="#cb47-101" aria-hidden="true" tabindex="-1"></a>Im so vereinfachten Modell sind alle verbleibenden Terme signifikant, wir sind also beim „minimal adäquaten Modell“ angelangt</span>
+<span id="cb47-102"><a href="#cb47-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-105"><a href="#cb47-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-106"><a href="#cb47-106" aria-hidden="true" tabindex="-1"></a><span class="co"># Anderer Weg, um zu pruefen, ob man das komplexere Modell mit Interaktion behalten soll</span></span>
+<span id="cb47-107"><a href="#cb47-107" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(aov<span class="fl">.1</span>, aov<span class="fl">.2</span>)</span>
+<span id="cb47-108"><a href="#cb47-108" aria-hidden="true" tabindex="-1"></a><span class="co"># In diesem Fall bekommen wir den gleichen p-Wert wie oben (0.266)</span></span>
+<span id="cb47-109"><a href="#cb47-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-110"><a href="#cb47-110" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelldiagnostik</span></span>
+<span id="cb47-111"><a href="#cb47-111" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co">#alle vier Abbildungen in einem 2 x 2 Raster</span></span>
+<span id="cb47-112"><a href="#cb47-112" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aov<span class="fl">.2</span>)</span>
+<span id="cb47-113"><a href="#cb47-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-114"><a href="#cb47-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-117"><a href="#cb47-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-118"><a href="#cb47-118" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb47-119"><a href="#cb47-119" aria-hidden="true" tabindex="-1"></a><span class="fu">influence.measures</span>(aov<span class="fl">.2</span>) <span class="co"># </span></span>
+<span id="cb47-120"><a href="#cb47-120" aria-hidden="true" tabindex="-1"></a><span class="co"># kann man sich zusätzlich zum "plot" ansehen, um herauszufinden, </span></span>
+<span id="cb47-121"><a href="#cb47-121" aria-hidden="true" tabindex="-1"></a><span class="co"># ob es evtl. sehr einflussreiche Werte mit Cook's D von 1 oder grösser gibt</span></span>
+<span id="cb47-122"><a href="#cb47-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-123"><a href="#cb47-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-124"><a href="#cb47-124" aria-hidden="true" tabindex="-1"></a>Links oben ist alles bestens, d. h. keine Hinweise auf Varianzheterogenität („Keil“) oder Nichtlinearität („Banane“)</span>
+<span id="cb47-125"><a href="#cb47-125" aria-hidden="true" tabindex="-1"></a>Rechts oben ganz gut, allerdings weichen Punkte 1 und 20 deutlich von der optimalen Gerade ab -&gt; aus diesem Grund können wir es doch noch mal mit der log10-Transformation versuchen (s.u.)</span>
+<span id="cb47-126"><a href="#cb47-126" aria-hidden="true" tabindex="-1"></a>Rechts unten: kein Punkt hat einen problematischen Einfluss (die roten Linien für Cook’s D &gt; 0.5 und &gt; 1 sind noch nicht einmal im Bildausschnitt.</span>
+<span id="cb47-127"><a href="#cb47-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-130"><a href="#cb47-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-131"><a href="#cb47-131" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative mit log10</span></span>
+<span id="cb47-132"><a href="#cb47-132" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.3</span> <span class="ot">&lt;-</span><span class="fu">aov</span>(<span class="fu">log10</span>(Tauchzeit)<span class="sc">~</span>Unterart <span class="sc">+</span> Jahreszeit, <span class="at">data=</span>kormoran)</span>
+<span id="cb47-133"><a href="#cb47-133" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.3</span></span>
+<span id="cb47-134"><a href="#cb47-134" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.3</span>)</span>
+<span id="cb47-135"><a href="#cb47-135" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aov<span class="fl">.3</span>)</span>
+<span id="cb47-136"><a href="#cb47-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-137"><a href="#cb47-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-138"><a href="#cb47-138" aria-hidden="true" tabindex="-1"></a>Rechts oben: Punkt 20 jetzt auf der Linie, aber Punkt 1 weicht umso deutlicher ab -&gt; keine Verbesserung -&gt; wir bleiben bei den untransformierten Daten.</span>
+<span id="cb47-139"><a href="#cb47-139" aria-hidden="true" tabindex="-1"></a>Da wir keine Interaktion zwischen Unterart und Jahreszeit festgestellt haben, brauchen wir auch keinen Interaktionsplot (unnötig kompliziert), statt dessen können wir die Ergebnisse am besten mit zwei getrennten Plots für die beiden Faktoren darstellen. Bitte die Achsenbeschriftungen und den Tukey post-hoc-Test nicht vergessen.</span>
+<span id="cb47-140"><a href="#cb47-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-143"><a href="#cb47-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-144"><a href="#cb47-144" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)) <span class="co">#Zurückschalten auf Einzelplots</span></span>
+<span id="cb47-145"><a href="#cb47-145" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(multcomp)){<span class="fu">install.packages</span>(<span class="st">"multcomp"</span>)} </span>
+<span id="cb47-146"><a href="#cb47-146" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
+<span id="cb47-147"><a href="#cb47-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-148"><a href="#cb47-148" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">data =</span> kormoran)</span>
+<span id="cb47-149"><a href="#cb47-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-150"><a href="#cb47-150" aria-hidden="true" tabindex="-1"></a>letters <span class="ot">&lt;-</span> <span class="fu">cld</span>(<span class="fu">glht</span>(aov<span class="fl">.2</span>, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">Jahreszeit =</span> <span class="st">"Tukey"</span>)))</span>
+<span id="cb47-151"><a href="#cb47-151" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">data =</span> kormoran)</span>
+<span id="cb47-152"><a href="#cb47-152" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(letters<span class="sc">$</span>mcletters<span class="sc">$</span>Letters, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb47-153"><a href="#cb47-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-154"><a href="#cb47-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-155"><a href="#cb47-155" aria-hidden="true" tabindex="-1"></a>Jetzt brauchen wir noch die Mittelwerte bzw. Effektgroessen</span>
+<span id="cb47-156"><a href="#cb47-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-157"><a href="#cb47-157" aria-hidden="true" tabindex="-1"></a>Für den Ergebnistext brauchen wir auch noch Angaben zu den Effektgrössen. Hier sind zwei Möglichkeiten, um an sie zu gelangen.</span>
+<span id="cb47-158"><a href="#cb47-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-161"><a href="#cb47-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb47-162"><a href="#cb47-162" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">FUN =</span> mean, <span class="at">data =</span> kormoran)</span>
+<span id="cb47-163"><a href="#cb47-163" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">FUN =</span> mean, <span class="at">data =</span> kormoran)</span>
+<span id="cb47-164"><a href="#cb47-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-165"><a href="#cb47-165" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Tauchzeit<span class="sc">~</span>Jahreszeit, <span class="at">data =</span> kormoran))</span>
+<span id="cb47-166"><a href="#cb47-166" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Tauchzeit<span class="sc">~</span>Unterart, <span class="at">data =</span> kormoran))</span>
+<span id="cb47-167"><a href="#cb47-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
