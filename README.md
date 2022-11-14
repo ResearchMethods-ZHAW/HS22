@@ -124,3 +124,16 @@ quarto render fallstudie_n/2_Datenverarbeitung_Loesung.qmd
 - multiple mutate in einem befehl
 - sf, raster, tmap möglichst einheitlich und wenn möglich nach rauman1-5
 - implement submodule datasets
+
+- bring back `mypurl`?
+
+```
+mypurl <- function(documentation = 0, quiet = TRUE ...){
+    tmp <- tempfile(fileext = ".R")
+    knitr::purl(..., output = tmp, documentation = documentation, quiet = quiet)
+
+    readLines(tmp)
+}
+
+mypurl(input = "index.qmd", quiet = TRUE, documentation = 0)
+```

@@ -54,9 +54,6 @@ format:
 Aus der Excel-Tabelle wurde das relevante Arbeitsblatt als csv gespeichert
 
 ```{r}
-#| label: fig-boxplot-sol1-expl
-#| fig-cap: "Generierter Plot"
-
 curonian <- read.delim("datasets/statistik/Curonian_spit.csv", sep=",")
 str(curonian)
 summary(curonian)
@@ -165,9 +162,6 @@ aictab(cand.set=cand.models, modnames=Modnames)
 Diese Ergebnistabelle vergleicht die Modellgüte zwischen den fünf Modellen, die wir in unsere Auswahl reingesteckt haben. Alle haben drei geschätzte Parameter (K), also zwei Funktionsparameter und die Varianz. Das beste Modell (niedrigster AICc bzw. Delta = 0) hat das Potenzmodell (power). Das zweitbeste Modell (logarithmic) hat bereits einen Delta-AICc von mehr als 4, ist daher statistisch nicht relevant. Das zeigt sich auch am Akaike weight, das für das zweite Modell nur noch 2 % ist. Die verschiedenen Modelle mit oberem Grenzwert (3-5) sind komplett ungeeignet.
 
 ```{r}
-#| label: fig-boxplot-sol1-modeldiagnostics
-#| fig-cap: "Generierter Plot"
-
 # Modelldiagnostik für das beste Modell
 library(nlstools)
 plot(nlsResiduals(power.model))
@@ -177,9 +171,6 @@ Links oben sieht man zwar ein Muster (liegt daran, dass in diesem Fall die Plots
 
 
 ```{r}
-#| label: fig-baseplot-sol1-final
-#| fig-cap: "Generierter Plot"
-
 # Ergebnisplot
 plot(Species.richness~Area, pch = 16, xlab = "Fläche [m²]", ylab = "Artenreichtum", data = curonian)
 xv <- seq(0, 1000, by = 0.1)
@@ -200,9 +191,6 @@ Man kann die Darstellung im doppeltlogarithmischen Raum wiederholen, um die
 Kurvenanpassung im linken Bereich besser differenzieren zu können:
 
 ```{r}
-#| label: fig-baseplot-sol1-final-log
-#| fig-cap: "Generierter Plot"
-
 # Ergebnisplot Double-log
 plot(log10(Species.richness)~log10(Area), pch = 16, xlab = "log A", ylab = "log (S)", data = curonian)
 

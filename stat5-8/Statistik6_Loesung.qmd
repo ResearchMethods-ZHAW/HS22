@@ -30,9 +30,6 @@ library("vegan")
 Die PCA wird im Package vegan mit dem Befehl rda ausgeführt, wobei in diesem scale = TRUE gesetzt werden muss, da die Umweltdaten mit ganz unterschiedlichen Einheiten und Wertebereichen daherkommen
 
 ```{r}
-#| label: fig-screeplot-pca
-#| fig-cap: "Generierter Plot"
-
 env.pca <- rda(env, scale = TRUE)
 env.pca
 # In env.pca sieht man, dass es bei 11 Umweltvariablen logischerweise 11 orthogonale Principle Components gibt
@@ -54,9 +51,6 @@ screeplot(env.pca, bstick = TRUE, npcs = length(env.pca$CA$eig))
 Die Bedeutung der Achsen (benötigt man später für die Interpretation!) findet man in den “species scores” (da so, wie wir die PCA hier gerechnet haben, die Umweltdaten die Arten sind. Zusätzlich oder alternative kann man sich die ersten vier Achsen auch visualisieren, indem man PC2 vs. PC1 (ohne choices), PC3 vs. PC1 oder PC4 vs. PC1 plottet.
 
 ```{r}
-#| label: fig-biplot-pca
-#| fig-cap: "Generierter Plot"
-
 par(mfrow = c(2, 2))
 biplot(env.pca, scaling = 1)
 biplot(env.pca, choices = c(1, 3), scaling = 1)
@@ -69,9 +63,6 @@ biplot(env.pca, choices = c(1, 4), scaling = 1)
 - PC4 steht v.a. für pH (negativ) und slo (negativ)
 
 ```{r}
-#| label: fig-baseplot-lm-pc
-#| fig-cap: "Generierter Plot"
-
 #Wir extrahieren nun die ersten vier PC-Scores aller Aufnahmeflächen
 
 scores <- scores(env.pca, c(1:4), display = c("sites"))
@@ -100,9 +91,6 @@ Nicht besonders toll, ginge aber gerade noch. Da wir aber ohnehin Zähldaten hab
 **Alternativ mit glm**
 
 ```{r}
-#| label: fig-baseplot-glm-pc
-#| fig-cap: "Generierter Plot"
-
 glm.pc.1 <- glm(species_richness ~ PC1 + PC2 + PC3 + PC4, family = "poisson", data = doubs)
 summary(glm.pc.1)
 glm.pc.2 <- glm(species_richness ~ PC1 + PC2 + PC3, family = "poisson", data = doubs)
@@ -128,10 +116,6 @@ Die Korrelationsmatrix betrachtet man am besten in Excel.
 Es zeigt sich, dass es zwei grosse Gruppen von untereinander hochkorrelierten Variablen gibt: zum einen dfs-ele-dis-har-nit, zum anderen pho-nit-amm-oxy-bod, während slo und pH mit jeweils keiner anderen Variablen hochkorreliert sind. Insofern behalten wir eine aus der ersten Gruppe (ele), eine aus der zweiten Gruppe (pho) und die beiden «unabhängigen».
 
 ```{r}
-
-#| label: fig-baseplot-lm-direct
-#| fig-cap: "Generierter Plot"
-
 # Globalmodell (als hinreichend unabhängige Variablen werden ele, slo, pH und pho aufgenommen)
 lm.orig.1 <- lm(species_richness ~ ele + slo + pH + pho, data = doubs)
 summary(lm.orig.1)

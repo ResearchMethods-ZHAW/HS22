@@ -37,9 +37,6 @@ zweitwohnung_kanton <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "
 ```
 
 ```{r}
-#| label: fig-ggplot-ex
-#| fig-cap: "Generierter Plot"
-
  ggplot(zweitwohnung_kanton) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
   scale_fill_gradientn(colours = RColorBrewer::brewer.pal(11, "RdYlGn"), limits = c(0,1))  +
@@ -150,8 +147,6 @@ Zur Überprüfung unserer Operation: Mit `w[1,]` bekommt  ihr ein Vektor, wo bei
 
 ```{r}
 #| echo: true
-#| label: fig-ggplot-ex1-touch
-#| fig-cap: "Generierter Plot"
 
 beruehrt_1 <- w[1, ]
 
@@ -162,8 +157,6 @@ ggplot(zweitwohnung_kanton[beruehrt_1, ]) +
 
 ```{r}
 #| include: false
-#| label: fig-ggplot-ex1-opt
-#| fig-cap: "Generierter Plot"
 
 # Optional: Um alle Kantone zu visualisieren, welche sich berühren, könnt ihr folgende Funktion anwenden:
 my_connections <- function(sf_object,relationship_matrix){
@@ -253,8 +246,6 @@ Nun könnt ihr Morans $I$ auf der Ebene der Gemeine oder Bezirke und untersuchen
 
 ```{r}
 #| echo: true
-#| label: fig-ggplot-ex2
-#| fig-cap: "Generierter Plot"
 
 zweitwohnung_gemeinde <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "gemeinde")
 

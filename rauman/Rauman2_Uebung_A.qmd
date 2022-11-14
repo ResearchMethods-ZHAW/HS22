@@ -103,8 +103,6 @@ Nun wollen wir die kumulierte Häufigkeit der Werte in einer Verteilungsfunktion
 
 ```{r}
 #| echo: true
-#| label: fig-ggplot-ex2
-#| fig-cap: "Generierter Plot"
 
 rotmilan_mindist_df <- data.frame(distanzen = rotmilan_mindist,
                                   kumm_haeufgikeit = kumm_haeufgikeit)
@@ -119,9 +117,6 @@ p
 Lesehilfe:
 
 ```{r}
-#| label: fig-ggplot-ex2-help
-#| fig-cap: "Generierter Plot"
-
 prob <- 0.95
 res <- quantile(ecdf(rotmilan_mindist_df$distanzen), prob)
 res2 <- quantile(ecdf(rotmilan_mindist_df$distanzen), 0.99)
@@ -143,9 +138,6 @@ p +
 Führe nun die gleichen Schritte mit `luftqualitaet` durch und vergleiche die ECDF-Plots. 
 
 ```{r}
-#| label: fig-ggplot-ex3
-#| fig-cap: "Generierter Plot"
-
 luftqualitaet_distanzmatrix <- st_distance(luftqualitaet)
 
 diag(luftqualitaet_distanzmatrix) <- NA

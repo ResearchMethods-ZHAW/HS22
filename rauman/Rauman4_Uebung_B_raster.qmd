@@ -39,8 +39,6 @@ Um einen schnellen Überblick eines Rasterdatensatz zu erhalten, können wir ein
 
 ```{r}
 #| echo: true
-#| label: fig-shape-ex1
-#| fig-cap: "Generierter Plot"
 
 plot(dhm_schwyz)
 ```
@@ -57,8 +55,6 @@ Genau wie `ggplot` basiert `tmap` auf der Idee von "Ebenen", die durch ein `+` v
 - eine Geometriekomponente, die beschreibt, wie das vorangegangene `tm_shape()` visualisiert werden soll. Dies kann `tm_dots()` für Punkte, `tm_polygons()` für Polygone, `tm_lines()` für Linien usw. sein. Für Einzelbandraster (was bei `dhm_schwyz` der Fall ist) ist es `tm_raster()`
 
 ```{r}
-#| label: fig-shape-ex2
-#| fig-cap: "Generierter Plot"
 
 tm_shape(dhm_schwyz) + 
   tm_raster() 
@@ -69,8 +65,6 @@ Beachten Sie, dass `tm_shape()` und `tm_raster()` (in diesem Fall) zusammengehö
 Wenn Sie die Hilfe von `?tm_raster` konsultieren, werden Sie eine Vielzahl von Optionen sehen, mit denen Sie die Visualisierung Ihrer Daten verändern können. Zum Beispiel ist der Standardstil von `tm_raster()` die Erstellung von "Bins" mit einer diskreten Farbskala. Wir können dies mit `style = "cont"` ausser Kraft setzen.
 
 ```{r}
-#| label: fig-shape-ex3
-#| fig-cap: "Generierter Plot"
 
 tm_shape(dhm_schwyz) + 
   tm_raster(style = "cont") 
@@ -79,8 +73,6 @@ tm_shape(dhm_schwyz) +
 Das sieht schon ziemlich toll aus, aber vielleicht wollen wir die Standard-Farbpalette ändern. Glücklicherweise ist das in `tmap` viel einfacher als in `ggplot2`. Um sich die verfügbaren Paletten anzusehen, geben Sie `tmaptools::palette_explorer()` oder `RColorBrewer::display.brewer.all()` in der Konsole ein (für Ersteres müssen Sie möglicherweise zusätzliche Pakete installieren, z.B. `shinyjs`).
 
 ```{r}
-#| label: fig-shape-ex4
-#| fig-cap: "Generierter Plot"
 
 tm_shape(dhm_schwyz) + 
   tm_raster(style = "cont", palette = "Spectral") 
@@ -90,8 +82,6 @@ Sie können Layout-Anpassungen mit `tm_layout()` vornehmen, prüfen Sie `?tm_lay
 
 ::: {.column-body}
 ```{r}
-#| label: fig-shape-ex5
-#| fig-cap: "Generierter Plot"
 
 tm_shape(dhm_schwyz) + 
   tm_raster(style = "cont", palette = "Spectral", legend.is.portrait = FALSE, title = "") +
