@@ -1,20 +1,20 @@
-# 6. Übung
+---
+execute:
+  echo: true
+format:
+  html:
+    code-tools:
+      source: true
+---
 
-## Modellgüte und -diagnostics MM / Habitatselektionsmodell
-
-```{r}
-#| label: setup
-#| include: false
-knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=60),tidy=TRUE)
-```
+## 6. Modellgüte und -diagnostics MM / Habitatselektionsmodell - Uebung
 
 ### Libraries laden
 
 Neue packages die wir für die Modelle und die Diagnostics brauchen
 
 ```{r}
-#| results: hide
-
+#| output: false
 
 # neue Packages: DHARMa, car, MASS, ROCR, sjPlot, sjstats, ggeffects, cowplot, gstat
 
@@ -36,13 +36,9 @@ ipak(packages)
 - Der Modellfit von letzter Woche als Ausgangspunkt für die heutige Übung
 
 ```{r}
-#| tidy: true
-#| fig.keep: none
 
-
-#| results: hide
-DF_mod_day <- read_delim("data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20211101_moodle.csv", 
-                         delim = ";") %>%
+DF_mod_day <- read_delim("fallstudie_n/data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", 
+                     delim = ";") %>%
   filter(time_of_day == "day") %>%
   mutate(slope_scaled = scale(slope),
          us_scaled = scale(us),
@@ -74,23 +70,7 @@ summary(avgmodel)
 - Die Modellresultate aus dem avgmodel sind grundätzlich die finalen Resultate die bereits interpretiert werden könnten. Allerdings funktionieren die Diagnosetests und die Darstellung der Resultate mit diesem gemittelten Modell nicht sehr gut, weshalb wir einen re-fit mit glmer machen müssen (an den Resultaten ändert sich dadurch nichts) 
 
 ```{r}
-#| tidy: true
-#| fig.keep: none
-
-
-#| results: hide
-f_pres_abs <- pres_abs ~
-  dist_build_scaled +
-  dist_road_only_scaled +
-  forest_prop_scaled +
-  slope_scaled +
-  us_scaled +
-  os_scaled +
-  (1|id)
-
-m_day <- glmer(f_pres_abs, data= DF_mod_day, family = binomial, na.action = "na.fail")
-
-# hier noch zum Vergleich, dass die Resulate sich nur marginal verändern 
+# hier zum Vergleich, dass die Resulate sich nur marginal verändern 
 
 summary(avgmodel)
 summary(m_day)
@@ -103,10 +83,7 @@ Berechung der AUC (area under the receiver operating characteristic curve) **= M
 Für die Berechnung des AUC findet ihr weiterführende Informationen unter: [Link](https://www.wsl.ch/staff/niklaus.zimmermann/programs/progs/simtest.pdf)) 
 
 ```{r}
-#| tidy: true
-#| eval: false
-#| fig.keep: none
-
+#| output: false
 
 prob <- predict(m_day,type=c("response"))   
 pred <- prediction(prob, DF_mod_day$pres_abs)    
@@ -127,9 +104,8 @@ Interpretieren der Modell-Residuen mittels Tests auf verschiedene Aspekte
 - unbedingt die Vignette des DHARMa-Package konsultieren: [Link](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html)
 
 ```{r}
-#| tidy: true
 #| eval: false
-
+#| output: false
 
 # Residuals werden über eine Simulation auf eine Standard-Skala transformiert und 
 # können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt 
@@ -142,6 +118,8 @@ simulationOutput <- simulateResiduals(fittedModel = m_day, n = 10000)
 plot(simulationOutput)
 
 testResiduals(simulationOutput)
+
+testUniformity(simulationOutput)
 
 # The most common concern for GLMMs is overdispersion, underdispersion and 
 # zero-inflation.
@@ -180,15 +158,12 @@ mean(car::vif(m_day))
 Graphische Darstellung der Modellresultate
 
 ```{r}
-#| tidy: true
 #| eval: false
-#| fig.width: 5.0
-#| fig.height: 3.0
-
+#| output: false
 
 # graphische Darstellung der gesamten Modellresultate
 
-plot_model(m_day,transform = NULL, show.values = TRUE, value.offset = .3)
+plot_model(m_day, transform = NULL, show.values = TRUE, value.offset = .3)
 
 # Plotten der vorhergesagten Wahrscheinlichkeit, dass ein Kreis besetzt ist, in 
 # Abhängigkeit der erklärenden Variable basierend auf den Modellresultaten.
@@ -209,7 +184,7 @@ p <- p + scale_x_continuous(breaks=c(-1,0,1,2,3,4,5,6), labels=c(labels))
 p
 
 # Funktion um viele Plots auf einem zusammenbringen: cowplot-package (hat auch sonst 
-# gute Funktionen für schöne layouts von Plots)
+# gute Funktionen für schöne Layouts für Grafiken)
 
 cowplot::plot_grid()
 ```
@@ -219,4 +194,6 @@ cowplot::plot_grid()
 Ermittlung des individuellen Beitrags der einzelen Variablen im Gesamtmodell
 
 - **Bestimmen delta AIC nach Coppes et al. 2017 -> Vergleich des Gesamtmodells gegenüber einem Modell ohne die entsprechende Variable.**
-- **Auftrag auf den 22.11.2021: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)**
+
+
+- **Auftrag auf den 21.11.2022: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)**
