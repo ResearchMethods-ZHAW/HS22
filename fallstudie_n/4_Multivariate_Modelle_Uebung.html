@@ -619,6 +619,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../fallstudie_n/5_Variablenselektion_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5. Variablenselektion Multivariate Modelle / Habitatselektionsmodell - Übung</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/5_Variablenselektion_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5. Variablenselektion Multivariate Modelle / Habitatselektionsmodell - Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/6_Guete_und_Diagnostics_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6. Modellgüte und -diagnostics MM / Habitatselektionsmodell - Uebung</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -702,17 +713,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># innerhalb des for()-loops die Nummern der gewünschten Spalten einstellen</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>) {                           </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  d  <span class="ot">&lt;-</span>  DF_mod_day <span class="sc">%&gt;%</span> <span class="fu">pull</span>(i)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  d  <span class="ot">&lt;-</span>  <span class="fu">density</span>(d)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  dp  <span class="ot">&lt;-</span>  DF_mod_day <span class="sc">%&gt;%</span> <span class="fu">filter</span>(pres_abs <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(i)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  dp <span class="ot">&lt;-</span> <span class="fu">density</span>(dp)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  da  <span class="ot">&lt;-</span>  DF_mod_day <span class="sc">%&gt;%</span> <span class="fu">filter</span>(pres_abs <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(i)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  da <span class="ot">&lt;-</span> <span class="fu">density</span>(da)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="at">type=</span><span class="st">"l"</span>, <span class="at">xlim=</span><span class="fu">range</span>(<span class="fu">c</span>(dp<span class="sc">$</span>x,da<span class="sc">$</span>x)), <span class="at">ylim=</span><span class="fu">range</span>(dp<span class="sc">$</span>y,da<span class="sc">$</span>y), </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab=</span><span class="fu">names</span>(DF_mod_day[i]), <span class="at">ylab=</span><span class="st">"Density"</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(dp<span class="sc">$</span>x, dp<span class="sc">$</span>y, <span class="at">col=</span><span class="st">"blue"</span>)             <span class="co"># Präsenz</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(da<span class="sc">$</span>x, da<span class="sc">$</span>y, <span class="at">col=</span><span class="st">"red"</span>)              <span class="co"># Absenz</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  dp  <span class="ot">&lt;-</span>  DF_mod_day <span class="sc">%&gt;%</span> <span class="fu">filter</span>(pres_abs <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(i)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  dp <span class="ot">&lt;-</span> <span class="fu">density</span>(dp)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  da  <span class="ot">&lt;-</span>  DF_mod_day <span class="sc">%&gt;%</span> <span class="fu">filter</span>(pres_abs <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(i)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  da <span class="ot">&lt;-</span> <span class="fu">density</span>(da)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="at">type=</span><span class="st">"l"</span>, <span class="at">xlim=</span><span class="fu">range</span>(<span class="fu">c</span>(dp<span class="sc">$</span>x,da<span class="sc">$</span>x)), <span class="at">ylim=</span><span class="fu">range</span>(dp<span class="sc">$</span>y,da<span class="sc">$</span>y), </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab=</span><span class="fu">names</span>(DF_mod_day[i]), <span class="at">ylab=</span><span class="st">"Density"</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(dp<span class="sc">$</span>x, dp<span class="sc">$</span>y, <span class="at">col=</span><span class="st">"blue"</span>)             <span class="co"># Präsenz</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(da<span class="sc">$</span>x, da<span class="sc">$</span>y, <span class="at">col=</span><span class="st">"red"</span>)              <span class="co"># Absenz</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="aufgabe-4" class="level3">
