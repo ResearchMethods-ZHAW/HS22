@@ -573,7 +573,7 @@ summary(lm(Total~Jahr + Tageszeit, data = depo))
 # berechne ctree
 library(partykit)
 
-ct <- ctree(Total ~ Jahr + Phase + Tageszeit, 
+ct <- ctree(Total ~ Jahr + Phase + Tageszeit + Stunde, 
             data = depo, maxdepth = 5)
 
 # we can inspect the results via a print method
@@ -585,7 +585,7 @@ st <- as.simpleparty(ct)
 
 # WICHTIG: um ueberlappungen zu vermeiden, plotte Bild, oeffne im separaten Fenster, amche Screenshot und speichere unter ctrees.png ab.
 
-plot(st, gp = gpar(fontsize = 5),
+plot(st, gp = gpar(fontsize = 10),
      inner_panel=node_inner,
      ep_args = list(justmin = 5),
      ip_args=list(
@@ -908,6 +908,67 @@ cdfcomp(list(f1, f4, f3), legendtext = plot.legend)
 # --> Verteilung ist gemäss AICc exponentiell. negativ binomial ist auch nicht schlecht.
 # --> ich entscheide mich für diese beide und probiere mit beiden Modelle aus.
 
+
+
+
+
+########### EINPFLEGEN FÜR HS23
+
+# Model testing for over/underdispersion, zeroinflation and spatial autocorrelation following the DHARMa package.
+# unbedingt die Vignette des DHARMa-Package konsultieren: 
+# https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html
+
+# Residuals werden über eine Simulation auf eine Standard-Skala transformiert und 
+# können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt 
+# werden (dauert je nach dem sehr lange)
+# 
+# simulationOutput <- simulateResiduals(fittedModel = m_day, n = 10000)
+# 
+# # plotting and testing scaled residuals
+# 
+# plot(simulationOutput)
+# 
+# testResiduals(simulationOutput)
+# 
+# testUniformity(simulationOutput)
+# 
+# # The most common concern for GLMMs is overdispersion, underdispersion and 
+# # zero-inflation.
+# 
+# # separate test for dispersion
+# 
+# testDispersion(simulationOutput)
+# 
+# # test for Zeroinflation
+# 
+# testZeroInflation(simulationOutput)
+# 
+# # test for spatial Autocorrelation
+# 
+# # calculating x, y positions per group
+# groupLocations = aggregate(DF_mod_day[, 3:4], list(DF_mod_day$x, DF_mod_day$y), mean)
+# groupLocations$group <- paste(groupLocations$Group.1,groupLocations$Group.2)
+# 
+# # calculating residuals per group
+# res2 = recalculateResiduals(simulationOutput, group = groupLocations$group)
+# 
+# # running the spatial test on grouped residuals
+# testSpatialAutocorrelation(res2, groupLocations$x, groupLocations$y, plot = F)
+# 
+# # Testen auf Multicollinearität (dh zu starke Korrelationen im finalen Modell, zB falls 
+# # auf Grund der ökologischen Plausibilität stark korrelierte Variablen im Modell)
+# # use VIF values: if values less then 5 is ok (sometimes > 10), if mean of VIF values 
+# # not substantially greater than 1 (say 5), no need to worry.
+# 
+# car::vif(m_day)
+# mean(car::vif(m_day))
+
+
+
+
+
+
+
 # 4.4 Berechne verschiedene Modelle ####
 
 # Hinweise zu GLMM: https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html
@@ -1155,13 +1216,13 @@ ggsave("temp.png", width=15, height=15, units="cm", dpi=1000,
        path = "fallstudie_s/results/") 
 
 
-## sonnenscheinsauer
+## sonnenscheindauer
 input_df     <-  Tages_Model_nb_quad
 input_term   <- "sremaxdv_scaled [all]"
 unscaled_var <- umwelt$sremaxdv
 scaled_var   <- umwelt$sremaxdv_scaled
 num_breaks   <- 10
-x_lab        <- "Sonnenscheinsauer [%]"
+x_lab        <- "Sonnenscheindauer [%]"
 y_lab        <- "Fussgänger:innen pro Tag"
 x_scaling    <- 1 # in prozent
 x_nk         <- 0   # x round nachkommastellen    
