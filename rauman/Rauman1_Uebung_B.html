@@ -126,7 +126,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../custom.css">
 <link rel="stylesheet" href="../theme-custom.scss">
@@ -500,7 +499,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rauman/Rauman2_Uebung_C.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung C</span></a>
+  <a href="../rauman/Rauman2_Uebung_C.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung A (Optional)</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -512,12 +511,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rauman/Rauman4_Uebung_A_ahp.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 4: Übung A</span></a>
+  <a href="../rauman/Rauman4_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 4: Übung A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rauman/Rauman4_Uebung_B_raster.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 4: Übung B</span></a>
+  <a href="../rauman/Rauman4_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 4: Übung B</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -660,12 +659,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#aufgabe-1-geopackage-layers" id="toc-aufgabe-1-geopackage-layers" class="nav-link active" data-scroll-target="#aufgabe-1-geopackage-layers">Aufgabe 1: Geopackage “Layers”</a></li>
   <li><a href="#aufgabe-2-datensätze-erkunden" id="toc-aufgabe-2-datensätze-erkunden" class="nav-link" data-scroll-target="#aufgabe-2-datensätze-erkunden">Aufgabe 2: Datensätze erkunden</a></li>
   <li><a href="#aufgabe-3-spatial-join-mit-punkten" id="toc-aufgabe-3-spatial-join-mit-punkten" class="nav-link" data-scroll-target="#aufgabe-3-spatial-join-mit-punkten">Aufgabe 3: Spatial Join mit Punkten</a></li>
-  <li><a href="#aufgabe-4-spatial-join-mit-flächen" id="toc-aufgabe-4-spatial-join-mit-flächen" class="nav-link" data-scroll-target="#aufgabe-4-spatial-join-mit-flächen">Aufgabe 4: Spatial Join mit Flächen</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -726,40 +724,6 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
 <h3 class="anchored" data-anchor-id="aufgabe-3-spatial-join-mit-punkten">Aufgabe 3: Spatial Join mit Punkten</h3>
 <p>Wir wollen nun für jeden <em>Baum</em> wissen, ob er sich in einer Wiese befindet oder nicht. Dazu nutzen wir die GIS-Technik <em>Spatial Join</em>, die in der Vorlesung beschrieben wurde. In <code>sf</code> können wir Spatial Joins mit der Funktion <code>st_join</code> durchführen, dabei gibt es nur <code>left</code> sowie <code>inner</code>-Joins (vgl. PrePro 1 &amp; 2). So müssen die Punkte “Links”, also an erste Stelle aufgeführt werden, da wir ja Attribute <em>an</em> die Punkte anheften wollen.</p>
 <p>Beachte, dass der Output eine neue Spalte <code>flaechen_typ</code> aufweist. Diese ist leer (<code>NA</code>) wenn sich der entsprechende Baum nicht in einer Wiese befindet. Wie viele Bäume befinden sich in einer Wiese, wie viele nicht?</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="aufgabe-4-spatial-join-mit-flächen" class="level3 page-columns page-full">
-<h3 class="anchored" data-anchor-id="aufgabe-4-spatial-join-mit-flächen">Aufgabe 4: Spatial Join mit Flächen</h3>
-<p>Analog der Vorlesung wollen wir nun in Erfahrung bringen, wie hoch der Wiesen-Anteil im Umkreis von 20m um jeden Baum ist. Dazu sind folgende Schritte nötig:</p>
-<ol type="1">
-<li>Als erster Schritt müssen wir jeden Baum mit einem 20m Puffer verstehen. Nutze dazu <code>st_buffer</code> um speichere den Output als <code>baeume_20m</code>. Schau dir <code>baeume_20m</code> nun genau an. Um welchen Geometrietyp handelt es sich dabei nun?</li>
-<li>Berechnen nun die Schnittmenge aus <code>baeume_20m</code> und <code>wiesen</code> mit der Funktion <code>st_intersection</code> und speichere den Output als <code>baeume_wiesen</code>. Exploriere nun <code>baeume_wiesen</code>, auch mit <code>ggplot()</code>. Was ist passiert? Überprüfe die Anzahl Zeilen pro Datensatz. Haben die sich verändert? Wenn ja, warum?</li>
-<li>Berechnen nun die Flächengrösse pro Geometrie mit der Funktion <code>st_area()</code>. Speichere den Output in einer neuen Spalte von <code>baeume_wiesen</code> (z.B. mit dem Namen <code>wiesen_flaeche</code>). Tipp: Konvertiere den Output aus <code>st_area</code> einen nummerischen Vektor mit <code>as.numeric()</code>.</li>
-<li>Berechne nun aus <code>wiesen_flaeche</code> den <code>wiesen_anteil</code>. Tipp: 100% ist die Kreisfläche aus <span class="math inline">\(r^2\times \pi\)</span>, wobei in unserem Fall <span class="math inline">\(r = 20\)</span> entspricht.</li>
-</ol>
-<p>Um die berechneten Werte in den Datensatz <code>baeume</code> zu überführen braucht es noch folgende Schritte:</p>
-<ol type="1">
-<li>Konvertiere <code>baeume_wiesen</code> in eine <code>data.frame</code> mit <code>st_drop_geometry</code> und speichere diese als <code>baeume_wiesen_df</code></li>
-<li>Nutze die Spalte <code>baum_id</code> in <code>baeume_wiesen_df</code> um den berechneten <code>wiesen_anteil</code> in den Datenatz <code>baeume</code> zu überführen. Tipp: Nutze dafür einen <code>left_join</code></li>
-<li>Ersetze alle <code>NA</code> Werte in der Spalte <code>wiesen_anteil</code> mit 0.</li>
-</ol>
-<div class="cell">
-
-</div>
-<div class="column-body">
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-ggplot-ex4" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Rauman1_Uebung_B_files/figure-html/fig-ggplot-ex4-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;48.2: Nach dieser Übung kannst du das Resultat optional in dieser Weise visualisieren.</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
 <div class="cell">
 
 </div>
