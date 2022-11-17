@@ -1,0 +1,101 @@
+---
+date: 2022-12-06
+lesson: RaumAn4
+thema: Vector Data
+index: 1
+execute: 
+  echo: false
+---
+
+# Rauman 4: Übung A
+
+In @sec-spatial-join-points haben einen Spatial Join zwischen Bäumen und Wiesen durchgeführt um herauszufinden, ob sich der Baum in einer Wiese befindet oder nicht. Heute gehen wir einen Schritt weiter und wollen folgende Frage beantworten: 
+
+> Wie viel Wiese befinden sich in einem Umkreis von 20m um jeden Baum?
+
+Lade dazu die benötigten Libraries und Datensätze in deine Session:
+
+
+```{r}
+#| echo: true
+
+library(dplyr)
+library(sf)
+library(ggplot2)
+
+
+wiesen <- read_sf("datasets/rauman/gruental.gpkg", "wiesen")
+baeume <- read_sf("datasets/rauman/gruental.gpkg", "baeume")
+```
+
+## Aufgabe 1
+
+Als erster Schritt müssen wir jeden Baum mit einem 20m Puffer verstehen. Nutze dazu `st_buffer` um speichere den Output als `baeume_20m`. Schau dir `baeume_20m` nun genau an. Um welchen Geometrietyp handelt es sich dabei nun?
+
+```{r}
+baeume_20m <- st_buffer(baeume, 20)
+
+plot(baeume_20m)
+```
+
+
+## Aufgabe 2
+
+Berechnen nun die Schnittmenge aus `baeume_20m` und `wiesen` mit der Funktion `st_intersection` und speichere den Output als `baeume_wiesen`. Exploriere nun `baeume_wiesen`, auch mit `ggplot()`. Was ist passiert? Überprüfe die Anzahl Zeilen pro Datensatz. Haben die sich verändert? Wenn ja, warum?
+
+```{r}
+baeume_wiesen <- st_intersection(baeume_20m, wiesen) 
+
+plot(baeume_wiesen["baum_id"])
+```
+
+
+
+## Aufgabe 3
+
+Berechnen nun die Flächengrösse pro Geometrie mit der Funktion `st_area()`. Speichere den Output in einer neuen Spalte von `baeume_wiesen` (z.B. mit dem Namen `wiesen_flaeche`). Tipp: Konvertiere den Output aus `st_area` einen nummerischen Vektor mit `as.numeric()`.
+
+```{r}
+baeume_wiesen$wiesen_flaeche <- as.numeric(st_area(baeume_wiesen))
+```
+
+
+## Aufgabe 4
+
+Berechne nun aus `wiesen_flaeche` den `wiesen_anteil`. Tipp: 100% ist die Kreisfläche aus $r^2\times \pi$, wobei in unserem Fall $r = 20$ entspricht.
+
+```{r}
+kreisflaeche <- 20^2*pi
+baeume_wiesen$wiesen_anteil <- baeume_wiesen$wiesen_flaeche/kreisflaeche
+```
+
+## Aufgabe 5
+
+
+Um die berechneten Werte in den Datensatz `baeume` zu überführen braucht es noch folgende Schritte:
+
+1. Konvertiere `baeume_wiesen` in eine `data.frame` mit `st_drop_geometry` und speichere diese als `baeume_wiesen_df`
+2. Nutze die Spalte `baum_id` in `baeume_wiesen_df` um den berechneten `wiesen_anteil` in den Datenatz `baeume` zu überführen. Tipp: Nutze dafür einen `left_join`
+3. Ersetze alle `NA` Werte in der Spalte `wiesen_anteil` mit 0.
+
+```{r}
+
+baeume_wiesen_df <- st_drop_geometry(baeume_wiesen)
+
+baeume_2 <- left_join(baeume, baeume_wiesen_df, by = "baum_id") |>
+  mutate(wiesen_anteil = ifelse(is.na(wiesen_anteil),0,wiesen_anteil))
+```
+
+::: {.column-body}
+```{r}
+#| label: fig-ggplot-ex4
+#| fig.cap: Nach dieser Übung kannst du das Resultat optional in dieser Weise visualisieren.
+
+ggplot() +
+  geom_sf(data = wiesen) +
+  geom_sf(data = baeume_20m, fill = NA, color = "grey") +
+  geom_sf(data = baeume_2, aes(colour = wiesen_anteil)) +
+  scale_color_binned("Wiesen Anteil",low = "blue", high = "red", limits = c(0,1), label = scales::label_percent()) +
+  coord_sf(datum = 2056)
+```
+:::

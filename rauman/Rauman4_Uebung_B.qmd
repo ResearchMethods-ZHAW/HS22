@@ -11,13 +11,7 @@ Einer der wichtigsten Aspekte der bevorstehenden Übung (Multi-Criteria Evaluati
 
 Im dieser Übung werden wir `terra` verwenden, um zu zeigen, wie wir einen Rasterdatensatz importieren können. Unter dem untenstehenden Link können Sie eine tif-Datei herunterladen, die das "Digitale Höhenmodell" (DHM)* des Kantons Schwyz in der Schweiz darstellt. Laden Sie den Datensatz herunter und führen Sie den angegebenen Code aus.
 
-- Datensatz: [dhm25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602285)
-
-```{r}
-#| results: asis
-#| echo: false
-knitr::opts_chunk$set(echo = TRUE)
-```
+Datensatz: [dhm25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602285)
 
 ```{r}
 library(terra)
@@ -38,8 +32,6 @@ dhm_schwyz
 Um einen schnellen Überblick eines Rasterdatensatz zu erhalten, können wir einfach die `plot()` Funktion verwenden.
 
 ```{r}
-#| echo: true
-
 plot(dhm_schwyz)
 ```
 
@@ -78,7 +70,7 @@ tm_shape(dhm_schwyz) +
   tm_raster(style = "cont", palette = "Spectral") 
 ```
 
-Sie können Layout-Anpassungen mit `tm_layout()` vornehmen, prüfen Sie `?tm_layout`, um alle verfügbaren Optionen zu sehen!
+Sie können Layout-Anpassungen mit `tm_layout()` vornehmen, prüfen Sie `?tm_layout`, um alle verfügbaren Optionen zu sehen.
 
 ::: {.column-body}
 ```{r}
@@ -88,3 +80,43 @@ tm_shape(dhm_schwyz) +
   tm_layout(legend.outside = TRUE, legend.outside.position = "bottom",frame = FALSE)
 ```
 :::
+
+
+
+## Aufgabe 1
+
+Mit `terra` können wir eine Vielzahl von Rasteroperationen über unser Höhenmodell laufen lassen. Eine klassische Rasteroperation ist zum Beispiel das Berechnenen der Hangneigung oder dessen Orientierung. Nutzen Sie die Funktion `terrain()` aus `terra` um die Hangneigung und Orientierung zu berechnen. Visualisieren Sie die Resultate.
+
+```{r}
+#| echo: false
+
+terrain(dhm_schwyz, "slope") |>
+ plot()
+
+
+terrain(dhm_schwyz, "aspect") |>
+  plot()
+
+```
+
+
+## Aufgabe 2
+
+Mit Hangneigung und -ausrichtung können wir einen *Hillshading*-Effekt berechnen. Hillshading bedeutet, dass der Schattenwurf des Oberflächenmodells bei gegebenen Einfallswinkel der Sonne (Höhe und Azimut) berechnet wird. Der typische Einfallswinkel liegt bei 45° über dem Horizont und von Nordwesten bei 315°.
+
+Um einen Hillshading Effekt zu erzeugen, berechne zuerst `slope` und `aspect` von `dhm_schwyz` analog der letzten Aufgabe, achte aber darauf das die Einheit `radians` entspricht. Nutze diese beiden Objekte um den Hillshade zu berechnen. Visualisiere den Output anschliessend mit `plot` oder `tmap`.
+
+```{r}
+#| echo: false
+#| fig-cap: Für diese Visualisierung verwende ich `tmap` und als colour palette *cividis*
+dhm_slope <- terrain(dhm_schwyz, "slope", unit = "radians")
+dhm_aspect <- terrain(dhm_schwyz, "aspect", unit = "radians")
+
+dhm_hillshade <- shade(dhm_slope, dhm_aspect, 45, 315)
+
+tm_shape(dhm_hillshade) + 
+  tm_raster(style = "cont", palette = "cividis", legend.show = FALSE) +
+  tm_layout(frame = FALSE)
+
+```
+
