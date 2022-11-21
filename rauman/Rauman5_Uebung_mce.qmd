@@ -27,9 +27,9 @@ Laden Sie das File [windkraft_geodata.gpkg](https://moodle.zhaw.ch/mod/resource/
 | Strassen | CH1903/LV03 | Strassen | Linie | Nein/Distanz |
 | Untersuchungsgebiet_Schwyz | CH1903/LV03 | Untersuchungsgebiet, Kanton Schwyz | Polygon | Nein |
 | Waldgebiete | CH1903/LV03 | Waldgebiete | Polygon | (Ja)/Distanz |
-| dhm25m | CH1903/LV03 | Geländemodell (m) | Raster (25m) | Nein |
-| eis25m | CH1903/LV03 | Häufigkeit der Vereisung (Tage/Jahr) | Raster (25m) | Nein |
-| wind25m | CH1903/LV03 | Durchschnittliche Windgeschwindigkeit (dm/s) | Raster (25m) | Nein |
+| dhm250m | CH1903/LV03 | Geländemodell (m) | Raster (250m) | Nein |
+| eis250m | CH1903/LV03 | Häufigkeit der Vereisung (Tage/Jahr) | Raster (250m) | Nein |
+| wind250m | CH1903/LV03 | Durchschnittliche Windgeschwindigkeit (dm/s) | Raster (250m) | Nein |
 
 Die Rasterdaten können mit der Funktion `terra::rast` und die Vektorebenen mit `sf::read_sf` geladen werden. Zeigen Sie die verfügbaren Layers an und plotten Sie sie auf ansprechende Weise. Zur Visualisierung können Sie die Funktionen `plot` für Rasterdaten und `ggplot` für Vektordaten verwenden.
 
@@ -59,9 +59,9 @@ lakes <- read_sf("datasets/rauman/windkraft_geodata.gpkg", "Seeflaechen")
 streets <- read_sf("datasets/rauman/windkraft_geodata.gpkg", "Strassen") |> st_intersection(kt_schwyz) #intersect with study area
 
 #Raster data
-eis25m <- rast("datasets/rauman/eis25m.tif")
-dhm25m <- rast("datasets/rauman/dhm25m.tif")
-wind25m <- rast("datasets/rauman/wind25m.tif")
+dhm250m <- rast("datasets/rauman/dhm250m.tif")
+eis250m <- rast("datasets/rauman/eis250m.tif")
+wind250m <- rast("datasets/rauman/wind250m.tif")
 ```
 
 ```{r}
@@ -77,9 +77,9 @@ tm_shape(lakes) + tm_polygons(col = "dodgerblue3") +
 ```{r}
 #| include: false
 
-tm_shape(dhm25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
-tm_shape(eis25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
-tm_shape(wind25m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
+tm_shape(dhm250m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
+tm_shape(eis250m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
+tm_shape(wind250m) + tm_raster(style = "cont") + tm_shape(kt_schwyz) + tm_borders()
 ```
 
 ## Übung 2: Ausschlusskriterien zusammenführen
@@ -126,9 +126,8 @@ Als nächstes berechnen Sie die Neigung in Grad auf der Grundlage des Geländemo
 #| echo: false
 #| include: false
 
-slope <- terra::terrain(dhm25m, v="slope",unit="degrees", neighbors=8)
-slope_250 <- slope |> aggregate(fact = 10)
-plot(slope_250, main="Slope", axes=FALSE)
+slope250m <- terra::terrain(dhm250m, v="slope",unit="degrees", neighbors=8)
+plot(slope250m, main="Slope", axes=FALSE)
 ```
 
 ## Übung 4: Entfernungen zu Kriterien berechnen
@@ -196,7 +195,6 @@ MCE Reclassify
 #| include: false
 
 #### reclassify wind
-wind250m <- wind25m |> aggregate(fact = 10)
 wind_max <- minmax(wind250m)[2]
 reclass_wind_m <- c(0,35,0,
                       35,40,0.1,
@@ -212,7 +210,6 @@ reclass_wind <- classify(wind250m, reclass_wind_m)
 plot(reclass_wind, main="Average wind speed (reclassified)", axes=FALSE)
 
 #### reclassify ice    
-eis250m <- eis25m |> aggregate(fact = 10) ## lowering the resolution
 eis_max <- minmax(eis250m)[2]
 reclass_ice_m <- c(0,6,1,
                      6,12,0.9,
@@ -225,7 +222,6 @@ reclass_ice <- classify(eis250m, reclass_ice_m)
 plot(reclass_ice, main="Icing frequency (reclassified)", axes=FALSE)
 
 #### reclassify slope
-slope250m <- slope |> aggregate(fact = 10) ## lowering the resolution
 slope_max <- minmax(slope250m)[2]
 reclass_slope_m <- c(0,2,1,
                        2,4,0.9,
