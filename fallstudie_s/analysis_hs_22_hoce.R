@@ -232,6 +232,21 @@ depo <- depo |>
                                          if_else(Datum > lock_2_end_2021,
                                                  "Post", "Pre")))))
 
+
+##############ACHTUNG:
+##############ZWISCHEN DEN LOCKDOWNS WIRD ALS PRE GELABELT!
+
+
+
+
+
+
+
+
+
+
+
+
 # hat das gepklappt?!
 unique(depo$Phase)
 
