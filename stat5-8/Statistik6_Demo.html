@@ -708,84 +708,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(labdsv)){<span class="fu">install.packages</span>(<span class="st">"labdsv"</span>)}</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labdsv)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Für Ordinationen benötigen wir Matrizen, nicht Data.frames</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Für Ordinationen benötigen wir Matrizen, nicht Dataframes</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generieren von Daten</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>), <span class="at">nrow =</span> <span class="dv">6</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"spec.1"</span>, <span class="st">"spec.2"</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"r1"</span>, <span class="st">"r2"</span>, <span class="st">"r3"</span>, <span class="st">"r4"</span>, <span class="st">"r5"</span>, <span class="st">"r6"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Art1"</span>, <span class="st">"Art2"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Ort1"</span>, <span class="st">"Ort2"</span>, <span class="st">"Ort3"</span>, <span class="st">"Ort4"</span>, <span class="st">"Ort5"</span>, <span class="st">"Ort6"</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>raw</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   spec.1 spec.2
-r1    1.0      0
-r2    2.0      1
-r3    2.5      2
-r4    2.5      4
-r5    1.0      3
-r6    0.5      1</code></pre>
+<pre><code>     Art1 Art2
+Ort1  1.0    0
+Ort2  2.0    1
+Ort3  2.5    2
+Ort4  2.5    4
+Ort5  1.0    3
+Ort6  0.5    1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Originale Daten im zweidimensionalen Raum</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Originaldaten für Plot separieren</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> raw[,<span class="dv">1</span>]</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> raw[,<span class="dv">2</span>]</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)) </span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Abhängigkeit der Arten vom Umweltgradienten</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(x1, y1)<span class="sc">~</span><span class="fu">c</span>(z, z), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">axes =</span> T, <span class="at">bty =</span> <span class="st">"l"</span>, </span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">las =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>),</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Umweltgradient"</span>, <span class="at">ylab =</span> <span class="st">"Deckung der Arten"</span>)</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x1<span class="sc">~</span>z, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">type =</span> <span class="st">"b"</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>z, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">type =</span> <span class="st">"b"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>z, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">type =</span> <span class="st">"b"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="st">"Art 1"</span>, <span class="at">col =</span> <span class="st">"darkgray"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.5</span>, <span class="fl">0.5</span>, <span class="st">"Art 2"</span>, <span class="at">col =</span> <span class="st">"darkgray"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># zentrierte Daten</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cent <span class="ot">&lt;-</span> <span class="fu">scale</span>(raw, <span class="at">scale =</span> F)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> cent[,<span class="dv">1</span>]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> cent[,<span class="dv">2</span>]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># rotierte Daten</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(raw)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>]</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">2</span>]</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung der Schritte im Ordinationsraum</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(y1, y2, y3)<span class="sc">~</span><span class="fu">c</span>(x1, x2, x3), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">axes =</span> T, <span class="at">bty =</span> <span class="st">"l"</span>, <span class="at">las =</span> <span class="dv">1</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>), <span class="at">xlab =</span> <span class="st">"Art 1"</span>, <span class="at">ylab=</span>  <span class="st">"Art 2"</span>)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>x1, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">col =</span> <span class="st">"green"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y2<span class="sc">~</span>x2, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">type =</span> <span class="st">"b"</span>,<span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y3<span class="sc">~</span>x3, <span class="at">pch =</span> <span class="dv">17</span>, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten zentrieren</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># d.h. transformieren so, dass Mittelwert = 0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>cent <span class="ot">&lt;-</span> <span class="fu">scale</span>(raw, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> cent[,<span class="dv">1</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> cent[,<span class="dv">2</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten zusätzlich rotieren </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA zentriert und rotiert Daten</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(raw)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">2</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung der Schritte im Ordinationsraum</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(y1, y2, y3)<span class="sc">~</span><span class="fu">c</span>(x1, x2, x3), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">axes =</span> T, <span class="at">bty =</span> <span class="st">"l"</span>, <span class="at">las =</span> <span class="dv">1</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>), <span class="at">xlab =</span> <span class="st">"Art 1"</span>, <span class="at">ylab=</span>  <span class="st">"Art 2"</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>x1, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">col =</span> <span class="st">"green"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">2.5</span>, <span class="dv">4</span>, <span class="st">"Originaldaten"</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y2<span class="sc">~</span>x2, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">type =</span> <span class="st">"b"</span>,<span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="st">"Zentriert"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y3<span class="sc">~</span>x3, <span class="at">pch =</span> <span class="dv">17</span>, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">2.5</span>, <span class="dv">3</span>, <span class="st">"Zentriert &amp; rotiert"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Durchführung der PCA</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(raw)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Koordinaten im Ordinationsraum</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>o.pca<span class="sc">$</span>scores</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          PC1         PC2
-r1 -1.9216223 -0.09357697
-r2 -0.6353776 -0.68143293
-r3  0.4762699 -0.80076373
-r4  2.3503705 -0.10237502
-r5  0.8895287  0.95400610
-r6 -1.1591692  0.72414255</code></pre>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.pca)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen der Variablen mit den Ordinationsachsen</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>o.pca<span class="sc">$</span>loadings</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Koordinaten im Ordinationsraum</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>o.pca<span class="sc">$</span>scores</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>             PC1        PC2
-spec.1 0.3491944 -0.9370503
-spec.2 0.9370503  0.3491944</code></pre>
+<pre><code>            PC1         PC2
+Ort1 -1.9216223 -0.09357697
+Ort2 -0.6353776 -0.68143293
+Ort3  0.4762699 -0.80076373
+Ort4  2.3503705 -0.10237502
+Ort5  0.8895287  0.95400610
+Ort6 -1.1591692  0.72414255</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Erklärte Varianz der Achsen</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> o.pca<span class="sc">$</span>totdev <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>E</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen der Variablen mit den Ordinationsachsen</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>o.pca<span class="sc">$</span>loadings</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           PC1        PC2
+Art1 0.3491944 -0.9370503
+Art2 0.9370503  0.3491944</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erklärte Varianz der Achsen</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> o.pca<span class="sc">$</span>totdev <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>E</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 82.40009 17.59991</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mit prcomp</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(raw, <span class="at">scale =</span> F)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisieren mit prcomp</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(raw, <span class="at">scale =</span> F)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Importance of components:
                          PC1    PC2
@@ -793,22 +803,22 @@ Standard deviation     1.548 0.7154
 Proportion of Variance 0.824 0.1760
 Cumulative Proportion  0.824 1.0000</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.2</span>) <span class="co"># </span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-1-4.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mit vegan</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(vegan)){<span class="fu">install.packages</span>(<span class="st">"vegan"</span>)}</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Funktion rda führt ein PCA aus an wenn nicht Artdaten UND Umweltdaten definiert werden</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">rda</span>(raw, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3, display = c("sites"))</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3, display = c("species"))</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.3</span>, <span class="at">axes =</span> <span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-1-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mit vegan</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(vegan)){<span class="fu">install.packages</span>(<span class="st">"vegan"</span>)}</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Funktion rda führt ein PCA aus an wenn nicht Artdaten UND Umweltdaten definiert werden</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">rda</span>(raw, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3, display = c("sites"))</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3, display = c("species"))</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.3</span>, <span class="at">axes =</span> <span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -832,35 +842,433 @@ Scaling 2 for species and site scores
 * Sites are unscaled: weighted dispersion equal on all dimensions
 * General scaling constant of scores:  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.3</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-1-5.png" class="img-fluid" width="672"></p>
+<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-1-6.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit Beispieldaten aus Wildi</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dave)){<span class="fu">install.packages</span>(<span class="st">"dave"</span>)}</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sveg)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sveg)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sveg)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sveg)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit Beispieldaten aus Wildi</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dave)){<span class="fu">install.packages</span>(<span class="st">"dave"</span>)}</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sveg)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   63 obs. of  119 variables:
+ $ Vaccinium.myrtillus       : int  0 1 1 1 1 1 1 0 0 1 ...
+ $ Vaccinium.uliginosum      : int  0 2 1 0 1 1 1 1 0 0 ...
+ $ Vaccinium.oxycoccos       : int  2 1 1 1 1 2 1 1 1 1 ...
+ $ Calluna.vulgaris          : int  1 3 0 0 1 1 0 0 0 0 ...
+ $ Carex.rostrata            : int  0 0 0 1 0 0 0 2 0 0 ...
+ $ Carex.lasiocarpa          : int  0 2 2 1 2 2 1 1 1 1 ...
+ $ Carex.nigra               : int  2 1 0 0 1 1 1 2 1 1 ...
+ $ Carex.davalliana          : int  0 0 0 0 0 0 0 0 0 1 ...
+ $ Carex.hostiana            : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Carex.pauciflora          : int  0 0 0 1 0 0 0 0 0 0 ...
+ $ Carex.echinata            : int  2 0 1 2 1 2 1 1 3 2 ...
+ $ Carex.panicea             : int  0 0 1 0 1 0 1 0 0 0 ...
+ $ Trichophorum.caespitosum  : int  2 2 1 0 0 1 0 1 1 1 ...
+ $ Trichophorum.alpinum      : int  1 0 1 0 0 0 0 0 0 1 ...
+ $ Eriophorum.vaginatum      : int  0 1 0 1 0 0 0 0 0 0 ...
+ $ Eriophorum.latifolium     : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Eriophorum.angustifolium  : int  1 2 1 1 1 1 0 1 1 1 ...
+ $ Tofieldia.calyculata      : int  0 0 0 0 0 1 0 0 0 0 ...
+ $ Pinguicula.vulgaris       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Parnassia.palustris       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Rhynchospora.alba         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Drosera.rotundifolia      : int  1 0 0 1 1 1 0 1 0 2 ...
+ $ Arnica.montana            : int  1 0 2 1 1 1 0 1 2 1 ...
+ $ Dactylorhiza.maculata     : int  1 1 1 1 0 1 1 1 1 1 ...
+ $ Polytrichum.strictum      : int  1 1 1 1 1 1 2 0 1 0 ...
+ $ Succisa.pratensis         : int  0 1 1 0 1 1 1 0 0 1 ...
+ $ Anthoxanthum.odoratum     : int  1 1 1 1 1 1 1 0 1 1 ...
+ $ Molinia.caerulea          : int  1 2 2 1 1 2 1 1 1 1 ...
+ $ Gentiana.asclepiadea      : int  1 1 1 1 1 1 0 0 1 1 ...
+ $ Luzula.multiflora         : int  0 1 1 0 0 0 1 0 0 0 ...
+ $ Festuca.rubra             : int  0 0 0 0 0 0 1 0 0 1 ...
+ $ Potentilla.erecta         : int  2 1 1 2 1 2 2 1 1 2 ...
+ $ Sphagnum.magellanicum     : int  2 0 1 1 3 3 2 1 1 2 ...
+ $ Sphagnum.papillosum       : int  1 1 1 1 1 0 0 0 0 1 ...
+ $ Equisetum.palustre        : int  1 1 2 2 1 1 1 3 1 1 ...
+ $ Aulacomnium.palustre      : int  2 1 1 1 1 1 2 1 1 1 ...
+ $ Euphrasia.rostkoviana     : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Nardus.stricta            : int  0 1 1 0 1 1 1 1 1 1 ...
+ $ Carex.pulicaris           : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Climacium.dendroides      : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Carex.pallescens          : int  0 0 1 0 0 0 0 0 0 0 ...
+ $ Carex.lepidocarpa         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Briza.media               : int  0 0 1 0 1 0 1 0 0 0 ...
+ $ Sphagnum.platyphyllum     : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Sphagnum.tenellum         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Sphagnum.recurvum         : int  5 2 6 6 2 3 5 6 6 3 ...
+ $ Sphagnum.rubellum         : int  1 1 2 1 2 1 0 0 1 4 ...
+ $ Sphagnum.centrale         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Sphagnum.subsecundum      : int  0 0 0 0 0 0 0 0 0 1 ...
+ $ Juncus.alpinoarticulatus  : int  0 0 0 0 0 0 0 0 0 1 ...
+ $ Solidago.virgaurea        : int  2 1 1 1 0 1 1 1 0 1 ...
+ $ Agrostis.canina           : int  1 0 1 1 1 0 0 0 1 1 ...
+ $ Juncus.effusus            : int  1 0 1 1 1 0 0 0 1 0 ...
+ $ Frangula.alnus            : int  0 0 1 1 0 0 1 0 0 0 ...
+ $ Anemone.nemorosa          : int  0 0 0 0 2 1 0 0 0 0 ...
+ $ Holcus.lanatus            : int  0 0 1 0 1 1 0 0 0 0 ...
+ $ Drepanocladus.exannulatus : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Homogyne.alpina           : int  0 1 0 0 0 0 0 0 0 0 ...
+ $ Polygala.vulgaris         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Trollius.europaeus        : int  0 0 0 0 0 0 1 0 0 0 ...
+ $ Polygonum.bistorta        : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Lotus.pedunculatus        : int  0 0 0 0 1 0 0 0 0 0 ...
+ $ Trifolium.pratense        : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Taraxacum.palustre        : int  0 0 1 0 0 0 0 0 0 0 ...
+ $ Campylium.stellatum       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Cirsium.palustre          : int  0 0 1 0 0 0 0 0 0 0 ...
+ $ Lysimachia.vulgaris       : int  0 1 1 1 0 0 0 0 1 1 ...
+ $ Maianthemum.bifolium      : int  1 1 1 1 1 1 1 1 0 0 ...
+ $ Equisetum.sylvaticum      : int  0 1 1 1 0 0 0 1 0 0 ...
+ $ Centaurea.jacea           : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Prunella.grandiflora      : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Viola.palustris           : int  0 0 1 0 0 0 0 0 0 1 ...
+ $ Angelica.sylvestris       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Filipendula.ulmaria       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Thuidium.delicatulum      : int  0 1 0 0 0 1 0 0 0 1 ...
+ $ Sanguisorba.officinalis   : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Galium.uliginosum         : int  0 0 1 0 0 0 0 0 0 0 ...
+ $ Epipactis.palustris       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Pleurozium.schreberi      : int  1 2 1 1 1 0 1 0 0 1 ...
+ $ Calliergon.stramineum     : int  1 0 1 1 1 0 0 0 1 0 ...
+ $ Aster.bellidiastrum       : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Hypnum.bambergeri         : int  0 0 0 0 0 0 0 0 0 1 ...
+ $ Drepanocladus.revolvens   : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Dicranum.bonjeanii        : int  1 0 0 0 0 1 1 0 0 0 ...
+ $ Dicranum.scoparium        : int  0 1 0 0 0 0 0 0 0 0 ...
+ $ Hylocomium.splendens      : int  1 1 0 1 1 1 1 0 0 1 ...
+ $ Rhytidiadelphus.squarrosus: int  1 1 1 1 1 1 1 0 0 1 ...
+ $ Calliergonella.cuspidata  : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Fissidens.adianthoides    : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Primula.veris             : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Primula.farinosa          : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Hieracium.lachenalii      : int  0 1 0 0 1 1 1 1 1 1 ...
+ $ Crepis.paludosa           : int  0 0 0 0 1 0 1 0 0 1 ...
+ $ Leontodon.hispidus        : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Lotus.corniculatus        : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Stachys.officinalis       : int  0 0 0 0 0 0 0 0 0 1 ...
+ $ Carex.flacca              : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Gentiana.verna            : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Geranium.sylvaticum       : int  0 0 0 0 0 0 0 0 0 0 ...
+  [list output truncated]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sveg)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Vaccinium.myrtillus Vaccinium.uliginosum Vaccinium.oxycoccos Calluna.vulgaris
+ Min.   :0.0000      Min.   :0.0000       Min.   :0.0000      Min.   :0.0000  
+ 1st Qu.:0.0000      1st Qu.:0.0000       1st Qu.:0.0000      1st Qu.:0.0000  
+ Median :0.0000      Median :0.0000       Median :0.0000      Median :0.0000  
+ Mean   :0.1905      Mean   :0.2063       Mean   :0.5079      Mean   :0.3333  
+ 3rd Qu.:0.0000      3rd Qu.:0.0000       3rd Qu.:1.0000      3rd Qu.:1.0000  
+ Max.   :1.0000      Max.   :2.0000       Max.   :2.0000      Max.   :3.0000  
+ Carex.rostrata    Carex.lasiocarpa  Carex.nigra     Carex.davalliana
+ Min.   :0.00000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.00000   1st Qu.:1.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.00000   Median :1.0000   Median :1.0000   Median :0.0000  
+ Mean   :0.07937   Mean   :0.9365   Mean   :0.6667   Mean   :0.4444  
+ 3rd Qu.:0.00000   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :2.00000   Max.   :2.0000   Max.   :2.0000   Max.   :2.0000  
+ Carex.hostiana   Carex.pauciflora  Carex.echinata  Carex.panicea   
+ Min.   :0.0000   Min.   :0.00000   Min.   :0.000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.500   1st Qu.:0.0000  
+ Median :0.0000   Median :0.00000   Median :1.000   Median :1.0000  
+ Mean   :0.2698   Mean   :0.03175   Mean   :1.317   Mean   :0.6349  
+ 3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:2.000   3rd Qu.:1.0000  
+ Max.   :2.0000   Max.   :1.00000   Max.   :3.000   Max.   :2.0000  
+ Trichophorum.caespitosum Trichophorum.alpinum Eriophorum.vaginatum
+ Min.   :0.000            Min.   :0.0000       Min.   :0.0000      
+ 1st Qu.:1.000            1st Qu.:0.0000       1st Qu.:0.0000      
+ Median :1.000            Median :0.0000       Median :0.0000      
+ Mean   :1.413            Mean   :0.4762       Mean   :0.1587      
+ 3rd Qu.:2.000            3rd Qu.:1.0000       3rd Qu.:0.0000      
+ Max.   :3.000            Max.   :2.0000       Max.   :2.0000      
+ Eriophorum.latifolium Eriophorum.angustifolium Tofieldia.calyculata
+ Min.   :0.000         Min.   :0.0000           Min.   :0.0000      
+ 1st Qu.:0.000         1st Qu.:1.0000           1st Qu.:0.0000      
+ Median :0.000         Median :1.0000           Median :0.0000      
+ Mean   :0.254         Mean   :0.8413           Mean   :0.3968      
+ 3rd Qu.:0.000         3rd Qu.:1.0000           3rd Qu.:1.0000      
+ Max.   :2.000         Max.   :2.0000           Max.   :1.0000      
+ Pinguicula.vulgaris Parnassia.palustris Rhynchospora.alba Drosera.rotundifolia
+ Min.   :0.000       Min.   :0.0000      Min.   :0.00000   Min.   :0.0000      
+ 1st Qu.:0.000       1st Qu.:0.0000      1st Qu.:0.00000   1st Qu.:0.0000      
+ Median :0.000       Median :0.0000      Median :0.00000   Median :1.0000      
+ Mean   :0.381       Mean   :0.3968      Mean   :0.03175   Mean   :0.8095      
+ 3rd Qu.:1.000       3rd Qu.:1.0000      3rd Qu.:0.00000   3rd Qu.:1.0000      
+ Max.   :2.000       Max.   :1.0000      Max.   :1.00000   Max.   :2.0000      
+ Arnica.montana   Dactylorhiza.maculata Polytrichum.strictum Succisa.pratensis
+ Min.   :0.0000   Min.   :0.000         Min.   :0.0000       Min.   :0.0000   
+ 1st Qu.:0.0000   1st Qu.:0.000         1st Qu.:0.0000       1st Qu.:0.0000   
+ Median :0.0000   Median :1.000         Median :0.0000       Median :1.0000   
+ Mean   :0.6984   Mean   :0.746         Mean   :0.4127       Mean   :0.7143   
+ 3rd Qu.:1.0000   3rd Qu.:1.000         3rd Qu.:1.0000       3rd Qu.:1.0000   
+ Max.   :3.0000   Max.   :2.000         Max.   :3.0000       Max.   :1.0000   
+ Anthoxanthum.odoratum Molinia.caerulea Gentiana.asclepiadea Luzula.multiflora
+ Min.   :0.0000        Min.   :0.00     Min.   :0.0000       Min.   :0.0000   
+ 1st Qu.:0.0000        1st Qu.:1.00     1st Qu.:1.0000       1st Qu.:0.0000   
+ Median :1.0000        Median :1.00     Median :1.0000       Median :0.0000   
+ Mean   :0.6349        Mean   :1.19     Mean   :0.7937       Mean   :0.1905   
+ 3rd Qu.:1.0000        3rd Qu.:1.00     3rd Qu.:1.0000       3rd Qu.:0.0000   
+ Max.   :1.0000        Max.   :2.00     Max.   :2.0000       Max.   :1.0000   
+ Festuca.rubra    Potentilla.erecta Sphagnum.magellanicum Sphagnum.papillosum
+ Min.   :0.0000   Min.   :0.000     Min.   :0.000         Min.   :0.0000     
+ 1st Qu.:0.0000   1st Qu.:1.000     1st Qu.:0.000         1st Qu.:0.0000     
+ Median :1.0000   Median :1.000     Median :1.000         Median :1.0000     
+ Mean   :0.5397   Mean   :1.286     Mean   :1.016         Mean   :0.9206     
+ 3rd Qu.:1.0000   3rd Qu.:2.000     3rd Qu.:1.000         3rd Qu.:1.0000     
+ Max.   :1.0000   Max.   :2.000     Max.   :5.000         Max.   :5.0000     
+ Equisetum.palustre Aulacomnium.palustre Euphrasia.rostkoviana Nardus.stricta  
+ Min.   :0.000      Min.   :0.000        Min.   :0.0000        Min.   :0.0000  
+ 1st Qu.:1.000      1st Qu.:1.000        1st Qu.:0.0000        1st Qu.:0.0000  
+ Median :1.000      Median :1.000        Median :0.0000        Median :1.0000  
+ Mean   :1.079      Mean   :1.095        Mean   :0.3968        Mean   :0.6349  
+ 3rd Qu.:1.000      3rd Qu.:1.000        3rd Qu.:1.0000        3rd Qu.:1.0000  
+ Max.   :3.000      Max.   :3.000        Max.   :2.0000        Max.   :2.0000  
+ Carex.pulicaris Climacium.dendroides Carex.pallescens Carex.lepidocarpa
+ Min.   :0.000   Min.   :0.0000       Min.   :0.0000   Min.   :0.000    
+ 1st Qu.:0.000   1st Qu.:0.0000       1st Qu.:0.0000   1st Qu.:0.000    
+ Median :0.000   Median :0.0000       Median :0.0000   Median :0.000    
+ Mean   :0.381   Mean   :0.5397       Mean   :0.1746   Mean   :0.127    
+ 3rd Qu.:1.000   3rd Qu.:1.0000       3rd Qu.:0.0000   3rd Qu.:0.000    
+ Max.   :2.000   Max.   :3.0000       Max.   :1.0000   Max.   :1.000    
+  Briza.media    Sphagnum.platyphyllum Sphagnum.tenellum Sphagnum.recurvum
+ Min.   :0.000   Min.   :0.0000        Min.   :0.00000   Min.   :0.000    
+ 1st Qu.:0.000   1st Qu.:0.0000        1st Qu.:0.00000   1st Qu.:0.000    
+ Median :0.000   Median :0.0000        Median :0.00000   Median :1.000    
+ Mean   :0.381   Mean   :0.2381        Mean   :0.06349   Mean   :1.571    
+ 3rd Qu.:1.000   3rd Qu.:0.0000        3rd Qu.:0.00000   3rd Qu.:2.500    
+ Max.   :1.000   Max.   :3.0000        Max.   :1.00000   Max.   :6.000    
+ Sphagnum.rubellum Sphagnum.centrale Sphagnum.subsecundum
+ Min.   :0.000     Min.   :0.00000   Min.   :0.0000      
+ 1st Qu.:0.000     1st Qu.:0.00000   1st Qu.:0.0000      
+ Median :1.000     Median :0.00000   Median :0.0000      
+ Mean   :1.222     Mean   :0.03175   Mean   :0.8254      
+ 3rd Qu.:2.000     3rd Qu.:0.00000   3rd Qu.:1.0000      
+ Max.   :6.000     Max.   :1.00000   Max.   :6.0000      
+ Juncus.alpinoarticulatus Solidago.virgaurea Agrostis.canina  Juncus.effusus  
+ Min.   :0.0000           Min.   :0.0000     Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000           1st Qu.:0.0000     1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000           Median :0.0000     Median :0.0000   Median :0.0000  
+ Mean   :0.2857           Mean   :0.2381     Mean   :0.3968   Mean   :0.1429  
+ 3rd Qu.:1.0000           3rd Qu.:0.0000     3rd Qu.:1.0000   3rd Qu.:0.0000  
+ Max.   :1.0000           Max.   :2.0000     Max.   :1.0000   Max.   :1.0000  
+ Frangula.alnus   Anemone.nemorosa Holcus.lanatus   Drepanocladus.exannulatus
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.00000          
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.00000          
+ Median :0.0000   Median :1.0000   Median :0.0000   Median :0.00000          
+ Mean   :0.4921   Mean   :0.6032   Mean   :0.2063   Mean   :0.04762          
+ 3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:0.0000   3rd Qu.:0.00000          
+ Max.   :2.0000   Max.   :2.0000   Max.   :1.0000   Max.   :1.00000          
+ Homogyne.alpina   Polygala.vulgaris Trollius.europaeus Polygonum.bistorta
+ Min.   :0.00000   Min.   :0.0000    Min.   :0.0000     Min.   :0.00000   
+ 1st Qu.:0.00000   1st Qu.:0.0000    1st Qu.:0.0000     1st Qu.:0.00000   
+ Median :0.00000   Median :0.0000    Median :0.0000     Median :0.00000   
+ Mean   :0.04762   Mean   :0.1905    Mean   :0.3333     Mean   :0.06349   
+ 3rd Qu.:0.00000   3rd Qu.:0.0000    3rd Qu.:1.0000     3rd Qu.:0.00000   
+ Max.   :2.00000   Max.   :1.0000    Max.   :1.0000     Max.   :2.00000   
+ Lotus.pedunculatus Trifolium.pratense Taraxacum.palustre Campylium.stellatum
+ Min.   :0.00000    Min.   :0.0000     Min.   :0.0000     Min.   :0.0000     
+ 1st Qu.:0.00000    1st Qu.:0.0000     1st Qu.:0.0000     1st Qu.:0.0000     
+ Median :0.00000    Median :0.0000     Median :0.0000     Median :0.0000     
+ Mean   :0.06349    Mean   :0.2063     Mean   :0.3333     Mean   :0.5079     
+ 3rd Qu.:0.00000    3rd Qu.:0.0000     3rd Qu.:1.0000     3rd Qu.:1.0000     
+ Max.   :2.00000    Max.   :1.0000     Max.   :1.0000     Max.   :5.0000     
+ Cirsium.palustre Lysimachia.vulgaris Maianthemum.bifolium Equisetum.sylvaticum
+ Min.   :0.0000   Min.   :0.0000      Min.   :0.000        Min.   :0.0000      
+ 1st Qu.:0.0000   1st Qu.:0.0000      1st Qu.:0.000        1st Qu.:0.0000      
+ Median :0.0000   Median :0.0000      Median :1.000        Median :0.0000      
+ Mean   :0.1429   Mean   :0.4603      Mean   :0.619        Mean   :0.1587      
+ 3rd Qu.:0.0000   3rd Qu.:1.0000      3rd Qu.:1.000        3rd Qu.:0.0000      
+ Max.   :1.0000   Max.   :1.0000      Max.   :2.000        Max.   :1.0000      
+ Centaurea.jacea  Prunella.grandiflora Viola.palustris  Angelica.sylvestris
+ Min.   :0.0000   Min.   :0.0000       Min.   :0.0000   Min.   :0.00000    
+ 1st Qu.:0.0000   1st Qu.:0.0000       1st Qu.:0.0000   1st Qu.:0.00000    
+ Median :0.0000   Median :0.0000       Median :0.0000   Median :0.00000    
+ Mean   :0.2857   Mean   :0.2063       Mean   :0.3333   Mean   :0.03175    
+ 3rd Qu.:0.5000   3rd Qu.:0.0000       3rd Qu.:1.0000   3rd Qu.:0.00000    
+ Max.   :2.0000   Max.   :1.0000       Max.   :2.0000   Max.   :1.00000    
+ Filipendula.ulmaria Thuidium.delicatulum Sanguisorba.officinalis
+ Min.   :0.0000      Min.   :0.0000       Min.   :0.00000        
+ 1st Qu.:0.0000      1st Qu.:0.0000       1st Qu.:0.00000        
+ Median :0.0000      Median :1.0000       Median :0.00000        
+ Mean   :0.1111      Mean   :0.6508       Mean   :0.04762        
+ 3rd Qu.:0.0000      3rd Qu.:1.0000       3rd Qu.:0.00000        
+ Max.   :2.0000      Max.   :4.0000       Max.   :1.00000        
+ Galium.uliginosum Epipactis.palustris Pleurozium.schreberi
+ Min.   :0.0000    Min.   :0.0000      Min.   :0.000       
+ 1st Qu.:0.0000    1st Qu.:0.0000      1st Qu.:0.000       
+ Median :0.0000    Median :0.0000      Median :0.000       
+ Mean   :0.2857    Mean   :0.1905      Mean   :0.619       
+ 3rd Qu.:1.0000    3rd Qu.:0.0000      3rd Qu.:1.000       
+ Max.   :1.0000    Max.   :1.0000      Max.   :6.000       
+ Calliergon.stramineum Aster.bellidiastrum Hypnum.bambergeri
+ Min.   :0.000         Min.   :0.0000      Min.   :0.0000   
+ 1st Qu.:0.000         1st Qu.:0.0000      1st Qu.:0.0000   
+ Median :1.000         Median :0.0000      Median :0.0000   
+ Mean   :0.619         Mean   :0.2698      Mean   :0.4762   
+ 3rd Qu.:1.000         3rd Qu.:0.0000      3rd Qu.:1.0000   
+ Max.   :2.000         Max.   :2.0000      Max.   :5.0000   
+ Drepanocladus.revolvens Dicranum.bonjeanii Dicranum.scoparium
+ Min.   :0.0000          Min.   :0.0000     Min.   :0.00000   
+ 1st Qu.:0.0000          1st Qu.:0.0000     1st Qu.:0.00000   
+ Median :0.0000          Median :0.0000     Median :0.00000   
+ Mean   :0.1587          Mean   :0.4127     Mean   :0.07937   
+ 3rd Qu.:0.0000          3rd Qu.:1.0000     3rd Qu.:0.00000   
+ Max.   :3.0000          Max.   :1.0000     Max.   :1.00000   
+ Hylocomium.splendens Rhytidiadelphus.squarrosus Calliergonella.cuspidata
+ Min.   :0.000        Min.   :0.0000             Min.   :0.000           
+ 1st Qu.:0.000        1st Qu.:0.0000             1st Qu.:0.000           
+ Median :1.000        Median :0.0000             Median :0.000           
+ Mean   :1.063        Mean   :0.4444             Mean   :0.127           
+ 3rd Qu.:1.000        3rd Qu.:1.0000             3rd Qu.:0.000           
+ Max.   :5.000        Max.   :2.0000             Max.   :1.000           
+ Fissidens.adianthoides Primula.veris   Primula.farinosa  Hieracium.lachenalii
+ Min.   :0.000          Min.   :0.000   Min.   :0.00000   Min.   :0.0000      
+ 1st Qu.:0.000          1st Qu.:0.000   1st Qu.:0.00000   1st Qu.:0.0000      
+ Median :0.000          Median :0.000   Median :0.00000   Median :1.0000      
+ Mean   :0.127          Mean   :0.127   Mean   :0.09524   Mean   :0.6508      
+ 3rd Qu.:0.000          3rd Qu.:0.000   3rd Qu.:0.00000   3rd Qu.:1.0000      
+ Max.   :1.000          Max.   :1.000   Max.   :1.00000   Max.   :1.0000      
+ Crepis.paludosa  Leontodon.hispidus Lotus.corniculatus Stachys.officinalis
+ Min.   :0.0000   Min.   :0.0000     Min.   :0.0000     Min.   :0.0000     
+ 1st Qu.:0.0000   1st Qu.:0.0000     1st Qu.:0.0000     1st Qu.:0.0000     
+ Median :0.0000   Median :0.0000     Median :0.0000     Median :0.0000     
+ Mean   :0.2381   Mean   :0.2063     Mean   :0.1905     Mean   :0.1587     
+ 3rd Qu.:0.0000   3rd Qu.:0.0000     3rd Qu.:0.0000     3rd Qu.:0.0000     
+ Max.   :1.0000   Max.   :1.0000     Max.   :1.0000     Max.   :1.0000     
+  Carex.flacca    Gentiana.verna    Geranium.sylvaticum Ranunculus.nemorosus
+ Min.   :0.0000   Min.   :0.00000   Min.   :0.00000     Min.   :0.000       
+ 1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.00000     1st Qu.:0.000       
+ Median :0.0000   Median :0.00000   Median :0.00000     Median :0.000       
+ Mean   :0.1111   Mean   :0.03175   Mean   :0.04762     Mean   :0.381       
+ 3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.00000     3rd Qu.:1.000       
+ Max.   :1.0000   Max.   :1.00000   Max.   :1.00000     Max.   :1.000       
+ Linum.catharticum Cirsium.oleraceum Colchicum.autumnale Polygala.amarella
+ Min.   :0.000     Min.   :0.00000   Min.   :0.00000     Min.   :0.00000  
+ 1st Qu.:0.000     1st Qu.:0.00000   1st Qu.:0.00000     1st Qu.:0.00000  
+ Median :0.000     Median :0.00000   Median :0.00000     Median :0.00000  
+ Mean   :0.127     Mean   :0.03175   Mean   :0.03175     Mean   :0.04762  
+ 3rd Qu.:0.000     3rd Qu.:0.00000   3rd Qu.:0.00000     3rd Qu.:0.00000  
+ Max.   :1.000     Max.   :1.00000   Max.   :1.00000     Max.   :1.00000  
+ Polygala.serpyllifolia Equisetum.arvense Deschampsia.cespitosa
+ Min.   :0.00000        Min.   :0.0000    Min.   :0.00000      
+ 1st Qu.:0.00000        1st Qu.:0.0000    1st Qu.:0.00000      
+ Median :0.00000        Median :0.0000    Median :0.00000      
+ Mean   :0.03175        Mean   :0.2063    Mean   :0.06349      
+ 3rd Qu.:0.00000        3rd Qu.:0.0000    3rd Qu.:0.00000      
+ Max.   :1.00000        Max.   :1.0000    Max.   :1.00000      
+ Rhinanthus.minor  Gymnadenia.conopsea Melampyrum.pratense  Salix.spec.     
+ Min.   :0.00000   Min.   :0.0000      Min.   :0.00000     Min.   :0.00000  
+ 1st Qu.:0.00000   1st Qu.:0.0000      1st Qu.:0.00000     1st Qu.:0.00000  
+ Median :0.00000   Median :0.0000      Median :0.00000     Median :0.00000  
+ Mean   :0.06349   Mean   :0.1429      Mean   :0.03175     Mean   :0.03175  
+ 3rd Qu.:0.00000   3rd Qu.:0.0000      3rd Qu.:0.00000     3rd Qu.:0.00000  
+ Max.   :1.00000   Max.   :1.0000      Max.   :1.00000     Max.   :1.00000  
+ Caltha.palustris  Dactylorhiza.fistulosa Platanthera.bifolia
+ Min.   :0.00000   Min.   :0.00000        Min.   :0.00000    
+ 1st Qu.:0.00000   1st Qu.:0.00000        1st Qu.:0.00000    
+ Median :0.00000   Median :0.00000        Median :0.00000    
+ Mean   :0.04762   Mean   :0.06349        Mean   :0.09524    
+ 3rd Qu.:0.00000   3rd Qu.:0.00000        3rd Qu.:0.00000    
+ Max.   :1.00000   Max.   :1.00000        Max.   :1.00000    
+ Acer.pseudoplatanus Danthonia.decumbens Drepanocladus.spec. Tomentypnum.nitens
+ Min.   :0.00000     Min.   :0.00000     Min.   :0.00000     Min.   :0.00000   
+ 1st Qu.:0.00000     1st Qu.:0.00000     1st Qu.:0.00000     1st Qu.:0.00000   
+ Median :0.00000     Median :0.00000     Median :0.00000     Median :0.00000   
+ Mean   :0.06349     Mean   :0.06349     Mean   :0.03175     Mean   :0.03175   
+ 3rd Qu.:0.00000     3rd Qu.:0.00000     3rd Qu.:0.00000     3rd Qu.:0.00000   
+ Max.   :1.00000     Max.   :1.00000     Max.   :1.00000     Max.   :1.00000   
+ Ctenidium.molluscum
+ Min.   :0.00000    
+ 1st Qu.:0.00000    
+ Median :0.00000    
+ Mean   :0.03175    
+ 3rd Qu.:0.00000    
+ Max.   :1.00000    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sveg)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "Vaccinium.myrtillus"        "Vaccinium.uliginosum"      
+  [3] "Vaccinium.oxycoccos"        "Calluna.vulgaris"          
+  [5] "Carex.rostrata"             "Carex.lasiocarpa"          
+  [7] "Carex.nigra"                "Carex.davalliana"          
+  [9] "Carex.hostiana"             "Carex.pauciflora"          
+ [11] "Carex.echinata"             "Carex.panicea"             
+ [13] "Trichophorum.caespitosum"   "Trichophorum.alpinum"      
+ [15] "Eriophorum.vaginatum"       "Eriophorum.latifolium"     
+ [17] "Eriophorum.angustifolium"   "Tofieldia.calyculata"      
+ [19] "Pinguicula.vulgaris"        "Parnassia.palustris"       
+ [21] "Rhynchospora.alba"          "Drosera.rotundifolia"      
+ [23] "Arnica.montana"             "Dactylorhiza.maculata"     
+ [25] "Polytrichum.strictum"       "Succisa.pratensis"         
+ [27] "Anthoxanthum.odoratum"      "Molinia.caerulea"          
+ [29] "Gentiana.asclepiadea"       "Luzula.multiflora"         
+ [31] "Festuca.rubra"              "Potentilla.erecta"         
+ [33] "Sphagnum.magellanicum"      "Sphagnum.papillosum"       
+ [35] "Equisetum.palustre"         "Aulacomnium.palustre"      
+ [37] "Euphrasia.rostkoviana"      "Nardus.stricta"            
+ [39] "Carex.pulicaris"            "Climacium.dendroides"      
+ [41] "Carex.pallescens"           "Carex.lepidocarpa"         
+ [43] "Briza.media"                "Sphagnum.platyphyllum"     
+ [45] "Sphagnum.tenellum"          "Sphagnum.recurvum"         
+ [47] "Sphagnum.rubellum"          "Sphagnum.centrale"         
+ [49] "Sphagnum.subsecundum"       "Juncus.alpinoarticulatus"  
+ [51] "Solidago.virgaurea"         "Agrostis.canina"           
+ [53] "Juncus.effusus"             "Frangula.alnus"            
+ [55] "Anemone.nemorosa"           "Holcus.lanatus"            
+ [57] "Drepanocladus.exannulatus"  "Homogyne.alpina"           
+ [59] "Polygala.vulgaris"          "Trollius.europaeus"        
+ [61] "Polygonum.bistorta"         "Lotus.pedunculatus"        
+ [63] "Trifolium.pratense"         "Taraxacum.palustre"        
+ [65] "Campylium.stellatum"        "Cirsium.palustre"          
+ [67] "Lysimachia.vulgaris"        "Maianthemum.bifolium"      
+ [69] "Equisetum.sylvaticum"       "Centaurea.jacea"           
+ [71] "Prunella.grandiflora"       "Viola.palustris"           
+ [73] "Angelica.sylvestris"        "Filipendula.ulmaria"       
+ [75] "Thuidium.delicatulum"       "Sanguisorba.officinalis"   
+ [77] "Galium.uliginosum"          "Epipactis.palustris"       
+ [79] "Pleurozium.schreberi"       "Calliergon.stramineum"     
+ [81] "Aster.bellidiastrum"        "Hypnum.bambergeri"         
+ [83] "Drepanocladus.revolvens"    "Dicranum.bonjeanii"        
+ [85] "Dicranum.scoparium"         "Hylocomium.splendens"      
+ [87] "Rhytidiadelphus.squarrosus" "Calliergonella.cuspidata"  
+ [89] "Fissidens.adianthoides"     "Primula.veris"             
+ [91] "Primula.farinosa"           "Hieracium.lachenalii"      
+ [93] "Crepis.paludosa"            "Leontodon.hispidus"        
+ [95] "Lotus.corniculatus"         "Stachys.officinalis"       
+ [97] "Carex.flacca"               "Gentiana.verna"            
+ [99] "Geranium.sylvaticum"        "Ranunculus.nemorosus"      
+[101] "Linum.catharticum"          "Cirsium.oleraceum"         
+[103] "Colchicum.autumnale"        "Polygala.amarella"         
+[105] "Polygala.serpyllifolia"     "Equisetum.arvense"         
+[107] "Deschampsia.cespitosa"      "Rhinanthus.minor"          
+[109] "Gymnadenia.conopsea"        "Melampyrum.pratense"       
+[111] "Salix.spec."                "Caltha.palustris"          
+[113] "Dactylorhiza.fistulosa"     "Platanthera.bifolia"       
+[115] "Acer.pseudoplatanus"        "Danthonia.decumbens"       
+[117] "Drepanocladus.spec."        "Tomentypnum.nitens"        
+[119] "Ctenidium.molluscum"       </code></pre>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA: Deckungen Wurzeltransformiert, cor=T erzwingt Nutzung der Korrelationsmatrix</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">pca</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">cor =</span> T)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA: Deckungen Wurzeltransformiert, cor=TRUE erzwingt Nutzung der Korrelationsmatrix</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">pca</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">cor =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Koordinaten im Ordinationsraum</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>scores</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen der Variablen mit den Ordinationsachsen</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>loadings</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Koordinaten im Ordinationsraum</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>scores</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen der Variablen mit den Ordinationsachsen</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>loadings</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erklärte Varianz der Achsen in Prozent (sdev ist die Wurzel daraus)</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> pca<span class="fl">.5</span><span class="sc">$</span>totdev <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>E</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Erklärte Varianz der Achsen in Prozent (sdev ist die Wurzel daraus)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> pca<span class="fl">.5</span><span class="sc">$</span>totdev <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>E</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 2.061885e+01 8.098205e+00 6.070537e+00 3.666650e+00 3.322363e+00
  [6] 3.128942e+00 3.003875e+00 2.634636e+00 2.605558e+00 2.449637e+00
@@ -876,38 +1284,42 @@ Scaling 2 for species and site scores
 [56] 1.555571e-01 1.485298e-01 1.271079e-01 9.164615e-02 7.880113e-02
 [61] 5.913306e-02 5.113452e-02 4.066351e-30</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 20.618848  8.098205  6.070537  3.666650  3.322363</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Lage der Beobachtungen im Ordinationsraum</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">1</span>], pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlab =</span> <span class="st">"PC1"</span>, <span class="at">ylab =</span> <span class="st">"PC2"</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">1</span>], pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">18</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.5</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subjektive Auswahl von Arten zur Darstellung</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">23</span>, <span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">72</span>, <span class="dv">77</span>, <span class="dv">96</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">names</span>(sveg[,sel.sp])</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>snames</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Lage der Beobachtungen im Ordinationsraum</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">1</span>], pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlab =</span> <span class="st">"PC1"</span>, <span class="at">ylab =</span> <span class="st">"PC2"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">1</span>], pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">18</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subjektive Auswahl von Arten zur Darstellung</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">23</span>, <span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">72</span>, <span class="dv">77</span>, <span class="dv">96</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">names</span>(sveg[,sel.sp])</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>snames</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Vaccinium.oxycoccos" "Carex.echinata"      "Arnica.montana"     
 [4] "Carex.pulicaris"     "Sphagnum.recurvum"   "Viola.palustris"    
 [7] "Galium.uliginosum"   "Stachys.officinalis"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Korrelationen der Variablen (hier Arten) mit den Achsen (h)</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>loadings[,<span class="dv">2</span>]</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Korrelationen der Variablen (hier Arten) mit den Achsen (h)</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>loadings[,<span class="dv">2</span>]</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit vegan</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">rda</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Erklärte Varianz der Achsen</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.6</span>, <span class="at">axes =</span> <span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit vegan</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">rda</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Erklärte Varianz der Achsen</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.6</span>, <span class="at">axes =</span> <span class="dv">0</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -967,60 +1379,60 @@ Scaling 2 for species and site scores
 * Sites are unscaled: weighted dispersion equal on all dimensions
 * General scaling constant of scores:  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Lage der Beobachtungen im Ordinationsraum</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.6</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"points"</span>, <span class="at">scaling =</span> <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Lage der Beobachtungen im Ordinationsraum</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.6</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"points"</span>, <span class="at">scaling =</span> <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid" width="672"></p>
+<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subjektive Auswahl von Arten zur Darstellung</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">23</span>, <span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">72</span>, <span class="dv">77</span>, <span class="dv">96</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">names</span>(sveg[,sel.sp])</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>snames</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subjektive Auswahl von Arten zur Darstellung</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">23</span>, <span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">72</span>, <span class="dv">77</span>, <span class="dv">96</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">names</span>(sveg[,sel.sp])</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>snames</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Vaccinium.oxycoccos" "Carex.echinata"      "Arnica.montana"     
 [4] "Carex.pulicaris"     "Sphagnum.recurvum"   "Viola.palustris"    
 [7] "Galium.uliginosum"   "Stachys.officinalis"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Korrelationen der Variablen (hier Arten) mit den Achsen (h)</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(pca<span class="fl">.6</span>, <span class="at">display =</span> <span class="st">"species"</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> scores[,<span class="dv">1</span>]</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> scores[,<span class="dv">2</span>]</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit angepassten Achsen</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.6</span>, <span class="fl">0.6</span>))</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Korrelationen der Variablen (hier Arten) mit den Achsen (h)</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(pca<span class="fl">.6</span>, <span class="at">display =</span> <span class="st">"species"</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> scores[,<span class="dv">1</span>]</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> scores[,<span class="dv">2</span>]</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-5-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit angepassten Achsen</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.6</span>, <span class="fl">0.6</span>))</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-5-6.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="ca" class="level3">
 <h3 class="anchored" data-anchor-id="ca">CA</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Arten (o) und Communities (+) plotten</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Arten (o) und Communities (+) plotten</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nur Arten plotten</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca<span class="fl">.1</span>, <span class="at">display =</span> <span class="st">"species"</span>, <span class="at">type =</span> <span class="st">"points"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nur Arten plotten</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca<span class="fl">.1</span>, <span class="at">display =</span> <span class="st">"species"</span>, <span class="at">type =</span> <span class="st">"points"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Anteilige Varianz, die durch die ersten beiden Achsen erklärt wird</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span><span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(ca<span class="fl">.1</span><span class="sc">$</span>CA<span class="sc">$</span>eig)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Anteilige Varianz, die durch die ersten beiden Achsen erklärt wird</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span><span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(ca<span class="fl">.1</span><span class="sc">$</span>CA<span class="sc">$</span>eig)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      CA1       CA2 
 0.1938717 0.0784178 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">eigenvals</span>(ca<span class="fl">.1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">eigenvals</span>(ca<span class="fl">.1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Importance of components:
                          CA1     CA2     CA3     CA4     CA5     CA6     CA7
@@ -1069,14 +1481,14 @@ Cumulative Proportion 0.9981544 0.9989660 0.9995093 1.0000000</code></pre>
 <section id="dca" class="level3">
 <h3 class="anchored" data-anchor-id="dca">DCA</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>dca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">decorana</span>(sveg, <span class="at">mk =</span> <span class="dv">10</span>)</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dca<span class="fl">.1</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"point"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>dca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">decorana</span>(sveg, <span class="at">mk =</span> <span class="dv">10</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dca<span class="fl">.1</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"point"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>dca<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">decorana</span>(sveg, <span class="at">mk =</span> <span class="dv">100</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dca<span class="fl">.2</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"point"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>dca<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">decorana</span>(sveg, <span class="at">mk =</span> <span class="dv">100</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dca<span class="fl">.2</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"point"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
 </div>
@@ -1085,17 +1497,17 @@ Cumulative Proportion 0.9981544 0.9989660 0.9995093 1.0000000</code></pre>
 <section id="nmds" class="level3">
 <h3 class="anchored" data-anchor-id="nmds">NMDS</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distanzmatrix als Start erzeugen</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(sveg, <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative mit einem für Vegetationsdaten häufig verwendeten Dissimilarity-index</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(sveg, <span class="at">method =</span> <span class="st">"bray"</span>)</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Z wei verschiedene NMDS-Methoden</span></span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MASS)){<span class="fu">install.packages</span>(<span class="st">"MASS"</span>)}</span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will</span></span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>imds <span class="ot">&lt;-</span> <span class="fu">isoMDS</span>(mde, <span class="at">k =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distanzmatrix als Start erzeugen (PCA)</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(sveg, <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative mit einem für Vegetationsdaten häufig verwendeten Dissimilarity-index</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(sveg, <span class="at">method =</span> <span class="st">"bray"</span>)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Z wei verschiedene NMDS-Methoden</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MASS)){<span class="fu">install.packages</span>(<span class="st">"MASS"</span>)}</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will</span></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>imds <span class="ot">&lt;-</span> <span class="fu">isoMDS</span>(mde, <span class="at">k =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>initial  value 16.524491 
 iter   5 value 12.518681
@@ -1105,8 +1517,8 @@ iter  10 value 12.020751
 final  value 12.020751 
 converged</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>mmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(mde, <span class="at">k =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>mmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(mde, <span class="at">k =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Run 0 stress 0.1179909 
 Run 1 stress 0.1179909 
@@ -1147,20 +1559,20 @@ Run 20 stress 0.1179909
 ... Similar to previous best
 *** Solution reached</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imds<span class="sc">$</span>points)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imds<span class="sc">$</span>points)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mmds<span class="sc">$</span>points)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mmds<span class="sc">$</span>points)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Stress = S² = Abweichung der zweidimensionalen NMDS-Lösung von der originalen Distanzmatrix</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(imds, mde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Stress = S² = Abweichung der zweidimensionalen NMDS-Lösung von der originalen Distanzmatrix</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(imds, mde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(mmds, mde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(mmds, mde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik6_Demo_files/figure-html/unnamed-chunk-8-4.png" class="img-fluid" width="672"></p>
 </div>
@@ -1484,230 +1896,230 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb53" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-15</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat6</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Einführung in "multivariate" Methoden</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat6: Demo</span></span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ordinationen I</span></span>
-<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a><span class="fu">### PCA</span></span>
-<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(labdsv)){<span class="fu">install.packages</span>(<span class="st">"labdsv"</span>)}</span>
-<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labdsv)</span>
-<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Für Ordinationen benötigen wir Matrizen, nicht Dataframes</span></span>
-<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Generieren von Daten</span></span>
-<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>), <span class="at">nrow =</span> <span class="dv">6</span>)</span>
-<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Art1"</span>, <span class="st">"Art2"</span>)</span>
-<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Ort1"</span>, <span class="st">"Ort2"</span>, <span class="st">"Ort3"</span>, <span class="st">"Ort4"</span>, <span class="st">"Ort5"</span>, <span class="st">"Ort6"</span>)</span>
-<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a>raw</span>
-<span id="cb53-32"><a href="#cb53-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-33"><a href="#cb53-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Originaldaten für Plot separieren</span></span>
-<span id="cb53-34"><a href="#cb53-34" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> raw[,<span class="dv">1</span>]</span>
-<span id="cb53-35"><a href="#cb53-35" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> raw[,<span class="dv">2</span>]</span>
-<span id="cb53-36"><a href="#cb53-36" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)) </span>
-<span id="cb53-37"><a href="#cb53-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-38"><a href="#cb53-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Abhängigkeit der Arten vom Umweltgradienten</span></span>
-<span id="cb53-39"><a href="#cb53-39" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(x1, y1)<span class="sc">~</span><span class="fu">c</span>(z, z), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">axes =</span> T, <span class="at">bty =</span> <span class="st">"l"</span>, </span>
-<span id="cb53-40"><a href="#cb53-40" aria-hidden="true" tabindex="-1"></a>     <span class="at">las =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>),</span>
-<span id="cb53-41"><a href="#cb53-41" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Umweltgradient"</span>, <span class="at">ylab =</span> <span class="st">"Deckung der Arten"</span>)</span>
-<span id="cb53-42"><a href="#cb53-42" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x1<span class="sc">~</span>z, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">type =</span> <span class="st">"b"</span>)</span>
-<span id="cb53-43"><a href="#cb53-43" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>z, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">type =</span> <span class="st">"b"</span>)</span>
-<span id="cb53-44"><a href="#cb53-44" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="st">"Art 1"</span>, <span class="at">col =</span> <span class="st">"darkgray"</span>)</span>
-<span id="cb53-45"><a href="#cb53-45" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.5</span>, <span class="fl">0.5</span>, <span class="st">"Art 2"</span>, <span class="at">col =</span> <span class="st">"darkgray"</span>)</span>
-<span id="cb53-46"><a href="#cb53-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-47"><a href="#cb53-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten zentrieren</span></span>
-<span id="cb53-48"><a href="#cb53-48" aria-hidden="true" tabindex="-1"></a><span class="co"># d.h. transformieren so, dass Mittelwert = 0</span></span>
-<span id="cb53-49"><a href="#cb53-49" aria-hidden="true" tabindex="-1"></a>cent <span class="ot">&lt;-</span> <span class="fu">scale</span>(raw, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb53-50"><a href="#cb53-50" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> cent[,<span class="dv">1</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
-<span id="cb53-51"><a href="#cb53-51" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> cent[,<span class="dv">2</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
-<span id="cb53-52"><a href="#cb53-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-53"><a href="#cb53-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten zusätzlich rotieren </span></span>
-<span id="cb53-54"><a href="#cb53-54" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA zentriert und rotiert Daten</span></span>
-<span id="cb53-55"><a href="#cb53-55" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(raw)</span>
-<span id="cb53-56"><a href="#cb53-56" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
-<span id="cb53-57"><a href="#cb53-57" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">2</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
-<span id="cb53-58"><a href="#cb53-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-59"><a href="#cb53-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung der Schritte im Ordinationsraum</span></span>
-<span id="cb53-60"><a href="#cb53-60" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(y1, y2, y3)<span class="sc">~</span><span class="fu">c</span>(x1, x2, x3), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">axes =</span> T, <span class="at">bty =</span> <span class="st">"l"</span>, <span class="at">las =</span> <span class="dv">1</span>,</span>
-<span id="cb53-61"><a href="#cb53-61" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>), <span class="at">xlab =</span> <span class="st">"Art 1"</span>, <span class="at">ylab=</span>  <span class="st">"Art 2"</span>)</span>
-<span id="cb53-62"><a href="#cb53-62" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>x1, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">col =</span> <span class="st">"green"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb53-63"><a href="#cb53-63" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">2.5</span>, <span class="dv">4</span>, <span class="st">"Originaldaten"</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb53-64"><a href="#cb53-64" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y2<span class="sc">~</span>x2, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">type =</span> <span class="st">"b"</span>,<span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb53-65"><a href="#cb53-65" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="st">"Zentriert"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb53-66"><a href="#cb53-66" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y3<span class="sc">~</span>x3, <span class="at">pch =</span> <span class="dv">17</span>, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb53-67"><a href="#cb53-67" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">2.5</span>, <span class="dv">3</span>, <span class="st">"Zentriert &amp; rotiert"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb53-68"><a href="#cb53-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-69"><a href="#cb53-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-70"><a href="#cb53-70" aria-hidden="true" tabindex="-1"></a><span class="co"># Durchführung der PCA</span></span>
-<span id="cb53-71"><a href="#cb53-71" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(raw)</span>
-<span id="cb53-72"><a href="#cb53-72" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.pca)</span>
-<span id="cb53-73"><a href="#cb53-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-74"><a href="#cb53-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Koordinaten im Ordinationsraum</span></span>
-<span id="cb53-75"><a href="#cb53-75" aria-hidden="true" tabindex="-1"></a>o.pca<span class="sc">$</span>scores</span>
-<span id="cb53-76"><a href="#cb53-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-77"><a href="#cb53-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen der Variablen mit den Ordinationsachsen</span></span>
-<span id="cb53-78"><a href="#cb53-78" aria-hidden="true" tabindex="-1"></a>o.pca<span class="sc">$</span>loadings</span>
-<span id="cb53-79"><a href="#cb53-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-80"><a href="#cb53-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Erklärte Varianz der Achsen</span></span>
-<span id="cb53-81"><a href="#cb53-81" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> o.pca<span class="sc">$</span>totdev <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb53-82"><a href="#cb53-82" aria-hidden="true" tabindex="-1"></a>E</span>
-<span id="cb53-83"><a href="#cb53-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-84"><a href="#cb53-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisieren mit prcomp</span></span>
-<span id="cb53-85"><a href="#cb53-85" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(raw, <span class="at">scale =</span> F)</span>
-<span id="cb53-86"><a href="#cb53-86" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.2</span>)</span>
-<span id="cb53-87"><a href="#cb53-87" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.2</span>) <span class="co"># </span></span>
-<span id="cb53-88"><a href="#cb53-88" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.2</span>)</span>
-<span id="cb53-89"><a href="#cb53-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-90"><a href="#cb53-90" aria-hidden="true" tabindex="-1"></a><span class="co"># mit vegan</span></span>
-<span id="cb53-91"><a href="#cb53-91" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(vegan)){<span class="fu">install.packages</span>(<span class="st">"vegan"</span>)}</span>
-<span id="cb53-92"><a href="#cb53-92" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span>
-<span id="cb53-93"><a href="#cb53-93" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Funktion rda führt ein PCA aus an wenn nicht Artdaten UND Umweltdaten definiert werden</span></span>
-<span id="cb53-94"><a href="#cb53-94" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">rda</span>(raw, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb53-95"><a href="#cb53-95" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3, display = c("sites"))</span></span>
-<span id="cb53-96"><a href="#cb53-96" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3, display = c("species"))</span></span>
-<span id="cb53-97"><a href="#cb53-97" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.3</span>, <span class="at">axes =</span> <span class="dv">0</span>)</span>
-<span id="cb53-98"><a href="#cb53-98" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.3</span>)</span>
-<span id="cb53-99"><a href="#cb53-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-100"><a href="#cb53-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-101"><a href="#cb53-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-102"><a href="#cb53-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-105"><a href="#cb53-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-106"><a href="#cb53-106" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit Beispieldaten aus Wildi</span></span>
-<span id="cb53-107"><a href="#cb53-107" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dave)){<span class="fu">install.packages</span>(<span class="st">"dave"</span>)}</span>
-<span id="cb53-108"><a href="#cb53-108" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave)</span>
-<span id="cb53-109"><a href="#cb53-109" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb53-110"><a href="#cb53-110" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sveg)</span>
-<span id="cb53-111"><a href="#cb53-111" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sveg)</span>
-<span id="cb53-112"><a href="#cb53-112" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sveg)</span>
-<span id="cb53-113"><a href="#cb53-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-114"><a href="#cb53-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-117"><a href="#cb53-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-118"><a href="#cb53-118" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA: Deckungen Wurzeltransformiert, cor=TRUE erzwingt Nutzung der Korrelationsmatrix</span></span>
-<span id="cb53-119"><a href="#cb53-119" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">pca</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">cor =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb53-120"><a href="#cb53-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-121"><a href="#cb53-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-124"><a href="#cb53-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-125"><a href="#cb53-125" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb53-126"><a href="#cb53-126" aria-hidden="true" tabindex="-1"></a><span class="co"># Koordinaten im Ordinationsraum</span></span>
-<span id="cb53-127"><a href="#cb53-127" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>scores</span>
-<span id="cb53-128"><a href="#cb53-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-129"><a href="#cb53-129" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen der Variablen mit den Ordinationsachsen</span></span>
-<span id="cb53-130"><a href="#cb53-130" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>loadings</span>
-<span id="cb53-131"><a href="#cb53-131" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-132"><a href="#cb53-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-135"><a href="#cb53-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-136"><a href="#cb53-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Erklärte Varianz der Achsen in Prozent (sdev ist die Wurzel daraus)</span></span>
-<span id="cb53-137"><a href="#cb53-137" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> pca<span class="fl">.5</span><span class="sc">$</span>totdev <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb53-138"><a href="#cb53-138" aria-hidden="true" tabindex="-1"></a>E</span>
-<span id="cb53-139"><a href="#cb53-139" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb53-140"><a href="#cb53-140" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.5</span>)</span>
-<span id="cb53-141"><a href="#cb53-141" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Lage der Beobachtungen im Ordinationsraum</span></span>
-<span id="cb53-142"><a href="#cb53-142" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">1</span>], pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlab =</span> <span class="st">"PC1"</span>, <span class="at">ylab =</span> <span class="st">"PC2"</span>)</span>
-<span id="cb53-143"><a href="#cb53-143" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">1</span>], pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">18</span>)</span>
-<span id="cb53-144"><a href="#cb53-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-145"><a href="#cb53-145" aria-hidden="true" tabindex="-1"></a><span class="co"># Subjektive Auswahl von Arten zur Darstellung</span></span>
-<span id="cb53-146"><a href="#cb53-146" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">23</span>, <span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">72</span>, <span class="dv">77</span>, <span class="dv">96</span>)</span>
-<span id="cb53-147"><a href="#cb53-147" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">names</span>(sveg[,sel.sp])</span>
-<span id="cb53-148"><a href="#cb53-148" aria-hidden="true" tabindex="-1"></a>snames</span>
-<span id="cb53-149"><a href="#cb53-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-150"><a href="#cb53-150" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Korrelationen der Variablen (hier Arten) mit den Achsen (h)</span></span>
-<span id="cb53-151"><a href="#cb53-151" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
-<span id="cb53-152"><a href="#cb53-152" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>loadings[,<span class="dv">2</span>]</span>
-<span id="cb53-153"><a href="#cb53-153" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
-<span id="cb53-154"><a href="#cb53-154" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
-<span id="cb53-155"><a href="#cb53-155" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
-<span id="cb53-156"><a href="#cb53-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-157"><a href="#cb53-157" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit vegan</span></span>
-<span id="cb53-158"><a href="#cb53-158" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">rda</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb53-159"><a href="#cb53-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Erklärte Varianz der Achsen</span></span>
-<span id="cb53-160"><a href="#cb53-160" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.6</span>, <span class="at">axes =</span> <span class="dv">0</span>)</span>
-<span id="cb53-161"><a href="#cb53-161" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Lage der Beobachtungen im Ordinationsraum</span></span>
-<span id="cb53-162"><a href="#cb53-162" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.6</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"points"</span>, <span class="at">scaling =</span> <span class="dv">1</span>)</span>
-<span id="cb53-163"><a href="#cb53-163" aria-hidden="true" tabindex="-1"></a><span class="co"># Subjektive Auswahl von Arten zur Darstellung</span></span>
-<span id="cb53-164"><a href="#cb53-164" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">23</span>, <span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">72</span>, <span class="dv">77</span>, <span class="dv">96</span>)</span>
-<span id="cb53-165"><a href="#cb53-165" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">names</span>(sveg[,sel.sp])</span>
-<span id="cb53-166"><a href="#cb53-166" aria-hidden="true" tabindex="-1"></a>snames</span>
-<span id="cb53-167"><a href="#cb53-167" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Korrelationen der Variablen (hier Arten) mit den Achsen (h)</span></span>
-<span id="cb53-168"><a href="#cb53-168" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(pca<span class="fl">.6</span>, <span class="at">display =</span> <span class="st">"species"</span>)</span>
-<span id="cb53-169"><a href="#cb53-169" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> scores[,<span class="dv">1</span>]</span>
-<span id="cb53-170"><a href="#cb53-170" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> scores[,<span class="dv">2</span>]</span>
-<span id="cb53-171"><a href="#cb53-171" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
-<span id="cb53-172"><a href="#cb53-172" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
-<span id="cb53-173"><a href="#cb53-173" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
-<span id="cb53-174"><a href="#cb53-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-175"><a href="#cb53-175" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit angepassten Achsen</span></span>
-<span id="cb53-176"><a href="#cb53-176" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.6</span>, <span class="fl">0.6</span>))</span>
-<span id="cb53-177"><a href="#cb53-177" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
-<span id="cb53-178"><a href="#cb53-178" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
-<span id="cb53-179"><a href="#cb53-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-180"><a href="#cb53-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-181"><a href="#cb53-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-182"><a href="#cb53-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-183"><a href="#cb53-183" aria-hidden="true" tabindex="-1"></a><span class="fu">### CA</span></span>
-<span id="cb53-184"><a href="#cb53-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-187"><a href="#cb53-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-188"><a href="#cb53-188" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>)</span>
-<span id="cb53-189"><a href="#cb53-189" aria-hidden="true" tabindex="-1"></a><span class="co"># Arten (o) und Communities (+) plotten</span></span>
-<span id="cb53-190"><a href="#cb53-190" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca<span class="fl">.1</span>)</span>
-<span id="cb53-191"><a href="#cb53-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-192"><a href="#cb53-192" aria-hidden="true" tabindex="-1"></a><span class="co"># Nur Arten plotten</span></span>
-<span id="cb53-193"><a href="#cb53-193" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca<span class="fl">.1</span>, <span class="at">display =</span> <span class="st">"species"</span>, <span class="at">type =</span> <span class="st">"points"</span>)</span>
-<span id="cb53-194"><a href="#cb53-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-195"><a href="#cb53-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-196"><a href="#cb53-196" aria-hidden="true" tabindex="-1"></a><span class="co"># Anteilige Varianz, die durch die ersten beiden Achsen erklärt wird</span></span>
-<span id="cb53-197"><a href="#cb53-197" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span><span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(ca<span class="fl">.1</span><span class="sc">$</span>CA<span class="sc">$</span>eig)</span>
-<span id="cb53-198"><a href="#cb53-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-199"><a href="#cb53-199" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">eigenvals</span>(ca<span class="fl">.1</span>))</span>
-<span id="cb53-200"><a href="#cb53-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-201"><a href="#cb53-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-202"><a href="#cb53-202" aria-hidden="true" tabindex="-1"></a><span class="fu">### DCA</span></span>
-<span id="cb53-203"><a href="#cb53-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-206"><a href="#cb53-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-207"><a href="#cb53-207" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
-<span id="cb53-208"><a href="#cb53-208" aria-hidden="true" tabindex="-1"></a>dca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">decorana</span>(sveg, <span class="at">mk =</span> <span class="dv">10</span>)</span>
-<span id="cb53-209"><a href="#cb53-209" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dca<span class="fl">.1</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"point"</span>)</span>
-<span id="cb53-210"><a href="#cb53-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-211"><a href="#cb53-211" aria-hidden="true" tabindex="-1"></a>dca<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">decorana</span>(sveg, <span class="at">mk =</span> <span class="dv">100</span>)</span>
-<span id="cb53-212"><a href="#cb53-212" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dca<span class="fl">.2</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"point"</span>)</span>
-<span id="cb53-213"><a href="#cb53-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-214"><a href="#cb53-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-215"><a href="#cb53-215" aria-hidden="true" tabindex="-1"></a><span class="fu">### NMDS</span></span>
-<span id="cb53-216"><a href="#cb53-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-219"><a href="#cb53-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-220"><a href="#cb53-220" aria-hidden="true" tabindex="-1"></a><span class="co"># Distanzmatrix als Start erzeugen (PCA)</span></span>
-<span id="cb53-221"><a href="#cb53-221" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(sveg, <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
-<span id="cb53-222"><a href="#cb53-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-223"><a href="#cb53-223" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative mit einem für Vegetationsdaten häufig verwendeten Dissimilarity-index</span></span>
-<span id="cb53-224"><a href="#cb53-224" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(sveg, <span class="at">method =</span> <span class="st">"bray"</span>)</span>
-<span id="cb53-225"><a href="#cb53-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-226"><a href="#cb53-226" aria-hidden="true" tabindex="-1"></a><span class="co">#Z wei verschiedene NMDS-Methoden</span></span>
-<span id="cb53-227"><a href="#cb53-227" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MASS)){<span class="fu">install.packages</span>(<span class="st">"MASS"</span>)}</span>
-<span id="cb53-228"><a href="#cb53-228" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb53-229"><a href="#cb53-229" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will</span></span>
-<span id="cb53-230"><a href="#cb53-230" aria-hidden="true" tabindex="-1"></a>imds <span class="ot">&lt;-</span> <span class="fu">isoMDS</span>(mde, <span class="at">k =</span> <span class="dv">2</span>)</span>
-<span id="cb53-231"><a href="#cb53-231" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb53-232"><a href="#cb53-232" aria-hidden="true" tabindex="-1"></a>mmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(mde, <span class="at">k =</span> <span class="dv">2</span>)</span>
-<span id="cb53-233"><a href="#cb53-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-234"><a href="#cb53-234" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imds<span class="sc">$</span>points)</span>
-<span id="cb53-235"><a href="#cb53-235" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mmds<span class="sc">$</span>points)</span>
-<span id="cb53-236"><a href="#cb53-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-237"><a href="#cb53-237" aria-hidden="true" tabindex="-1"></a><span class="co">#Stress = S² = Abweichung der zweidimensionalen NMDS-Lösung von der originalen Distanzmatrix</span></span>
-<span id="cb53-238"><a href="#cb53-238" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(imds, mde)</span>
-<span id="cb53-239"><a href="#cb53-239" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(mmds, mde)</span>
-<span id="cb53-240"><a href="#cb53-240" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb59" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2022-11-15</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat6</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Einführung in "multivariate" Methoden</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat6: Demo</span></span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ordinationen I</span></span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a><span class="fu">### PCA</span></span>
+<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(labdsv)){<span class="fu">install.packages</span>(<span class="st">"labdsv"</span>)}</span>
+<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labdsv)</span>
+<span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-26"><a href="#cb59-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Für Ordinationen benötigen wir Matrizen, nicht Dataframes</span></span>
+<span id="cb59-27"><a href="#cb59-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Generieren von Daten</span></span>
+<span id="cb59-28"><a href="#cb59-28" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>), <span class="at">nrow =</span> <span class="dv">6</span>)</span>
+<span id="cb59-29"><a href="#cb59-29" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Art1"</span>, <span class="st">"Art2"</span>)</span>
+<span id="cb59-30"><a href="#cb59-30" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(raw) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Ort1"</span>, <span class="st">"Ort2"</span>, <span class="st">"Ort3"</span>, <span class="st">"Ort4"</span>, <span class="st">"Ort5"</span>, <span class="st">"Ort6"</span>)</span>
+<span id="cb59-31"><a href="#cb59-31" aria-hidden="true" tabindex="-1"></a>raw</span>
+<span id="cb59-32"><a href="#cb59-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-33"><a href="#cb59-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Originaldaten für Plot separieren</span></span>
+<span id="cb59-34"><a href="#cb59-34" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> raw[,<span class="dv">1</span>]</span>
+<span id="cb59-35"><a href="#cb59-35" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> raw[,<span class="dv">2</span>]</span>
+<span id="cb59-36"><a href="#cb59-36" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)) </span>
+<span id="cb59-37"><a href="#cb59-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-38"><a href="#cb59-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Abhängigkeit der Arten vom Umweltgradienten</span></span>
+<span id="cb59-39"><a href="#cb59-39" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(x1, y1)<span class="sc">~</span><span class="fu">c</span>(z, z), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">axes =</span> T, <span class="at">bty =</span> <span class="st">"l"</span>, </span>
+<span id="cb59-40"><a href="#cb59-40" aria-hidden="true" tabindex="-1"></a>     <span class="at">las =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>),</span>
+<span id="cb59-41"><a href="#cb59-41" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Umweltgradient"</span>, <span class="at">ylab =</span> <span class="st">"Deckung der Arten"</span>)</span>
+<span id="cb59-42"><a href="#cb59-42" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x1<span class="sc">~</span>z, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">type =</span> <span class="st">"b"</span>)</span>
+<span id="cb59-43"><a href="#cb59-43" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>z, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">type =</span> <span class="st">"b"</span>)</span>
+<span id="cb59-44"><a href="#cb59-44" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="st">"Art 1"</span>, <span class="at">col =</span> <span class="st">"darkgray"</span>)</span>
+<span id="cb59-45"><a href="#cb59-45" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">1.5</span>, <span class="fl">0.5</span>, <span class="st">"Art 2"</span>, <span class="at">col =</span> <span class="st">"darkgray"</span>)</span>
+<span id="cb59-46"><a href="#cb59-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-47"><a href="#cb59-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten zentrieren</span></span>
+<span id="cb59-48"><a href="#cb59-48" aria-hidden="true" tabindex="-1"></a><span class="co"># d.h. transformieren so, dass Mittelwert = 0</span></span>
+<span id="cb59-49"><a href="#cb59-49" aria-hidden="true" tabindex="-1"></a>cent <span class="ot">&lt;-</span> <span class="fu">scale</span>(raw, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb59-50"><a href="#cb59-50" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> cent[,<span class="dv">1</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
+<span id="cb59-51"><a href="#cb59-51" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> cent[,<span class="dv">2</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
+<span id="cb59-52"><a href="#cb59-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-53"><a href="#cb59-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten zusätzlich rotieren </span></span>
+<span id="cb59-54"><a href="#cb59-54" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA zentriert und rotiert Daten</span></span>
+<span id="cb59-55"><a href="#cb59-55" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(raw)</span>
+<span id="cb59-56"><a href="#cb59-56" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">1</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
+<span id="cb59-57"><a href="#cb59-57" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>scores[,<span class="dv">2</span>] <span class="co"># für nachfolgenden Plot speichern</span></span>
+<span id="cb59-58"><a href="#cb59-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-59"><a href="#cb59-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung der Schritte im Ordinationsraum</span></span>
+<span id="cb59-60"><a href="#cb59-60" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(y1, y2, y3)<span class="sc">~</span><span class="fu">c</span>(x1, x2, x3), <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">axes =</span> T, <span class="at">bty =</span> <span class="st">"l"</span>, <span class="at">las =</span> <span class="dv">1</span>,</span>
+<span id="cb59-61"><a href="#cb59-61" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>), <span class="at">xlab =</span> <span class="st">"Art 1"</span>, <span class="at">ylab=</span>  <span class="st">"Art 2"</span>)</span>
+<span id="cb59-62"><a href="#cb59-62" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y1<span class="sc">~</span>x1, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">col =</span> <span class="st">"green"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb59-63"><a href="#cb59-63" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">2.5</span>, <span class="dv">4</span>, <span class="st">"Originaldaten"</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb59-64"><a href="#cb59-64" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y2<span class="sc">~</span>x2, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">type =</span> <span class="st">"b"</span>,<span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb59-65"><a href="#cb59-65" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="st">"Zentriert"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb59-66"><a href="#cb59-66" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y3<span class="sc">~</span>x3, <span class="at">pch =</span> <span class="dv">17</span>, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb59-67"><a href="#cb59-67" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">2.5</span>, <span class="dv">3</span>, <span class="st">"Zentriert &amp; rotiert"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb59-68"><a href="#cb59-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-69"><a href="#cb59-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-70"><a href="#cb59-70" aria-hidden="true" tabindex="-1"></a><span class="co"># Durchführung der PCA</span></span>
+<span id="cb59-71"><a href="#cb59-71" aria-hidden="true" tabindex="-1"></a>o.pca <span class="ot">&lt;-</span> <span class="fu">pca</span>(raw)</span>
+<span id="cb59-72"><a href="#cb59-72" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(o.pca)</span>
+<span id="cb59-73"><a href="#cb59-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-74"><a href="#cb59-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Koordinaten im Ordinationsraum</span></span>
+<span id="cb59-75"><a href="#cb59-75" aria-hidden="true" tabindex="-1"></a>o.pca<span class="sc">$</span>scores</span>
+<span id="cb59-76"><a href="#cb59-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-77"><a href="#cb59-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen der Variablen mit den Ordinationsachsen</span></span>
+<span id="cb59-78"><a href="#cb59-78" aria-hidden="true" tabindex="-1"></a>o.pca<span class="sc">$</span>loadings</span>
+<span id="cb59-79"><a href="#cb59-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-80"><a href="#cb59-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Erklärte Varianz der Achsen</span></span>
+<span id="cb59-81"><a href="#cb59-81" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> o.pca<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> o.pca<span class="sc">$</span>totdev <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb59-82"><a href="#cb59-82" aria-hidden="true" tabindex="-1"></a>E</span>
+<span id="cb59-83"><a href="#cb59-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-84"><a href="#cb59-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisieren mit prcomp</span></span>
+<span id="cb59-85"><a href="#cb59-85" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(raw, <span class="at">scale =</span> F)</span>
+<span id="cb59-86"><a href="#cb59-86" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.2</span>)</span>
+<span id="cb59-87"><a href="#cb59-87" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.2</span>) <span class="co"># </span></span>
+<span id="cb59-88"><a href="#cb59-88" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.2</span>)</span>
+<span id="cb59-89"><a href="#cb59-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-90"><a href="#cb59-90" aria-hidden="true" tabindex="-1"></a><span class="co"># mit vegan</span></span>
+<span id="cb59-91"><a href="#cb59-91" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(vegan)){<span class="fu">install.packages</span>(<span class="st">"vegan"</span>)}</span>
+<span id="cb59-92"><a href="#cb59-92" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span>
+<span id="cb59-93"><a href="#cb59-93" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Funktion rda führt ein PCA aus an wenn nicht Artdaten UND Umweltdaten definiert werden</span></span>
+<span id="cb59-94"><a href="#cb59-94" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">rda</span>(raw, <span class="at">scale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb59-95"><a href="#cb59-95" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3, display = c("sites"))</span></span>
+<span id="cb59-96"><a href="#cb59-96" aria-hidden="true" tabindex="-1"></a><span class="co">#scores(pca.3, display = c("species"))</span></span>
+<span id="cb59-97"><a href="#cb59-97" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.3</span>, <span class="at">axes =</span> <span class="dv">0</span>)</span>
+<span id="cb59-98"><a href="#cb59-98" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.3</span>)</span>
+<span id="cb59-99"><a href="#cb59-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-100"><a href="#cb59-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-101"><a href="#cb59-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-102"><a href="#cb59-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-105"><a href="#cb59-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-106"><a href="#cb59-106" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit Beispieldaten aus Wildi</span></span>
+<span id="cb59-107"><a href="#cb59-107" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dave)){<span class="fu">install.packages</span>(<span class="st">"dave"</span>)}</span>
+<span id="cb59-108"><a href="#cb59-108" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dave)</span>
+<span id="cb59-109"><a href="#cb59-109" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb59-110"><a href="#cb59-110" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sveg)</span>
+<span id="cb59-111"><a href="#cb59-111" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sveg)</span>
+<span id="cb59-112"><a href="#cb59-112" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sveg)</span>
+<span id="cb59-113"><a href="#cb59-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-114"><a href="#cb59-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-117"><a href="#cb59-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-118"><a href="#cb59-118" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA: Deckungen Wurzeltransformiert, cor=TRUE erzwingt Nutzung der Korrelationsmatrix</span></span>
+<span id="cb59-119"><a href="#cb59-119" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">pca</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">cor =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb59-120"><a href="#cb59-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-121"><a href="#cb59-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-124"><a href="#cb59-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-125"><a href="#cb59-125" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb59-126"><a href="#cb59-126" aria-hidden="true" tabindex="-1"></a><span class="co"># Koordinaten im Ordinationsraum</span></span>
+<span id="cb59-127"><a href="#cb59-127" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>scores</span>
+<span id="cb59-128"><a href="#cb59-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-129"><a href="#cb59-129" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen der Variablen mit den Ordinationsachsen</span></span>
+<span id="cb59-130"><a href="#cb59-130" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>loadings</span>
+<span id="cb59-131"><a href="#cb59-131" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-132"><a href="#cb59-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-135"><a href="#cb59-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-136"><a href="#cb59-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Erklärte Varianz der Achsen in Prozent (sdev ist die Wurzel daraus)</span></span>
+<span id="cb59-137"><a href="#cb59-137" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> pca<span class="fl">.5</span><span class="sc">$</span>totdev <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb59-138"><a href="#cb59-138" aria-hidden="true" tabindex="-1"></a>E</span>
+<span id="cb59-139"><a href="#cb59-139" aria-hidden="true" tabindex="-1"></a>E[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb59-140"><a href="#cb59-140" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.5</span>)</span>
+<span id="cb59-141"><a href="#cb59-141" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Lage der Beobachtungen im Ordinationsraum</span></span>
+<span id="cb59-142"><a href="#cb59-142" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">1</span>], pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlab =</span> <span class="st">"PC1"</span>, <span class="at">ylab =</span> <span class="st">"PC2"</span>)</span>
+<span id="cb59-143"><a href="#cb59-143" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">1</span>], pca<span class="fl">.5</span><span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">18</span>)</span>
+<span id="cb59-144"><a href="#cb59-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-145"><a href="#cb59-145" aria-hidden="true" tabindex="-1"></a><span class="co"># Subjektive Auswahl von Arten zur Darstellung</span></span>
+<span id="cb59-146"><a href="#cb59-146" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">23</span>, <span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">72</span>, <span class="dv">77</span>, <span class="dv">96</span>)</span>
+<span id="cb59-147"><a href="#cb59-147" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">names</span>(sveg[,sel.sp])</span>
+<span id="cb59-148"><a href="#cb59-148" aria-hidden="true" tabindex="-1"></a>snames</span>
+<span id="cb59-149"><a href="#cb59-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-150"><a href="#cb59-150" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Korrelationen der Variablen (hier Arten) mit den Achsen (h)</span></span>
+<span id="cb59-151"><a href="#cb59-151" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
+<span id="cb59-152"><a href="#cb59-152" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> pca<span class="fl">.5</span><span class="sc">$</span>loadings[,<span class="dv">2</span>]</span>
+<span id="cb59-153"><a href="#cb59-153" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb59-154"><a href="#cb59-154" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb59-155"><a href="#cb59-155" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb59-156"><a href="#cb59-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-157"><a href="#cb59-157" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit vegan</span></span>
+<span id="cb59-158"><a href="#cb59-158" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">rda</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb59-159"><a href="#cb59-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Erklärte Varianz der Achsen</span></span>
+<span id="cb59-160"><a href="#cb59-160" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca<span class="fl">.6</span>, <span class="at">axes =</span> <span class="dv">0</span>)</span>
+<span id="cb59-161"><a href="#cb59-161" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Lage der Beobachtungen im Ordinationsraum</span></span>
+<span id="cb59-162"><a href="#cb59-162" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca<span class="fl">.6</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"points"</span>, <span class="at">scaling =</span> <span class="dv">1</span>)</span>
+<span id="cb59-163"><a href="#cb59-163" aria-hidden="true" tabindex="-1"></a><span class="co"># Subjektive Auswahl von Arten zur Darstellung</span></span>
+<span id="cb59-164"><a href="#cb59-164" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">11</span>, <span class="dv">23</span>, <span class="dv">39</span>, <span class="dv">46</span>, <span class="dv">72</span>, <span class="dv">77</span>, <span class="dv">96</span>)</span>
+<span id="cb59-165"><a href="#cb59-165" aria-hidden="true" tabindex="-1"></a>snames <span class="ot">&lt;-</span> <span class="fu">names</span>(sveg[,sel.sp])</span>
+<span id="cb59-166"><a href="#cb59-166" aria-hidden="true" tabindex="-1"></a>snames</span>
+<span id="cb59-167"><a href="#cb59-167" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-Plot der Korrelationen der Variablen (hier Arten) mit den Achsen (h)</span></span>
+<span id="cb59-168"><a href="#cb59-168" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(pca<span class="fl">.6</span>, <span class="at">display =</span> <span class="st">"species"</span>)</span>
+<span id="cb59-169"><a href="#cb59-169" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> scores[,<span class="dv">1</span>]</span>
+<span id="cb59-170"><a href="#cb59-170" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> scores[,<span class="dv">2</span>]</span>
+<span id="cb59-171"><a href="#cb59-171" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb59-172"><a href="#cb59-172" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb59-173"><a href="#cb59-173" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb59-174"><a href="#cb59-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-175"><a href="#cb59-175" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit angepassten Achsen</span></span>
+<span id="cb59-176"><a href="#cb59-176" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.6</span>, <span class="fl">0.6</span>))</span>
+<span id="cb59-177"><a href="#cb59-177" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>,<span class="dv">0</span>, x[sel.sp], y[sel.sp], <span class="at">length =</span> <span class="fl">0.08</span>)</span>
+<span id="cb59-178"><a href="#cb59-178" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[sel.sp], y[sel.sp], snames, <span class="at">pos =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb59-179"><a href="#cb59-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-180"><a href="#cb59-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-181"><a href="#cb59-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-182"><a href="#cb59-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-183"><a href="#cb59-183" aria-hidden="true" tabindex="-1"></a><span class="fu">### CA</span></span>
+<span id="cb59-184"><a href="#cb59-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-187"><a href="#cb59-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-188"><a href="#cb59-188" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>)</span>
+<span id="cb59-189"><a href="#cb59-189" aria-hidden="true" tabindex="-1"></a><span class="co"># Arten (o) und Communities (+) plotten</span></span>
+<span id="cb59-190"><a href="#cb59-190" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca<span class="fl">.1</span>)</span>
+<span id="cb59-191"><a href="#cb59-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-192"><a href="#cb59-192" aria-hidden="true" tabindex="-1"></a><span class="co"># Nur Arten plotten</span></span>
+<span id="cb59-193"><a href="#cb59-193" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca<span class="fl">.1</span>, <span class="at">display =</span> <span class="st">"species"</span>, <span class="at">type =</span> <span class="st">"points"</span>)</span>
+<span id="cb59-194"><a href="#cb59-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-195"><a href="#cb59-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-196"><a href="#cb59-196" aria-hidden="true" tabindex="-1"></a><span class="co"># Anteilige Varianz, die durch die ersten beiden Achsen erklärt wird</span></span>
+<span id="cb59-197"><a href="#cb59-197" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span><span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(ca<span class="fl">.1</span><span class="sc">$</span>CA<span class="sc">$</span>eig)</span>
+<span id="cb59-198"><a href="#cb59-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-199"><a href="#cb59-199" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">eigenvals</span>(ca<span class="fl">.1</span>))</span>
+<span id="cb59-200"><a href="#cb59-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-201"><a href="#cb59-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-202"><a href="#cb59-202" aria-hidden="true" tabindex="-1"></a><span class="fu">### DCA</span></span>
+<span id="cb59-203"><a href="#cb59-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-206"><a href="#cb59-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-207"><a href="#cb59-207" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb59-208"><a href="#cb59-208" aria-hidden="true" tabindex="-1"></a>dca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">decorana</span>(sveg, <span class="at">mk =</span> <span class="dv">10</span>)</span>
+<span id="cb59-209"><a href="#cb59-209" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dca<span class="fl">.1</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"point"</span>)</span>
+<span id="cb59-210"><a href="#cb59-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-211"><a href="#cb59-211" aria-hidden="true" tabindex="-1"></a>dca<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">decorana</span>(sveg, <span class="at">mk =</span> <span class="dv">100</span>)</span>
+<span id="cb59-212"><a href="#cb59-212" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dca<span class="fl">.2</span>, <span class="at">display =</span> <span class="st">"sites"</span>, <span class="at">type =</span> <span class="st">"point"</span>)</span>
+<span id="cb59-213"><a href="#cb59-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-214"><a href="#cb59-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-215"><a href="#cb59-215" aria-hidden="true" tabindex="-1"></a><span class="fu">### NMDS</span></span>
+<span id="cb59-216"><a href="#cb59-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-219"><a href="#cb59-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-220"><a href="#cb59-220" aria-hidden="true" tabindex="-1"></a><span class="co"># Distanzmatrix als Start erzeugen (PCA)</span></span>
+<span id="cb59-221"><a href="#cb59-221" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(sveg, <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
+<span id="cb59-222"><a href="#cb59-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-223"><a href="#cb59-223" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative mit einem für Vegetationsdaten häufig verwendeten Dissimilarity-index</span></span>
+<span id="cb59-224"><a href="#cb59-224" aria-hidden="true" tabindex="-1"></a>mde <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(sveg, <span class="at">method =</span> <span class="st">"bray"</span>)</span>
+<span id="cb59-225"><a href="#cb59-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-226"><a href="#cb59-226" aria-hidden="true" tabindex="-1"></a><span class="co">#Z wei verschiedene NMDS-Methoden</span></span>
+<span id="cb59-227"><a href="#cb59-227" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MASS)){<span class="fu">install.packages</span>(<span class="st">"MASS"</span>)}</span>
+<span id="cb59-228"><a href="#cb59-228" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb59-229"><a href="#cb59-229" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># macht man, wenn man bei einer Wiederholung exakt die gleichen Ergebnisse will</span></span>
+<span id="cb59-230"><a href="#cb59-230" aria-hidden="true" tabindex="-1"></a>imds <span class="ot">&lt;-</span> <span class="fu">isoMDS</span>(mde, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb59-231"><a href="#cb59-231" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb59-232"><a href="#cb59-232" aria-hidden="true" tabindex="-1"></a>mmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(mde, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb59-233"><a href="#cb59-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-234"><a href="#cb59-234" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imds<span class="sc">$</span>points)</span>
+<span id="cb59-235"><a href="#cb59-235" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mmds<span class="sc">$</span>points)</span>
+<span id="cb59-236"><a href="#cb59-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-237"><a href="#cb59-237" aria-hidden="true" tabindex="-1"></a><span class="co">#Stress = S² = Abweichung der zweidimensionalen NMDS-Lösung von der originalen Distanzmatrix</span></span>
+<span id="cb59-238"><a href="#cb59-238" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(imds, mde)</span>
+<span id="cb59-239"><a href="#cb59-239" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(mmds, mde)</span>
+<span id="cb59-240"><a href="#cb59-240" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
