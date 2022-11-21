@@ -11,9 +11,9 @@ format:
 
 # Stat7: Demo
 
-- Download dieses Demoscript via "\</\>Code" (oben rechts)
-- Datensatz [Doubs.RData](https://moodle.zhaw.ch/mod/resource/view.php?id=606667)
-- Funktion [triplot.rda.R](triplot.rda.R)
+-   Download dieses Demoscript via "\</\>Code" (oben rechts)
+-   Datensatz [Doubs.RData](https://moodle.zhaw.ch/mod/resource/view.php?id=606667)
+-   Funktion [triplot.rda.R](triplot.rda.R)
 
 ## Ordinationen II
 
@@ -22,9 +22,17 @@ format:
 Wildi pp. 96 et seq.
 
 ```{r}
-## Plot Arten
+# Plot Arten
 if(!require(dave)){install.packages("dave")}
 library(dave)
+
+# Daten anschauen
+dim(sveg) # Vegetationsaufnahmen
+sveg[1:3, 1:3]
+dim(ssit) # Umweltvariablen
+ssit[1:3, 1:3]
+
+# CA rechnen
 ca <- cca(sveg^0.5)
 
 ## Plot mit ausgewählten Arten
@@ -39,63 +47,76 @@ points(sx, sy, pch = 16)
 snames <- make.cepnames(snames)
 text(sx, sy, snames, pos = c(1,2,1,1,3,2,4,3,1), cex = 0.8)
 
-## Plot "response surfaces" in der CA
+# Plot "response surfaces" in der CA
+par(mfrow=c(1,2))
 plot(ca, display = "sites", type = "point")
-ordisurf(ca, ssit$pH.peat, add = T)
-
+ordisurf(ca, ssit$pH.peat, add = TRUE, col = "red")
+text(-1.5, 2, "pH", col = "red")
 plot(ca, display = "sites", type = "points")
-ordisurf(ca, ssit$Waterlev.av, add = T, col = "blue")
+ordisurf(ca, ssit$Waterlev.av, add = TRUE, col = "blue")
+text(-1.5, 2, "Wasserstand", col = "blue")
 
-## Das gleiche für die DCA
+# Daselbe mit einer DCA
+par(mfrow=c(1,2))
 dca <- decorana(sveg)
 plot(dca, display = "sites", type = "points")
-ordisurf(dca, ssit$pH.peat, add = T)
-ordisurf(dca, ssit$Waterlev.av, add = T, col = "blue")
+ordisurf(dca, ssit$pH.peat, add = TRUE)
+text(-1, 1.5, "pH", col = "red")
+plot(dca, display = "sites", type = "points")
+ordisurf(dca, ssit$Waterlev.av, add = TRUE, col = "blue")
+text(-1, 1.5, "Wasserstand", col = "blue")
 
-## Das gleiche mit NMDS
+## Dasselbe mit NMDS
 mde <- vegdist(sveg, method = "euclidean")
 mmds <- metaMDS(mde)
 if(!require(MASS)){install.packages("MASS")}
 library(MASS)
 imds <- isoMDS(mde)
 
+par(mfrow=c(2,2))
 plot(mmds$points)
-ordisurf(mmds, ssit$pH.peat, add = T)
-ordisurf(mmds, ssit$Waterlev.av,add = T, col = "blue")
-
+ordisurf(mmds, ssit$pH.peat, add = TRUE)
+text(-4, 4, "pH", col = "red")
+plot(mmds$points)
+ordisurf(mmds, ssit$Waterlev.av,add = TRUE, col = "blue")
+text(-4, 4, "Wasserstand", col = "blue")
 plot(imds$points)
-ordisurf(imds, ssit$pH.peat, add = T)
+ordisurf(imds, ssit$pH.peat, add = TRUE)
+text(-4, 4, "pH", col = "red")
+plot(imds$points)
 ordisurf(imds, ssit$Waterlev.av, add = T, col = "blue")
+text(-4, 4, "Wasserstand", col = "blue")
+
 ```
 
 ### Constrained ordination
 
 ```{r}
-#| eval: false
-## 5 Umweltvariablen gewählt, durch die die Ordination constrained werden soll
-ssit
-summary(ssit)
+# Umweltvariablen wäheln, durch die die Ordination constrained werden soll
+names(ssit)
+
+# 5 Variablen wählen
 s5 <- c("pH.peat", "P.peat", "Waterlev.av", "CEC.peat", "Acidity.peat")
 ssit5 <- ssit[s5]
 
-data(sveg)
-summary(sveg)
 ```
 
 ```{r}
-#| eval: false
-## RDA = constrained PCA
+
+par(mfrow = c(1,2))
+
+# RDA = constrained PCA
 rda <- rda(sveg~., ssit5)
 plot(rda)
 
-## CCA = constrained CA
+# CCA = constrained CA
 cca <- cca(sveg~., ssit5)
 plot(cca)
 
-## Unconstrained and constrained variance
+# Unconstrained and constrained variance
 tot <- cca$tot.chi
 constr <- cca$CCA$tot.chi
-constr / tot
+constr / tot # Erklärte Varianz
 ```
 
 ### Redundancy analysis (RDA)
@@ -103,13 +124,12 @@ constr / tot
 Mehr Details zu RDA aus Borcard et al. (Numerical ecology with R)
 
 ```{r}
-## Datensatz Doubs
-## Doubs Datensatz in den workspace laden
+# Datensatz Doubs in den workspace laden
 load("datasets/statistik/Doubs.RData")  
 ```
 
 ```{r}
-#| eval: false
+# Daten anschauen
 summary(spe)
 summary(env)
 summary(spa)
@@ -132,14 +152,13 @@ lines(spa, col = "light blue")
 plot(spa, asp = 1, col = "brown", cex = spe$Titi, xlab = "x (km)", ylab = "y (km)", main = "Tench")
 lines(spa, col = "light blue")
 
-## Set aside the variable 'dfs' (distance from the source) for 
-## later use
+# Set aside the variable 'dfs' (distance from the source) for later use
 dfs <- env[, 1]
-## Remove the 'dfs' variable from the env data frame
+# Remove the 'dfs' variable from the env data frame
 env2 <- env[, -1]
 
-## Recode the slope variable (slo) into a factor (qualitative) 
-## variable to show how these are handled in the ordinations
+# Recode the slope variable (slo) into a factor (qualitative)
+# variable to show how these are handled in the ordinations
 slo2 <- rep(".very_steep", nrow(env))
 slo2[env$slo <= quantile(env$slo)[4]] <- ".steep"
 slo2[env$slo <= quantile(env$slo)[3]] <- ".moderate"
@@ -147,31 +166,33 @@ slo2[env$slo <= quantile(env$slo)[2]] <- ".low"
 slo2 <- factor(slo2, levels = c(".low", ".moderate", ".steep", ".very_steep"))
 table(slo2)
 
-## Create an env3 data frame with slope as a qualitative variable
+# Create an env3 data frame with slope as a qualitative variable
 env3 <- env2
 env3$slo <- slo2
 
-## Create two subsets of explanatory variables
-## Physiography (upstream-downstream gradient)
+# Create two subsets of explanatory variables
+# Physiography (upstream-downstream gradient)
 envtopo <- env2[, c(1 : 3)]
 names(envtopo)
-## Water quality
+# Water quality
 envchem <- env2[, c(4 : 10)]
 names(envchem)
 
-## Hellinger-transform the species dataset
+# Hellinger-transform the species dataset
 library(vegan)
 spe.hel <- decostand(spe, "hellinger")
+
 ```
 
 ```{r}
 #| eval: false
 spe.hel
 ```
+
 ```{r}
-## Redundancy analysis (RDA)
-### RDA of the Hellinger-transformed fish species data, constrained
-### by all the environmental variables contained in env3
+# Redundancy analysis (RDA)
+# RDA of the Hellinger-transformed fish species data, constrained
+# by all the environmental variables contained in env3
 spe.rda <- rda(spe.hel ~ ., env3) # Observe the shortcut formula
 ```
 
@@ -223,16 +244,7 @@ spe.good <- goodness(spe.rda)
 sel.sp <- which(spe.good[, 2] >= 0.6)
 sel.sp
 
-## Triplots with homemade function triplot.rda(), scalings 1 and 2
-source("stat5-8/triplot.rda.R")
-##dev.new(title = "RDA plot with triplot.rda", width = 12, height = 6, noRStudioGD = TRUE)
-par(mfrow = c(1, 2))
-triplot.rda(spe.rda, site.sc = "lc", scaling = 1, cex.char2 = 0.7, pos.env = 3, 
-            pos.centr = 1, mult.arrow = 1.1, mar.percent = 0.05, select.spe = sel.sp)
-text(-0.92, 0.72, "a", cex = 2)
-triplot.rda(spe.rda, site.sc = "lc", scaling = 2, cex.char2 = 0.7, pos.env = 3, 
-            pos.centr = 1, mult.arrow = 1.1, mar.percent = 0.05, select.spe = sel.sp)
-text(-2.82, 2, "b", cex = 2)
+
 
 ## Global test of the RDA result
 anova(spe.rda, permutations = how(nperm = 999))
@@ -261,7 +273,8 @@ summary(spechem.physio)
 ## Test of the partial RDA, using the results with the formula 
 ## interface to allow the tests of the axes to be run
 anova(spechem.physio2, permutations = how(nperm = 999))
-anova(spechem.physio2, permutations = how(nperm = 999), by = "axis")
+
+anova(spechem.physio2, permutations = how(nperm = 999999), by = "axis")
 
 ## Partial RDA triplots (with fitted site scores) 
 ## with function triplot.rda
@@ -278,7 +291,7 @@ triplot.rda(spechem.physio, site.sc = "lc", scaling = 2, cex.char2 = 0.8,
 text(-3.34, 3.64, "b", cex = 2)
 ```
 
-### Variation partioning
+### Variation partitionig
 
 ```{r}
 ### Variation partitioning with two sets of explanatory variables
