@@ -3,17 +3,16 @@ date: 2022-12-05
 lesson: RaumAn3
 thema: Morans I
 index: 1
+execute: 
+  echo: false
+  include: true
+  
 ---
 
 # Rauman 3: Übung
 
   <!-- # Zum Abschluss des Themenblockes Spatial Data Science berechnen wir mit dem Moran’s I einen Index zur Berechnung der räumlichen Autokorrelation einer Choroplethenkarte. Wir verwenden nochmals die aggregierten Choroplethenkarten zur Wasserverfügbarkeit aus der ersten Übung und schauen uns an, wie stark die Werte für die Kantone und die Kantone autokorreliert sind. Anstatt einfach eine Funktion zur Berechnung von Moran’s I aufzurufen und diese dann wie eine Black Box anzuwenden, wollen wir Formel für die Berechnung des Index in Ihre Bausteine zerlegen und diese Schritt für Schritt selber nachrechnen. So seht Ihr, wie  Moran’s I wirklich funktioniert und könnte dabei erst noch die zuvor gelernten Data Science Techniken repetieren.  -->
 
-```{r}
-#| include: false
-#| purl: false
-knitr::opts_chunk$set(echo = FALSE,include = TRUE,message = FALSE, collapse=TRUE, warning=FALSE, results = "markup", fig.width = 7, fig.height = 5) 
-```
 
 Für die Berechnung von Morans $I$ benutzen wir kein externes Package, sondern erarbeiten uns alles selber, basierend auf der Formel von Moran's $I$: 
 
@@ -37,10 +36,12 @@ zweitwohnung_kanton <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "
 ```
 
 ```{r}
- ggplot(zweitwohnung_kanton) +
+p <- ggplot(zweitwohnung_kanton) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
   scale_fill_gradientn(colours = RColorBrewer::brewer.pal(11, "RdYlGn"), limits = c(0,1))  +
   theme(legend.position = "bottom")
+
+p
 ```
 
 ## Aufgabe 1: Herleitung der Formel
@@ -87,7 +88,9 @@ ybar <- mean(y, na.rm = TRUE)
 dy <- y - ybar
 ```
 
-Welche dieser Zwischenresultate sind Einzelwerte und welche Vektoren? Nun quadrieren wir die Differenzen:
+Welche dieser Zwischenresultate sind Einzelwerte und welche Vektoren? 
+
+Nun quadrieren wir die Differenzen:
 
 ```{r}
 #| echo: true
@@ -134,7 +137,7 @@ Egal für welche Variante Ihr Euch entscheidet, setzt `sparse = FALSE` damit ein
 #| echo: true
 w <- st_touches(zweitwohnung_kanton, sparse = FALSE)
 
-w[1:6, 1:6]
+w[1:5, 1:5]
 ```
 
 (Lasst Euch nicht davon beirren, dass wir nun `TRUE` und `FALSE` statt `1` und `0` haben. In R sind `TRUE` und `1` äquivalent, sowie auch `FALSE` und `0`). 
@@ -190,7 +193,7 @@ Der nächste Teil sollte Euch nun bekannt vorkommen. Die Differenz aller Werte v
 ```{r}
 #| echo: true
 pm <- tcrossprod(dy)
-pm[1:6,1:6]
+pm[1:5,1:5]
 ```
 
 Nun multiplizieren wir die Covarianzen mit den Gewichten $w$ (Schalter), damit wir nur noch die Werte von den Kantonen haben, die auch effektiv benachbart sind (und eliminieren nicht-benachbarte Werte). Beachtet dass wir hier nun eine Matrix mit einer Matrix multiplizieren.
@@ -198,8 +201,8 @@ Nun multiplizieren wir die Covarianzen mit den Gewichten $w$ (Schalter), damit w
 ```{r}
 #| echo: true
 pmw <- pm * w
-w[1:6,1:6]
-pmw[1:6,1:6]
+w[1:5,1:5]
+pmw[1:5,1:5]
 ```
 
 Den Zähler des ersten Bruches können wir nun fertig berechnen, indem wir die Summe aller gewichten (sprich eingeschalteten) Werten bilden:
@@ -242,22 +245,33 @@ Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `
 
 ## Aufgabe 2: Morans I für Gemeinde oder Bezirke berechnen
 
-Nun könnt ihr Morans $I$ auf der Ebene der Gemeine oder Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Wenn ihr einen wenig leistungsfähigen Rechner habt, berechnet verwendet besser die Ebene "Berzirke". Importiert dazu den Layer `bezrik` oder `gemeinde` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate.
+Nun könnt ihr Morans $I$ auf der Ebene der Gemeine oder Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Wenn ihr einen wenig leistungsfähigen Rechner habt, berechnet verwendet besser die Ebene "Berzirke". Importiert dazu den Layer `berirk` oder `gemeinde` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate. Tipp: wir verwenden das Package `cowplot` um zwei `ggplots` nebeneinander darzustellen.
+
+Nach der Brechnung von Morans $I$ könnt ihr die Werte auf der Ebene Gemeinde (bzw. Bezirke) und Kantone vergleichen. Formuliert zuerste eine Erwartungshaltung: ist Morans $I$ auf der Ebene Gemeinde (bzw. Bezirke) tiefer oder Höher als auf der Ebene Kantone?
+
+Für Fortgeschrittene: Erstellt aus dem erarbeiten Workflow eine *function* um Morans I auf der Basis von einem `sf` Objekt sowie einer Spalte dessen zu berechnen. 
 
 ```{r}
-#| echo: true
+#| echo: false
 
 zweitwohnung_gemeinde <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "gemeinde")
 
-ggplot(zweitwohnung_gemeinde) +
+p2 <- ggplot(zweitwohnung_gemeinde) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
   scale_fill_gradientn("Ja Anteil",colours = RColorBrewer::brewer.pal(11, "RdYlGn"), limits = c(0,1)) +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  labs(title = "Gemeinden: Global Morans I: ?")
+
+
+p1 <- p + labs(title = paste("Kantone: Global Morans I:",round(MI,2)))
+
+cowplot::plot_grid(p1, p2)
+
 ```
 
 ```{r}
 morans_i <- function(sf_object,col) {
-  require(sf)
+  library(sf)
   n <- nrow(sf_object)
   y <- unlist(st_set_geometry(sf_object,NULL)[,col],use.names = FALSE)
   ybar <- mean(y, na.rm = TRUE)
@@ -273,9 +287,11 @@ morans_i <- function(sf_object,col) {
   MI <- vr * sw
   MI
 }
+
 ```
 
 ```{r}
 #| eval: false
 MI_gemeinde <-  morans_i(zweitwohnung_gemeinde,"ja_in_percent")
+morans_i(zweitwohnung_kanton,"ja_in_percent")
 ```
