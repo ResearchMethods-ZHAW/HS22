@@ -244,8 +244,6 @@ spe.good <- goodness(spe.rda)
 sel.sp <- which(spe.good[, 2] >= 0.6)
 sel.sp
 
-
-
 ## Global test of the RDA result
 anova(spe.rda, permutations = how(nperm = 999))
 ## Tests of all canonical axes
@@ -276,19 +274,6 @@ anova(spechem.physio2, permutations = how(nperm = 999))
 
 anova(spechem.physio2, permutations = how(nperm = 999), by = "axis")
 
-## Partial RDA triplots (with fitted site scores) 
-## with function triplot.rda
-## Scaling 1
-##dev.new(title = "Partial RDA",width = 12, height = 6, noRStudioGD = TRUE)
-par(mfrow = c(1, 2))
-triplot.rda(spechem.physio, site.sc = "lc", scaling = 1, 
-            cex.char2 = 0.8, pos.env = 3, mar.percent = 0)
-text(-0.58, 0.64, "a", cex = 2)
-
-## Scaling 2
-triplot.rda(spechem.physio, site.sc = "lc", scaling = 2, cex.char2 = 0.8, 
-            pos.env = 3, mult.spe = 1.1, mar.percent = 0.04)
-text(-3.34, 3.64, "b", cex = 2)
 ```
 
 ### Variation partitionig
