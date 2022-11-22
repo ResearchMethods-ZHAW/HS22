@@ -27,6 +27,7 @@ library(dave)
 data(sveg)
 data(ssit)
 ```
+
 ```{r}
 #| eval: false
 summary(sveg)
@@ -66,10 +67,12 @@ RDA of the Hellinger-transformed mire species data, constrained by all the envir
 ## mit allen Umweltvarialben die in env2 enthalten sind
 (spe.rda <- rda(spe.hel ~ ., env2)) # Observe the shortcut formula
 ```
+
 ```{r}
 #| eval: false
 summary(spe.rda)	# Skalierung 2 (default)
 ```
+
 ```{r}
 # Canonical coefficients from the rda object
 coef(spe.rda)
@@ -85,8 +88,8 @@ Jetzt kann man den Triplot erstellen
 ```{r}
 ## Triplots of the rda results (lc scores)
 ## Site scores as linear combinations of the environmental variables
-dev.new(title = "RDA scaling 1 and 2 + lc", width = 15, height = 6, noRStudioGD = TRUE)
-par(mfrow = c(1, 2))
+#dev.new(title = "RDA scaling 1 and 2 + lc", width = 15, height = 6, noRStudioGD = TRUE)
+#par(mfrow = c(1, 2))
 
 # 1 und 2 Achse
 plot(spe.rda, display = c("sp", "lc", "cn"), 
@@ -112,6 +115,7 @@ text(-0.82, 0.55, "b", cex = 1.5)
 # Scaling 2 (default) :  correlation triplot
 plot(spe.rda, main = "Triplot RDA spe.hel ~ env3 - scaling 2 - wa scores")
 arrows(0, 0, spe.sc2[, 1] * 0.92, spe.sc2[, 2] * 0.92, length = 0, lty = 1, col = "red")
+
 ```
 
 Auswahl der höchstkorrelierten Arten (Grenzwert kann subjektiv nach Bedarf gesetzt werden, hier 0.5).
@@ -124,20 +128,14 @@ spe.good <- goodness(spe.rda)
 sel.sp <- which(spe.good[, 2] >= 0.6)
 sel.sp
 
-# Triplots with homemade function triplot.rda()
-source("stat5-8/triplot.rda.R")
-
-# dev.new(title = "RDA plot with triplot.rda", width = 7, height = 6, noRStudioGD = TRUE)
-
-triplot.rda(spe.rda, site.sc = "lc", cex.char2 = 0.7, pos.env = 3, 
-            pos.centr = 1, mult.arrow = 1.1, mar.percent = 0.05, select.spe = sel.sp)
-
 
 # Global test of the RDA result
 anova(spe.rda, permutations = how(nperm = 999))
+
 # Tests of all canonical axes
 anova(spe.rda, permutations = how(nperm = 999))
 anova(spe.rda, by = "axis", permutations = how(nperm = 999))
+
 ```
 
 Die ersten drei RDA-Achsen sind also signifikant. Man könnte also auch noch eine
@@ -173,6 +171,7 @@ anova(spechem.physio2, permutations = how(nperm = 999), by = "axis")
 triplot.rda(spechem.physio, site.sc = "lc", scaling = 2, 
             cex.char2 = 0.8, pos.env = 3, mult.spe = 1.1, mar.percent = 0.04)
 text(-3.34, 3.64, "b", cex = 2)
+
 ```
 
 __Varianzpartitionierung__
@@ -186,5 +185,8 @@ __Varianzpartitionierung__
 
 plot(spe.part.all, digits = 2, bg = c("red", "blue"),
      Xnames = c("Chemistry", "Physiography"), id.size = 0.7)
+
 ```
 Die durch die erhobenen Umweltvariablen insgesamt erklärte Varianz (37.6%, s.o.) entfällt zu 19.4% auf chemische Variablen, 3.6% auf physiographische Variablen und zu 14.6% auf gemeinsame Erklärung.
+
+

@@ -232,6 +232,21 @@ depo <- depo |>
                                          if_else(Datum > lock_2_end_2021,
                                                  "Post", "Pre")))))
 
+
+##############ACHTUNG:
+##############ZWISCHEN DEN LOCKDOWNS WIRD ALS PRE GELABELT!
+
+
+
+
+
+
+
+
+
+
+
+
 # hat das gepklappt?!
 unique(depo$Phase)
 
@@ -644,13 +659,11 @@ x <- depo_d %>%
 y <- depo_d %>% 
   filter(Phase== "Lockdown_1" & Wochenende == "Wochenende")
 
-t.test(x$Total,y$Total)
 
 #oder alles in einem Schritt
 t.test(depo_d$Total [depo_d$Phase == "Lockdown_1" & depo_d$Wochenende=="Werktag"], 
        depo_d$Total [depo_d$Phase == "Lockdown_1" & depo_d$Wochenende=="Wochenende"])
 
-t.test(a,b)
 
 # 3.3 Tagesgang ####
 # Bei diesen Berechnungen wird jeweils der Mittelwert pro Stunde berechnet. 
