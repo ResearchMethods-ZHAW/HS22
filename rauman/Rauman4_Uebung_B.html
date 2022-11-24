@@ -93,7 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../rauman/Rauman5_Uebung_mce.html" rel="next">
+<link href="../rauman/Rauman5_Uebung_A.html" rel="next">
 <link href="../rauman/Rauman4_Uebung_A.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -532,7 +532,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rauman/Rauman5_Uebung_mce.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 5: Übung</span></a>
+  <a href="../rauman/Rauman5_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 5: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman5_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 5: Übung B</span></a>
   </div>
 </li>
       </ul>
@@ -676,7 +681,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link active" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
+  <li><a href="#sec-raster-slope" id="toc-sec-raster-slope" class="nav-link active" data-scroll-target="#sec-raster-slope">Aufgabe 1</a></li>
   <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a></li>
   </ul>
 </nav>
@@ -686,7 +691,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-title">Rauman 4: Übung B</span></h1>
+<h1 class="title"><span class="chapter-title">Rauman 4: Übung B</span></h1>
 </div>
 
 
@@ -715,28 +720,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Importieren Sie Ihr Raster mit der Funktion <code>rast</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dhm_schwyz <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"datasets/rauman/dhm25m.tif"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: [rast] file does not exist: datasets/rauman/dhm25m.tif</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dhm_schwyz <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"datasets/rauman/dhm250m.tif"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Sie erhalten einige wichtige Metadaten über den Rasterdatensatz, wenn Sie den Variablennamen in die Konsole eingeben.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dhm_schwyz </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'dhm_schwyz' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dhm_schwyz </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class       : SpatRaster 
+dimensions  : 150, 186, 1  (nrow, ncol, nlyr)
+resolution  : 250, 250  (x, y)
+extent      : 672175, 718675, 193658, 231158  (xmin, xmax, ymin, ymax)
+coord. ref. : CH1903 / LV03 
+source      : dhm250m.tif 
+name        :   wind25m 
+min value   :  405.3611 
+max value   : 2662.5420 </code></pre>
 </div>
 </div>
 <p>Um einen schnellen Überblick eines Rasterdatensatz zu erhalten, können wir einfach die <code>plot()</code> Funktion verwenden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dhm_schwyz)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in h(simpleError(msg, call)): Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'plot': Objekt 'dhm_schwyz' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dhm_schwyz)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Rauman4_Uebung_B_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Leider ist das Verwenden von <code>Rastern</code> in ggplot nicht sehr einfach. Da <code>ggplot</code> ein universelles Plot-Framework ist, stossen wir schnell an die Grenzen des Möglichen, wenn wir etwas so Spezielles wie Karten erstellen. Aus diesem Grund werden wir ein neues Plot-Framework einführen, das auf Karten spezialisiert ist und in einem sehr ähnlichen Design wie ggplot gebaut wurde: <code>tmap</code>. Installieren und laden Sie dieses Paket jetzt.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Genau wie <code>ggplot</code> basiert <code>tmap</code> auf der Idee von “Ebenen”, die durch ein <code>+</code> verbunden sind. Jede Ebene hat zwei Komponenten:</p>
 <ul>
@@ -744,49 +754,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>eine Geometriekomponente, die beschreibt, wie das vorangegangene <code>tm_shape()</code> visualisiert werden soll. Dies kann <code>tm_dots()</code> für Punkte, <code>tm_polygons()</code> für Polygone, <code>tm_lines()</code> für Linien usw. sein. Für Einzelbandraster (was bei <code>dhm_schwyz</code> der Fall ist) ist es <code>tm_raster()</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>() </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in as.list.environment(environment()): Objekt 'dhm_schwyz' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>() </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Rauman4_Uebung_B_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Beachten Sie, dass <code>tm_shape()</code> und <code>tm_raster()</code> (in diesem Fall) zusammengehören. Das eine kann nicht ohne das andere leben.</p>
 <p>Wenn Sie die Hilfe von <code>?tm_raster</code> konsultieren, werden Sie eine Vielzahl von Optionen sehen, mit denen Sie die Visualisierung Ihrer Daten verändern können. Zum Beispiel ist der Standardstil von <code>tm_raster()</code> die Erstellung von “Bins” mit einer diskreten Farbskala. Wir können dies mit <code>style = "cont"</code> ausser Kraft setzen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in as.list.environment(environment()): Objekt 'dhm_schwyz' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Rauman4_Uebung_B_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Das sieht schon ziemlich toll aus, aber vielleicht wollen wir die Standard-Farbpalette ändern. Glücklicherweise ist das in <code>tmap</code> viel einfacher als in <code>ggplot2</code>. Um sich die verfügbaren Paletten anzusehen, geben Sie <code>tmaptools::palette_explorer()</code> oder <code>RColorBrewer::display.brewer.all()</code> in der Konsole ein (für Ersteres müssen Sie möglicherweise zusätzliche Pakete installieren, z.B. <code>shinyjs</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>, <span class="at">palette =</span> <span class="st">"Spectral"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in as.list.environment(environment()): Objekt 'dhm_schwyz' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>, <span class="at">palette =</span> <span class="st">"Spectral"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Rauman4_Uebung_B_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Sie können Layout-Anpassungen mit <code>tm_layout()</code> vornehmen, prüfen Sie <code>?tm_layout</code>, um alle verfügbaren Optionen zu sehen.</p>
 <div class="column-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>, <span class="at">palette =</span> <span class="st">"Spectral"</span>, <span class="at">legend.is.portrait =</span> <span class="cn">FALSE</span>, <span class="at">title =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">legend.outside =</span> <span class="cn">TRUE</span>, <span class="at">legend.outside.position =</span> <span class="st">"bottom"</span>,<span class="at">frame =</span> <span class="cn">FALSE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in as.list.environment(environment()): Objekt 'dhm_schwyz' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(dhm_schwyz) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>, <span class="at">palette =</span> <span class="st">"Spectral"</span>, <span class="at">legend.is.portrait =</span> <span class="cn">FALSE</span>, <span class="at">title =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">legend.outside =</span> <span class="cn">TRUE</span>, <span class="at">legend.outside.position =</span> <span class="st">"bottom"</span>,<span class="at">frame =</span> <span class="cn">FALSE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Rauman4_Uebung_B_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
-<section id="aufgabe-1" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
+<section id="sec-raster-slope" class="level2">
+<h2 class="anchored" data-anchor-id="sec-raster-slope">Aufgabe 1</h2>
 <p>Mit <code>terra</code> können wir eine Vielzahl von Rasteroperationen über unser Höhenmodell laufen lassen. Eine klassische Rasteroperation ist zum Beispiel das Berechnenen der Hangneigung oder dessen Orientierung. Nutzen Sie die Funktion <code>terrain()</code> aus <code>terra</code> um die Hangneigung und Orientierung zu berechnen. Visualisieren Sie die Resultate.</p>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in h(simpleError(msg, call)): Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'plot': Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'terrain': Objekt 'dhm_schwyz' nicht gefunden</code></pre>
+<div class="cell-output-display">
+<p><img src="Rauman4_Uebung_B_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in h(simpleError(msg, call)): Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'plot': Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'terrain': Objekt 'dhm_schwyz' nicht gefunden</code></pre>
+<div class="cell-output-display">
+<p><img src="Rauman4_Uebung_B_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -795,17 +805,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Mit Hangneigung und -ausrichtung können wir einen <em>Hillshading</em>-Effekt berechnen. Hillshading bedeutet, dass der Schattenwurf des Oberflächenmodells bei gegebenen Einfallswinkel der Sonne (Höhe und Azimut) berechnet wird. Der typische Einfallswinkel liegt bei 45° über dem Horizont und von Nordwesten bei 315°.</p>
 <p>Um einen Hillshading Effekt zu erzeugen, berechne zuerst <code>slope</code> und <code>aspect</code> von <code>dhm_schwyz</code> analog der letzten Aufgabe, achte aber darauf das die Einheit <code>radians</code> entspricht. Nutze diese beiden Objekte um den Hillshade zu berechnen. Visualisiere den Output anschliessend mit <code>plot</code> oder <code>tmap</code>.</p>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in h(simpleError(msg, call)): Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'terrain': Objekt 'dhm_schwyz' nicht gefunden</code></pre>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Rauman4_Uebung_B_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Für diese Visualisierung verwende ich <code>tmap</code> und als colour palette <em>cividis</em></figcaption><p></p>
+</figure>
 </div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in h(simpleError(msg, call)): Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'terrain': Objekt 'dhm_schwyz' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in shade(dhm_slope, dhm_aspect, 45, 315): Objekt 'dhm_slope' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in as.list.environment(environment()): Objekt 'dhm_hillshade' nicht gefunden</code></pre>
 </div>
 </div>
 
@@ -1119,8 +1125,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../rauman/Rauman5_Uebung_mce.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-title">Rauman 5: Übung</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../rauman/Rauman5_Uebung_A.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-title">Rauman 5: Übung A</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
