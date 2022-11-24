@@ -1,0 +1,248 @@
+---
+date: 2022-12-12
+lesson: RaumAn5
+thema: Multi-Criteria Evaluation (MCE)
+index: 1
+execute: 
+  echo: false
+---
+
+# Rauman 5: Übung B
+
+In der letzten Übung (Übung A) haben wir die potentielle Standorte für Windkraftanalgen hinsichtlich vierer Distanzkriterien bewertet. In dieser Übung (Übung B) schliessen wir die Multikriterien-Evaluation ab, in dem wir:
+
+1. Folgende Kriterien mitberücksichtigen: Windgeschwindigkeit, Vereisungshäufigkeit und Hangneigung
+2. Die *Ausschlusskriterien* vom Resultat ausschliessen
+
+Für Punkt 1 müssen wir zusätzliche Daten einlesen, die im Rasterformat daherkommen. Punkt 2 beruht im Wesentlichen auf Daten, die wir bereits verwendet haben.
+
+```{r}
+#| echo: false
+#| output: false
+library(here)
+tempr <- tempfile(fileext = ".R")
+knitr::purl(here::here("rauman","Rauman5_Uebung_A.qmd"),output = tempr)
+source(tempr)
+```
+
+<!--
+3. Je höher die Windgeschwindigkeit ist
+4. Je geringer die Vereisungshäufigkeit ist
+5. Je geringer die Hangneigung ist
+
+
+-->
+
+## Übung 1: Rasterdaten einlesen
+
+Zur Bewertung der Standorte Hinsichtlich Windgeschwindigkeit und Vereisungshäufigkeit stehen uns folgende Rasterdatensätze zur Verfügung. Lade die beiden nachfolgenden Datensätze herunter und mit der Funktion `rast()` in R ein.
+
+- [eis250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602288) (Vereisungshäufigkeit in Tage/Jahr)
+- [wind250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297) (Durchschnittliche Windgeschwindigkeit)
+
+Explorieren Sie die Daten visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen. 
+
+```{r}
+eis250m <- rast("datasets/rauman/eis250m.tif")
+wind250m <- rast("datasets/rauman/wind250m.tif")
+```
+
+```{r}
+#| output: false
+#| 
+tm_shape(eis250m) + tm_raster(style = "cont") 
+```
+
+
+## Übung 2: Wind und Eis bewerten
+
+Diese Rasterdaten müssen wir nicht weiter verarbeiten, ausser sie zu bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion `classify()` analog @sec-classify1. 
+
+<div class="mce-table">
+
+```{r}
+#| output: asis
+#| echo: false
+#| label: tbl-bewerungstabelle-other
+#| tbl-cap: Bewertungstabelle die Windgeschwindigkeit (m/s), Vereisungshäufigkeit (Tage/Jahr) und Hangneigung (Grad)
+
+
+library(kableExtra)
+library(purrr)
+library(readODS)
+library(here)
+
+reclassify_ods <- here("rauman", "Reclassify.ods")
+
+sheets1 <- c("Windgeschwindigkeit", "Vereisungshaeufigkeit", "Hangneigung")
+einheit <- c("Speed", "Days", "Slope")
+
+header_above <- rep(2,length(sheets1))
+names(header_above) <- sheets1
+
+map2(sheets1, einheit, function(x, z){
+  y <- read_ods(reclassify_ods, x) |>
+  mutate(Dist = paste(Von,Bis,sep = "-")) |>
+  transmute(Dist, Score = Bewertung)
+  
+  colnames(y) <- c(z, "Score")
+  y
+}) |>
+(\(x)do.call(cbind, x))() |>
+kableExtra::kbl() |>
+  kable_classic( )  |>
+  add_header_above(header_above) 
+
+
+```
+
+
+</div>
+
+```{r}
+#### reclassify wind
+wind_klassen <- c(0,35,0,
+                      35,40,0.1,
+                      40,45,0.2,
+                      45,50,0.3,
+                      50,55,0.4,
+                      55,60,0.5,
+                      60,65,0.6,
+                      65,70,0.7,
+                      70,75,0.8,
+                      75,Inf,0.9) |> matrix(ncol = 3, byrow = TRUE)
+wind_classify <- classify(wind250m, wind_klassen)
+
+#### reclassify eis    
+eis_klassen <- c(0,6,1,
+                   6,12,0.9,
+                   12,18,0.8,
+                   18,24,0.7,
+                   24,30,0.6,
+                   30,36,0.5,
+                   36,Inf,0.4) |> matrix(ncol = 3, byrow = TRUE)
+eis_classify <- classify(eis250m, eis_klassen)
+
+```
+
+
+
+## Übung 3: Slope berechnen und Bewerten
+
+Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell, was wir bereits in @sec-raster-intro verwendet haben ([dhm250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=694260)) in R ein, und berechne Anschliessend die Hangneigung mit der Funktion `terrain()` analog @sec-raster-slope (beachten Sie die Einheit des Output!). 
+
+Bewerten Sie die Hangneigung danach gemäss Tabelle @tbl-bewerungstabelle-other. 
+
+```{r}
+dhm250m <- rast("datasets/rauman/dhm250m.tif")
+
+neigung <- terrain(dhm250m, v="slope",unit="degrees")
+
+#### reclassify slope
+neigung_klassen <- c(0,2,1,
+                       2,4,0.9,
+                       4,6,0.8,
+                       6,8,0.7,
+                       8,10,0.6,
+                       10,12,0.5,
+                       12,14,0.4,
+                       14,16,0.3,
+                       16,18,0.2,
+                       18,20,0.1,
+                       20,90,0) |> matrix(ncol = 3, byrow = TRUE)
+neigung_classify <- classify(neigung, neigung_klassen)
+```
+
+
+## Übung 4: Raster Overlay {#sec-raster-overlay2}
+
+Analog @sec-raster-overlay1 können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen. Hier stossen wir aber auf ein Problem. Sobald wir versuchen, Bewertungen aus Übung A mit bewertungen aus dieser Übung (Übung B) miteinander zu verrechnen, erhalten wir folgende Fehlermeldung:
+
+```{r}
+overlay_prelim_3 <- (strassen_classify + schutzgebiete_classify + siedlungsgebiet_classify + wald_classify + wind_classify + eis_classify + neigung_classify)/7
+```
+
+`SRS do not match` soll heissen, dass die Koordinatenbezugssysteme (CRS) der verschiedenen Raster nicht überein stimmen. Wenn wir die CRS der verschiedenen Datensätze aber anschauen, sehen wir, dass es sich eigentlich um die gleichen CRS handelt.
+
+```{r}
+#| echo: true
+
+crs(strassen_classify, describe = TRUE) # Datensatz aus Übung A
+crs(wind_classify, describe = TRUE)     # Datensatz aus Übung B
+```
+
+Das Problem ist, dass diese in den beiden Datensätzen leicht anders abgespeichert sind. Wir können das Problem lösen, indem wir den CRS aus dem einen Raster mit dem CRS des anderen Rasters wie folgt überschreiben:
+
+```{r}
+#| echo: true
+crs(wind_classify) <- crs(strassen_classify)
+crs(eis_classify) <- crs(strassen_classify)
+crs(neigung_classify) <- crs(strassen_classify)
+```
+
+Nun sollte der Overlay problemlos funktionieren. Führe einen Overlay mit allen verfügbaren Parameter (Bewertung der Distanz zu Strassen, Siedlung, Wald und Schutzgebiete sowie Wind, Eis und Neigung) durch und visualisiere das Resultat.
+
+```{r}
+#| fig-cap: Ungewichtetes Überlagern aller Kriterien mit Ausnahme der Ausschlussgebiete
+#| label: fig-overlay3
+overlay_prelim_3 <- (strassen_classify + schutzgebiete_classify + siedlungsgebiet_classify + wald_classify + wind_classify + eis_classify + neigung_classify)/7
+
+
+tm_shape(overlay_prelim_3) + 
+  tm_raster(palette = "Spectral", breaks = seq(0,1,0.2), style = "cont", title = "Eignung") +
+  tm_layout(frame = FALSE)
+```
+
+
+
+## Übung 5: Ausschlusskriterien 
+
+Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden können. Dazu gehören bewohnte Flächen, nationale Schutzgebiete, Waldgebiete und Seen. Zwar werden bewohnte Flächen, nationale Schutzgebiete und Waldgebiete in unserer Analyse bereits schlecht (mit "0") bewertet, aber nicht kategorisch vom Resultat ausgeschlossen. Sprich: Wenn ein Gebiet, welches zum Beispiel mitten im Siedlungsgebiet liegt, alle anderen Bedigungen erfüllt, kann es trotzdem eine hohe Bewertung erhalten, obwohl dort keine Windkraftanalage gebaut werden kann.
+
+Um diese Gebiete kategorisch vom Resultat auszuschliessen können wir für die Siedlungsgebiete, Schutzgebiete sowie den Wald die rasterisierte Form verwenden, die wir in @sec-raster-distance erstellt haben (für die Seen müssen wir den entsprechenden Raster zuerst noch erstellen).
+
+Diese Rasterdatensätze sind bereits binär: Rasterzellen mit dem Wert 1 sind Zellen im Wald, im Schutzgebiet usw. Zellen ausserhalb sind `NA`. Um die Vereinigungsmenge zu erhalten (also alle Zellen , die entweder Sieldungsgebiet *oder* Wald *oder* Schutzgebiet *oder* Seen sind), können wir die Funktion `sum()` mit der Option `na.rm = TRUE` verwenden. Alle Gebiete mit Werte > 0 gelten als Ausschlussgebiete.
+
+
+```{r}
+#| echo: true
+#| layout-ncol: 2
+seen_raster <- my_rasterize(seen, kt_schwyz, 250)
+
+ausschlussgebiete <- sum(siedlungsgebiet_raster, schutzgebiete_raster, wald_raster, seen_raster, na.rm = TRUE)
+
+plot(ausschlussgebiete, main = "Auschlussgebiete (Summiert)")
+
+ausschlussgebiete <- ausschlussgebiete>0
+
+plot(ausschlussgebiete, main = "Ausschlussgebiete (Binär)")
+```
+
+
+
+```{r}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
+
+## Übung 5: Ausschlussgebiete von potenziellen Gebieten entfernen
+
+Das Resultat aus unserer vorläufigen Analyse (@fig-overlay3) weisst werte von 0 - 1 auf. Um sicher zu stellen, dass die Auschlussgebiete mit `0` ausgewiesen werden können wie folgt vorgehen: 
+
+Wir erstellen einen neuen Raster `einschlussgebiete`, welches das Gegenteil von `ausschlussgebiete` darstellt. Einzuschliessende Gebiete weisen den Wert `1`, auszuschliessende Gebiete den Wert `0` auf. Diesen Raster multiplizieren wir mit dem Resultat aus @fig-overlay3. Da jeder Wert, der mit `0` multipliziert `0` ergibt, werden so auszuschliessende Gebiete mit `0` bewertet. Einzuschliessende Gebiete behalten ihren Wert, da sie lediglich mit `1` multipliziert werden.
+
+Führe diese beiden Schriitte durch und visualisiere anschliessend das Ergebnis.
+
+```{r}
+einschlussgebiete <- !ausschlussgebiete
+
+overlay_4 <- overlay_prelim_3*einschlussgebiete
+
+tm_shape(overlay_4) + 
+  tm_raster(palette = "Spectral", breaks = seq(0,1,0.2), style = "cont", title = "Eignung") +
+  tm_layout(frame = FALSE)
+```
+
+
+

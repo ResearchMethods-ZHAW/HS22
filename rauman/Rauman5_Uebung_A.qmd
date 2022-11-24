@@ -1,0 +1,260 @@
+---
+date: 2022-12-12
+lesson: RaumAn5
+thema: Multi-Criteria Evaluation (MCE)
+index: 1
+execute: 
+  echo: false
+---
+
+# Rauman 5: Übung A
+
+In der folgenden Übung möchten wir potentielle Standorte für Windkraftanlagen im Kanton Schwyz ermitteln. Zu diesem Zweck führen wir eine Multikriterien-Evaluation durch. Diese besteht im Wesentlichen aus zwei Teilen:
+
+- Flächeneignung (Kontinuierliche bewertung von 0 bis 1)
+- Ausschlussgebiete (Binärskala 0 *oder* 1)
+
+In diesem ersten Teil (Übung A) widmen wir uns der Flächeneignung aufgrund der Distanz zu verschiedenen Gebieten. Gemäss @gilgen2010 sowie @tegou210 ist ein Gebiet umsobesser geeignet: 
+
+1. Je weiter weg es sich von bewohnte Flächen, Nationale Schutzgebieten und Waldgebieten befindet
+2. Je näher es sich zu einer Strasse befindet
+
+Diese Eignungsbewertung setzen wir in den folgenden Übungen in R um. Starten Sie R und laden Sie die nötigen Libraries in Ihre Session (s.u.)
+
+```{r}
+#| echo: true
+library(sf)
+library(terra)
+library(dplyr)
+library(tmap)
+```
+
+## Übungen 1: Vektor Daten laden und anzeigen
+
+Laden Sie das File [windkraft_geodata.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=663498) von Moodle herunter. Dieses beinhaltet alle Vektordaten, die für die Bearbeitung der Multikriterien-Evaluation benötigt wird (Bewohnte Flächen, Nationale Schutzgebiete, Seeflächen, Strassen, Waldgebiete sowie die Kantonsgrenze von Schwyz). Die Namen der verfügbaren Listen können Sie mit `sf::st_layers()` ermitteln.
+
+Explorieren Sie die Daten visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen. Zur Visualisierung können Sie die Funktionen `plot` oder die Packages `tmap` oder `ggplot2` verwenden.
+
+
+:::{.note}
+
+::::
+
+```{r}
+#| output: false
+
+gpkg_path  <- "datasets/rauman/windkraft_geodata.gpkg"
+
+#Vector data
+st_layers(gpkg_path)
+
+kt_schwyz <- read_sf(gpkg_path, "Untersuchungsgebiet_Schwyz")
+siedlungsgebiet <- read_sf(gpkg_path, "Bewohnte_Flaeche")
+wald <- read_sf(gpkg_path, "Waldgebiete")
+schutzgebiete <- read_sf(gpkg_path, "Nationale_Schutzgebiete")
+seen <- read_sf(gpkg_path, "Seeflaechen")
+strassen <- read_sf(gpkg_path, "Strassen")
+
+
+```
+
+```{r}
+#| output: false
+
+#Plot vector data
+plot(seen,max.plot = 1)
+#plot(strassen, max.plot = 1)
+#plot(wald, max.plot = 1)
+plot(siedlungsgebiet, max.plot = 1)
+```
+
+## Übung 2: Entfernungen zum Wald berechnen {#sec-raster-distance}
+
+Beginnen wir mit dem Kriterium "Distanz zum Wald". Wir müssen für den ganzen Kanton Schwyz wissen, wie weit entfernt der nächstgelegene Wald liegt. Diese Information lässt sich gut in einem Raster abbilden, die Wald Polygone sind jedoch als Vektordaten abgespeichert. Mit folgender Funktion können wir den Vektordatensatz in Raster konvertieren. Sie erledigt zwei Schritte:
+
+ 1. Schritt: Erstellt ein Raster *Template*, wo die Ausdehnung, Auflösung und das Koordinatenbezugssystem unseres Output Raster festgehalten sind. Das Template erstellen wir mit dem Datensatz `kt_schwyz`.
+ 2. Schritt: Konvertiert den Vektor Datensatz in Raster auf der Basis dieses Templates
+
+
+```{r}
+#| echo: true
+
+my_rasterize <- function(input, template_vec, resolution){
+  library(terra)
+  library(sf)
+  template_r <- rast(template_vec, resolution = resolution)     # Schritt 1
+  output <- rasterize(vect(input), template_r, field = 1)       # Schritt 2
+  output
+}
+```
+
+Nutze diese Funktion und wende Sie auf deinen Wald Datensatz an. Berechne anschliessend die Distanz zum Wald mit der Funkltion `distance()`. Plausibilisiere den Output indem du ihn visualisierst.
+
+```{r}
+wald_raster <- my_rasterize(wald, kt_schwyz, 250)
+wald_dist <- distance(wald_raster)
+```
+
+Führe anschliessend die gleiche Operation durch um die Entfernung zu nationalen Schutzgebieten, bewohnten Gebieten und Strassen zu ermitteln.
+
+```{r}
+siedlungsgebiet_raster <- my_rasterize(siedlungsgebiet, kt_schwyz, 250)
+siedlungsgebiet_dist <- distance(siedlungsgebiet_raster)
+
+schutzgebiete_raster <- my_rasterize(schutzgebiete, kt_schwyz, 250)
+schutzgebiete_dist <- distance(schutzgebiete_raster)
+
+strassen_raster <- my_rasterize(strassen, kt_schwyz, 250)
+strassen_dist <- distance(strassen_raster)
+```
+
+## Übung 3: Distanzkriterien Bewerten {#sec-classify1}
+
+Jetzt haben wir die Distanzen zu den relevanten Gebieten berechnet, nun müssen wir diese Distanzen bewerten. Dafür teilen wir die kontinuierlichen Distanzwerte in diskrete Kategorien ein. Wir verwenden für die Übung folgende Einteilung:
+
+<div class="mce-table">
+
+```{r}
+#| output: asis
+#| echo: false
+#| label: tbl-bewerungstabelle-dist
+#| tbl-cap: Bewertungstabelle für die Distanz zu verschiedenen Gebieten.
+
+
+library(here)
+library(readODS)
+library(purrr)
+library(kableExtra)
+library(dplyr)
+
+reclassify_ods <- here("rauman", "Reclassify.ods")
+
+sheets1 <- c("Schutzgebiete", "Waldgebiete", "Siedlungsgebiete", "Strassen")
+
+header_above <- rep(2,length(sheets1))
+names(header_above) <- sheets1
+
+map(sheets1, function(x){
+  read_ods(reclassify_ods, x) |>
+  mutate(Dist = paste(Von,Bis,sep = "-")) |>
+  transmute(Dist, Score = Bewertung)
+}) |>
+(\(x)do.call(cbind, x))() |>
+kableExtra::kbl() |>
+  kable_classic( )  |>
+  add_header_above(header_above)  #|> column_spec(cumsum(header_above), border_right =  TRUE)
+
+
+```
+
+</div>
+
+Hierfür brauchen wir die Function `classify()`. Wie wir aus der Dokumentation der Funktion (mit `?classify`) entnehmen können, gibt es verschiedene Wege wie wir einen Raster Reklassifizieren können (siehe Beschreibung für das Argument `rcl`).  Eine sehr explizite Variante ist, dass wir für `rcl` eine Matrix mit 3 Spalten verwenden. Diese drei Spalte stellen *from*, *to* und *becomes* dar. 
+
+Wir könnten diese Tabelle in einem Spreadsheet-Programm schreiben und in R einlesen. Alternativ können wir sie auch "von Hand" in R erstellen:
+
+```{r}
+#| echo: true
+wald_klassen <- matrix(c(
+    0000,0500,0.0,
+    0500,1000,0.2,
+    1000,1500,0.4,
+    1500,2000,0.6,
+    2000,2500,0.8,
+    2500,Inf,1.0), ncol = 3, byrow = TRUE)
+
+# Überprüfen, ob die Matrix auch korrekt erstellt wurde:
+wald_klassen
+```
+
+
+Jetzt wo wir diese Matrix haben, können wir sie nutzen um den Kanton Schwyz hinsichtlich der Distanz zum Wald zu bewerten. 
+
+```{r}
+#| echo: true
+wald_classify <- classify(wald_dist, wald_klassen)
+
+# Visualisierung des Resultats
+tm_shape(wald_classify) + tm_raster(palette = "Spectral")
+```
+
+Berechne in dieser Weise die Distanz zu den anderen Kriterien (Schutzgebiete, Siedlungsgebiete und Strassen). Optional für Profis: Verwende für `rcl` einen eindimensionalen Vektor und konvertiere die `levels` in die Werte 0 - 1.
+
+```{r}
+# Siedlungsgebiet
+siedlungsgebiet_klassen <- c(0,80,0,
+                        80,160,0.1,
+                        160,240,0.2,
+                        240,320,0.3,
+                        320,400,0.4,
+                        400,480,0.5,
+                        480,560,0.6,
+                        560,640,0.7,
+                        640,720,0.8,
+                        720,800,0.9,
+                        800,Inf,1.0) |> matrix(ncol = 3, byrow = TRUE)
+
+siedlungsgebiet_classify <- classify(siedlungsgebiet_dist, siedlungsgebiet_klassen)
+```
+
+
+```{r}
+# Schutzgebiete
+schutzgebiete_klassen <- c(0,50,0,
+                          50,100,0.1,
+                          100,150,0.2,
+                          150,200,0.3,
+                          200,250,0.4,
+                          250,300,0.5,
+                          300,350,0.6,
+                          350,400,0.7,
+                          400,450,0.8,
+                          450,500,0.9,
+                          500,Inf,1.0) |> matrix(ncol = 3, byrow = TRUE)
+
+schutzgebiete_classify <- classify(schutzgebiete_dist, schutzgebiete_klassen)
+
+```
+
+```{r}
+### Strassen  
+strassen_klassen <- c(0,250,1.0,
+                     250,500,0.9,
+                     500,750,0.8,
+                     750,1000,0.7,
+                     1000,1250,0.6,
+                     1250,1500,0.5,
+                     1500,1750,0.4,
+                     1750,2000,0.3,
+                     2000,2250,0.2,
+                     2250,2500,0.1,
+                     2500,Inf,0) |> matrix(ncol = 3, byrow = TRUE)
+strassen_classify <- classify(strassen_dist, strassen_klassen)
+
+```
+
+
+## Übung 4: Raster Overlay {#sec-raster-overlay1}
+
+Wir haben zwar noch nicht alle Kriterien berechnet, die wir für unsere Standortsuche berücksichtigen wollen, aber zumindest schon vier (Distanz zum Wald, zur Siedlung, zur Strasse und zu Schutzgebieten). Mit diesen vier Kriterien können wir schon mal eine erste, unvollständige Beurteilung wagen. 
+
+Weil wir für alle Raster das gleiche Template verwendet haben, sind diese perfekt aneinander ausgerichtet. So können wir sie auf die denkbar einfachste Art miteinander verrechnen. Auf folgende Weise können wir beispielsweise den Mittlwert pro Zelle berechnen:
+
+```{r}
+#| echo: true
+overlay_prelim_1 <- (strassen_classify + schutzgebiete_classify + siedlungsgebiet_classify + wald_classify)/4
+
+tm_shape(overlay_prelim_1) + tm_raster(palette = "Spectral")
+```
+
+Wir können aber auch einen gewichteten Overlay durchführen. Auch das ist extrem Einfach:
+
+```{r}
+#| echo: true
+overlay_prelim_2 <- (strassen_classify*5 + schutzgebiete_classify*3 + siedlungsgebiet_classify*2 + wald_classify*1)/(5+3+2+1)
+
+tm_shape(overlay_prelim_2) + tm_raster(palette = "Spectral")
+
+```
+
+
