@@ -512,7 +512,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../rauman/Rauman2_Uebung_C.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung A (Optional)</span></a>
+  <a href="../rauman/Rauman2_Uebung_C.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung C (Optional)</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -671,6 +671,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../fallstudie_n/6_Guete_und_Diagnostics_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6. Modellgüte und -diagnostics MM / Habitatselektionsmodell - Lösung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">References</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../References.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">References</span></a>
   </div>
 </li>
       </ul>
@@ -927,29 +942,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="übung-5-ausschlusskriterien">Übung 5: Ausschlusskriterien</h2>
 <p>Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden können. Dazu gehören bewohnte Flächen, nationale Schutzgebiete, Waldgebiete und Seen. Zwar werden bewohnte Flächen, nationale Schutzgebiete und Waldgebiete in unserer Analyse bereits schlecht (mit “0”) bewertet, aber nicht kategorisch vom Resultat ausgeschlossen. Sprich: Wenn ein Gebiet, welches zum Beispiel mitten im Siedlungsgebiet liegt, alle anderen Bedigungen erfüllt, kann es trotzdem eine hohe Bewertung erhalten, obwohl dort keine Windkraftanalage gebaut werden kann.</p>
 <p>Um diese Gebiete kategorisch vom Resultat auszuschliessen können wir für die Siedlungsgebiete, Schutzgebiete sowie den Wald die rasterisierte Form verwenden, die wir in <a href="Rauman5_Uebung_A.html#sec-raster-distance"><span>Kapitel&nbsp;57.2</span></a> erstellt haben (für die Seen müssen wir den entsprechenden Raster zuerst noch erstellen).</p>
-<p>Diese Rasterdatensätze sind bereits binär: Rasterzellen mit dem Wert 1 sind Zellen im Wald, im Schutzgebiet usw. Zellen ausserhalb sind <code>NA</code>. Um die Vereinigungsmenge zu erhalten (also alle Zellen , die entweder Sieldungsgebiet <em>oder</em> Wald <em>oder</em> Schutzgebiet <em>oder</em> Seen sind), können wir die Funktion <code>sum()</code> mit der Option <code>na.rm = TRUE</code> verwenden. Alle Gebiete mit Werte &gt; 0 gelten als Ausschlussgebiete.</p>
-<div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>seen_raster <span class="ot">&lt;-</span> <span class="fu">my_rasterize</span>(seen, kt_schwyz, <span class="dv">250</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ausschlussgebiete <span class="ot">&lt;-</span> <span class="fu">sum</span>(siedlungsgebiet_raster, schutzgebiete_raster, wald_raster, seen_raster, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ausschlussgebiete, <span class="at">main =</span> <span class="st">"Auschlussgebiete (Summiert)"</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>ausschlussgebiete <span class="ot">&lt;-</span> ausschlussgebiete<span class="sc">&gt;</span><span class="dv">0</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ausschlussgebiete, <span class="at">main =</span> <span class="st">"Ausschlussgebiete (Binär)"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="Rauman5_Uebung_B_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p>Diese Rasterdatensätze sind bereits binär: Rasterzellen mit dem Wert 1 sind Zellen im Wald, im Schutzgebiet usw. Zellen ausserhalb sind <code>NA</code>. Um die Vereinigungsmenge zu erhalten (also alle Zellen , die entweder Sieldungsgebiet <em>oder</em> Wald <em>oder</em> Schutzgebiet <em>oder</em> Seen sind), können wir die Funktion <code>sum()</code> mit der Option <code>na.rm = TRUE</code> verwenden.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="Rauman5_Uebung_B_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid" width="672"></p>
+<div class="callout-caption-container flex-fill">
+Hinweis
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>In R ist <code>TRUE</code> das Äquivalent von <code>1</code> und <code>FALSE</code> das Äquivalent von <code>0</code>.</p>
 </div>
 </div>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fehlendes Ausschlussgebiet Rasterisieren</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>seen_raster <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(seen, template)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summe aller Auschlussgebiete rechnen</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># (na.rm = TRUE ignoriert NA Werte bei Summenbildung)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>ausschlussgebiete_sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(siedlungsgebiet_raster, schutzgebiete_raster, wald_raster, seen_raster, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ausschlussgebiete_sum)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Rauman5_Uebung_B_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Die Summe aller Ausschlussgebiete</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Nun können wir alle Gebiete mit Werten &gt; 0 gelten als Ausschlussgebiete bewerten.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ausschlussgebiete <span class="ot">&lt;-</span> ausschlussgebiete_sum<span class="sc">&gt;</span><span class="dv">0</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ausschlussgebiete)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Rauman5_Uebung_B_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Binäre Darstellung der Ausschlussgebiete (TRUE und NA)</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Der Aufmerksame Beobachter wird merken, dass hier nur <code>TRUE</code> Werte dargestellt, es Fehlen <code>FALSE</code> Werte. Tatsächlich hat <code>na.rm = TRUE</code> beim Summieren nur bewirkt, das <code>NA</code> Zellen ignoriert werden. Zellen, die die in <em>allen</em> Ausschlussgebieten keinen Wert aufweisen (<code>NA</code>), sind in <code>ausschlussgebiete</code> auch <code>NA</code>. Um diese Zellen mit <code>0</code> zu ersetzen gehen wir wie folgt vor: # Diese müssen mit 0 ersetzt werden</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Rauman5_Uebung_B_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Für Profis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nutze statt <code>sum()</code> die Funktion <code>any()</code>, um direkt auf eine binäre Bewertung der Ausschlussgebiete zu kommen.</p>
+</div>
 </div>
 </section>
 <section id="übung-5-ausschlussgebiete-von-potenziellen-gebieten-entfernen" class="level2">
@@ -958,7 +1012,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Wir erstellen einen neuen Raster <code>einschlussgebiete</code>, welches das Gegenteil von <code>ausschlussgebiete</code> darstellt. Einzuschliessende Gebiete weisen den Wert <code>1</code>, auszuschliessende Gebiete den Wert <code>0</code> auf. Diesen Raster multiplizieren wir mit dem Resultat aus <a href="#fig-overlay3">Abbildung&nbsp;<span>58.1</span></a>. Da jeder Wert, der mit <code>0</code> multipliziert <code>0</code> ergibt, werden so auszuschliessende Gebiete mit <code>0</code> bewertet. Einzuschliessende Gebiete behalten ihren Wert, da sie lediglich mit <code>1</code> multipliziert werden.</p>
 <p>Führe diese beiden Schriitte durch und visualisiere anschliessend das Ergebnis.</p>
 <div class="cell">
-
+<div class="cell-output-display">
+<p><img src="Rauman5_Uebung_B_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 
 
