@@ -21,7 +21,7 @@ Für Punkt 1 müssen wir zusätzliche Daten einlesen, die im Rasterformat daherk
 #| output: false
 library(here)
 tempr <- tempfile(fileext = ".R")
-knitr::purl(here::here("rauman","Rauman5_Uebung_A.qmd"),output = tempr)
+knitr::purl("rauman/Rauman5_Uebung_A.qmd",output = tempr)
 source(tempr)
 ```
 
@@ -72,7 +72,7 @@ library(purrr)
 library(readODS)
 library(here)
 
-reclassify_ods <- here("rauman", "Reclassify.ods")
+reclassify_ods <- "rauman/Reclassify.ods"
 
 sheets1 <- c("Windgeschwindigkeit", "Vereisungshaeufigkeit", "Hangneigung")
 einheit <- c("Speed", "Days", "Slope")
@@ -201,28 +201,51 @@ Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden k�
 
 Um diese Gebiete kategorisch vom Resultat auszuschliessen können wir für die Siedlungsgebiete, Schutzgebiete sowie den Wald die rasterisierte Form verwenden, die wir in @sec-raster-distance erstellt haben (für die Seen müssen wir den entsprechenden Raster zuerst noch erstellen).
 
-Diese Rasterdatensätze sind bereits binär: Rasterzellen mit dem Wert 1 sind Zellen im Wald, im Schutzgebiet usw. Zellen ausserhalb sind `NA`. Um die Vereinigungsmenge zu erhalten (also alle Zellen , die entweder Sieldungsgebiet *oder* Wald *oder* Schutzgebiet *oder* Seen sind), können wir die Funktion `sum()` mit der Option `na.rm = TRUE` verwenden. Alle Gebiete mit Werte > 0 gelten als Ausschlussgebiete.
+Diese Rasterdatensätze sind bereits binär: Rasterzellen mit dem Wert 1 sind Zellen im Wald, im Schutzgebiet usw. Zellen ausserhalb sind `NA`. Um die Vereinigungsmenge zu erhalten (also alle Zellen , die entweder Sieldungsgebiet *oder* Wald *oder* Schutzgebiet *oder* Seen sind), können wir die Funktion `sum()` mit der Option `na.rm = TRUE` verwenden. 
 
+:::{.callout-note}
+In R ist `TRUE` das Äquivalent von `1` und `FALSE` das Äquivalent von `0`.
+:::
 
 ```{r}
 #| echo: true
-#| layout-ncol: 2
-seen_raster <- my_rasterize(seen, kt_schwyz, 250)
+#| fig-cap: Die Summe aller Ausschlussgebiete
 
-ausschlussgebiete <- sum(siedlungsgebiet_raster, schutzgebiete_raster, wald_raster, seen_raster, na.rm = TRUE)
+# Fehlendes Ausschlussgebiet Rasterisieren
+seen_raster <- rasterize(seen, template)
 
-plot(ausschlussgebiete, main = "Auschlussgebiete (Summiert)")
-
-ausschlussgebiete <- ausschlussgebiete>0
-
-plot(ausschlussgebiete, main = "Ausschlussgebiete (Binär)")
+# Summe aller Auschlussgebiete rechnen
+# (na.rm = TRUE ignoriert NA Werte bei Summenbildung)
+ausschlussgebiete_sum <- sum(siedlungsgebiet_raster, schutzgebiete_raster, wald_raster, seen_raster, na.rm = TRUE)
+plot(ausschlussgebiete_sum)
 ```
 
-
+Nun können wir alle Gebiete mit Werten > 0 gelten als Ausschlussgebiete bewerten.
 
 ```{r}
-knitr::opts_chunk$set(eval = FALSE)
+#| echo: true
+#| fig-cap: Binäre Darstellung der Ausschlussgebiete (TRUE und NA)
+
+ausschlussgebiete <- ausschlussgebiete_sum>0
+plot(ausschlussgebiete)
 ```
+
+
+Der Aufmerksame Beobachter wird merken, dass hier nur `TRUE` Werte dargestellt, es Fehlen `FALSE` Werte. Tatsächlich hat `na.rm = TRUE` beim Summieren nur bewirkt, das `NA` Zellen ignoriert werden. Zellen, die die in *allen* Ausschlussgebieten keinen Wert aufweisen (`NA`), sind in `ausschlussgebiete` auch `NA`. Um diese Zellen mit `0` zu ersetzen gehen wir wie folgt vor:
+# Diese müssen mit 0 ersetzt werden
+
+```{r}
+ausschlussgebiete[is.na(ausschlussgebiete)] <- 0
+
+plot(ausschlussgebiete, col = c("blue", "green"))
+```
+
+:::{.callout-note}
+## Für Profis
+
+Nutze statt `sum()` die Funktion `any()`, um direkt auf eine binäre Bewertung der Ausschlussgebiete zu kommen.
+:::
+
 
 
 
@@ -243,6 +266,4 @@ tm_shape(overlay_4) +
   tm_raster(palette = "Spectral", breaks = seq(0,1,0.2), style = "cont", title = "Eignung") +
   tm_layout(frame = FALSE)
 ```
-
-
 

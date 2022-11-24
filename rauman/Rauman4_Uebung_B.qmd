@@ -3,13 +3,15 @@ date: 2022-12-06
 lesson: RaumAn4
 thema: Einführung Rasterdaten
 index: 2
+execute: 
+  echo: true
 ---
 
 # Rauman 4: Übung B {#sec-raster-intro}
 
-Einer der wichtigsten Aspekte der bevorstehenden Übung (Multi-Criteria Evaluation (MCE)) ist die Verwendung und Bearbeitung von **Rasterdatensätzen**. In "R" werden hauptsächlich zwei Pakete zur Bearbeitung von Rasterdaten verwendet: `terra` und das Paket `raster`. Das letztere wird immer noch stark genutzt, wird aber unweigerlich durch das erstere ersetzt.
+In @sec-raster-intro1 habt ihr nun eine erste Erfahrung mit mit Raster Daten gemacht. Dabei haben wir zuerst einen Vektordatensatz rasterisiert. Häufig arbeiten wir aber mit Geodaten, die bereits im Rasterformat erfast werden. 
 
-Im dieser Übung werden wir `terra` verwenden, um zu zeigen, wie wir einen Rasterdatensatz importieren können. Unter dem untenstehenden Link können Sie eine tif-Datei herunterladen, die das "Digitale Höhenmodell" (DHM)* des Kantons Schwyz in der Schweiz darstellt. Laden Sie den Datensatz herunter und führen Sie den angegebenen Code aus.
+In dieser Übung werden wir weiter mit `terra` arbeiten, um zu zeigen, wie wir einen Rasterdatensatz importieren, visualisieren und weiter verarbeiten können. Unter dem nachstehenden Link können Sie eine tif-Datei herunterladen, die das "Digitale Höhenmodell" (DHM)* des Kantons Schwyz darstellt. Laden Sie den Datensatz herunter und führen Sie den angegebenen Code aus.
 
 Datensatz: [dhm25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602285)
 
@@ -35,7 +37,9 @@ Um einen schnellen Überblick eines Rasterdatensatz zu erhalten, können wir ein
 plot(dhm_schwyz)
 ```
 
-Leider ist das Verwenden von `Rastern` in ggplot nicht sehr einfach. Da `ggplot` ein universelles Plot-Framework ist, stossen wir schnell an die Grenzen des Möglichen, wenn wir etwas so Spezielles wie Karten erstellen. Aus diesem Grund werden wir ein neues Plot-Framework einführen, das auf Karten spezialisiert ist und in einem sehr ähnlichen Design wie ggplot gebaut wurde: `tmap`. Installieren und laden Sie dieses Paket jetzt.
+Leider ist das Verwenden von `Rastern` in ggplot nicht sehr einfach. Da `ggplot` ein universelles Plot-Framework ist, stossen wir schnell an die Grenzen des Möglichen, wenn wir etwas so Spezielles wie Karten erstellen. Mit `plot` können wir zwar sehr schnell plotten, aber auch hier stossen wir schnell an Grenzen.
+
+Aus diesem Grund werden wir ein neues Plot-Framework einführen, das auf Karten spezialisiert ist und in einem sehr ähnlichen Design wie ggplot gebaut wurde: `tmap`. Laden Sie dieses Paket jetzt in Ihre Session:
 
 ```{r}
 library(tmap)
@@ -47,7 +51,6 @@ Genau wie `ggplot` basiert `tmap` auf der Idee von "Ebenen", die durch ein `+` v
 - eine Geometriekomponente, die beschreibt, wie das vorangegangene `tm_shape()` visualisiert werden soll. Dies kann `tm_dots()` für Punkte, `tm_polygons()` für Polygone, `tm_lines()` für Linien usw. sein. Für Einzelbandraster (was bei `dhm_schwyz` der Fall ist) ist es `tm_raster()`
 
 ```{r}
-
 tm_shape(dhm_schwyz) + 
   tm_raster() 
 ```
@@ -81,6 +84,17 @@ tm_shape(dhm_schwyz) +
 ```
 :::
 
+Eine grosse Stärke von `tmap` ist die Tatsache, das mit dem gleichen Befehl sowohl statische wie auch interative Plots erstellt werden können. Dafür muss der Modus von statisch auf interaktiv gewechselt werden. 
+
+```{r}
+tmap_mode("view") # wechselt auf interakive Plots
+
+tm_shape(dhm_schwyz) + 
+  tm_raster(style = "cont", palette = "Spectral")
+
+tmap_mode("plot")   # wechselt zurück auf statische Plots
+```
+
 
 
 ## Aufgabe 1 {#sec-raster-slope}
@@ -92,11 +106,22 @@ Mit `terra` können wir eine Vielzahl von Rasteroperationen über unser Höhenmo
 
 terrain(dhm_schwyz, "slope") |>
  plot()
+```
 
+```{r}
+schwyz_aspect <- terrain(dhm_schwyz, "aspect")
+```
 
-terrain(dhm_schwyz, "aspect") |>
-  plot()
+::: {.callout-note}
+Bei "aspect" handelt es sich ja um Werte, die von 0 bis 360 reichen. In klassischen Palettes liegen die beiden Extremwerte (in diesem Fall 0 und 360) farblich weit auseinander. Bei Aspect sollten diese aber nahe beieinander liegen (da eine Ausrichtung von 1° nur 2 Grad von einer Ausrichtung von 359° entfernt ist). Um dieser Tatsache Rechnung zu Tragen können wir eine eine eigene Colourpalette erstellen, wo die erste Farbe wiederholt ist.
+:::
 
+```{r}
+tm_shape(schwyz_aspect) + 
+tm_raster(
+  palette = c("#EF476F","#FFD166","#06D6A0", "#118AB2","#EF476F"), 
+  style = "cont", breaks = seq(0,360, 90)
+  )
 ```
 
 
@@ -104,7 +129,7 @@ terrain(dhm_schwyz, "aspect") |>
 
 Mit Hangneigung und -ausrichtung können wir einen *Hillshading*-Effekt berechnen. Hillshading bedeutet, dass der Schattenwurf des Oberflächenmodells bei gegebenen Einfallswinkel der Sonne (Höhe und Azimut) berechnet wird. Der typische Einfallswinkel liegt bei 45° über dem Horizont und von Nordwesten bei 315°.
 
-Um einen Hillshading Effekt zu erzeugen, berechne zuerst `slope` und `aspect` von `dhm_schwyz` analog der letzten Aufgabe, achte aber darauf das die Einheit `radians` entspricht. Nutze diese beiden Objekte um den Hillshade zu berechnen. Visualisiere den Output anschliessend mit `plot` oder `tmap`.
+Um einen Hillshading Effekt zu erzeugen, berechne zuerst `slope` und `aspect` von `dhm_schwyz` analog der letzten Aufgabe, **achte aber darauf das die Einheit `radians` entspricht**. Nutze diese beiden Objekte um den Hillshade zu berechnen. Visualisiere den Output anschliessend mit `plot` oder `tmap`.
 
 ```{r}
 #| echo: false
