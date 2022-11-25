@@ -199,67 +199,60 @@ tm_shape(overlay_prelim_3) +
 
 Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden können. Dazu gehören bewohnte Flächen, nationale Schutzgebiete, Waldgebiete und Seen. Zwar werden bewohnte Flächen, nationale Schutzgebiete und Waldgebiete in unserer Analyse bereits schlecht (mit "0") bewertet, aber nicht kategorisch vom Resultat ausgeschlossen. Sprich: Wenn ein Gebiet, welches zum Beispiel mitten im Siedlungsgebiet liegt, alle anderen Bedigungen erfüllt, kann es trotzdem eine hohe Bewertung erhalten, obwohl dort keine Windkraftanalage gebaut werden kann.
 
-Um diese Gebiete kategorisch vom Resultat auszuschliessen können wir für die Siedlungsgebiete, Schutzgebiete sowie den Wald die rasterisierte Form verwenden, die wir in @sec-raster-distance erstellt haben (für die Seen müssen wir den entsprechenden Raster zuerst noch erstellen).
+Um diese Gebiete kategorisch vom Resultat auszuschliessen können wir für die Siedlungsgebiete, Schutzgebiete sowie den Wald die rasterisierte Form verwenden, die wir in @sec-raster-distance erstellt haben. Für die Seen müssen wir den entsprechenden Raster zuerst noch erstellen:
 
-Diese Rasterdatensätze sind bereits binär: Rasterzellen mit dem Wert 1 sind Zellen im Wald, im Schutzgebiet usw. Zellen ausserhalb sind `NA`. Um die Vereinigungsmenge zu erhalten (also alle Zellen , die entweder Sieldungsgebiet *oder* Wald *oder* Schutzgebiet *oder* Seen sind), können wir die Funktion `sum()` mit der Option `na.rm = TRUE` verwenden. 
+```{r}
+#| echo: true
+# Fehlendes Ausschlussgebiet Rasterisieren
+seen_raster <- rasterize(seen, template)
+```
 
-:::{.callout-note}
-In R ist `TRUE` das Äquivalent von `1` und `FALSE` das Äquivalent von `0`.
-:::
+
+Diese Rasterdatensätze sind bereits binär: Rasterzellen mit dem Wert 1 sind Zellen im Wald, im Schutzgebiet usw. Zellen ausserhalb sind `NA`. Um die Vereinigungsmenge zu erhalten (also alle Zellen , die entweder Sieldungsgebiet *oder* Wald *oder* Schutzgebiet *oder* Seen sind), können wir die Funktion `any()` verwenden. Diese Funktion gibt `TRUE` zurück wenn mindestens 1 Wert im Overlay `TRUE` ist. 
+
+Hilfreich ist an dieser Stelle, wenn wir die Gemeindegrenze vom Kanton Schwyz ebenfalls rasterisieren und mitbenutzen, damit Gebiete ausserhalb des Kantons als Auschlussgebiete gelten (`background = 1`) und Gebiete innerhalb des Kantons nicht zwingend (`field = 0`).
 
 ```{r}
 #| echo: true
 #| fig-cap: Die Summe aller Ausschlussgebiete
 
-# Fehlendes Ausschlussgebiet Rasterisieren
-seen_raster <- rasterize(seen, template)
+kt_schwyz_raster <- rasterize(kt_schwyz, template, field = 0, background = 1)
 
 # Summe aller Auschlussgebiete rechnen
 # (na.rm = TRUE ignoriert NA Werte bei Summenbildung)
-ausschlussgebiete_sum <- sum(siedlungsgebiet_raster, schutzgebiete_raster, wald_raster, seen_raster, na.rm = TRUE)
-plot(ausschlussgebiete_sum)
+ausschlussgebiete <- any(siedlungsgebiet_raster, schutzgebiete_raster, wald_raster, seen_raster, kt_schwyz_raster, na.rm = TRUE)
+
+plot(ausschlussgebiete, col = c("red", "blue"))
 ```
-
-Nun können wir alle Gebiete mit Werten > 0 gelten als Ausschlussgebiete bewerten.
-
-```{r}
-#| echo: true
-#| fig-cap: Binäre Darstellung der Ausschlussgebiete (TRUE und NA)
-
-ausschlussgebiete <- ausschlussgebiete_sum>0
-plot(ausschlussgebiete)
-```
-
-
-Der Aufmerksame Beobachter wird merken, dass hier nur `TRUE` Werte dargestellt, es Fehlen `FALSE` Werte. Tatsächlich hat `na.rm = TRUE` beim Summieren nur bewirkt, das `NA` Zellen ignoriert werden. Zellen, die die in *allen* Ausschlussgebieten keinen Wert aufweisen (`NA`), sind in `ausschlussgebiete` auch `NA`. Um diese Zellen mit `0` zu ersetzen gehen wir wie folgt vor:
-# Diese müssen mit 0 ersetzt werden
-
-```{r}
-ausschlussgebiete[is.na(ausschlussgebiete)] <- 0
-
-plot(ausschlussgebiete, col = c("blue", "green"))
-```
-
-:::{.callout-note}
-## Für Profis
-
-Nutze statt `sum()` die Funktion `any()`, um direkt auf eine binäre Bewertung der Ausschlussgebiete zu kommen.
-:::
-
-
-
 
 ## Übung 5: Ausschlussgebiete von potenziellen Gebieten entfernen
 
 Das Resultat aus unserer vorläufigen Analyse (@fig-overlay3) weisst werte von 0 - 1 auf. Um sicher zu stellen, dass die Auschlussgebiete mit `0` ausgewiesen werden können wie folgt vorgehen: 
 
-Wir erstellen einen neuen Raster `einschlussgebiete`, welches das Gegenteil von `ausschlussgebiete` darstellt. Einzuschliessende Gebiete weisen den Wert `1`, auszuschliessende Gebiete den Wert `0` auf. Diesen Raster multiplizieren wir mit dem Resultat aus @fig-overlay3. Da jeder Wert, der mit `0` multipliziert `0` ergibt, werden so auszuschliessende Gebiete mit `0` bewertet. Einzuschliessende Gebiete behalten ihren Wert, da sie lediglich mit `1` multipliziert werden.
-
-Führe diese beiden Schriitte durch und visualisiere anschliessend das Ergebnis.
+1. Wir erstellen einen neuen Raster `einschlussgebiete`, welches das *Gegenteil* von `ausschlussgebiete` darstellt.
 
 ```{r}
+#| echo: true
 einschlussgebiete <- !ausschlussgebiete
 
+plot(einschlussgebiete, col = c("red", "blue"))
+```
+
+2. Jetzt entsprechen alle Zellen, die vom Resultat ausgeschlossen werden sollten, dem Wert `0`. Diese ersetzen wir nun mit `NA`.
+
+```{r}
+#| echo: true
+
+einschlussgebiete[einschlussgebiete == 0] <- NA
+
+plot(einschlussgebiete, col = "black")
+```
+
+Diesen Raster multiplizieren wir mit dem Resultat aus @fig-overlay3. Da jeder Wert, der mit `NA` multipliziert `NA` ergibt, werden so auszuschliessende Gebiete mit `NA` bewertet. Einzuschliessende Gebiete behalten ihren Wert, da sie lediglich mit `1` multipliziert werden.
+
+Führe diesen letzten Schritt durch und visualisiere anschliessend das Ergebnis.
+
+```{r}
 overlay_4 <- overlay_prelim_3*einschlussgebiete
 
 tm_shape(overlay_4) + 

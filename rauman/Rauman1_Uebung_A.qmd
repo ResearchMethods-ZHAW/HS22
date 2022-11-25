@@ -38,13 +38,16 @@ Schau Dir die importierten Datensätze an. Am meisten Informationen zu `sf` Obje
 
 ## Aufgabe 2: Daten Visualisieren
 
-Vektordaten (`sf` Objekte) lassen sich teilweise sehr schön in die bekannten Tidyverse workflows integrieren. Das merkt man schnell, wenn man die Daten visualisieren möchte. In InfoVis 1 & 2 haben wir intensiv mit `ggplot2` gearbeitet und dort die Layers `geom_point()` und `geom_line()` kennen gelernt. Zusätzlich beinhaltet `ggplot` die Möglichkeit, mit `geom_sf()` Vektordaten direkt und sehr einfach zu plotten. Die nachfolgende Aufgabe werden wir aber mit `plot` abbilden (Warum wird gleich erläutert). Führe die angegebenen R-Befehle aus und studiere die entstehenden Plots. Welche Unterschiede findest Du? Wie erklärst Du diese Unterschiede?
+Eine sehr einfache Möglichkeit, `sf`-Objekte zu visualiseren ist die base-R Funktion `plot()`. Führe die angegebenen R-Befehle aus und studiere die entstehenden Plots. Welche Unterschiede findest Du? Wie erklärst Du diese Unterschiede?
 
 ```{r}
 #| echo: true
+
+# ohne max.plot = 1 macht R einen Plot pro Spalte
 plot(gemeinden, max.plot = 1)
 
-plot(kantone, max.plot = 1)
+# Alternativ kann man auch eine spezifische Spalte plotten
+plot(kantone["KANTONSFLA"])
 ```
 
 ## Input: Koodinatensysteme
@@ -72,20 +75,15 @@ Nun gilt es, anhand der Koordinaten die in der Spalte `geometry` ersichtlich sin
 
 **Bedienungshinweise**:
 
-<fig>
-<img src = "images/koordinatenpaar.jpg" width = 50%>
-<figcaption>Koordinanten (des Fadenkreuzes) werden im ausgewählten Koordinatensystem dargestellt</figcaption>
-</fig>
+::: {layout="[50,50], [100]]"}
+![Koordinanten (des Fadenkreuzes) werden im ausgewählten Koordinatensystem dargestellt](images/koordinatenpaar.jpg)
 
-<fig>
-<img src = "images/koordinatensystem.jpg" width = 50%>
-<figcaption>Das Koordinatensystem, in welchem die Koordinaten dargestellt werden sollen, kann mit "Change" angepasst werden</figcaption>
-</fig>
+![Das Koordinatensystem, in welchem die Koordinaten dargestellt werden sollen, kann mit "Change" angepasst werden](images/koordinatensystem.jpg)
 
-<fig>
-<img src = "images/reproject.jpg" width = 50%>
-<figcaption>Für Enthusiasten: Schau Dir die Schweiz in verschiedenen Koordinatensystemen an, in dem Du auf "Reproject Map" klickst</figcaption>
-</fig>
+![Für Enthusiasten: Schau Dir die Schweiz in verschiedenen Koordinatensystemen an, in dem Du auf "Reproject Map" klickst](images/reproject.jpg)
+
+:::
+
 
 Wenn man diese Koordinaten mit den Koordinaten unserer Datensätze vergleicht, dann ist schnell klar, dass es sich beim Datensatz `kantone` um das Koordinatensystem WGS84 handelt und bei `gemeinden` das Koordinatensystem CH1903+ LV95. Diese Koordinatensyteme weisen wir nun mit `st_set_crs()` und dem entsprechenden *EPSG*-Code (siehe die jeweiligen Links) zu.
 
@@ -99,20 +97,26 @@ gemeinden <- st_set_crs(gemeinden, 2056)
 st_crs(kantone)
 ```
 
-Auch wenn das CRS der Datensätze bekannt ist, nutzt ggplot immer noch `EPSG 4326` um die Achsen zu beschriften.  Wenn das stört, kann man `coord_sf(datum = 2056)` in einem weiteren Layer spezifizieren. Oder aber man blendet die Achsenbeschriftung mit `theme_void()` komplett aus. Versuche beide Varianten.
+
+Jetzt wo das CRS der Datensätze bekannt ist, können wir `ggplot2` nutzen um usere Daten zu visualisieren. In InfoVis 1 & 2 haben wir intensiv mit `ggplot2` gearbeitet und dort die Layers `geom_point()` und `geom_line()` kennen gelernt. Zusätzlich beinhaltet `ggplot` die Möglichkeit, mit `geom_sf()` Vektordaten direkt und sehr einfach zu plotten. 
 
 ```{r}
 ggplot() + 
-  geom_sf(data = kantone) +
-  coord_sf(datum = 2056)
+  # bei geom_sf müssen weder x noch y Spalten angegeben werden
+  geom_sf(data = gemeinden)
+
+
 ```
+
+
+
 
 ## Aufgabe 3: Koordinatensyteme *transformieren*
 
 In der vorherigen Übung haben wir das bestehende Koordinatensystem *zugewiesen*. Dabei haben wir die bestehenden Koordinaten (in der Spalte `geom`) *nicht* manipuliert. Ganz anders ist eine *Transformation* der Daten von einem Koordinatensystem in das andere. Bei einer Transformation werden die Koordinaten in das neue Koordinatensystem umgerechnet und somit manipuliert. Aus praktischen Gründen wollen <!-- Was sind diese Gründe? genauer erläutern? -->
 wir all unsere Daten ins neue Schweizer Koordinatensystem CH1903+ LV95 transfomieren. Transformiere den Datensatz `kantone` mit `st_transform()`in CH1903+ LV95, nutze dafür den korrekten EPSG-Code.
 
-Vor der Transformation (betrachte die Attribute `Bounding box` sowie `Geodetic CRS`): 
+Vor der Transformation (betrachte die Attribute `Bounding box`, `Projected CRS` sowie die Werte in der Spalte `geom`):: 
 
 ```{r}
 #| echo: true
@@ -120,29 +124,60 @@ kantone
 ```
 
 ```{r}
-#| eval: false
+#| echo: true
+
 kantone <- st_transform(kantone, 2056)
 ```
 
-Nach der Transformation (betrachte die Attribute `Bounding box` sowie `Projected CRS`):
+Nach der Transformation (betrachte die Attribute `Bounding box`, `Projected CRS` sowie die Werte in der Spalte `geom`):
 
 ```{r}
 #| echo: true
 kantone
 ```
 
-## Aufgabe 4: Chloroplethen Karte
 
-Nun wollen wir die Gemeinden respektive die Kantone nach ihrer Einwohnerzahl einfärben. Dafür verwenden wir wie gewohnt die Methode `aes(fill = ...)` von `ggplot`. 
 
-Tips: 
+## Aufgabe 5: Tidyverse Funktionen
 
-- um die *scientific notation* (z.B. `3e+03`) zu verhindern, könnt ihr den Befehl `options(scipen = 999)` ausführen
-- um die Darstellung der Gemeinde- (bzw. Kantons-) Grenzen zu verhindern, könnt ihr im entsprechenden Layer `color = NA` setzen. Alternativ könnt ihr die Linienbreite mit `size = ` verändern.
+`sf` Objekte sind im wesentlichen `data.frames` mit ein paar Metadaten und einer speziellen `geometry`-Spalte. Wir können ihnen die gleichen Operationen durchführen, wie mit `data.frames`. Beispielsweise können wir aus den Spalten `EINWOHNERZ` und `KANTONSFLA` die Einwohnerdichte berechnen:
 
 ```{r}
-#| fig.show: hold
-#| out.width: 49%
+#| echo: true
+kantone <- kantone |>
+  mutate(
+    # hektaren in km2 konvertieren
+    flaeche_km2 = KANTONSFLA/100,
+    # dichte pro km2 berechnen
+    bevoelkerungsdichte = EINWOHNERZ/flaeche_km2
+    )
+```
+
+Berechne nun die Einwohnerdichte auf der Ebene der Bezirke.
+
+```{r}
+gemeinden <- gemeinden |>
+  mutate(
+    flaeche_km2 = GEM_FLAECH/100,
+    bevoelkerungsdichte = EINWOHNERZ/flaeche_km2)
+```
+
+
+## Aufgabe 4: Choroplethen Karte
+
+Nun wollen wir die Gemeinden respektive die Kantone nach ihrer Bevölkerungsdichte einfärben. Dafür verwenden wir wie gewohnt die Methode `aes(fill = ...)` von `ggplot`. 
+
+```{r}
+#| echo: true
+ggplot(kantone) + 
+  geom_sf(aes(fill = bevoelkerungsdichte))
+```
+
+Hier sind farblich kaum Unterschiede erkennbar, weil die extrem hohe Bevölkerungsdichte vom Halbkanton Basel-Stadt (>5'000 Einwohner pro km<sup>2</sup>!) die ganze Farbskala dominiert. Der [Statistischer Atlas der Schweiz](https://www.atlas.bfs.admin.ch/maps/13/de/15467_75_3501_70/24216.html) löst das Problem, indem es Klassen mit irregulären Schwellwerte verwendet und alle zahlen >2'000 gruppiert. Diese Vorgehensweise können wir mit `cut()` rekonstruieren.
+
+
+```{r}
+#| column: page
 #| layout-ncol: 2
 #| fig-subcap: 
 #|   - "Kantone"
@@ -150,28 +185,40 @@ Tips:
 #| fig.cap: Der Vergleich dieser beiden Darstellungen veranschaulicht die MAUP Problematik sehr deutlich
 #| label: fig-ggplot-ex4
 
-ggplot(kantone, aes(fill = EINWOHNERZ/1e6)) +
-  geom_sf(color= "white",size = .05) +
-  labs(title = "Anzahl Einwohner pro Kanton",
-       subtitle = "in Millionen") +
-  theme(legend.position = "bottom",
-        legend.title = element_blank(),
-        legend.key.width = unit(0.15, 'npc'),
-        legend.key.height = unit(0.02, 'npc'),
-        legend.text = element_text(angle = 90,hjust = 0.5),
-        legend.text.align = 1)
 
-ggplot(gemeinden,aes(fill = EINWOHNERZ/1e6)) +
-  geom_sf(color= "white",size = .05) +
-  scale_fill_continuous("Einwohner (in Mio)") +
-  labs(title = "Anzahl Einwohner pro Gemeinde",
-       subtitle = "in Millionen") +
-  theme(legend.position = "bottom",
-        legend.title = element_blank(),
-        legend.key.width = unit(0.15, 'npc'),
-        legend.key.height = unit(0.02, 'npc'),
-        legend.text = element_text(angle = 90,hjust = 0.5),
-        legend.text.align = 1)
+# Schwellwerte analog BFS "Statistischer Atlas der Schweiz"
+breaks = c(0,50,100,150,200,300,500,750,1000,2000,Inf)
+
+# Klassen auf der Basis dieser Schwellenwerte bilden
+kantone <- kantone |>
+  mutate(bevoelkerungsdichte_klassen = cut(bevoelkerungsdichte, breaks))
+
+# Das gleiche für Gemeinden
+gemeinden <- gemeinden |>
+  mutate(bevoelkerungsdichte_klassen = cut(bevoelkerungsdichte, breaks))  
+
+
+# Farbpalette erstellen: Wir brauchen so viele Farben, wie wir "breaks" haben, minus 1
+ncols <- length(breaks)-1
+
+# Farbpalette erstellen (siehe RColorBrewer::display.brewer.all())
+red_yellow_green <- RColorBrewer::brewer.pal(ncols, "RdYlGn")
+
+# Farbpalette umdrehen (zu green-red-yellow)
+green_red_yellow <- rev(red_yellow_green)
+
+ggplot(kantone, aes(fill = bevoelkerungsdichte_klassen)) +
+  geom_sf(colour = NA) +
+  scale_fill_manual(values = green_red_yellow) +
+  theme_void() +
+  theme(legend.position = "none")
+
+ggplot(gemeinden, aes(fill = bevoelkerungsdichte_klassen)) +
+  geom_sf(colour = NA) +
+  scale_fill_manual(values = green_red_yellow) +
+  theme_void() +
+  theme(legend.position = "none")
+
 ```
 
 

@@ -26,13 +26,25 @@ library(ggplot2)
 
 wiesen <- read_sf("datasets/rauman/gruental.gpkg", "wiesen")
 baeume <- read_sf("datasets/rauman/gruental.gpkg", "baeume")
+
 ```
+
+
+Um die Übung etwas zu vereinfachen arbeiten wir erstmals mit nur 10 Bäumen. Nutze nachstehenden Code um Zufällig 10 Bäume auszuwählen. Wenn ihr den gleichen "Seed" wie ich benutzt (`set.seed(100)`) habt ihr "zufällig" auch die gleichen Bäume wie ich.
+
+```{r}
+#| echo: true
+#| 
+set.seed(100)
+baeume_sample <- sample_n(baeume, 10)
+```
+
 
 
 ```{r}
 ggplot() +
   geom_sf(data = wiesen) +
-  geom_sf(data = baeume)
+  geom_sf(data = baeume_sample)
 ```
 
 ## Aufgabe 1
@@ -40,7 +52,7 @@ ggplot() +
 Als erster Schritt müssen wir jeden Baum mit einem 20m Puffer verstehen. Nutze dazu `st_buffer` um speichere den Output als `baeume_20m`. Schau dir `baeume_20m` nun genau an. Um welchen Geometrietyp handelt es sich dabei nun?
 
 ```{r}
-baeume_20m <- st_buffer(baeume, 20)
+baeume_20m <- st_buffer(baeume_sample, 20)
 ```
 
 
@@ -49,7 +61,7 @@ baeume_20m <- st_buffer(baeume, 20)
 #| label: fig-buffer1
 ggplot() +
   geom_sf(data = wiesen) +
-  geom_sf(data = baeume) +
+  geom_sf(data = baeume_sample) +
   geom_sf(data = baeume_20m, fill = NA)
 ```
 
@@ -95,7 +107,7 @@ baeume_wiesen$wiesen_anteil <- baeume_wiesen$wiesen_flaeche/kreisflaeche
 
 baeume_wiesen_df <- st_drop_geometry(baeume_wiesen)
 
-baeume_2 <- left_join(baeume, baeume_wiesen_df, by = "baum_id")
+baeume_2 <- left_join(baeume_sample, baeume_wiesen_df, by = "baum_id")
 
 ggplot() +
   geom_sf(data = wiesen) +
@@ -119,10 +131,11 @@ Bevor wir die Frage aber beantworten können, müssen wir den Vektordatensatz in
 library(terra)
 
 # Um ein Vektor Datensatz zu vektorieren, brauchen wir ein Template.
-# Für das Template nutzen wir "wiesen" und setzen eine Auflösung von 10m
-template <- rast(wiesen, resolution = 10)
+# Für das Template nutzen wir "wiesen" und setzen eine Zellgrösse (resolution)
+template <- rast(wiesen, resolution = 20)
 
 # Mit rasterize können wir "baeume" in einen Raster konvertieren
+# Nutzt hier wieder alle bäume, nicht baeume_sample
 baume_rast <- terra::rasterize(baeume, template)
 ```
 
@@ -130,8 +143,8 @@ Der Unterschied zwischen Raster und Vektor kann sehr anschaulich dargestellt wer
 
 ```{r}
 #| echo: true
-plot(baume_rast)
-plot(baeume, add = TRUE)
+plot(baume_rast, col = "grey")
+plot(baeume, add = TRUE, col = "red", pch = "x")
 ```
 
 Mit `baume_rast` können wir nun mit der Funktion `distance()` die Distanz zu jedem Baum berechnen:
@@ -141,6 +154,6 @@ Mit `baume_rast` können wir nun mit der Funktion `distance()` die Distanz zu je
 
 baume_dist <- distance(baume_rast)
 plot(baume_dist)
-plot(baeume, add = TRUE)
+plot(baeume, add = TRUE, pch = "x")
 ```
 

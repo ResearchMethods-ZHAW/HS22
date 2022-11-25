@@ -9,9 +9,7 @@ execute:
 
 # Rauman 1: Übung B
 
-Für die kommende Übung arbeiten wir mit nachstehendem Datensatz. Lade diesen Herunter und importiere ihn in R.
-
-Zudem brauchen wir die folgenden libraries:
+Für die kommende Übung arbeiten wir mit nachstehendem Datensatz: [gruental.pgkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602277). Lade diesen Herunter und importiere ihn in R. Zudem brauchen wir die folgenden libraries:
 
 ```{r}
 #| echo: true
@@ -21,9 +19,19 @@ library(sf)
 library(ggplot2)
 ```
 
+
+```{r}
+#| echo: false
+#| output: false
+
+
+read_sf("datasets/rauman/gruental.gpkg")
+```
+
+
 ### Aufgabe 1: Geopackage "Layers"
 
-Allenfalls ist euch beim Importieren des Geopackage [gruental.pgkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602277) folgende Warnmeldung aufgefallen:
+Allenfalls ist euch beim Importieren des Geopackage *gruental.pgkg *folgende Warnmeldung aufgefallen:
 
 ```
 Warning message:
@@ -43,16 +51,28 @@ baeume <- read_sf("datasets/rauman/gruental.gpkg", "baeume")
 
 ### Aufgabe 2: Datensätze erkunden
 
-Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Visualisierungsmöglichkeiten von `ggplot` (insbesondere `geom_sf`).
+Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Visualisierungsmöglichkeiten von `ggplot` (insbesondere `geom_sf`). Du kannst mehrere `geom_sf()` übereinander lagern, um gleichzeitig mehrere Datensätze darzustellen.
 
 ```{r}
 #| label: fig-ggplot-ex2
-#| fig.cap: Beispielsweise kannst du die Daten in dieser Weise visualisieren.
+#| layout-ncol: 2
+#| column: page
+#| fig.cap:
+#| - Wiesen-Flächen eingefärbt nach Typ
+#| - Bäume eingefärbt nach Baumtyp
+#| 
 
 ggplot(wiesen) +
-  geom_sf(fill = "chartreuse4") +
+  geom_sf(aes(fill = flaechen_typ)) +
   geom_sf(data = baeume) +
   theme_void()
+
+
+ggplot(wiesen) +
+  geom_sf() +
+  geom_sf(data = baeume, aes(colour = baum_typ)) +
+  theme_void()
+
 ```
 
 ### Aufgabe 3:  Spatial Join mit Punkten {#sec-spatial-join-points}

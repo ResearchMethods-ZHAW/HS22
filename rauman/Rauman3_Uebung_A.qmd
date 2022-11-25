@@ -253,21 +253,39 @@ Für Fortgeschrittene: Erstellt aus dem erarbeiten Workflow eine *function* um M
 
 ```{r}
 #| echo: false
+#| layout-ncol: 2
+#| column: page
+
 
 zweitwohnung_gemeinde <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "gemeinde")
 
 p2 <- ggplot(zweitwohnung_gemeinde) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
   scale_fill_gradientn("Ja Anteil",colours = RColorBrewer::brewer.pal(11, "RdYlGn"), limits = c(0,1)) +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "none") +
   labs(title = "Gemeinden: Global Morans I: ?")
 
+p1 <- p + labs(title = paste("Kantone: Global Morans I:",round(MI,2))) + theme(legend.position = "none")
 
-p1 <- p + labs(title = paste("Kantone: Global Morans I:",round(MI,2)))
+p1
 
-cowplot::plot_grid(p1, p2)
+p2
+```
+
+```{r}
+#| echo: false
+#| fig-height: 1
+#| out-width: 100%
+#| column: page
+
+library(cowplot)
+
+(p  + labs(fill = "Ja (in %)")) |>
+get_legend() |>
+ggdraw()
 
 ```
+
 
 ```{r}
 morans_i <- function(sf_object,col) {
