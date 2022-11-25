@@ -703,7 +703,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -728,31 +728,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>Für die kommende Übung arbeiten wir mit nachstehendem Datensatz. Lade diesen Herunter und importiere ihn in R.</p>
-<p>Zudem brauchen wir die folgenden libraries:</p>
+<p>Für die kommende Übung arbeiten wir mit nachstehendem Datensatz: <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602277">gruental.pgkg</a>. Lade diesen Herunter und importiere ihn in R. Zudem brauchen wir die folgenden libraries:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell">
+
+</div>
 <section id="aufgabe-1-geopackage-layers" class="level3">
 <h3 class="anchored" data-anchor-id="aufgabe-1-geopackage-layers">Aufgabe 1: Geopackage “Layers”</h3>
-<p>Allenfalls ist euch beim Importieren des Geopackage <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602277">gruental.pgkg</a> folgende Warnmeldung aufgefallen:</p>
+<p>Allenfalls ist euch beim Importieren des Geopackage <em>gruental.pgkg </em>folgende Warnmeldung aufgefallen:</p>
 <pre><code>Warning message:
 In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
   automatically selected the first layer in a data source containing more than one.</code></pre>
 <p>Diese Warnmeldung weist darauf hin, dass das Geopackage <code>gruental.gpkg</code> mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl <code>st_layers</code> die Layer Namen in Erfahrung und nutze diese im Anschluss in <code>st_read</code> (als Argument <code>layer =</code>) um die layers einzeln zu importieren und in variablen zu speichern (zB in als Variable <code>wiesen</code> und <code>baeume</code>).</p>
 </section>
-<section id="aufgabe-2-datensätze-erkunden" class="level3">
+<section id="aufgabe-2-datensätze-erkunden" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="aufgabe-2-datensätze-erkunden">Aufgabe 2: Datensätze erkunden</h3>
-<p>Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Visualisierungsmöglichkeiten von <code>ggplot</code> (insbesondere <code>geom_sf</code>).</p>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-ggplot-ex2" class="quarto-figure quarto-figure-center anchored">
+<p>Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Visualisierungsmöglichkeiten von <code>ggplot</code> (insbesondere <code>geom_sf</code>). Du kannst mehrere <code>geom_sf()</code> übereinander lagern, um gleichzeitig mehrere Datensätze darzustellen.</p>
+<div class="cell column-page quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-ggplot-ex2-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Rauman1_Uebung_B_files/figure-html/fig-ggplot-ex2-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;50.1: Beispielsweise kannst du die Daten in dieser Weise visualisieren.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;50.1: Wiesen-Flächen eingefärbt nach Typ</figcaption><p></p>
 </figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-ggplot-ex2-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Rauman1_Uebung_B_files/figure-html/fig-ggplot-ex2-2.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;50.2: Bäume eingefärbt nach Baumtyp</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
