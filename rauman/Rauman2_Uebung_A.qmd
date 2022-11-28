@@ -136,11 +136,11 @@ ggplot() +
 ```
 
 ## Aufgabe 3: Dichteverteilung mit Thiessen Polygonen
+
 Thiessen Polygone bieten eine spannende Alternative um Unterschiede in der Dichteverteilung von Punktdatensätzen zu visualisieren. 
 Wir wollen dies nun ausprobieren und konstruieren zum Schluss die Thiessenpolygone für die Rotmilan-Daten für das Untersuchungsgebiet Schweiz. Nutze die Anleitung für das Erstellen von Thiessenpolygonen aus der Übung B um Thiessenpolygone für die Rotmilanpositionen zu erstellen. 
 
 ```{r}
-#| eval: false
 
 thiessenpolygone <- rotmilan |>
   st_union() |>
@@ -156,10 +156,9 @@ thiessenpolygone_clip <- st_intersection(thiessenpolygone,schweiz)
 #| label: fig-ggplot-ex2-thiessen
 #| fig.cap: 'Wenn wir jetzt die Thiessenpolygone (ohne Punkte) darstellen, wird deutlicher,
 #|   wie die Dichteverteilung im Innern des Clusters aussieht. '
-#| eval: false
 ggplot() + 
   geom_sf(data = schweiz) + 
-  geom_sf(data = thiessenpolygone_clip) + 
+  geom_sf(data = thiessenpolygone_clip, fill = NA) + 
   theme_void()
 ```
 
