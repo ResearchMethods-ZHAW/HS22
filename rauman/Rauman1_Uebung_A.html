@@ -674,7 +674,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">References</a>
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">Anhang</a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -682,7 +682,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../References.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">References</span></a>
+  <a href="../References.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Literaturverzeichnis</span></a>
   </div>
 </li>
       </ul>
@@ -750,7 +750,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kantone <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/kantone.gpkg"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>gemeinden <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/gemeinden.gpkg"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Schau Dir die importierten Datensätze an. Am meisten Informationen zu <code>sf</code> Objekten bekommst du, wenn du dir den Datensatz <strong>in der Konsole</strong> anschaust (in dem du den Variabel-Name in der Konsole eintippst). Mit dem RStudio Viewer werden <code>sf</code> Objekte nur sehr langsam geladen und die Metadaten werden nicht angezeigt.</p>
+<p>Schau Dir die importierten Datensätze an.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Am meisten Informationen zu <code>sf</code> Objekten bekommst du, wenn du dir den Datensatz <em>in der Konsole</em> anschaust (in dem du den Variabel-Name in der Konsole eintippst). Mit dem RStudio Viewer werden <code>sf</code> Objekte nur sehr langsam geladen und die Metadaten werden nicht angezeigt.</p>
+</div>
+</div>
 </section>
 <section id="aufgabe-2-daten-visualisieren" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2-daten-visualisieren">Aufgabe 2: Daten Visualisieren</h2>
@@ -788,52 +801,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Leider sind in unserem Fall keine Koordinatensysteme zugewiesen. Mit etwas Erfahrung kann man das Koordinatensystem aber erraten, so viele kommen nämlich gar nicht in Frage. Am häufigsten trifft man hierzulande eines der drei folgenden Koordinatensysteme an:</p>
 <ul>
-<li><a href="https://epsg.io/21781">CH1903 LV03</a>: das alte Koordinatensystem der Schweiz</li>
-<li><a href="https://epsg.io/2056">CH1903+ LV95</a>: das neue Koordinatensystem der Schweiz</li>
-<li><a href="https://epsg.io/4326">WGS84</a>: ein häufig genutztes weltumspannendes geodätisches Koordinatensystem, sprich die Koordinaten werden in Länge und Breite angegeben (Lat/Lon).</li>
+<li><code>CH1903 LV03</code>: das alte Koordinatensystem der Schweiz</li>
+<li><code>CH1903+ LV95</code>: das neue Koordinatensystem der Schweiz</li>
+<li><code>WGS84</code>: ein häufig genutztes weltumspannendes geodätisches Koordinatensystem, sprich die Koordinaten werden in Länge und Breite angegeben (Lat/Lon).</li>
 </ul>
-<p>Nun gilt es, anhand der Koordinaten die in der Spalte <code>geometry</code> ersichtlich sind das korrekte Koordinatensystem festzustellen. Wenn man sich auf <a href="https://epsg.io/map#srs=4326&amp;x=8.407288&amp;y=46.773731&amp;z=9&amp;layer=streets">epsg.io/map</a> die Schweiz anschaut, kann man die Koordinaten in verschiedenen Koordinatensystem betrachten.</p>
-<p><strong>Bedienungshinweise</strong>:</p>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/koordinatenpaar.jpg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Koordinanten (des Fadenkreuzes) werden im ausgewählten Koordinatensystem dargestellt</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/koordinatensystem.jpg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Das Koordinatensystem, in welchem die Koordinaten dargestellt werden sollen, kann mit “Change” angepasst werden</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/reproject.jpg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Für Enthusiasten: Schau Dir die Schweiz in verschiedenen Koordinatensystemen an, in dem Du auf “Reproject Map” klickst</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<p>Wenn man diese Koordinaten mit den Koordinaten unserer Datensätze vergleicht, dann ist schnell klar, dass es sich beim Datensatz <code>kantone</code> um das Koordinatensystem WGS84 handelt und bei <code>gemeinden</code> das Koordinatensystem CH1903+ LV95. Diese Koordinatensyteme weisen wir nun mit <code>st_set_crs()</code> und dem entsprechenden <em>EPSG</em>-Code (siehe die jeweiligen Links) zu.</p>
+<p>Nun gilt es, anhand der Koordinaten die in der Spalte <code>geometry</code> ersichtlich sind, das korrekte Koordinatensystem festzustellen. Wenn man auf <a href="https://map.geo.admin.ch">map.geo.admin.ch</a> mit der rechten Maustaste einen Ort anwählt, erfährt man die Koordinaten dieses Ortes in verschiedenen Koordinatenbezugssystemen.</p>
+<p><img src="images/map.geo.admin.png" class="img-fluid"></p>
+<!--
+
+Wenn man sich auf [epsg.io/map](https://epsg.io/map#srs=4326&x=8.407288&y=46.773731&z=9&layer=streets) die Schweiz anschaut, kann man die Koordinaten in verschiedenen Koordinatensystem betrachten.
+
+**Bedienungshinweise**:
+
+::: {layout="[50,50], [100]]"}
+![Koordinanten (des Fadenkreuzes) werden im ausgewählten Koordinatensystem dargestellt](images/koordinatenpaar.jpg)
+
+![Das Koordinatensystem, in welchem die Koordinaten dargestellt werden sollen, kann mit "Change" angepasst werden](images/koordinatensystem.jpg)
+
+![Für Enthusiasten: Schau Dir die Schweiz in verschiedenen Koordinatensystemen an, in dem Du auf "Reproject Map" klickst](images/reproject.jpg)
+
+:::
+
+-->
+<p>Wenn man diese Koordinaten mit den Koordinaten unserer Datensätze vergleicht, dann ist schnell klar, dass es sich beim Datensatz <code>kantone</code> um das Koordinatenbezugsystem (CRS) WGS84 handelt. Wir können diese Information nutzen um das CRS unserers Datensatzes mit <code>st_set_crs()</code> zu setzen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>kantone <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(kantone, <span class="dv">4326</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>gemeinden <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(gemeinden, <span class="dv">2056</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># zuweisen mit st_set_crs(), abfragen mit st_crs()</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(kantone)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zuweisen mit st_set_crs()...</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>kantone <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(kantone, <span class="st">"WGS84"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wenn wir die CRS Information nun abrufen, sehen wir das diese Zuweisung funktioniert hat.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ... abfragen mit st_crs()</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(kantone)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Coordinate Reference System:
-  User input: EPSG:4326 
+  User input: WGS84 
   wkt:
 GEOGCRS["WGS 84",
     DATUM["World Geodetic System 1984",
@@ -848,20 +849,90 @@ GEOGCRS["WGS 84",
         AXIS["geodetic longitude (Lon)",east,
             ORDER[2],
             ANGLEUNIT["degree",0.0174532925199433]],
+    ID["EPSG",4326]]</code></pre>
+</div>
+</div>
+<p>Etwas komplizierter ist es, wenn wir das CRS vom Datensatz <code>gemeinden</code> setzen wollen. Im Vergleich mit map.geo.admin.ch sehen wir, dass es sich hier um das CRS <code>CH1903+ LV95</code> handeln muss. Wenn wir diesen Namen für unsere CRS Zuweisung verwenden möchten, funktioniert das nicht:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zuweisen mit st_set_crs()...</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>gemeinden <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(gemeinden, <span class="st">"CH1903+ LV95"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ... abfragen mit st_crs()</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(gemeinden)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Coordinate Reference System: NA</code></pre>
+</div>
+</div>
+<p>Die ausgeschriebenen Namen dieser CRS sind fehleranfällig. Deshalb ist es besser, mit den jeweiligen EPSG Codes der Bezugssysteme zu arbeiten. Diese EPSG Codes kann man auf folgender Website erfahren: <a href="https://epsg.io/map#srs=4326&amp;x=8.407288&amp;y=46.773731&amp;z=9&amp;layer=streets">epsg.io/map</a>. Es lohnt sich aber, die EPSG Codes der für uns relevanten CRS zu notieren:</p>
+<ul>
+<li><a href="https://epsg.io/21781">CH1903 LV03</a>: <code>EPSG:21781</code></li>
+<li><a href="https://epsg.io/2056">CH1903+ LV95</a>: <code>EPSG:2056</code></li>
+<li><a href="https://epsg.io/4326">WGS84</a>: <code>EPSG:4326</code></li>
+</ul>
+<p>Dieser Code können wir nutzen, um das CRS des Datensatz <code>gemeinde</code> zu setzen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zuweisen mit st_set_crs()...</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gemeinden <span class="ot">&lt;-</span> <span class="fu">st_set_crs</span>(gemeinden, <span class="dv">2056</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ... abfragen mit st_crs()</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(gemeinden)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Coordinate Reference System:
+  User input: EPSG:2056 
+  wkt:
+PROJCRS["CH1903+ / LV95",
+    BASEGEOGCRS["CH1903+",
+        DATUM["CH1903+",
+            ELLIPSOID["Bessel 1841",6377397.155,299.1528128,
+                LENGTHUNIT["metre",1]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        ID["EPSG",4150]],
+    CONVERSION["Swiss Oblique Mercator 1995",
+        METHOD["Hotine Oblique Mercator (variant B)",
+            ID["EPSG",9815]],
+        PARAMETER["Latitude of projection centre",46.9524055555556,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8811]],
+        PARAMETER["Longitude of projection centre",7.43958333333333,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8812]],
+        PARAMETER["Azimuth of initial line",90,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8813]],
+        PARAMETER["Angle from Rectified to Skew Grid",90,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8814]],
+        PARAMETER["Scale factor on initial line",1,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8815]],
+        PARAMETER["Easting at projection centre",2600000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8816]],
+        PARAMETER["Northing at projection centre",1200000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8817]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1]],
     USAGE[
         SCOPE["unknown"],
-        AREA["World"],
-        BBOX[-90,-180,90,180]],
-    ID["EPSG",4326]]</code></pre>
+        AREA["Europe - Liechtenstein and Switzerland"],
+        BBOX[45.82,5.96,47.81,10.49]],
+    ID["EPSG",2056]]</code></pre>
 </div>
 </div>
 <p>Jetzt wo das CRS der Datensätze bekannt ist, können wir <code>ggplot2</code> nutzen um usere Daten zu visualisieren. In InfoVis 1 &amp; 2 haben wir intensiv mit <code>ggplot2</code> gearbeitet und dort die Layers <code>geom_point()</code> und <code>geom_line()</code> kennen gelernt. Zusätzlich beinhaltet <code>ggplot</code> die Möglichkeit, mit <code>geom_sf()</code> Vektordaten direkt und sehr einfach zu plotten.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># bei geom_sf müssen weder x noch y Spalten angegeben werden</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> gemeinden)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># bei geom_sf müssen weder x noch y Spalten angegeben werden</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> gemeinden)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Rauman1_Uebung_A_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="Rauman1_Uebung_A_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -870,7 +941,7 @@ GEOGCRS["WGS 84",
 <p>In der vorherigen Übung haben wir das bestehende Koordinatensystem <em>zugewiesen</em>. Dabei haben wir die bestehenden Koordinaten (in der Spalte <code>geom</code>) <em>nicht</em> manipuliert. Ganz anders ist eine <em>Transformation</em> der Daten von einem Koordinatensystem in das andere. Bei einer Transformation werden die Koordinaten in das neue Koordinatensystem umgerechnet und somit manipuliert. Aus praktischen Gründen wollen <!-- Was sind diese Gründe? genauer erläutern? --> wir all unsere Daten ins neue Schweizer Koordinatensystem CH1903+ LV95 transfomieren. Transformiere den Datensatz <code>kantone</code> mit <code>st_transform()</code>in CH1903+ LV95, nutze dafür den korrekten EPSG-Code.</p>
 <p>Vor der Transformation (betrachte die Attribute <code>Bounding box</code>, <code>Projected CRS</code> sowie die Werte in der Spalte <code>geom</code>)::</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>kantone</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>kantone</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 51 features and 6 fields
 Geometry type: POLYGON
@@ -895,11 +966,11 @@ Geodetic CRS:  WGS 84
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>kantone <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(kantone, <span class="dv">2056</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>kantone <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(kantone, <span class="dv">2056</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nach der Transformation (betrachte die Attribute <code>Bounding box</code>, <code>Projected CRS</code> sowie die Werte in der Spalte <code>geom</code>):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>kantone</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>kantone</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 51 features and 6 fields
 Geometry type: POLYGON
@@ -928,66 +999,57 @@ Projected CRS: CH1903+ / LV95
 <h2 class="anchored" data-anchor-id="aufgabe-5-tidyverse-funktionen">Aufgabe 5: Tidyverse Funktionen</h2>
 <p><code>sf</code> Objekte sind im wesentlichen <code>data.frames</code> mit ein paar Metadaten und einer speziellen <code>geometry</code>-Spalte. Wir können ihnen die gleichen Operationen durchführen, wie mit <code>data.frames</code>. Beispielsweise können wir aus den Spalten <code>EINWOHNERZ</code> und <code>KANTONSFLA</code> die Einwohnerdichte berechnen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>kantone <span class="ot">&lt;-</span> kantone <span class="sc">|&gt;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># hektaren in km2 konvertieren</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">flaeche_km2 =</span> KANTONSFLA<span class="sc">/</span><span class="dv">100</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># dichte pro km2 berechnen</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">bevoelkerungsdichte =</span> EINWOHNERZ<span class="sc">/</span>flaeche_km2</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>kantone <span class="ot">&lt;-</span> kantone <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># hektaren in km2 konvertieren</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">flaeche_km2 =</span> KANTONSFLA<span class="sc">/</span><span class="dv">100</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># dichte pro km2 berechnen</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">bevoelkerungsdichte =</span> EINWOHNERZ<span class="sc">/</span>flaeche_km2</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Berechne nun die Einwohnerdichte auf der Ebene der Bezirke.</p>
+<p>Berechne nun die Einwohnerdichte auf der Ebene der Gemeinden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>gemeinden <span class="ot">&lt;-</span> gemeinden <span class="sc">|&gt;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">flaeche_km2 =</span> GEM_FLAECH<span class="sc">/</span><span class="dv">100</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">bevoelkerungsdichte =</span> EINWOHNERZ<span class="sc">/</span>flaeche_km2)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
 </section>
 <section id="aufgabe-4-choroplethen-karte" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="aufgabe-4-choroplethen-karte">Aufgabe 4: Choroplethen Karte</h2>
 <p>Nun wollen wir die Gemeinden respektive die Kantone nach ihrer Bevölkerungsdichte einfärben. Dafür verwenden wir wie gewohnt die Methode <code>aes(fill = ...)</code> von <code>ggplot</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kantone) <span class="sc">+</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> bevoelkerungsdichte))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kantone) <span class="sc">+</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> bevoelkerungsdichte))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Rauman1_Uebung_A_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="Rauman1_Uebung_A_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Hier sind farblich kaum Unterschiede erkennbar, weil die extrem hohe Bevölkerungsdichte vom Halbkanton Basel-Stadt (&gt;5’000 Einwohner pro km<sup>2</sup>!) die ganze Farbskala dominiert. Der <a href="https://www.atlas.bfs.admin.ch/maps/13/de/15467_75_3501_70/24216.html">Statistischer Atlas der Schweiz</a> löst das Problem, indem es Klassen mit irregulären Schwellwerte verwendet und alle zahlen &gt;2’000 gruppiert. Diese Vorgehensweise können wir mit <code>cut()</code> rekonstruieren.</p>
-<div class="page-columns page-full">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schwellwerte analog BFS "Statistischer Atlas der Schweiz"</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">150</span>,<span class="dv">200</span>,<span class="dv">300</span>,<span class="dv">500</span>,<span class="dv">750</span>,<span class="dv">1000</span>,<span class="dv">2000</span>,<span class="cn">Inf</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Klassen auf der Basis dieser Schwellenwerte bilden</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>kantone <span class="ot">&lt;-</span> kantone <span class="sc">|&gt;</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bevoelkerungsdichte_klassen =</span> <span class="fu">cut</span>(bevoelkerungsdichte, breaks))</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Das gleiche für Gemeinden</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>gemeinden <span class="ot">&lt;-</span> gemeinden <span class="sc">|&gt;</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bevoelkerungsdichte_klassen =</span> <span class="fu">cut</span>(bevoelkerungsdichte, breaks))  </span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Farbpalette erstellen: Wir brauchen so viele Farben, wie wir "breaks" haben, minus 1</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="fu">length</span>(breaks)<span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Farbpalette erstellen (siehe RColorBrewer::display.brewer.all())</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>red_yellow_green <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(ncols, <span class="st">"RdYlGn"</span>)</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Farbpalette umdrehen (zu green-red-yellow)</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>green_red_yellow <span class="ot">&lt;-</span> <span class="fu">rev</span>(red_yellow_green)</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kantone, <span class="fu">aes</span>(<span class="at">fill =</span> bevoelkerungsdichte_klassen)) <span class="sc">+</span></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> green_red_yellow) <span class="sc">+</span></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gemeinden, <span class="fu">aes</span>(<span class="at">fill =</span> bevoelkerungsdichte_klassen)) <span class="sc">+</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> green_red_yellow) <span class="sc">+</span></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schwellwerte analog BFS "Statistischer Atlas der Schweiz"</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">150</span>,<span class="dv">200</span>,<span class="dv">300</span>,<span class="dv">500</span>,<span class="dv">750</span>,<span class="dv">1000</span>,<span class="dv">2000</span>,<span class="cn">Inf</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Klassen auf der Basis dieser Schwellenwerte bilden</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>kantone <span class="ot">&lt;-</span> kantone <span class="sc">|&gt;</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bevoelkerungsdichte_klassen =</span> <span class="fu">cut</span>(bevoelkerungsdichte, breaks))</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Farbpalette erstellen: Wir brauchen so viele Farben, wie wir "breaks" haben, minus 1</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>ncols <span class="ot">&lt;-</span> <span class="fu">length</span>(breaks)<span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Farbpalette erstellen (siehe RColorBrewer::display.brewer.all())</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>red_yellow_green <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(ncols, <span class="st">"RdYlGn"</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Farbpalette umdrehen (zu green-red-yellow)</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>green_red_yellow <span class="ot">&lt;-</span> <span class="fu">rev</span>(red_yellow_green)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>p_kantone <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(kantone, <span class="fu">aes</span>(<span class="at">fill =</span> bevoelkerungsdichte_klassen)) <span class="sc">+</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">colour =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> green_red_yellow) <span class="sc">+</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Erstelle die gleichen Klassen für die Bevölkerungsdichte der Gemeinden und vergleiche die Plots.</p>
+<div class="cell">
+
+</div>
 <div id="fig-ggplot-ex4" class="cell column-page quarto-layout-panel">
 <figure class="figure">
 <div class="quarto-layout-row quarto-layout-valign-top">
@@ -1010,7 +1072,6 @@ Projected CRS: CH1903+ / LV95
 </div>
 <p></p><figcaption class="figure-caption">Abbildung&nbsp;49.1: Der Vergleich dieser beiden Darstellungen veranschaulicht die MAUP Problematik sehr deutlich</figcaption><p></p>
 </figure>
-</div>
 </div>
 
 
