@@ -10,12 +10,12 @@ index: 3
 Für die heutige Übung benötigen wir nachstehende Datensätze. Lade diese herunter und importiere sie in R. Prüfe, ob das CRS korrekt gesetzt wurde, setze es wenn nötig. Mache dich mit den Daten vertraut (visualieren, durchscrollen usw).
 
 
-- Der Datensatz [rotmilan.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602279) stammt aus einem grösseren Forschungsprojekt der Vogelwarte Sempach [Mechanismen der Populationsdynamik beim Rotmilan](https://www.vogelwarte.ch/de/projekte/oekologische-forschung/mechanismen-der-populationsdynamik-beim-rotmilan). Der Datensatz wurde über die Plattform [movebank](http://www.movebank.org/panel_embedded_movebank_webapp?gwt_fragment=page%3Dsearch_map_linked%2CindividualIds%3D676571254%2Clat%3D44.465151013519666%2Clon%3D9.096679687499508%2Cz%3D5) zur Verfügung gestellt. Es handelt sich dabei um ein einzelnes Individuum, welches seit 2017 mit einem Sender versehen ist und über ganz Mitteleuropa zieht. Wir arbeiten in dieser Übung nur mit denjenigen Datenpunkten, die in der Schweiz erfasst wurden. Wer den ganzen Datensatz analysieren möchte, kann sich diesen über den Movebank-Link runterladen.
-- Der Datensatz [luftqualitaet.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602280) beinhaltet Messungen von Stickstoffdioxid $NO_2$ aus dem Jahr 2015 für 97 Messstellen in der Schweiz. Stickstoffdioxid entstehen beim Verbrennen von Brenn- und Treibstoffen, insbesondere bei hohen Verbrennungstemperaturen, wobei der Strassenverkehr als Hauptquelle gilt. 
+- [rotmilan.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602279): Dieser Datensatz stammt aus einem grösseren Forschungsprojekt der Vogelwarte Sempach [Mechanismen der Populationsdynamik beim Rotmilan](https://www.vogelwarte.ch/de/projekte/oekologische-forschung/mechanismen-der-populationsdynamik-beim-rotmilan). Der Datensatz wurde über die Plattform [movebank](http://www.movebank.org/panel_embedded_movebank_webapp?gwt_fragment=page%3Dsearch_map_linked%2CindividualIds%3D676571254%2Clat%3D44.465151013519666%2Clon%3D9.096679687499508%2Cz%3D5) zur Verfügung gestellt. Es handelt sich dabei um ein einzelnes Individuum, welches seit 2017 mit einem Sender versehen ist und über ganz Mitteleuropa zieht. Wir arbeiten in dieser Übung nur mit denjenigen Datenpunkten, die in der Schweiz erfasst wurden. Wer den ganzen Datensatz analysieren möchte, kann sich diesen über den Movebank-Link runterladen.
+- [luftqualitaet.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602280): Dieser Datensatz beinhaltet Messungen von Stickstoffdioxid $NO_2$ aus dem Jahr 2015 für 97 Messstellen in der Schweiz. Stickstoffdioxid entstehen beim Verbrennen von Brenn- und Treibstoffen, insbesondere bei hohen Verbrennungstemperaturen, wobei der Strassenverkehr als Hauptquelle gilt. 
 Mehr Informationen dazu findet ihr [hier](https://www.bafu.admin.ch/bafu/de/home/themen/thema-luft/luft--daten--indikatoren-und-karten/luft--indikatoren/indikator-luft.pt.html/aHR0cHM6Ly93d3cuaW5kaWthdG9yZW4uYWRtaW4uY2gvUHVibG/ljL0FlbURldGFpbD9pbmQ9TFUwMjAmbG5nPWRlJlN1Ymo9Tg%3d%3d.html).
-- Ebenfalls benötigt ihr den Datensatz [schweiz.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602281)
+- [schweiz.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602281): Landesgrenze der Schweiz
 
-Als erstes wollen wir für die Datensätze `luftqualitaet.gpkg` und `rotmilan.gpkg` Dichteschätzungen durchführen. Ladet dafür die notwendigen Package und ladet bei Bedarf die Datensätze herunter.
+Als erstes wollen wir für die Datensätze `luftqualitaet` und `rotmilan` Dichteschätzungen durchführen. Lade diese Datensätze herunter und in R ein. Lade vorgängig die dafür die notwendigen Packages in deine R-Session.
 
 ```{r}
 #| echo: true
@@ -24,13 +24,13 @@ library(sf)
 library(dplyr)
 library(ggplot2)
 
-library(MASS) # <- ggf. installieren!
+library(spatstat.geom)    # <- ggf. installieren!
+library(spatstat.explore) # <- ggf. installieren!
 ```
 
 ```{r}
 #| echo: false
 #| results: asis
-knitr::opts_chunk$set(echo = FALSE)
 
 luftqualitaet <- read_sf("datasets/rauman/luftqualitaet.gpkg") 
 rotmilan <- read_sf("datasets/rauman/rotmilan.gpkg")
@@ -54,37 +54,31 @@ ggplot(schweiz) +
 
 In einer ersten Annäherung funktioniert dies, doch wir sehen hier ein klassisches Problem des "Overplotting". Das heisst, dass wir durch die Überlagerung vieler Punkte in den dichten Regionen nicht abschätzen können, wie viele Punkte dort effektiv liegen und ggf. übereinander liegen. Es gibt hier verschiedene Möglichkeiten, die Punktdichte klarer zu visualisieren. Eine unter Biologen sehr beliebte Methode ist die Dichteverteilung mit einer Kernel Density Estimation (KDE). Dies v.a. darum, weil mit KDE das Habitat (Streifgebiet) eines Tieres abgeschätzt werden kann. Homeranges werden oft mit KDE95 und Core Areas mit KDE50 definiert ([Fleming C., Calabrese J., 2016](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12673)).
 
-Ähnlich wie beim IDW sind auch die verfügbaren KDE-Funktionen in R etwas kompliziert in der Handhabung. Damit wir dieses Verfahren aber dennoch auf unsere Rotmilan-Daten anwenden können, haben wir eine eigene KDE-Funktion erstellt, die wir Euch zur Verfügung stellen. 
+Für die Berechnung der Density verwenden wir die Funktion `density.ppp` aus `spatstat`. Diese library ist etwas komplex in der Anwendung, damit wir dieses Verfahren aber dennoch auf unsere Rotmilan-Daten anwenden können, haben wir eine eigene KDE-Funktion erstellt, die wir Euch zur Verfügung stellen. 
 
-Hier gilt das gleiche wie schon bei der Funktion `my_idw()`: Wir ermutigen alle, die dafür Kapazität haben, unsere Function eingehend zu studieren und allenfalls ganz auf die Funktion zu verzichten und stattdessen direkt `MASS` zu verwenden. Wenn ihr mit unserer Funktion arbeiten möchtet, müsst ihr den unten stehenden Code in euer Skript kopieren und ausführen. 
+Wir ermutigen alle, die dafür Kapazität haben, unsere Function eingehend zu studieren und allenfalls ganz auf die Funktion zu verzichten und stattdessen direkt `spatstat` zu verwenden. Wenn ihr mit unserer Funktion arbeiten möchtet, müsst ihr den unten stehenden Code in euer Skript kopieren und ausführen. 
 
 ```{r}
 #| echo: true
-my_kde <- function(points,cellsize, bandwith, extent = NULL){
-  library(MASS)
-  library(sf)
-  library(tidyr)
-  if(is.null(extent)){
-    extent_vec <- st_bbox(points)[c(1,3,2,4)]
-  } else{
-    extent_vec <- st_bbox(extent)[c(1,3,2,4)]
-  }
+my_kde <- function(points, cellsize, bandwith, extent = NULL){
+  library(spatstat.geom)    # um sf in ppp zu konvertieren
+  library(spatstat.explore) # um die Dichte zu berechnen
   
-  n_y <- ceiling((extent_vec[4]-extent_vec[3])/cellsize)
-  n_x <- ceiling((extent_vec[2]-extent_vec[1])/cellsize)
-  
-  extent_vec[2] <- extent_vec[1]+(n_x*cellsize)-cellsize
-  extent_vec[4] <- extent_vec[3]+(n_y*cellsize)-cellsize
+  points_ppp <- as.ppp(points) # konvertiert sf > ppp
 
-  coords <- st_coordinates(points)
-  mat <- kde2d(coords[,1],coords[,2],h = bandwith,n = c(n_x,n_y),lims = extent_vec)
+  if(!is.null(extent)){
+    # falls ein extent angegeben ist, wird dieser verwendet
+    # um das "Beobachtungsfenster" zu setzen
+    Window(points_ppp) <- as.owin(st_bbox(extent))
+  } 
 
-  mydf <- as.data.frame(mat[[3]])
-  
-  colnames(mydf) <- mat[[2]]
-  mydf$X <- mat[[1]]
-  
-  pivot_longer(mydf, -X,names_to = "Y",names_transform = list(Y = as.numeric))
+  # macht eine Dichteschätzung
+  points_density <- density.ppp(x = points_ppp, sigma = bandwith, eps = cellsize)
+
+  # konvertiert den Output in ein DataFrame
+  points_density_df <- as.data.frame(points_density)
+
+  points_density_df
 }
 ```
 
@@ -100,14 +94,14 @@ Wenn wir nun mit `my_kde()` die Dichteverteilung berechnen, erhalten wir ein `da
 #| echo: true
 rotmilan_kde <- my_kde(points = rotmilan,cellsize = 1000, bandwith = 10000, extent = schweiz)
 
-rotmilan_kde
+head(rotmilan_kde)
 ```
 
 ```{r}
 #| echo: false
 
 ggplot() + 
-  geom_raster(data = rotmilan_kde, aes(X, Y, fill = value)) +
+  geom_raster(data = rotmilan_kde, aes(x, y, fill = value)) +
   geom_sf(data = schweiz, fill = NA) +
   scale_fill_viridis_c() +
   theme_void()
@@ -123,6 +117,8 @@ Wir können die tiefen Werte ausblenden, indem wir nur die höchsten 5% der Wert
 
 Zusätzlich hilft eine logarithmische Transformation der Werte, die Farbskala etwas sichtbarer zu machen.
 
+
+
 ```{r}
 q95 <- quantile(rotmilan_kde$value,probs = 0.95)
 
@@ -133,7 +129,7 @@ rotmilan_kde <- rotmilan_kde |>
   )
 
 ggplot() + 
-  geom_raster(data = rotmilan_kde, aes(X, Y, fill = value_new)) +
+  geom_raster(data = rotmilan_kde, aes(x, y, fill = value_new)) +
   geom_sf(data = schweiz, inherit.aes = FALSE, fill = NA) +
   scale_fill_viridis_c(na.value = NA) +
   theme_void()
@@ -144,6 +140,8 @@ Thiessen Polygone bieten eine spannende Alternative um Unterschiede in der Dicht
 Wir wollen dies nun ausprobieren und konstruieren zum Schluss die Thiessenpolygone für die Rotmilan-Daten für das Untersuchungsgebiet Schweiz. Nutze die Anleitung für das Erstellen von Thiessenpolygonen aus der Übung B um Thiessenpolygone für die Rotmilanpositionen zu erstellen. 
 
 ```{r}
+#| eval: false
+
 thiessenpolygone <- rotmilan |>
   st_union() |>
   st_voronoi()
@@ -158,6 +156,7 @@ thiessenpolygone_clip <- st_intersection(thiessenpolygone,schweiz)
 #| label: fig-ggplot-ex2-thiessen
 #| fig.cap: 'Wenn wir jetzt die Thiessenpolygone (ohne Punkte) darstellen, wird deutlicher,
 #|   wie die Dichteverteilung im Innern des Clusters aussieht. '
+#| eval: false
 ggplot() + 
   geom_sf(data = schweiz) + 
   geom_sf(data = thiessenpolygone_clip) + 
