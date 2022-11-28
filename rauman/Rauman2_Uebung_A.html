@@ -731,17 +731,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <p>Für die heutige Übung benötigen wir nachstehende Datensätze. Lade diese herunter und importiere sie in R. Prüfe, ob das CRS korrekt gesetzt wurde, setze es wenn nötig. Mache dich mit den Daten vertraut (visualieren, durchscrollen usw).</p>
 <ul>
-<li>Der Datensatz <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602279">rotmilan.gpkg</a> stammt aus einem grösseren Forschungsprojekt der Vogelwarte Sempach <a href="https://www.vogelwarte.ch/de/projekte/oekologische-forschung/mechanismen-der-populationsdynamik-beim-rotmilan">Mechanismen der Populationsdynamik beim Rotmilan</a>. Der Datensatz wurde über die Plattform <a href="http://www.movebank.org/panel_embedded_movebank_webapp?gwt_fragment=page%3Dsearch_map_linked%2CindividualIds%3D676571254%2Clat%3D44.465151013519666%2Clon%3D9.096679687499508%2Cz%3D5">movebank</a> zur Verfügung gestellt. Es handelt sich dabei um ein einzelnes Individuum, welches seit 2017 mit einem Sender versehen ist und über ganz Mitteleuropa zieht. Wir arbeiten in dieser Übung nur mit denjenigen Datenpunkten, die in der Schweiz erfasst wurden. Wer den ganzen Datensatz analysieren möchte, kann sich diesen über den Movebank-Link runterladen.</li>
-<li>Der Datensatz <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602280">luftqualitaet.gpkg</a> beinhaltet Messungen von Stickstoffdioxid <span class="math inline">\(NO_2\)</span> aus dem Jahr 2015 für 97 Messstellen in der Schweiz. Stickstoffdioxid entstehen beim Verbrennen von Brenn- und Treibstoffen, insbesondere bei hohen Verbrennungstemperaturen, wobei der Strassenverkehr als Hauptquelle gilt. Mehr Informationen dazu findet ihr <a href="https://www.bafu.admin.ch/bafu/de/home/themen/thema-luft/luft--daten--indikatoren-und-karten/luft--indikatoren/indikator-luft.pt.html/aHR0cHM6Ly93d3cuaW5kaWthdG9yZW4uYWRtaW4uY2gvUHVibG/ljL0FlbURldGFpbD9pbmQ9TFUwMjAmbG5nPWRlJlN1Ymo9Tg%3d%3d.html">hier</a>.</li>
-<li>Ebenfalls benötigt ihr den Datensatz <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602281">schweiz.gpkg</a></li>
+<li><a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602279">rotmilan.gpkg</a>: Dieser Datensatz stammt aus einem grösseren Forschungsprojekt der Vogelwarte Sempach <a href="https://www.vogelwarte.ch/de/projekte/oekologische-forschung/mechanismen-der-populationsdynamik-beim-rotmilan">Mechanismen der Populationsdynamik beim Rotmilan</a>. Der Datensatz wurde über die Plattform <a href="http://www.movebank.org/panel_embedded_movebank_webapp?gwt_fragment=page%3Dsearch_map_linked%2CindividualIds%3D676571254%2Clat%3D44.465151013519666%2Clon%3D9.096679687499508%2Cz%3D5">movebank</a> zur Verfügung gestellt. Es handelt sich dabei um ein einzelnes Individuum, welches seit 2017 mit einem Sender versehen ist und über ganz Mitteleuropa zieht. Wir arbeiten in dieser Übung nur mit denjenigen Datenpunkten, die in der Schweiz erfasst wurden. Wer den ganzen Datensatz analysieren möchte, kann sich diesen über den Movebank-Link runterladen.</li>
+<li><a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602280">luftqualitaet.gpkg</a>: Dieser Datensatz beinhaltet Messungen von Stickstoffdioxid <span class="math inline">\(NO_2\)</span> aus dem Jahr 2015 für 97 Messstellen in der Schweiz. Stickstoffdioxid entstehen beim Verbrennen von Brenn- und Treibstoffen, insbesondere bei hohen Verbrennungstemperaturen, wobei der Strassenverkehr als Hauptquelle gilt. Mehr Informationen dazu findet ihr <a href="https://www.bafu.admin.ch/bafu/de/home/themen/thema-luft/luft--daten--indikatoren-und-karten/luft--indikatoren/indikator-luft.pt.html/aHR0cHM6Ly93d3cuaW5kaWthdG9yZW4uYWRtaW4uY2gvUHVibG/ljL0FlbURldGFpbD9pbmQ9TFUwMjAmbG5nPWRlJlN1Ymo9Tg%3d%3d.html">hier</a>.</li>
+<li><a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602281">schweiz.gpkg</a>: Landesgrenze der Schweiz</li>
 </ul>
-<p>Als erstes wollen wir für die Datensätze <code>luftqualitaet.gpkg</code> und <code>rotmilan.gpkg</code> Dichteschätzungen durchführen. Ladet dafür die notwendigen Package und ladet bei Bedarf die Datensätze herunter.</p>
+<p>Als erstes wollen wir für die Datensätze <code>luftqualitaet</code> und <code>rotmilan</code> Dichteschätzungen durchführen. Lade diese Datensätze herunter und in R ein. Lade vorgängig die dafür die notwendigen Packages in deine R-Session.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS) <span class="co"># &lt;- ggf. installieren!</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat.geom)    <span class="co"># &lt;- ggf. installieren!</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat.explore) <span class="co"># &lt;- ggf. installieren!</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="aufgabe-1-rotmilan-bewegungsdaten-visualisieren" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-1-rotmilan-bewegungsdaten-visualisieren">Aufgabe 1: Rotmilan Bewegungsdaten visualisieren</h2>
@@ -755,35 +756,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="aufgabe-2-kernel-density-estimation-berechnen" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2-kernel-density-estimation-berechnen">Aufgabe 2: Kernel Density Estimation berechnen</h2>
 <p>In einer ersten Annäherung funktioniert dies, doch wir sehen hier ein klassisches Problem des “Overplotting”. Das heisst, dass wir durch die Überlagerung vieler Punkte in den dichten Regionen nicht abschätzen können, wie viele Punkte dort effektiv liegen und ggf. übereinander liegen. Es gibt hier verschiedene Möglichkeiten, die Punktdichte klarer zu visualisieren. Eine unter Biologen sehr beliebte Methode ist die Dichteverteilung mit einer Kernel Density Estimation (KDE). Dies v.a. darum, weil mit KDE das Habitat (Streifgebiet) eines Tieres abgeschätzt werden kann. Homeranges werden oft mit KDE95 und Core Areas mit KDE50 definiert (<a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12673">Fleming C., Calabrese J., 2016</a>).</p>
-<p>Ähnlich wie beim IDW sind auch die verfügbaren KDE-Funktionen in R etwas kompliziert in der Handhabung. Damit wir dieses Verfahren aber dennoch auf unsere Rotmilan-Daten anwenden können, haben wir eine eigene KDE-Funktion erstellt, die wir Euch zur Verfügung stellen.</p>
-<p>Hier gilt das gleiche wie schon bei der Funktion <code>my_idw()</code>: Wir ermutigen alle, die dafür Kapazität haben, unsere Function eingehend zu studieren und allenfalls ganz auf die Funktion zu verzichten und stattdessen direkt <code>MASS</code> zu verwenden. Wenn ihr mit unserer Funktion arbeiten möchtet, müsst ihr den unten stehenden Code in euer Skript kopieren und ausführen.</p>
+<p>Für die Berechnung der Density verwenden wir die Funktion <code>density.ppp</code> aus <code>spatstat</code>. Diese library ist etwas komplex in der Anwendung, damit wir dieses Verfahren aber dennoch auf unsere Rotmilan-Daten anwenden können, haben wir eine eigene KDE-Funktion erstellt, die wir Euch zur Verfügung stellen.</p>
+<p>Wir ermutigen alle, die dafür Kapazität haben, unsere Function eingehend zu studieren und allenfalls ganz auf die Funktion zu verzichten und stattdessen direkt <code>spatstat</code> zu verwenden. Wenn ihr mit unserer Funktion arbeiten möchtet, müsst ihr den unten stehenden Code in euer Skript kopieren und ausführen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_kde <span class="ot">&lt;-</span> <span class="cf">function</span>(points,cellsize, bandwith, <span class="at">extent =</span> <span class="cn">NULL</span>){</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(MASS)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(sf)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyr)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(extent)){</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    extent_vec <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(points)[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>)]</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span>{</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    extent_vec <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(extent)[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>)]</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  n_y <span class="ot">&lt;-</span> <span class="fu">ceiling</span>((extent_vec[<span class="dv">4</span>]<span class="sc">-</span>extent_vec[<span class="dv">3</span>])<span class="sc">/</span>cellsize)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  n_x <span class="ot">&lt;-</span> <span class="fu">ceiling</span>((extent_vec[<span class="dv">2</span>]<span class="sc">-</span>extent_vec[<span class="dv">1</span>])<span class="sc">/</span>cellsize)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  extent_vec[<span class="dv">2</span>] <span class="ot">&lt;-</span> extent_vec[<span class="dv">1</span>]<span class="sc">+</span>(n_x<span class="sc">*</span>cellsize)<span class="sc">-</span>cellsize</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  extent_vec[<span class="dv">4</span>] <span class="ot">&lt;-</span> extent_vec[<span class="dv">3</span>]<span class="sc">+</span>(n_y<span class="sc">*</span>cellsize)<span class="sc">-</span>cellsize</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  coords <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(points)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  mat <span class="ot">&lt;-</span> <span class="fu">kde2d</span>(coords[,<span class="dv">1</span>],coords[,<span class="dv">2</span>],<span class="at">h =</span> bandwith,<span class="at">n =</span> <span class="fu">c</span>(n_x,n_y),<span class="at">lims =</span> extent_vec)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  mydf <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mat[[<span class="dv">3</span>]])</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(mydf) <span class="ot">&lt;-</span> mat[[<span class="dv">2</span>]]</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  mydf<span class="sc">$</span>X <span class="ot">&lt;-</span> mat[[<span class="dv">1</span>]]</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(mydf, <span class="sc">-</span>X,<span class="at">names_to =</span> <span class="st">"Y"</span>,<span class="at">names_transform =</span> <span class="fu">list</span>(<span class="at">Y =</span> as.numeric))</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_kde <span class="ot">&lt;-</span> <span class="cf">function</span>(points, cellsize, bandwith, <span class="at">extent =</span> <span class="cn">NULL</span>){</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(spatstat.geom)    <span class="co"># um sf in ppp zu konvertieren</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(spatstat.explore) <span class="co"># um die Dichte zu berechnen</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  points_ppp <span class="ot">&lt;-</span> <span class="fu">as.ppp</span>(points) <span class="co"># konvertiert sf &gt; ppp</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(extent)){</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># falls ein extent angegeben ist, wird dieser verwendet</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># um das "Beobachtungsfenster" zu setzen</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Window</span>(points_ppp) <span class="ot">&lt;-</span> <span class="fu">as.owin</span>(<span class="fu">st_bbox</span>(extent))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># macht eine Dichteschätzung</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  points_density <span class="ot">&lt;-</span> <span class="fu">density.ppp</span>(<span class="at">x =</span> points_ppp, <span class="at">sigma =</span> bandwith, <span class="at">eps =</span> cellsize)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># konvertiert den Output in ein DataFrame</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  points_density_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(points_density)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  points_density_df</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Parameter der Funktion sollten relativ klar sein:</p>
 <ul>
@@ -796,22 +791,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rotmilan_kde <span class="ot">&lt;-</span> <span class="fu">my_kde</span>(<span class="at">points =</span> rotmilan,<span class="at">cellsize =</span> <span class="dv">1000</span>, <span class="at">bandwith =</span> <span class="dv">10000</span>, <span class="at">extent =</span> schweiz)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>rotmilan_kde</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rotmilan_kde)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 77,129 × 3
-          X        Y value
-      &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
- 1 2485410. 1075268.     0
- 2 2485410. 1076268.     0
- 3 2485410. 1077268.     0
- 4 2485410. 1078268.     0
- 5 2485410. 1079268.     0
- 6 2485410. 1080268.     0
- 7 2485410. 1081268.     0
- 8 2485410. 1082268.     0
- 9 2485410. 1083268.     0
-10 2485410. 1084268.     0
-# … with 77,119 more rows</code></pre>
+<pre><code>        x       y        value
+1 2485909 1075767 5.632740e-24
+2 2485909 1076766 8.290197e-23
+3 2485909 1077764 3.032138e-23
+4 2485909 1078763 6.522508e-23
+5 2485909 1079761 9.599267e-23
+6 2485909 1080760 1.183168e-22</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -828,6 +816,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Wir können die tiefen Werte ausblenden, indem wir nur die höchsten 5% der Werte darstellen. Dafür berechnen wir mit <code>raster::quantile</code> die 95. Perzentile aller Werte und nutzen diesen Wert als “Grenzwert” für die Darstellung.</p>
 <p>Zusätzlich hilft eine logarithmische Transformation der Werte, die Farbskala etwas sichtbarer zu machen.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>q95 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(rotmilan_kde<span class="sc">$</span>value,<span class="at">probs =</span> <span class="fl">0.95</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>rotmilan_kde <span class="ot">&lt;-</span> rotmilan_kde <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">value_new =</span> <span class="fu">ifelse</span>(value<span class="sc">&gt;</span>q95,value,<span class="cn">NA</span>),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">value_new =</span> <span class="fu">log10</span>(value_new)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> rotmilan_kde, <span class="fu">aes</span>(x, y, <span class="at">fill =</span> value_new)) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> schweiz, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Rauman2_Uebung_A_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -837,17 +838,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="aufgabe-3-dichteverteilung-mit-thiessen-polygonen">Aufgabe 3: Dichteverteilung mit Thiessen Polygonen</h2>
 <p>Thiessen Polygone bieten eine spannende Alternative um Unterschiede in der Dichteverteilung von Punktdatensätzen zu visualisieren. Wir wollen dies nun ausprobieren und konstruieren zum Schluss die Thiessenpolygone für die Rotmilan-Daten für das Untersuchungsgebiet Schweiz. Nutze die Anleitung für das Erstellen von Thiessenpolygonen aus der Übung B um Thiessenpolygone für die Rotmilanpositionen zu erstellen.</p>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>thiessenpolygone <span class="ot">&lt;-</span> rotmilan <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_union</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_voronoi</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>schweiz <span class="ot">&lt;-</span> <span class="fu">st_union</span>(schweiz)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>thiessenpolygone <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(thiessenpolygone)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>thiessenpolygone_clip <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(thiessenpolygone,schweiz)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-display">
-<div id="fig-ggplot-ex2-thiessen" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Rauman2_Uebung_A_files/figure-html/fig-ggplot-ex2-thiessen-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;51.1: Wenn wir jetzt die Thiessenpolygone (ohne Punkte) darstellen, wird deutlicher, wie die Dichteverteilung im Innern des Clusters aussieht.</figcaption><p></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> schweiz) <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> thiessenpolygone_clip) <span class="sc">+</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
