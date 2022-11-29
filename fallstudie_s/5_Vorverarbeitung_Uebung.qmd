@@ -159,11 +159,12 @@ Frage: Was bedeuten die __|__ (zu erstellen mit AltGr + 7)? Welches ist das if A
 3. Monat: __month()__
 4. Jahr: __year()__
 
-5. Phase Covid (Code untenstehend). Wir definieren fünf Phasen: 
+5. Phase Covid (Code untenstehend). Wir definieren sechs Phasen: 
 
   - von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1 (pre)
   - 1 Jahr vor Corona (normal)
   - Lockdown 1
+  - zwischen den Lockdowns
   - Lockdown 2
   - Ende 2. Lockdown bis Ende Untersuchungsperiode
 
@@ -181,8 +182,10 @@ depo <- depo |>
                                  "Lockdown_2",
                                  if_else(Datum>= (lock_1_start_2020 - years(1)) & Datum < lock_1_start_2020,
                                          "Normal", 
+                                         ifelse(Datum>lock_1_end_2020 & Datum <lock_2_start_2021,
+                                                "Inter",
                                          if_else(Datum > lock_2_end_2021,
-                                                 "Post", "Pre")))))
+                                                 "Post", "Pre"))))))
 
 # hat das gepklappt?!
 unique(depo$Phase)
