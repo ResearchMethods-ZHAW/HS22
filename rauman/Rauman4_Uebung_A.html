@@ -741,11 +741,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>wiesen <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/gruental.gpkg"</span>, <span class="st">"wiesen"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>baeume <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/gruental.gpkg"</span>, <span class="st">"baeume"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>wiesen <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/gruental.gpkg"</span>, <span class="st">"wiesen"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>baeume <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/gruental.gpkg"</span>, <span class="st">"baeume"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Um die Übung etwas zu vereinfachen arbeiten wir erstmals mit nur 10 Bäumen. Nutze nachstehenden Code um Zufällig 10 Bäume auszuwählen. Wenn ihr den gleichen “Seed” wie ich benutzt (<code>set.seed(100)</code>) habt ihr “zufällig” auch die gleichen Bäume wie ich.</p>
+<p>Um die Übung etwas zu vereinfachen arbeiten wir erstmals mit nur 10 Bäumen. Nutze nachstehenden Code um zufällig 10 Bäume auszuwählen. Wenn ihr den gleichen “Seed” wie ich benutzt (<code>set.seed(100)</code>) habt ihr “zufällig” auch die gleichen Bäume wie ich.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>baeume_sample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(baeume, <span class="dv">10</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -766,7 +765,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="fig-buffer1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Rauman4_Uebung_A_files/figure-html/fig-buffer1-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Abbildung&nbsp;55.1: Dargestellt sind die Bäume als Punkte, sowie die mit einem 20m Puffer versehene Punkte und die Wiesen im Hintergrund.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;55.1: Dargestellt sind die Bäume als Punkte mit einem 20m Puffer, sowie die Wiesen im Hintergrund.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -783,7 +782,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="aufgabe-3" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
-<p>Berechnen nun die Flächengrösse pro Geometrie mit der Funktion <code>st_area()</code>. Speichere den Output in einer neuen Spalte von <code>baeume_wiesen</code> (z.B. mit dem Namen <code>wiesen_flaeche</code>). Tipp: Konvertiere den Output aus <code>st_area</code> einen nummerischen Vektor mit <code>as.numeric()</code>.</p>
+<p>Berechnen nun die Flächengrösse pro Geometrie mit der Funktion <code>st_area()</code>. Speichere den Output in einer neuen Spalte von <code>baeume_wiesen</code> (z.B. mit dem Namen <code>wiesen_flaeche</code>). Tipp: Konvertiere den Output aus <code>st_area</code> in einen nummerischen Vektor mit <code>as.numeric()</code>.</p>
 <div class="cell">
 
 </div>
@@ -794,7 +793,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 
 </div>
-<p>Überführe anschliessend die berechneten Anteilswerte in den Datensatz <code>baeume</code> mit einem <code>left_join</code> zwischen <code>baume</code> und <code>baeme_wiesen</code>. Welche Spalte wäre für diesen Join geeignet? Hinweis: Nutze <code>st_drop_geometry()</code> um die Geometriespalte in <code>baeme_wiesen</code> vor dem Join zu entfernen.</p>
+<p>Überführe anschliessend die berechneten Anteilswerte in den Datensatz <code>baeume</code> mit einem <code>left_join</code> zwischen <code>baeume</code> und <code>baeume_wiesen</code>. Welche Spalte wäre für diesen Join geeignet? Hinweis: Nutze <code>st_drop_geometry()</code> um die Geometriespalte in <code>baeme_wiesen</code> vor dem Join zu entfernen.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-ggplot-ex4" class="quarto-figure quarto-figure-center anchored">
@@ -820,20 +819,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit rasterize können wir "baeume" in einen Raster konvertieren</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Nutzt hier wieder alle bäume, nicht baeume_sample</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>baume_rast <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rasterize</span>(baeume, template)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>baeume_rast <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rasterize</span>(baeume, template)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Der Unterschied zwischen Raster und Vektor kann sehr anschaulich dargestellt werden, wenn die beiden Datensätze übereinander gelagert werden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(baume_rast, <span class="at">col =</span> <span class="st">"grey"</span>)</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(baeume_rast, <span class="at">col =</span> <span class="st">"grey"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(baeume, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">pch =</span> <span class="st">"x"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Rauman4_Uebung_A_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Mit <code>baume_rast</code> können wir nun mit der Funktion <code>distance()</code> die Distanz zu jedem Baum berechnen:</p>
+<p>Mit <code>baeume_rast</code> können wir nun mit der Funktion <code>distance()</code> die Distanz zu jedem Baum berechnen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>baume_dist <span class="ot">&lt;-</span> <span class="fu">distance</span>(baume_rast)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(baume_dist)</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>baeume_dist <span class="ot">&lt;-</span> <span class="fu">distance</span>(baeume_rast)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(baeume_dist)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(baeume, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="st">"x"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Rauman4_Uebung_A_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>

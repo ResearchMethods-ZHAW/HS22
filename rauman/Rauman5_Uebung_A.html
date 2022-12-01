@@ -145,9 +145,6 @@ div.csl-indent {
   }
 }</script>
 
-<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-
 
 <link rel="stylesheet" href="../custom.css">
 <link rel="stylesheet" href="../theme-custom.scss">
@@ -718,10 +715,10 @@ div.csl-indent {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#übungen-1-vektor-daten-laden-und-anzeigen" id="toc-übungen-1-vektor-daten-laden-und-anzeigen" class="nav-link active" data-scroll-target="#übungen-1-vektor-daten-laden-und-anzeigen">Übungen 1: Vektor Daten laden und anzeigen</a></li>
-  <li><a href="#sec-raster-distance" id="toc-sec-raster-distance" class="nav-link" data-scroll-target="#sec-raster-distance">Übung 2: Entfernungen zum Wald berechnen</a></li>
-  <li><a href="#sec-classify1" id="toc-sec-classify1" class="nav-link" data-scroll-target="#sec-classify1">Übung 3: Distanzkriterien Bewerten</a></li>
-  <li><a href="#sec-raster-overlay1" id="toc-sec-raster-overlay1" class="nav-link" data-scroll-target="#sec-raster-overlay1">Übung 4: Raster Overlay</a></li>
+  <li><a href="#aufgabe-1-vektor-daten-laden-und-anzeigen" id="toc-aufgabe-1-vektor-daten-laden-und-anzeigen" class="nav-link active" data-scroll-target="#aufgabe-1-vektor-daten-laden-und-anzeigen">Aufgabe 1: Vektor Daten laden und anzeigen</a></li>
+  <li><a href="#sec-raster-distance" id="toc-sec-raster-distance" class="nav-link" data-scroll-target="#sec-raster-distance">Aufgabe 2: Entfernungen zum Wald berechnen</a></li>
+  <li><a href="#sec-classify1" id="toc-sec-classify1" class="nav-link" data-scroll-target="#sec-classify1">Aufgabe 3: Distanzkriterien Bewerten</a></li>
+  <li><a href="#sec-raster-overlay1" id="toc-sec-raster-overlay1" class="nav-link" data-scroll-target="#sec-raster-overlay1">Aufgabe 4: Raster Overlay</a></li>
   </ul>
 </nav>
     </div>
@@ -758,23 +755,20 @@ div.csl-indent {
 </ul>
 <p>In diesem ersten Teil (Übung A) widmen wir uns der Flächeneignung aufgrund der Distanz zu verschiedenen Gebieten. Gemäss <span class="citation" data-cites="gilgen2010">Gilgen und Sartoris (<a href="../References.html#ref-gilgen2010" role="doc-biblioref">2010</a>)</span> sowie <span class="citation" data-cites="tegou210">Tegou, Polatidis, und Haralambopoulos (<a href="../References.html#ref-tegou210" role="doc-biblioref">2010</a>)</span> ist ein Gebiet umsobesser geeignet:</p>
 <ol type="1">
-<li>Je weiter weg es sich von bewohnte Flächen, Nationale Schutzgebieten und Waldgebieten befindet</li>
+<li>Je weiter weg es sich von bewohnten Flächen, Nationalen Schutzgebieten und Waldgebieten befindet</li>
 <li>Je näher es sich zu einer Strasse befindet</li>
 </ol>
-<p>Diese Eignungsbewertung setzen wir in den folgenden Übungen in R um. Starten Sie R und laden Sie die nötigen Libraries in Ihre Session (s.u.)</p>
+<p>Diese Eignungsbewertung setzen wir in den folgenden Aufgaben in R um. Starten Sie R und laden Sie die nötigen Libraries in Ihre Session (s.u.)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="übungen-1-vektor-daten-laden-und-anzeigen" class="level2">
-<h2 class="anchored" data-anchor-id="übungen-1-vektor-daten-laden-und-anzeigen">Übungen 1: Vektor Daten laden und anzeigen</h2>
+<section id="aufgabe-1-vektor-daten-laden-und-anzeigen" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-vektor-daten-laden-und-anzeigen">Aufgabe 1: Vektor Daten laden und anzeigen</h2>
 <p>Laden Sie das File <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=663498">windkraft_geodata.gpkg</a> von Moodle herunter. Dieses beinhaltet alle Vektordaten, die für die Bearbeitung der Multikriterien-Evaluation benötigt wird (Bewohnte Flächen, Nationale Schutzgebiete, Seeflächen, Strassen, Waldgebiete sowie die Kantonsgrenze von Schwyz). Die Namen der verfügbaren Listen können Sie mit <code>sf::st_layers()</code> ermitteln.</p>
 <p>Explorieren Sie die Daten visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen. Zur Visualisierung können Sie die Funktionen <code>plot</code> oder die Packages <code>tmap</code> oder <code>ggplot2</code> verwenden.</p>
-<div class="note">
-
-</div>
 <div class="cell">
 
 </div>
@@ -783,7 +777,7 @@ div.csl-indent {
 </div>
 </section>
 <section id="sec-raster-distance" class="level2">
-<h2 class="anchored" data-anchor-id="sec-raster-distance">Übung 2: Entfernungen zum Wald berechnen</h2>
+<h2 class="anchored" data-anchor-id="sec-raster-distance">Aufgabe 2: Entfernungen zum Wald berechnen</h2>
 <p>Beginnen wir mit dem Kriterium “Distanz zum Wald”. Wir müssen für den ganzen Kanton Schwyz wissen, wie weit entfernt der nächstgelegene Wald liegt. Wie wir bereits in <a href="Rauman4_Uebung_A.html#sec-raster-intro1"><span>Kapitel&nbsp;55.5</span></a> erläutert haben, lässt sich diese Information am besten in einem Raster abbilden.</p>
 <p>Analog <a href="Rauman4_Uebung_A.html#sec-raster-intro1"><span>Kapitel&nbsp;55.5</span></a> müssen wir hierfür den Vektordatensatz auf der Basis eines Templates in ein Raster konvertieren. Für die Erstellung des Templates verwenden wir an dieser Stelle die Kantonsgrenze vom Kanton Schwyz.</p>
 <div class="cell">
@@ -825,146 +819,26 @@ div.csl-indent {
 </div>
 </section>
 <section id="sec-classify1" class="level2">
-<h2 class="anchored" data-anchor-id="sec-classify1">Übung 3: Distanzkriterien Bewerten</h2>
-<p>Jetzt haben wir die Distanzen zu den relevanten Gebieten berechnet, nun müssen wir diese Distanzen bewerten. Dafür teilen wir die kontinuierlichen Distanzwerte in diskrete Kategorien ein. Wir verwenden für die Übung folgende Einteilung:</p>
+<h2 class="anchored" data-anchor-id="sec-classify1">Aufgabe 3: Distanzkriterien Bewerten</h2>
+<p>Jetzt haben wir die Distanzen zu den relevanten Gebieten berechnet, nun müssen wir diese Distanzen bewerten. Dafür teilen wir die kontinuierlichen Distanzwerte in diskrete Kategorien ein. Wir verwenden für die Aufgabe folgende Einteilung:</p>
 <div class="mce-table">
-<div class="cell">
-<div class="cell-output-display">
-<div id="tbl-bewerungstabelle-dist" class="anchored">
-
-<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;"><caption>Tabelle&nbsp;57.1:  Bewertungstabelle für die Distanz zu verschiedenen Gebieten. </caption>
- <thead>
-<tr>
-<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">Schutzgebiete</div></th>
-<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">Waldgebiete</div></th>
-<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">Siedlungsgebiete</div></th>
-<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">Strassen</div></th>
-</tr>
-  <tr>
-   <th style="text-align:left;"> Dist </th>
-   <th style="text-align:right;"> Score </th>
-   <th style="text-align:left;"> Dist </th>
-   <th style="text-align:right;"> Score </th>
-   <th style="text-align:left;"> Dist </th>
-   <th style="text-align:right;"> Score </th>
-   <th style="text-align:left;"> Dist </th>
-   <th style="text-align:right;"> Score </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 0-50 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:left;"> 0-10 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:left;"> 0-80 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:left;"> 2500-Inf </td>
-   <td style="text-align:right;"> 0.0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 50-100 </td>
-   <td style="text-align:right;"> 0.1 </td>
-   <td style="text-align:left;"> 10-20 </td>
-   <td style="text-align:right;"> 0.1 </td>
-   <td style="text-align:left;"> 80-160 </td>
-   <td style="text-align:right;"> 0.1 </td>
-   <td style="text-align:left;"> 2250-2500 </td>
-   <td style="text-align:right;"> 0.1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 100-150 </td>
-   <td style="text-align:right;"> 0.2 </td>
-   <td style="text-align:left;"> 20-30 </td>
-   <td style="text-align:right;"> 0.2 </td>
-   <td style="text-align:left;"> 160-170 </td>
-   <td style="text-align:right;"> 0.2 </td>
-   <td style="text-align:left;"> 2000-2250 </td>
-   <td style="text-align:right;"> 0.2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 150-200 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:left;"> 30-40 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:left;"> 170-180 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:left;"> 1750-2000 </td>
-   <td style="text-align:right;"> 0.3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 200-250 </td>
-   <td style="text-align:right;"> 0.4 </td>
-   <td style="text-align:left;"> 40-50 </td>
-   <td style="text-align:right;"> 0.4 </td>
-   <td style="text-align:left;"> 180-190 </td>
-   <td style="text-align:right;"> 0.4 </td>
-   <td style="text-align:left;"> 1500-1750 </td>
-   <td style="text-align:right;"> 0.4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 250-300 </td>
-   <td style="text-align:right;"> 0.5 </td>
-   <td style="text-align:left;"> 50-60 </td>
-   <td style="text-align:right;"> 0.5 </td>
-   <td style="text-align:left;"> 190-200 </td>
-   <td style="text-align:right;"> 0.5 </td>
-   <td style="text-align:left;"> 1250-1500 </td>
-   <td style="text-align:right;"> 0.5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 300-350 </td>
-   <td style="text-align:right;"> 0.6 </td>
-   <td style="text-align:left;"> 60-70 </td>
-   <td style="text-align:right;"> 0.6 </td>
-   <td style="text-align:left;"> 200-210 </td>
-   <td style="text-align:right;"> 0.6 </td>
-   <td style="text-align:left;"> 1000-1250 </td>
-   <td style="text-align:right;"> 0.6 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 350-400 </td>
-   <td style="text-align:right;"> 0.7 </td>
-   <td style="text-align:left;"> 70-80 </td>
-   <td style="text-align:right;"> 0.7 </td>
-   <td style="text-align:left;"> 210-220 </td>
-   <td style="text-align:right;"> 0.7 </td>
-   <td style="text-align:left;"> 750-1000 </td>
-   <td style="text-align:right;"> 0.7 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 400-450 </td>
-   <td style="text-align:right;"> 0.8 </td>
-   <td style="text-align:left;"> 80-90 </td>
-   <td style="text-align:right;"> 0.8 </td>
-   <td style="text-align:left;"> 220-230 </td>
-   <td style="text-align:right;"> 0.8 </td>
-   <td style="text-align:left;"> 500-750 </td>
-   <td style="text-align:right;"> 0.8 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 450-500 </td>
-   <td style="text-align:right;"> 0.9 </td>
-   <td style="text-align:left;"> 90-100 </td>
-   <td style="text-align:right;"> 0.9 </td>
-   <td style="text-align:left;"> 230-240 </td>
-   <td style="text-align:right;"> 0.9 </td>
-   <td style="text-align:left;"> 250-500 </td>
-   <td style="text-align:right;"> 0.9 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 500-Inf </td>
-   <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:left;"> 100-Inf </td>
-   <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:left;"> 240-Inf </td>
-   <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:left;"> 0-250 </td>
-   <td style="text-align:right;"> 1.0 </td>
-  </tr>
-</tbody>
-</table>
-
+<div id="tbl-bewerungstabelle-dist" class="cell tbl-parent quarto-layout-panel anchored" data-tbl-cap="Bewertungstabelle für die Distanz zu verschiedenen Gebieten.">
+<div class="panel-caption table-caption">
+<p><strong>?(caption)</strong></p>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<pre><code>Error in library(here): es gibt kein Paket namens 'here'</code></pre>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<pre><code>Error in library(readODS): es gibt kein Paket namens 'readODS'</code></pre>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<pre><code>Error in read_ods(reclassify_ods, x): konnte Funktion "read_ods" nicht finden</code></pre>
 </div>
 </div>
 </div>
@@ -972,16 +846,16 @@ div.csl-indent {
 <p>Hierfür brauchen wir die Function <code>classify()</code>. Wie wir aus der Dokumentation der Funktion (mit <code>?classify</code>) entnehmen können, gibt es verschiedene Wege wie wir einen Raster Reklassifizieren können (siehe Beschreibung für das Argument <code>rcl</code>). Eine sehr explizite Variante ist, dass wir für <code>rcl</code> eine Matrix mit 3 Spalten verwenden. Diese drei Spalte stellen <em>from</em>, <em>to</em> und <em>becomes</em> dar.</p>
 <p>Wir könnten diese Tabelle in einem Spreadsheet-Programm schreiben und in R einlesen. Alternativ können wir sie auch “von Hand” in R erstellen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wald_klassen <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0000</span>,<span class="dv">0500</span>,<span class="fl">0.0</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0500</span>,<span class="dv">1000</span>,<span class="fl">0.2</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1000</span>,<span class="dv">1500</span>,<span class="fl">0.4</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1500</span>,<span class="dv">2000</span>,<span class="fl">0.6</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2000</span>,<span class="dv">2500</span>,<span class="fl">0.8</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2500</span>,<span class="cn">Inf</span>,<span class="fl">1.0</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Überprüfen, ob die Matrix auch korrekt erstellt wurde:</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>wald_klassen</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>wald_klassen <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0000</span>,<span class="dv">0500</span>,<span class="fl">0.0</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0500</span>,<span class="dv">1000</span>,<span class="fl">0.2</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1000</span>,<span class="dv">1500</span>,<span class="fl">0.4</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1500</span>,<span class="dv">2000</span>,<span class="fl">0.6</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2000</span>,<span class="dv">2500</span>,<span class="fl">0.8</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2500</span>,<span class="cn">Inf</span>,<span class="fl">1.0</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Überprüfen, ob die Matrix auch korrekt erstellt wurde:</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>wald_klassen</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    0  500  0.0
@@ -994,10 +868,10 @@ div.csl-indent {
 </div>
 <p>Jetzt wo wir diese Matrix haben, können wir sie nutzen um den Kanton Schwyz hinsichtlich der Distanz zum Wald zu bewerten.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>wald_classify <span class="ot">&lt;-</span> <span class="fu">classify</span>(wald_dist, wald_klassen)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung des Resultats</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(wald_classify) <span class="sc">+</span> <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"Spectral"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>wald_classify <span class="ot">&lt;-</span> <span class="fu">classify</span>(wald_dist, wald_klassen)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung des Resultats</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(wald_classify) <span class="sc">+</span> <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"Spectral"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1027,22 +901,22 @@ Optional für Profis
 </div>
 </section>
 <section id="sec-raster-overlay1" class="level2">
-<h2 class="anchored" data-anchor-id="sec-raster-overlay1">Übung 4: Raster Overlay</h2>
+<h2 class="anchored" data-anchor-id="sec-raster-overlay1">Aufgabe 4: Raster Overlay</h2>
 <p>Wir haben zwar noch nicht alle Kriterien berechnet, die wir für unsere Standortsuche berücksichtigen wollen, aber zumindest schon vier (Distanz zum Wald, zur Siedlung, zur Strasse und zu Schutzgebieten). Mit diesen vier Kriterien können wir schon mal eine erste, unvollständige Beurteilung wagen.</p>
 <p>Weil wir für alle Raster das gleiche Template verwendet haben, sind diese perfekt aneinander ausgerichtet. So können wir sie auf die denkbar einfachste Art miteinander verrechnen. Auf folgende Weise können wir beispielsweise den Mittlwert pro Zelle berechnen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>overlay_prelim_1 <span class="ot">&lt;-</span> (strassen_classify <span class="sc">+</span> schutzgebiete_classify <span class="sc">+</span> siedlungsgebiet_classify <span class="sc">+</span> wald_classify)<span class="sc">/</span><span class="dv">4</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_1) <span class="sc">+</span> <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"Spectral"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>overlay_prelim_1 <span class="ot">&lt;-</span> (strassen_classify <span class="sc">+</span> schutzgebiete_classify <span class="sc">+</span> siedlungsgebiet_classify <span class="sc">+</span> wald_classify)<span class="sc">/</span><span class="dv">4</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_1) <span class="sc">+</span> <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"Spectral"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Wir können aber auch einen gewichteten Overlay durchführen. Auch das ist extrem Einfach:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>overlay_prelim_2 <span class="ot">&lt;-</span> (strassen_classify<span class="sc">*</span><span class="dv">5</span> <span class="sc">+</span> schutzgebiete_classify<span class="sc">*</span><span class="dv">3</span> <span class="sc">+</span> siedlungsgebiet_classify<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> wald_classify<span class="sc">*</span><span class="dv">1</span>)<span class="sc">/</span>(<span class="dv">5</span><span class="sc">+</span><span class="dv">3</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_2) <span class="sc">+</span> <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"Spectral"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>overlay_prelim_2 <span class="ot">&lt;-</span> (strassen_classify<span class="sc">*</span><span class="dv">5</span> <span class="sc">+</span> schutzgebiete_classify<span class="sc">*</span><span class="dv">3</span> <span class="sc">+</span> siedlungsgebiet_classify<span class="sc">*</span><span class="dv">2</span> <span class="sc">+</span> wald_classify<span class="sc">*</span><span class="dv">1</span>)<span class="sc">/</span>(<span class="dv">5</span><span class="sc">+</span><span class="dv">3</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_2) <span class="sc">+</span> <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"Spectral"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
