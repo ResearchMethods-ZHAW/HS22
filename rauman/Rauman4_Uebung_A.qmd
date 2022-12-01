@@ -15,7 +15,6 @@ In @sec-spatial-join-points haben wir einen Spatial Join zwischen Bäumen und Wi
 
 Lade dazu die benötigten Libraries und Datensätze in deine Session. Exploriere die Daten visualisiere Sie räumlich.
 
-
 ```{r}
 #| echo: true
 
@@ -23,14 +22,11 @@ library(dplyr)
 library(sf)
 library(ggplot2)
 
-
 wiesen <- read_sf("datasets/rauman/gruental.gpkg", "wiesen")
 baeume <- read_sf("datasets/rauman/gruental.gpkg", "baeume")
-
 ```
 
-
-Um die Übung etwas zu vereinfachen arbeiten wir erstmals mit nur 10 Bäumen. Nutze nachstehenden Code um Zufällig 10 Bäume auszuwählen. Wenn ihr den gleichen "Seed" wie ich benutzt (`set.seed(100)`) habt ihr "zufällig" auch die gleichen Bäume wie ich.
+Um die Übung etwas zu vereinfachen arbeiten wir erstmals mit nur 10 Bäumen. Nutze nachstehenden Code um zufällig 10 Bäume auszuwählen. Wenn ihr den gleichen "Seed" wie ich benutzt (`set.seed(100)`) habt ihr "zufällig" auch die gleichen Bäume wie ich.
 
 ```{r}
 #| echo: true
@@ -38,8 +34,6 @@ Um die Übung etwas zu vereinfachen arbeiten wir erstmals mit nur 10 Bäumen. Nu
 set.seed(100)
 baeume_sample <- sample_n(baeume, 10)
 ```
-
-
 
 ```{r}
 ggplot() +
@@ -55,9 +49,8 @@ Als erster Schritt müssen wir jeden Baum mit einem 20m Puffer verstehen. Nutze 
 baeume_20m <- st_buffer(baeume_sample, 20)
 ```
 
-
 ```{r}
-#| fig-cap: Dargestellt sind die Bäume als Punkte, sowie die mit einem 20m Puffer versehene Punkte und die Wiesen im Hintergrund.
+#| fig-cap: Dargestellt sind die Bäume als Punkte mit einem 20m Puffer, sowie die Wiesen im Hintergrund.
 #| label: fig-buffer1
 ggplot() +
   geom_sf(data = wiesen) +
@@ -76,19 +69,15 @@ ggplot() +
   geom_sf(data = wiesen, fill = "blue", alpha = .2) +
   geom_sf(data = baeume_20m, fill = "red", alpha = .2) +
   geom_sf(data = baeume_wiesen, fill = "green", alpha = 0.2) 
-
 ```
-
-
 
 ## Aufgabe 3
 
-Berechnen nun die Flächengrösse pro Geometrie mit der Funktion `st_area()`. Speichere den Output in einer neuen Spalte von `baeume_wiesen` (z.B. mit dem Namen `wiesen_flaeche`). Tipp: Konvertiere den Output aus `st_area` einen nummerischen Vektor mit `as.numeric()`.
+Berechnen nun die Flächengrösse pro Geometrie mit der Funktion `st_area()`. Speichere den Output in einer neuen Spalte von `baeume_wiesen` (z.B. mit dem Namen `wiesen_flaeche`). Tipp: Konvertiere den Output aus `st_area` in einen nummerischen Vektor mit `as.numeric()`.
 
 ```{r}
 baeume_wiesen$wiesen_flaeche <- as.numeric(st_area(baeume_wiesen))
 ```
-
 
 ## Aufgabe 4 (Optional)
 
@@ -99,7 +88,7 @@ kreisflaeche <- 20^2*pi
 baeume_wiesen$wiesen_anteil <- baeume_wiesen$wiesen_flaeche/kreisflaeche
 ```
 
-Überführe anschliessend die berechneten Anteilswerte in den Datensatz `baeume` mit einem `left_join` zwischen `baume` und `baeme_wiesen`. Welche Spalte wäre für diesen Join geeignet? Hinweis: Nutze `st_drop_geometry()` um die Geometriespalte in `baeme_wiesen` vor dem Join zu entfernen.
+Überführe anschliessend die berechneten Anteilswerte in den Datensatz `baeume` mit einem `left_join` zwischen `baeume` und `baeume_wiesen`. Welche Spalte wäre für diesen Join geeignet? Hinweis: Nutze `st_drop_geometry()` um die Geometriespalte in `baeme_wiesen` vor dem Join zu entfernen.
 
 ```{r}
 #| label: fig-ggplot-ex4
@@ -136,24 +125,24 @@ template <- rast(wiesen, resolution = 20)
 
 # Mit rasterize können wir "baeume" in einen Raster konvertieren
 # Nutzt hier wieder alle bäume, nicht baeume_sample
-baume_rast <- terra::rasterize(baeume, template)
+baeume_rast <- terra::rasterize(baeume, template)
 ```
 
 Der Unterschied zwischen Raster und Vektor kann sehr anschaulich dargestellt werden, wenn die beiden Datensätze übereinander gelagert werden.
 
 ```{r}
 #| echo: true
-plot(baume_rast, col = "grey")
+plot(baeume_rast, col = "grey")
 plot(baeume, add = TRUE, col = "red", pch = "x")
 ```
 
-Mit `baume_rast` können wir nun mit der Funktion `distance()` die Distanz zu jedem Baum berechnen:
+Mit `baeume_rast` können wir nun mit der Funktion `distance()` die Distanz zu jedem Baum berechnen:
 
 ```{r}
 #| echo: true
 
-baume_dist <- distance(baume_rast)
-plot(baume_dist)
+baeume_dist <- distance(baeume_rast)
+plot(baeume_dist)
 plot(baeume, add = TRUE, pch = "x")
 ```
 

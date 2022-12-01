@@ -9,11 +9,13 @@ execute:
 
 # Rauman 4: Übung B {#sec-raster-intro}
 
-In @sec-raster-intro1 habt ihr nun eine erste Erfahrung mit mit Raster Daten gemacht. Dabei haben wir zuerst einen Vektordatensatz rasterisiert. Häufig arbeiten wir aber mit Geodaten, die bereits im Rasterformat erfast werden. 
+In @sec-raster-intro1 habt ihr nun eine erste Erfahrung mit Raster Daten gemacht. Dabei haben wir zuerst einen Vektordatensatz rasterisiert. Häufig arbeiten wir aber mit Geodaten, die bereits im Rasterformat erfast werden. 
+
+## Aufgabe 1
 
 In dieser Übung werden wir weiter mit `terra` arbeiten, um zu zeigen, wie wir einen Rasterdatensatz importieren, visualisieren und weiter verarbeiten können. Unter dem nachstehenden Link können Sie eine tif-Datei herunterladen, die das "Digitale Höhenmodell" (DHM)* des Kantons Schwyz darstellt. Laden Sie den Datensatz herunter und führen Sie den angegebenen Code aus.
 
-Datensatz: [dhm25m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602285)
+Datensatz: [dhm250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=701345)
 
 ```{r}
 library(terra)
@@ -73,8 +75,6 @@ tm_shape(dhm_schwyz) +
   tm_raster(style = "cont", palette = "Spectral") 
 ```
 
-
-
 Eine grosse Stärke von `tmap` ist die Tatsache, das mit dem gleichen Befehl sowohl statische wie auch interative Plots erstellt werden können. Dafür muss der Modus von statisch auf interaktiv gewechselt werden. 
 
 ```{r}
@@ -86,11 +86,9 @@ tm_shape(dhm_schwyz) +
 tmap_mode("plot")   # wechselt zurück auf statische Plots
 ```
 
+## Aufgabe 2 {#sec-raster-slope}
 
-
-## Aufgabe 1 {#sec-raster-slope}
-
-Mit `terra` können wir eine Vielzahl von Rasteroperationen über unser Höhenmodell laufen lassen. Eine klassische Rasteroperation ist zum Beispiel das Berechnenen der Hangneigung oder dessen Orientierung. Nutzen Sie die Funktion `terrain()` aus `terra` um die Hangneigung und Orientierung zu berechnen. Visualisieren Sie die Resultate.
+Mit `terra` können wir eine Vielzahl von Rasteroperationen über unser Höhenmodell laufen lassen. Eine klassische Rasteroperation ist zum Beispiel das Berechnen der Hangneigung oder dessen Orientierung. Nutzen Sie die Funktion `terrain()` aus `terra` um die Hangneigung und Orientierung zu berechnen. Visualisieren Sie die Resultate.
 
 ```{r}
 #| echo: false
@@ -115,8 +113,7 @@ tm_raster(
   )
 ```
 
-
-## Aufgabe 2
+## Aufgabe 3
 
 Mit Hangneigung und -ausrichtung können wir einen *Hillshading*-Effekt berechnen. Hillshading bedeutet, dass der Schattenwurf des Oberflächenmodells bei gegebenen Einfallswinkel der Sonne (Höhe und Azimut) berechnet wird. Der typische Einfallswinkel liegt bei 45° über dem Horizont und von Nordwesten bei 315°.
 
@@ -133,6 +130,5 @@ dhm_hillshade <- shade(dhm_slope, dhm_aspect, 45, 315)
 tm_shape(dhm_hillshade) + 
   tm_raster(style = "cont", palette = "cividis", legend.show = FALSE) +
   tm_layout(frame = FALSE)
-
 ```
 
