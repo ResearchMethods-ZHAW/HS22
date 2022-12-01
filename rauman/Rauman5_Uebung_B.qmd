@@ -29,13 +29,11 @@ source(tempr)
 3. Je höher die Windgeschwindigkeit ist
 4. Je geringer die Vereisungshäufigkeit ist
 5. Je geringer die Hangneigung ist
-
-
 -->
 
-## Übung 1: Rasterdaten einlesen
+## Aufgabe 1: Rasterdaten einlesen
 
-Zur Bewertung der Standorte Hinsichtlich Windgeschwindigkeit und Vereisungshäufigkeit stehen uns folgende Rasterdatensätze zur Verfügung. Lade die beiden nachfolgenden Datensätze herunter und mit der Funktion `rast()` in R ein.
+Zur Bewertung der Standorte hinsichtlich Windgeschwindigkeit und Vereisungshäufigkeit stehen uns folgende Rasterdatensätze zur Verfügung. Lade die beiden nachfolgenden Datensätze herunter und mit der Funktion `rast()` in R ein.
 
 - [eis250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602288) (Vereisungshäufigkeit in Tage/Jahr)
 - [wind250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297) (Durchschnittliche Windgeschwindigkeit)
@@ -49,12 +47,11 @@ wind250m <- rast("datasets/rauman/wind250m.tif")
 
 ```{r}
 #| output: false
-#| 
+
 tm_shape(eis250m) + tm_raster(style = "cont") 
 ```
 
-
-## Übung 2: Wind und Eis bewerten
+## Aufgabe 2: Wind und Eis bewerten
 
 Diese Rasterdaten müssen wir nicht weiter verarbeiten, ausser sie zu bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion `classify()` analog @sec-classify1. 
 
@@ -65,7 +62,6 @@ Diese Rasterdaten müssen wir nicht weiter verarbeiten, ausser sie zu bewerten. 
 #| echo: false
 #| label: tbl-bewerungstabelle-other
 #| tbl-cap: Bewertungstabelle die Windgeschwindigkeit (m/s), Vereisungshäufigkeit (Tage/Jahr) und Hangneigung (Grad)
-
 
 library(kableExtra)
 library(purrr)
@@ -92,10 +88,7 @@ map2(sheets1, einheit, function(x, z){
 kableExtra::kbl() |>
   kable_classic( )  |>
   add_header_above(header_above) 
-
-
 ```
-
 
 </div>
 
@@ -125,9 +118,7 @@ eis_classify <- classify(eis250m, eis_klassen)
 
 ```
 
-
-
-## Übung 3: Slope berechnen und Bewerten
+## Aufgabe 3: Slope berechnen und Bewerten
 
 Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell, was wir bereits in @sec-raster-intro verwendet haben ([dhm250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=694260)) in R ein, und berechne Anschliessend die Hangneigung mit der Funktion `terrain()` analog @sec-raster-slope (beachten Sie die Einheit des Output!). 
 
@@ -153,8 +144,7 @@ neigung_klassen <- c(0,2,1,
 neigung_classify <- classify(neigung, neigung_klassen)
 ```
 
-
-## Übung 4: Raster Overlay {#sec-raster-overlay2}
+## Aufgabe 4: Raster Overlay {#sec-raster-overlay2}
 
 Analog @sec-raster-overlay1 können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen. Hier stossen wir aber auf ein Problem. Sobald wir versuchen, Bewertungen aus Übung A mit bewertungen aus dieser Übung (Übung B) miteinander zu verrechnen, erhalten wir folgende Fehlermeldung:
 
@@ -175,6 +165,7 @@ Das Problem ist, dass diese in den beiden Datensätzen leicht anders abgespeiche
 
 ```{r}
 #| echo: true
+
 crs(wind_classify) <- crs(strassen_classify)
 crs(eis_classify) <- crs(strassen_classify)
 crs(neigung_classify) <- crs(strassen_classify)
@@ -185,28 +176,26 @@ Nun sollte der Overlay problemlos funktionieren. Führe einen Overlay mit allen 
 ```{r}
 #| fig-cap: Ungewichtetes Überlagern aller Kriterien mit Ausnahme der Ausschlussgebiete
 #| label: fig-overlay3
-overlay_prelim_3 <- (strassen_classify + schutzgebiete_classify + siedlungsgebiet_classify + wald_classify + wind_classify + eis_classify + neigung_classify)/7
 
+overlay_prelim_3 <- (strassen_classify + schutzgebiete_classify + siedlungsgebiet_classify + wald_classify + wind_classify + eis_classify + neigung_classify)/7
 
 tm_shape(overlay_prelim_3) + 
   tm_raster(palette = "Spectral", breaks = seq(0,1,0.2), style = "cont", title = "Eignung") +
   tm_layout(frame = FALSE)
 ```
 
-
-
-## Übung 5: Ausschlusskriterien 
+## Aufgabe 5: Ausschlusskriterien 
 
 Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden können. Dazu gehören bewohnte Flächen, nationale Schutzgebiete, Waldgebiete und Seen. Zwar werden bewohnte Flächen, nationale Schutzgebiete und Waldgebiete in unserer Analyse bereits schlecht (mit "0") bewertet, aber nicht kategorisch vom Resultat ausgeschlossen. Sprich: Wenn ein Gebiet, welches zum Beispiel mitten im Siedlungsgebiet liegt, alle anderen Bedigungen erfüllt, kann es trotzdem eine hohe Bewertung erhalten, obwohl dort keine Windkraftanalage gebaut werden kann.
 
-Um diese Gebiete kategorisch vom Resultat auszuschliessen können wir für die Siedlungsgebiete, Schutzgebiete sowie den Wald die rasterisierte Form verwenden, die wir in @sec-raster-distance erstellt haben. Für die Seen müssen wir den entsprechenden Raster zuerst noch erstellen:
+Um diese Gebiete kategorisch vom Resultat auszuschliessen, können wir für die Siedlungsgebiete, Schutzgebiete sowie den Wald die rasterisierte Form verwenden, die wir in @sec-raster-distance erstellt haben. Für die Seen müssen wir den entsprechenden Raster zuerst noch erstellen:
 
 ```{r}
 #| echo: true
+
 # Fehlendes Ausschlussgebiet Rasterisieren
 seen_raster <- rasterize(seen, template)
 ```
-
 
 Diese Rasterdatensätze sind bereits binär: Rasterzellen mit dem Wert 1 sind Zellen im Wald, im Schutzgebiet usw. Zellen ausserhalb sind `NA`. Um die Vereinigungsmenge zu erhalten (also alle Zellen , die entweder Sieldungsgebiet *oder* Wald *oder* Schutzgebiet *oder* Seen sind), können wir die Funktion `any()` verwenden. Diese Funktion gibt `TRUE` zurück wenn mindestens 1 Wert im Overlay `TRUE` ist. 
 
@@ -225,14 +214,15 @@ ausschlussgebiete <- any(siedlungsgebiet_raster, schutzgebiete_raster, wald_rast
 plot(ausschlussgebiete, col = c("red", "blue"))
 ```
 
-## Übung 5: Ausschlussgebiete von potenziellen Gebieten entfernen
+## Aufgabe 6: Ausschlussgebiete von potenziellen Gebieten entfernen
 
-Das Resultat aus unserer vorläufigen Analyse (@fig-overlay3) weisst werte von 0 - 1 auf. Um sicher zu stellen, dass die Auschlussgebiete mit `0` ausgewiesen werden können wie folgt vorgehen: 
+Das Resultat aus unserer vorläufigen Analyse (@fig-overlay3) weisst Werte von 0 - 1 auf. Um sicherzustellen, dass die Auschlussgebiete mit `0` ausgewiesen werden können wie folgt vorgehen: 
 
 1. Wir erstellen einen neuen Raster `einschlussgebiete`, welches das *Gegenteil* von `ausschlussgebiete` darstellt.
 
 ```{r}
 #| echo: true
+
 einschlussgebiete <- !ausschlussgebiete
 
 plot(einschlussgebiete, col = c("red", "blue"))
@@ -259,4 +249,3 @@ tm_shape(overlay_4) +
   tm_raster(palette = "Spectral", breaks = seq(0,1,0.2), style = "cont", title = "Eignung") +
   tm_layout(frame = FALSE)
 ```
-

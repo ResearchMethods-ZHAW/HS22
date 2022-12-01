@@ -238,23 +238,10 @@ depo <- depo |>
                                  "Lockdown_2",
                                  if_else(Datum>= (lock_1_start_2020 - years(1)) & Datum < lock_1_start_2020,
                                          "Normal", 
+                                         ifelse(Datum>lock_1_end_2020 & Datum <lock_2_start_2021,
+                                                "Inter",
                                          if_else(Datum > lock_2_end_2021,
-                                                 "Post", "Pre")))))
-
-
-##############ACHTUNG:
-##############ZWISCHEN DEN LOCKDOWNS WIRD ALS PRE GELABELT!
-
-
-
-
-
-
-
-
-
-
-
+                                                 "Post", "Pre"))))))
 
 # hat das gepklappt?!
 unique(depo$Phase)
@@ -1231,29 +1218,29 @@ chart.Correlation(umwelt[,12:16], histogram=TRUE, pch=19)
 
 # Aufgabe 4 (OPTIONAL): Automatische Variablenselektion
 ```{r}
-# Automatisierte Variablenselektion (achtung, RECHENINTENSIV)
-# fuehre die dredge-Funktion und ein Modelaveraging durch
-# Hier wird die Formel für die dredge-Funktion vorbereitet
-f <- Total ~ Wochentag + Ferien + Phase + Monat + 
-  tre200jx_scaled + rre150j0_scaled + rre150n0_scaled + 
-  sremaxdv_scaled
-# Jetzt kommt der Random-Factor hinzu und es wird eine Formel daraus gemacht
-f_dredge <- paste(c(f, "+ (1|Jahr)"), collapse = " ") |>
-  as.formula()
-# Das Modell mit dieser Formel ausführen
-m <- glmer.nb(f_dredge, data = umwelt, na.action = "na.fail")
-# Das Modell in die dredge-Funktion einfügen (siehe auch ?dredge)
-all_m <- dredge(m)
-# suche das beste Modell
-print(all_m)
-# Importance values der Variablen
-# hier wird die wichtigkeit der Variablen in den verschiedenen Modellen abgelesen
-MuMIn::sw(all_m)
-
-# Schliesslich wird ein Modelaverage durchgeführt
-# Schwellenwert für das delta-AIC = 2
-avgmodel <- model.avg(all_m, rank = "AICc", subset = delta < 2)
-summary(avgmodel)
+# # Automatisierte Variablenselektion (achtung, RECHENINTENSIV)
+# # fuehre die dredge-Funktion und ein Modelaveraging durch
+# # Hier wird die Formel für die dredge-Funktion vorbereitet
+# f <- Total ~ Wochentag + Ferien + Phase + Monat + 
+#   tre200jx_scaled + rre150j0_scaled + rre150n0_scaled + 
+#   sremaxdv_scaled
+# # Jetzt kommt der Random-Factor hinzu und es wird eine Formel daraus gemacht
+# f_dredge <- paste(c(f, "+ (1|Jahr)"), collapse = " ") |>
+#   as.formula()
+# # Das Modell mit dieser Formel ausführen
+# m <- glmer.nb(f_dredge, data = umwelt, na.action = "na.fail")
+# # Das Modell in die dredge-Funktion einfügen (siehe auch ?dredge)
+# all_m <- dredge(m)
+# # suche das beste Modell
+# print(all_m)
+# # Importance values der Variablen
+# # hier wird die wichtigkeit der Variablen in den verschiedenen Modellen abgelesen
+# MuMIn::sw(all_m)
+# 
+# # Schliesslich wird ein Modelaverage durchgeführt
+# # Schwellenwert für das delta-AIC = 2
+# avgmodel <- model.avg(all_m, rank = "AICc", subset = delta < 2)
+# summary(avgmodel)
 ```
 
 # Aufgabe 5: Verteilung der abhängigen Variabel pruefen

@@ -117,8 +117,6 @@ Wir können die tiefen Werte ausblenden, indem wir nur die höchsten 5% der Wert
 
 Zusätzlich hilft eine logarithmische Transformation der Werte, die Farbskala etwas sichtbarer zu machen.
 
-
-
 ```{r}
 q95 <- quantile(rotmilan_kde$value,probs = 0.95)
 
@@ -141,7 +139,6 @@ Thiessen Polygone bieten eine spannende Alternative um Unterschiede in der Dicht
 Wir wollen dies nun ausprobieren und konstruieren zum Schluss die Thiessenpolygone für die Rotmilan-Daten für das Untersuchungsgebiet Schweiz. Nutze die Anleitung für das Erstellen von Thiessenpolygonen aus der Übung B um Thiessenpolygone für die Rotmilanpositionen zu erstellen. 
 
 ```{r}
-
 thiessenpolygone <- rotmilan |>
   st_union() |>
   st_voronoi()
@@ -161,5 +158,3 @@ ggplot() +
   geom_sf(data = thiessenpolygone_clip, fill = NA) + 
   theme_void()
 ```
-
-

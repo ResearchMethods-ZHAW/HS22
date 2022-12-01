@@ -206,8 +206,10 @@ depo <- depo |>
                                  "Lockdown_2",
                                  if_else(Datum>= (lock_1_start_2020 - years(1)) & Datum < lock_1_start_2020,
                                          "Normal", 
+                                         ifelse(Datum>lock_1_end_2020 & Datum <lock_2_start_2021,
+                                                "Inter",
                                          if_else(Datum > lock_2_end_2021,
-                                                 "Post", "Pre")))))
+                                                 "Post", "Pre"))))))
 
 # hat das gepklappt?!
 unique(depo$Phase)
