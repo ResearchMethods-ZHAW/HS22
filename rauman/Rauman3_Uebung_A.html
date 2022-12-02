@@ -697,11 +697,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#aufgabe-1-herleitung-der-formel" id="toc-aufgabe-1-herleitung-der-formel" class="nav-link active" data-scroll-target="#aufgabe-1-herleitung-der-formel">Aufgabe 1: Herleitung der Formel</a>
+  <li><a href="#aufgabe-1-morans-i-für-kantone" id="toc-aufgabe-1-morans-i-für-kantone" class="nav-link active" data-scroll-target="#aufgabe-1-morans-i-für-kantone">Aufgabe 1: Morans <span class="math inline">\(I\)</span> für Kantone</a>
   <ul class="collapse">
-  <li><a href="#bruch-1" id="toc-bruch-1" class="nav-link" data-scroll-target="#bruch-1">Bruch 1</a></li>
-  <li><a href="#bruch-2" id="toc-bruch-2" class="nav-link" data-scroll-target="#bruch-2">Bruch 2</a></li>
-  <li><a href="#auflösung-der-formel" id="toc-auflösung-der-formel" class="nav-link" data-scroll-target="#auflösung-der-formel">Auflösung der Formel</a></li>
+  <li><a href="#berechnung-von-n" id="toc-berechnung-von-n" class="nav-link" data-scroll-target="#berechnung-von-n">Berechnung von <span class="math inline">\(n\)</span></a></li>
+  <li><a href="#abweichung-vom-mittelwert" id="toc-abweichung-vom-mittelwert" class="nav-link" data-scroll-target="#abweichung-vom-mittelwert">Abweichung vom Mittelwert</a></li>
+  <li><a href="#kreuzmatrix" id="toc-kreuzmatrix" class="nav-link" data-scroll-target="#kreuzmatrix">Kreuzmatrix</a></li>
+  <li><a href="#räumliche-gewichtung" id="toc-räumliche-gewichtung" class="nav-link" data-scroll-target="#räumliche-gewichtung">Räumliche Gewichtung</a></li>
+  <li><a href="#abweichung-vom-mittelwert-1" id="toc-abweichung-vom-mittelwert-1" class="nav-link" data-scroll-target="#abweichung-vom-mittelwert-1">Abweichung vom Mittelwert</a></li>
   </ul></li>
   <li><a href="#aufgabe-2-morans-i-für-gemeinde-oder-bezirke-berechnen" id="toc-aufgabe-2-morans-i-für-gemeinde-oder-bezirke-berechnen" class="nav-link" data-scroll-target="#aufgabe-2-morans-i-für-gemeinde-oder-bezirke-berechnen">Aufgabe 2: Morans I für Gemeinde oder Bezirke berechnen</a></li>
   </ul>
@@ -733,13 +735,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p><!-- # Zum Abschluss des Themenblockes Spatial Data Science berechnen wir mit dem Moran’s I einen Index zur Berechnung der räumlichen Autokorrelation einer Choroplethenkarte. Wir verwenden nochmals die aggregierten Choroplethenkarten zur Wasserverfügbarkeit aus der ersten Übung und schauen uns an, wie stark die Werte für die Kantone und die Kantone autokorreliert sind. Anstatt einfach eine Funktion zur Berechnung von Moran’s I aufzurufen und diese dann wie eine Black Box anzuwenden, wollen wir Formel für die Berechnung des Index in Ihre Bausteine zerlegen und diese Schritt für Schritt selber nachrechnen. So seht Ihr, wie  Moran’s I wirklich funktioniert und könnte dabei erst noch die zuvor gelernten Data Science Techniken repetieren.  --></p>
-<p>Für die Berechnung von Morans <span class="math inline">\(I\)</span> benutzen wir kein externes Package, sondern erarbeiten uns alles selber, basierend auf der Formel von Moran’s <span class="math inline">\(I\)</span>:</p>
-<p><span class="math display">\[I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}\]</span></p>
-<p>Diese sieht sehr beeindruckend aus, aber wenn wir die Formel in ihre Einzelbestandteile aufteilen, sehen wir, dass diese in sich gar nicht so komplex sind.</p>
-<p>Als erster Schritt müssen wir die notwendigen Libraries und Geodaten laden:</p>
+<p>Heute berechnen wir Morans <span class="math inline">\(I\)</span>, also ein globales Mass für Autokorrelation, für die Abstimmungsresultate der Zweitwohnungsinitiative. Dieser berechnete Wert beschreibt, ob Kantone, die nahe beieinander liegen ähnliche Abstimmungswerte haben. Hierfür verwenden wir folgenden Datensatz:</p>
 <ul>
-<li>Datensatz: <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602283">zweitwohnungsinitiative.gpkg</a></li>
+<li><a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602283">zweitwohnungsinitiative.gpkg</a></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -752,201 +750,210 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>zweitwohnung_kanton <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/zweitwohnungsinitiative.gpkg"</span>, <span class="st">"kanton"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output-display">
-<p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+
 </div>
-</div>
-<section id="aufgabe-1-herleitung-der-formel" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-1-herleitung-der-formel">Aufgabe 1: Herleitung der Formel</h2>
-<p>In der ersten Übung wollen wir Moran’s <span class="math inline">\(I\)</span> für eine gegebene Choroplethenkarte nachrechnen. Dazu nehmen wir die Formel für Moran’s <span class="math inline">\(I\)</span> und zerlegen sie in Einzelteile, die wir dann Schritt für Schritt für unsere Daten berechnen. So teilen wir ein vermeintlich komplexes Problem in überschaubare Einzelteile. Dieses Vorgehen illustriert ausserdem sehr schön ein generelles Data Science Prinzip. Divide and Conquer - Teile und Herrsche: Teile ein komplexes Problem in kleinere, beherrschbare Unterprobleme. Wir beginnen mit dem ersten Bruch und berechnen dabei zuerst den Zähler, dann dem Nenner. So können wir den Bruch auflösen und uns danach dem zweiten Bruch zuwenden:</p>
+<p>Für die Berechnung von Morans <span class="math inline">\(I\)</span> benutzen wir kein externes Package, sondern erarbeiten uns alles selber, basierend auf der Formel von Moran’s <span class="math inline">\(I\)</span>:</p>
 <p><span class="math display">\[I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}\]</span></p>
-<section id="bruch-1" class="level3">
-<h3 class="anchored" data-anchor-id="bruch-1">Bruch 1</h3>
-<p>Widmen wir uns dem ersten Bruch:</p>
-<p><span class="math display">\[\frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2}\]</span></p>
-<section id="zähler-von-bruch-1" class="level4">
-<h4 class="anchored" data-anchor-id="zähler-von-bruch-1">Zähler (von Bruch 1)</h4>
-<p>Beginnen wir mit dem Zähler, <span class="math inline">\(n\)</span>. Dies ist lediglich die Anzahl Messwerte in unserem Datensatz, also die Anzahl Kantone.</p>
+<p>wobei:</p>
+<ul>
+<li><span class="math inline">\(n\)</span> der Anzahl räumlichen Objekte (hier: Kantone) in unserem Datensatz entspricht</li>
+<li><span class="math inline">\(y\)</span> der untersuchten Variabel entspricht (hier: Ja-Anteil in %)</li>
+<li><span class="math inline">\(\bar{y}\)</span> dem Mittelwert der untersuchten Variabel entspricht</li>
+<li><span class="math inline">\(w_{ij}\)</span> der Gewichtsmatrix entspricht</li>
+</ul>
+<p><span class="math display">\[I =\frac{\text{z1}}{\text{n1}}\times\frac{\text{z2}}{\text{n2}}\]</span></p>
+<p>Diese sieht sehr beeindruckend aus, aber wenn wir die Formel in ihre Einzelbestandteile aufteilen, sehen wir, dass diese in sich gar nicht so komplex sind. So teilen wir ein vermeintlich komplexes Problem in überschaubare Einzelteile. Dieses Vorgehen illustriert ausserdem sehr schön ein generelles Data Science Prinzip. Divide and Conquer - Teile und Herrsche: Teile ein komplexes Problem in kleinere, beherrschbare Unterprobleme.</p>
+<section id="aufgabe-1-morans-i-für-kantone" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-morans-i-für-kantone">Aufgabe 1: Morans <span class="math inline">\(I\)</span> für Kantone</h2>
+<section id="berechnung-von-n" class="level3">
+<h3 class="anchored" data-anchor-id="berechnung-von-n">Berechnung von <span class="math inline">\(n\)</span></h3>
+<p><span class="math display">\[I = \frac{\color{red}n}{\sum_{i=1}^{\color{red}n} (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^{\color{red}n}  w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^{\color{red}n}  w_{ij}}\]</span></p>
+<p>Beginnen wir mit der Variabel <span class="math inline">\(n\)</span>. Dies ist lediglich die Anzahl Messwerte in unserem Datensatz, also die Anzahl Kantone.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(zweitwohnung_kanton)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 26</code></pre>
-</div>
 </div>
 </section>
-<section id="nenner-von-bruch-1" class="level4">
-<h4 class="anchored" data-anchor-id="nenner-von-bruch-1">Nenner (von Bruch 1)</h4>
-<p>Der Nenner des ersten Bruches (<span class="math inline">\({\sum_{i=1}^n (y_i - \bar{y})^2}\)</span>) ist sehr ähnlich der Berechnung der Varianz:</p>
-<ol type="1">
-<li>Berechne den Durchschnitt aller Messwerte (<span class="math inline">\(\bar{y}\)</span>)</li>
-<li>Berechne für jeden Messwert die Differenz zum Durchschnitt (<span class="math inline">\(y_i - \bar{y}\)</span>)</li>
-<li>Quadriere diese Werte <span class="math inline">\((y_i - \bar{y})^2\)</span></li>
-<li>Summiere die Quadrierten Werte <span class="math inline">\(\sum_{i=1}^n\)</span></li>
-</ol>
-<p>Also berechnen wir zuerst diese Differenzwerte (Messwert minus Mittelwert):</p>
+<section id="abweichung-vom-mittelwert" class="level3">
+<h3 class="anchored" data-anchor-id="abweichung-vom-mittelwert">Abweichung vom Mittelwert</h3>
+<p><span class="math display">\[I = \frac{n}{\color{red}\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{{\color{orange}\sum_{i=1}^n} \sum_{j=1}^n w_{ij}{\color{orange}(y_i - \bar{y})(y_j - \bar{y})}}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}\]</span></p>
+<p>Der Nenner des ersten Bruches entspricht fast der Berechnung der Varianz. Wir berechnen für jeden Messwert die Differenz zum Durchschnitt (<span class="math inline">\(y_i - \bar{y}\)</span>), quadrieren diese einzelwerte und nehmen davon die Summe.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Werte aller Kantone:</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> zweitwohnung_kanton<span class="sc">$</span>ja_in_percent</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Der Durchschnittswert aller Kantone</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">&lt;-</span> <span class="fu">mean</span>(y, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># von jedem Wert den Durchschnittswert abziehen:</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>dy <span class="ot">&lt;-</span> y <span class="sc">-</span> ybar</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Werte aller Kantone in einer Variabel abspeichern</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> zweitwohnung_kanton<span class="sc">$</span>ja_in_percent</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Der Durchschnittswert aller Kantone berechnen</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">&lt;-</span> <span class="fu">mean</span>(y, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Von jedem Wert den Durchschnittswert abziehen:</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>dy <span class="ot">&lt;-</span> y <span class="sc">-</span> ybar</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Differenzen quadrieren</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>dy_2 <span class="ot">&lt;-</span> dy<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Und davon die Summe bilden:</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>dy_sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(dy_2, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Welche dieser Zwischenresultate sind Einzelwerte und welche Vektoren?</p>
-<p>Nun quadrieren wir die Differenzen:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dy_2 <span class="ot">&lt;-</span> dy<span class="sc">^</span><span class="dv">2</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>und summieren die Differenzen:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dy_sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(dy_2, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<!--
+#### Auflösung (Bruch 1)
+
+Beschliessen wir die Bearbeitung des ersten Bruchs indem wir den Zähler durch den Nennen dividieren:  `n` durch `dy_sum`.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+vr <- n/dy_sum
+```
+:::
+
+
+-->
+<!--
+### Bruch 2
+
+
+
+Hier berechnen wir die Summe aller Gewichte sowie die gewichteten Covarianzen. Wir betrachten immer Messwertpaare, sprich paarweise Vergleiche zweier Raumeinheiten (hier Kantone). Deshalb haben die zwei Summenzeichen die beiden unterschiedlichen Laufvariablen ($i$ und $j$). Solche paarweise Vergleiche von Werten mit allen anderen Werten können wir elegant mit Kreuzmatrizen abbilden. In der Kreuzmatrix vergleichen wir jeden Messwert mit allen anderen Messwerten. Dabei gibt es zwei Kreuzmatrizen: ($w_{ij}$ ist die erste Kreuzmatrix, $(y_i - \bar{y})(y_j - \bar{y})$ ist die zweite Kreuzmatrix). 
+
+-->
 </section>
-<section id="auflösung-bruch-1" class="level4">
-<h4 class="anchored" data-anchor-id="auflösung-bruch-1">Auflösung (Bruch 1)</h4>
-<p>Beschliessen wir die Bearbeitung des ersten Bruchs indem wir den Zähler durch den Nennen dividieren: <code>n</code> durch <code>dy_sum</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>vr <span class="ot">&lt;-</span> n<span class="sc">/</span>dy_sum</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="kreuzmatrix" class="level3">
+<h3 class="anchored" data-anchor-id="kreuzmatrix">Kreuzmatrix</h3>
+<p><span class="math display">\[I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{{\color{red}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{{\color{red}\sum_{i=1}^n \sum_{j=1}^n}^n w_{ij}}\]</span></p>
+<p>Während das alleinstehende Summenzeichen (<span class="math inline">\(\sum\)</span>) noch einigermassen nachvollziehbar ist, sind die doppelten Summenzeichen etwas verwirrlich und braucht etwas Erklärung. <span class="math inline">\(\sum_{i=1}^n \sum_{j=1}^n\)</span> stellt eine Kreuzmatrix dar, in dem jeder Wert mit jedem anderen Wert verglichen wird. Also das Abstimmungsresultat des Kantons Zürich wird mit allen anderen 25 Kantonen verglichen, das gleiche gilt für den Kanton Bern, Basel usw. Die nachfolgenden Berechnungen müssen wir also in dieser Kreuzmatrix durchführen.</p>
 </section>
-</section>
-<section id="bruch-2" class="level3">
-<h3 class="anchored" data-anchor-id="bruch-2">Bruch 2</h3>
-<p>Wenden wir uns nun also dem Bruches der Formel zu.</p>
-<p><span class="math display">\[\frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}\]</span></p>
-<p>Hier berechnen wir die Summe aller Gewichte sowie die gewichteten Covarianzen. Wir betrachten immer Messwertpaare, sprich paarweise Vergleiche zweier Raumeinheiten (hier Kantone). Deshalb haben die zwei Summenzeichen die beiden unterschiedlichen Laufvariablen (<span class="math inline">\(i\)</span> und <span class="math inline">\(j\)</span>). Solche paarweise Vergleiche von Werten mit allen anderen Werten können wir elegant mit Kreuzmatrizen abbilden. In der Kreuzmatrix vergleichen wir jeden Messwert mit allen anderen Messwerten. Dabei gibt es zwei Kreuzmatrizen: (<span class="math inline">\(w_{ij}\)</span> ist die erste Kreuzmatrix, <span class="math inline">\((y_i - \bar{y})(y_j - \bar{y})\)</span> ist die zweite Kreuzmatrix).</p>
-<section id="zähler-bruch-2" class="level4">
-<h4 class="anchored" data-anchor-id="zähler-bruch-2">Zähler (Bruch 2)</h4>
-<p>Der erste Term, <span class="math inline">\(w_{ij}\)</span>, beschreibt die räumlichen Gewichte aller Kantone. Sind die Kantone benachbart, dann gilt ein Gewicht von 1, sind sie nicht benachbart, gilt ein Gewicht von 0. Dies entspricht dem Schalter aus der Vorlesung.</p>
-<p>Wie wir “benachbart” definieren ist nicht festgelegt. Denkbar wären zum Beispiel folgende Optionen:</p>
+<section id="räumliche-gewichtung" class="level3">
+<h3 class="anchored" data-anchor-id="räumliche-gewichtung">Räumliche Gewichtung</h3>
+<p><span class="math display">\[I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n {\color{red}w_{ij}}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n {\color{red}w_{ij}}}\]</span></p>
+<p><span class="math inline">\(w_{ij}\)</span>, beschreibt die räumlichen Gewichte aller Kantone. Sind die Kantone räumlich nah, dann gilt ein Gewicht von 1, sind sie räumlich weit entfernt, gilt ein Gewicht von 0. Dies entspricht dem “Schalter” aus der Vorlesung. Dabei ist die Definition von “räumlich nah” nicht festgelegt. Denkbar wären zum Beispiel folgende Optionen:</p>
 <ul>
-<li>Die Kantone müssen sich berühren (dürfen sich aber nicht überlappen): <code>st_touches()</code></li>
+<li>Die Kantone müssen sich berühren: <code>st_touches()</code></li>
 <li>Die Kantone müssen innerhalb einer bestimmten Distanz zueinander liegen: <code>st_is_within_distance()</code></li>
-<li>Die Kantone müssen überlappen: <code>st_overlaps()</code></li>
 </ul>
-<p>Egal für welche Variante Ihr Euch entscheidet, setzt <code>sparse = FALSE</code> damit eine Kreuzmatrix erstellt wird.</p>
+<p>Egal für welche Variante Ihr Euch entscheidet, setzt <code>sparse = FALSE</code> damit eine Kreuzmatrix erstellt wird. (Lasst Euch nicht davon beirren, dass wir nun <code>TRUE</code> und <code>FALSE</code> statt <code>1</code> und <code>0</code> haben. In R sind <code>TRUE</code> und <code>1</code> äquivalent, sowie auch <code>FALSE</code> und <code>0</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">st_touches</span>(zweitwohnung_kanton, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>w[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      [,1]  [,2]  [,3]  [,4]  [,5]
-[1,] FALSE FALSE FALSE FALSE  TRUE
-[2,] FALSE FALSE  TRUE  TRUE FALSE
-[3,] FALSE  TRUE FALSE FALSE  TRUE
-[4,] FALSE  TRUE FALSE FALSE  TRUE
-[5,]  TRUE FALSE  TRUE  TRUE FALSE</code></pre>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># st_touches berechnet eine Kreuzmatrix aller Objekte</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">st_touches</span>(zweitwohnung_kanton, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Schauen wir uns die ersten 5 Reihen und Zeilen an</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>w[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>(Lasst Euch nicht davon beirren, dass wir nun <code>TRUE</code> und <code>FALSE</code> statt <code>1</code> und <code>0</code> haben. In R sind <code>TRUE</code> und <code>1</code> äquivalent, sowie auch <code>FALSE</code> und <code>0</code>).</p>
 <div class="cell">
 
 </div>
-<p>Zur Überprüfung unserer Operation: Mit <code>w[1,]</code> bekommt ihr ein Vektor, wo bei allen Kantone, die den ersten kanton (Zürich) berühren <code>TRUE</code> steht und bei allen anderen <code>FALSE</code>. Nun können wir überprüfen, ob die räumliche Operation funktioniert hat.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>beruehrt_1 <span class="ot">&lt;-</span> w[<span class="dv">1</span>, ]</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(zweitwohnung_kanton[beruehrt_1, ]) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> KANTONSNAME)) <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Welche Kanton berühren den Kanton Zürich (st_touches)"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+
 </div>
-</div>
-<p>Der nächste Teil sollte Euch nun bekannt vorkommen. Die Differenz aller Werte vom Mittelwert aller Werte <span class="math inline">\((y_i - \bar{y})\)</span> kennen wir schon vom ersten Bruch und haben wir auch bereits gelöst. Nun gilt es paarweise das Produkt der Abweichungen vom Mittelwert (die Covarianz) zu berechnen <span class="math inline">\((y_i - \bar{y})(y_j - \bar{y})\)</span>. DAzu müssen wir <em>das Produkt aller Wertekombinationen</em> berechnen. Dies erreichen wir mit der Funktion <code>tcrossprod()</code>:</p>
+<p>Zur Überprüfung unserer Operation: Mit <code>w[1,]</code> bekommt ihr ein Vektor, wo bei allen Kantone, die den ersten kanton () berühren <code>TRUE</code> steht und bei allen anderen <code>FALSE</code>. Nun können wir überprüfen, ob die räumliche Operation funktioniert hat. Könnt ihr die nachfolgende Visualisierung rekonstruieren?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pm <span class="ot">&lt;-</span> <span class="fu">tcrossprod</span>(dy)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pm[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>              [,1]         [,2]          [,3]         [,4]         [,5]
-[1,]  0.0008726497  0.001597812 -0.0006495424 -0.003249747 -0.001984912
-[2,]  0.0015978120  0.002925576 -0.0011893051 -0.005950251 -0.003634352
-[3,] -0.0006495424 -0.001189305  0.0004834762  0.002418896  0.001477437
-[4,] -0.0032497469 -0.005950251  0.0024188956  0.012102055  0.007391811
-[5,] -0.0019849120 -0.003634352  0.0014774366  0.007391811  0.004514842</code></pre>
-</div>
-</div>
-<p>Nun multiplizieren wir die Covarianzen mit den Gewichten <span class="math inline">\(w\)</span> (Schalter), damit wir nur noch die Werte von den Kantonen haben, die auch effektiv benachbart sind (und eliminieren nicht-benachbarte Werte). Beachtet dass wir hier nun eine Matrix mit einer Matrix multiplizieren.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pmw <span class="ot">&lt;-</span> pm <span class="sc">*</span> w</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>w[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      [,1]  [,2]  [,3]  [,4]  [,5]
-[1,] FALSE FALSE FALSE FALSE  TRUE
-[2,] FALSE FALSE  TRUE  TRUE FALSE
-[3,] FALSE  TRUE FALSE FALSE  TRUE
-[4,] FALSE  TRUE FALSE FALSE  TRUE
-[5,]  TRUE FALSE  TRUE  TRUE FALSE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pmw[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>             [,1]         [,2]         [,3]         [,4]         [,5]
-[1,]  0.000000000  0.000000000  0.000000000  0.000000000 -0.001984912
-[2,]  0.000000000  0.000000000 -0.001189305 -0.005950251  0.000000000
-[3,]  0.000000000 -0.001189305  0.000000000  0.000000000  0.001477437
-[4,]  0.000000000 -0.005950251  0.000000000  0.000000000  0.007391811
-[5,] -0.001984912  0.000000000  0.001477437  0.007391811  0.000000000</code></pre>
-</div>
-</div>
-<p>Den Zähler des ersten Bruches können wir nun fertig berechnen, indem wir die Summe aller gewichten (sprich eingeschalteten) Werten bilden:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>spmw <span class="ot">&lt;-</span> <span class="fu">sum</span>(pmw, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>spmw</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2007517</code></pre>
-</div>
+
 </div>
 </section>
-<section id="nenner-bruch-2" class="level4">
-<h4 class="anchored" data-anchor-id="nenner-bruch-2">Nenner (Bruch 2)</h4>
-<p>Für den Nenner des zweiten Teils der Formal (des zweiten Bruchs) müssen wir nun nur noch alle Gewichte summieren. Diese Summer entspricht der Anzahl effektiv benachbarter Kantone und kann Anzahl der <span class="math inline">\(TRUE\)</span>-Werte in <span class="math inline">\(w\)</span> bestimmt werden.</p>
+<section id="abweichung-vom-mittelwert-1" class="level3">
+<h3 class="anchored" data-anchor-id="abweichung-vom-mittelwert-1">Abweichung vom Mittelwert</h3>
+<p><span class="math display">\[I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}{\color{red}(y_i - \bar{y})(y_j - \bar{y})}}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}\]</span></p>
+<p>Die Abweichung vom Mittelwert haben wir ja bereits gerechnet und in der Variabel <code>dy</code> abgespeichert. Nun gilt es paarweise das Produkt der Abweichungen vom Mittelwert (die Covarianz) zu berechnen <span class="math inline">\((y_i - \bar{y})(y_j - \bar{y})\)</span>. Dazu müssen wir <em>das Produkt aller Wertekombinationen</em> berechnen. Dies erreichen wir mit der Funktion <code>tcrossprod()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>smw <span class="ot">&lt;-</span> <span class="fu">sum</span>(w, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># berechnet das Proukt aller Wertekombinationen</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>pm <span class="ot">&lt;-</span> <span class="fu">tcrossprod</span>(dy)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># die ersten für Reihen und Spalten des Resultas</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>pm[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="auflösung-bruch-2" class="level4">
-<h4 class="anchored" data-anchor-id="auflösung-bruch-2">Auflösung (Bruch 2)</h4>
-<p>So können wir den zweiten Bruch auflösen und berechnen:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sw  <span class="ot">&lt;-</span> spmw <span class="sc">/</span> smw</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="auflösung-der-formel" class="level3">
-<h3 class="anchored" data-anchor-id="auflösung-der-formel">Auflösung der Formel</h3>
-<p>Der allerletzte Schritt besteht darin, die Werte aus den beiden Brüche miteinander zu multiplizieren.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>MI <span class="ot">&lt;-</span> vr <span class="sc">*</span> sw</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>MI</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3148631</code></pre>
-</div>
-</div>
-<p>Der Global Morans <span class="math inline">\(I\)</span> für die Abstimmungsdaten beträgt auf Kantonsebene also 0.3148631. Wie interpretiert ihr dieses Resultate? Was erwartet ihr für eine Resultat auf Gemeinde- oder Bezirksebene?</p>
+<!--
+Nun multiplizieren wir die Covarianzen mit den Gewichten $w$ (Schalter), damit wir nur noch die Werte von den Kantonen haben, die auch effektiv benachbart sind (und eliminieren nicht-benachbarte Werte). Beachtet dass wir hier nun eine Matrix mit einer Matrix multiplizieren.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+pmw <- pm * w
+w[1:5,1:5]
+pmw[1:5,1:5]
+```
+:::
+
+
+Den Zähler des ersten Bruches können wir nun fertig berechnen, indem wir die Summe aller gewichten (sprich eingeschalteten) Werten bilden:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+spmw <- sum(pmw, na.rm = TRUE)
+spmw
+```
+:::
+
+
+
+#### Nenner (Bruch 2)
+
+Für den Nenner des zweiten Teils der Formal (des zweiten Bruchs) müssen wir nun nur noch alle Gewichte summieren. Diese Summer entspricht der Anzahl effektiv benachbarter Kantone und kann Anzahl der `TRUE`-Werte in $w$ bestimmt werden. 
+
+
+::: {.cell}
+
+```{.r .cell-code}
+smw <- sum(w, na.rm = TRUE)
+```
+:::
+
+
+#### Auflösung (Bruch 2)
+
+So können wir den zweiten Bruch auflösen und berechnen:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+sw  <- spmw / smw
+```
+:::
+
+
+### Auflösung der Formel
+
+Der allerletzte Schritt besteht darin, die Werte aus den beiden Brüche miteinander zu multiplizieren.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+MI <- vr * sw
+MI
+```
+:::
+
+
+-->
+<p>Der Global Morans <span class="math inline">\(I\)</span> für die Abstimmungsdaten beträgt auf Kantonsebene also . Wie interpretiert ihr dieses Resultate? Was erwartet ihr für eine Resultat auf Gemeinde- oder Bezirksebene?</p>
 </section>
 </section>
 <section id="aufgabe-2-morans-i-für-gemeinde-oder-bezirke-berechnen" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="aufgabe-2-morans-i-für-gemeinde-oder-bezirke-berechnen">Aufgabe 2: Morans I für Gemeinde oder Bezirke berechnen</h2>
 <p>Nun könnt ihr Morans <span class="math inline">\(I\)</span> auf der Ebene der Gemeine oder Bezirke und untersuchen, ob und wie sich Morans <span class="math inline">\(I\)</span> verändert. Wenn ihr einen wenig leistungsfähigen Rechner habt, berechnet verwendet besser die Ebene “Berzirke”. Importiert dazu den Layer <code>berirk</code> oder <code>gemeinde</code> aus dem Datensatz <code>zweitwohnungsinitiative.gpkg</code>. Visualisiert in einem ersten Schritt die Abstimmungsresultate. Tipp: wir verwenden das Package <code>cowplot</code> um zwei <code>ggplots</code> nebeneinander darzustellen.</p>
 <p>Nach der Brechnung von Morans <span class="math inline">\(I\)</span> könnt ihr die Werte auf der Ebene Gemeinde (bzw. Bezirke) und Kantone vergleichen. Formuliert zuerste eine Erwartungshaltung: ist Morans <span class="math inline">\(I\)</span> auf der Ebene Gemeinde (bzw. Bezirke) tiefer oder Höher als auf der Ebene Kantone?</p>
-<p>Für Fortgeschrittene: Erstellt aus dem erarbeiten Workflow eine <em>function</em> um Morans I auf der Basis von einem <code>sf</code> Objekt sowie einer Spalte dessen zu berechnen.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Für Fortgeschrittene
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Erstellt aus dem erarbeiten Workflow eine <em>function</em> um Morans I auf der Basis von einem <code>sf</code> Objekt sowie einer Spalte dessen zu berechnen.</p>
+</div>
+</div>
 <div class="cell column-page quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+
 </div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</div>
-<div class="cell page-columns page-full">
-<div class="cell-output-display column-page">
-<p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" style="width:100.0%"></p>
-</div>
+<div class="cell column-page">
+
 </div>
 <div class="cell">
 

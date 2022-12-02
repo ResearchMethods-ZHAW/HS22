@@ -126,6 +126,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 <link rel="stylesheet" href="../custom.css">
 <link rel="stylesheet" href="../theme-custom.scss">
@@ -738,12 +741,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>Für Punkt 1 müssen wir zusätzliche Daten einlesen, die im Rasterformat daherkommen. Punkt 2 beruht im Wesentlichen auf Daten, die wir bereits verwendet haben.</p>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in library(here): es gibt kein Paket namens 'here'</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in library(here): es gibt kein Paket namens 'here'</code></pre>
-</div>
+
 </div>
 <!--
 3. Je höher die Windgeschwindigkeit ist
@@ -769,23 +767,118 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="aufgabe-2-wind-und-eis-bewerten">Aufgabe 2: Wind und Eis bewerten</h2>
 <p>Diese Rasterdaten müssen wir nicht weiter verarbeiten, ausser sie zu bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion <code>classify()</code> analog <a href="Rauman5_Uebung_A.html#sec-classify1"><span>Kapitel&nbsp;57.3</span></a>.</p>
 <div class="mce-table">
-<div id="tbl-bewerungstabelle-other" class="cell tbl-parent quarto-layout-panel anchored" data-tbl-cap="Bewertungstabelle die Windgeschwindigkeit (m/s), Vereisungshäufigkeit (Tage/Jahr) und Hangneigung (Grad)">
-<div class="panel-caption table-caption">
-<p><strong>?(caption)</strong></p>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
-<pre><code>Error in library(readODS): es gibt kein Paket namens 'readODS'</code></pre>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
-<pre><code>Error in library(here): es gibt kein Paket namens 'here'</code></pre>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
-<pre><code>Error in read_ods(reclassify_ods, x): konnte Funktion "read_ods" nicht finden</code></pre>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-bewerungstabelle-other" class="anchored">
+
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;"><caption>Tabelle&nbsp;58.1:  Bewertungstabelle die Windgeschwindigkeit (m/s), Vereisungshäufigkeit (Tage/Jahr) und Hangneigung (Grad) </caption>
+ <thead>
+<tr>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">Windgeschwindigkeit</div></th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">Vereisungshaeufigkeit</div></th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">Hangneigung</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> Speed </th>
+   <th style="text-align:right;"> Score </th>
+   <th style="text-align:left;"> Days </th>
+   <th style="text-align:right;"> Score </th>
+   <th style="text-align:left;"> Slope </th>
+   <th style="text-align:right;"> Score </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 0-35 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:left;"> 60-365 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:left;"> 20-90 </td>
+   <td style="text-align:right;"> 0.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 35-40 </td>
+   <td style="text-align:right;"> 0.1 </td>
+   <td style="text-align:left;"> 54-60 </td>
+   <td style="text-align:right;"> 0.1 </td>
+   <td style="text-align:left;"> 18-20 </td>
+   <td style="text-align:right;"> 0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 40-45 </td>
+   <td style="text-align:right;"> 0.2 </td>
+   <td style="text-align:left;"> 48-54 </td>
+   <td style="text-align:right;"> 0.2 </td>
+   <td style="text-align:left;"> 16-18 </td>
+   <td style="text-align:right;"> 0.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 45-50 </td>
+   <td style="text-align:right;"> 0.3 </td>
+   <td style="text-align:left;"> 42-48 </td>
+   <td style="text-align:right;"> 0.3 </td>
+   <td style="text-align:left;"> 14-16 </td>
+   <td style="text-align:right;"> 0.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 50-55 </td>
+   <td style="text-align:right;"> 0.4 </td>
+   <td style="text-align:left;"> 36-42 </td>
+   <td style="text-align:right;"> 0.4 </td>
+   <td style="text-align:left;"> 12-14 </td>
+   <td style="text-align:right;"> 0.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 55-60 </td>
+   <td style="text-align:right;"> 0.5 </td>
+   <td style="text-align:left;"> 30-36 </td>
+   <td style="text-align:right;"> 0.5 </td>
+   <td style="text-align:left;"> 10-12 </td>
+   <td style="text-align:right;"> 0.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 60-65 </td>
+   <td style="text-align:right;"> 0.6 </td>
+   <td style="text-align:left;"> 24-30 </td>
+   <td style="text-align:right;"> 0.6 </td>
+   <td style="text-align:left;"> 8-10 </td>
+   <td style="text-align:right;"> 0.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 65-70 </td>
+   <td style="text-align:right;"> 0.7 </td>
+   <td style="text-align:left;"> 18-24 </td>
+   <td style="text-align:right;"> 0.7 </td>
+   <td style="text-align:left;"> 6-8 </td>
+   <td style="text-align:right;"> 0.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 70-75 </td>
+   <td style="text-align:right;"> 0.8 </td>
+   <td style="text-align:left;"> 12-18 </td>
+   <td style="text-align:right;"> 0.8 </td>
+   <td style="text-align:left;"> 4-6 </td>
+   <td style="text-align:right;"> 0.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 75-80 </td>
+   <td style="text-align:right;"> 0.9 </td>
+   <td style="text-align:left;"> 6-12 </td>
+   <td style="text-align:right;"> 0.9 </td>
+   <td style="text-align:left;"> 2-4 </td>
+   <td style="text-align:right;"> 0.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 80-Inf </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> 0-6 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> 0-250 </td>
+   <td style="text-align:right;"> 1.0 </td>
+  </tr>
+</tbody>
+</table>
+
 </div>
 </div>
 </div>
@@ -797,7 +890,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="aufgabe-3-slope-berechnen-und-bewerten" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3-slope-berechnen-und-bewerten">Aufgabe 3: Slope berechnen und Bewerten</h2>
 <p>Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell, was wir bereits in <a href="Rauman4_Uebung_B.html"><span>Kapitel&nbsp;56</span></a> verwendet haben (<a href="https://moodle.zhaw.ch/mod/resource/view.php?id=694260">dhm250m.tif</a>) in R ein, und berechne Anschliessend die Hangneigung mit der Funktion <code>terrain()</code> analog <a href="Rauman4_Uebung_B.html#sec-raster-slope"><span>Kapitel&nbsp;56.2</span></a> (beachten Sie die Einheit des Output!).</p>
-<p>Bewerten Sie die Hangneigung danach gemäss Tabelle <span class="quarto-unresolved-ref">?tbl-bewerungstabelle-other</span>.</p>
+<p>Bewerten Sie die Hangneigung danach gemäss Tabelle <a href="#tbl-bewerungstabelle-other">Tabelle&nbsp;<span>58.1</span></a>.</p>
 <div class="cell">
 
 </div>
@@ -807,16 +900,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Analog <a href="Rauman5_Uebung_A.html#sec-raster-overlay1"><span>Kapitel&nbsp;57.4</span></a> können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen. Hier stossen wir aber auf ein Problem. Sobald wir versuchen, Bewertungen aus Übung A mit bewertungen aus dieser Übung (Übung B) miteinander zu verrechnen, erhalten wir folgende Fehlermeldung:</p>
 <div class="cell">
 <div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'strassen_classify' nicht gefunden</code></pre>
+<pre><code>Error: [+] SRS do not match</code></pre>
 </div>
 </div>
 <p><code>SRS do not match</code> soll heissen, dass die Koordinatenbezugssysteme (CRS) der verschiedenen Raster nicht überein stimmen. Wenn wir die CRS der verschiedenen Datensätze aber anschauen, sehen wir, dass es sich eigentlich um die gleichen CRS handelt.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(strassen_classify, <span class="at">describe =</span> <span class="cn">TRUE</span>) <span class="co"># Datensatz aus Übung A</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in h(simpleError(msg, call)): Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'crs': Objekt 'strassen_classify' nicht gefunden</code></pre>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(strassen_classify, <span class="at">describe =</span> <span class="cn">TRUE</span>) <span class="co"># Datensatz aus Übung A</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           name authority  code                                   area
+1 CH1903 / LV03      EPSG 21781 Europe - Liechtenstein and Switzerland
+                     extent
+1 5.96, 10.49, 47.81, 45.82</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(wind_classify, <span class="at">describe =</span> <span class="cn">TRUE</span>)     <span class="co"># Datensatz aus Übung B</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(wind_classify, <span class="at">describe =</span> <span class="cn">TRUE</span>)     <span class="co"># Datensatz aus Übung B</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           name authority code area         extent
 1 CH1903 / LV03      &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; NA, NA, NA, NA</code></pre>
@@ -824,26 +920,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Das Problem ist, dass diese in den beiden Datensätzen leicht anders abgespeichert sind. Wir können das Problem lösen, indem wir den CRS aus dem einen Raster mit dem CRS des anderen Rasters wie folgt überschreiben:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(wind_classify) <span class="ot">&lt;-</span> <span class="fu">crs</span>(strassen_classify)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in h(simpleError(msg, call)): Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'crs': Objekt 'strassen_classify' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(eis_classify) <span class="ot">&lt;-</span> <span class="fu">crs</span>(strassen_classify)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in h(simpleError(msg, call)): Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'crs': Objekt 'strassen_classify' nicht gefunden</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(neigung_classify) <span class="ot">&lt;-</span> <span class="fu">crs</span>(strassen_classify)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in h(simpleError(msg, call)): Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'crs': Objekt 'strassen_classify' nicht gefunden</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(wind_classify) <span class="ot">&lt;-</span> <span class="fu">crs</span>(strassen_classify)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(eis_classify) <span class="ot">&lt;-</span> <span class="fu">crs</span>(strassen_classify)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(neigung_classify) <span class="ot">&lt;-</span> <span class="fu">crs</span>(strassen_classify)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nun sollte der Overlay problemlos funktionieren. Führe einen Overlay mit allen verfügbaren Parameter (Bewertung der Distanz zu Strassen, Siedlung, Wald und Schutzgebiete sowie Wind, Eis und Neigung) durch und visualisiere das Resultat.</p>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'strassen_classify' nicht gefunden</code></pre>
+<div class="cell-output-display">
+<div id="fig-overlay3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Rauman5_Uebung_B_files/figure-html/fig-overlay3-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Abbildung&nbsp;58.1: Ungewichtetes Überlagern aller Kriterien mit Ausnahme der Ausschlussgebiete</figcaption><p></p>
+</figure>
 </div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in as.list.environment(environment()): Objekt 'overlay_prelim_3' nicht gefunden</code></pre>
 </div>
 </div>
 </section>
@@ -852,19 +941,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden können. Dazu gehören bewohnte Flächen, nationale Schutzgebiete, Waldgebiete und Seen. Zwar werden bewohnte Flächen, nationale Schutzgebiete und Waldgebiete in unserer Analyse bereits schlecht (mit “0”) bewertet, aber nicht kategorisch vom Resultat ausgeschlossen. Sprich: Wenn ein Gebiet, welches zum Beispiel mitten im Siedlungsgebiet liegt, alle anderen Bedigungen erfüllt, kann es trotzdem eine hohe Bewertung erhalten, obwohl dort keine Windkraftanalage gebaut werden kann.</p>
 <p>Um diese Gebiete kategorisch vom Resultat auszuschliessen, können wir für die Siedlungsgebiete, Schutzgebiete sowie den Wald die rasterisierte Form verwenden, die wir in <a href="Rauman5_Uebung_A.html#sec-raster-distance"><span>Kapitel&nbsp;57.2</span></a> erstellt haben. Für die Seen müssen wir den entsprechenden Raster zuerst noch erstellen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fehlendes Ausschlussgebiet Rasterisieren</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>seen_raster <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(seen, template)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fehlendes Ausschlussgebiet Rasterisieren</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>seen_raster <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(seen, template)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Diese Rasterdatensätze sind bereits binär: Rasterzellen mit dem Wert 1 sind Zellen im Wald, im Schutzgebiet usw. Zellen ausserhalb sind <code>NA</code>. Um die Vereinigungsmenge zu erhalten (also alle Zellen , die entweder Sieldungsgebiet <em>oder</em> Wald <em>oder</em> Schutzgebiet <em>oder</em> Seen sind), können wir die Funktion <code>any()</code> verwenden. Diese Funktion gibt <code>TRUE</code> zurück wenn mindestens 1 Wert im Overlay <code>TRUE</code> ist.</p>
 <p>Hilfreich ist an dieser Stelle, wenn wir die Gemeindegrenze vom Kanton Schwyz ebenfalls rasterisieren und mitbenutzen, damit Gebiete ausserhalb des Kantons als Auschlussgebiete gelten (<code>background = 1</code>) und Gebiete innerhalb des Kantons nicht zwingend (<code>field = 0</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>kt_schwyz_raster <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(kt_schwyz, template, <span class="at">field =</span> <span class="dv">0</span>, <span class="at">background =</span> <span class="dv">1</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Summe aller Auschlussgebiete rechnen</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># (na.rm = TRUE ignoriert NA Werte bei Summenbildung)</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>ausschlussgebiete <span class="ot">&lt;-</span> <span class="fu">any</span>(siedlungsgebiet_raster, schutzgebiete_raster, wald_raster, seen_raster, kt_schwyz_raster, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ausschlussgebiete, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>kt_schwyz_raster <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(kt_schwyz, template, <span class="at">field =</span> <span class="dv">0</span>, <span class="at">background =</span> <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Summe aller Auschlussgebiete rechnen</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># (na.rm = TRUE ignoriert NA Werte bei Summenbildung)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>ausschlussgebiete <span class="ot">&lt;-</span> <span class="fu">any</span>(siedlungsgebiet_raster, schutzgebiete_raster, wald_raster, seen_raster, kt_schwyz_raster, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ausschlussgebiete, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -877,14 +966,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="aufgabe-6-ausschlussgebiete-von-potenziellen-gebieten-entfernen" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-6-ausschlussgebiete-von-potenziellen-gebieten-entfernen">Aufgabe 6: Ausschlussgebiete von potenziellen Gebieten entfernen</h2>
-<p>Das Resultat aus unserer vorläufigen Analyse (<span class="quarto-unresolved-ref">?fig-overlay3</span>) weisst Werte von 0 - 1 auf. Um sicherzustellen, dass die Auschlussgebiete mit <code>0</code> ausgewiesen werden können wie folgt vorgehen:</p>
+<p>Das Resultat aus unserer vorläufigen Analyse (<a href="#fig-overlay3">Abbildung&nbsp;<span>58.1</span></a>) weisst Werte von 0 - 1 auf. Um sicherzustellen, dass die Auschlussgebiete mit <code>0</code> ausgewiesen werden können wie folgt vorgehen:</p>
 <ol type="1">
 <li>Wir erstellen einen neuen Raster <code>einschlussgebiete</code>, welches das <em>Gegenteil</em> von <code>ausschlussgebiete</code> darstellt.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>einschlussgebiete <span class="ot">&lt;-</span> <span class="sc">!</span>ausschlussgebiete</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(einschlussgebiete, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>einschlussgebiete <span class="ot">&lt;-</span> <span class="sc">!</span>ausschlussgebiete</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(einschlussgebiete, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Rauman5_Uebung_B_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -893,21 +982,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Jetzt entsprechen alle Zellen, die vom Resultat ausgeschlossen werden sollten, dem Wert <code>0</code>. Diese ersetzen wir nun mit <code>NA</code>.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>einschlussgebiete[einschlussgebiete <span class="sc">==</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(einschlussgebiete, <span class="at">col =</span> <span class="st">"black"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>einschlussgebiete[einschlussgebiete <span class="sc">==</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(einschlussgebiete, <span class="at">col =</span> <span class="st">"black"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Rauman5_Uebung_B_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Diesen Raster multiplizieren wir mit dem Resultat aus <span class="quarto-unresolved-ref">?fig-overlay3</span>. Da jeder Wert, der mit <code>NA</code> multipliziert <code>NA</code> ergibt, werden so auszuschliessende Gebiete mit <code>NA</code> bewertet. Einzuschliessende Gebiete behalten ihren Wert, da sie lediglich mit <code>1</code> multipliziert werden.</p>
+<p>Diesen Raster multiplizieren wir mit dem Resultat aus <a href="#fig-overlay3">Abbildung&nbsp;<span>58.1</span></a>. Da jeder Wert, der mit <code>NA</code> multipliziert <code>NA</code> ergibt, werden so auszuschliessende Gebiete mit <code>NA</code> bewertet. Einzuschliessende Gebiete behalten ihren Wert, da sie lediglich mit <code>1</code> multipliziert werden.</p>
 <p>Führe diesen letzten Schritt durch und visualisiere anschliessend das Ergebnis.</p>
 <div class="cell">
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): Objekt 'overlay_prelim_3' nicht gefunden</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in as.list.environment(environment()): Objekt 'overlay_4' nicht gefunden</code></pre>
+<div class="cell-output-display">
+<p><img src="Rauman5_Uebung_B_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
