@@ -4,18 +4,16 @@ lesson: RaumAn3
 thema: Morans I
 index: 1
 execute: 
-  echo: false
   include: true
-  eval: false
+  echo: false
 ---
 
 # Rauman 3: Übung
 
 
-Heute berechnen wir Morans $I$, also ein globales Mass für Autokorrelation, für die Abstimmungsresultate der Zweitwohnungsinitiative. Dieser berechnete Wert beschreibt, ob Kantone, die nahe beieinander liegen ähnliche Abstimmungswerte haben. Hierfür verwenden wir folgenden Datensatz:
+Heute berechnen wir Morans $I$, also ein globales Mass für Autokorrelation, für die Abstimmungsresultate der Zweitwohnungsinitiative. Dieser Wert beschreibt, ob Kantone, die nahe beieinander liegen, ähnliche Abstimmungswerte haben. Hierfür verwenden wir den Datensatz [zweitwohnungsinitiative.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602283).
 
-
-- [zweitwohnungsinitiative.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602283)
+Das Geopackage beinhaltet 3 Layers (siehe st_layers("zweitwohnungsinitiative.gpkg")). In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene aggregiert. Wir started mit der Aggregationsstufe "kanton"
 
 ```{r}
 #| echo: true
@@ -23,9 +21,7 @@ library(dplyr)
 library(ggplot2)
 library(sf)
 
-# Das Geopackage beinhaltet 3 Layers (siehe st_layers("zweitwohnungsinitiative.gpkg"))
-# In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene
-# aggregiert. Wir started mit der Aggregationsstufe "kanton"
+
 zweitwohnung_kanton <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "kanton")
 ```
 
@@ -54,92 +50,150 @@ wobei:
 - $w_{ij}$ der Gewichtsmatrix entspricht
 
 
-$$I =\frac{\text{z1}}{\text{n1}}\times\frac{\text{z2}}{\text{n2}}$$
+Um die Sache zu vereinfachen, verwenden wir folgende variablen in R:
+
+$$I =\frac{\text{zaehler1}}{\text{nenner1}}\times\frac{\text{zaehler2}}{\text{nenner2}}$$
+
+wobei:
+
+\begin{align}
+
+\text{zaehler1} &= n \\
+\text{nenner1} &= \sum_{i=1}^n (y_i - \bar{y})^2 \\
+\text{zaehler2} &= \sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y}) \\
+\text{nenner2} &= \sum_{i=1}^n \sum_{j=1}^n w_{ij}
+
+\end{align}
 
 
-Diese sieht sehr beeindruckend aus, aber wenn wir die Formel in ihre Einzelbestandteile aufteilen, sehen wir, dass diese in sich gar nicht so komplex sind. So teilen wir ein vermeintlich komplexes Problem in überschaubare Einzelteile. Dieses Vorgehen illustriert ausserdem sehr schön ein generelles Data Science Prinzip. Divide and Conquer - Teile und Herrsche: Teile ein komplexes Problem in kleinere, beherrschbare Unterprobleme. 
+
+Diese sieht sehr beeindruckend aus, aber wenn wir die Formel in ihre Einzelbestandteile aufteilen, sehen wir, dass diese in sich gar nicht so komplex sind. Dieses Vorgehen illustriert sehr schön ein generelles Data Science Prinzip. Divide and Conquer - Teile und Herrsche: Teile ein komplexes Problem in kleinere, beherrschbare Unterprobleme. 
 
 ## Aufgabe 1: Morans $I$ für Kantone
 
 
-### Berechnung von $n$
+### Berechnung von $n$ (`zaehler1`)
 
-$$I = \frac{\color{red}n}{\sum_{i=1}^{\color{red}n} (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^{\color{red}n}  w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^{\color{red}n}  w_{ij}}$$
+$$I = \frac{\color{red}n}{\sum_{i=1}^{\color{orange}n} (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^{\color{orange}n}  w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^{\color{orange}n}  w_{ij}}$$
 
 
-Beginnen wir mit der Variabel $n$. Dies ist lediglich die Anzahl Messwerte in unserem Datensatz, also die Anzahl Kantone. 
+Beginnen wir mit der Variabel $n$, bzw. der Variabel `zaehler1` (rot in der obigen Formel). Dies ist lediglich die Anzahl Messwerte in unserem Datensatz, also die Anzahl Kantone. Wir merken uns `n` vor, da wir diese noch mehrmals in der Formel antreffen werden (orange).
 
 ```{r}
 #| echo: true
 n <- nrow(zweitwohnung_kanton)
 n
+
+zaehler1 <- n
 ```
 
-### Abweichung vom Mittelwert 
+### Abweichung vom Mittelwert (`nenner1`)
 
 $$I = \frac{n}{\color{red}\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{{\color{orange}\sum_{i=1}^n} \sum_{j=1}^n w_{ij}{\color{orange}(y_i - \bar{y})(y_j - \bar{y})}}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
 
+Dieses Summenfunktion bedeutet, das wir eine Schlaufe (einen Loop) durchführen sollen. Vom ersten Kanton ($\sum_{\color{red}i=1}^n$) bist zum letzten Kanton ($\sum_{i=1}^{\color{red}n}$) sollen wir: 
 
-Der Nenner des ersten Bruches entspricht fast der Berechnung der Varianz. Wir berechnen für jeden Messwert die Differenz zum Durchschnitt ($y_i - \bar{y}$), quadrieren diese einzelwerte und nehmen davon die Summe. 
+*Den Mittleren Ja-Stimmen-Anteil aller Kantone vom Ja-Stimmen-Anteil des jeweiligen Kantons abziehen und das Resultat quadrieren.*
 
+Dafür erstellen wir als erstes die Variabeln `y` für $y$ und `ybar` für $\bar{y}$:
 ```{r}
 #| echo: true
 # Die Werte aller Kantone in einer Variabel abspeichern
 y <- zweitwohnung_kanton$ja_in_percent
 
-# Der Durchschnittswert aller Kantone berechnen
+# den Mittelwert über alle Kantone berechnen
 ybar <- mean(y, na.rm = TRUE)
+```
+
+Bevor wir den *For Loop* ausführen können, müssen wir ein Vektor der Länge 26 (Anzahl Kantone) erstellen um die Resultate zu speichern (hier: `result`).
+
+```{r}
+# Wir erstellen ein Vector der länge 26 (1 pro Kanton) 
+# um die Resultate zu speichern.
+resultat <- numeric(26)
+
+# jetzt können wir den For Loop ausführen
+for (i in 1:n){
+  resultat[i] <- (y[i]-ybar)^2
+}
+```
+
+
+Nach der Durchführung aller Iterationen, haben wir 26 Einzelwerte, die wir Summieren müssen.
+
+```{r}
+resultat
+
+nenner1 <- sum(resultat)
+```
+
+
+
+
+:::{.callout-note collapse="true"}
+## Für aufmerksame
+
+Da R per Default vektorisiert funktioniert, ist der obige For Loop streng genommen nicht nötig, wir verwenden ihn aber für didaktische Zwecke. Alternativ ginge die Berechnung von `nenner1` auch folgendermassen:
+Dies lässt sich folgendermassen berechnen:
+
+```{r}
+#| echo: true
+#| eval: false
 
 # Von jedem Wert den Durchschnittswert abziehen:
 dy <- y - ybar
 
-# Die Differenzen quadrieren
-dy_2 <- dy^2
+# Diese Werte müssen wir quadrieren:
+dy_squared <- dy^2
 
-# Und davon die Summe bilden:
-dy_sum <- sum(dy_2, na.rm = TRUE)
+# Und danach die Summe bilden:
+nenner1 <- sum(dy_squared, na.rm = TRUE)
 ```
 
+:::
 
-<!--
-#### Auflösung (Bruch 1)
+### Doppelte Summenzeichen {#sec-doppeltes-summenzeichen}
 
-Beschliessen wir die Bearbeitung des ersten Bruchs indem wir den Zähler durch den Nennen dividieren:  `n` durch `dy_sum`.
+
+$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{{\color{red}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{{\color{orange}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}}$$
+
+Für die Berechnung von `zaehler2` haben wir ein doppeltes Summenzeichen, die wir auflösen müssen. Das ist an sich schon Komplex genug, wesshalb wir den Term $w_{ij}$ an dieser Stelle mal ignorieren.
+
+$\sum_{i=1}^n \sum_{j=1}^n$ kann man wie zwei verschachtelte *For loops* sehen. Der äussere *For loop* iteriert von `1` bis `n` mit der Variabel `i`. Der innere *For loop* iteriert von `1` bis `n` mit der Variabel `j`. 
 
 ```{r}
 #| echo: true
-vr <- n/dy_sum
+
+resultat_aussen <- numeric(26)
+
+for (i in 1:n){
+  resultat_innen <- numeric(26)
+  for (j in 1:n){
+    resultat_innen[j] <- (y[i]-ybar)*(y[j]-ybar)
+  }
+  resultat_aussen[i] <- sum(resultat_innen)
+}
+
+resultat_aussen
+
+zaehler2 <- sum(resultat_aussen)
+
+
+zaehler2
 ```
 
--->
 
-<!--
-### Bruch 2
-
-
-
-Hier berechnen wir die Summe aller Gewichte sowie die gewichteten Covarianzen. Wir betrachten immer Messwertpaare, sprich paarweise Vergleiche zweier Raumeinheiten (hier Kantone). Deshalb haben die zwei Summenzeichen die beiden unterschiedlichen Laufvariablen ($i$ und $j$). Solche paarweise Vergleiche von Werten mit allen anderen Werten können wir elegant mit Kreuzmatrizen abbilden. In der Kreuzmatrix vergleichen wir jeden Messwert mit allen anderen Messwerten. Dabei gibt es zwei Kreuzmatrizen: ($w_{ij}$ ist die erste Kreuzmatrix, $(y_i - \bar{y})(y_j - \bar{y})$ ist die zweite Kreuzmatrix). 
-
--->
-
-### Kreuzmatrix
-
-$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{{\color{red}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{{\color{red}\sum_{i=1}^n \sum_{j=1}^n}^n w_{ij}}$$
-
-
-Während das alleinstehende Summenzeichen ($\sum$) noch einigermassen nachvollziehbar ist, sind die doppelten Summenzeichen etwas verwirrlich und braucht etwas Erklärung. $\sum_{i=1}^n \sum_{j=1}^n$ stellt eine Kreuzmatrix dar, in dem jeder Wert mit jedem anderen Wert verglichen wird. Also das Abstimmungsresultat des Kantons Zürich wird mit allen anderen 25 Kantonen verglichen, das gleiche gilt für den Kanton Bern, Basel usw. Die nachfolgenden Berechnungen müssen wir also in dieser Kreuzmatrix durchführen. 
-
-### Räumliche Gewichtung
+### Räumliche Gewichtung $w_{ij}$
 
 $$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n {\color{red}w_{ij}}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n {\color{red}w_{ij}}}$$
 
 
-$w_{ij}$, beschreibt die räumlichen Gewichte aller Kantone. Sind die Kantone räumlich nah, dann gilt ein Gewicht von 1, sind sie räumlich weit entfernt, gilt ein Gewicht von 0. Dies entspricht dem "Schalter" aus der Vorlesung. Dabei ist die Definition von "räumlich nah" nicht festgelegt. Denkbar wären zum Beispiel folgende Optionen:
+$w$ beschreibt die räumlichen Gewichte der Kantone (den "Schalter" aus der Vorlesung). $w_{ij}$ ist das Gewicht vom Kanton $i$ im Vergleich zum Kanton $j$. Sind Kantone $i$ und $j$ räumlich nah, gilt ein Gewicht von 1, sind sie weit entfernt, gilt ein Gewicht von 0. Dabei ist die Definition von "räumlich nah" nicht festgelegt. Denkbar wären zum Beispiel folgende Optionen:
 
-- Die Kantone müssen sich berühren: `st_touches()`
-- Die Kantone müssen innerhalb einer bestimmten Distanz zueinander liegen: `st_is_within_distance()`
+1. Die Kantone müssen sich berühren
+2. Die Kantone müssen innerhalb einer bestimmten Distanz zueinander liegen
 
-Egal für welche Variante Ihr Euch entscheidet, setzt `sparse = FALSE` damit eine Kreuzmatrix erstellt wird. (Lasst Euch nicht davon beirren, dass wir nun `TRUE` und `FALSE` statt `1` und `0` haben. In R sind `TRUE` und `1` äquivalent, sowie auch `FALSE` und `0`). 
+Für beide Optionen gibt es eine implementation im Package `sf`. `st_touches` prüft zwischen allen Kantonen, ob sie sich berühren. Mit der Option `sparse = TRUE` wird eine Kreuzmatrix mit 26 Zeilen und 26 Spalten erstellt, wo jeder Kanton mit jedem anderen verglichen wird. Berühren sie sich, steht in der entsprechenden Stelle der Wert `TRUE`, was in R gleichbedeutend ist wie 1. Berühren sie sich *nicht*, steht der Wert `FALSE`, was gleichbedeutend ist wie 0. Das gleiche gilt für die Funktion `st_is_within_distance()` wobei dort zusätzlich noch der Distanzparameter angegeben werden muss.
 
 ```{r}
 #| echo: true
@@ -151,19 +205,13 @@ w <- st_touches(zweitwohnung_kanton, sparse = FALSE)
 w[1:5, 1:5]
 ```
 
-```{r}
-sel <- zweitwohnung_kanton$KANTONSNAME[1]
-```
+In der obigen Matrix ist ersichtlich, dass sich der erste Kanton (erste Zeile) den fünften Kanton (fünfte Spalte) berührt. Um zu überprüfen ob das stimmt, können wir die Namen dieser beiden Kantone aus der Spalte `KANTONSNAME` herauslesen und mit unseren Geografiekentnissen abgleichen:
 
 ```{r}
-#| eval: true
-#| 
-sel <- ""
-MI <- ""
+zweitwohnung_kanton$KANTONSNAME[c(1,5)]
 ```
 
-
-Zur Überprüfung unserer Operation: Mit `w[1,]` bekommt  ihr ein Vektor, wo bei allen Kantone, die den ersten kanton (`r sel`) berühren `TRUE` steht und bei allen anderen `FALSE`. Nun können wir überprüfen, ob die räumliche Operation funktioniert hat. Könnt ihr die nachfolgende Visualisierung rekonstruieren?
+Der erste Kanton ist Zürich, der fünfte Schwyz, das scheint also Sinn zu stimmen. Challenge: Erstelle einen Plot mit allen Kantone, die den Kanton Zürich berühren. Tipp: Nutze dafür `w[1,]`.
 
 ```{r}
 beruehrt_1 <- w[1, ]
@@ -174,72 +222,56 @@ ggplot(zweitwohnung_kanton[beruehrt_1, ]) +
 ```
 
 
-### Abweichung vom Mittelwert
+### Berechnung des Kreuzprodukts (`zaehler2`)
 
-$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}{\color{red}(y_i - \bar{y})(y_j - \bar{y})}}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
+$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\color{red}\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
 
-Die Abweichung vom Mittelwert haben wir ja bereits gerechnet und in der Variabel `dy` abgespeichert. Nun gilt es paarweise das Produkt der Abweichungen vom Mittelwert (die Covarianz) zu berechnen $(y_i - \bar{y})(y_j - \bar{y})$.  Dazu müssen wir *das Produkt aller Wertekombinationen* berechnen. Dies erreichen wir mit der Funktion `tcrossprod()`
+Jetzt haben wir das fehlende Puzzelstück für die Berechnung von `zaehler2`. Challenge: Nutze die matrix `w` in dem verschachtelten For Loop aus @sec-doppeltes-summenzeichen
 
 ```{r}
-#| echo: true
+resultat_aussen <- numeric(26)
 
-# berechnet das Proukt aller Wertekombinationen
-pm <- tcrossprod(dy)
+for (i in 1:n){
+  resultat_innen <- numeric(26)
+  for (j in 1:n){
+    resultat_innen[j] <- w[i,j] * (y[i]-ybar)*(y[j]-ybar)
+  }
+  resultat_aussen[i] <- sum(resultat_innen)
+}
 
-# die ersten für Reihen und Spalten des Resultas
-pm[1:5,1:5]
+zaehler2 <- sum(resultat_aussen)
 ```
 
 
-<!--
-Nun multiplizieren wir die Covarianzen mit den Gewichten $w$ (Schalter), damit wir nur noch die Werte von den Kantonen haben, die auch effektiv benachbart sind (und eliminieren nicht-benachbarte Werte). Beachtet dass wir hier nun eine Matrix mit einer Matrix multiplizieren.
+### Berechnung der Summe der Gewichte (`nenner2`)
+
+$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\color{red}\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
+
+
+Wir sind schon fast am Ziel! Versuche nun selbständig den Nenner aus dem zweiten Bruch zu berechnen.
+
+
 
 ```{r}
-#| echo: true
-pmw <- pm * w
-w[1:5,1:5]
-pmw[1:5,1:5]
-```
-
-Den Zähler des ersten Bruches können wir nun fertig berechnen, indem wir die Summe aller gewichten (sprich eingeschalteten) Werten bilden:
-
-```{r}
-#| echo: true
-spmw <- sum(pmw, na.rm = TRUE)
-spmw
-```
-
-
-#### Nenner (Bruch 2)
-
-Für den Nenner des zweiten Teils der Formal (des zweiten Bruchs) müssen wir nun nur noch alle Gewichte summieren. Diese Summer entspricht der Anzahl effektiv benachbarter Kantone und kann Anzahl der `TRUE`-Werte in $w$ bestimmt werden. 
-
-```{r}
-#| echo: true
-smw <- sum(w, na.rm = TRUE)
-```
-
-#### Auflösung (Bruch 2)
-
-So können wir den zweiten Bruch auflösen und berechnen:
-
-```{r}
-#| echo: true
-sw  <- spmw / smw
+nenner2 <- sum(w)
 ```
 
 ### Auflösung der Formel
 
-Der allerletzte Schritt besteht darin, die Werte aus den beiden Brüche miteinander zu multiplizieren.
+
+Nun haben wir alle bestandteile von Morans $I$ Berechnet und müssen diese nur noch Zusammenrechnen.
 
 ```{r}
 #| echo: true
-MI <- vr * sw
-MI
+
+MI_kantone <- zaehler1/nenner1 * zaehler2/nenner2
+
+MI_kantone
 ```
 
--->
-Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `r MI`. Wie interpretiert ihr dieses Resultate? Was erwartet ihr für eine Resultat auf Gemeinde- oder Bezirksebene?
+
+
+Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `r round(MI_kantone,2)`. Wie interpretiert ihr dieses Resultate? Was erwartet ihr für eine Resultat auf Gemeinde- oder Bezirksebene?
 
 ## Aufgabe 2: Morans I für Gemeinde oder Bezirke berechnen
 
@@ -266,7 +298,7 @@ p2 <- ggplot(zweitwohnung_gemeinde) +
   theme(legend.position = "none") +
   labs(title = "Gemeinden: Global Morans I: ?")
 
-p1 <- p + labs(title = paste("Kantone: Global Morans I:",round(MI,2))) + theme(legend.position = "none")
+p1 <- p + labs(title = paste("Kantone: Global Morans I:",round(MI_kantone,2))) + theme(legend.position = "none")
 
 p1
 
@@ -285,30 +317,4 @@ library(cowplot)
 get_legend() |>
 ggdraw()
 
-```
-
-```{r}
-morans_i <- function(sf_object,col) {
-  library(sf)
-  n <- nrow(sf_object)
-  y <- unlist(st_drop_geometry(sf_object)[,col],use.names = FALSE)
-  ybar <- mean(y, na.rm = TRUE)
-  dy <- y - ybar
-  dy_sum <- sum(dy^2, na.rm = TRUE)
-  vr <- n/dy_sum
-  w <- st_touches(sf_object,sparse = FALSE)
-  pm <- tcrossprod(dy)
-  pmw <- pm * w
-  spmw <- sum(pmw, na.rm = TRUE)
-  smw <- sum(w, na.rm = TRUE)
-  sw  <- spmw / smw
-  MI <- vr * sw
-  MI
-}
-```
-
-```{r}
-#| eval: false
-MI_gemeinde <-  morans_i(zweitwohnung_gemeinde,"ja_in_percent")
-morans_i(zweitwohnung_kanton,"ja_in_percent")
 ```

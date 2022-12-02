@@ -98,8 +98,9 @@ terrain(dhm_schwyz, "slope") |>
 ```
 
 ```{r}
-schwyz_aspect <- terrain(dhm_schwyz, "aspect")
-```
+terrain(dhm_schwyz, "aspect") |>
+ plot()
+ ```
 
 ::: {.callout-note}
 Bei "aspect" handelt es sich ja um Werte, die von 0 bis 360 reichen. In klassischen Palettes liegen die beiden Extremwerte (in diesem Fall 0 und 360) farblich weit auseinander. Bei Aspect sollten diese aber nahe beieinander liegen (da eine Ausrichtung von 1° nur 2 Grad von einer Ausrichtung von 359° entfernt ist). Um dieser Tatsache Rechnung zu Tragen können wir eine eine eigene Colourpalette erstellen, wo die erste Farbe wiederholt ist.
@@ -117,7 +118,7 @@ tm_raster(
 
 Mit Hangneigung und -ausrichtung können wir einen *Hillshading*-Effekt berechnen. Hillshading bedeutet, dass der Schattenwurf des Oberflächenmodells bei gegebenen Einfallswinkel der Sonne (Höhe und Azimut) berechnet wird. Der typische Einfallswinkel liegt bei 45° über dem Horizont und von Nordwesten bei 315°.
 
-Um einen Hillshading Effekt zu erzeugen, berechne zuerst `slope` und `aspect` von `dhm_schwyz` analog der letzten Aufgabe, **achte aber darauf das die Einheit `radians` entspricht**. Nutze diese beiden Objekte um den Hillshade zu berechnen. Visualisiere den Output anschliessend mit `plot` oder `tmap`.
+Um einen Hillshading Effekt zu erzeugen, berechne zuerst `slope` und `aspect` von `dhm_schwyz` analog der letzten Aufgabe, **achte aber darauf das die Einheit `radians` entspricht**. Nutze diese beiden Objekte in der Funktion `shade()` um den Hillshade zu berechnen. Visualisiere den Output anschliessend mit `plot` oder `tmap`.
 
 ```{r}
 #| echo: false

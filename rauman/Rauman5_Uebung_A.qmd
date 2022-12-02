@@ -72,7 +72,7 @@ Analog @sec-raster-intro1 müssen wir hierfür den Vektordatensatz auf der Basis
 #| echo: true
 
 # Template mit der Ausdehnung und dem CRS vom Kt. kt_schwyz
-# erstellen, und mit einer Auflösung on 10m
+# erstellen, und mit einer Auflösung on 250m
 template <- rast(kt_schwyz, resolution = 250)
 
 # Mit rasterize können wir "wald" in einen Raster konvertieren
@@ -129,39 +129,59 @@ library(dplyr)
 reclassify_ods <- "rauman/Reclassify.ods"
 
 sheets1 <- c("Schutzgebiete", "Waldgebiete", "Siedlungsgebiete", "Strassen")
+names(sheets1) <- sheets1
 
-header_above <- rep(2,length(sheets1))
+header_above <- rep(3,length(sheets1))
 names(header_above) <- sheets1
 
-map(sheets1, function(x){
-  read_ods(reclassify_ods, x) |>
-  mutate(Dist = paste(Von,Bis,sep = "-")) |>
-  transmute(Dist, Score = Bewertung)
-}) |>
-(\(x)do.call(cbind, x))() |>
-kableExtra::kbl() |>
-  kable_classic( )  |>
+sheets1_list <- imap(sheets1, function(x,y){
+  read_ods(reclassify_ods, x)
+})
+ 
+sheets1_cbind <- do.call(cbind, sheets1_list) 
+
+sheets1_cbind|>
+  kableExtra::kbl(col.names = stringr::str_remove(colnames(sheets1_cbind), "\\w+\\.")) |>
+  kable_classic()  |>
   add_header_above(header_above)  #|> column_spec(cumsum(header_above), border_right =  TRUE)
 ```
 
 </div>
 
+
+```{r}
+# library(ggplot2)
+# imap_dfr(sheets1_list, ~mutate(.x, var = .y)) |>
+#   mutate(across(c(Von,Bis, Bewertung),as.numeric)) |>
+#   ggplot(aes(Bis, Bewertung, colour = var, group = var)) +
+#   geom_point() +
+#   geom_line()
+```
+
+
 Hierfür brauchen wir die Function `classify()`. Wie wir aus der Dokumentation der Funktion (mit `?classify`) entnehmen können, gibt es verschiedene Wege wie wir einen Raster Reklassifizieren können (siehe Beschreibung für das Argument `rcl`).  Eine sehr explizite Variante ist, dass wir für `rcl` eine Matrix mit 3 Spalten verwenden. Diese drei Spalte stellen *from*, *to* und *becomes* dar. 
 
-Wir könnten diese Tabelle in einem Spreadsheet-Programm schreiben und in R einlesen. Alternativ können wir sie auch "von Hand" in R erstellen:
+Wir könnten diese Tabelle in einem Spreadsheet-Programm schreiben und in R einlesen. Alternativ können wir sie auch "von Hand" in R erstellen. Um in R tabellarische Daten zu schreiben empfehlen wir die Funktion `tribble()`, welche eine sehr anschauliche Art bietet, Tabellen in R zu generieren. 
 
 ```{r}
 #| echo: true
 
-wald_klassen <- matrix(c(
-    0000,0500,0.0,
-    0500,1000,0.2,
-    1000,1500,0.4,
-    1500,2000,0.6,
-    2000,2500,0.8,
-    2500,Inf,1.0), ncol = 3, byrow = TRUE)
 
-# Überprüfen, ob die Matrix auch korrekt erstellt wurde:
+wald_klassen <- tribble(
+  ~von, ~bis, ~zu,
+     0,  100, 0.0,
+   100,  200, 0.2,
+   200,  300, 0.4,
+   300,  400, 0.6,
+   400,  500, 0.8,
+   500,  Inf, 1.0
+) 
+
+# tribble erstellt eine data.frame, 
+# wir brauchen aber eine matrix
+wald_klassen <- as.matrix(wald_klassen)  
+
+# visuelle Kontrolle
 wald_klassen
 ```
 
@@ -169,7 +189,6 @@ Jetzt wo wir diese Matrix haben, können wir sie nutzen um den Kanton Schwyz hin
 
 ```{r}
 #| echo: true
-
 wald_classify <- classify(wald_dist, wald_klassen)
 
 # Visualisierung des Resultats
@@ -186,54 +205,52 @@ Verwende für `rcl` einen eindimensionalen Vektor und konvertiere anschliessend 
 
 ```{r}
 # Siedlungsgebiet
-siedlungsgebiet_klassen <- c(
-  0,80,0,
-  80,160,0.1,
-  160,240,0.2,
-  240,320,0.3,
-  320,400,0.4,
-  400,480,0.5,
-  480,560,0.6,
-  560,640,0.7,
-  640,720,0.8,
-  720,800,0.9,
-  800,Inf,1.0) |> matrix(ncol = 3, byrow = TRUE)
+siedlungsgebiet_klassen <- tribble(
+  ~von, ~bis, ~zu,
+    0,   500, 0.0,
+  500,  1000, 0.2,
+  1000, 1500, 0.4,
+  1500, 2000, 0.6,
+  2000, 2500, 0.8,
+  2500, Inf,  1.0
+) |>
+  as.matrix()
+
 
 siedlungsgebiet_classify <- classify(siedlungsgebiet_dist, siedlungsgebiet_klassen)
+
+
 ```
 
 ```{r}
 # Schutzgebiete
-schutzgebiete_klassen <- c(
-  0,50,0,
-  50,100,0.1,
-  100,150,0.2,
-  150,200,0.3,
-  200,250,0.4,
-  250,300,0.5,
-  300,350,0.6,
-  350,400,0.7,
-  400,450,0.8,
-  450,500,0.9,
-  500,Inf,1.0) |> matrix(ncol = 3, byrow = TRUE)
+schutzgebiete_klassen <- tribble(
+  ~von, ~bis, ~zu,
+    0,   500, 0.0,
+  500,  1000, 0.2,
+  1000, 1500, 0.4,
+  1500, 2000, 0.6,
+  2000, 2500, 0.8,
+  2500, Inf,  1.0
+) |>
+  as.matrix()
 
 schutzgebiete_classify <- classify(schutzgebiete_dist, schutzgebiete_klassen)
+
 ```
 
 ```{r}
 ### Strassen  
-strassen_klassen <- c(
-  0,250,1.0,
-  250,500,0.9,
-  500,750,0.8,
-  750,1000,0.7,
-  1000,1250,0.6,
-  1250,1500,0.5,
-  1500,1750,0.4,
-  1750,2000,0.3,
-  2000,2250,0.2,
-  2250,2500,0.1,
-  2500,Inf,0) |> matrix(ncol = 3, byrow = TRUE)
+strassen_klassen <- tribble(
+  ~von, ~bis, ~zu,
+    0,   500, 0.0,
+  500,  1000, 0.2,
+  1000, 1500, 0.4,
+  1500, 2000, 0.6,
+  2000, 2500, 0.8,
+  2500, Inf,  1.0
+) 
+
 strassen_classify <- classify(strassen_dist, strassen_klassen)
 ```
 
