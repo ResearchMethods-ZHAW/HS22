@@ -19,7 +19,6 @@ Für Punkt 1 müssen wir zusätzliche Daten einlesen, die im Rasterformat daherk
 ```{r}
 #| echo: false
 #| output: false
-library(here)
 tempr <- tempfile(fileext = ".R")
 knitr::purl("rauman/Rauman5_Uebung_A.qmd",output = tempr)
 source(tempr)
@@ -33,88 +32,50 @@ source(tempr)
 
 ## Aufgabe 1: Rasterdaten einlesen
 
-Zur Bewertung der Standorte hinsichtlich Windgeschwindigkeit und Vereisungshäufigkeit stehen uns folgende Rasterdatensätze zur Verfügung. Lade die beiden nachfolgenden Datensätze herunter und mit der Funktion `rast()` in R ein.
+Zur Bewertung der Standorte hinsichtlich Windgeschwindigkeit steht uns folgender Rasterdatensatz zur Verfügung. Lade die beiden nachfolgenden Datensätze herunter und mit der Funktion `rast()` in R ein: [wind250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297) (Durchschnittliche Windgeschwindigkeit)
 
-- [eis250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602288) (Vereisungshäufigkeit in Tage/Jahr)
-- [wind250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297) (Durchschnittliche Windgeschwindigkeit)
-
-Explorieren Sie die Daten visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen. 
+Explorieren Sie den Datensatz visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen. 
 
 ```{r}
-eis250m <- rast("datasets/rauman/eis250m.tif")
 wind250m <- rast("datasets/rauman/wind250m.tif")
 ```
 
 ```{r}
-#| output: false
+#| column: page
+#| fig-cap: Datensatz 'wind250m' zur Windgeschwindigkeit in m pro Sekunde
 
-tm_shape(eis250m) + tm_raster(style = "cont") 
+tm_shape(wind250m) + tm_raster(style = "cont") 
 ```
 
-## Aufgabe 2: Wind und Eis bewerten
+## Aufgabe 2: Wind bewerten
 
-Diese Rasterdaten müssen wir nicht weiter verarbeiten, ausser sie zu bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion `classify()` analog @sec-classify1. 
+Diese Rasterdaten müssen wir nicht weiter verarbeiten, wir können sie direkt bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion `classify()` analog @sec-classify1. Sie können die Schwellwerte frei wählen, wir werden diejenigen verwenden, die in @tbl-bewerungstabelle-other festgehalten sind.
 
-<div class="mce-table">
-
-```{r}
-#| output: asis
-#| echo: false
-#| label: tbl-bewerungstabelle-other
-#| tbl-cap: Bewertungstabelle die Windgeschwindigkeit (m/s), Vereisungshäufigkeit (Tage/Jahr) und Hangneigung (Grad)
-
-library(kableExtra)
-library(purrr)
-library(readODS)
-library(here)
-
-reclassify_ods <- "rauman/Reclassify.ods"
-
-sheets1 <- c("Windgeschwindigkeit", "Vereisungshaeufigkeit", "Hangneigung")
-einheit <- c("Speed", "Days", "Slope")
-
-header_above <- rep(2,length(sheets1))
-names(header_above) <- sheets1
-
-map2(sheets1, einheit, function(x, z){
-  y <- read_ods(reclassify_ods, x) |>
-  mutate(Dist = paste(Von,Bis,sep = "-")) |>
-  transmute(Dist, Score = Bewertung)
-  
-  colnames(y) <- c(z, "Score")
-  y
-}) |>
-(\(x)do.call(cbind, x))() |>
-kableExtra::kbl() |>
-  kable_classic( )  |>
-  add_header_above(header_above) 
-```
-
-</div>
 
 ```{r}
+#| layout-ncol: 2
+
 #### reclassify wind
-wind_klassen <- c(0,35,0,
-                      35,40,0.1,
-                      40,45,0.2,
-                      45,50,0.3,
-                      50,55,0.4,
-                      55,60,0.5,
-                      60,65,0.6,
-                      65,70,0.7,
-                      70,75,0.8,
-                      75,Inf,0.9) |> matrix(ncol = 3, byrow = TRUE)
+
+wind_klassen <- tribble(
+  ~von, ~bis, ~zu,
+    0,  20, 0.0,
+   20,  30, 0.2,
+   30,  40, 0.4,
+   40,  50, 0.6,
+   50,  60, 0.8,
+   60, Inf, 1.0
+) 
+
+wind_klassen <- as.matrix(wind_klassen)
+
+
+```
+
+
+```{r}
 wind_classify <- classify(wind250m, wind_klassen)
 
-#### reclassify eis    
-eis_klassen <- c(0,6,1,
-                   6,12,0.9,
-                   12,18,0.8,
-                   18,24,0.7,
-                   24,30,0.6,
-                   30,36,0.5,
-                   36,Inf,0.4) |> matrix(ncol = 3, byrow = TRUE)
-eis_classify <- classify(eis250m, eis_klassen)
 
 ```
 
@@ -129,46 +90,77 @@ dhm250m <- rast("datasets/rauman/dhm250m.tif")
 
 neigung <- terrain(dhm250m, v="slope",unit="degrees")
 
+
 #### reclassify slope
-neigung_klassen <- c(0,2,1,
-                       2,4,0.9,
-                       4,6,0.8,
-                       6,8,0.7,
-                       8,10,0.6,
-                       10,12,0.5,
-                       12,14,0.4,
-                       14,16,0.3,
-                       16,18,0.2,
-                       18,20,0.1,
-                       20,90,0) |> matrix(ncol = 3, byrow = TRUE)
+neigung_klassen <- tribble(
+  ~von, ~bis, ~zu,
+    0,   4, 1.0,
+    4,   8, 0.8,
+    8,  12, 0.6,
+   12,  16, 0.4,
+   16,  20, 0.2,
+   20,  90, 0.0
+) 
+
+neigung_klassen <- as.matrix(neigung_klassen)
+
 neigung_classify <- classify(neigung, neigung_klassen)
+
 ```
+
+
+<div class="mce-table">
+
+```{r}
+#| label: tbl-bewerungstabelle-other
+#| tbl-cap: Bewertungstabelle die Windgeschwindigkeit (m/s), Vereisungshäufigkeit (Tage/Jahr) und Hangneigung (Grad)
+library(kableExtra)
+
+cbind(wind_klassen, neigung_klassen) |>
+  kbl() |>
+  kable_classic( )  |>
+  add_header_above(c("Windgeschwindigkeit" = 3, "Hangneigung" = 3))
+```
+
+</div>
 
 ## Aufgabe 4: Raster Overlay {#sec-raster-overlay2}
 
 Analog @sec-raster-overlay1 können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen. Hier stossen wir aber auf ein Problem. Sobald wir versuchen, Bewertungen aus Übung A mit bewertungen aus dieser Übung (Übung B) miteinander zu verrechnen, erhalten wir folgende Fehlermeldung:
 
 ```{r}
-overlay_prelim_3 <- (strassen_classify + schutzgebiete_classify + siedlungsgebiet_classify + wald_classify + wind_classify + eis_classify + neigung_classify)/7
+overlay_prelim_3 <- (strassen_classify + schutzgebiete_classify +  wind_classify + neigung_classify)/4
 ```
 
-`SRS do not match` soll heissen, dass die Koordinatenbezugssysteme (CRS) der verschiedenen Raster nicht überein stimmen. Wenn wir die CRS der verschiedenen Datensätze aber anschauen, sehen wir, dass es sich eigentlich um die gleichen CRS handelt.
+`SRS do not match` soll heissen, dass die Koordinatenbezugssysteme (CRS) der verschiedenen Raster nicht überein stimmen. Mit folgendem befehl können wir die CRS für die einzelnen Datensätze ermitteln.
+
+
+```{r}
+#| output: false
+crs(strassen_classify, describe = TRUE)
+```
+
+Wenn wir die CRS der verschiedenen Datensätze aber anschauen sehen wir, dass es sich eigentlich um die gleichen CRS handelt. 
+```{r}
+#| echo: false
+library(purrr)
+list("wind_classify" = wind_classify, "neigung_classify" = neigung_classify) |>
+  imap_dfr(~mutate(crs(.x, describe = TRUE), datensatz = .y, .before = 1))
+```
+
+
+Das Problem scheint darin zu liegen, dass die Rasterdatensätze `wind250m` und `dhm250m` das CRS nicht ganz korrekt gespeichert zu haben scheinen. Wir können das Problem lösen, indem wir den CRS dieser Raster-files explizit setzen:
+
 
 ```{r}
 #| echo: true
 
-crs(strassen_classify, describe = TRUE) # Datensatz aus Übung A
-crs(wind_classify, describe = TRUE)     # Datensatz aus Übung B
-```
+# Im Unterschied zu sf Objekten müssen wir bei Rasterdatensätze
+# das CRS wie folgt setzen:
 
-Das Problem ist, dass diese in den beiden Datensätzen leicht anders abgespeichert sind. Wir können das Problem lösen, indem wir den CRS aus dem einen Raster mit dem CRS des anderen Rasters wie folgt überschreiben:
+crs(wind_classify) <- "EPSG:21781"
+crs(neigung_classify) <- "EPSG:21781"
 
-```{r}
-#| echo: true
-
-crs(wind_classify) <- crs(strassen_classify)
-crs(eis_classify) <- crs(strassen_classify)
-crs(neigung_classify) <- crs(strassen_classify)
 ```
 
 Nun sollte der Overlay problemlos funktionieren. Führe einen Overlay mit allen verfügbaren Parameter (Bewertung der Distanz zu Strassen, Siedlung, Wald und Schutzgebiete sowie Wind, Eis und Neigung) durch und visualisiere das Resultat.
@@ -177,75 +169,45 @@ Nun sollte der Overlay problemlos funktionieren. Führe einen Overlay mit allen 
 #| fig-cap: Ungewichtetes Überlagern aller Kriterien mit Ausnahme der Ausschlussgebiete
 #| label: fig-overlay3
 
-overlay_prelim_3 <- (strassen_classify + schutzgebiete_classify + siedlungsgebiet_classify + wald_classify + wind_classify + eis_classify + neigung_classify)/7
+overlay_prelim_3 <- (strassen_classify + schutzgebiete_classify + wind_classify + neigung_classify)/4
 
 tm_shape(overlay_prelim_3) + 
-  tm_raster(palette = "Spectral", breaks = seq(0,1,0.2), style = "cont", title = "Eignung") +
+  tm_raster(palette = "-Spectral", breaks = seq(0,1,0.2), style = "cont", title = "Eignung") +
   tm_layout(frame = FALSE)
 ```
 
 ## Aufgabe 5: Ausschlusskriterien 
 
-Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden können. Dazu gehören bewohnte Flächen, nationale Schutzgebiete, Waldgebiete und Seen. Zwar werden bewohnte Flächen, nationale Schutzgebiete und Waldgebiete in unserer Analyse bereits schlecht (mit "0") bewertet, aber nicht kategorisch vom Resultat ausgeschlossen. Sprich: Wenn ein Gebiet, welches zum Beispiel mitten im Siedlungsgebiet liegt, alle anderen Bedigungen erfüllt, kann es trotzdem eine hohe Bewertung erhalten, obwohl dort keine Windkraftanalage gebaut werden kann.
-
-Um diese Gebiete kategorisch vom Resultat auszuschliessen, können wir für die Siedlungsgebiete, Schutzgebiete sowie den Wald die rasterisierte Form verwenden, die wir in @sec-raster-distance erstellt haben. Für die Seen müssen wir den entsprechenden Raster zuerst noch erstellen:
+Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden können. Dazu gehören bewohnte Flächen, nationale Schutzgebiete, Waldgebiete und Seen. (Zwar werden Schutzgebiete in unserer Analyse bereits berücksichtigt, aber nicht kategorisch vom Resultat ausgeschlossen.)
 
 ```{r}
 #| echo: true
-
-# Fehlendes Ausschlussgebiet Rasterisieren
-seen_raster <- rasterize(seen, template)
+schutzgebiete <- read_sf(gpkg_path, "Nationale_Schutzgebiete")
+siedlungsgebiet <- read_sf(gpkg_path, "Bewohnte_Flaeche")
+wald <- read_sf(gpkg_path, "Waldgebiete")
+seen <- read_sf(gpkg_path, "Seeflaechen")
 ```
 
-Diese Rasterdatensätze sind bereits binär: Rasterzellen mit dem Wert 1 sind Zellen im Wald, im Schutzgebiet usw. Zellen ausserhalb sind `NA`. Um die Vereinigungsmenge zu erhalten (also alle Zellen , die entweder Sieldungsgebiet *oder* Wald *oder* Schutzgebiet *oder* Seen sind), können wir die Funktion `any()` verwenden. Diese Funktion gibt `TRUE` zurück wenn mindestens 1 Wert im Overlay `TRUE` ist. 
 
-Hilfreich ist an dieser Stelle, wenn wir die Gemeindegrenze vom Kanton Schwyz ebenfalls rasterisieren und mitbenutzen, damit Gebiete ausserhalb des Kantons als Auschlussgebiete gelten (`background = 1`) und Gebiete innerhalb des Kantons nicht zwingend (`field = 0`).
+Um diese Flächen aus von unserem Resultat auzuschliessen, können wir wieder die Funktion `mask()` verwenden (siehe @sec-rauman5-mask). Doch diesmal möchten wir nicht die Flächen *ausserhalb* der Polygone mit `NA` ersetzen, sondern die Flächen *innerhalb* der Polygone. Deshalb verwenden wir `mask()` mit dem Argument `inverse = TRUE`.
 
+Versuche mit `mask()`, den oben erwähnten Vektordatensätze sowie der Option `inverse = TRUE` die Ausschlussgebiete vom Raster-Overlay zu entfernen und visualisiere das Resultat.
 ```{r}
-#| echo: true
-#| fig-cap: Die Summe aller Ausschlussgebiete
 
-kt_schwyz_raster <- rasterize(kt_schwyz, template, field = 0, background = 1)
 
-# Summe aller Auschlussgebiete rechnen
-# (na.rm = TRUE ignoriert NA Werte bei Summenbildung)
-ausschlussgebiete <- any(siedlungsgebiet_raster, schutzgebiete_raster, wald_raster, seen_raster, kt_schwyz_raster, na.rm = TRUE)
+overlay_prelim_4 <- overlay_prelim_3 |>
+  mask(schutzgebiete, inverse = TRUE) |>
+  mask(siedlungsgebiet, inverse = TRUE) |>
+  mask(wald, inverse = TRUE) |>
+  mask(seen, inverse = TRUE)
 
-plot(ausschlussgebiete, col = c("red", "blue"))
+
+tmap_mode("view")
+
+tm_shape(overlay_prelim_4) +
+  tm_raster(palette = "-Spectral", breaks = seq(0,1,0.2), style = "cont",alpha = 0.6) +
+  tm_basemap("Esri.WorldImagery")
+
 ```
 
-## Aufgabe 6: Ausschlussgebiete von potenziellen Gebieten entfernen
 
-Das Resultat aus unserer vorläufigen Analyse (@fig-overlay3) weisst Werte von 0 - 1 auf. Um sicherzustellen, dass die Auschlussgebiete mit `0` ausgewiesen werden können wie folgt vorgehen: 
-
-1. Wir erstellen einen neuen Raster `einschlussgebiete`, welches das *Gegenteil* von `ausschlussgebiete` darstellt.
-
-```{r}
-#| echo: true
-
-einschlussgebiete <- !ausschlussgebiete
-
-plot(einschlussgebiete, col = c("red", "blue"))
-```
-
-2. Jetzt entsprechen alle Zellen, die vom Resultat ausgeschlossen werden sollten, dem Wert `0`. Diese ersetzen wir nun mit `NA`.
-
-```{r}
-#| echo: true
-
-einschlussgebiete[einschlussgebiete == 0] <- NA
-
-plot(einschlussgebiete, col = "black")
-```
-
-Diesen Raster multiplizieren wir mit dem Resultat aus @fig-overlay3. Da jeder Wert, der mit `NA` multipliziert `NA` ergibt, werden so auszuschliessende Gebiete mit `NA` bewertet. Einzuschliessende Gebiete behalten ihren Wert, da sie lediglich mit `1` multipliziert werden.
-
-Führe diesen letzten Schritt durch und visualisiere anschliessend das Ergebnis.
-
-```{r}
-overlay_4 <- overlay_prelim_3*einschlussgebiete
-
-tm_shape(overlay_4) + 
-  tm_raster(palette = "Spectral", breaks = seq(0,1,0.2), style = "cont", title = "Eignung") +
-  tm_layout(frame = FALSE)
-```
