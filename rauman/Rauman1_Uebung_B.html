@@ -748,6 +748,17 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
 <section id="aufgabe-2-datensätze-erkunden" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="aufgabe-2-datensätze-erkunden">Aufgabe 2: Datensätze erkunden</h3>
 <p>Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Visualisierungsmöglichkeiten von <code>ggplot</code> (insbesondere <code>geom_sf</code>). Du kannst mehrere <code>geom_sf()</code> übereinander lagern, um gleichzeitig mehrere Datensätze darzustellen.</p>
+<div class="page-columns page-full">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(wiesen) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> flaechen_typ)) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> baeume) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(wiesen) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> baeume, <span class="fu">aes</span>(<span class="at">colour =</span> baum_typ)) <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell column-page quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -768,13 +779,17 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="sec-spatial-join-points" class="level3">
 <h3 class="anchored" data-anchor-id="sec-spatial-join-points">Aufgabe 3: Spatial Join mit Punkten</h3>
 <p>Wir wollen nun für jeden <em>Baum</em> wissen, ob er sich in einer Wiese befindet oder nicht. Dazu nutzen wir die GIS-Technik <em>Spatial Join</em>, die in der Vorlesung beschrieben wurde. In <code>sf</code> können wir Spatial Joins mit der Funktion <code>st_join</code> durchführen, dabei gibt es nur <code>left</code> sowie <code>inner</code>-Joins (vgl. PrePro 1 &amp; 2). So müssen die Punkte “Links”, also an erste Stelle aufgeführt werden, da wir ja Attribute <em>an</em> die Punkte anheften wollen.</p>
 <p>Beachte, dass der Output eine neue Spalte <code>flaechen_typ</code> aufweist. Diese ist leer (<code>NA</code>) wenn sich der entsprechende Baum nicht in einer Wiese befindet. Wie viele Bäume befinden sich in einer Wiese, wie viele nicht?</p>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>baeume_join <span class="ot">&lt;-</span> <span class="fu">st_join</span>(baeume, wiesen) </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>anzahl_in_wiese <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(baeume_join<span class="sc">$</span>flaechen_typ))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>anzahl_nicht_in_wiese <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(baeume_join<span class="sc">$</span>flaechen_typ))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

@@ -874,12 +874,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Wenn wir die CRS der verschiedenen Datensätze aber anschauen sehen wir, dass es sich eigentlich um die gleichen CRS handelt.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>         datensatz           name authority code                       area
-1    wind_classify CH1903+ / LV95      EPSG 2056 Liechtenstein; Switzerland
-2 neigung_classify CH1903+ / LV95      EPSG 2056 Liechtenstein; Switzerland
-                     extent
-1 5.96, 10.49, 47.81, 45.82
-2 5.96, 10.49, 47.81, 45.82</code></pre>
+<pre><code>         datensatz          name authority code area         extent
+1    wind_classify CH1903 / LV03      &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; NA, NA, NA, NA
+2 neigung_classify CH1903 / LV03      &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; NA, NA, NA, NA</code></pre>
 </div>
 </div>
 <p>Das Problem scheint darin zu liegen, dass die Rasterdatensätze <code>wind250m</code> und <code>dhm250m</code> das CRS nicht ganz korrekt gespeichert zu haben scheinen. Wir können das Problem lösen, indem wir den CRS dieser Raster-files explizit setzen:</p>
@@ -896,7 +893,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Error: [+] extents do not match</code></pre>
 </div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in as.list.environment(environment()): Objekt 'overlay_prelim_3' nicht gefunden</code></pre>
+<pre><code>Error in as.list.environment(environment()): object 'overlay_prelim_3' not found</code></pre>
 </div>
 </div>
 </section>
@@ -913,10 +910,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Versuche mit <code>mask()</code>, den oben erwähnten Vektordatensätze sowie der Option <code>inverse = TRUE</code> die Ausschlussgebiete vom Raster-Overlay zu entfernen und visualisiere das Resultat.</p>
 <div class="cell">
 <div class="cell-output cell-output-error">
-<pre><code>Error in h(simpleError(msg, call)): Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'mask': Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'mask': Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'mask': Fehler bei der Auswertung des Argumentes 'x' bei der Methodenauswahl für Funktion 'mask': Objekt 'overlay_prelim_3' nicht gefunden</code></pre>
+<pre><code>Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'mask': error in evaluating the argument 'x' in selecting a method for function 'mask': error in evaluating the argument 'x' in selecting a method for function 'mask': error in evaluating the argument 'x' in selecting a method for function 'mask': object 'overlay_prelim_3' not found</code></pre>
 </div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in as.list.environment(environment()): Objekt 'overlay_prelim_4' nicht gefunden</code></pre>
+<pre><code>Error in as.list.environment(environment()): object 'overlay_prelim_4' not found</code></pre>
 </div>
 </div>
 
