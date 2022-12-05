@@ -68,15 +68,11 @@ wind_klassen <- tribble(
 ) 
 
 wind_klassen <- as.matrix(wind_klassen)
-
-
 ```
 
 
 ```{r}
 wind_classify <- classify(wind250m, wind_klassen)
-
-
 ```
 
 ## Aufgabe 3: Slope berechnen und Bewerten
@@ -158,8 +154,8 @@ Das Problem scheint darin zu liegen, dass die Rasterdatensätze `wind250m` und `
 # Im Unterschied zu sf Objekten müssen wir bei Rasterdatensätze
 # das CRS wie folgt setzen:
 
-crs(wind_classify) <- "EPSG:21781"
-crs(neigung_classify) <- "EPSG:21781"
+crs(wind_classify) <- "EPSG:2056"
+crs(neigung_classify) <- "EPSG:2056"
 
 ```
 
@@ -193,21 +189,17 @@ Um diese Flächen aus von unserem Resultat auzuschliessen, können wir wieder di
 
 Versuche mit `mask()`, den oben erwähnten Vektordatensätze sowie der Option `inverse = TRUE` die Ausschlussgebiete vom Raster-Overlay zu entfernen und visualisiere das Resultat.
 ```{r}
-
-
 overlay_prelim_4 <- overlay_prelim_3 |>
   mask(schutzgebiete, inverse = TRUE) |>
   mask(siedlungsgebiet, inverse = TRUE) |>
   mask(wald, inverse = TRUE) |>
   mask(seen, inverse = TRUE)
 
-
 tmap_mode("view")
 
 tm_shape(overlay_prelim_4) +
   tm_raster(palette = "-Spectral", breaks = seq(0,1,0.2), style = "cont",alpha = 0.6) +
   tm_basemap("Esri.WorldImagery")
-
 ```
 
 

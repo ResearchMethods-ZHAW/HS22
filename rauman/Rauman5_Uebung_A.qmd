@@ -32,6 +32,8 @@ Laden Sie das File [windkraft_geodata.gpkg](https://moodle.zhaw.ch/mod/resource/
 
 Importiere die benötigten Vektordatensätze und exploriere die Daten. Zur Visualisierung könnt ihr die Funktionen `plot` oder die Packages `tmap` oder `ggplot2` verwenden.
 
+Schau dir auch das Koordinatensystem an. Was fällt dir auf? Wir würden gerne mit dem neuen schweizer Koordinatensystem arbeiten. Um ein Koordinatensystem umzuwandeln kannst du die Funktion `st_transform()` benutzen. 
+
 ```{r}
 #| output: false
 gpkg_path  <- "datasets/rauman/windkraft_geodata.gpkg"
@@ -39,12 +41,10 @@ gpkg_path  <- "datasets/rauman/windkraft_geodata.gpkg"
 #Vector data
 st_layers(gpkg_path)
 
-kt_schwyz <- read_sf(gpkg_path, "Untersuchungsgebiet_Schwyz")
-schutzgebiete <- read_sf(gpkg_path, "Nationale_Schutzgebiete")
-strassen <- read_sf(gpkg_path, "Strassen")
+kt_schwyz <- read_sf(gpkg_path, "Untersuchungsgebiet_Schwyz") |> st_transform(2056)
+schutzgebiete <- read_sf(gpkg_path, "Nationale_Schutzgebiete") |> st_transform(2056)
+strassen <- read_sf(gpkg_path, "Strassen") |> st_transform(2056)
 ```
-
-
 
 ## Aufgabe 2: Erschliessung berechnen {#sec-raster-distance}
 
@@ -85,7 +85,6 @@ Führe nun die gleiche Operation durch um die Entfernung zu nationalen Schutzgeb
 #| fig-cap: 
 #| - Die rasterisierte Form des "Schutzgebiete" Datensatzes
 #| - Die Distanz zum nächstgelegenen Schutzgebiet für jeden Punkt im Kanton Schwyz"
-
 
 schutzgebiete_raster <- rasterize(schutzgebiete, template)
 schutzgebiete_dist <- distance(schutzgebiete_raster)
