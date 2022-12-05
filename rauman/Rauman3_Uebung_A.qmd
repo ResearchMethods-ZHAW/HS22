@@ -13,7 +13,7 @@ execute:
 
 Heute berechnen wir Morans $I$, also ein globales Mass für Autokorrelation, für die Abstimmungsresultate der Zweitwohnungsinitiative. Dieser Wert beschreibt, ob Kantone, die nahe beieinander liegen, ähnliche Abstimmungswerte haben. Hierfür verwenden wir den Datensatz [zweitwohnungsinitiative.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602283).
 
-Das Geopackage beinhaltet 3 Layers (siehe st_layers("zweitwohnungsinitiative.gpkg")). In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene aggregiert. Wir started mit der Aggregationsstufe "kanton"
+Das Geopackage beinhaltet 3 Layers (siehe `st_layers(zweitwohnung_kanton)`). In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene aggregiert. Wir started mit der Aggregationsstufe "kanton"
 
 ```{r}
 #| echo: true
@@ -95,26 +95,20 @@ Dieses Summenfunktion bedeutet, das wir eine Schlaufe (einen Loop) durchführen 
 
 *Den Mittleren Ja-Stimmen-Anteil aller Kantone vom Ja-Stimmen-Anteil des jeweiligen Kantons abziehen und das Resultat quadrieren.*
 
-Dafür erstellen wir als erstes die Variabeln `y` für $y$ und `ybar` für $\bar{y}$:
+Dafür erstellen wir als erstes die Variabel `y`, sowie ein Vektor der Länge 26 (Anzahl Kantone) um die Resultate zu speichern (hier: `result`)
+
 ```{r}
 #| echo: true
-# Die Werte aller Kantone in einer Variabel abspeichern
+
 y <- zweitwohnung_kanton$ja_in_percent
 
-# den Mittelwert über alle Kantone berechnen
-ybar <- mean(y, na.rm = TRUE)
-```
-
-Bevor wir den *For Loop* ausführen können, müssen wir ein Vektor der Länge 26 (Anzahl Kantone) erstellen um die Resultate zu speichern (hier: `result`).
-
-```{r}
 # Wir erstellen ein Vector der länge 26 (1 pro Kanton) 
 # um die Resultate zu speichern.
-resultat <- numeric(26)
+resultat <- double(length = n)
 
 # jetzt können wir den For Loop ausführen
 for (i in 1:n){
-  resultat[i] <- (y[i]-ybar)^2
+  resultat[i] <- (y[i]-mean(y))^2
 }
 ```
 
@@ -122,6 +116,8 @@ for (i in 1:n){
 Nach der Durchführung aller Iterationen, haben wir 26 Einzelwerte, die wir Summieren müssen.
 
 ```{r}
+#| echo: true
+
 resultat
 
 nenner1 <- sum(resultat)
@@ -134,14 +130,13 @@ nenner1 <- sum(resultat)
 ## Für aufmerksame
 
 Da R per Default vektorisiert funktioniert, ist der obige For Loop streng genommen nicht nötig, wir verwenden ihn aber für didaktische Zwecke. Alternativ ginge die Berechnung von `nenner1` auch folgendermassen:
-Dies lässt sich folgendermassen berechnen:
 
 ```{r}
 #| echo: true
 #| eval: false
 
 # Von jedem Wert den Durchschnittswert abziehen:
-dy <- y - ybar
+dy <- y - mean(y)
 
 # Diese Werte müssen wir quadrieren:
 dy_squared <- dy^2
@@ -152,40 +147,15 @@ nenner1 <- sum(dy_squared, na.rm = TRUE)
 
 :::
 
-### Doppelte Summenzeichen {#sec-doppeltes-summenzeichen}
+### Summe der Gewichte (`nenner2`)
 
+$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\color{red}\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
 
-$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{{\color{red}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{{\color{orange}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}}$$
+Im zweiten Term müssen wir jeweils zwei doppelte Summenzeichen auflösen. Der Nenner des zweiten Terms ist etwas einfacher zu verstehen, deshalb beginnen wir mit diesem.
 
-Für die Berechnung von `zaehler2` haben wir ein doppeltes Summenzeichen, die wir auflösen müssen. Das ist an sich schon Komplex genug, wesshalb wir den Term $w_{ij}$ an dieser Stelle mal ignorieren.
+#### Räumliche Gewichtung $w_{ij}$
 
-$\sum_{i=1}^n \sum_{j=1}^n$ kann man wie zwei verschachtelte *For loops* sehen. Der äussere *For loop* iteriert von `1` bis `n` mit der Variabel `i`. Der innere *For loop* iteriert von `1` bis `n` mit der Variabel `j`. 
-
-```{r}
-#| echo: true
-
-resultat_aussen <- numeric(26)
-
-for (i in 1:n){
-  resultat_innen <- numeric(26)
-  for (j in 1:n){
-    resultat_innen[j] <- (y[i]-ybar)*(y[j]-ybar)
-  }
-  resultat_aussen[i] <- sum(resultat_innen)
-}
-
-resultat_aussen
-
-zaehler2 <- sum(resultat_aussen)
-
-
-zaehler2
-```
-
-
-### Räumliche Gewichtung $w_{ij}$
-
-$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n {\color{red}w_{ij}}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n {\color{red}w_{ij}}}$$
+$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n {\color{orange}w_{ij}}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n {\color{red}w_{ij}}}$$
 
 
 $w$ beschreibt die räumlichen Gewichte der Kantone (den "Schalter" aus der Vorlesung). $w_{ij}$ ist das Gewicht vom Kanton $i$ im Vergleich zum Kanton $j$. Sind Kantone $i$ und $j$ räumlich nah, gilt ein Gewicht von 1, sind sie weit entfernt, gilt ein Gewicht von 0. Dabei ist die Definition von "räumlich nah" nicht festgelegt. Denkbar wären zum Beispiel folgende Optionen:
@@ -222,6 +192,31 @@ ggplot(zweitwohnung_kanton[beruehrt_1, ]) +
 ```
 
 
+#### Doppelte Summenzeichen {#sec-doppeltes-summenzeichen}
+
+$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{{\color{orange}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{{\color{red}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}}$$
+
+Nun können wir das doppelte Summenzeichen auflösen. Genau wie bei einem einfachen Summenzeichen handelt es sich hier um *For Loop*, diesmal aber um zwei ineinnader verschachtelte *For Loops*. Der äussere *For loop* ($\sum_{i=1}^n$) iteriert von `1` bis `n` mit der Variabel `i`. Der innere *For loop* ($\sum_{j=1}^n$) iteriert von `1` bis `n` mit der Variabel `j`. 
+
+
+```{r}
+#| echo: true
+
+resultat_aussen <- integer(length = n)
+for (i in 1:n){
+  resultat_innen <- integer(length = n)
+  for (j in 1:n){
+    resultat_innen[j] <- w[i, j]
+  }
+  resultat_aussen[i] <- sum(resultat_innen)
+}
+nenner2 <- sum(resultat_aussen)
+
+```
+
+
+
+
 ### Berechnung des Kreuzprodukts (`zaehler2`)
 
 $$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\color{red}\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
@@ -229,12 +224,13 @@ $$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\color{red}\sum_{i=1
 Jetzt haben wir das fehlende Puzzelstück für die Berechnung von `zaehler2`. Challenge: Nutze die matrix `w` in dem verschachtelten For Loop aus @sec-doppeltes-summenzeichen
 
 ```{r}
-resultat_aussen <- numeric(26)
+
+resultat_aussen <- double(length = n)
 
 for (i in 1:n){
-  resultat_innen <- numeric(26)
+  resultat_innen <- double(length = n)
   for (j in 1:n){
-    resultat_innen[j] <- w[i,j] * (y[i]-ybar)*(y[j]-ybar)
+    resultat_innen[j] <- w[i,j] * (y[i]-mean(y))*(y[j]-mean(y))
   }
   resultat_aussen[i] <- sum(resultat_innen)
 }
@@ -243,23 +239,11 @@ zaehler2 <- sum(resultat_aussen)
 ```
 
 
-### Berechnung der Summe der Gewichte (`nenner2`)
-
-$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\color{red}\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
-
-
-Wir sind schon fast am Ziel! Versuche nun selbständig den Nenner aus dem zweiten Bruch zu berechnen.
-
-
-
-```{r}
-nenner2 <- sum(w)
-```
 
 ### Auflösung der Formel
 
 
-Nun haben wir alle bestandteile von Morans $I$ Berechnet und müssen diese nur noch Zusammenrechnen.
+Nun haben wir alle Bestandteile von Morans $I$ Berechnet und müssen diese nur noch Zusammenrechnen.
 
 ```{r}
 #| echo: true
@@ -275,7 +259,7 @@ Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `
 
 ## Aufgabe 2: Morans I für Gemeinde oder Bezirke berechnen
 
-Nun könnt ihr Morans $I$ auf der Ebene der Gemeine oder Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Wenn ihr einen wenig leistungsfähigen Rechner habt, berechnet verwendet besser die Ebene "Berzirke". Importiert dazu den Layer `berirk` oder `gemeinde` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate. Tipp: wir verwenden das Package `cowplot` um zwei `ggplots` nebeneinander darzustellen.
+Nun könnt ihr Morans $I$ auf der Ebene der Gemeine oder Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Wenn ihr einen wenig leistungsfähigen Rechner habt, berechnet verwendet besser die Ebene "Berzirke". Importiert dazu den Layer `bezirk` oder `gemeinde` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate. Tipp: wir verwenden das Package `cowplot` um zwei `ggplots` nebeneinander darzustellen.
 
 Nach der Brechnung von Morans $I$ könnt ihr die Werte auf der Ebene Gemeinde (bzw. Bezirke) und Kantone vergleichen. Formuliert zuerste eine Erwartungshaltung: ist Morans $I$ auf der Ebene Gemeinde (bzw. Bezirke) tiefer oder Höher als auf der Ebene Kantone?
 
@@ -307,7 +291,7 @@ p2
 
 ```{r}
 #| echo: false
-#| fig-height: 1
+#| fig-height: 0.5
 #| out-width: 100%
 #| column: page
 
