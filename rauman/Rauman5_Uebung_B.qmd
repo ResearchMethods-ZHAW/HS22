@@ -32,9 +32,7 @@ source(tempr)
 
 ## Aufgabe 1: Rasterdaten einlesen
 
-Zur Bewertung der Standorte hinsichtlich Windgeschwindigkeit steht uns folgender Rasterdatensatz zur Verfügung. Lade die beiden nachfolgenden Datensätze herunter und mit der Funktion `rast()` in R ein: [wind250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297) (Durchschnittliche Windgeschwindigkeit)
-
-Explorieren Sie den Datensatz visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen. 
+Zur Bewertung der Standorte hinsichtlich Windgeschwindigkeit steht uns folgender *wind250m.tif* zur Verfügung (siehe @tbl-mce-data). Lade den Datensatz herunter und mit der Funktion `rast()` in R ein. Explorieren Sie den Datensatz visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen. 
 
 ```{r}
 wind250m <- rast("datasets/rauman/wind250m.tif")
@@ -43,7 +41,8 @@ wind250m <- rast("datasets/rauman/wind250m.tif")
 ```{r}
 #| fig-cap: Datensatz 'wind250m' zur Windgeschwindigkeit in m pro Sekunde
 
-tm_shape(wind250m) + tm_raster(style = "cont") 
+tm_shape(wind250m) + 
+  tm_raster(style = "cont") 
 ```
 
 ## Aufgabe 2: Wind bewerten
@@ -76,7 +75,7 @@ wind_classify <- classify(wind250m, wind_klassen)
 
 ## Aufgabe 3: Slope berechnen und Bewerten
 
-Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell, was wir bereits in @sec-raster-intro verwendet haben ([dhm250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=694260)) in R ein, und berechne Anschliessend die Hangneigung mit der Funktion `terrain()` analog @sec-raster-slope (beachten Sie die Einheit des Output!). 
+Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell *dhm250m.tif* herunter (siehe @tbl-mce-data) und in R ein. Berechne anschliessend die Hangneigung mit der Funktion `terrain()` analog @sec-raster-slope (beachten Sie die Einheit des Output!). 
 
 Bewerten Sie die Hangneigung danach gemäss Tabelle @tbl-bewerungstabelle-other. 
 

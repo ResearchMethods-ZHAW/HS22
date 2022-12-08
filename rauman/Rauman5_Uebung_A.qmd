@@ -9,7 +9,60 @@ execute:
 
 # Rauman 5: Übung A
 
-In der folgenden Übung möchten wir potentielle Standorte für Windkraftanlagen im Kanton Schwyz ermitteln. Zu diesem Zweck führen wir eine Multikriterien-Evaluation durch. In diesem ersten Teil (Übung A) widmen wir uns, basierend auf @gilgen2010 und @tegou210, folgender Paramter: 
+In der folgenden Übung möchten wir potentielle Standorte für Windkraftanlagen im Kanton Schwyz ermitteln. Zu diesem Zweck führen wir eine Multikriterien-Evaluation durch. Für diese Analyse stehen uns folgende Datensätze zur Verfügung:
+
+
+```{r}
+#| echo: false
+#| tbl-cap: |
+#|   Auflistung der Geodaten, die wir für die Multikriterien-Analyse verwenden werden.
+#|   Die Vektordaten sind alle als Layers im File [windkraft_geodata.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=663498)
+#|   abgespeichert. Die Rasterdaten stehen als Geotiff zur Verfügung ([dhm250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=694260) und [wind250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297))
+#| label: tbl-mce-data
+library(sf)
+library(dplyr) 
+library(purrr)
+library(terra)
+
+path <- "datasets/rauman/"
+
+
+datasets <- tribble(
+  ~Datensatz, ~Beschreibung, ~Typ, ~Format,
+  "Untersuchungsgebiet_Schwyz", "Kantonsgrenze des Kantons Schwyz", "Vektor (Polygon)","gpkg",
+  "Nationale_Schutzgebiete", "Nationale Schutzgebiete", "Vektor (Polygon)", "gpkg",
+  "Strassen", "Strassen Netzwerk aus SwissTLM3D", "Vektor (Line)","gpkg",
+  "wind250m.tif", "Mittlere Windgeschwindigkeit in m/s, 250m Auflösung", "Raster","tif",
+  "dhm250m.tif", "Digitales Höhenmodell in 250m Auflösung", "Raster","tif"
+)
+
+datasets$crs <- datasets |>
+  select(Datensatz, Format) |>  
+  pmap_chr(function(Datensatz, Format){
+    if(Format == "gpkg"){
+      cr <- read_sf(file.path(path,"windkraft_geodata.gpkg"),Datensatz) |>
+      st_crs()
+      cr$input
+    } else{
+      cr <- rast(file.path(path,Datensatz)) |>
+        crs(describe = TRUE)
+      cr$name
+    }
+  })
+
+
+knitr::kable(datasets)
+
+
+
+
+```
+
+
+
+
+
+In diesem ersten Teil (Übung A) widmen wir uns, basierend auf @gilgen2010 und @tegou210, folgender Paramter: 
 
 - Erschliessung (je näher an der Strasse desto besser)
 - Distanz zu Schutzgebieten (je weiter weg desto besser).
@@ -28,7 +81,7 @@ library(ggplot2)
 
 ## Aufgabe 1: Vektor Daten laden und anzeigen
 
-Laden Sie das File [windkraft_geodata.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=663498) von Moodle herunter. Dieses beinhaltet alle Vektordaten, die für die Bearbeitung der Multikriterien-Evaluation benötigt wird (Bewohnte Flächen, Nationale Schutzgebiete, Seeflächen, Strassen, Waldgebiete sowie die Kantonsgrenze von Schwyz). Die Namen der verfügbaren Listen können Sie mit `sf::st_layers()` ermitteln.
+Laden Sie das File *windkraft_geodata.gpkg* von Moodle herunter (siehe @tbl-mce-data). Dieses beinhaltet alle Vektordaten, die für die Bearbeitung der Multikriterien-Evaluation benötigt wird (Bewohnte Flächen, Nationale Schutzgebiete, Seeflächen, Strassen, Waldgebiete sowie die Kantonsgrenze von Schwyz). Die Namen der verfügbaren Listen können Sie mit `sf::st_layers()` ermitteln.
 
 Importiere die benötigten Vektordatensätze und exploriere die Daten. Zur Visualisierung könnt ihr die Funktionen `plot` oder die Packages `tmap` oder `ggplot2` verwenden.
 
