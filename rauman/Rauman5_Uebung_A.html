@@ -750,7 +750,70 @@ div.csl-indent {
 
 </header>
 
-<p>In der folgenden Übung möchten wir potentielle Standorte für Windkraftanlagen im Kanton Schwyz ermitteln. Zu diesem Zweck führen wir eine Multikriterien-Evaluation durch. In diesem ersten Teil (Übung A) widmen wir uns, basierend auf <span class="citation" data-cites="gilgen2010">Gilgen und Sartoris (<a href="../References.html#ref-gilgen2010" role="doc-biblioref">2010</a>)</span> und <span class="citation" data-cites="tegou210">Tegou, Polatidis, und Haralambopoulos (<a href="../References.html#ref-tegou210" role="doc-biblioref">2010</a>)</span>, folgender Paramter:</p>
+<p>In der folgenden Übung möchten wir potentielle Standorte für Windkraftanlagen im Kanton Schwyz ermitteln. Zu diesem Zweck führen wir eine Multikriterien-Evaluation durch. Für diese Analyse stehen uns folgende Datensätze zur Verfügung:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-mce-data" class="anchored">
+<table class="table table-sm table-striped">
+<caption>Tabelle&nbsp;57.1: Auflistung der Geodaten, die wir für die Multikriterien-Analyse verwenden werden. Die Vektordaten sind alle als Layers im File <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=663498">windkraft_geodata.gpkg</a> abgespeichert. Die Rasterdaten stehen als Geotiff zur Verfügung (<a href="https://moodle.zhaw.ch/mod/resource/view.php?id=694260">dhm250m.tif</a> und <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602297">wind250m.tif</a>)</caption>
+<colgroup>
+<col style="width: 22%">
+<col style="width: 44%">
+<col style="width: 14%">
+<col style="width: 5%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Datensatz</th>
+<th style="text-align: left;">Beschreibung</th>
+<th style="text-align: left;">Typ</th>
+<th style="text-align: left;">Format</th>
+<th style="text-align: left;">crs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Untersuchungsgebiet_Schwyz</td>
+<td style="text-align: left;">Kantonsgrenze des Kantons Schwyz</td>
+<td style="text-align: left;">Vektor (Polygon)</td>
+<td style="text-align: left;">gpkg</td>
+<td style="text-align: left;">CH1903 / LV03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nationale_Schutzgebiete</td>
+<td style="text-align: left;">Nationale Schutzgebiete</td>
+<td style="text-align: left;">Vektor (Polygon)</td>
+<td style="text-align: left;">gpkg</td>
+<td style="text-align: left;">CH1903 / LV03</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Strassen</td>
+<td style="text-align: left;">Strassen Netzwerk aus SwissTLM3D</td>
+<td style="text-align: left;">Vektor (Line)</td>
+<td style="text-align: left;">gpkg</td>
+<td style="text-align: left;">CH1903 / LV03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wind250m.tif</td>
+<td style="text-align: left;">Mittlere Windgeschwindigkeit in m/s, 250m Auflösung</td>
+<td style="text-align: left;">Raster</td>
+<td style="text-align: left;">tif</td>
+<td style="text-align: left;">CH1903+ / LV95</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dhm250m.tif</td>
+<td style="text-align: left;">Digitales Höhenmodell in 250m Auflösung</td>
+<td style="text-align: left;">Raster</td>
+<td style="text-align: left;">tif</td>
+<td style="text-align: left;">CH1903+ / LV95</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>In diesem ersten Teil (Übung A) widmen wir uns, basierend auf <span class="citation" data-cites="gilgen2010">Gilgen und Sartoris (<a href="../References.html#ref-gilgen2010" role="doc-biblioref">2010</a>)</span> und <span class="citation" data-cites="tegou210">Tegou, Polatidis, und Haralambopoulos (<a href="../References.html#ref-tegou210" role="doc-biblioref">2010</a>)</span>, folgender Paramter:</p>
 <ul>
 <li>Erschliessung (je näher an der Strasse desto besser)</li>
 <li>Distanz zu Schutzgebieten (je weiter weg desto besser).</li>
@@ -765,7 +828,7 @@ div.csl-indent {
 </div>
 <section id="aufgabe-1-vektor-daten-laden-und-anzeigen" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-1-vektor-daten-laden-und-anzeigen">Aufgabe 1: Vektor Daten laden und anzeigen</h2>
-<p>Laden Sie das File <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=663498">windkraft_geodata.gpkg</a> von Moodle herunter. Dieses beinhaltet alle Vektordaten, die für die Bearbeitung der Multikriterien-Evaluation benötigt wird (Bewohnte Flächen, Nationale Schutzgebiete, Seeflächen, Strassen, Waldgebiete sowie die Kantonsgrenze von Schwyz). Die Namen der verfügbaren Listen können Sie mit <code>sf::st_layers()</code> ermitteln.</p>
+<p>Laden Sie das File <em>windkraft_geodata.gpkg</em> von Moodle herunter (siehe <a href="#tbl-mce-data">Tabelle&nbsp;<span>57.1</span></a>). Dieses beinhaltet alle Vektordaten, die für die Bearbeitung der Multikriterien-Evaluation benötigt wird (Bewohnte Flächen, Nationale Schutzgebiete, Seeflächen, Strassen, Waldgebiete sowie die Kantonsgrenze von Schwyz). Die Namen der verfügbaren Listen können Sie mit <code>sf::st_layers()</code> ermitteln.</p>
 <p>Importiere die benötigten Vektordatensätze und exploriere die Daten. Zur Visualisierung könnt ihr die Funktionen <code>plot</code> oder die Packages <code>tmap</code> oder <code>ggplot2</code> verwenden.</p>
 <p>Schau dir auch das Koordinatensystem an. Was fällt dir auf? Wir würden gerne mit dem neuen Schweizer Koordinatensystem arbeiten (LV95). Um ein Koordinatensystem umzuwandeln benutze die Funktion <code>st_transform()</code>.</p>
 <div class="cell">
@@ -790,7 +853,7 @@ div.csl-indent {
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Die rasterisierte Form des “Strassen” Datensatzes</figcaption><p></p>
 </figure>
 </div>
@@ -798,7 +861,7 @@ div.csl-indent {
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Die Distanz zur nächstgelegenen Strasse für jeden Punkt im Kanton Schwyz”</figcaption><p></p>
 </figure>
 </div>
@@ -811,7 +874,7 @@ div.csl-indent {
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Die rasterisierte Form des “Schutzgebiete” Datensatzes</figcaption><p></p>
 </figure>
 </div>
@@ -819,7 +882,7 @@ div.csl-indent {
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
 <p></p><figcaption class="figure-caption">Die Distanz zum nächstgelegenen Schutzgebiet für jeden Punkt im Kanton Schwyz”</figcaption><p></p>
 </figure>
 </div>
@@ -849,7 +912,7 @@ div.csl-indent {
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> strassen_klassen<span class="sc">$</span>bis) <span class="sc">+</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> strassen_klassen<span class="sc">$</span>zu)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tribble erstellt eine data.frame, </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># wir brauchen aber eine matrix</span></span>
@@ -866,7 +929,7 @@ div.csl-indent {
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(strassen) <span class="sc">+</span> </span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Bewerte auf die gleiche Art die Distanz zu den Schutzgebieten. Wir nutzen die Schwellwerte, wie sie in der der nachstehenden Tabelle ersichtlich ist. Du kannst diese aber frei wählen.</p>
@@ -931,7 +994,7 @@ div.csl-indent {
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(kt_schwyz) <span class="sc">+</span> </span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">lwd =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -944,7 +1007,7 @@ div.csl-indent {
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_1) <span class="sc">+</span> </span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -963,7 +1026,7 @@ div.csl-indent {
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_2) <span class="sc">+</span> </span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
