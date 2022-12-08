@@ -91,14 +91,11 @@ tmap_mode("plot")   # wechselt zurück auf statische Plots
 Mit `terra` können wir eine Vielzahl von Rasteroperationen über unser Höhenmodell laufen lassen. Eine klassische Rasteroperation ist zum Beispiel das Berechnen der Hangneigung ("slope") oder dessen Orientierung ("aspect"). Nutzen Sie die Funktion `terrain()` aus `terra` um die Hangneigung und Orientierung zu berechnen. Visualisieren Sie die Resultate.
 
 ```{r}
-#| echo: false
-
 terrain(dhm_schwyz, "slope") |>
  plot()
 ```
 
 ```{r}
-#| echo: false
 
 schwyz_aspect <- terrain(dhm_schwyz, "aspect")
 
@@ -124,7 +121,6 @@ Mit Hangneigung und -ausrichtung können wir einen *Hillshading*-Effekt berechne
 Um einen Hillshading Effekt zu erzeugen, berechne zuerst `slope` und `aspect` von `dhm_schwyz` analog der letzten Aufgabe, **achte aber darauf das die Einheit `radians` entspricht**. Nutze diese beiden Objekte in der Funktion `shade()` um den Hillshade zu berechnen. Visualisiere den Output anschliessend mit `plot` oder `tmap`.
 
 ```{r}
-#| echo: false
 #| fig-cap: Für diese Visualisierung verwende ich `tmap` und als colour palette *cividis*
 dhm_slope <- terrain(dhm_schwyz, "slope", unit = "radians")
 dhm_aspect <- terrain(dhm_schwyz, "aspect", unit = "radians")
