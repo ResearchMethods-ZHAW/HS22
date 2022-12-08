@@ -1355,28 +1355,28 @@
     "href": "rauman/Rauman4_Uebung_A.html#aufgabe-1",
     "title": "Rauman 4: Übung A",
     "section": "Aufgabe 1",
-    "text": "Aufgabe 1\nAls erster Schritt müssen wir jeden Baum mit einem 20m Puffer verstehen. Nutze dazu st_buffer um speichere den Output als baeume_20m. Schau dir baeume_20m nun genau an. Um welchen Geometrietyp handelt es sich dabei nun?\n\n\n\n\n\n\n\n\nAbbildung 55.1: Dargestellt sind die Bäume als Punkte mit einem 20m Puffer, sowie die Wiesen im Hintergrund."
+    "text": "Aufgabe 1\nAls erster Schritt müssen wir jeden Baum mit einem 20m Puffer verstehen. Nutze dazu st_buffer um speichere den Output als baeume_20m. Schau dir baeume_20m nun genau an. Um welchen Geometrietyp handelt es sich dabei nun?\n\nbaeume_20m <- st_buffer(baeume_sample, 20)\n\n\nggplot() +\n  geom_sf(data = wiesen) +\n  geom_sf(data = baeume_sample) +\n  geom_sf(data = baeume_20m, fill = NA)\n\n\n\n\nAbbildung 55.1: Dargestellt sind die Bäume als Punkte mit einem 20m Puffer, sowie die Wiesen im Hintergrund."
   },
   {
     "objectID": "rauman/Rauman4_Uebung_A.html#aufgabe-2",
     "href": "rauman/Rauman4_Uebung_A.html#aufgabe-2",
     "title": "Rauman 4: Übung A",
     "section": "Aufgabe 2",
-    "text": "Aufgabe 2\nBerechnen nun die Schnittmenge aus baeume_20m und wiesen mit der Funktion st_intersection und speichere den Output als baeume_wiesen. Exploriere nun baeume_wiesen. Was ist passiert? Überprüfe die Anzahl Zeilen pro Datensatz. Haben die sich verändert? Wenn ja, warum?"
+    "text": "Aufgabe 2\nBerechnen nun die Schnittmenge aus baeume_20m und wiesen mit der Funktion st_intersection und speichere den Output als baeume_wiesen. Exploriere nun baeume_wiesen. Was ist passiert? Überprüfe die Anzahl Zeilen pro Datensatz. Haben die sich verändert? Wenn ja, warum?\n\nbaeume_wiesen <- st_intersection(baeume_20m, wiesen) \n\nggplot() +\n  geom_sf(data = wiesen, fill = \"blue\", alpha = .2) +\n  geom_sf(data = baeume_20m, fill = \"red\", alpha = .2) +\n  geom_sf(data = baeume_wiesen, fill = \"green\", alpha = 0.2)"
   },
   {
     "objectID": "rauman/Rauman4_Uebung_A.html#aufgabe-3",
     "href": "rauman/Rauman4_Uebung_A.html#aufgabe-3",
     "title": "Rauman 4: Übung A",
     "section": "Aufgabe 3",
-    "text": "Aufgabe 3\nBerechnen nun die Flächengrösse pro Geometrie mit der Funktion st_area(). Speichere den Output in einer neuen Spalte von baeume_wiesen (z.B. mit dem Namen wiesen_flaeche). Tipp: Konvertiere den Output aus st_area in einen nummerischen Vektor mit as.numeric()."
+    "text": "Aufgabe 3\nBerechnen nun die Flächengrösse pro Geometrie mit der Funktion st_area(). Speichere den Output in einer neuen Spalte von baeume_wiesen (z.B. mit dem Namen wiesen_flaeche). Tipp: Konvertiere den Output aus st_area in einen nummerischen Vektor mit as.numeric().\n\nbaeume_wiesen$wiesen_flaeche <- as.numeric(st_area(baeume_wiesen))"
   },
   {
     "objectID": "rauman/Rauman4_Uebung_A.html#aufgabe-4-optional",
     "href": "rauman/Rauman4_Uebung_A.html#aufgabe-4-optional",
     "title": "Rauman 4: Übung A",
     "section": "Aufgabe 4 (Optional)",
-    "text": "Aufgabe 4 (Optional)\nBerechne nun aus wiesen_flaeche den wiesen_anteil. Tipp: 100% ist die Kreisfläche aus \\(r^2\\times \\pi\\), wobei in unserem Fall \\(r = 20\\) entspricht.\n\n\n\nÜberführe anschliessend die berechneten Anteilswerte in den Datensatz baeume mit einem left_join zwischen baeume und baeume_wiesen. Welche Spalte wäre für diesen Join geeignet? Hinweis: Nutze st_drop_geometry() um die Geometriespalte in baeme_wiesen vor dem Join zu entfernen.\n\n\n\n\n\nAbbildung 55.2: Nach dieser Übung kannst du das Resultat in dieser Weise visualisieren."
+    "text": "Aufgabe 4 (Optional)\nBerechne nun aus wiesen_flaeche den wiesen_anteil. Tipp: 100% ist die Kreisfläche aus \\(r^2\\times \\pi\\), wobei in unserem Fall \\(r = 20\\) entspricht.\n\nkreisflaeche <- 20^2*pi\nbaeume_wiesen$wiesen_anteil <- baeume_wiesen$wiesen_flaeche/kreisflaeche\n\nÜberführe anschliessend die berechneten Anteilswerte in den Datensatz baeume mit einem left_join zwischen baeume und baeume_wiesen. Welche Spalte wäre für diesen Join geeignet? Hinweis: Nutze st_drop_geometry() um die Geometriespalte in baeme_wiesen vor dem Join zu entfernen.\n\nbaeume_wiesen_df <- st_drop_geometry(baeume_wiesen)\n\nbaeume_2 <- left_join(baeume_sample, baeume_wiesen_df, by = \"baum_id\")\n\nggplot() +\n  geom_sf(data = wiesen) +\n  geom_sf(data = baeume_2, aes(colour = wiesen_anteil)) +\n  scale_color_binned(\"Wiesen Anteil\",low = \"blue\", high = \"red\", limits = c(0,1), label = scales::label_percent()) +\n  coord_sf(datum = 2056)\n\n\n\n\nAbbildung 55.2: Nach dieser Übung kannst du das Resultat in dieser Weise visualisieren."
   },
   {
     "objectID": "rauman/Rauman4_Uebung_A.html#sec-raster-intro1",
