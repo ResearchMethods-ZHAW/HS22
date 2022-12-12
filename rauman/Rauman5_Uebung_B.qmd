@@ -137,10 +137,12 @@ Als Auschlussgebiete gelten Fl√§chen, wo keine Windkraftanlagen gebaut werden k√
 
 ```{r}
 #| echo: true
-schutzgebiete <- read_sf(gpkg_path, "Nationale_Schutzgebiete")
-siedlungsgebiet <- read_sf(gpkg_path, "Bewohnte_Flaeche")
-wald <- read_sf(gpkg_path, "Waldgebiete")
-seen <- read_sf(gpkg_path, "Seeflaechen")
+schutzgebiete <- read_sf(gpkg_path, "Nationale_Schutzgebiete")  |> st_transform(2056)
+siedlungsgebiet <- read_sf(gpkg_path, "Bewohnte_Flaeche")  |> st_transform(2056)
+wald <- read_sf(gpkg_path, "Waldgebiete")  |> st_transform(2056)
+seen <- read_sf(gpkg_path, "Seeflaechen")  |> st_transform(2056)
+kt_schwyz <- read_sf(gpkg_path, "Untersuchungsgebiet_Schwyz")  |> st_transform(2056)
+
 ```
 
 
@@ -152,7 +154,8 @@ overlay_prelim_4 <- overlay_prelim_3 |>
   mask(schutzgebiete, inverse = TRUE) |>
   mask(siedlungsgebiet, inverse = TRUE) |>
   mask(wald, inverse = TRUE) |>
-  mask(seen, inverse = TRUE)
+  mask(seen, inverse = TRUE) |>
+  mask(kt_schwyz)
 
 tmap_mode("view")
 
