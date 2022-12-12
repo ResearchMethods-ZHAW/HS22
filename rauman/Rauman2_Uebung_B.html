@@ -707,7 +707,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-title">Rauman 2: Übung B</span></h1>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-title">Rauman 2: Übung B</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code zeigen</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code verbergen</a></li></ul></div></div>
 </div>
 
 
@@ -763,7 +763,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Nun könnt Ihr mit <code>my_idw()</code> den Datensatz <code>luftqualitaet</code> folgendermassen interpolieren.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">my_idw</span>(<span class="at">groundtruth =</span> luftqualitaet,<span class="at">column =</span> <span class="st">"value"</span>,<span class="at">cellsize =</span> <span class="dv">10000</span>, <span class="at">extent =</span> schweiz)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">my_idw</span>(<span class="at">groundtruth =</span> luftqualitaet, <span class="at">column =</span> <span class="st">"value"</span>, <span class="at">cellsize =</span> <span class="dv">10000</span>, <span class="at">extent =</span> schweiz)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Folgende Parameter stehen Euch zur Verfügung:</p>
 <ul>
@@ -793,15 +793,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="aufgabe-1-raeumliche-interpolation-mit-idw" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="aufgabe-1-raeumliche-interpolation-mit-idw">Aufgabe 1: Raeumliche Interpolation mit IDW</h3>
 <p>Rechnet so den IDW für die Luftqualitätsmessungen mit verschiedenen Parametern und visualisiert jeweils die Resultate. Experimentiert mit <code>nmax</code> sowie <code>maxdist</code>. Was stellt ihr fest?</p>
-<p>Tips: - Was für Distanzen bei <code>maxdist</code> Sinn machen, könnt ihr dem Output aus der G-Funktion (vorherige Übung) entnehmen - Wählt am Anfang eine etwas Konvervative (grosse) <code>cellsize</code> und verringert diesen nur wenn euer Rechner damit gut klar kommt - Da der Output aus der Interpolation im gleichen Koordinatenbezugssystem sind wie <code>schweiz.gpkg</code> kann man diese beiden Datensätze im gleichen <code>ggplot</code> darstellen. Dafür müsst ihr die <em>aesthetics</em> (<code>aes()</code>) für jeden Layer einzeln setzen, und nicht auf der Ebene von <code>ggplot()</code>.</p>
+<p>Tips:</p>
+<ul>
+<li>Was für Distanzen bei <code>maxdist</code> Sinn machen, könnt ihr dem Output aus der G-Funktion (vorherige Übung) entnehmen</li>
+<li>Wählt am Anfang eine etwas Konvervative (grosse) <code>cellsize</code> und verringert diesen nur wenn euer Rechner damit gut klar kommt</li>
+<li>Da der Output aus der Interpolation im gleichen Koordinatenbezugssystem sind wie <code>schweiz.gpkg</code> kann man diese beiden Datensätze im gleichen <code>ggplot</code> darstellen. Dafür müsst ihr die <em>aesthetics</em> (<code>aes()</code>) für jeden Layer einzeln setzen, und nicht auf der Ebene von <code>ggplot()</code>.</li>
+</ul>
 <div class="column-body">
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[inverse distance weighted interpolation]
-[inverse distance weighted interpolation]
-[inverse distance weighted interpolation]
-[inverse distance weighted interpolation]</code></pre>
-</div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="cf">function</span>(idp){</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  idw <span class="ot">&lt;-</span> <span class="fu">my_idw</span>(<span class="at">groundtruth =</span> luftqualitaet,<span class="at">column =</span> <span class="st">"value"</span>,<span class="at">cellsize =</span> <span class="dv">1000</span>, <span class="at">nmax =</span> <span class="cn">Inf</span>,<span class="at">maxdist =</span> <span class="cn">Inf</span>,<span class="at">idp =</span> idp,<span class="at">extent =</span> schweiz)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_raster</span>(<span class="at">data =</span> idw, <span class="fu">aes</span>(X,Y, <span class="at">fill =</span> pred)) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> schweiz, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> luftqualitaet, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">shape =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradientn</span>(<span class="at">colours =</span> <span class="fu">rev</span>(RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">11</span>,<span class="st">"RdYlBu"</span>)),<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">60</span>), <span class="at">na.value =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"μg/m3"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Inverse Distance Power (IDP):"</span>,idp)) <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="fl">0.10</span>, <span class="st">'npc'</span>),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.key.height =</span> <span class="fu">unit</span>(<span class="fl">0.02</span>, <span class="st">'npc'</span>))</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [inverse distance weighted interpolation]</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [inverse distance weighted interpolation]</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [inverse distance weighted interpolation]</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [inverse distance weighted interpolation]</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(<span class="at">plotlist =</span> plots)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"rauman/images/idw.png"</span>, <span class="at">height =</span> <span class="dv">18</span>, <span class="at">width =</span> <span class="dv">20</span>, <span class="at">units =</span> <span class="st">"cm"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-ggplot-ex1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -817,9 +844,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="aufgabe-2-interpolation-mit-nearest-neighbour">Aufgabe 2: Interpolation mit Nearest Neighbour</h3>
 <p>Eine weitere einfache Möglichkeit zur Interpolation bietet die Erstellung eines Voronoi-Diagrammes, auch als Thiessen-Polygone oder Dirichlet-Zerlegung bekannt. <code>sf</code> liefert dazu die Funktion <code>st_voronoi()</code>, die einen Punktdatensatz annimmt und eben um die Punkte die Thiessenpolygone konstruiert. Dazu braucht es lediglich einen kleinen Vorverarbeitungsschritt: <code>sf</code> möchte für jedes Feature, also für jede <em>Zeile</em> in unserem Datensatz, ein Voronoidiagramm. Das macht bei uns wenig Sinn, weil jede Zeile nur aus einem Punkt besteht. Deshalb müssen wir vorher <code>luftqualitaet</code> mit <code>st_union()</code> von einem <code>POINT</code> in ein <code>MULTIPOINT</code> Objekt konvertieren, in welchem alle Punkte in einer Zeile zusammengefasst sind.</p>
 <div class="cell">
+<details>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>luftqualitaet_union <span class="ot">&lt;-</span> <span class="fu">st_union</span>(luftqualitaet)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>thiessenpolygone <span class="ot">&lt;-</span> <span class="fu">st_voronoi</span>(luftqualitaet_union)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -832,9 +862,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>für die Thiessen-Polygone machen wir genau das Umgekehrte: <code>st_voronoi()</code> liefert ein einzelnes Feature mit allen Polygonen, welches sich nicht gerne clippen lässt. Mit <code>st_cast()</code> wird die <code>GEOMETRYCOLLECTION</code> in Einzelpolygone aufgeteilt.</li>
 </ol>
 <div class="cell">
+<details>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>thiessenpolygone <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(thiessenpolygone)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>thiessenpolygone_clip <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(thiessenpolygone,schweiz)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -843,10 +876,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Jetzt müssen wir nur noch den jeweiligen Wert für jedes Polygon ermitteln. Dies erreichen wir wieder durch <code>st_join</code>. Auch hier ist noch ein <em>kleiner</em> Vorverarbeitungsschritt nötig: Wir konvertieren das <code>sfc</code> Objekt (nur Geometrien) in ein <code>sf</code> Objekt (Geometrien mit Attributtabelle).</p>
 <div class="cell">
+<details>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>thiessenpolygone_clip <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(thiessenpolygone_clip)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>thiessenpolygone_clip <span class="ot">&lt;-</span> <span class="fu">st_join</span>(thiessenpolygone_clip,luftqualitaet)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
+<details>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> schweiz) <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> thiessenpolygone_clip, <span class="fu">aes</span>(<span class="at">fill =</span> value)) <span class="sc">+</span></span>
@@ -856,6 +894,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="fl">0.10</span>, <span class="st">'npc'</span>),</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.key.height =</span> <span class="fu">unit</span>(<span class="fl">0.02</span>, <span class="st">'npc'</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-ggplot-ex2-final" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">

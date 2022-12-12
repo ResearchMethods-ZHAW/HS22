@@ -714,7 +714,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-title">Rauman 3: Übung</span></h1>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-title">Rauman 3: Übung</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code zeigen</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code verbergen</a></li></ul></div></div>
 </div>
 
 
@@ -736,14 +736,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>Heute berechnen wir Morans <span class="math inline">\(I\)</span>, also ein globales Mass für Autokorrelation, für die Abstimmungsresultate der Zweitwohnungsinitiative. Dieser Wert beschreibt, ob Kantone, die nahe beieinander liegen, ähnliche Abstimmungswerte haben. Hierfür verwenden wir den Datensatz <a href="https://moodle.zhaw.ch/mod/resource/view.php?id=602283">zweitwohnungsinitiative.gpkg</a>.</p>
-<p>Das Geopackage beinhaltet 3 Layers (siehe <code>st_layers(zweitwohnung_kanton)</code>). In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene aggregiert. Wir started mit der Aggregationsstufe “kanton”</p>
+<p>Das Geopackage beinhaltet 3 Layers (siehe <code>st_layers(zweitwohnung_kanton)</code>). In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene aggregiert. Wir started mit der Aggregationsstufe “kanton”.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>zweitwohnung_kanton <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/zweitwohnungsinitiative.gpkg"</span>, <span class="st">"kanton"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>zweitwohnung_kanton <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/zweitwohnungsinitiative.gpkg"</span>, <span class="st">"kanton"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(zweitwohnung_kanton) <span class="sc">+</span></span>
@@ -789,12 +788,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[I = \frac{\color{red}n}{\sum_{i=1}^{\color{orange}n} (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^{\color{orange}n}  w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^{\color{orange}n}  w_{ij}}\]</span></p>
 <p>Beginnen wir mit der Variabel <span class="math inline">\(n\)</span>, bzw. der Variabel <code>zaehler1</code> (rot in der obigen Formel). Dies ist lediglich die Anzahl Messwerte in unserem Datensatz, also die Anzahl Kantone. Wir merken uns <code>n</code> vor, da wir diese noch mehrmals in der Formel antreffen werden (orange).</p>
 <div class="cell">
+<details>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(zweitwohnung_kanton)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 26</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>zaehler1 <span class="ot">&lt;-</span> n</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 26</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>zaehler1 <span class="ot">&lt;-</span> n</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="abweichung-vom-mittelwert-nenner1" class="level3">
@@ -804,29 +805,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Den Mittleren Ja-Stimmen-Anteil aller Kantone vom Ja-Stimmen-Anteil des jeweiligen Kantons abziehen und das Resultat quadrieren.</em></p>
 <p>Dafür erstellen wir als erstes die Variabel <code>y</code>, sowie ein Vektor der Länge 26 (Anzahl Kantone) um die Resultate zu speichern (hier: <code>result</code>)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> zweitwohnung_kanton<span class="sc">$</span>ja_in_percent</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir erstellen ein Vector der länge 26 (1 pro Kanton) </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># um die Resultate zu speichern.</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>resultat <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="at">length =</span> n)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># jetzt können wir den For Loop ausführen</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  resultat[i] <span class="ot">&lt;-</span> (y[i]<span class="sc">-</span><span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> zweitwohnung_kanton<span class="sc">$</span>ja_in_percent</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir erstellen ein Vector der länge 26 (1 pro Kanton) </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># um die Resultate zu speichern.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>resultat <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="at">length =</span> n)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># jetzt können wir den For Loop ausführen</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  resultat[i] <span class="ot">&lt;-</span> (y[i]<span class="sc">-</span><span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>resultat</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 0.0008726497 0.0029255763 0.0004834762 0.0121020552 0.0045148421</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6] 0.0065361452 0.0057467371 0.0001244131 0.0021889669 0.0001613522</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [11] 0.0044765772 0.0172266246 0.0052080053 0.0060126495 0.0041475008</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [16] 0.0007085313 0.0005014960 0.0046799162 0.0001270748 0.0010402720</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [21] 0.0012336230 0.0011046664 0.0536451330 0.0033645831 0.0043781582</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [26] 0.0019028888</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Nach der Durchführung aller Iterationen, haben wir 26 Einzelwerte, die wir Summieren müssen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>resultat</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 0.0008726497 0.0029255763 0.0004834762 0.0121020552 0.0045148421
- [6] 0.0065361452 0.0057467371 0.0001244131 0.0021889669 0.0001613522
-[11] 0.0044765772 0.0172266246 0.0052080053 0.0060126495 0.0041475008
-[16] 0.0007085313 0.0005014960 0.0046799162 0.0001270748 0.0010402720
-[21] 0.0012336230 0.0011046664 0.0536451330 0.0033645831 0.0043781582
-[26] 0.0019028888</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nenner1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nenner1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -842,14 +848,14 @@ Für aufmerksame
 <div class="callout-body-container callout-body">
 <p>Da R per Default vektorisiert funktioniert, ist der obige For Loop streng genommen nicht nötig, wir verwenden ihn aber für didaktische Zwecke. Alternativ ginge die Berechnung von <code>nenner1</code> auch folgendermassen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Von jedem Wert den Durchschnittswert abziehen:</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dy <span class="ot">&lt;-</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Diese Werte müssen wir quadrieren:</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>dy_squared <span class="ot">&lt;-</span> dy<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Und danach die Summe bilden:</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>nenner1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(dy_squared, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Von jedem Wert den Durchschnittswert abziehen:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dy <span class="ot">&lt;-</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Diese Werte müssen wir quadrieren:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>dy_squared <span class="ot">&lt;-</span> dy<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Und danach die Summe bilden:</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>nenner1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(dy_squared, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -869,34 +875,39 @@ Für aufmerksame
 </ol>
 <p>Für beide Optionen gibt es eine implementation im Package <code>sf</code>. <code>st_touches</code> prüft zwischen allen Kantonen, ob sie sich berühren. Mit der Option <code>sparse = TRUE</code> wird eine Kreuzmatrix mit 26 Zeilen und 26 Spalten erstellt, wo jeder Kanton mit jedem anderen verglichen wird. Berühren sie sich, steht in der entsprechenden Stelle der Wert <code>TRUE</code>, was in R gleichbedeutend ist wie 1. Berühren sie sich <em>nicht</em>, steht der Wert <code>FALSE</code>, was gleichbedeutend ist wie 0. Das gleiche gilt für die Funktion <code>st_is_within_distance()</code> wobei dort zusätzlich noch der Distanzparameter angegeben werden muss.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># st_touches berechnet eine Kreuzmatrix aller Objekte</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">st_touches</span>(zweitwohnung_kanton, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Schauen wir uns die ersten 5 Reihen und Zeilen an</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>w[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      [,1]  [,2]  [,3]  [,4]  [,5]
-[1,] FALSE FALSE FALSE FALSE  TRUE
-[2,] FALSE FALSE  TRUE  TRUE FALSE
-[3,] FALSE  TRUE FALSE FALSE  TRUE
-[4,] FALSE  TRUE FALSE FALSE  TRUE
-[5,]  TRUE FALSE  TRUE  TRUE FALSE</code></pre>
-</div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># st_touches berechnet eine Kreuzmatrix aller Objekte</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">st_touches</span>(zweitwohnung_kanton, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Schauen wir uns die ersten 5 Reihen und Zeilen an</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>w[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">##       [,1]  [,2]  [,3]  [,4]  [,5]</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] FALSE FALSE FALSE FALSE  TRUE</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] FALSE FALSE  TRUE  TRUE FALSE</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] FALSE  TRUE FALSE FALSE  TRUE</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] FALSE  TRUE FALSE FALSE  TRUE</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,]  TRUE FALSE  TRUE  TRUE FALSE</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>In der obigen Matrix ist ersichtlich, dass sich der erste Kanton (erste Zeile) den fünften Kanton (fünfte Spalte) berührt. Um zu überprüfen ob das stimmt, können wir die Namen dieser beiden Kantone aus der Spalte <code>KANTONSNAME</code> herauslesen und mit unseren Geografiekentnissen abgleichen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>zweitwohnung_kanton<span class="sc">$</span>KANTONSNAME[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>)]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Zürich" "Schwyz"</code></pre>
-</div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>zweitwohnung_kanton<span class="sc">$</span>KANTONSNAME[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>)]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Zürich" "Schwyz"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Der erste Kanton ist Zürich, der fünfte Schwyz, das scheint also Sinn zu stimmen. Challenge: Erstelle einen Plot mit allen Kantone, die den Kanton Zürich berühren. Tipp: Nutze dafür <code>w[1,]</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>beruehrt_1 <span class="ot">&lt;-</span> w[<span class="dv">1</span>, ]</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(zweitwohnung_kanton[beruehrt_1, ]) <span class="sc">+</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> KANTONSNAME)) <span class="sc">+</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Welche Kanton berühren den Kanton Zürich (st_touches)"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>beruehrt_1 <span class="ot">&lt;-</span> w[<span class="dv">1</span>, ]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(zweitwohnung_kanton[beruehrt_1, ]) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> KANTONSNAME)) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Welche Kanton berühren den Kanton Zürich (st_touches)"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -907,15 +918,18 @@ Für aufmerksame
 <p><span class="math display">\[I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{{\color{orange}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{{\color{red}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}}\]</span></p>
 <p>Nun können wir das doppelte Summenzeichen auflösen. Genau wie bei einem einfachen Summenzeichen handelt es sich hier um <em>For Loop</em>, diesmal aber um zwei ineinnader verschachtelte <em>For Loops</em>. Der äussere <em>For loop</em> (<span class="math inline">\(\sum_{i=1}^n\)</span>) iteriert von <code>1</code> bis <code>n</code> mit der Variabel <code>i</code>. Der innere <em>For loop</em> (<span class="math inline">\(\sum_{j=1}^n\)</span>) iteriert von <code>1</code> bis <code>n</code> mit der Variabel <code>j</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>resultat_aussen <span class="ot">&lt;-</span> <span class="fu">integer</span>(<span class="at">length =</span> n)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  resultat_innen <span class="ot">&lt;-</span> <span class="fu">integer</span>(<span class="at">length =</span> n)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    resultat_innen[j] <span class="ot">&lt;-</span> w[i, j]</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  resultat_aussen[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_innen)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>nenner2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_aussen)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>resultat_aussen <span class="ot">&lt;-</span> <span class="fu">integer</span>(<span class="at">length =</span> n)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  resultat_innen <span class="ot">&lt;-</span> <span class="fu">integer</span>(<span class="at">length =</span> n)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    resultat_innen[j] <span class="ot">&lt;-</span> w[i, j]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  resultat_aussen[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_innen)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>nenner2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_aussen)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 </section>
@@ -924,29 +938,34 @@ Für aufmerksame
 <p><span class="math display">\[I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\color{red}\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}\]</span></p>
 <p>Jetzt haben wir das fehlende Puzzelstück für die Berechnung von <code>zaehler2</code>. Challenge: Nutze die matrix <code>w</code> in dem verschachtelten For Loop aus <a href="#sec-doppeltes-summenzeichen"><span>Kapitel&nbsp;54.1.3.2</span></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>resultat_aussen <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="at">length =</span> n)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  resultat_innen <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="at">length =</span> n)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    resultat_innen[j] <span class="ot">&lt;-</span> w[i,j] <span class="sc">*</span> (y[i]<span class="sc">-</span><span class="fu">mean</span>(y))<span class="sc">*</span>(y[j]<span class="sc">-</span><span class="fu">mean</span>(y))</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  resultat_aussen[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_innen)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>zaehler2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_aussen)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>resultat_aussen <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="at">length =</span> n)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  resultat_innen <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="at">length =</span> n)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    resultat_innen[j] <span class="ot">&lt;-</span> w[i,j] <span class="sc">*</span> (y[i]<span class="sc">-</span><span class="fu">mean</span>(y))<span class="sc">*</span>(y[j]<span class="sc">-</span><span class="fu">mean</span>(y))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  resultat_aussen[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_innen)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>zaehler2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_aussen)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="auflösung-der-formel" class="level3">
 <h3 class="anchored" data-anchor-id="auflösung-der-formel">Auflösung der Formel</h3>
 <p>Nun haben wir alle Bestandteile von Morans <span class="math inline">\(I\)</span> Berechnet und müssen diese nur noch Zusammenrechnen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>MI_kantone <span class="ot">&lt;-</span> zaehler1<span class="sc">/</span>nenner1 <span class="sc">*</span> zaehler2<span class="sc">/</span>nenner2</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>MI_kantone</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3148631</code></pre>
-</div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>MI_kantone <span class="ot">&lt;-</span> zaehler1<span class="sc">/</span>nenner1 <span class="sc">*</span> zaehler2<span class="sc">/</span>nenner2</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>MI_kantone</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.3148631</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Der Global Morans <span class="math inline">\(I\)</span> für die Abstimmungsdaten beträgt auf Kantonsebene also 0.31. Wie interpretiert ihr dieses Resultate? Was erwartet ihr für eine Resultat auf Gemeinde- oder Bezirksebene?</p>
 </section>

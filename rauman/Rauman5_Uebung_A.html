@@ -729,7 +729,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-title">Rauman 5: Übung A</span></h1>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-title">Rauman 5: Übung A</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code zeigen</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code verbergen</a></li></ul></div></div>
 </div>
 
 
@@ -853,7 +853,26 @@ div.csl-indent {
 <p>Importiere die benötigten Vektordatensätze und exploriere die Daten. Zur Visualisierung könnt ihr die Funktionen <code>plot</code> oder die Packages <code>tmap</code> oder <code>ggplot2</code> verwenden.</p>
 <p>Schau dir auch das Koordinatensystem an. Was fällt dir auf? Wir würden gerne mit dem neuen Schweizer Koordinatensystem arbeiten (LV95). Um ein Koordinatensystem umzuwandeln benutze die Funktion <code>st_transform()</code>.</p>
 <div class="cell">
-
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gpkg_path  <span class="ot">&lt;-</span> <span class="st">"datasets/rauman/windkraft_geodata.gpkg"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Vector data</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_layers</span>(gpkg_path)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Driver: GPKG </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Available layers:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">##                   layer_name     geometry_type features fields      crs_name</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1           Bewohnte_Flaeche     Multi Polygon      326      1 CH1903 / LV03</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2    Nationale_Schutzgebiete     Multi Polygon        1      1 CH1903 / LV03</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 3                Seeflaechen     Multi Polygon      205      5 CH1903 / LV03</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 4                   Strassen Multi Line String    28682     13 CH1903 / LV03</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Untersuchungsgebiet_Schwyz     Multi Polygon        1      1 CH1903 / LV03</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 6                Waldgebiete     Multi Polygon     5580      3 CH1903 / LV03</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>kt_schwyz <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(gpkg_path, <span class="st">"Untersuchungsgebiet_Schwyz"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="dv">2056</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>schutzgebiete <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(gpkg_path, <span class="st">"Nationale_Schutzgebiete"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="dv">2056</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>strassen <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(gpkg_path, <span class="st">"Strassen"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="dv">2056</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="sec-raster-distance" class="level2 page-columns page-full">
@@ -861,14 +880,23 @@ div.csl-indent {
 <p>Beginnen wir mit dem Kriterium “Erschliessung”. Wir müssen für den ganzen Kanton Schwyz wissen, wie weit die nächste Strasse entfernt ist. Wie wir bereits in <a href="Rauman4_Uebung_A.html#sec-raster-intro1"><span>Kapitel&nbsp;55.5</span></a> erläutert haben, lässt sich diese Information am besten in einem Raster abbilden.</p>
 <p>Analog <a href="Rauman4_Uebung_A.html#sec-raster-intro1"><span>Kapitel&nbsp;55.5</span></a> müssen wir hierfür den Vektordatensatz auf der Basis eines Templates in ein Raster konvertieren. Für die Erstellung des Templates verwenden wir an dieser Stelle die Kantonsgrenze vom Kanton Schwyz.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Template mit der Ausdehnung und dem CRS vom Kt. kt_schwyz</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellen, und mit einer Auflösung on 250m</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>template <span class="ot">&lt;-</span> <span class="fu">rast</span>(kt_schwyz, <span class="at">resolution =</span> <span class="dv">250</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>strassen_raster <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(strassen, template)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>strassen_dist <span class="ot">&lt;-</span> <span class="fu">distance</span>(strassen_raster)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Template mit der Ausdehnung und dem CRS vom Kt. kt_schwyz</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># erstellen, und mit einer Auflösung on 250m</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>template <span class="ot">&lt;-</span> <span class="fu">rast</span>(kt_schwyz, <span class="at">resolution =</span> <span class="dv">250</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>strassen_raster <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(strassen, template)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>strassen_dist <span class="ot">&lt;-</span> <span class="fu">distance</span>(strassen_raster)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Nutze der obige Code um den Wald Datensatz zu rasterisieren und die Distanz zum Wald mit der Funktion <code>distance()</code> zu berechnen. Plausibilisiere den Output indem du ihn visualisierst.</p>
+<div class="page-columns page-full">
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strassen_raster, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(strassen_dist)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell column-page quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -889,7 +917,17 @@ div.csl-indent {
 </div>
 </div>
 </div>
+</div>
 <p>Führe nun die gleiche Operation durch um die Entfernung zu nationalen Schutzgebieten zu ermitteln.</p>
+<div class="page-columns page-full">
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>schutzgebiete_raster <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(schutzgebiete, template)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>schutzgebiete_dist <span class="ot">&lt;-</span> <span class="fu">distance</span>(schutzgebiete_raster)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(schutzgebiete_raster, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(schutzgebiete_dist)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell column-page quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -910,6 +948,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="sec-classify1" class="level2">
 <h2 class="anchored" data-anchor-id="sec-classify1">Aufgabe 3: Distanzkriterien Bewerten</h2>
@@ -917,45 +956,70 @@ div.csl-indent {
 <p>Hierfür brauchen wir die Function <code>classify()</code>. Wie wir aus der Dokumentation der Funktion (mit <code>?classify</code>) entnehmen können, gibt es verschiedene Wege wie wir einen Raster Reklassifizieren können (siehe Beschreibung für das Argument <code>rcl</code>). Eine sehr explizite Variante ist, dass wir für <code>rcl</code> eine Matrix mit 3 Spalten verwenden. Diese drei Spalte stellen <em>from</em>, <em>to</em> und <em>becomes</em> dar.</p>
 <p>Wir könnten diese Tabelle in einem Spreadsheet-Programm schreiben und in R einlesen. Alternativ können wir sie auch “von Hand” in R erstellen. Um in R tabellarische Daten zu schreiben empfehlen wir die Funktion <code>tribble()</code>, welche eine sehr anschauliche Art bietet, Tabellen in R zu generieren.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>strassen_klassen <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>von, <span class="sc">~</span>bis, <span class="sc">~</span>zu,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>     <span class="dv">0</span>,  <span class="dv">250</span>, <span class="fl">1.0</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   <span class="dv">250</span>,  <span class="dv">500</span>, <span class="fl">0.8</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>   <span class="dv">500</span>,  <span class="dv">750</span>, <span class="fl">0.6</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   <span class="dv">750</span>, <span class="dv">1000</span>, <span class="fl">0.4</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1000</span>, <span class="dv">1250</span>, <span class="fl">0.2</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1250</span>,  <span class="cn">Inf</span>, <span class="fl">0.0</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit geom_rect können wir unsere Distanz klassen visualisieren</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(strassen_klassen, <span class="fu">aes</span>(<span class="at">xmin =</span> von, <span class="at">xmax =</span> bis, <span class="at">ymax =</span> zu, <span class="at">fill =</span> zu)) <span class="sc">+</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">ymin =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> strassen_klassen<span class="sc">$</span>bis) <span class="sc">+</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> strassen_klassen<span class="sc">$</span>zu)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>strassen_klassen <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>von, <span class="sc">~</span>bis, <span class="sc">~</span>zu,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>     <span class="dv">0</span>,  <span class="dv">250</span>, <span class="fl">1.0</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>   <span class="dv">250</span>,  <span class="dv">500</span>, <span class="fl">0.8</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>   <span class="dv">500</span>,  <span class="dv">750</span>, <span class="fl">0.6</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>   <span class="dv">750</span>, <span class="dv">1000</span>, <span class="fl">0.4</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1000</span>, <span class="dv">1250</span>, <span class="fl">0.2</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1250</span>,  <span class="cn">Inf</span>, <span class="fl">0.0</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit geom_rect können wir unsere Distanz klassen visualisieren</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(strassen_klassen, <span class="fu">aes</span>(<span class="at">xmin =</span> von, <span class="at">xmax =</span> bis, <span class="at">ymax =</span> zu, <span class="at">fill =</span> zu)) <span class="sc">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">ymin =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> strassen_klassen<span class="sc">$</span>bis) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> strassen_klassen<span class="sc">$</span>zu)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tribble erstellt eine data.frame, </span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># wir brauchen aber eine matrix</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>strassen_klassen <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(strassen_klassen)  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tribble erstellt eine data.frame, </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># wir brauchen aber eine matrix</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>strassen_klassen <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(strassen_klassen)  </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Jetzt wo wir diese Matrix haben, können wir sie nutzen um den Kanton Schwyz hinsichtlich der Distanz zum Wald zu bewerten. Dafür verwenden wir die Funktion <code>classify()</code> mit dem Argument <code>include.lowest = TRUE</code> damit eine Distanz von 0m ebenfalls in 1 reklassifiziert wird.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>strassen_classify <span class="ot">&lt;-</span> <span class="fu">classify</span>(strassen_dist, strassen_klassen,  <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung des Resultats</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(strassen_classify) <span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>) <span class="sc">+</span> </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">legend.outside =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(strassen) <span class="sc">+</span> </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>strassen_classify <span class="ot">&lt;-</span> <span class="fu">classify</span>(strassen_dist, strassen_klassen,  <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung des Resultats</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(strassen_classify) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>) <span class="sc">+</span> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">legend.outside =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(strassen) <span class="sc">+</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Bewerte auf die gleiche Art die Distanz zu den Schutzgebieten. Wir nutzen die Schwellwerte, wie sie in der der nachstehenden Tabelle ersichtlich ist. Du kannst diese aber frei wählen.</p>
 <div class="cell">
-
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>schutzgebiete_klassen <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>von, <span class="sc">~</span>bis, <span class="sc">~</span>zu,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     <span class="dv">0</span>,  <span class="dv">250</span>, <span class="fl">0.0</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>   <span class="dv">250</span>,  <span class="dv">500</span>, <span class="fl">0.2</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>   <span class="dv">500</span>,  <span class="dv">750</span>, <span class="fl">0.4</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>   <span class="dv">750</span>, <span class="dv">1000</span>, <span class="fl">0.6</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1000</span>, <span class="dv">1250</span>, <span class="fl">0.8</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1250</span>,  <span class="cn">Inf</span>, <span class="fl">1.0</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>schutzgebiete_klassen <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(schutzgebiete_klassen)  </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>schutzgebiete_classify <span class="ot">&lt;-</span> <span class="fu">classify</span>(schutzgebiete_dist, schutzgebiete_klassen)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -1008,12 +1072,15 @@ div.csl-indent {
 <p>Wir haben zwar erst zwei der Kriterien berechnet, die wir für unsere Standortsuche berücksichtigen wollen, doch mit denen können wir schon mal eine erste, unvollständige Beurteilung wagen.</p>
 <p>Weil wir für alle Raster das gleiche Template verwendet haben, sind diese perfekt aneinander ausgerichtet. So können wir auf die denkbar einfachste Art die einezelnen Zellen miteinander verrechnen. Auf folgende Weise können wir beispielsweise den Mittlwert pro Zelle berechnen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>overlay_prelim_1 <span class="ot">&lt;-</span> (strassen_classify <span class="sc">+</span> schutzgebiete_classify)<span class="sc">/</span><span class="dv">2</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_1) <span class="sc">+</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(kt_schwyz) <span class="sc">+</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">lwd =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>overlay_prelim_1 <span class="ot">&lt;-</span> (strassen_classify <span class="sc">+</span> schutzgebiete_classify)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_1) <span class="sc">+</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(kt_schwyz) <span class="sc">+</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">lwd =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1023,10 +1090,13 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="sec-rauman5-mask">Aufgabe 5: Mask raster</h2>
 <p>Im letzten Plot fällt auf, dass wir auch eine Bewertung für Gebiete ausserhalb des Untersuchungsgebiets haben. Da wir für diese Gebiete keine Geodaten verwendet haben, sind die Resultate ausserhalb des Untersuchungsgebiets nicht gültig. Deshalb ist es sinnvoll, die Werte ausserhalb des Untersuchungsgebeits zu entfernen. Dafür verwenden wir die Funktion <code>mask()</code> zusammen mit dem Vektordatensatz <code>kt_schwzy</code>. Diese setzt alle Werte ausserhalb des Polygons zu <code>NA</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>overlay_prelim_1 <span class="ot">&lt;-</span> <span class="fu">mask</span>(overlay_prelim_1, kt_schwyz)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_1) <span class="sc">+</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>overlay_prelim_1 <span class="ot">&lt;-</span> <span class="fu">mask</span>(overlay_prelim_1, kt_schwyz)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_1) <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>) </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1036,16 +1106,19 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="sec-raster-overlay1b">Aufgabe 6: Weighted Raster Overlay</h2>
 <p>In im obigen Raster Overlay haben wir alle Kriterien gleich stark gewichtet. Wir können aber auch eine gewichtete Verschneidung durchführen: Wenn wir beispielsweise die Distanz zu den Strassen stärker gewichten wollen als die Distanz zu den Schutzgebieten. Auch das ist sehr einfach:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir dividieren durch die Summe der Gewichte, </span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># um wieder Werte zwischen 0 und 1 zu erhalten.</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>overlay_prelim_2 <span class="ot">&lt;-</span> (strassen_classify<span class="sc">*</span><span class="dv">5</span> <span class="sc">+</span> schutzgebiete_classify<span class="sc">*</span><span class="dv">1</span>)<span class="sc">/</span>(<span class="dv">5</span><span class="sc">+</span><span class="dv">1</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultate ausserhalb des Kantons entfernen:</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>overlay_prelim_2 <span class="ot">&lt;-</span> <span class="fu">mask</span>(overlay_prelim_2, kt_schwyz)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultate visualisieren:</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_2) <span class="sc">+</span> </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir dividieren durch die Summe der Gewichte, </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># um wieder Werte zwischen 0 und 1 zu erhalten.</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>overlay_prelim_2 <span class="ot">&lt;-</span> (strassen_classify<span class="sc">*</span><span class="dv">5</span> <span class="sc">+</span> schutzgebiete_classify<span class="sc">*</span><span class="dv">1</span>)<span class="sc">/</span>(<span class="dv">5</span><span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultate ausserhalb des Kantons entfernen:</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>overlay_prelim_2 <span class="ot">&lt;-</span> <span class="fu">mask</span>(overlay_prelim_2, kt_schwyz)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultate visualisieren:</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_2) <span class="sc">+</span> </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Rauman5_Uebung_A_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>

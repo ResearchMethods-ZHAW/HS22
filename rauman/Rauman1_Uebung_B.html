@@ -707,7 +707,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Rauman 1: Übung B</span></h1>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Rauman 1: Übung B</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code zeigen</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code verbergen</a></li></ul></div></div>
 </div>
 
 
@@ -744,21 +744,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
   automatically selected the first layer in a data source containing more than one.</code></pre>
 <p>Diese Warnmeldung weist darauf hin, dass das Geopackage <code>gruental.gpkg</code> mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl <code>st_layers</code> die Layer Namen in Erfahrung und nutze diese im Anschluss in <code>st_read</code> (als Argument <code>layer =</code>) um die layers einzeln zu importieren und in variablen zu speichern (zB in als Variable <code>wiesen</code> und <code>baeume</code>).</p>
+<div class="cell">
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_layers</span>(<span class="st">"datasets/rauman/gruental.gpkg"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Driver: GPKG </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Available layers:</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   layer_name geometry_type features fields       crs_name</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     wiesen       Polygon       37      1 CH1903+ / LV95</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     baeume         Point      185      2 CH1903+ / LV95</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>wiesen <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/gruental.gpkg"</span>, <span class="st">"wiesen"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>baeume <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/gruental.gpkg"</span>, <span class="st">"baeume"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="aufgabe-2-datensätze-erkunden" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="aufgabe-2-datensätze-erkunden">Aufgabe 2: Datensätze erkunden</h3>
 <p>Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Visualisierungsmöglichkeiten von <code>ggplot</code> (insbesondere <code>geom_sf</code>). Du kannst mehrere <code>geom_sf()</code> übereinander lagern, um gleichzeitig mehrere Datensätze darzustellen.</p>
 <div class="page-columns page-full">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(wiesen) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> flaechen_typ)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> baeume) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(wiesen) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> baeume, <span class="fu">aes</span>(<span class="at">colour =</span> baum_typ)) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(wiesen) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> flaechen_typ)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> baeume) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(wiesen) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> baeume, <span class="fu">aes</span>(<span class="at">colour =</span> baum_typ)) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell column-page quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -786,10 +802,13 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
 <p>Wir wollen nun für jeden <em>Baum</em> wissen, ob er sich in einer Wiese befindet oder nicht. Dazu nutzen wir die GIS-Technik <em>Spatial Join</em>, die in der Vorlesung beschrieben wurde. In <code>sf</code> können wir Spatial Joins mit der Funktion <code>st_join</code> durchführen, dabei gibt es nur <code>left</code> sowie <code>inner</code>-Joins (vgl. PrePro 1 &amp; 2). So müssen die Punkte “Links”, also an erste Stelle aufgeführt werden, da wir ja Attribute <em>an</em> die Punkte anheften wollen.</p>
 <p>Beachte, dass der Output eine neue Spalte <code>flaechen_typ</code> aufweist. Diese ist leer (<code>NA</code>) wenn sich der entsprechende Baum nicht in einer Wiese befindet. Wie viele Bäume befinden sich in einer Wiese, wie viele nicht?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>baeume_join <span class="ot">&lt;-</span> <span class="fu">st_join</span>(baeume, wiesen) </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>anzahl_in_wiese <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(baeume_join<span class="sc">$</span>flaechen_typ))</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>anzahl_nicht_in_wiese <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(baeume_join<span class="sc">$</span>flaechen_typ))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>baeume_join <span class="ot">&lt;-</span> <span class="fu">st_join</span>(baeume, wiesen) </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>anzahl_in_wiese <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(baeume_join<span class="sc">$</span>flaechen_typ))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>anzahl_nicht_in_wiese <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(baeume_join<span class="sc">$</span>flaechen_typ))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 
 
