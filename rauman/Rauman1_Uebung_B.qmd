@@ -4,7 +4,13 @@ lesson: RaumAn1
 thema: Spatial Joins
 index: 2
 execute: 
-  echo: true
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true  
 ---
 
 # Rauman 1: Übung B {#sec-rauman1b}
@@ -13,21 +19,19 @@ Für die kommende Übung arbeiten wir mit nachstehendem Datensatz: [gruental.gpk
 
 ```{r}
 #| echo: true
+#| code-fold: false
 
 library(dplyr)
 library(sf)
 library(ggplot2)
 ```
 
-
 ```{r}
 #| echo: false
 #| output: false
 
-
 read_sf("datasets/rauman/gruental.gpkg")
 ```
-
 
 ### Aufgabe 1: Geopackage "Layers"
 
@@ -42,7 +46,7 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
 Diese Warnmeldung weist darauf hin, dass das Geopackage `gruental.gpkg` mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl `st_layers` die Layer Namen in Erfahrung und nutze diese im Anschluss in `st_read` (als Argument `layer = `) um die layers einzeln zu importieren und in variablen zu speichern (zB in als Variable `wiesen` und `baeume`).
 
 ```{r}
-#| include: false
+#| echo: true
 st_layers("datasets/rauman/gruental.gpkg")
 
 wiesen <- read_sf("datasets/rauman/gruental.gpkg", "wiesen")
@@ -60,19 +64,16 @@ Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Vi
 #| fig.cap:
 #| - Wiesen-Flächen eingefärbt nach Typ
 #| - Bäume eingefärbt nach Baumtyp
-#| 
 
 ggplot(wiesen) +
   geom_sf(aes(fill = flaechen_typ)) +
   geom_sf(data = baeume) +
   theme_void()
 
-
 ggplot(wiesen) +
   geom_sf() +
   geom_sf(data = baeume, aes(colour = baum_typ)) +
   theme_void()
-
 ```
 
 ### Aufgabe 3:  Spatial Join mit Punkten {#sec-spatial-join-points}
@@ -87,5 +88,3 @@ baeume_join <- st_join(baeume, wiesen)
 anzahl_in_wiese <- sum(!is.na(baeume_join$flaechen_typ))
 anzahl_nicht_in_wiese <- sum(is.na(baeume_join$flaechen_typ))
 ```
-
-

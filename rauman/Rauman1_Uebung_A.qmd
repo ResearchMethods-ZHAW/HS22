@@ -4,7 +4,13 @@ lesson: RaumAn1
 thema: Einführung
 index: 1
 execute: 
-  echo: true
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true  
 ---
 
 # Rauman 1: Übung A
@@ -15,6 +21,7 @@ Für die kommenden Übungen könnt ihr folgende Packages installieren bzw. laden
 
 ```{r}
 #| echo: true
+#| code-fold: false
 
 library(sf)
 library(dplyr)
@@ -32,6 +39,8 @@ Es handelt sich um Geodatensätze im Format Geopackage ("\*.gpkg"), eine alterna
 
 ```{r}
 #| echo: true
+#| code-fold: false
+
 kantone <- read_sf("datasets/rauman/kantone.gpkg")
 gemeinden <- read_sf("datasets/rauman/gemeinden.gpkg") 
 ```
@@ -49,6 +58,7 @@ Eine sehr einfache Möglichkeit, `sf`-Objekte zu visualiseren ist die base-R Fun
 
 ```{r}
 #| echo: true
+#| code-fold: false
 
 # ohne max.plot = 1 macht R einen Plot pro Spalte
 plot(gemeinden, max.plot = 1)
@@ -68,6 +78,8 @@ Dies hat natürlich damit zu tun, dass die beiden Datensätze in unterschiedlich
 
 ```{r}
 #| echo: true
+#| code-fold: false
+
 st_crs(kantone)
 st_crs(gemeinden)
 ```
@@ -104,6 +116,7 @@ Wenn man diese Koordinaten mit den Koordinaten unserer Datensätze vergleicht, d
 
 ```{r}
 #| echo: true
+#| code-fold: false
 # Zuweisen mit st_set_crs()...
 kantone <- st_set_crs(kantone, "WGS84")
 ```
@@ -112,6 +125,7 @@ Wenn wir die CRS Information nun abrufen, sehen wir das diese Zuweisung funktion
 
 ```{r}
 #| echo: true
+#| code-fold: false
 # ... abfragen mit st_crs()
 st_crs(kantone)
 ```
@@ -122,7 +136,7 @@ Etwas komplizierter ist es, wenn wir das CRS vom Datensatz `gemeinden` setzen wo
 
 ```{r}
 #| echo: true
-
+#| code-fold: false
 
 # Zuweisen mit st_set_crs()...
 gemeinden <- st_set_crs(gemeinden, "CH1903+ LV95")
@@ -142,6 +156,7 @@ Dieser Code können wir nutzen, um das CRS des Datensatz `gemeinde` zu setzen:
 
 ```{r}
 #| echo: true
+#| code-fold: false
 
 # Zuweisen mit st_set_crs()...
 gemeinden <- st_set_crs(gemeinden, 2056)
@@ -157,8 +172,6 @@ Jetzt wo das CRS der Datensätze bekannt ist, können wir `ggplot2` nutzen um us
 ggplot() + 
   # bei geom_sf müssen weder x noch y Spalten angegeben werden
   geom_sf(data = gemeinden)
-
-
 ```
 
 
@@ -169,10 +182,11 @@ ggplot() +
 In der vorherigen Übung haben wir das bestehende Koordinatensystem *zugewiesen*. Dabei haben wir die bestehenden Koordinaten (in der Spalte `geom`) *nicht* manipuliert. Ganz anders ist eine *Transformation* der Daten von einem Koordinatensystem in das andere. Bei einer Transformation werden die Koordinaten in das neue Koordinatensystem umgerechnet und somit manipuliert. Aus praktischen Gründen wollen <!-- Was sind diese Gründe? genauer erläutern? -->
 wir all unsere Daten ins neue Schweizer Koordinatensystem CH1903+ LV95 transfomieren. Transformiere den Datensatz `kantone` mit `st_transform()`in CH1903+ LV95, nutze dafür den korrekten EPSG-Code.
 
-Vor der Transformation (betrachte die Attribute `Bounding box`, `Projected CRS` sowie die Werte in der Spalte `geom`):: 
+Vor der Transformation (betrachte die Attribute `Bounding box`, `Projected CRS` sowie die Werte in der Spalte `geom`):
 
 ```{r}
 #| echo: true
+#| code-fold: false
 kantone
 ```
 
@@ -186,6 +200,7 @@ Nach der Transformation (betrachte die Attribute `Bounding box`, `Projected CRS`
 
 ```{r}
 #| echo: true
+#| code-fold: false
 kantone
 ```
 
@@ -197,6 +212,7 @@ kantone
 
 ```{r}
 #| echo: true
+#| code-fold: false
 kantone <- kantone |>
   mutate(
     # hektaren in km2 konvertieren
@@ -209,7 +225,7 @@ kantone <- kantone |>
 Berechne nun die Einwohnerdichte auf der Ebene der Gemeinden.
 
 ```{r}
-#| echo: false
+#| code-fold: false
 gemeinden <- gemeinden |>
   mutate(
     flaeche_km2 = GEM_FLAECH/100,
@@ -229,8 +245,10 @@ ggplot(kantone) +
 
 Hier sind farblich kaum Unterschiede erkennbar, weil die extrem hohe Bevölkerungsdichte vom Halbkanton Basel-Stadt (>5'000 Einwohner pro km<sup>2</sup>!) die ganze Farbskala dominiert. Der [Statistischer Atlas der Schweiz](https://www.atlas.bfs.admin.ch/maps/13/de/15467_75_3501_70/24216.html) löst das Problem, indem es Klassen mit irregulären Schwellwerte verwendet und alle zahlen >2'000 gruppiert. Diese Vorgehensweise können wir mit `cut()` rekonstruieren.
 
-
 ```{r}
+#| echo: true
+#| code-fold: false
+
 # Schwellwerte analog BFS "Statistischer Atlas der Schweiz"
 breaks = c(0,50,100,150,200,300,500,750,1000,2000,Inf)
 
@@ -257,8 +275,7 @@ p_kantone <- ggplot(kantone, aes(fill = bevoelkerungsdichte_klassen)) +
 Erstelle die gleichen Klassen für die Bevölkerungsdichte der Gemeinden und vergleiche die Plots.
 
 ```{r}
-#| echo: false
-#| 
+#| echo: true
 gemeinden <- gemeinden |>
   mutate(bevoelkerungsdichte_klassen = cut(bevoelkerungsdichte, breaks))  
 

@@ -4,7 +4,13 @@ lesson: RaumAn3
 thema: Morans I
 index: 1
 execute: 
-  echo: true
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true  
 ---
 
 # Rauman 3: Übung
@@ -12,20 +18,21 @@ execute:
 
 Heute berechnen wir Morans $I$, also ein globales Mass für Autokorrelation, für die Abstimmungsresultate der Zweitwohnungsinitiative. Dieser Wert beschreibt, ob Kantone, die nahe beieinander liegen, ähnliche Abstimmungswerte haben. Hierfür verwenden wir den Datensatz [zweitwohnungsinitiative.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602283).
 
-Das Geopackage beinhaltet 3 Layers (siehe `st_layers(zweitwohnung_kanton)`). In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene aggregiert. Wir started mit der Aggregationsstufe "kanton"
+Das Geopackage beinhaltet 3 Layers (siehe `st_layers(zweitwohnung_kanton)`). In jedem Layer sind die Abstimmungsresultate auf eine andere politische Ebene aggregiert. Wir started mit der Aggregationsstufe "kanton".
 
 ```{r}
 #| echo: true
+#| code-fold: false
 library(dplyr)
 library(ggplot2)
 library(sf)
-
 
 zweitwohnung_kanton <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "kanton")
 ```
 
 ```{r}
 #| fig-cap: Was für einen Autokorrelationswert würdest du erwarten? Eher 1 (hohe Autokorrelation, beieinanderliegende Kantone haben ähnliche Werte) oder eher -1 (beieinanderliegende Kantone haben sehr unterschiedliche Werte) oder eher 0 (gar keine Autokorrelation)
+#| code-fold: false
 
 p <- ggplot(zweitwohnung_kanton) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
@@ -64,17 +71,13 @@ wobei:
 
 \end{align}
 
-
-
 Diese sieht sehr beeindruckend aus, aber wenn wir die Formel in ihre Einzelbestandteile aufteilen, sehen wir, dass diese in sich gar nicht so komplex sind. Dieses Vorgehen illustriert sehr schön ein generelles Data Science Prinzip. Divide and Conquer - Teile und Herrsche: Teile ein komplexes Problem in kleinere, beherrschbare Unterprobleme. 
 
 ## Aufgabe 1: Morans $I$ für Kantone
 
-
 ### Berechnung von $n$ (`zaehler1`)
 
 $$I = \frac{\color{red}n}{\sum_{i=1}^{\color{orange}n} (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^{\color{orange}n}  w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^{\color{orange}n}  w_{ij}}$$
-
 
 Beginnen wir mit der Variabel $n$, bzw. der Variabel `zaehler1` (rot in der obigen Formel). Dies ist lediglich die Anzahl Messwerte in unserem Datensatz, also die Anzahl Kantone. Wir merken uns `n` vor, da wir diese noch mehrmals in der Formel antreffen werden (orange).
 
@@ -109,21 +112,17 @@ resultat <- double(length = n)
 for (i in 1:n){
   resultat[i] <- (y[i]-mean(y))^2
 }
-```
 
+resultat
+```
 
 Nach der Durchführung aller Iterationen, haben wir 26 Einzelwerte, die wir Summieren müssen.
 
 ```{r}
 #| echo: true
 
-resultat
-
 nenner1 <- sum(resultat)
 ```
-
-
-
 
 :::{.callout-note collapse="true"}
 ## Für aufmerksame
@@ -132,6 +131,7 @@ Da R per Default vektorisiert funktioniert, ist der obige For Loop streng genomm
 
 ```{r}
 #| echo: true
+#| code-fold: false
 
 # Von jedem Wert den Durchschnittswert abziehen:
 dy <- y - mean(y)
@@ -236,10 +236,7 @@ for (i in 1:n){
 zaehler2 <- sum(resultat_aussen)
 ```
 
-
-
 ### Auflösung der Formel
-
 
 Nun haben wir alle Bestandteile von Morans $I$ Berechnet und müssen diese nur noch Zusammenrechnen.
 
@@ -250,8 +247,6 @@ MI_kantone <- zaehler1/nenner1 * zaehler2/nenner2
 
 MI_kantone
 ```
-
-
 
 Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `r round(MI_kantone,2)`. Wie interpretiert ihr dieses Resultate? Was erwartet ihr für eine Resultat auf Gemeinde- oder Bezirksebene?
 

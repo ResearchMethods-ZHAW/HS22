@@ -4,7 +4,13 @@ lesson: RaumAn5
 thema: Multi-Criteria Evaluation (MCE)
 index: 1
 execute: 
-  echo: false
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true  
 ---
 
 # Rauman 5: Übung B
@@ -66,10 +72,7 @@ wind_klassen <- tribble(
 ) 
 
 wind_klassen <- as.matrix(wind_klassen)
-```
 
-
-```{r}
 wind_classify <- classify(wind250m, wind_klassen)
 ```
 
@@ -100,12 +103,12 @@ neigung_klassen <- as.matrix(neigung_klassen)
 neigung_classify <- classify(neigung, neigung_klassen)
 ```
 
-
 <div class="mce-table">
 
 ```{r}
 #| label: tbl-bewerungstabelle-other
 #| tbl-cap: Bewertungstabelle die Windgeschwindigkeit (m/s), Vereisungshäufigkeit (Tage/Jahr) und Hangneigung (Grad)
+#| echo: false
 library(kableExtra)
 
 cbind(wind_klassen, neigung_klassen) |>

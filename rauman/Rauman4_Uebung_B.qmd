@@ -4,7 +4,13 @@ lesson: RaumAn4
 thema: Einführung Rasterdaten
 index: 2
 execute: 
-  echo: true
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true  
 ---
 
 # Rauman 4: Übung B {#sec-raster-intro}
@@ -18,18 +24,24 @@ In dieser Übung werden wir weiter mit `terra` arbeiten, um zu zeigen, wie wir e
 Datensatz: [dhm250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=701345)
 
 ```{r}
+#| code-fold: false
+
 library(terra)
 ```
 
 Importieren Sie Ihr Raster mit der Funktion `rast`
 
 ```{r}
+#| code-fold: false
+
 dhm_schwyz <- rast("datasets/rauman/dhm250m.tif")
 ```
 
 Sie erhalten einige wichtige Metadaten über den Rasterdatensatz, wenn Sie den Variablennamen in die Konsole eingeben.  
 
 ```{r}
+#| code-fold: false
+
 dhm_schwyz 
 ```
 
@@ -44,6 +56,8 @@ Leider ist das Verwenden von `Rastern` in ggplot nicht sehr einfach. Da `ggplot`
 Aus diesem Grund werden wir ein neues Plot-Framework einführen, das auf Karten spezialisiert ist und in einem sehr ähnlichen Design wie ggplot gebaut wurde: `tmap`. Laden Sie dieses Paket jetzt in Ihre Session:
 
 ```{r}
+#| code-fold: false
+
 library(tmap)
 ```
 
@@ -62,7 +76,6 @@ Beachten Sie, dass `tm_shape()` und `tm_raster()` (in diesem Fall) zusammengehö
 Wenn Sie die Hilfe von `?tm_raster` konsultieren, werden Sie eine Vielzahl von Optionen sehen, mit denen Sie die Visualisierung Ihrer Daten verändern können. Zum Beispiel ist der Standardstil von `tm_raster()` die Erstellung von "Bins" mit einer diskreten Farbskala. Wir können dies mit `style = "cont"` ausser Kraft setzen.
 
 ```{r}
-
 tm_shape(dhm_schwyz) + 
   tm_raster(style = "cont") 
 ```
@@ -70,7 +83,6 @@ tm_shape(dhm_schwyz) +
 Das sieht schon ziemlich toll aus, aber vielleicht wollen wir die Standard-Farbpalette ändern. Glücklicherweise ist das in `tmap` viel einfacher als in `ggplot2`. Um sich die verfügbaren Paletten anzusehen, geben Sie `tmaptools::palette_explorer()` oder `RColorBrewer::display.brewer.all()` in der Konsole ein (für Ersteres müssen Sie möglicherweise zusätzliche Pakete installieren, z.B. `shinyjs`).
 
 ```{r}
-
 tm_shape(dhm_schwyz) + 
   tm_raster(style = "cont", palette = "Spectral") 
 ```
@@ -96,7 +108,6 @@ terrain(dhm_schwyz, "slope") |>
 ```
 
 ```{r}
-
 schwyz_aspect <- terrain(dhm_schwyz, "aspect")
 
 plot(schwyz_aspect)

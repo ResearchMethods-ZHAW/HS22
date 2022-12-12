@@ -4,7 +4,13 @@ lesson: RaumAn2
 thema: G-Funktion
 index: 1
 execute: 
-  echo: true
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true  
 ---
 
 # Rauman 2: Übung C (Optional)
@@ -14,6 +20,8 @@ In dieser optionalen Übung wollen wir die G-Function für Luftqualitäts-Messst
 ## Aufgabe 1
 
 ```{r}
+#| code-fold: false
+
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -28,6 +36,7 @@ luftqualitaet <- read_sf("datasets/rauman/luftqualitaet.gpkg")
 ```{r}
 #| label: fig-ggplot-ex1
 #| fig.cap: Eine solche Visualisierung zeigt dir beispielsweise die räumliche Ausdehnung der Datenpunkte
+#| code-fold: false
 
 ggplot(rotmilan) +
   geom_sf(data = schweiz) +

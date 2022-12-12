@@ -4,13 +4,18 @@ lesson: RaumAn5
 thema: Multi-Criteria Evaluation (MCE)
 index: 1
 execute: 
-  echo: false
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true  
 ---
 
 # Rauman 5: Übung A
 
 In der folgenden Übung möchten wir potentielle Standorte für Windkraftanlagen im Kanton Schwyz ermitteln. Zu diesem Zweck führen wir eine Multikriterien-Evaluation durch. Für diese Analyse stehen uns folgende Datensätze zur Verfügung:
-
 
 ```{r}
 #| echo: false
@@ -25,7 +30,6 @@ library(purrr)
 library(terra)
 
 path <- "datasets/rauman/"
-
 
 datasets <- tribble(
   ~Datensatz, ~Beschreibung, ~Typ, ~Format,
@@ -55,15 +59,7 @@ datasets$crs <- datasets |>
 
 
 knitr::kable(datasets)
-
-
-
-
 ```
-
-
-
-
 
 In diesem ersten Teil (Übung A) widmen wir uns, basierend auf @gilgen2010 und @tegou210, folgenden Parametern: 
 
@@ -74,6 +70,7 @@ Diese Eignungsbewertung setzen wir in den folgenden Aufgaben in R um. Starten Si
 
 ```{r}
 #| echo: true
+#| code-fold: false
 
 library(sf)
 library(terra)
@@ -91,7 +88,8 @@ Importiere die benötigten Vektordatensätze und exploriere die Daten. Zur Visua
 Schau dir auch das Koordinatensystem an. Was fällt dir auf? Wir würden gerne mit dem neuen Schweizer Koordinatensystem arbeiten (LV95). Um ein Koordinatensystem umzuwandeln benutze die Funktion `st_transform()`. 
 
 ```{r}
-#| output: false
+#| output: true
+
 gpkg_path  <- "datasets/rauman/windkraft_geodata.gpkg"
 
 #Vector data
@@ -117,7 +115,6 @@ template <- rast(kt_schwyz, resolution = 250)
 
 strassen_raster <- rasterize(strassen, template)
 strassen_dist <- distance(strassen_raster)
-
 ```
 
 Nutze der obige Code um den Wald Datensatz zu rasterisieren und die Distanz zum Wald mit der Funktion `distance()` zu berechnen. Plausibilisiere den Output indem du ihn visualisierst.
@@ -161,7 +158,6 @@ Wir könnten diese Tabelle in einem Spreadsheet-Programm schreiben und in R einl
 ```{r}
 #| echo: true
 
-
 strassen_klassen <- tribble(
   ~von, ~bis, ~zu,
      0,  250, 1.0,
@@ -202,7 +198,6 @@ tm_shape(strassen_classify) +
 Bewerte auf die gleiche Art die Distanz zu den Schutzgebieten. Wir nutzen die Schwellwerte, wie sie in der der nachstehenden Tabelle ersichtlich ist. Du kannst diese aber frei wählen.
 
 ```{r}
-
 schutzgebiete_klassen <- tribble(
   ~von, ~bis, ~zu,
      0,  250, 0.0,
@@ -216,7 +211,6 @@ schutzgebiete_klassen <- tribble(
 schutzgebiete_klassen <- as.matrix(schutzgebiete_klassen)  
 
 schutzgebiete_classify <- classify(schutzgebiete_dist, schutzgebiete_klassen)
-
 ```
 
 

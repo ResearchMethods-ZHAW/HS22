@@ -4,7 +4,13 @@ lesson: RaumAn2
 thema: Räumliche Interpolation
 index: 2
 execute: 
-  echo: true
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
 ---
 
 # Rauman 2: Übung B
@@ -18,6 +24,7 @@ In dieser Übung geht es darum, zwei verschiedene Interpolationsverfahren in R u
 
 ```{r}
 #| echo: true
+#| code-fold: false
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -30,6 +37,7 @@ Weiter benötigt ihr die nachstehenden Datensätze:
 ```{r}
 #| echo: true
 #| results: asis
+#| code-fold: false
 luftqualitaet <- read_sf("datasets/rauman/luftqualitaet.gpkg")
 schweiz <- read_sf("datasets/rauman/schweiz.gpkg") 
 ```
@@ -40,6 +48,7 @@ Wir nehmen Euch damit etwas Komplexität weg und liefern Euch ein pfannenfertige
 
 ```{r}
 #| echo: true
+#| code-fold: false
 my_idw <- function(groundtruth,column,cellsize, nmax = Inf, maxdist = Inf, idp = 2, extent = NULL){
   library(gstat)
   library(sf)
@@ -62,7 +71,8 @@ Nun könnt Ihr mit `my_idw()` den Datensatz `luftqualitaet` folgendermassen inte
 ```{r}
 #| echo: true
 #| eval: false
-my_idw(groundtruth = luftqualitaet,column = "value",cellsize = 10000, extent = schweiz)
+#| code-fold: false
+my_idw(groundtruth = luftqualitaet, column = "value", cellsize = 10000, extent = schweiz)
 ```
 
 Folgende Parameter stehen Euch zur Verfügung:
@@ -88,13 +98,14 @@ Beim Output handelt sich hier um einen Raster-ähnlichen Datentyp (siehe Vorlesu
 Rechnet so den IDW für die Luftqualitätsmessungen mit verschiedenen Parametern und visualisiert jeweils die Resultate. Experimentiert mit `nmax` sowie `maxdist`. Was stellt ihr fest? 
 
 Tips: 
+
 - Was für Distanzen bei `maxdist` Sinn machen, könnt ihr dem Output aus der G-Funktion (vorherige Übung) entnehmen
 - Wählt am Anfang eine etwas Konvervative (grosse) `cellsize` und verringert diesen nur wenn euer Rechner damit gut klar kommt
 - Da der Output aus der Interpolation im gleichen Koordinatenbezugssystem sind wie `schweiz.gpkg` kann man diese beiden Datensätze im gleichen `ggplot` darstellen. Dafür müsst ihr die *aesthetics* (`aes()`) für jeden Layer einzeln setzen, und nicht auf der Ebene von `ggplot()`.
 
 ::: {.column-body}
 ```{r}
-#| echo: false
+#| echo: true
 #| error: false
 #| label: fig-ggplot-ex1
 #| fig.cap: Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz mit
