@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.280">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -705,7 +705,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#berechnung-des-kreuzprodukts-zaehler2" id="toc-berechnung-des-kreuzprodukts-zaehler2" class="nav-link" data-scroll-target="#berechnung-des-kreuzprodukts-zaehler2">Berechnung des Kreuzprodukts (<code>zaehler2</code>)</a></li>
   <li><a href="#auflösung-der-formel" id="toc-auflösung-der-formel" class="nav-link" data-scroll-target="#auflösung-der-formel">Auflösung der Formel</a></li>
   </ul></li>
-  <li><a href="#aufgabe-2-morans-i-für-gemeinde-oder-bezirke-berechnen" id="toc-aufgabe-2-morans-i-für-gemeinde-oder-bezirke-berechnen" class="nav-link" data-scroll-target="#aufgabe-2-morans-i-für-gemeinde-oder-bezirke-berechnen">Aufgabe 2: Morans I für Gemeinde oder Bezirke berechnen</a></li>
+  <li><a href="#aufgabe-2-morans-i-für-bezirke-berechnen" id="toc-aufgabe-2-morans-i-für-bezirke-berechnen" class="nav-link" data-scroll-target="#aufgabe-2-morans-i-für-bezirke-berechnen">Aufgabe 2: Morans I für Bezirke berechnen</a></li>
   </ul>
 </nav>
     </div>
@@ -970,10 +970,9 @@ Für aufmerksame
 <p>Der Global Morans <span class="math inline">\(I\)</span> für die Abstimmungsdaten beträgt auf Kantonsebene also 0.31. Wie interpretiert ihr dieses Resultate? Was erwartet ihr für eine Resultat auf Gemeinde- oder Bezirksebene?</p>
 </section>
 </section>
-<section id="aufgabe-2-morans-i-für-gemeinde-oder-bezirke-berechnen" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="aufgabe-2-morans-i-für-gemeinde-oder-bezirke-berechnen">Aufgabe 2: Morans I für Gemeinde oder Bezirke berechnen</h2>
-<p>Nun könnt ihr Morans <span class="math inline">\(I\)</span> auf der Ebene der Gemeine oder Bezirke und untersuchen, ob und wie sich Morans <span class="math inline">\(I\)</span> verändert. Wenn ihr einen wenig leistungsfähigen Rechner habt, berechnet verwendet besser die Ebene “Berzirke”. Importiert dazu den Layer <code>bezirk</code> oder <code>gemeinde</code> aus dem Datensatz <code>zweitwohnungsinitiative.gpkg</code>. Visualisiert in einem ersten Schritt die Abstimmungsresultate. Tipp: wir verwenden das Package <code>cowplot</code> um zwei <code>ggplots</code> nebeneinander darzustellen.</p>
-<p>Nach der Brechnung von Morans <span class="math inline">\(I\)</span> könnt ihr die Werte auf der Ebene Gemeinde (bzw. Bezirke) und Kantone vergleichen. Formuliert zuerste eine Erwartungshaltung: ist Morans <span class="math inline">\(I\)</span> auf der Ebene Gemeinde (bzw. Bezirke) tiefer oder Höher als auf der Ebene Kantone?</p>
+<section id="aufgabe-2-morans-i-für-bezirke-berechnen" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="aufgabe-2-morans-i-für-bezirke-berechnen">Aufgabe 2: Morans I für Bezirke berechnen</h2>
+<p>Nun könnt ihr Morans <span class="math inline">\(I\)</span> auf der Ebene der Bezirke und untersuchen, ob und wie sich Morans <span class="math inline">\(I\)</span> verändert. Importiert dazu den Layer <code>bezirk</code> aus dem Datensatz <code>zweitwohnungsinitiative.gpkg</code>. Visualisiert in einem ersten Schritt die Abstimmungsresultate. Tipp: wir verwenden das Package <code>cowplot</code> um zwei <code>ggplots</code> nebeneinander darzustellen. Formuliert nun eine Erwartungshaltung: ist Morans <span class="math inline">\(I\)</span> auf der Ebene Bezirke tiefer oder Höher als auf der Ebene Kantone?</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -985,21 +984,82 @@ Für Fortgeschrittene
 </div>
 <div class="callout-body-container callout-body">
 <p>Erstellt aus dem erarbeiten Workflow eine <em>function</em> um Morans I auf der Basis von einem <code>sf</code> Objekt sowie einer Spalte dessen zu berechnen.</p>
+<div class="cell">
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>morans_i <span class="ot">&lt;-</span> <span class="cf">function</span>(sf_object,col) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(sf)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Zähler 1 ####################################</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sf_object)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  zaehler1 <span class="ot">&lt;-</span> n</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> sf_object[[col]] <span class="co"># &lt;- siehe Kommentar unten</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">###############################################</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Nenner 1 ####################################</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  resultat <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="at">length =</span> n)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    resultat[i] <span class="ot">&lt;-</span> (y[i]<span class="sc">-</span><span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  nenner1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">###############################################</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Nenner 2 ####################################</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  w <span class="ot">&lt;-</span> <span class="fu">st_touches</span>(sf_object,<span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  resultat_aussen <span class="ot">&lt;-</span> <span class="fu">integer</span>(<span class="at">length =</span> n)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    resultat_innen <span class="ot">&lt;-</span> <span class="fu">integer</span>(<span class="at">length =</span> n)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>      resultat_innen[j] <span class="ot">&lt;-</span> w[i, j]</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    resultat_aussen[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_innen)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>  nenner2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_aussen)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>  <span class="do">##############################################</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Zähler 2 ###################################</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>  resultat_aussen <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="at">length =</span> n)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    resultat_innen <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="at">length =</span> n)</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>      resultat_innen[j] <span class="ot">&lt;-</span> w[i,j] <span class="sc">*</span> (y[i]<span class="sc">-</span><span class="fu">mean</span>(y))<span class="sc">*</span>(y[j]<span class="sc">-</span><span class="fu">mean</span>(y))</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    resultat_aussen[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_innen)</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>  zaehler2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultat_aussen)</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>  <span class="do">##############################################</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Auflösung ##################################</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>  MI <span class="ot">&lt;-</span> zaehler1<span class="sc">/</span>nenner1 <span class="sc">*</span> zaehler2<span class="sc">/</span>nenner2</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(MI)</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Kommentar</span></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir können hier nicht das $ Zeichen verwenden, weil "col" ein String ist.</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit der doppelten, eckigen klammer stellen wir sicher, dass y erstens ein</span></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Vektor ist (schau dir "y" an wenn du nur eine Klammer verwendest)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Musterlösung</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>zweitwohnung_bezirke <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"datasets/rauman/zweitwohnungsinitiative.gpkg"</span>, <span class="st">"bezirk"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>MI_bezirke <span class="ot">&lt;-</span> <span class="fu">morans_i</span>(zweitwohnung_bezirke, <span class="st">"ja_in_percent"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell column-page quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid" width="672"></p>
+<p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
 <div class="cell page-columns page-full">
 <div class="cell-output-display column-page">
-<p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" style="width:100.0%"></p>
+<p><img src="Rauman3_Uebung_A_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 
