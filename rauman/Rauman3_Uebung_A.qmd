@@ -250,30 +250,90 @@ MI_kantone
 
 Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `r round(MI_kantone,2)`. Wie interpretiert ihr dieses Resultate? Was erwartet ihr für eine Resultat auf Gemeinde- oder Bezirksebene?
 
-## Aufgabe 2: Morans I für Gemeinde oder Bezirke berechnen
+## Aufgabe 2: Morans I für Bezirke berechnen
 
-Nun könnt ihr Morans $I$ auf der Ebene der Gemeine oder Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Wenn ihr einen wenig leistungsfähigen Rechner habt, berechnet verwendet besser die Ebene "Berzirke". Importiert dazu den Layer `bezirk` oder `gemeinde` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate. Tipp: wir verwenden das Package `cowplot` um zwei `ggplots` nebeneinander darzustellen.
-
-Nach der Brechnung von Morans $I$ könnt ihr die Werte auf der Ebene Gemeinde (bzw. Bezirke) und Kantone vergleichen. Formuliert zuerste eine Erwartungshaltung: ist Morans $I$ auf der Ebene Gemeinde (bzw. Bezirke) tiefer oder Höher als auf der Ebene Kantone?
+Nun könnt ihr Morans $I$ auf der Ebene der Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Importiert dazu den Layer `bezirk` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate. Tipp: wir verwenden das Package `cowplot` um zwei `ggplots` nebeneinander darzustellen. Formuliert nun eine Erwartungshaltung: ist Morans $I$ auf der Ebene Bezirke tiefer oder Höher als auf der Ebene Kantone? 
 
 :::{.callout-note}
 ## Für Fortgeschrittene 
 
 Erstellt aus dem erarbeiten Workflow eine *function* um Morans I auf der Basis von einem `sf` Objekt sowie einer Spalte dessen zu berechnen. 
+
+```{r}
+morans_i <- function(sf_object,col) {
+  library(sf)
+  # Zähler 1 ####################################
+  n <- nrow(sf_object)
+  zaehler1 <- n
+  y <- sf_object[[col]] # <- siehe Kommentar unten
+  ###############################################
+  # Nenner 1 ####################################
+  resultat <- double(length = n)
+  for (i in 1:n){
+    resultat[i] <- (y[i]-mean(y))^2
+  }
+  nenner1 <- sum(resultat)
+  ###############################################
+  # Nenner 2 ####################################
+  w <- st_touches(sf_object,sparse = FALSE)
+  resultat_aussen <- integer(length = n)
+  for (i in 1:n){
+    resultat_innen <- integer(length = n)
+    for (j in 1:n){
+      resultat_innen[j] <- w[i, j]
+    }
+    resultat_aussen[i] <- sum(resultat_innen)
+  }
+  nenner2 <- sum(resultat_aussen)
+  ##############################################
+  # Zähler 2 ###################################
+  resultat_aussen <- double(length = n)
+
+  for (i in 1:n){
+    resultat_innen <- double(length = n)
+    for (j in 1:n){
+      resultat_innen[j] <- w[i,j] * (y[i]-mean(y))*(y[j]-mean(y))
+    }
+    resultat_aussen[i] <- sum(resultat_innen)
+  }
+
+  zaehler2 <- sum(resultat_aussen)
+  ##############################################
+  # Auflösung ##################################
+  MI <- zaehler1/nenner1 * zaehler2/nenner2
+
+  return(MI)
+}
+
+# Kommentar
+# Wir können hier nicht das $ Zeichen verwenden, weil "col" ein String ist.
+# Mit der doppelten, eckigen klammer stellen wir sicher, dass y erstens ein
+# Vektor ist (schau dir "y" an wenn du nur eine Klammer verwendest)
+```
+
 :::
+
+
+
+
+
+```{r}
+zweitwohnung_bezirke <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "bezirk")
+MI_bezirke <- morans_i(zweitwohnung_bezirke, "ja_in_percent")
+```
+
 
 ```{r}
 #| echo: false
 #| layout-ncol: 2
 #| column: page
 
-zweitwohnung_gemeinde <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "gemeinde")
 
-p2 <- ggplot(zweitwohnung_gemeinde) +
+p2 <- ggplot(zweitwohnung_bezirke) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
   scale_fill_gradientn("Ja Anteil",colours = RColorBrewer::brewer.pal(11, "RdYlGn"), limits = c(0,1)) +
   theme(legend.position = "none") +
-  labs(title = "Gemeinden: Global Morans I: ?")
+  labs(title = paste("Bezirke: Global Morans I:",round(MI_bezirke,2)))
 
 p1 <- p + labs(title = paste("Kantone: Global Morans I:",round(MI_kantone,2))) + theme(legend.position = "none")
 
